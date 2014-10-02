@@ -14,7 +14,7 @@ WorkspaceScreen = React.createClass {
 
   componentWillMount: ->
     window.Screen = this
-    Loader.getAllStacks (err, stacks) => @setState {stacks}
+    Loader.getMyStacks (err, stacks) => @setState {stacks}
 
   componentWillUnmount: ->
     window.Screen = undefined

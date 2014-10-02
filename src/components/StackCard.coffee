@@ -1,17 +1,11 @@
-React           = require 'react/addons'
-Bus             = require '../Bus'
-BugCardBody     = require './cards/BugCardBody'
-FeatureCardBody = require './cards/FeatureCardBody'
-SupportCardBody = require './cards/SupportCardBody'
-TodoCardBody    = require './cards/TodoCardBody'
-{div}           = React.DOM
-{classSet}      = React.addons
+React        = require 'react/addons'
+Bus          = require '../Bus'
+TaskCardBody = require './cards/TaskCardBody'
+{div}        = React.DOM
+{classSet}   = React.addons
 
 CardBodyClasses =
-  bug:     BugCardBody
-  feature: FeatureCardBody
-  support: SupportCardBody
-  todo:    TodoCardBody
+  task: TaskCardBody
 
 StackCard = React.createClass {
 
