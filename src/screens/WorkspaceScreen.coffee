@@ -1,27 +1,43 @@
-_           = require 'lodash'
-React       = require 'react/addons'
-Loader      = require '../Loader'
-PanelGroup  = require '../components/PanelGroup'
-StackList   = require '../components/StackList'
-StackColumn = require '../components/StackColumn'
-CardDetail  = require '../components/CardDetail'
-{div}       = React.DOM
+_                = require 'lodash'
+React            = require 'react/addons'
+Router           = require 'react-router'
+Api              = require '../Api'
+PanelGroup       = require '../components/PanelGroup'
+WorkspaceSidebar = require '../components/WorkspaceSidebar'
+StackColumn      = require '../components/StackColumn'
+CardDetail       = require '../components/CardDetail'
+{div}            = React.DOM
 
 WorkspaceScreen = React.createClass {
 
+  mixins: [Router.ActiveState, Router.Navigation],
+
   getInitialState: ->
-    {stacks: [], openStacks: [], openCards: [], draggingCard: undefined}
+    return {
+      user:         undefined
+      organization: undefined
+      types:        []
+      teams:        []
+      stacks:       {inbox: undefined, queue: undefined, backlog: []}
+      openStacks:   []
+      openCards:    []
+      draggingCard: undefined
+    }
 
   componentWillMount: ->
     window.Screen = this
-    Loader.getMyStacks (err, stacks) => @setState {stacks}
+    {organizationId} = @getActiveParams()
+    Api.getMyWorkspace organizationId, (res) =>
+      return @transitionTo('login') if res.unauthorized
+      {user, organization, types, teams, stacks} = res.body
+      @setState {user, organization, types, teams, stacks}
 
   componentWillUnmount: ->
     window.Screen = undefined
 
   render: ->
     div {className: 'workspace screen'}, [
-      StackList {stacks: @state.stacks, openStacks: @state.openStacks}
+      WorkspaceSidebar {user: @state.user, organization: @state.organization, stacks: @state.stacks, teams: @state.teams, openStacks: @state.openStacks}
       PanelGroup {}, @getOpenPanels()
     ]
 

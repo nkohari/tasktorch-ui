@@ -1,10 +1,13 @@
 React         = require 'react'
+Router        = require 'react-router'
 Bus           = require '../Bus'
-Loader        = require '../Loader'
+Api           = require '../Api'
 Panel         = require './Panel'
 StackCardList = require './StackCardList'
 
 StackColumn = React.createClass {
+
+  mixins: [Router.ActiveState],
 
   getInitialState: ->
     {stack: {}, cards: []}
@@ -21,7 +24,8 @@ StackColumn = React.createClass {
 
   loadCards: (stack) ->
     @setState {stack}
-    Loader.getCardsInStack stack.id, (err, cards) =>
+    {organizationId} = @getActiveParams()
+    Api.getCardsInStack organizationId, stack.id, (err, cards) =>
       @setState {cards}
 
   render: ->

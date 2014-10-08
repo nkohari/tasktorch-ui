@@ -13,6 +13,7 @@ body {
   display: inline-block;
   vertical-align: middle;
   font: 2em/0.5em "Entypo";
+  color: #999999;
   padding-right: 0.2em; }
   .icon.icon-stack:before {
     content: "\E736"; }
@@ -36,6 +37,44 @@ body {
     background-clip: content-box;
     border: 4px solid rgba(255, 255, 255, 0);
     border-radius: 16px; }
+
+.sidebar {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 250px;
+  z-index: 1000; }
+
+.widget {
+  width: 230px;
+  color: white;
+  background: #888888;
+  border-right: 1px solid #999999;
+  padding: 10px; }
+
+.organization.widget {
+  font-size: 18px;
+  font-weight: 400;
+  text-shadow: 2px 2px rgba(0, 0, 0, 0.3); }
+
+.user.widget {
+  position: absolute;
+  left: 0;
+  bottom: 0; }
+  .user.widget .avatar {
+    display: inline-block;
+    vertical-align: top;
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+    margin-right: 10px; }
+  .user.widget .controls {
+    display: inline-block;
+    vertical-align: bottom;
+    font-size: 13px; }
 
 .panel {
   position: relative;
@@ -64,9 +103,8 @@ body {
       cursor: pointer; }
 
 .stack-list {
-  width: 200px;
-  max-width: 200px;
-  z-index: 100; }
+  width: 250px;
+  max-width: 250px; }
   .stack-list ul {
     margin: 0px;
     padding: 0px;

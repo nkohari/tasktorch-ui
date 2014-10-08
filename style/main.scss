@@ -2,6 +2,11 @@ $panel-background-color: #fcfcfc;
 $panel-header-background-color: #ccc;
 $panel-header-font-color: #666;
 $panel-border-color: #999;
+$icon-font-color: #999;
+$widget-font-color: #fff;
+$widget-font-shadow-color: rgba(0, 0, 0, 0.3);
+$widget-background-color: #888;
+$widget-border-color: #999;
 
 body {
   font-family: "Open Sans";
@@ -20,6 +25,7 @@ body {
   display: inline-block;
   vertical-align: middle;
   font: 2em/0.5em "Entypo";
+  color: $icon-font-color;
   padding-right: 0.2em;
   &.icon-stack:before { content: "\E736"; }
 }
@@ -48,13 +54,56 @@ body {
   }
 }
 
-.panel {
+@mixin flow {
   position: relative;
   display: inline-block;
   vertical-align: top;
   height: 100%;
   margin: 0;
   padding: 0;
+}
+
+.sidebar {
+  @include flow;
+  width: 250px;
+  z-index: 1000;
+}
+
+.widget {
+  width: 230px;
+  color: $widget-font-color;
+  background: $widget-background-color;
+  border-right: 1px solid $widget-border-color;
+  padding: 10px;
+}
+
+.organization.widget {
+  font-size: 18px;
+  font-weight: 400;
+  text-shadow: 2px 2px $widget-font-shadow-color;
+}
+
+.user.widget {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  .avatar {
+    display: inline-block;
+    vertical-align: top;
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+    margin-right: 10px;
+  }
+  .controls {
+    display: inline-block;
+    vertical-align: bottom;
+    font-size: 13px;
+  }
+}
+
+.panel {
+  @include flow;
   border-right: 1px solid $panel-border-color;
   background: $panel-background-color;
   overflow-x: hidden;
@@ -74,9 +123,8 @@ body {
 }
 
 .stack-list {
-  width: 200px;
-  max-width: 200px;
-  z-index: 100;
+  width: 250px;
+  max-width: 250px;
   ul {
     margin: 0px;
     padding: 0px;
