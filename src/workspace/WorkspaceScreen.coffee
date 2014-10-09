@@ -1,12 +1,13 @@
-_                = require 'lodash'
-React            = require 'react/addons'
-Router           = require 'react-router'
-Api              = require '../Api'
-PanelGroup       = require '../common/PanelGroup'
-WorkspaceSidebar = require './WorkspaceSidebar'
-StackPanel       = require './StackPanel'
-CardPanel        = require './CardPanel'
-{div}            = React.DOM
+_                  = require 'lodash'
+React              = require 'react/addons'
+Router             = require 'react-router'
+Api                = require '../Api'
+PanelGroup         = require '../common/PanelGroup'
+WorkspaceSidebar   = require './WorkspaceSidebar'
+WorkspaceViewState = require './WorkspaceViewState'
+StackPanel         = require './StackPanel'
+CardPanel          = require './CardPanel'
+{div}              = React.DOM
 
 WorkspaceScreen = React.createClass {
 
@@ -41,13 +42,11 @@ WorkspaceScreen = React.createClass {
     ]
 
   getActivePanels: ->
-    {stacks, cards} = @getActiveQuery()
-    stacks = if stacks? then stacks.split(',') else []
-    cards  = if cards?  then cards.split(',')  else []
+    viewState = new WorkspaceViewState(this)
     position = 0
-    stackPanels = _.map stacks, (stackId) =>
+    stackPanels = _.map viewState.stacks, (stackId) =>
       StackPanel {stackId, key: "stack-#{stackId}", position: position++}
-    cardPanels = _.map cards, (cardId) =>
+    cardPanels = _.map viewState.cards, (cardId) =>
       CardPanel {cardId, key: "card-#{cardId}", position: position++}
     return stackPanels.concat(cardPanels)
 

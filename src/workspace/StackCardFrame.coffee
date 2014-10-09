@@ -1,17 +1,21 @@
-React       = require 'react/addons'
-Bus         = require '../Bus'
-InboxCard   = require './cards/InboxCard'
-QueueCard   = require './cards/QueueCard'
-BacklogCard = require './cards/BacklogCard'
-{div}       = React.DOM
-{classSet}  = React.addons
+React              = require 'react/addons'
+Router             = require 'react-router'
+Bus                = require '../Bus'
+InboxCard          = require './cards/InboxCard'
+QueueCard          = require './cards/QueueCard'
+BacklogCard        = require './cards/BacklogCard'
+WorkspaceViewState = require './WorkspaceViewState'
+{div}              = React.DOM
+{classSet}         = React.addons
 
 CardBodyTypes =
   backlog: BacklogCard
   inbox:   InboxCard
   queue:   QueueCard
 
-StackCard = React.createClass {
+StackCardFrame = React.createClass {
+
+  mixins: [Router.ActiveState, Router.Navigation]
 
   getInitialState: ->
     {card: {}}
@@ -28,7 +32,7 @@ StackCard = React.createClass {
 
   render: ->
 
-    classes = {'stack-card': true, dragging: @props.isDragging, active: @props.isOpen}
+    classes = {'stack-card': true}
     classes[@state.card.type] = true
 
     div {
@@ -46,7 +50,10 @@ StackCard = React.createClass {
     @setState {card} if @state.card.id == card.id
 
   handleClick: ->
-    Screen.openCard(@state.card)
+    viewState = new WorkspaceViewState(this)
+    viewState.addCard(@state.card.id)
+    props = viewState.makeLinkProps()
+    @transitionTo(props.to, props.params, props.query)
 
   handleDragStart: (event) ->
     event.dataTransfer.effectAllowed = 'move'
@@ -64,4 +71,4 @@ StackCard = React.createClass {
 
 }
 
-module.exports = StackCard
+module.exports = StackCardFrame

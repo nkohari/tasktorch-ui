@@ -1,3 +1,4 @@
+$font-color: #000;
 $panel-background-color: #f9f9f9;
 $panel-header-background-color: #ccc;
 $panel-header-font-color: #666;
@@ -7,6 +8,7 @@ $widget-font-color: #fff;
 $widget-font-shadow-color: rgba(0, 0, 0, 0.3);
 $widget-background-color: #888;
 $widget-border-color: #999;
+$sidebar-width: 200px;
 
 body {
   font-family: "Open Sans";
@@ -69,12 +71,12 @@ body {
 
 .sidebar {
   @include flow;
-  width: 250px;
+  width: $sidebar-width;
   z-index: 1000;
 }
 
 .widget {
-  width: 230px;
+  width: $sidebar-width - 20px;
   color: $widget-font-color;
   background: $widget-background-color;
   border-right: 1px solid $widget-border-color;
@@ -133,13 +135,13 @@ body {
 }
 
 .stack-list {
-  width: 250px;
-  max-width: 250px;
+  width: $sidebar-width;
+  max-width: $sidebar-width;
   ul {
     margin: 0px;
     padding: 0px;
     list-style-type: none;
-    .stack-list-item {
+    .stack-list-item a {
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
@@ -147,6 +149,8 @@ body {
       padding: 5px 10px;
       background: #fff;
       border-bottom: 1px solid $panel-border-color;
+      color: $font-color;
+      text-decoration: none;
       .stack-name { padding-left: 0.2em; }
       &.active {
         border-left: 6px solid $panel-border-color;
@@ -164,35 +168,39 @@ body {
 
 .stack {
   width: 300px;
-  .stack-card {
-    cursor: pointer;
-    border-bottom: 1px solid $panel-border-color;
-    background: #fff;
-    padding: 6px;
-    &.dragging { cursor: move; }
-    .card-top {
-      .title {
-        color: #000;
-        font-size: 14px;
-        font-weight: 600;
-      }
-      .handoff {
-        font-size: 11px;
-        color: #999;
-        em {
-          font-style: normal;
-          color: #666;
+  .card-list {
+    margin: 0;
+    padding: 0;
+    .stack-card {
+      cursor: pointer;
+      border-bottom: 1px solid $panel-border-color;
+      background: #fff;
+      padding: 6px;
+      &.dragging { cursor: move; }
+      .card-top {
+        .title {
+          color: #000;
+          font-size: 14px;
+          font-weight: 600;
         }
+        .handoff {
+          font-size: 11px;
+          color: #999;
+          em {
+            font-style: normal;
+            color: #666;
+          }
+        }
+        padding: 2px 6px;
+        border-left: 6px solid #999;
       }
-      padding: 2px 6px;
-      border-left: 6px solid #999;
-    }
-    .card-bottom {
-      color: #333;
-      font-size: 12px;
-      padding-top: 6px;
-      margin-top: 6px;
-      border-top: 1px dotted #ccc;
+      .card-bottom {
+        color: #333;
+        font-size: 12px;
+        padding-top: 6px;
+        margin-top: 6px;
+        border-top: 1px dotted #ccc;
+      }
     }
   }
 }

@@ -1,11 +1,12 @@
-_         = require 'lodash'
-React     = require 'react'
-Router    = require 'react-router'
-Bus       = require '../Bus'
-Api       = require '../Api'
-Panel     = require '../common/Panel'
-StackCard = require './StackCard'
-{ul}      = React.DOM
+_                  = require 'lodash'
+React              = require 'react'
+Router             = require 'react-router'
+Bus                = require '../Bus'
+Api                = require '../Api'
+Panel              = require '../common/Panel'
+StackCardFrame     = require './StackCardFrame'
+WorkspaceViewState = require './WorkspaceViewState'
+{ul}               = React.DOM
 
 StackPanel = React.createClass {
 
@@ -31,13 +32,18 @@ StackPanel = React.createClass {
 
   render: ->
 
-    cards = _.map @state.cards, (card) =>
-      StackCard {stack: @state.stack, card}
+    cards = _.map @state.stack.cards, (card) =>
+      StackCardFrame {stack: @state.stack, cardId: card.id, card}
 
     style = {zIndex: 99 - @props.position}
-    Panel {title: @state.stack.name, className: 'stack', style, icon: "stack-#{@state.stack.kind}", onClose: @handlePanelClose}, [
+    Panel {title: @state.stack.name, className: 'stack', style, icon: "stack-#{@state.stack.kind}", close: @makeCloseLinkProps()}, [
       ul {className: 'card-list'}, cards
     ]
+
+  makeCloseLinkProps: ->
+    viewState = new WorkspaceViewState(this)
+    viewState.removeStack(@state.stack.id)
+    return viewState.makeLinkProps()
 
   dataDidChange: (stack) ->
     @setState {stack} if stack.id == @state.stack.id

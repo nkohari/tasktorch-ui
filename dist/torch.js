@@ -35437,6 +35437,14 @@ Api = (function() {
     })(this));
   };
 
+  Api.prototype.getCard = function(organizationId, cardId, callback) {
+    return request.get("/api/" + organizationId + "/cards/" + cardId, (function(_this) {
+      return function(res) {
+        return callback(null, res.body);
+      };
+    })(this));
+  };
+
   return Api;
 
 })();
@@ -35482,7 +35490,7 @@ React.renderComponent(routes, document.body);
 
 
 
-},{"./common/RedirectToLastWorkspace":237,"./login/LoginScreen":239,"./workspace/WorkspaceScreen":246,"react":"M6d2gk","react-router":33}],229:[function(require,module,exports){
+},{"./common/RedirectToLastWorkspace":237,"./login/LoginScreen":239,"./workspace/WorkspaceScreen":245,"react":"M6d2gk","react-router":33}],229:[function(require,module,exports){
 (function (global){
 var Channel;
 
@@ -35620,7 +35628,7 @@ Panel = React.createClass({
     header = PanelHeader({
       title: this.props.title,
       icon: this.props.icon,
-      onClose: this.props.onClose
+      close: this.props.close
     });
     panel = div({
       className: 'panel'
@@ -35653,11 +35661,15 @@ module.exports = PanelGroup;
 
 
 },{"react/addons":63}],236:[function(require,module,exports){
-var Icon, PanelHeader, React, div, span, _ref;
+var Icon, Link, PanelHeader, React, div, span, _, _ref;
 
 React = require('react');
 
+_ = require('lodash');
+
 Icon = require('./Icon');
+
+Link = require('react-router').Link;
 
 _ref = React.DOM, div = _ref.div, span = _ref.span;
 
@@ -35671,8 +35683,8 @@ PanelHeader = React.createClass({
     children.push(span({
       className: 'title'
     }, [this.props.title]));
-    if (this.props.onClose != null) {
-      children.push(this.createCloseButton());
+    if (this.props.close != null) {
+      children.push(this.createCloseButton(this.props.close));
     }
     return div({
       className: 'header'
@@ -35683,11 +35695,11 @@ PanelHeader = React.createClass({
       name: this.props.icon
     });
   },
-  createCloseButton: function() {
-    return span({
-      className: 'close',
-      onClick: this.props.onClose
-    }, [
+  createCloseButton: function(props) {
+    props = _.extend(props, {
+      className: 'close'
+    });
+    return Link(props, [
       Icon({
         name: 'close'
       })
@@ -35699,7 +35711,7 @@ module.exports = PanelHeader;
 
 
 
-},{"./Icon":232,"react":"M6d2gk"}],237:[function(require,module,exports){
+},{"./Icon":232,"lodash":23,"react":"M6d2gk","react-router":33}],237:[function(require,module,exports){
 var React, RedirectToLastWorkspace;
 
 React = require('react');
@@ -35823,29 +35835,50 @@ module.exports = LoginScreen;
 
 
 },{"../Api":227,"lodash":23,"react-router":33,"react/addons":63,"superagent":224}],240:[function(require,module,exports){
-var Bus, CardPanel, Panel, React;
+var Api, Bus, CardPanel, Panel, React, Router, WorkspaceViewState;
 
 React = require('react');
+
+Router = require('react-router');
+
+Api = require('../Api');
 
 Bus = require('../Bus');
 
 Panel = require('../common/Panel');
 
+WorkspaceViewState = require('./WorkspaceViewState');
+
 CardPanel = React.createClass({
+  mixins: [Router.ActiveState, Router.Navigation],
   getInitialState: function() {
     return {
       card: {}
     };
   },
   componentWillReceiveProps: function(newProps) {
-    return this.setState({
-      card: newProps.card
-    });
+    if (newProps.card != null) {
+      return this.setState({
+        card: newProps.card
+      });
+    }
   },
   componentWillMount: function() {
-    this.setState({
-      card: this.props.card
-    });
+    var organizationId;
+    organizationId = this.getActiveParams().organizationId;
+    if (this.props.card != null) {
+      this.setState({
+        card: this.props.card
+      });
+    } else {
+      Api.getCard(organizationId, this.props.cardId, (function(_this) {
+        return function(err, card) {
+          return _this.setState({
+            card: card
+          });
+        };
+      })(this));
+    }
     return Bus.cards.subscribe(this);
   },
   componentDidMount: function() {
@@ -35863,11 +35896,14 @@ CardPanel = React.createClass({
       title: this.state.card.title,
       className: 'card',
       style: style,
-      onClose: this.handlePanelClose
+      close: this.makeCloseLinkProps()
     }, [this.state.card.body]);
   },
-  handlePanelClose: function() {
-    return Screen.closeCard(this.state.card);
+  makeCloseLinkProps: function() {
+    var viewState;
+    viewState = new WorkspaceViewState(this);
+    viewState.removeCard(this.props.cardId);
+    return viewState.makeLinkProps();
   },
   dataDidChange: function(card) {
     if (this.state.card.id === card.id) {
@@ -35882,10 +35918,12 @@ module.exports = CardPanel;
 
 
 
-},{"../Bus":229,"../common/Panel":234,"react":"M6d2gk"}],241:[function(require,module,exports){
-var BacklogCard, Bus, CardBodyTypes, InboxCard, QueueCard, React, StackCard, classSet, div;
+},{"../Api":227,"../Bus":229,"../common/Panel":234,"./WorkspaceViewState":247,"react":"M6d2gk","react-router":33}],241:[function(require,module,exports){
+var BacklogCard, Bus, CardBodyTypes, InboxCard, QueueCard, React, Router, StackCardFrame, WorkspaceViewState, classSet, div;
 
 React = require('react/addons');
+
+Router = require('react-router');
 
 Bus = require('../Bus');
 
@@ -35894,6 +35932,8 @@ InboxCard = require('./cards/InboxCard');
 QueueCard = require('./cards/QueueCard');
 
 BacklogCard = require('./cards/BacklogCard');
+
+WorkspaceViewState = require('./WorkspaceViewState');
 
 div = React.DOM.div;
 
@@ -35905,7 +35945,8 @@ CardBodyTypes = {
   queue: QueueCard
 };
 
-StackCard = React.createClass({
+StackCardFrame = React.createClass({
+  mixins: [Router.ActiveState, Router.Navigation],
   getInitialState: function() {
     return {
       card: {}
@@ -35928,9 +35969,7 @@ StackCard = React.createClass({
   render: function() {
     var classes;
     classes = {
-      'stack-card': true,
-      dragging: this.props.isDragging,
-      active: this.props.isOpen
+      'stack-card': true
     };
     classes[this.state.card.type] = true;
     return div({
@@ -35954,7 +35993,11 @@ StackCard = React.createClass({
     }
   },
   handleClick: function() {
-    return Screen.openCard(this.state.card);
+    var props, viewState;
+    viewState = new WorkspaceViewState(this);
+    viewState.addCard(this.state.card.id);
+    props = viewState.makeLinkProps();
+    return this.transitionTo(props.to, props.params, props.query);
   },
   handleDragStart: function(event) {
     event.dataTransfer.effectAllowed = 'move';
@@ -35973,93 +36016,11 @@ StackCard = React.createClass({
   }
 });
 
-module.exports = StackCard;
+module.exports = StackCardFrame;
 
 
 
-},{"../Bus":229,"./cards/BacklogCard":248,"./cards/InboxCard":249,"./cards/QueueCard":250,"react/addons":63}],242:[function(require,module,exports){
-var React, StackCard, StackCardList, div, _;
-
-_ = require('lodash');
-
-React = require('react');
-
-StackCard = require('./StackCard');
-
-div = React.DOM.div;
-
-StackCardList = React.createClass({
-  getInitialState: function() {
-    return {
-      cards: []
-    };
-  },
-  componentWillReceiveProps: function(newProps) {
-    return this.setState({
-      cards: newProps.cards
-    });
-  },
-  componentWillMount: function() {
-    return this.setState({
-      cards: this.props.cards
-    });
-  },
-  render: function() {
-    var cards, dragDrop;
-    dragDrop = {
-      start: this.startDragging,
-      stop: this.stopDragging,
-      hover: this.hoveringOver
-    };
-    cards = _.map(this.state.cards, (function(_this) {
-      return function(card) {
-        var isDragging, isOpen, _ref;
-        isOpen = _.any(_this.props.openCards, function(c) {
-          return c.id === card.id;
-        });
-        isDragging = ((_ref = _this.props.draggingCard) != null ? _ref.id : void 0) === card.id;
-        return StackCard({
-          stack: _this.props.stack,
-          card: card,
-          dragDrop: dragDrop,
-          isOpen: isOpen,
-          isDragging: isDragging
-        });
-      };
-    })(this));
-    return div({
-      className: 'card-list'
-    }, cards);
-  },
-  startDragging: function(card) {
-    return Screen.startDraggingCard(card);
-  },
-  stopDragging: function() {
-    return Screen.stopDraggingCard();
-  },
-  hoveringOver: function(hoverItem, isAppending) {
-    var cards, from, to;
-    cards = _.clone(this.state.cards);
-    from = this.state.cards.indexOf(this.props.draggingCard);
-    to = this.state.cards.indexOf(hoverItem);
-    if (isAppending) {
-      to++;
-    }
-    if (from < to) {
-      to--;
-    }
-    cards.splice(to, 0, cards.splice(from, 1)[0]);
-    return this.setState({
-      cards: cards
-    });
-  }
-});
-
-module.exports = StackCardList;
-
-
-
-},{"./StackCard":241,"lodash":23,"react":"M6d2gk"}],243:[function(require,module,exports){
+},{"../Bus":229,"./WorkspaceViewState":247,"./cards/BacklogCard":248,"./cards/InboxCard":249,"./cards/QueueCard":250,"react-router":33,"react/addons":63}],242:[function(require,module,exports){
 var Panel, React, StackList, StackListItem, ul, _;
 
 _ = require('lodash');
@@ -36094,8 +36055,8 @@ module.exports = StackList;
 
 
 
-},{"../common/Panel":234,"./StackListItem":244,"lodash":23,"react":"M6d2gk"}],244:[function(require,module,exports){
-var Icon, Link, React, Router, StackListItem, classSet, li, span, _, _ref;
+},{"../common/Panel":234,"./StackListItem":243,"lodash":23,"react":"M6d2gk"}],243:[function(require,module,exports){
+var Icon, Link, React, Router, StackListItem, WorkspaceViewState, classSet, li, span, _, _ref;
 
 _ = require('lodash');
 
@@ -36104,6 +36065,8 @@ React = require('react/addons');
 Router = require('react-router');
 
 Icon = require('../common/Icon');
+
+WorkspaceViewState = require('./WorkspaceViewState');
 
 _ref = React.DOM, li = _ref.li, span = _ref.span;
 
@@ -36132,11 +36095,7 @@ StackListItem = React.createClass({
     return li({
       className: 'stack-list-item'
     }, [
-      Link({
-        to: 'workspace',
-        params: this.getActiveParams(),
-        query: this.buildQuery()
-      }, [
+      Link(this.makeLinkProps(), [
         Icon({
           name: "stack-" + this.state.stack.kind
         }), span({
@@ -36147,15 +36106,11 @@ StackListItem = React.createClass({
       ])
     ]);
   },
-  buildQuery: function() {
-    var query, stacks;
-    query = _.clone(this.getActiveQuery());
-    stacks = query.stacks != null ? query.stacks.split(',') : [];
-    if (!_.contains(stacks, this.state.stack.id)) {
-      stacks.push(this.state.stack.id);
-    }
-    query.stacks = stacks.join(',');
-    return query;
+  makeLinkProps: function() {
+    var viewState;
+    viewState = new WorkspaceViewState(this);
+    viewState.addStack(this.state.stack.id);
+    return viewState.makeLinkProps();
   }
 });
 
@@ -36163,8 +36118,8 @@ module.exports = StackListItem;
 
 
 
-},{"../common/Icon":232,"lodash":23,"react-router":33,"react/addons":63}],245:[function(require,module,exports){
-var Api, Bus, Panel, React, Router, StackCard, StackPanel, ul, _;
+},{"../common/Icon":232,"./WorkspaceViewState":247,"lodash":23,"react-router":33,"react/addons":63}],244:[function(require,module,exports){
+var Api, Bus, Panel, React, Router, StackCardFrame, StackPanel, WorkspaceViewState, ul, _;
 
 _ = require('lodash');
 
@@ -36178,7 +36133,9 @@ Api = require('../Api');
 
 Panel = require('../common/Panel');
 
-StackCard = require('./StackCard');
+StackCardFrame = require('./StackCardFrame');
+
+WorkspaceViewState = require('./WorkspaceViewState');
 
 ul = React.DOM.ul;
 
@@ -36212,10 +36169,11 @@ StackPanel = React.createClass({
   },
   render: function() {
     var cards, style;
-    cards = _.map(this.state.cards, (function(_this) {
+    cards = _.map(this.state.stack.cards, (function(_this) {
       return function(card) {
-        return StackCard({
+        return StackCardFrame({
           stack: _this.state.stack,
+          cardId: card.id,
           card: card
         });
       };
@@ -36228,12 +36186,18 @@ StackPanel = React.createClass({
       className: 'stack',
       style: style,
       icon: "stack-" + this.state.stack.kind,
-      onClose: this.handlePanelClose
+      close: this.makeCloseLinkProps()
     }, [
       ul({
         className: 'card-list'
       }, cards)
     ]);
+  },
+  makeCloseLinkProps: function() {
+    var viewState;
+    viewState = new WorkspaceViewState(this);
+    viewState.removeStack(this.state.stack.id);
+    return viewState.makeLinkProps();
   },
   dataDidChange: function(stack) {
     if (stack.id === this.state.stack.id) {
@@ -36251,8 +36215,8 @@ module.exports = StackPanel;
 
 
 
-},{"../Api":227,"../Bus":229,"../common/Panel":234,"./StackCard":241,"lodash":23,"react":"M6d2gk","react-router":33}],246:[function(require,module,exports){
-var Api, CardPanel, PanelGroup, React, Router, StackPanel, WorkspaceScreen, WorkspaceSidebar, div, _;
+},{"../Api":227,"../Bus":229,"../common/Panel":234,"./StackCardFrame":241,"./WorkspaceViewState":247,"lodash":23,"react":"M6d2gk","react-router":33}],245:[function(require,module,exports){
+var Api, CardPanel, PanelGroup, React, Router, StackPanel, WorkspaceScreen, WorkspaceSidebar, WorkspaceViewState, div, _;
 
 _ = require('lodash');
 
@@ -36265,6 +36229,8 @@ Api = require('../Api');
 PanelGroup = require('../common/PanelGroup');
 
 WorkspaceSidebar = require('./WorkspaceSidebar');
+
+WorkspaceViewState = require('./WorkspaceViewState');
 
 StackPanel = require('./StackPanel');
 
@@ -36330,12 +36296,10 @@ WorkspaceScreen = React.createClass({
     ]);
   },
   getActivePanels: function() {
-    var cardPanels, cards, position, stackPanels, stacks, _ref;
-    _ref = this.getActiveQuery(), stacks = _ref.stacks, cards = _ref.cards;
-    stacks = stacks != null ? stacks.split(',') : [];
-    cards = cards != null ? cards.split(',') : [];
+    var cardPanels, position, stackPanels, viewState;
+    viewState = new WorkspaceViewState(this);
     position = 0;
-    stackPanels = _.map(stacks, (function(_this) {
+    stackPanels = _.map(viewState.stacks, (function(_this) {
       return function(stackId) {
         return StackPanel({
           stackId: stackId,
@@ -36344,7 +36308,7 @@ WorkspaceScreen = React.createClass({
         });
       };
     })(this));
-    cardPanels = _.map(cards, (function(_this) {
+    cardPanels = _.map(viewState.cards, (function(_this) {
       return function(cardId) {
         return CardPanel({
           cardId: cardId,
@@ -36375,7 +36339,7 @@ module.exports = WorkspaceScreen;
 
 
 
-},{"../Api":227,"../common/PanelGroup":235,"./CardPanel":240,"./StackPanel":245,"./WorkspaceSidebar":247,"lodash":23,"react-router":33,"react/addons":63}],247:[function(require,module,exports){
+},{"../Api":227,"../common/PanelGroup":235,"./CardPanel":240,"./StackPanel":244,"./WorkspaceSidebar":246,"./WorkspaceViewState":247,"lodash":23,"react-router":33,"react/addons":63}],246:[function(require,module,exports){
 var OrganizationSelector, Panel, React, StackList, UserWidget, WorkspaceSidebar, div, _;
 
 _ = require('lodash');
@@ -36418,7 +36382,69 @@ module.exports = WorkspaceSidebar;
 
 
 
-},{"../common/OrganizationSelector":233,"../common/Panel":234,"../common/UserWidget":238,"./StackList":243,"lodash":23,"react":"M6d2gk"}],248:[function(require,module,exports){
+},{"../common/OrganizationSelector":233,"../common/Panel":234,"../common/UserWidget":238,"./StackList":242,"lodash":23,"react":"M6d2gk"}],247:[function(require,module,exports){
+var WorkspaceViewState, _;
+
+_ = require('lodash');
+
+WorkspaceViewState = (function() {
+  function WorkspaceViewState(component) {
+    var params, query;
+    params = component.getActiveParams();
+    query = component.getActiveQuery();
+    this.organizationId = params.organizationId;
+    this.stacks = query.stacks != null ? query.stacks.split(',') : [];
+    this.cards = query.cards != null ? query.cards.split(',') : [];
+  }
+
+  WorkspaceViewState.prototype.addStack = function(stackId) {
+    if (!_.contains(this.stacks, stackId)) {
+      return this.stacks.push(stackId);
+    }
+  };
+
+  WorkspaceViewState.prototype.removeStack = function(stackId) {
+    return this.stacks = _.without(this.stacks, stackId);
+  };
+
+  WorkspaceViewState.prototype.addCard = function(cardId) {
+    if (!_.contains(this.cards, cardId)) {
+      return this.cards.push(cardId);
+    }
+  };
+
+  WorkspaceViewState.prototype.removeCard = function(cardId) {
+    return this.cards = _.without(this.cards, cardId);
+  };
+
+  WorkspaceViewState.prototype.makeLinkProps = function() {
+    var params, query;
+    params = {
+      organizationId: this.organizationId
+    };
+    query = {};
+    if (this.stacks.length > 0) {
+      query.stacks = this.stacks.join(',');
+    }
+    if (this.cards.length > 0) {
+      query.cards = this.cards.join(',');
+    }
+    return {
+      to: 'workspace',
+      params: params,
+      query: query
+    };
+  };
+
+  return WorkspaceViewState;
+
+})();
+
+module.exports = WorkspaceViewState;
+
+
+
+},{"lodash":23}],248:[function(require,module,exports){
 var BacklogCard, React, div;
 
 React = require('react');

@@ -1,5 +1,7 @@
-React = require 'react'
-Icon  = require './Icon'
+React  = require 'react'
+_      = require 'lodash'
+Icon   = require './Icon'
+{Link} = require 'react-router'
 {div, span} = React.DOM
 
 PanelHeader = React.createClass {
@@ -8,14 +10,15 @@ PanelHeader = React.createClass {
     children = []
     children.push(@createIcon()) if @props.icon?
     children.push(span {className: 'title'}, [@props.title])
-    children.push(@createCloseButton()) if @props.onClose?
+    children.push(@createCloseButton(@props.close)) if @props.close?
     div {className: 'header'}, children
 
   createIcon: ->
     Icon {name: @props.icon}
 
-  createCloseButton: ->
-    span {className: 'close', onClick: @props.onClose}, [
+  createCloseButton: (props) ->
+    props = _.extend(props, {className: 'close'})
+    Link props, [
       Icon {name: 'close'}
     ]
 
