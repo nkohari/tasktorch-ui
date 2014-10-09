@@ -1,12 +1,15 @@
-React = require 'react'
-{Routes, Route} = require 'react-router'
+React  = require 'react'
+Router = require 'react-router'
+{Routes, Route} = Router
 
-LoginScreen     = require './screens/LoginScreen'
-WorkspaceScreen = require './screens/WorkspaceScreen'
+LoginScreen             = require './login/LoginScreen'
+WorkspaceScreen         = require './workspace/WorkspaceScreen'
+RedirectToLastWorkspace = require './common/RedirectToLastWorkspace'
 
-router = Routes {}, [
-  Route {name: 'login',     path: '/login',           handler: LoginScreen}
-  Route {name: 'workspace', path: '/:organizationId', handler: WorkspaceScreen}
+routes = Routes {location: 'history'}, [
+  Route {name: 'redirect',  path: '/',               handler: RedirectToLastWorkspace}
+  Route {name: 'login',     path: 'login',           handler: LoginScreen}
+  Route {name: 'workspace', path: ':organizationId', handler: WorkspaceScreen}
 ]
 
-React.renderComponent(router, document.body)
+React.renderComponent(routes, document.body)

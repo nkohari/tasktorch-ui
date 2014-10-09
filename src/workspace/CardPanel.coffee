@@ -1,8 +1,8 @@
 React = require 'react'
 Bus   = require '../Bus'
-Panel = require './Panel'
+Panel = require '../common/Panel'
 
-CardDetail = React.createClass {
+CardPanel = React.createClass {
 
   getInitialState: ->
     {card: {}}
@@ -34,4 +34,4 @@ CardDetail = React.createClass {
 
 }
 
-module.exports = CardDetail
+module.exports = CardPanel

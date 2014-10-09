@@ -35429,8 +35429,8 @@ Api = (function() {
     })(this));
   };
 
-  Api.prototype.getCardsInStack = function(organizationId, stackId, callback) {
-    return request.get("/api/" + organizationId + "/stacks/" + stackId + "/cards", (function(_this) {
+  Api.prototype.getStack = function(organizationId, stackId, callback) {
+    return request.get("/api/" + organizationId + "/stacks/" + stackId + "?expand=cards", (function(_this) {
       return function(res) {
         return callback(null, res.body);
       };
@@ -35446,33 +35446,43 @@ module.exports = new Api();
 
 
 },{"superagent":224}],228:[function(require,module,exports){
-var LoginScreen, React, Route, Routes, WorkspaceScreen, router, _ref;
+var LoginScreen, React, RedirectToLastWorkspace, Route, Router, Routes, WorkspaceScreen, routes;
 
 React = require('react');
 
-_ref = require('react-router'), Routes = _ref.Routes, Route = _ref.Route;
+Router = require('react-router');
 
-LoginScreen = require('./screens/LoginScreen');
+Routes = Router.Routes, Route = Router.Route;
 
-WorkspaceScreen = require('./screens/WorkspaceScreen');
+LoginScreen = require('./login/LoginScreen');
 
-router = Routes({}, [
+WorkspaceScreen = require('./workspace/WorkspaceScreen');
+
+RedirectToLastWorkspace = require('./common/RedirectToLastWorkspace');
+
+routes = Routes({
+  location: 'history'
+}, [
   Route({
+    name: 'redirect',
+    path: '/',
+    handler: RedirectToLastWorkspace
+  }), Route({
     name: 'login',
-    path: '/login',
+    path: 'login',
     handler: LoginScreen
   }), Route({
     name: 'workspace',
-    path: '/:organizationId',
+    path: ':organizationId',
     handler: WorkspaceScreen
   })
 ]);
 
-React.renderComponent(router, document.body);
+React.renderComponent(routes, document.body);
 
 
 
-},{"./screens/LoginScreen":248,"./screens/WorkspaceScreen":249,"react":"M6d2gk","react-router":33}],229:[function(require,module,exports){
+},{"./common/RedirectToLastWorkspace":237,"./login/LoginScreen":239,"./workspace/WorkspaceScreen":246,"react":"M6d2gk","react-router":33}],229:[function(require,module,exports){
 (function (global){
 var Channel;
 
@@ -35558,66 +35568,6 @@ module.exports = Avatar;
 
 
 },{"crypto":8,"react":"M6d2gk"}],232:[function(require,module,exports){
-var Bus, CardDetail, Panel, React;
-
-React = require('react');
-
-Bus = require('../Bus');
-
-Panel = require('./Panel');
-
-CardDetail = React.createClass({
-  getInitialState: function() {
-    return {
-      card: {}
-    };
-  },
-  componentWillReceiveProps: function(newProps) {
-    return this.setState({
-      card: newProps.card
-    });
-  },
-  componentWillMount: function() {
-    this.setState({
-      card: this.props.card
-    });
-    return Bus.cards.subscribe(this);
-  },
-  componentDidMount: function() {
-    return this.getDOMNode().scrollIntoView();
-  },
-  componentWillUnmount: function() {
-    return Bus.cards.subscribe(this);
-  },
-  render: function() {
-    var style;
-    style = {
-      zIndex: 99 - this.props.position
-    };
-    return Panel({
-      title: this.state.card.title,
-      className: 'card',
-      style: style,
-      onClose: this.handlePanelClose
-    }, [this.state.card.body]);
-  },
-  handlePanelClose: function() {
-    return Screen.closeCard(this.state.card);
-  },
-  dataDidChange: function(card) {
-    if (this.state.card.id === card.id) {
-      return this.setState({
-        card: card
-      });
-    }
-  }
-});
-
-module.exports = CardDetail;
-
-
-
-},{"../Bus":229,"./Panel":235,"react":"M6d2gk"}],233:[function(require,module,exports){
 var Icon, React, span;
 
 React = require('react');
@@ -35636,7 +35586,7 @@ module.exports = Icon;
 
 
 
-},{"react":"M6d2gk"}],234:[function(require,module,exports){
+},{"react":"M6d2gk"}],233:[function(require,module,exports){
 var OrganizationSelector, React, div;
 
 React = require('react');
@@ -35655,7 +35605,7 @@ module.exports = OrganizationSelector;
 
 
 
-},{"react":"M6d2gk"}],235:[function(require,module,exports){
+},{"react":"M6d2gk"}],234:[function(require,module,exports){
 var Panel, PanelHeader, React, div;
 
 React = require('react/addons');
@@ -35683,7 +35633,7 @@ module.exports = Panel;
 
 
 
-},{"./PanelHeader":237,"react/addons":63}],236:[function(require,module,exports){
+},{"./PanelHeader":236,"react/addons":63}],235:[function(require,module,exports){
 var CSSTransitionGroup, PanelGroup, React;
 
 React = require('react/addons');
@@ -35702,7 +35652,7 @@ module.exports = PanelGroup;
 
 
 
-},{"react/addons":63}],237:[function(require,module,exports){
+},{"react/addons":63}],236:[function(require,module,exports){
 var Icon, PanelHeader, React, div, span, _ref;
 
 React = require('react');
@@ -35749,7 +35699,190 @@ module.exports = PanelHeader;
 
 
 
-},{"./Icon":233,"react":"M6d2gk"}],238:[function(require,module,exports){
+},{"./Icon":232,"react":"M6d2gk"}],237:[function(require,module,exports){
+var React, RedirectToLastWorkspace;
+
+React = require('react');
+
+RedirectToLastWorkspace = React.createClass({
+  statics: {
+    willTransitionTo: function(transition, params, query) {
+      return transition.redirect('workspace', {
+        organizationId: '1'
+      }, {});
+    }
+  },
+  render: function() {
+    return null;
+  }
+});
+
+module.exports = RedirectToLastWorkspace;
+
+
+
+},{"react":"M6d2gk"}],238:[function(require,module,exports){
+var Avatar, React, UserWidget, div, _;
+
+_ = require('lodash');
+
+React = require('react');
+
+Avatar = require('./Avatar');
+
+div = React.DOM.div;
+
+UserWidget = React.createClass({
+  render: function() {
+    return div({
+      className: 'user widget'
+    }, [
+      Avatar({
+        user: this.props.user
+      }), div({
+        className: 'controls'
+      }, [this.props.user.name])
+    ]);
+  }
+});
+
+module.exports = UserWidget;
+
+
+
+},{"./Avatar":231,"lodash":23,"react":"M6d2gk"}],239:[function(require,module,exports){
+var Api, LoginScreen, React, Router, button, div, input, request, _, _ref;
+
+_ = require('lodash');
+
+Api = require('../Api');
+
+React = require('react/addons');
+
+Router = require('react-router');
+
+request = require('superagent');
+
+_ref = React.DOM, div = _ref.div, input = _ref.input, button = _ref.button;
+
+LoginScreen = React.createClass({
+  mixins: [Router.Navigation],
+  getInitialState: function() {
+    return {
+      login: void 0,
+      password: void 0
+    };
+  },
+  render: function() {
+    return div({
+      className: 'login screen'
+    }, [
+      input({
+        type: 'text',
+        name: 'login',
+        onChange: this.handleLoginChange
+      }), input({
+        type: 'password',
+        name: 'password',
+        onChange: this.handlePasswordChange
+      }), button({
+        onClick: this.handleSubmitClicked
+      }, ['Log In'])
+    ]);
+  },
+  handleLoginChange: function(event) {
+    return this.setState({
+      login: event.target.value
+    });
+  },
+  handlePasswordChange: function(event) {
+    return this.setState({
+      password: event.target.value
+    });
+  },
+  handleSubmitClicked: function() {
+    return Api.createSession(this.state.login, this.state.password, (function(_this) {
+      return function(res) {
+        if (res.forbidden) {
+          return alert('nope');
+        }
+        return Api.getMyOrganizations(function(res) {
+          var organizations;
+          organizations = res.body;
+          return _this.transitionTo('workspace', {
+            organizationId: organizations[0].id
+          });
+        });
+      };
+    })(this));
+  }
+});
+
+module.exports = LoginScreen;
+
+
+
+},{"../Api":227,"lodash":23,"react-router":33,"react/addons":63,"superagent":224}],240:[function(require,module,exports){
+var Bus, CardPanel, Panel, React;
+
+React = require('react');
+
+Bus = require('../Bus');
+
+Panel = require('../common/Panel');
+
+CardPanel = React.createClass({
+  getInitialState: function() {
+    return {
+      card: {}
+    };
+  },
+  componentWillReceiveProps: function(newProps) {
+    return this.setState({
+      card: newProps.card
+    });
+  },
+  componentWillMount: function() {
+    this.setState({
+      card: this.props.card
+    });
+    return Bus.cards.subscribe(this);
+  },
+  componentDidMount: function() {
+    return this.getDOMNode().scrollIntoView();
+  },
+  componentWillUnmount: function() {
+    return Bus.cards.subscribe(this);
+  },
+  render: function() {
+    var style;
+    style = {
+      zIndex: 99 - this.props.position
+    };
+    return Panel({
+      title: this.state.card.title,
+      className: 'card',
+      style: style,
+      onClose: this.handlePanelClose
+    }, [this.state.card.body]);
+  },
+  handlePanelClose: function() {
+    return Screen.closeCard(this.state.card);
+  },
+  dataDidChange: function(card) {
+    if (this.state.card.id === card.id) {
+      return this.setState({
+        card: card
+      });
+    }
+  }
+});
+
+module.exports = CardPanel;
+
+
+
+},{"../Bus":229,"../common/Panel":234,"react":"M6d2gk"}],241:[function(require,module,exports){
 var BacklogCard, Bus, CardBodyTypes, InboxCard, QueueCard, React, StackCard, classSet, div;
 
 React = require('react/addons');
@@ -35844,7 +35977,7 @@ module.exports = StackCard;
 
 
 
-},{"../Bus":229,"./cards/BacklogCard":245,"./cards/InboxCard":246,"./cards/QueueCard":247,"react/addons":63}],239:[function(require,module,exports){
+},{"../Bus":229,"./cards/BacklogCard":248,"./cards/InboxCard":249,"./cards/QueueCard":250,"react/addons":63}],242:[function(require,module,exports){
 var React, StackCard, StackCardList, div, _;
 
 _ = require('lodash');
@@ -35926,97 +36059,14 @@ module.exports = StackCardList;
 
 
 
-},{"./StackCard":238,"lodash":23,"react":"M6d2gk"}],240:[function(require,module,exports){
-var Api, Bus, Panel, React, Router, StackCardList, StackColumn;
-
-React = require('react');
-
-Router = require('react-router');
-
-Bus = require('../Bus');
-
-Api = require('../Api');
-
-Panel = require('./Panel');
-
-StackCardList = require('./StackCardList');
-
-StackColumn = React.createClass({
-  mixins: [Router.ActiveState],
-  getInitialState: function() {
-    return {
-      stack: {},
-      cards: []
-    };
-  },
-  componentWillReceiveProps: function(newProps) {
-    return this.loadCards(newProps.stack);
-  },
-  componentWillMount: function() {
-    this.loadCards(this.props.stack);
-    return Bus.stacks.subscribe(this);
-  },
-  componentWillUnmount: function() {
-    return Bus.stacks.unsubscribe(this);
-  },
-  loadCards: function(stack) {
-    var organizationId;
-    this.setState({
-      stack: stack
-    });
-    organizationId = this.getActiveParams().organizationId;
-    return Api.getCardsInStack(organizationId, stack.id, (function(_this) {
-      return function(err, cards) {
-        return _this.setState({
-          cards: cards
-        });
-      };
-    })(this));
-  },
-  render: function() {
-    var style;
-    style = {
-      zIndex: 99 - this.props.position
-    };
-    return Panel({
-      title: this.state.stack.name,
-      className: 'stack',
-      style: style,
-      icon: "stack-" + this.state.stack.kind,
-      onClose: this.handlePanelClose
-    }, [
-      StackCardList({
-        stack: this.state.stack,
-        cards: this.state.cards,
-        openCards: this.props.openCards,
-        draggingCard: this.props.draggingCard
-      })
-    ]);
-  },
-  dataDidChange: function(stack) {
-    if (stack.id === this.state.stack.id) {
-      return this.setState({
-        stack: stack
-      });
-    }
-  },
-  handlePanelClose: function() {
-    return Screen.closeStack(this.state.stack);
-  }
-});
-
-module.exports = StackColumn;
-
-
-
-},{"../Api":227,"../Bus":229,"./Panel":235,"./StackCardList":239,"react":"M6d2gk","react-router":33}],241:[function(require,module,exports){
+},{"./StackCard":241,"lodash":23,"react":"M6d2gk"}],243:[function(require,module,exports){
 var Panel, React, StackList, StackListItem, ul, _;
 
 _ = require('lodash');
 
 React = require('react');
 
-Panel = require('./Panel');
+Panel = require('../common/Panel');
 
 StackListItem = require('./StackListItem');
 
@@ -36029,8 +36079,7 @@ StackList = React.createClass({
       return function(stack) {
         return StackListItem({
           key: "stack-list-" + stack.id,
-          stack: stack,
-          isOpen: _.contains(_this.props.openStacks, stack)
+          stack: stack
         });
       };
     })(this));
@@ -36045,41 +36094,68 @@ module.exports = StackList;
 
 
 
-},{"./Panel":235,"./StackListItem":242,"lodash":23,"react":"M6d2gk"}],242:[function(require,module,exports){
-var Icon, React, StackListItem, classSet, li, span, _, _ref;
+},{"../common/Panel":234,"./StackListItem":244,"lodash":23,"react":"M6d2gk"}],244:[function(require,module,exports){
+var Icon, Link, React, Router, StackListItem, classSet, li, span, _, _ref;
 
 _ = require('lodash');
 
 React = require('react/addons');
 
-Icon = require('./Icon');
+Router = require('react-router');
+
+Icon = require('../common/Icon');
 
 _ref = React.DOM, li = _ref.li, span = _ref.span;
 
 classSet = React.addons.classSet;
 
+Link = Router.Link;
+
 StackListItem = React.createClass({
-  render: function() {
-    var classes;
-    classes = classSet({
-      'stack-list-item': true,
-      active: this.props.isOpen
+  mixins: [Router.ActiveState],
+  getDefaultState: function() {
+    return {
+      stack: void 0
+    };
+  },
+  componentWillReceiveProps: function(newProps) {
+    return this.setState({
+      stack: newProps.stack
     });
+  },
+  componentWillMount: function() {
+    return this.setState({
+      stack: this.props.stack
+    });
+  },
+  render: function() {
     return li({
-      className: classes,
-      onClick: this.handleClick
+      className: 'stack-list-item'
     }, [
-      Icon({
-        name: "stack-" + this.props.stack.kind
-      }), span({
-        className: 'stack-name'
-      }, [this.props.stack.name]), span({
-        className: 'stack-card-count'
-      }, [this.props.stack.cards.length])
+      Link({
+        to: 'workspace',
+        params: this.getActiveParams(),
+        query: this.buildQuery()
+      }, [
+        Icon({
+          name: "stack-" + this.state.stack.kind
+        }), span({
+          className: 'stack-name'
+        }, [this.state.stack.name]), span({
+          className: 'stack-card-count'
+        }, [this.state.stack.cards.length])
+      ])
     ]);
   },
-  handleClick: function() {
-    return Screen.openStack(this.props.stack);
+  buildQuery: function() {
+    var query, stacks;
+    query = _.clone(this.getActiveQuery());
+    stacks = query.stacks != null ? query.stacks.split(',') : [];
+    if (!_.contains(stacks, this.state.stack.id)) {
+      stacks.push(this.state.stack.id);
+    }
+    query.stacks = stacks.join(',');
+    return query;
   }
 });
 
@@ -36087,235 +36163,96 @@ module.exports = StackListItem;
 
 
 
-},{"./Icon":233,"lodash":23,"react/addons":63}],243:[function(require,module,exports){
-var Avatar, React, UserWidget, div, _;
+},{"../common/Icon":232,"lodash":23,"react-router":33,"react/addons":63}],245:[function(require,module,exports){
+var Api, Bus, Panel, React, Router, StackCard, StackPanel, ul, _;
 
 _ = require('lodash');
 
 React = require('react');
-
-Avatar = require('./Avatar');
-
-div = React.DOM.div;
-
-UserWidget = React.createClass({
-  render: function() {
-    return div({
-      className: 'user widget'
-    }, [
-      Avatar({
-        user: this.props.user
-      }), div({
-        className: 'controls'
-      }, [this.props.user.name])
-    ]);
-  }
-});
-
-module.exports = UserWidget;
-
-
-
-},{"./Avatar":231,"lodash":23,"react":"M6d2gk"}],244:[function(require,module,exports){
-var OrganizationSelector, Panel, React, StackList, UserWidget, WorkspaceSidebar, div, _;
-
-_ = require('lodash');
-
-React = require('react');
-
-Panel = require('./Panel');
-
-StackList = require('./StackList');
-
-OrganizationSelector = require('./OrganizationSelector');
-
-UserWidget = require('./UserWidget');
-
-div = React.DOM.div;
-
-WorkspaceSidebar = React.createClass({
-  render: function() {
-    console.log(this.props);
-    if (this.props.organization == null) {
-      return div({
-        className: 'workspace sidebar loading'
-      }, []);
-    }
-    return div({
-      className: 'workspace sidebar'
-    }, [
-      OrganizationSelector({
-        organization: this.props.organization
-      }), StackList({
-        stacks: this.props.stacks,
-        teams: this.props.teams,
-        openStacks: this.props.openStacks
-      }), UserWidget({
-        user: this.props.user
-      })
-    ]);
-  }
-});
-
-module.exports = WorkspaceSidebar;
-
-
-
-},{"./OrganizationSelector":234,"./Panel":235,"./StackList":241,"./UserWidget":243,"lodash":23,"react":"M6d2gk"}],245:[function(require,module,exports){
-var BacklogCard, React, div;
-
-React = require('react');
-
-div = React.DOM.div;
-
-BacklogCard = React.createClass({
-  render: function() {
-    return div({
-      className: 'stack-card-body backlog'
-    }, [
-      div({
-        className: 'card subject'
-      }, [this.props.card.title]), div({
-        className: 'card body'
-      }, [this.props.card.body])
-    ]);
-  }
-});
-
-module.exports = BacklogCard;
-
-
-
-},{"react":"M6d2gk"}],246:[function(require,module,exports){
-var InboxCard, React, div, em, _ref;
-
-React = require('react');
-
-_ref = React.DOM, div = _ref.div, em = _ref.em;
-
-InboxCard = React.createClass({
-  render: function() {
-    return div({
-      className: 'stack-card-body inbox'
-    }, [
-      div({
-        className: 'card-top'
-      }, [
-        div({
-          className: 'title'
-        }, [this.props.card.title]), div({
-          className: 'handoff'
-        }, ['from ', em({}, 'X'), ' to ', em({}, 'Y'), ' at ', em({}, 'Z')])
-      ]), div({
-        className: 'card-bottom'
-      }, [this.props.card.body])
-    ]);
-  }
-});
-
-module.exports = InboxCard;
-
-
-
-},{"react":"M6d2gk"}],247:[function(require,module,exports){
-var QueueCard, React, div;
-
-React = require('react');
-
-div = React.DOM.div;
-
-QueueCard = React.createClass({
-  render: function() {
-    return div({
-      className: 'stack-card-body queue'
-    }, [
-      div({
-        className: 'card subject'
-      }, [this.props.card.title]), div({
-        className: 'card body'
-      }, [this.props.card.body])
-    ]);
-  }
-});
-
-module.exports = QueueCard;
-
-
-
-},{"react":"M6d2gk"}],248:[function(require,module,exports){
-var Api, LoginScreen, React, Router, button, div, input, request, _, _ref;
-
-_ = require('lodash');
-
-Api = require('../Api');
-
-React = require('react/addons');
 
 Router = require('react-router');
 
-request = require('superagent');
+Bus = require('../Bus');
 
-_ref = React.DOM, div = _ref.div, input = _ref.input, button = _ref.button;
+Api = require('../Api');
 
-LoginScreen = React.createClass({
-  mixins: [Router.Navigation],
+Panel = require('../common/Panel');
+
+StackCard = require('./StackCard');
+
+ul = React.DOM.ul;
+
+StackPanel = React.createClass({
+  mixins: [Router.ActiveState],
   getInitialState: function() {
     return {
-      login: void 0,
-      password: void 0
+      stack: {}
     };
   },
-  render: function() {
-    return div({
-      className: 'login screen'
-    }, [
-      input({
-        type: 'text',
-        name: 'login',
-        onChange: this.handleLoginChange
-      }), input({
-        type: 'password',
-        name: 'password',
-        onChange: this.handlePasswordChange
-      }), button({
-        onClick: this.handleSubmitClicked
-      }, ['Log In'])
-    ]);
+  componentWillReceiveProps: function(newProps) {
+    return this.loadCards(newProps.stackId);
   },
-  handleLoginChange: function(event) {
-    return this.setState({
-      login: event.target.value
-    });
+  componentWillMount: function() {
+    this.loadCards(this.props.stackId);
+    return Bus.stacks.subscribe(this);
   },
-  handlePasswordChange: function(event) {
-    return this.setState({
-      password: event.target.value
-    });
+  componentWillUnmount: function() {
+    return Bus.stacks.unsubscribe(this);
   },
-  handleSubmitClicked: function() {
-    return Api.createSession(this.state.login, this.state.password, (function(_this) {
-      return function(res) {
-        if (res.forbidden) {
-          return alert('nope');
-        }
-        return Api.getMyOrganizations(function(res) {
-          var organizations;
-          organizations = res.body;
-          return _this.transitionTo('workspace', {
-            organizationId: organizations[0].id
-          });
+  loadCards: function(stackId) {
+    var organizationId;
+    organizationId = this.getActiveParams().organizationId;
+    return Api.getStack(organizationId, stackId, (function(_this) {
+      return function(err, stack) {
+        return _this.setState({
+          stack: stack
         });
       };
     })(this));
+  },
+  render: function() {
+    var cards, style;
+    cards = _.map(this.state.cards, (function(_this) {
+      return function(card) {
+        return StackCard({
+          stack: _this.state.stack,
+          card: card
+        });
+      };
+    })(this));
+    style = {
+      zIndex: 99 - this.props.position
+    };
+    return Panel({
+      title: this.state.stack.name,
+      className: 'stack',
+      style: style,
+      icon: "stack-" + this.state.stack.kind,
+      onClose: this.handlePanelClose
+    }, [
+      ul({
+        className: 'card-list'
+      }, cards)
+    ]);
+  },
+  dataDidChange: function(stack) {
+    if (stack.id === this.state.stack.id) {
+      return this.setState({
+        stack: stack
+      });
+    }
+  },
+  handlePanelClose: function() {
+    return Screen.closeStack(this.props.stackId);
   }
 });
 
-module.exports = LoginScreen;
+module.exports = StackPanel;
 
 
 
-},{"../Api":227,"lodash":23,"react-router":33,"react/addons":63,"superagent":224}],249:[function(require,module,exports){
-var Api, CardDetail, PanelGroup, React, Router, StackColumn, WorkspaceScreen, WorkspaceSidebar, div, _;
+},{"../Api":227,"../Bus":229,"../common/Panel":234,"./StackCard":241,"lodash":23,"react":"M6d2gk","react-router":33}],246:[function(require,module,exports){
+var Api, CardPanel, PanelGroup, React, Router, StackPanel, WorkspaceScreen, WorkspaceSidebar, div, _;
 
 _ = require('lodash');
 
@@ -36325,13 +36262,13 @@ Router = require('react-router');
 
 Api = require('../Api');
 
-PanelGroup = require('../components/PanelGroup');
+PanelGroup = require('../common/PanelGroup');
 
-WorkspaceSidebar = require('../components/WorkspaceSidebar');
+WorkspaceSidebar = require('./WorkspaceSidebar');
 
-StackColumn = require('../components/StackColumn');
+StackPanel = require('./StackPanel');
 
-CardDetail = require('../components/CardDetail');
+CardPanel = require('./CardPanel');
 
 div = React.DOM.div;
 
@@ -36348,8 +36285,10 @@ WorkspaceScreen = React.createClass({
         queue: void 0,
         backlog: []
       },
-      openStacks: [],
-      openCards: [],
+      activeItems: {
+        stacks: [],
+        cards: []
+      },
       draggingCard: void 0
     };
   },
@@ -36387,28 +36326,29 @@ WorkspaceScreen = React.createClass({
         stacks: this.state.stacks,
         teams: this.state.teams,
         openStacks: this.state.openStacks
-      }), PanelGroup({}, this.getOpenPanels())
+      }), PanelGroup({}, this.getActivePanels())
     ]);
   },
-  getOpenPanels: function() {
-    var cardPanels, position, stackPanels;
+  getActivePanels: function() {
+    var cardPanels, cards, position, stackPanels, stacks, _ref;
+    _ref = this.getActiveQuery(), stacks = _ref.stacks, cards = _ref.cards;
+    stacks = stacks != null ? stacks.split(',') : [];
+    cards = cards != null ? cards.split(',') : [];
     position = 0;
-    stackPanels = _.map(this.state.openStacks, (function(_this) {
-      return function(stack) {
-        return StackColumn({
-          stack: stack,
-          key: "stack-" + stack.id,
-          position: position++,
-          openCards: _this.state.openCards,
-          draggingCard: _this.state.draggingCard
+    stackPanels = _.map(stacks, (function(_this) {
+      return function(stackId) {
+        return StackPanel({
+          stackId: stackId,
+          key: "stack-" + stackId,
+          position: position++
         });
       };
     })(this));
-    cardPanels = _.map(this.state.openCards, (function(_this) {
-      return function(card) {
-        return CardDetail({
-          card: card,
-          key: "card-" + card.id,
+    cardPanels = _.map(cards, (function(_this) {
+      return function(cardId) {
+        return CardPanel({
+          cardId: cardId,
+          key: "card-" + cardId,
           position: position++
         });
       };
@@ -36425,42 +36365,138 @@ WorkspaceScreen = React.createClass({
       draggingCard: void 0
     });
   },
-  openStack: function(stack) {
-    if (_.contains(this.state.openStacks, stack)) {
-      return;
-    }
-    return this.setState({
-      openStacks: this.state.openStacks.concat(stack)
-    });
-  },
-  closeStack: function(stack) {
-    if (!_.contains(this.state.openStacks, stack)) {
-      return;
-    }
-    return this.setState({
-      openStacks: _.without(this.state.openStacks, stack)
-    });
-  },
-  openCard: function(card) {
-    if (_.contains(this.state.openCards, card)) {
-      return;
-    }
-    return this.setState({
-      openCards: this.state.openCards.concat(card)
-    });
-  },
-  closeCard: function(card) {
-    if (!_.contains(this.state.openCards, card)) {
-      return;
-    }
-    return this.setState({
-      openCards: _.without(this.state.openCards, card)
-    });
-  }
+  openStack: function(stackId) {},
+  closeStack: function(stackId) {},
+  openCard: function(card) {},
+  closeCard: function(card) {}
 });
 
 module.exports = WorkspaceScreen;
 
 
 
-},{"../Api":227,"../components/CardDetail":232,"../components/PanelGroup":236,"../components/StackColumn":240,"../components/WorkspaceSidebar":244,"lodash":23,"react-router":33,"react/addons":63}]},{},[227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249]);
+},{"../Api":227,"../common/PanelGroup":235,"./CardPanel":240,"./StackPanel":245,"./WorkspaceSidebar":247,"lodash":23,"react-router":33,"react/addons":63}],247:[function(require,module,exports){
+var OrganizationSelector, Panel, React, StackList, UserWidget, WorkspaceSidebar, div, _;
+
+_ = require('lodash');
+
+React = require('react');
+
+Panel = require('../common/Panel');
+
+OrganizationSelector = require('../common/OrganizationSelector');
+
+UserWidget = require('../common/UserWidget');
+
+StackList = require('./StackList');
+
+div = React.DOM.div;
+
+WorkspaceSidebar = React.createClass({
+  render: function() {
+    if (this.props.organization == null) {
+      return div({
+        className: 'workspace sidebar loading'
+      }, []);
+    }
+    return div({
+      className: 'workspace sidebar'
+    }, [
+      OrganizationSelector({
+        organization: this.props.organization
+      }), StackList({
+        stacks: this.props.stacks,
+        teams: this.props.teams
+      }), UserWidget({
+        user: this.props.user
+      })
+    ]);
+  }
+});
+
+module.exports = WorkspaceSidebar;
+
+
+
+},{"../common/OrganizationSelector":233,"../common/Panel":234,"../common/UserWidget":238,"./StackList":243,"lodash":23,"react":"M6d2gk"}],248:[function(require,module,exports){
+var BacklogCard, React, div;
+
+React = require('react');
+
+div = React.DOM.div;
+
+BacklogCard = React.createClass({
+  render: function() {
+    return div({
+      className: 'stack-card-body backlog'
+    }, [
+      div({
+        className: 'card subject'
+      }, [this.props.card.title]), div({
+        className: 'card body'
+      }, [this.props.card.body])
+    ]);
+  }
+});
+
+module.exports = BacklogCard;
+
+
+
+},{"react":"M6d2gk"}],249:[function(require,module,exports){
+var InboxCard, React, div, em, _ref;
+
+React = require('react');
+
+_ref = React.DOM, div = _ref.div, em = _ref.em;
+
+InboxCard = React.createClass({
+  render: function() {
+    return div({
+      className: 'stack-card-body inbox'
+    }, [
+      div({
+        className: 'card-top'
+      }, [
+        div({
+          className: 'title'
+        }, [this.props.card.title]), div({
+          className: 'handoff'
+        }, ['from ', em({}, 'X'), ' to ', em({}, 'Y'), ' at ', em({}, 'Z')])
+      ]), div({
+        className: 'card-bottom'
+      }, [this.props.card.body])
+    ]);
+  }
+});
+
+module.exports = InboxCard;
+
+
+
+},{"react":"M6d2gk"}],250:[function(require,module,exports){
+var QueueCard, React, div;
+
+React = require('react');
+
+div = React.DOM.div;
+
+QueueCard = React.createClass({
+  render: function() {
+    return div({
+      className: 'stack-card-body queue'
+    }, [
+      div({
+        className: 'card subject'
+      }, [this.props.card.title]), div({
+        className: 'card body'
+      }, [this.props.card.body])
+    ]);
+  }
+});
+
+module.exports = QueueCard;
+
+
+
+},{"react":"M6d2gk"}]},{},[227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250]);

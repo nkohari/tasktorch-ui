@@ -15,8 +15,8 @@ class Api
     request.get "/api/#{organizationId}/my/stacks", (res) =>
       callback(null, res.body)
 
-  getCardsInStack: (organizationId, stackId, callback) ->
-    request.get "/api/#{organizationId}/stacks/#{stackId}/cards", (res) =>
+  getStack: (organizationId, stackId, callback) ->
+    request.get "/api/#{organizationId}/stacks/#{stackId}?expand=cards", (res) =>
       callback(null, res.body)
 
 module.exports = new Api()
