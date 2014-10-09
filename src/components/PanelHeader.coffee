@@ -15,7 +15,9 @@ PanelHeader = React.createClass {
     Icon {name: @props.icon}
 
   createCloseButton: ->
-    span {className: 'close', onClick: @props.onClose}, ['[x]']
+    span {className: 'close', onClick: @props.onClose}, [
+      Icon {name: 'close'}
+    ]
 
 }
 

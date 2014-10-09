@@ -13,9 +13,15 @@ body {
   display: inline-block;
   vertical-align: middle;
   font: 2em/0.5em "Entypo";
-  color: #999999;
+  color: #666666;
   padding-right: 0.2em; }
-  .icon.icon-stack:before {
+  .icon.icon-close:before {
+    content: "\274C"; }
+  .icon.icon-stack-inbox:before {
+    content: "\1F4E5"; }
+  .icon.icon-stack-queue:before {
+    content: "\1F4C4"; }
+  .icon.icon-stack-backlog:before {
     content: "\E736"; }
 
 .screen {
@@ -66,14 +72,14 @@ body {
   bottom: 0; }
   .user.widget .avatar {
     display: inline-block;
-    vertical-align: top;
+    vertical-align: middle;
     width: 48px;
     height: 48px;
     border-radius: 24px;
     margin-right: 10px; }
   .user.widget .controls {
     display: inline-block;
-    vertical-align: bottom;
+    vertical-align: middle;
     font-size: 13px; }
 
 .panel {
@@ -84,7 +90,7 @@ body {
   margin: 0;
   padding: 0;
   border-right: 1px solid #999999;
-  background: #fcfcfc;
+  background: #f9f9f9;
   overflow-x: hidden;
   overflow-y: auto;
   white-space: normal; }
@@ -130,21 +136,30 @@ body {
   width: 300px; }
   .stack .stack-card {
     cursor: pointer;
-    border-bottom: 1px solid #999999; }
+    border-bottom: 1px solid #999999;
+    background: #fff;
+    padding: 6px; }
     .stack .stack-card.dragging {
       cursor: move; }
-    .stack .stack-card .stack-card-body {
-      font-size: 14px;
-      padding: 6px;
-      border-left: 6px solid; }
-    .stack .stack-card.bug .stack-card-body {
-      border-color: #f33; }
-    .stack .stack-card.feature .stack-card-body {
-      border-color: #3f3; }
-    .stack .stack-card.support .stack-card-body {
-      border-color: #33f; }
-    .stack .stack-card.todo .stack-card-body {
-      border-color: #3ff; }
+    .stack .stack-card .card-top {
+      padding: 2px 6px;
+      border-left: 6px solid #999; }
+      .stack .stack-card .card-top .title {
+        color: #000;
+        font-size: 14px;
+        font-weight: 600; }
+      .stack .stack-card .card-top .handoff {
+        font-size: 11px;
+        color: #999; }
+        .stack .stack-card .card-top .handoff em {
+          font-style: normal;
+          color: #666; }
+    .stack .stack-card .card-bottom {
+      color: #333;
+      font-size: 12px;
+      padding-top: 6px;
+      margin-top: 6px;
+      border-top: 1px dotted #ccc; }
 
 .card {
   width: 600px; }

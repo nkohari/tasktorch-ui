@@ -9,7 +9,7 @@ StackListItem = React.createClass {
   render: ->
     classes = classSet {'stack-list-item': true, active: @props.isOpen}
     li {className: classes, onClick: @handleClick}, [
-      Icon {name: 'stack'}
+      Icon {name: "stack-#{@props.stack.kind}"}
       span {className: 'stack-name'}, [@props.stack.name]
       span {className: 'stack-card-count'}, [@props.stack.cards.length]
     ]

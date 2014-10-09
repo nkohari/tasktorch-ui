@@ -35472,7 +35472,7 @@ React.renderComponent(router, document.body);
 
 
 
-},{"./screens/LoginScreen":246,"./screens/WorkspaceScreen":247,"react":"M6d2gk","react-router":33}],229:[function(require,module,exports){
+},{"./screens/LoginScreen":248,"./screens/WorkspaceScreen":249,"react":"M6d2gk","react-router":33}],229:[function(require,module,exports){
 (function (global){
 var Channel;
 
@@ -35737,7 +35737,11 @@ PanelHeader = React.createClass({
     return span({
       className: 'close',
       onClick: this.props.onClose
-    }, ['[x]']);
+    }, [
+      Icon({
+        name: 'close'
+      })
+    ]);
   }
 });
 
@@ -35746,20 +35750,26 @@ module.exports = PanelHeader;
 
 
 },{"./Icon":233,"react":"M6d2gk"}],238:[function(require,module,exports){
-var Bus, CardBodyClasses, React, StackCard, TaskCardBody, classSet, div;
+var BacklogCard, Bus, CardBodyTypes, InboxCard, QueueCard, React, StackCard, classSet, div;
 
 React = require('react/addons');
 
 Bus = require('../Bus');
 
-TaskCardBody = require('./cards/TaskCardBody');
+InboxCard = require('./cards/InboxCard');
+
+QueueCard = require('./cards/QueueCard');
+
+BacklogCard = require('./cards/BacklogCard');
 
 div = React.DOM.div;
 
 classSet = React.addons.classSet;
 
-CardBodyClasses = {
-  task: TaskCardBody
+CardBodyTypes = {
+  backlog: BacklogCard,
+  inbox: InboxCard,
+  queue: QueueCard
 };
 
 StackCard = React.createClass({
@@ -35798,7 +35808,7 @@ StackCard = React.createClass({
       onDragEnd: this.handleDragEnd,
       onDragOver: this.handleDragOver
     }, [
-      CardBodyClasses[this.state.card.type]({
+      CardBodyTypes[this.props.stack.kind]({
         card: this.state.card
       })
     ]);
@@ -35834,7 +35844,7 @@ module.exports = StackCard;
 
 
 
-},{"../Bus":229,"./cards/TaskCardBody":245,"react/addons":63}],239:[function(require,module,exports){
+},{"../Bus":229,"./cards/BacklogCard":245,"./cards/InboxCard":246,"./cards/QueueCard":247,"react/addons":63}],239:[function(require,module,exports){
 var React, StackCard, StackCardList, div, _;
 
 _ = require('lodash');
@@ -35876,6 +35886,7 @@ StackCardList = React.createClass({
         });
         isDragging = ((_ref = _this.props.draggingCard) != null ? _ref.id : void 0) === card.id;
         return StackCard({
+          stack: _this.props.stack,
           card: card,
           dragDrop: dragDrop,
           isOpen: isOpen,
@@ -35971,10 +35982,11 @@ StackColumn = React.createClass({
       title: this.state.stack.name,
       className: 'stack',
       style: style,
-      icon: 'stack',
+      icon: "stack-" + this.state.stack.kind,
       onClose: this.handlePanelClose
     }, [
       StackCardList({
+        stack: this.state.stack,
         cards: this.state.cards,
         openCards: this.props.openCards,
         draggingCard: this.props.draggingCard
@@ -36057,7 +36069,7 @@ StackListItem = React.createClass({
       onClick: this.handleClick
     }, [
       Icon({
-        name: 'stack'
+        name: "stack-" + this.props.stack.kind
       }), span({
         className: 'stack-name'
       }, [this.props.stack.name]), span({
@@ -36149,25 +36161,87 @@ module.exports = WorkspaceSidebar;
 
 
 },{"./OrganizationSelector":234,"./Panel":235,"./StackList":241,"./UserWidget":243,"lodash":23,"react":"M6d2gk"}],245:[function(require,module,exports){
-var React, TaskCardBody, div;
+var BacklogCard, React, div;
 
 React = require('react');
 
 div = React.DOM.div;
 
-TaskCardBody = React.createClass({
+BacklogCard = React.createClass({
   render: function() {
     return div({
-      className: 'stack-card-body'
-    }, [this.props.card.title]);
+      className: 'stack-card-body backlog'
+    }, [
+      div({
+        className: 'card subject'
+      }, [this.props.card.title]), div({
+        className: 'card body'
+      }, [this.props.card.body])
+    ]);
   }
 });
 
-module.exports = TaskCardBody;
+module.exports = BacklogCard;
 
 
 
 },{"react":"M6d2gk"}],246:[function(require,module,exports){
+var InboxCard, React, div, em, _ref;
+
+React = require('react');
+
+_ref = React.DOM, div = _ref.div, em = _ref.em;
+
+InboxCard = React.createClass({
+  render: function() {
+    return div({
+      className: 'stack-card-body inbox'
+    }, [
+      div({
+        className: 'card-top'
+      }, [
+        div({
+          className: 'title'
+        }, [this.props.card.title]), div({
+          className: 'handoff'
+        }, ['from ', em({}, 'X'), ' to ', em({}, 'Y'), ' at ', em({}, 'Z')])
+      ]), div({
+        className: 'card-bottom'
+      }, [this.props.card.body])
+    ]);
+  }
+});
+
+module.exports = InboxCard;
+
+
+
+},{"react":"M6d2gk"}],247:[function(require,module,exports){
+var QueueCard, React, div;
+
+React = require('react');
+
+div = React.DOM.div;
+
+QueueCard = React.createClass({
+  render: function() {
+    return div({
+      className: 'stack-card-body queue'
+    }, [
+      div({
+        className: 'card subject'
+      }, [this.props.card.title]), div({
+        className: 'card body'
+      }, [this.props.card.body])
+    ]);
+  }
+});
+
+module.exports = QueueCard;
+
+
+
+},{"react":"M6d2gk"}],248:[function(require,module,exports){
 var Api, LoginScreen, React, Router, button, div, input, request, _, _ref;
 
 _ = require('lodash');
@@ -36239,7 +36313,7 @@ module.exports = LoginScreen;
 
 
 
-},{"../Api":227,"lodash":23,"react-router":33,"react/addons":63,"superagent":224}],247:[function(require,module,exports){
+},{"../Api":227,"lodash":23,"react-router":33,"react/addons":63,"superagent":224}],249:[function(require,module,exports){
 var Api, CardDetail, PanelGroup, React, Router, StackColumn, WorkspaceScreen, WorkspaceSidebar, div, _;
 
 _ = require('lodash');
@@ -36388,4 +36462,4 @@ module.exports = WorkspaceScreen;
 
 
 
-},{"../Api":227,"../components/CardDetail":232,"../components/PanelGroup":236,"../components/StackColumn":240,"../components/WorkspaceSidebar":244,"lodash":23,"react-router":33,"react/addons":63}]},{},[227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247]);
+},{"../Api":227,"../components/CardDetail":232,"../components/PanelGroup":236,"../components/StackColumn":240,"../components/WorkspaceSidebar":244,"lodash":23,"react-router":33,"react/addons":63}]},{},[227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249]);

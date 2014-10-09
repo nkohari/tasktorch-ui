@@ -22,7 +22,7 @@ StackCardList = React.createClass {
     cards = _.map @state.cards, (card) =>
       isOpen = _.any @props.openCards, (c) -> c.id == card.id
       isDragging = @props.draggingCard?.id == card.id
-      StackCard {card, dragDrop, isOpen, isDragging}
+      StackCard {stack: @props.stack, card, dragDrop, isOpen, isDragging}
     div {className: 'card-list'}, cards
 
   startDragging: (card) ->

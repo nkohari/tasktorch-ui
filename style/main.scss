@@ -1,8 +1,8 @@
-$panel-background-color: #fcfcfc;
+$panel-background-color: #f9f9f9;
 $panel-header-background-color: #ccc;
 $panel-header-font-color: #666;
 $panel-border-color: #999;
-$icon-font-color: #999;
+$icon-font-color: #666;
 $widget-font-color: #fff;
 $widget-font-shadow-color: rgba(0, 0, 0, 0.3);
 $widget-background-color: #888;
@@ -27,7 +27,10 @@ body {
   font: 2em/0.5em "Entypo";
   color: $icon-font-color;
   padding-right: 0.2em;
-  &.icon-stack:before { content: "\E736"; }
+  &.icon-close:before { content: "\274C"; }
+  &.icon-stack-inbox:before { content: "\1F4E5"; }
+  &.icon-stack-queue:before { content: "\1F4C4"; }
+  &.icon-stack-backlog:before { content: "\E736"; }
 }
 
 .screen {
@@ -89,7 +92,7 @@ body {
   bottom: 0;
   .avatar {
     display: inline-block;
-    vertical-align: top;
+    vertical-align: middle;
     width: 48px;
     height: 48px;
     border-radius: 24px;
@@ -97,7 +100,7 @@ body {
   }
   .controls {
     display: inline-block;
-    vertical-align: bottom;
+    vertical-align: middle;
     font-size: 13px;
   }
 }
@@ -156,16 +159,33 @@ body {
   .stack-card {
     cursor: pointer;
     border-bottom: 1px solid $panel-border-color;
+    background: #fff;
+    padding: 6px;
     &.dragging { cursor: move; }
-    .stack-card-body {
-      font-size: 14px;
-      padding: 6px;
-      border-left: 6px solid;
+    .card-top {
+      .title {
+        color: #000;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .handoff {
+        font-size: 11px;
+        color: #999;
+        em {
+          font-style: normal;
+          color: #666;
+        }
+      }
+      padding: 2px 6px;
+      border-left: 6px solid #999;
     }
-    &.bug { .stack-card-body { border-color: #f33; } }
-    &.feature { .stack-card-body { border-color: #3f3; } }
-    &.support { .stack-card-body { border-color: #33f; } }
-    &.todo { .stack-card-body { border-color: #3ff; } }
+    .card-bottom {
+      color: #333;
+      font-size: 12px;
+      padding-top: 6px;
+      margin-top: 6px;
+      border-top: 1px dotted #ccc;
+    }
   }
 }
 

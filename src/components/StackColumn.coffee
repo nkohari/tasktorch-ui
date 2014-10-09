@@ -30,8 +30,8 @@ StackColumn = React.createClass {
 
   render: ->
     style = {zIndex: 99 - @props.position}
-    Panel {title: @state.stack.name, className: 'stack', style, icon: 'stack', onClose: @handlePanelClose}, [
-      StackCardList {cards: @state.cards, openCards: @props.openCards, draggingCard: @props.draggingCard}
+    Panel {title: @state.stack.name, className: 'stack', style, icon: "stack-#{@state.stack.kind}", onClose: @handlePanelClose}, [
+      StackCardList {stack: @state.stack, cards: @state.cards, openCards: @props.openCards, draggingCard: @props.draggingCard}
     ]
 
   dataDidChange: (stack) ->

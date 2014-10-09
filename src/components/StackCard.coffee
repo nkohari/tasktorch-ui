@@ -1,11 +1,15 @@
-React        = require 'react/addons'
-Bus          = require '../Bus'
-TaskCardBody = require './cards/TaskCardBody'
-{div}        = React.DOM
-{classSet}   = React.addons
+React       = require 'react/addons'
+Bus         = require '../Bus'
+InboxCard   = require './cards/InboxCard'
+QueueCard   = require './cards/QueueCard'
+BacklogCard = require './cards/BacklogCard'
+{div}       = React.DOM
+{classSet}  = React.addons
 
-CardBodyClasses =
-  task: TaskCardBody
+CardBodyTypes =
+  backlog: BacklogCard
+  inbox:   InboxCard
+  queue:   QueueCard
 
 StackCard = React.createClass {
 
@@ -35,7 +39,7 @@ StackCard = React.createClass {
       onDragEnd:   @handleDragEnd
       onDragOver:  @handleDragOver
     }, [
-      CardBodyClasses[@state.card.type] {card: @state.card}
+      CardBodyTypes[@props.stack.kind] {card: @state.card}
     ]
 
   dataDidChange: (card) ->
