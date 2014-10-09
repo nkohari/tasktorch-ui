@@ -8,7 +8,7 @@ StackList = React.createClass {
 
   render: ->
     stacks = _.map @props.stacks, (stack) =>
-      StackListItem {stack, isOpen: _.contains(@props.openStacks, stack)}
+      StackListItem {key: "stack-list-#{stack.id}", stack, isOpen: _.contains(@props.openStacks, stack)}
     Panel {title: 'Stacks', className: 'stack-list'}, [
       ul {}, stacks
     ]

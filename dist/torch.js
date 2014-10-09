@@ -36028,6 +36028,7 @@ StackList = React.createClass({
     stacks = _.map(this.props.stacks, (function(_this) {
       return function(stack) {
         return StackListItem({
+          key: "stack-list-" + stack.id,
           stack: stack,
           isOpen: _.contains(_this.props.openStacks, stack)
         });
@@ -36396,7 +36397,7 @@ WorkspaceScreen = React.createClass({
       return function(stack) {
         return StackColumn({
           stack: stack,
-          key: stack.id,
+          key: "stack-" + stack.id,
           position: position++,
           openCards: _this.state.openCards,
           draggingCard: _this.state.draggingCard
@@ -36407,7 +36408,7 @@ WorkspaceScreen = React.createClass({
       return function(card) {
         return CardDetail({
           card: card,
-          key: card.id,
+          key: "card-" + card.id,
           position: position++
         });
       };

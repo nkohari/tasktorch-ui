@@ -44,9 +44,9 @@ WorkspaceScreen = React.createClass {
   getOpenPanels: ->
     position = 0
     stackPanels = _.map @state.openStacks, (stack) =>
-      StackColumn {stack, key: stack.id, position: position++, openCards: @state.openCards, draggingCard: @state.draggingCard}
+      StackColumn {stack, key: "stack-#{stack.id}", position: position++, openCards: @state.openCards, draggingCard: @state.draggingCard}
     cardPanels = _.map @state.openCards, (card) =>
-      CardDetail {card, key: card.id, position: position++}
+      CardDetail {card, key: "card-#{card.id}", position: position++}
     return stackPanels.concat(cardPanels)
 
   startDraggingCard: (card) ->

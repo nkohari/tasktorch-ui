@@ -12,9 +12,10 @@ body {
 .icon {
   display: inline-block;
   vertical-align: middle;
-  font: 2em/0.5em "Entypo";
+  font: 2.2em/0.5em "Entypo";
   color: #666666;
-  padding-right: 0.2em; }
+  width: 0.75em;
+  text-align: center; }
   .icon.icon-close:before {
     content: "\274C"; }
   .icon.icon-stack-inbox:before {
@@ -103,7 +104,8 @@ body {
     padding: 5px;
     border-bottom: 1px solid #999999; }
     .panel .header .title {
-      display: inline-block; }
+      display: inline-block;
+      padding-left: 0.2em; }
     .panel .header .close {
       float: right;
       cursor: pointer; }
@@ -124,6 +126,8 @@ body {
       background: #fff;
       border-bottom: 1px solid #999999;
       transition: border 0.1s ease-in-out; }
+      .stack-list ul .stack-list-item .stack-name {
+        padding-left: 0.2em; }
       .stack-list ul .stack-list-item.active {
         border-left: 6px solid #999999; }
       .stack-list ul .stack-list-item .stack-card-count {
