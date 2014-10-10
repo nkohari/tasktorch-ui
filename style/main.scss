@@ -3,12 +3,17 @@ $panel-background-color: #f9f9f9;
 $panel-header-background-color: #ccc;
 $panel-header-font-color: #666;
 $panel-border-color: #999;
+$action-bar-background-color: #ddd;
+$action-bar-button-color: #ccc;
+$action-bar-border-color: #999;
+$action-bar-font-color: #666;
 $icon-font-color: #666;
-$widget-font-color: #fff;
-$widget-font-shadow-color: rgba(0, 0, 0, 0.3);
-$widget-background-color: #888;
-$widget-border-color: #999;
+$navigation-font-color: #fff;
+$navigation-font-shadow-color: rgba(0, 0, 0, 0.3);
+$navigation-background-color: #888;
+$navigation-border-color: #666;
 $sidebar-width: 200px;
+$active-marker-color: #ccc;
 
 body {
   font-family: "Open Sans";
@@ -16,6 +21,8 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
+  background: url(/dist/background.jpg);
+  overflow: hidden;
 }
 
 @font-face {
@@ -34,6 +41,9 @@ body {
   &.icon-stack-inbox:before { content: "\1F4E5"; }
   &.icon-stack-queue:before { content: "\1F4C4"; }
   &.icon-stack-backlog:before { content: "\E736"; }
+  &.icon-accept:before { content: "\1F44D"; }
+  &.icon-hand-back:before { content: "\E712"; }
+  &.icon-hand-off:before { content: "\27A6"; }
 }
 
 .screen {
@@ -41,6 +51,29 @@ body {
   width: 100vw;
   margin: 0;
   padding: 0;
+  overflow: hidden;
+}
+
+.navigation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 32px;
+  width: 100%;
+  color: $navigation-font-color;
+  background: $navigation-background-color;
+  border-bottom: 1px solid $navigation-border-color;
+  padding: 4px 10px;
+  z-index: 9999;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.main {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  height: 100%;
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
@@ -57,6 +90,31 @@ body {
     background-clip: content-box;
     border: 4px solid rgba(255, 255, 255, 0);
     border-radius: 16px;
+  }  
+}
+
+.organization.widget {
+  font-size: 18px;
+  font-weight: 400;
+  text-shadow: 2px 2px $navigation-font-shadow-color;
+}
+
+.user.widget {
+  position: absolute;
+  top: 0;
+  right: 0;
+  .avatar {
+    display: inline-block;
+    vertical-align: middle;
+    width: 32px;
+    height: 32px;
+    border-radius: 24px;
+    margin-right: 10px;
+  }
+  .controls {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 13px;
   }
 }
 
@@ -75,39 +133,6 @@ body {
   z-index: 1000;
 }
 
-.widget {
-  width: $sidebar-width - 20px;
-  color: $widget-font-color;
-  background: $widget-background-color;
-  border-right: 1px solid $widget-border-color;
-  padding: 10px;
-}
-
-.organization.widget {
-  font-size: 18px;
-  font-weight: 400;
-  text-shadow: 2px 2px $widget-font-shadow-color;
-}
-
-.user.widget {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  .avatar {
-    display: inline-block;
-    vertical-align: middle;
-    width: 48px;
-    height: 48px;
-    border-radius: 24px;
-    margin-right: 10px;
-  }
-  .controls {
-    display: inline-block;
-    vertical-align: middle;
-    font-size: 13px;
-  }
-}
-
 .panel {
   @include flow;
   border-right: 1px solid $panel-border-color;
@@ -115,6 +140,7 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   white-space: normal;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   .header {
     font-size: 13px;
     font-weight: 600;
@@ -153,7 +179,7 @@ body {
       text-decoration: none;
       .stack-name { padding-left: 0.2em; }
       &.active {
-        border-left: 6px solid $panel-border-color;
+        border-right: 4px solid $active-marker-color;
       }
       transition: border 0.1s ease-in-out;
       .stack-card-count {
@@ -171,42 +197,94 @@ body {
   .card-list {
     margin: 0;
     padding: 0;
-    .stack-card {
-      cursor: pointer;
-      border-bottom: 1px solid $panel-border-color;
-      background: #fff;
-      padding: 6px;
-      &.dragging { cursor: move; }
-      .card-top {
-        .title {
-          color: #000;
-          font-size: 14px;
-          font-weight: 600;
-        }
-        .handoff {
-          font-size: 11px;
-          color: #999;
-          em {
-            font-style: normal;
-            color: #666;
-          }
-        }
-        padding: 2px 6px;
-        border-left: 6px solid #999;
-      }
-      .card-bottom {
-        color: #333;
-        font-size: 12px;
-        padding-top: 6px;
-        margin-top: 6px;
-        border-top: 1px dotted #ccc;
-      }
-    }
   }
 }
 
+.stack-card {
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: grab;
+  border-bottom: 1px solid $panel-border-color;
+  background: #fff;
+  padding: 6px 10px;
+  &.dragging {
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+    cursor: grabbing;
+  }
+  &.active {
+    border-right: 4px solid $active-marker-color;
+  }
+  transition: border 0.1s ease-in-out;  
+  .card-top {
+    .title {
+      color: #000;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .handoff {
+      font-size: 11px;
+      color: #999;
+      em {
+        font-style: normal;
+        color: #666;
+      }
+    }
+    padding: 2px 6px;
+    border-left: 6px solid #999;
+  }
+  .card-bottom {
+    color: #333;
+    font-size: 12px;
+    padding-top: 6px;
+    margin-top: 6px;
+    border-top: 1px dotted #ccc;
+  }
+}
+
+
 .card {
   width: 600px;
+  background: #fff;
+  .action-bar {
+    width: 100%;
+    background: $action-bar-background-color;
+    border-bottom: 1px solid $panel-border-color;
+    padding: 10px;
+    margin-bottom: 10px;
+    button {
+      display: inline-block;
+      margin-right: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 4px 8px;
+      color: $action-bar-font-color;
+      background: $action-bar-button-color;
+      border: 1px solid $action-bar-border-color;
+    }
+  }
+  .card-header {
+    .title {
+      color: #000;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .handoff {
+      font-size: 12px;
+      color: #999;
+      em {
+        font-style: normal;
+        color: #666;
+      }
+    }
+    padding: 10px;
+    margin: 10px;
+    border-left: 6px solid #999;
+  }
+  .card-body {
+    margin: 10px;
+    font-size: 14px;
+  }
 }
 
 .panel-slide-enter {

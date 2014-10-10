@@ -9,7 +9,7 @@ PanelHeader = React.createClass {
   render: ->
     children = []
     children.push(@createIcon()) if @props.icon?
-    children.push(span {className: 'title'}, [@props.title])
+    children.push(span {className: 'title'}, [@props.panelTitle])
     children.push(@createCloseButton(@props.close)) if @props.close?
     div {className: 'header'}, children
 

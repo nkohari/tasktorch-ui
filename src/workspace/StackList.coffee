@@ -9,7 +9,7 @@ StackList = React.createClass {
   render: ->
     stacks = _.map @props.stacks, (stack) =>
       StackListItem {key: "stack-list-#{stack.id}", stack}
-    Panel {title: 'Stacks', className: 'stack-list'}, [
+    Panel {panelTitle: 'Stacks', className: 'stack-list'}, [
       ul {}, stacks
     ]
 

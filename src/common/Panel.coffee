@@ -5,7 +5,7 @@ PanelHeader = require './PanelHeader'
 Panel = React.createClass {
 
   render: ->
-    header = PanelHeader {title: @props.title, icon: @props.icon, close: @props.close}
+    header = PanelHeader {panelTitle: @props.panelTitle, icon: @props.icon, close: @props.close}
     panel  = div {className: 'panel'}, [header].concat(@props.children)
     @transferPropsTo(panel)
 

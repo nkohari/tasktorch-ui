@@ -7,8 +7,7 @@ UserWidget = React.createClass {
 
   render: ->
     div {className: 'user widget'}, [
-      Avatar {user: @props.user}
-      div {className: 'controls'}, [@props.user.name]
+      Avatar {user: @props.user, size: 32}
     ]
 
 }

@@ -18,11 +18,17 @@ class WorkspaceViewState
   removeStack: (stackId) ->
     @stacks = _.without(@stacks, stackId)
 
+  isStackActive: (stackId) ->
+    _.contains(@stacks, stackId)
+
   addCard: (cardId) ->
     @cards.push(cardId) unless _.contains(@cards, cardId)
 
   removeCard: (cardId) ->
     @cards = _.without(@cards, cardId)
+
+  isCardActive: (cardId) ->
+    _.contains(@cards, cardId)
 
   makeLinkProps: ->
     params = {@organizationId}

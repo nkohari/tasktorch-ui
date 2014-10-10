@@ -2,6 +2,7 @@ _                  = require 'lodash'
 React              = require 'react/addons'
 Router             = require 'react-router'
 Api                = require '../Api'
+NavigationBar      = require '../common/NavigationBar'
 PanelGroup         = require '../common/PanelGroup'
 WorkspaceSidebar   = require './WorkspaceSidebar'
 WorkspaceViewState = require './WorkspaceViewState'
@@ -36,9 +37,16 @@ WorkspaceScreen = React.createClass {
     window.Screen = undefined
 
   render: ->
+
+    unless @state.organization?
+      return div {className: 'workspace screen loading'}, []
+
     div {className: 'workspace screen'}, [
-      WorkspaceSidebar {user: @state.user, organization: @state.organization, stacks: @state.stacks, teams: @state.teams, openStacks: @state.openStacks}
-      PanelGroup {}, @getActivePanels()
+      NavigationBar {organization: @state.organization, user: @state.user}
+      div {className: 'main'}, [
+        WorkspaceSidebar {stacks: @state.stacks, teams: @state.teams}
+        PanelGroup {}, @getActivePanels()
+      ]
     ]
 
   getActivePanels: ->
@@ -55,14 +63,6 @@ WorkspaceScreen = React.createClass {
 
   stopDraggingCard: ->
     @setState {draggingCard: undefined}
-
-  openStack: (stackId) ->
-
-  closeStack: (stackId) ->
-
-  openCard: (card) ->
-
-  closeCard: (card) ->
 
 }
 

@@ -36,7 +36,7 @@ StackPanel = React.createClass {
       StackCardFrame {stack: @state.stack, cardId: card.id, card}
 
     style = {zIndex: 99 - @props.position}
-    Panel {title: @state.stack.name, className: 'stack', style, icon: "stack-#{@state.stack.kind}", close: @makeCloseLinkProps()}, [
+    Panel {panelTitle: @state.stack.name, className: 'stack', style, icon: "stack-#{@state.stack.kind}", close: @makeCloseLinkProps()}, [
       ul {className: 'card-list'}, cards
     ]
 

@@ -4,6 +4,9 @@ Api                = require '../Api'
 Bus                = require '../Bus'
 Panel              = require '../common/Panel'
 WorkspaceViewState = require './WorkspaceViewState'
+CardActionBar      = require './CardActionBar'
+CardHeader         = require './CardHeader'
+CardBody           = require './CardBody'
 
 CardPanel = React.createClass {
 
@@ -25,16 +28,15 @@ CardPanel = React.createClass {
         @setState {card}
     Bus.cards.subscribe(this)
 
-  componentDidMount: ->
-    @getDOMNode().scrollIntoView()
-
   componentWillUnmount: ->
     Bus.cards.subscribe(this)
 
   render: ->
     style = {zIndex: 99 - @props.position}
-    Panel {title: @state.card.title, className: 'card', style, close: @makeCloseLinkProps()}, [
-      @state.card.body
+    Panel {panelTitle: @state.card.title, className: 'card', style, close: @makeCloseLinkProps()}, [
+      CardActionBar {card: @state.card}
+      CardHeader {card: @state.card}
+      CardBody {card: @state.card}
     ]
 
   makeCloseLinkProps: ->

@@ -8,7 +8,7 @@ WorkspaceViewState = require './WorkspaceViewState'
 {div}              = React.DOM
 {classSet}         = React.addons
 
-CardBodyTypes =
+CardTypes =
   backlog: BacklogCard
   inbox:   InboxCard
   queue:   QueueCard
@@ -18,7 +18,7 @@ StackCardFrame = React.createClass {
   mixins: [Router.ActiveState, Router.Navigation]
 
   getInitialState: ->
-    {card: {}}
+    {card: {}, dragging: false}
 
   componentWillReceiveProps: (newProps) ->
     @setState {card: newProps.card}
@@ -32,8 +32,12 @@ StackCardFrame = React.createClass {
 
   render: ->
 
-    classes = {'stack-card': true}
-    classes[@state.card.type] = true
+    viewState = new WorkspaceViewState(this)
+
+    classes = 
+      'stack-card': true
+      dragging:     @state.dragging
+      active:       viewState.isCardActive(@props.cardId)
 
     div {
       className:   classSet(classes)
@@ -43,7 +47,7 @@ StackCardFrame = React.createClass {
       onDragEnd:   @handleDragEnd
       onDragOver:  @handleDragOver
     }, [
-      CardBodyTypes[@props.stack.kind] {card: @state.card}
+      CardTypes[@props.stack.kind] {card: @state.card}
     ]
 
   dataDidChange: (card) ->
@@ -56,18 +60,20 @@ StackCardFrame = React.createClass {
     @transitionTo(props.to, props.params, props.query)
 
   handleDragStart: (event) ->
+    @setState {dragging: true}
     event.dataTransfer.effectAllowed = 'move'
-    @props.dragDrop.start(@state.card)
+    console.log("drag started #{@state.card.id}")
 
   handleDragEnd: ->
-    @props.dragDrop.stop()
+    @setState {dragging: false}
+    console.log("drag stopped #{@state.card.id}")
 
   handleDragOver: (event) ->
     event.preventDefault()
     target = event.currentTarget
     rect = target.getBoundingClientRect()
     isAppending = event.clientY - rect.top > target.offsetHeight / 2
-    @props.dragDrop.hover(@state.card, isAppending)
+    console.log("drag over #{@state.card.id}, isAppending = #{isAppending}")
 
 }
 
