@@ -2,7 +2,9 @@ _                  = require 'lodash'
 React              = require 'react/addons'
 Router             = require 'react-router'
 Api                = require '../Api'
+Presence           = require '../Presence'
 NavigationBar      = require '../common/NavigationBar'
+PresenceBar        = require '../common/PresenceBar'
 PanelGroup         = require '../common/PanelGroup'
 WorkspaceSidebar   = require './WorkspaceSidebar'
 WorkspaceViewState = require './WorkspaceViewState'
@@ -21,19 +23,22 @@ WorkspaceScreen = React.createClass {
       types:        []
       teams:        []
       stacks:       {inbox: undefined, queue: undefined, backlog: []}
-      activeItems:  {stacks: [], cards: []}
+      channel:      undefined
       draggingCard: undefined
     }
 
   componentWillMount: ->
     window.Screen = this
     {organizationId} = @getActiveParams()
+    channel = Presence.subscribe(organizationId)
+    @setState {channel}
     Api.getMyWorkspace organizationId, (res) =>
       return @transitionTo('login') if res.unauthorized
       {user, organization, types, teams, stacks} = res.body
       @setState {user, organization, types, teams, stacks}
 
   componentWillUnmount: ->
+    @state.channel.unsubscribe() if @state.channel?
     window.Screen = undefined
 
   render: ->
@@ -42,11 +47,12 @@ WorkspaceScreen = React.createClass {
       return div {className: 'workspace screen loading'}, []
 
     div {className: 'workspace screen'}, [
-      NavigationBar {organization: @state.organization, user: @state.user}
-      div {className: 'main'}, [
+      NavigationBar {key: 'navigation-bar', organization: @state.organization, user: @state.user}
+      div {key: 'main', className: 'main'}, [
         WorkspaceSidebar {stacks: @state.stacks, teams: @state.teams}
         PanelGroup {}, @getActivePanels()
       ]
+      PresenceBar {key: 'presence-bar', user: @state.user, channel: @state.channel}
     ]
 
   getActivePanels: ->

@@ -20,7 +20,7 @@ class Api
       callback(null, res.body)
 
   getCard: (organizationId, cardId, callback) ->
-    request.get "/api/#{organizationId}/cards/#{cardId}", (res) =>
+    request.get "/api/#{organizationId}/cards/#{cardId}?expand=type", (res) =>
       callback(null, res.body)
 
 module.exports = new Api()

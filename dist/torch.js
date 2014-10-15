@@ -35438,7 +35438,7 @@ Api = (function() {
   };
 
   Api.prototype.getCard = function(organizationId, cardId, callback) {
-    return request.get("/api/" + organizationId + "/cards/" + cardId, (function(_this) {
+    return request.get("/api/" + organizationId + "/cards/" + cardId + "?expand=type", (function(_this) {
       return function(res) {
         return callback(null, res.body);
       };
@@ -35490,7 +35490,7 @@ React.renderComponent(routes, document.body);
 
 
 
-},{"./common/RedirectToLastWorkspace":239,"./login/LoginScreen":241,"./workspace/WorkspaceScreen":250,"react":"M6d2gk","react-router":33}],229:[function(require,module,exports){
+},{"./common/RedirectToLastWorkspace":241,"./login/LoginScreen":243,"./workspace/WorkspaceScreen":252,"react":"M6d2gk","react-router":33}],229:[function(require,module,exports){
 (function (global){
 var Channel;
 
@@ -35542,6 +35542,48 @@ module.exports = Channel;
 
 
 },{"lodash":23}],231:[function(require,module,exports){
+(function (global){
+var Presence, _;
+
+_ = require('lodash');
+
+Presence = (function() {
+  function Presence() {
+    this.pusher = new Pusher('9bc5b19ceaf8c59adcea', {
+      authEndpoint: '/api/_auth/presence',
+      encrypted: true
+    });
+    this.pusher.log = function(msg) {
+      return console.log(msg);
+    };
+  }
+
+  Presence.prototype.subscribe = function(organizationId) {
+    if (this.channel != null) {
+      this.pusher.unsubscribe();
+    }
+    return this.channel = this.pusher.subscribe("presence-" + organizationId);
+  };
+
+  Presence.prototype.unsubscribe = function() {
+    this.pusher.unsubscribe();
+    return this.channel = void 0;
+  };
+
+  Presence.prototype.getConnectedUsers = function() {
+    return _.pluck(this.channel.members, 'info');
+  };
+
+  return Presence;
+
+})();
+
+global.Presence = module.exports = new Presence();
+
+
+
+}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"lodash":23}],232:[function(require,module,exports){
 var Avatar, React, crypto, img;
 
 crypto = require('crypto');
@@ -35565,9 +35607,7 @@ Avatar = React.createClass({
     }, []);
   },
   getImageUrl: function() {
-    var hash;
-    hash = crypto.createHash('md5').update(this.props.user.emails[0]).digest('hex');
-    return "https://www.gravatar.com/avatar/" + hash + "?s=" + this.props.size;
+    return "" + this.props.user.avatarUrl + "?s=" + this.props.size;
   }
 });
 
@@ -35575,7 +35615,7 @@ module.exports = Avatar;
 
 
 
-},{"crypto":8,"react":"M6d2gk"}],232:[function(require,module,exports){
+},{"crypto":8,"react":"M6d2gk"}],233:[function(require,module,exports){
 var Button, Icon, React, button;
 
 React = require('react');
@@ -35600,7 +35640,7 @@ module.exports = Button;
 
 
 
-},{"./Icon":233,"react":"M6d2gk"}],233:[function(require,module,exports){
+},{"./Icon":234,"react":"M6d2gk"}],234:[function(require,module,exports){
 var Icon, React, span;
 
 React = require('react');
@@ -35619,7 +35659,7 @@ module.exports = Icon;
 
 
 
-},{"react":"M6d2gk"}],234:[function(require,module,exports){
+},{"react":"M6d2gk"}],235:[function(require,module,exports){
 var NavigationBar, OrganizationSelector, React, UserWidget, div;
 
 React = require('react');
@@ -35648,7 +35688,7 @@ module.exports = NavigationBar;
 
 
 
-},{"./OrganizationSelector":235,"./UserWidget":240,"react":"M6d2gk"}],235:[function(require,module,exports){
+},{"./OrganizationSelector":236,"./UserWidget":242,"react":"M6d2gk"}],236:[function(require,module,exports){
 var OrganizationSelector, React, div;
 
 React = require('react');
@@ -35667,7 +35707,7 @@ module.exports = OrganizationSelector;
 
 
 
-},{"react":"M6d2gk"}],236:[function(require,module,exports){
+},{"react":"M6d2gk"}],237:[function(require,module,exports){
 var Panel, PanelHeader, React, div;
 
 React = require('react/addons');
@@ -35695,16 +35735,20 @@ module.exports = Panel;
 
 
 
-},{"./PanelHeader":238,"react/addons":63}],237:[function(require,module,exports){
-var CSSTransitionGroup, PanelGroup, React;
+},{"./PanelHeader":239,"react/addons":63}],238:[function(require,module,exports){
+var CSSTransitionGroup, PanelGroup, React, div;
 
 React = require('react/addons');
+
+div = React.DOM.div;
 
 CSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 PanelGroup = React.createClass({
   render: function() {
     return CSSTransitionGroup({
+      component: div,
+      className: 'panel-group',
       transitionName: 'panel-slide'
     }, this.props.children);
   }
@@ -35714,7 +35758,7 @@ module.exports = PanelGroup;
 
 
 
-},{"react/addons":63}],238:[function(require,module,exports){
+},{"react/addons":63}],239:[function(require,module,exports){
 var Icon, Link, PanelHeader, React, div, span, _, _ref;
 
 React = require('react');
@@ -35765,7 +35809,67 @@ module.exports = PanelHeader;
 
 
 
-},{"./Icon":233,"lodash":23,"react":"M6d2gk","react-router":33}],239:[function(require,module,exports){
+},{"./Icon":234,"lodash":23,"react":"M6d2gk","react-router":33}],240:[function(require,module,exports){
+var PresenceBar, React, UserWidget, div, _;
+
+React = require('react');
+
+_ = require('lodash');
+
+UserWidget = require('./UserWidget');
+
+div = React.DOM.div;
+
+PresenceBar = React.createClass({
+  getInitialState: function() {
+    return {
+      connectedUsers: []
+    };
+  },
+  componentWillReceiveProps: function(newProps) {
+    if (newProps.channel != null) {
+      return this.bindPresenceEvents(newProps.channel);
+    }
+  },
+  componentWillMount: function() {
+    if (this.props.channel != null) {
+      return this.bindPresenceEvents(this.props.channel);
+    }
+  },
+  render: function() {
+    var users;
+    users = _.map(this.state.connectedUsers, function(user) {
+      return UserWidget({
+        user: user
+      });
+    });
+    return div({
+      className: 'presence'
+    }, users);
+  },
+  bindPresenceEvents: function(channel) {
+    channel.bind('pusher:subscription_succeeded', this.handlePresenceChange);
+    channel.bind('pusher:member_added', this.handlePresenceChange);
+    return channel.bind('pusher:member_removed', this.handlePresenceChange);
+  },
+  handlePresenceChange: function() {
+    var connectedUsers;
+    connectedUsers = [];
+    this.props.channel.members.each(function(member) {
+      return connectedUsers.push(member.info);
+    });
+    console.log(connectedUsers);
+    return this.setState({
+      connectedUsers: connectedUsers
+    });
+  }
+});
+
+module.exports = PresenceBar;
+
+
+
+},{"./UserWidget":242,"lodash":23,"react":"M6d2gk"}],241:[function(require,module,exports){
 var React, RedirectToLastWorkspace;
 
 React = require('react');
@@ -35787,7 +35891,7 @@ module.exports = RedirectToLastWorkspace;
 
 
 
-},{"react":"M6d2gk"}],240:[function(require,module,exports){
+},{"react":"M6d2gk"}],242:[function(require,module,exports){
 var Avatar, React, UserWidget, div, _;
 
 _ = require('lodash');
@@ -35815,7 +35919,7 @@ module.exports = UserWidget;
 
 
 
-},{"./Avatar":231,"lodash":23,"react":"M6d2gk"}],241:[function(require,module,exports){
+},{"./Avatar":232,"lodash":23,"react":"M6d2gk"}],243:[function(require,module,exports){
 var Api, LoginScreen, React, Router, button, div, input, request, _, _ref;
 
 _ = require('lodash');
@@ -35887,7 +35991,7 @@ module.exports = LoginScreen;
 
 
 
-},{"../Api":227,"lodash":23,"react-router":33,"react/addons":63,"superagent":224}],242:[function(require,module,exports){
+},{"../Api":227,"lodash":23,"react-router":33,"react/addons":63,"superagent":224}],244:[function(require,module,exports){
 var Button, CardActionBar, React, div;
 
 React = require('react');
@@ -35919,7 +36023,7 @@ module.exports = CardActionBar;
 
 
 
-},{"../common/Button":232,"react":"M6d2gk"}],243:[function(require,module,exports){
+},{"../common/Button":233,"react":"M6d2gk"}],245:[function(require,module,exports){
 var CardBody, React, div;
 
 React = require('react');
@@ -35938,7 +36042,7 @@ module.exports = CardBody;
 
 
 
-},{"react":"M6d2gk"}],244:[function(require,module,exports){
+},{"react":"M6d2gk"}],246:[function(require,module,exports){
 var CardHeader, React, div, em, _ref;
 
 React = require('react');
@@ -35966,7 +36070,7 @@ module.exports = CardHeader;
 
 
 
-},{"react":"M6d2gk"}],245:[function(require,module,exports){
+},{"react":"M6d2gk"}],247:[function(require,module,exports){
 var Api, Bus, CardActionBar, CardBody, CardHeader, CardPanel, Panel, React, Router, WorkspaceViewState;
 
 React = require('react');
@@ -36061,7 +36165,7 @@ module.exports = CardPanel;
 
 
 
-},{"../Api":227,"../Bus":229,"../common/Panel":236,"./CardActionBar":242,"./CardBody":243,"./CardHeader":244,"./WorkspaceViewState":252,"react":"M6d2gk","react-router":33}],246:[function(require,module,exports){
+},{"../Api":227,"../Bus":229,"../common/Panel":237,"./CardActionBar":244,"./CardBody":245,"./CardHeader":246,"./WorkspaceViewState":254,"react":"M6d2gk","react-router":33}],248:[function(require,module,exports){
 var BacklogCard, Bus, CardTypes, InboxCard, QueueCard, React, Router, StackCardFrame, WorkspaceViewState, classSet, div;
 
 React = require('react/addons');
@@ -36172,7 +36276,7 @@ module.exports = StackCardFrame;
 
 
 
-},{"../Bus":229,"./WorkspaceViewState":252,"./cards/BacklogCard":253,"./cards/InboxCard":254,"./cards/QueueCard":255,"react-router":33,"react/addons":63}],247:[function(require,module,exports){
+},{"../Bus":229,"./WorkspaceViewState":254,"./cards/BacklogCard":255,"./cards/InboxCard":256,"./cards/QueueCard":257,"react-router":33,"react/addons":63}],249:[function(require,module,exports){
 var Panel, React, StackList, StackListItem, ul, _;
 
 _ = require('lodash');
@@ -36207,7 +36311,7 @@ module.exports = StackList;
 
 
 
-},{"../common/Panel":236,"./StackListItem":248,"lodash":23,"react":"M6d2gk"}],248:[function(require,module,exports){
+},{"../common/Panel":237,"./StackListItem":250,"lodash":23,"react":"M6d2gk"}],250:[function(require,module,exports){
 var Icon, Link, React, Router, StackListItem, WorkspaceViewState, classSet, li, span, _, _ref;
 
 _ = require('lodash');
@@ -36270,7 +36374,7 @@ module.exports = StackListItem;
 
 
 
-},{"../common/Icon":233,"./WorkspaceViewState":252,"lodash":23,"react-router":33,"react/addons":63}],249:[function(require,module,exports){
+},{"../common/Icon":234,"./WorkspaceViewState":254,"lodash":23,"react-router":33,"react/addons":63}],251:[function(require,module,exports){
 var Api, Bus, Panel, React, Router, StackCardFrame, StackPanel, WorkspaceViewState, ul, _;
 
 _ = require('lodash');
@@ -36367,8 +36471,8 @@ module.exports = StackPanel;
 
 
 
-},{"../Api":227,"../Bus":229,"../common/Panel":236,"./StackCardFrame":246,"./WorkspaceViewState":252,"lodash":23,"react":"M6d2gk","react-router":33}],250:[function(require,module,exports){
-var Api, CardPanel, NavigationBar, PanelGroup, React, Router, StackPanel, WorkspaceScreen, WorkspaceSidebar, WorkspaceViewState, div, _;
+},{"../Api":227,"../Bus":229,"../common/Panel":237,"./StackCardFrame":248,"./WorkspaceViewState":254,"lodash":23,"react":"M6d2gk","react-router":33}],252:[function(require,module,exports){
+var Api, CardPanel, NavigationBar, PanelGroup, Presence, PresenceBar, React, Router, StackPanel, WorkspaceScreen, WorkspaceSidebar, WorkspaceViewState, div, _;
 
 _ = require('lodash');
 
@@ -36378,7 +36482,11 @@ Router = require('react-router');
 
 Api = require('../Api');
 
+Presence = require('../Presence');
+
 NavigationBar = require('../common/NavigationBar');
+
+PresenceBar = require('../common/PresenceBar');
 
 PanelGroup = require('../common/PanelGroup');
 
@@ -36405,17 +36513,18 @@ WorkspaceScreen = React.createClass({
         queue: void 0,
         backlog: []
       },
-      activeItems: {
-        stacks: [],
-        cards: []
-      },
+      channel: void 0,
       draggingCard: void 0
     };
   },
   componentWillMount: function() {
-    var organizationId;
+    var channel, organizationId;
     window.Screen = this;
     organizationId = this.getActiveParams().organizationId;
+    channel = Presence.subscribe(organizationId);
+    this.setState({
+      channel: channel
+    });
     return Api.getMyWorkspace(organizationId, (function(_this) {
       return function(res) {
         var organization, stacks, teams, types, user, _ref;
@@ -36434,6 +36543,9 @@ WorkspaceScreen = React.createClass({
     })(this));
   },
   componentWillUnmount: function() {
+    if (this.state.channel != null) {
+      this.state.channel.unsubscribe();
+    }
     return window.Screen = void 0;
   },
   render: function() {
@@ -36446,16 +36558,22 @@ WorkspaceScreen = React.createClass({
       className: 'workspace screen'
     }, [
       NavigationBar({
+        key: 'navigation-bar',
         organization: this.state.organization,
         user: this.state.user
       }), div({
+        key: 'main',
         className: 'main'
       }, [
         WorkspaceSidebar({
           stacks: this.state.stacks,
           teams: this.state.teams
         }), PanelGroup({}, this.getActivePanels())
-      ])
+      ]), PresenceBar({
+        key: 'presence-bar',
+        user: this.state.user,
+        channel: this.state.channel
+      })
     ]);
   },
   getActivePanels: function() {
@@ -36498,7 +36616,7 @@ module.exports = WorkspaceScreen;
 
 
 
-},{"../Api":227,"../common/NavigationBar":234,"../common/PanelGroup":237,"./CardPanel":245,"./StackPanel":249,"./WorkspaceSidebar":251,"./WorkspaceViewState":252,"lodash":23,"react-router":33,"react/addons":63}],251:[function(require,module,exports){
+},{"../Api":227,"../Presence":231,"../common/NavigationBar":235,"../common/PanelGroup":238,"../common/PresenceBar":240,"./CardPanel":247,"./StackPanel":251,"./WorkspaceSidebar":253,"./WorkspaceViewState":254,"lodash":23,"react-router":33,"react/addons":63}],253:[function(require,module,exports){
 var Panel, React, StackList, WorkspaceSidebar, div, _;
 
 _ = require('lodash');
@@ -36528,7 +36646,7 @@ module.exports = WorkspaceSidebar;
 
 
 
-},{"../common/Panel":236,"./StackList":247,"lodash":23,"react":"M6d2gk"}],252:[function(require,module,exports){
+},{"../common/Panel":237,"./StackList":249,"lodash":23,"react":"M6d2gk"}],254:[function(require,module,exports){
 var WorkspaceViewState, _;
 
 _ = require('lodash');
@@ -36598,7 +36716,7 @@ module.exports = WorkspaceViewState;
 
 
 
-},{"lodash":23}],253:[function(require,module,exports){
+},{"lodash":23}],255:[function(require,module,exports){
 var BacklogCard, React, div;
 
 React = require('react');
@@ -36623,7 +36741,7 @@ module.exports = BacklogCard;
 
 
 
-},{"react":"M6d2gk"}],254:[function(require,module,exports){
+},{"react":"M6d2gk"}],256:[function(require,module,exports){
 var InboxCard, React, div, em, _ref;
 
 React = require('react');
@@ -36654,7 +36772,7 @@ module.exports = InboxCard;
 
 
 
-},{"react":"M6d2gk"}],255:[function(require,module,exports){
+},{"react":"M6d2gk"}],257:[function(require,module,exports){
 var QueueCard, React, div, em, _ref;
 
 React = require('react');
@@ -36685,4 +36803,4 @@ module.exports = QueueCard;
 
 
 
-},{"react":"M6d2gk"}]},{},[227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255]);
+},{"react":"M6d2gk"}]},{},[227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257]);

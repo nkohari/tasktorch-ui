@@ -1,10 +1,11 @@
 React = require 'react/addons'
+{div} = React.DOM
 {CSSTransitionGroup} = React.addons
 
 PanelGroup = React.createClass {
 
   render: ->
-    CSSTransitionGroup {transitionName: 'panel-slide'}, @props.children
+    CSSTransitionGroup {component: div, className: 'panel-group', transitionName: 'panel-slide'}, @props.children
 
 }
 

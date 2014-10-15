@@ -11,8 +11,7 @@ Avatar = React.createClass {
     img {className: "avatar", src: @getImageUrl(), alt: @props.user.name}, []
 
   getImageUrl: ->
-    hash = crypto.createHash('md5').update(@props.user.emails[0]).digest('hex')
-    return "https://www.gravatar.com/avatar/#{hash}?s=#{@props.size}"
+    return "#{@props.user.avatarUrl}?s=#{@props.size}"
 
 }
 
