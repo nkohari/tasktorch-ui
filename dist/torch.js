@@ -36197,7 +36197,8 @@ StackCardFrame = React.createClass({
   getInitialState: function() {
     return {
       card: {},
-      dragging: false
+      dragging: false,
+      hovering: false
     };
   },
   componentWillReceiveProps: function(newProps) {
@@ -36220,15 +36221,18 @@ StackCardFrame = React.createClass({
     classes = {
       'stack-card': true,
       dragging: this.state.dragging,
+      hovering: this.state.hovering,
       active: viewState.isCardActive(this.props.cardId)
     };
     return div({
       className: classSet(classes),
       draggable: true,
+      'aria-grabbed': this.state.dragging,
       onClick: this.handleClick,
       onDragStart: this.handleDragStart,
       onDragEnd: this.handleDragEnd,
-      onDragOver: this.handleDragOver
+      onDragOver: this.handleDragOver,
+      onDragLeave: this.handleDragLeave
     }, [
       CardTypes[this.props.stack.kind]({
         card: this.state.card
@@ -36250,26 +36254,31 @@ StackCardFrame = React.createClass({
     return this.transitionTo(props.to, props.params, props.query);
   },
   handleDragStart: function(event) {
+    event.dataTransfer.effectAllowed = 'move';
+    event.dataTransfer.setData('text', '');
     this.setState({
       dragging: true
     });
-    event.dataTransfer.effectAllowed = 'move';
-    return console.log("drag started " + this.state.card.id);
+    Screen.startDraggingCard(this.state.card, this.props.index);
+    return console.log("started dragging");
   },
   handleDragEnd: function() {
     this.setState({
-      dragging: false
+      dragging: false,
+      hovering: false
     });
-    return console.log("drag stopped " + this.state.card.id);
+    Screen.stopDraggingCard();
+    return console.log("stopped dragging");
   },
   handleDragOver: function(event) {
-    var isAppending, rect, target;
-    event.preventDefault();
-    target = event.currentTarget;
-    rect = target.getBoundingClientRect();
-    isAppending = event.clientY - rect.top > target.offsetHeight / 2;
-    return console.log("drag over " + this.state.card.id + ", isAppending = " + isAppending);
-  }
+    if (Screen.state.draggingCard.id === this.state.card.id) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+    return Screen.hoveringOver(this.state.card, this.props.index);
+  },
+  handleDragLeave: function(event) {}
 });
 
 module.exports = StackCardFrame;
@@ -36399,11 +36408,14 @@ StackPanel = React.createClass({
   mixins: [Router.ActiveState],
   getInitialState: function() {
     return {
-      stack: {}
+      stack: {},
+      cards: []
     };
   },
   componentWillReceiveProps: function(newProps) {
-    return this.loadCards(newProps.stackId);
+    if (this.props.stackId !== newProps.stackId) {
+      return this.loadCards(newProps.stackId);
+    }
   },
   componentWillMount: function() {
     this.loadCards(this.props.stackId);
@@ -36418,33 +36430,38 @@ StackPanel = React.createClass({
     return Api.getStack(organizationId, stackId, (function(_this) {
       return function(err, stack) {
         return _this.setState({
-          stack: stack
+          stack: _.omit(stack, 'cards'),
+          cards: stack.cards
         });
       };
     })(this));
   },
   render: function() {
-    var cards, style;
-    cards = _.map(this.state.stack.cards, (function(_this) {
-      return function(card) {
+    var cards;
+    cards = _.map(this.state.cards, (function(_this) {
+      return function(card, index) {
         return StackCardFrame({
           stack: _this.state.stack,
           cardId: card.id,
-          card: card
+          card: card,
+          index: index
         });
       };
     })(this));
-    style = {
-      zIndex: 99 - this.props.position
-    };
     return Panel({
       panelTitle: this.state.stack.name,
       className: 'stack',
-      style: style,
+      style: {
+        zIndex: 99 - this.props.position
+      },
       icon: "stack-" + this.state.stack.kind,
-      close: this.makeCloseLinkProps()
+      close: this.makeCloseLinkProps(),
+      onDragStart: this.handleDragStart,
+      onDragEnd: this.handleDragEnd,
+      onDragOver: this.handleDragOver
     }, [
       ul({
+        ref: 'cardList',
         className: 'card-list'
       }, cards)
     ]);
@@ -36462,8 +36479,39 @@ StackPanel = React.createClass({
       });
     }
   },
-  handlePanelClose: function() {
-    return Screen.closeStack(this.props.stackId);
+  handleDragStart: function(event) {
+    return console.log("started dragging from stack " + this.state.stack.id);
+  },
+  handleDragEnd: function() {
+    return console.log("stopped dragging from stack " + this.state.stack.id);
+  },
+  handleDragOver: function(event) {
+    var draggingCard, draggingIndex, hoveringCard, hoveringIndex, rect, _ref;
+    _ref = Screen.state, draggingCard = _ref.draggingCard, draggingIndex = _ref.draggingIndex, hoveringCard = _ref.hoveringCard, hoveringIndex = _ref.hoveringIndex;
+    if (!((draggingCard != null) && (hoveringCard != null))) {
+      return;
+    }
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
+    rect = this.refs.cardList.getDOMNode().getBoundingClientRect();
+    console.log("pageY = " + event.pageY + " top = " + rect.top + " bottom = " + rect.bottom);
+    if (event.pageY < rect.top) {
+      return;
+    }
+    if (event.pageY > rect.bottom) {
+      return;
+    }
+    return this.moveCard(draggingIndex, hoveringIndex);
+  },
+  moveCard: function(fromIndex, toIndex) {
+    var card, cards;
+    cards = _.clone(this.state.cards);
+    card = cards[toIndex];
+    cards[toIndex] = cards[fromIndex];
+    cards[fromIndex] = card;
+    return this.setState({
+      cards: cards
+    });
   }
 });
 
@@ -36514,7 +36562,10 @@ WorkspaceScreen = React.createClass({
         backlog: []
       },
       channel: void 0,
-      draggingCard: void 0
+      draggingCard: void 0,
+      draggingIndex: void 0,
+      hoveringCard: void 0,
+      hoveringIndex: void 0
     };
   },
   componentWillMount: function() {
@@ -36600,14 +36651,22 @@ WorkspaceScreen = React.createClass({
     })(this));
     return stackPanels.concat(cardPanels);
   },
-  startDraggingCard: function(card) {
+  startDraggingCard: function(draggingCard, draggingIndex) {
     return this.setState({
-      draggingCard: card
+      draggingCard: draggingCard,
+      draggingIndex: draggingIndex
     });
   },
   stopDraggingCard: function() {
     return this.setState({
-      draggingCard: void 0
+      draggingCard: void 0,
+      draggingIndex: void 0
+    });
+  },
+  hoveringOver: function(hoveringCard, hoveringIndex) {
+    return this.setState({
+      hoveringCard: hoveringCard,
+      hoveringIndex: hoveringIndex
     });
   }
 });

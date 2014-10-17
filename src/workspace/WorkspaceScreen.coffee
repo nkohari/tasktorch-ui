@@ -18,13 +18,16 @@ WorkspaceScreen = React.createClass {
 
   getInitialState: ->
     return {
-      user:         undefined
-      organization: undefined
-      types:        []
-      teams:        []
-      stacks:       {inbox: undefined, queue: undefined, backlog: []}
-      channel:      undefined
-      draggingCard: undefined
+      user:          undefined
+      organization:  undefined
+      types:         []
+      teams:         []
+      stacks:        {inbox: undefined, queue: undefined, backlog: []}
+      channel:       undefined
+      draggingCard:  undefined
+      draggingIndex: undefined
+      hoveringCard:  undefined
+      hoveringIndex: undefined
     }
 
   componentWillMount: ->
@@ -64,12 +67,14 @@ WorkspaceScreen = React.createClass {
       CardPanel {cardId, key: "card-#{cardId}", position: position++}
     return stackPanels.concat(cardPanels)
 
-  startDraggingCard: (card) ->
-    @setState {draggingCard: card}
+  startDraggingCard: (draggingCard, draggingIndex) ->
+    @setState {draggingCard, draggingIndex}
 
   stopDraggingCard: ->
-    @setState {draggingCard: undefined}
+    @setState {draggingCard: undefined, draggingIndex: undefined}
 
+  hoveringOver: (hoveringCard, hoveringIndex) ->
+    @setState {hoveringCard, hoveringIndex}
 }
 
 module.exports = WorkspaceScreen

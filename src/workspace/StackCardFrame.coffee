@@ -18,7 +18,7 @@ StackCardFrame = React.createClass {
   mixins: [Router.ActiveState, Router.Navigation]
 
   getInitialState: ->
-    {card: {}, dragging: false}
+    {card: {}, dragging: false, hovering: false}
 
   componentWillReceiveProps: (newProps) ->
     @setState {card: newProps.card}
@@ -37,15 +37,18 @@ StackCardFrame = React.createClass {
     classes = 
       'stack-card': true
       dragging:     @state.dragging
+      hovering:     @state.hovering
       active:       viewState.isCardActive(@props.cardId)
 
     div {
-      className:   classSet(classes)
-      draggable:   true
-      onClick:     @handleClick
-      onDragStart: @handleDragStart
-      onDragEnd:   @handleDragEnd
-      onDragOver:  @handleDragOver
+      className:      classSet(classes)
+      draggable:      true
+      'aria-grabbed': @state.dragging
+      onClick:        @handleClick
+      onDragStart:    @handleDragStart
+      onDragEnd:      @handleDragEnd
+      onDragOver:     @handleDragOver
+      onDragLeave:    @handleDragLeave
     }, [
       CardTypes[@props.stack.kind] {card: @state.card}
     ]
@@ -60,20 +63,25 @@ StackCardFrame = React.createClass {
     @transitionTo(props.to, props.params, props.query)
 
   handleDragStart: (event) ->
-    @setState {dragging: true}
     event.dataTransfer.effectAllowed = 'move'
-    console.log("drag started #{@state.card.id}")
+    event.dataTransfer.setData('text', '')
+    @setState {dragging: true}
+    Screen.startDraggingCard(@state.card, @props.index)
+    console.log("started dragging")
 
   handleDragEnd: ->
-    @setState {dragging: false}
-    console.log("drag stopped #{@state.card.id}")
+    @setState {dragging: false, hovering: false}
+    Screen.stopDraggingCard()
+    console.log("stopped dragging")
 
   handleDragOver: (event) ->
-    event.preventDefault()
-    target = event.currentTarget
-    rect = target.getBoundingClientRect()
-    isAppending = event.clientY - rect.top > target.offsetHeight / 2
-    console.log("drag over #{@state.card.id}, isAppending = #{isAppending}")
+    if Screen.state.draggingCard.id == @state.card.id
+      event.preventDefault()
+      event.stopPropagation()
+      return
+    Screen.hoveringOver(@state.card, @props.index)
+
+  handleDragLeave: (event) ->
 
 }
 
