@@ -36,6 +36,43 @@ body {
   overflow: hidden;
 }
 
+@mixin editable-text {
+  border: 1px solid rgba(0, 0, 0, 0);
+  transition-property: border, background, box-shadow;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-in-out;
+  &.dirty {
+    border-color: #090 !important;
+  }
+  &:hover {
+    background: #f9f9f9;
+    border: 1px solid #aaa;
+  }
+  &:focus {
+    background: #fff;
+    border: 1px solid #888;
+    outline: none !important;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  }
+}
+
+input {
+  @include editable-text;
+  padding: 4px;
+  width: 100%;
+}
+
+textarea {
+  @include editable-text;
+  width: 100%;
+  padding: 10px;
+  resize: none;
+  overflow: hidden;
+  &:focus {
+    resize: vertical;
+  }
+}
+
 @font-face {
   font-family: "Entypo";
   src: url(/dist/entypo.woff);

@@ -2,6 +2,7 @@ React              = require 'react'
 Router             = require 'react-router'
 Api                = require '../Api'
 Bus                = require '../Bus'
+Strings            = require '../Strings'
 Panel              = require '../common/Panel'
 WorkspaceViewState = require './WorkspaceViewState'
 CardActionBar      = require './CardActionBar'
@@ -32,8 +33,12 @@ CardPanel = React.createClass {
     Bus.cards.subscribe(this)
 
   render: ->
-    style = {zIndex: 99 - @props.position}
-    Panel {panelTitle: @state.card.title, className: 'card', style, close: @makeCloseLinkProps()}, [
+    Panel {
+      style:      {zIndex: 99 - @props.position}
+      panelTitle: @state.card.title or Strings.untitledCard
+      className:  'card'
+      close:      @makeCloseLinkProps()
+    }, [
       CardActionBar {card: @state.card}
       CardHeader {card: @state.card}
       CardBody {card: @state.card}

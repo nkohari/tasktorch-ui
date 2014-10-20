@@ -35399,9 +35399,11 @@ module.exports = function(arr, fn, initial){
   return curr;
 };
 },{}],227:[function(require,module,exports){
-var Api, request;
+var Api, noop, request;
 
 request = require('superagent');
+
+noop = (function() {});
 
 Api = (function() {
   function Api() {}
@@ -35443,6 +35445,18 @@ Api = (function() {
         return callback(null, res.body);
       };
     })(this));
+  };
+
+  Api.prototype.setCardBody = function(card, body) {
+    return request.post("" + card.uri + "/body").send({
+      body: body
+    }).end();
+  };
+
+  Api.prototype.setCardTitle = function(card, title) {
+    return request.post("" + card.uri + "/title").send({
+      title: title
+    }).end();
   };
 
   return Api;
@@ -35490,7 +35504,7 @@ React.renderComponent(routes, document.body);
 
 
 
-},{"./common/RedirectToLastWorkspace":241,"./login/LoginScreen":243,"./workspace/WorkspaceScreen":252,"react":"M6d2gk","react-router":33}],229:[function(require,module,exports){
+},{"./common/RedirectToLastWorkspace":244,"./login/LoginScreen":247,"./workspace/WorkspaceScreen":256,"react":"M6d2gk","react-router":33}],229:[function(require,module,exports){
 (function (global){
 var Channel;
 
@@ -35542,6 +35556,17 @@ module.exports = Channel;
 
 
 },{"lodash":23}],231:[function(require,module,exports){
+module.exports = {
+  TAB: 9,
+  RETURN: 13,
+  ENTER: 13,
+  ESCAPE: 27,
+  SPACE: 32
+};
+
+
+
+},{}],232:[function(require,module,exports){
 (function (global){
 var Presence, _;
 
@@ -35583,7 +35608,14 @@ global.Presence = module.exports = new Presence();
 
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"lodash":23}],232:[function(require,module,exports){
+},{"lodash":23}],233:[function(require,module,exports){
+exports.untitledCard = 'Untitled Card';
+
+exports.cardBody = 'Card Body';
+
+
+
+},{}],234:[function(require,module,exports){
 var Avatar, React, crypto, img;
 
 crypto = require('crypto');
@@ -35615,7 +35647,7 @@ module.exports = Avatar;
 
 
 
-},{"crypto":8,"react":"M6d2gk"}],233:[function(require,module,exports){
+},{"crypto":8,"react":"M6d2gk"}],235:[function(require,module,exports){
 var Button, Icon, React, button;
 
 React = require('react');
@@ -35640,7 +35672,7 @@ module.exports = Button;
 
 
 
-},{"./Icon":234,"react":"M6d2gk"}],234:[function(require,module,exports){
+},{"./Icon":236,"react":"M6d2gk"}],236:[function(require,module,exports){
 var Icon, React, span;
 
 React = require('react');
@@ -35659,7 +35691,111 @@ module.exports = Icon;
 
 
 
-},{"react":"M6d2gk"}],235:[function(require,module,exports){
+},{"react":"M6d2gk"}],237:[function(require,module,exports){
+var Keys, MultilineText, React, classSet, textarea;
+
+React = require('react/addons');
+
+Keys = require('../Keys');
+
+classSet = React.addons.classSet;
+
+textarea = React.DOM.textarea;
+
+MultilineText = React.createClass({
+  getInitialState: function() {
+    return {
+      dirty: false,
+      previous: void 0,
+      value: this.props.value
+    };
+  },
+  componentWillReceiveProps: function(newProps) {
+    return this.setState({
+      dirty: false,
+      previous: newProps.value,
+      value: newProps.value
+    });
+  },
+  componentDidUpdate: function() {
+    return this.resize();
+  },
+  render: function() {
+    var classes;
+    classes = {
+      dirty: this.state.dirty
+    };
+    return textarea({
+      className: classSet(classes),
+      placeholder: this.props.placeholder,
+      value: this.state.value,
+      onChange: this.handleChange,
+      onFocus: this.handleFocus,
+      onBlur: this.handleBlur,
+      onKeyUp: this.handleKeyUp
+    });
+  },
+  handleKeyUp: function(event) {
+    console.log({
+      which: event.which,
+      shiftKey: event.shiftKey
+    });
+    switch (event.which) {
+      case Keys.ESCAPE:
+        return this.setState({
+          dirty: false,
+          value: this.state.previous
+        }, (function(_this) {
+          return function() {
+            return _this.getDOMNode().blur();
+          };
+        })(this));
+      case Keys.RETURN:
+        if (event.shiftKey) {
+          return this.getDOMNode().blur();
+        }
+    }
+  },
+  handleChange: function(event) {
+    return this.setState({
+      dirty: true,
+      value: event.target.value
+    }, (function(_this) {
+      return function() {
+        return _this.resize();
+      };
+    })(this));
+  },
+  handleFocus: function() {
+    this.setState({
+      previous: this.state.value
+    });
+    return this.resize();
+  },
+  handleBlur: function() {
+    if (this.state.dirty) {
+      this.props.save(this.state.value);
+    }
+    return this.setState({
+      dirty: false
+    });
+  },
+  resize: function() {
+    var node;
+    if (!this.isMounted()) {
+      return;
+    }
+    node = this.getDOMNode();
+    node.style.height = 'auto';
+    return node.style.height = node.scrollHeight + 'px';
+  }
+});
+
+module.exports = MultilineText;
+
+
+
+},{"../Keys":231,"react/addons":63}],238:[function(require,module,exports){
 var NavigationBar, OrganizationSelector, React, UserWidget, div;
 
 React = require('react');
@@ -35688,7 +35824,7 @@ module.exports = NavigationBar;
 
 
 
-},{"./OrganizationSelector":236,"./UserWidget":242,"react":"M6d2gk"}],236:[function(require,module,exports){
+},{"./OrganizationSelector":239,"./UserWidget":246,"react":"M6d2gk"}],239:[function(require,module,exports){
 var OrganizationSelector, React, div;
 
 React = require('react');
@@ -35707,7 +35843,7 @@ module.exports = OrganizationSelector;
 
 
 
-},{"react":"M6d2gk"}],237:[function(require,module,exports){
+},{"react":"M6d2gk"}],240:[function(require,module,exports){
 var Panel, PanelHeader, React, div;
 
 React = require('react/addons');
@@ -35735,7 +35871,7 @@ module.exports = Panel;
 
 
 
-},{"./PanelHeader":239,"react/addons":63}],238:[function(require,module,exports){
+},{"./PanelHeader":242,"react/addons":63}],241:[function(require,module,exports){
 var CSSTransitionGroup, PanelGroup, React, div;
 
 React = require('react/addons');
@@ -35758,7 +35894,7 @@ module.exports = PanelGroup;
 
 
 
-},{"react/addons":63}],239:[function(require,module,exports){
+},{"react/addons":63}],242:[function(require,module,exports){
 var Icon, Link, PanelHeader, React, div, span, _, _ref;
 
 React = require('react');
@@ -35809,7 +35945,7 @@ module.exports = PanelHeader;
 
 
 
-},{"./Icon":234,"lodash":23,"react":"M6d2gk","react-router":33}],240:[function(require,module,exports){
+},{"./Icon":236,"lodash":23,"react":"M6d2gk","react-router":33}],243:[function(require,module,exports){
 var PresenceBar, React, UserWidget, div, _;
 
 React = require('react');
@@ -35869,7 +36005,7 @@ module.exports = PresenceBar;
 
 
 
-},{"./UserWidget":242,"lodash":23,"react":"M6d2gk"}],241:[function(require,module,exports){
+},{"./UserWidget":246,"lodash":23,"react":"M6d2gk"}],244:[function(require,module,exports){
 var React, RedirectToLastWorkspace;
 
 React = require('react');
@@ -35891,7 +36027,88 @@ module.exports = RedirectToLastWorkspace;
 
 
 
-},{"react":"M6d2gk"}],242:[function(require,module,exports){
+},{"react":"M6d2gk"}],245:[function(require,module,exports){
+var Keys, React, Text, classSet, input;
+
+React = require('react/addons');
+
+Keys = require('../Keys');
+
+classSet = React.addons.classSet;
+
+input = React.DOM.input;
+
+Text = React.createClass({
+  getInitialState: function() {
+    return {
+      dirty: false,
+      previous: this.props.value,
+      value: this.props.value
+    };
+  },
+  componentWillReceiveProps: function(newProps) {
+    return this.setState({
+      dirty: false,
+      previous: newProps.value,
+      value: newProps.value
+    });
+  },
+  render: function() {
+    var classes;
+    classes = {
+      dirty: this.state.dirty
+    };
+    return input({
+      className: classSet(classes),
+      placeholder: this.props.placeholder,
+      value: this.state.value,
+      onChange: this.handleChange,
+      onFocus: this.handleFocus,
+      onBlur: this.handleBlur,
+      onKeyUp: this.handleKeyUp
+    });
+  },
+  handleKeyUp: function(event) {
+    switch (event.which) {
+      case Keys.ESCAPE:
+        return this.setState({
+          dirty: false,
+          value: this.state.previous
+        }, (function(_this) {
+          return function() {
+            return _this.getDOMNode().blur();
+          };
+        })(this));
+      case Keys.RETURN:
+        return this.getDOMNode().blur();
+    }
+  },
+  handleChange: function(event) {
+    return this.setState({
+      dirty: true,
+      value: event.target.value
+    });
+  },
+  handleFocus: function() {
+    return this.setState({
+      previous: this.state.value
+    });
+  },
+  handleBlur: function() {
+    if (this.state.dirty) {
+      this.props.save(this.state.value);
+    }
+    return this.setState({
+      dirty: false
+    });
+  }
+});
+
+module.exports = Text;
+
+
+
+},{"../Keys":231,"react/addons":63}],246:[function(require,module,exports){
 var Avatar, React, UserWidget, div, _;
 
 _ = require('lodash');
@@ -35919,7 +36136,7 @@ module.exports = UserWidget;
 
 
 
-},{"./Avatar":232,"lodash":23,"react":"M6d2gk"}],243:[function(require,module,exports){
+},{"./Avatar":234,"lodash":23,"react":"M6d2gk"}],247:[function(require,module,exports){
 var Api, LoginScreen, React, Router, button, div, input, request, _, _ref;
 
 _ = require('lodash');
@@ -35991,7 +36208,7 @@ module.exports = LoginScreen;
 
 
 
-},{"../Api":227,"lodash":23,"react-router":33,"react/addons":63,"superagent":224}],244:[function(require,module,exports){
+},{"../Api":227,"lodash":23,"react-router":33,"react/addons":63,"superagent":224}],248:[function(require,module,exports){
 var Button, CardActionBar, React, div;
 
 React = require('react');
@@ -36023,10 +36240,16 @@ module.exports = CardActionBar;
 
 
 
-},{"../common/Button":233,"react":"M6d2gk"}],245:[function(require,module,exports){
-var CardBody, React, div;
+},{"../common/Button":235,"react":"M6d2gk"}],249:[function(require,module,exports){
+var Api, CardBody, MultilineText, React, Strings, div;
 
 React = require('react');
+
+MultilineText = require('../common/MultilineText');
+
+Api = require('../Api');
+
+Strings = require('../Strings');
 
 div = React.DOM.div;
 
@@ -36034,7 +36257,16 @@ CardBody = React.createClass({
   render: function() {
     return div({
       className: 'card-body'
-    }, [this.props.card.body]);
+    }, [
+      MultilineText({
+        placeholder: Strings.cardBody,
+        value: this.props.card.body,
+        save: this.saveBody
+      })
+    ]);
+  },
+  saveBody: function(value) {
+    return Api.setCardBody(this.props.card, value);
   }
 });
 
@@ -36042,10 +36274,16 @@ module.exports = CardBody;
 
 
 
-},{"react":"M6d2gk"}],246:[function(require,module,exports){
-var CardHeader, React, div, em, _ref;
+},{"../Api":227,"../Strings":233,"../common/MultilineText":237,"react":"M6d2gk"}],250:[function(require,module,exports){
+var Api, CardHeader, React, Strings, Text, div, em, _ref;
 
 React = require('react');
+
+Text = require('../common/Text');
+
+Api = require('../Api');
+
+Strings = require('../Strings');
 
 _ref = React.DOM, div = _ref.div, em = _ref.em;
 
@@ -36059,10 +36297,19 @@ CardHeader = React.createClass({
         className: 'type'
       }, [(_ref1 = this.props.card.type) != null ? _ref1.name : void 0]), div({
         className: 'title'
-      }, [this.props.card.title]), div({
+      }, [
+        Text({
+          placeholder: Strings.untitledCard,
+          value: this.props.card.title,
+          save: this.saveTitle
+        })
+      ]), div({
         className: 'handoff'
       }, ['in ', em({}, 'X'), ' since ', em({}, 'Yesterday')])
     ]);
+  },
+  saveTitle: function(title) {
+    return Api.setCardTitle(this.props.card, title);
   }
 });
 
@@ -36070,8 +36317,8 @@ module.exports = CardHeader;
 
 
 
-},{"react":"M6d2gk"}],247:[function(require,module,exports){
-var Api, Bus, CardActionBar, CardBody, CardHeader, CardPanel, Panel, React, Router, WorkspaceViewState;
+},{"../Api":227,"../Strings":233,"../common/Text":245,"react":"M6d2gk"}],251:[function(require,module,exports){
+var Api, Bus, CardActionBar, CardBody, CardHeader, CardPanel, Panel, React, Router, Strings, WorkspaceViewState;
 
 React = require('react');
 
@@ -36080,6 +36327,8 @@ Router = require('react-router');
 Api = require('../Api');
 
 Bus = require('../Bus');
+
+Strings = require('../Strings');
 
 Panel = require('../common/Panel');
 
@@ -36127,14 +36376,12 @@ CardPanel = React.createClass({
     return Bus.cards.subscribe(this);
   },
   render: function() {
-    var style;
-    style = {
-      zIndex: 99 - this.props.position
-    };
     return Panel({
-      panelTitle: this.state.card.title,
+      style: {
+        zIndex: 99 - this.props.position
+      },
+      panelTitle: this.state.card.title || Strings.untitledCard,
       className: 'card',
-      style: style,
       close: this.makeCloseLinkProps()
     }, [
       CardActionBar({
@@ -36165,7 +36412,7 @@ module.exports = CardPanel;
 
 
 
-},{"../Api":227,"../Bus":229,"../common/Panel":237,"./CardActionBar":244,"./CardBody":245,"./CardHeader":246,"./WorkspaceViewState":254,"react":"M6d2gk","react-router":33}],248:[function(require,module,exports){
+},{"../Api":227,"../Bus":229,"../Strings":233,"../common/Panel":240,"./CardActionBar":248,"./CardBody":249,"./CardHeader":250,"./WorkspaceViewState":258,"react":"M6d2gk","react-router":33}],252:[function(require,module,exports){
 var BacklogCard, Bus, CardTypes, InboxCard, QueueCard, React, Router, StackCardFrame, WorkspaceViewState, classSet, div;
 
 React = require('react/addons');
@@ -36285,7 +36532,7 @@ module.exports = StackCardFrame;
 
 
 
-},{"../Bus":229,"./WorkspaceViewState":254,"./cards/BacklogCard":255,"./cards/InboxCard":256,"./cards/QueueCard":257,"react-router":33,"react/addons":63}],249:[function(require,module,exports){
+},{"../Bus":229,"./WorkspaceViewState":258,"./cards/BacklogCard":259,"./cards/InboxCard":260,"./cards/QueueCard":261,"react-router":33,"react/addons":63}],253:[function(require,module,exports){
 var Panel, React, StackList, StackListItem, ul, _;
 
 _ = require('lodash');
@@ -36320,7 +36567,7 @@ module.exports = StackList;
 
 
 
-},{"../common/Panel":237,"./StackListItem":250,"lodash":23,"react":"M6d2gk"}],250:[function(require,module,exports){
+},{"../common/Panel":240,"./StackListItem":254,"lodash":23,"react":"M6d2gk"}],254:[function(require,module,exports){
 var Icon, Link, React, Router, StackListItem, WorkspaceViewState, classSet, li, span, _, _ref;
 
 _ = require('lodash');
@@ -36383,7 +36630,7 @@ module.exports = StackListItem;
 
 
 
-},{"../common/Icon":234,"./WorkspaceViewState":254,"lodash":23,"react-router":33,"react/addons":63}],251:[function(require,module,exports){
+},{"../common/Icon":236,"./WorkspaceViewState":258,"lodash":23,"react-router":33,"react/addons":63}],255:[function(require,module,exports){
 var Api, Bus, Panel, React, Router, StackCardFrame, StackPanel, WorkspaceViewState, ul, _;
 
 _ = require('lodash');
@@ -36519,7 +36766,7 @@ module.exports = StackPanel;
 
 
 
-},{"../Api":227,"../Bus":229,"../common/Panel":237,"./StackCardFrame":248,"./WorkspaceViewState":254,"lodash":23,"react":"M6d2gk","react-router":33}],252:[function(require,module,exports){
+},{"../Api":227,"../Bus":229,"../common/Panel":240,"./StackCardFrame":252,"./WorkspaceViewState":258,"lodash":23,"react":"M6d2gk","react-router":33}],256:[function(require,module,exports){
 var Api, CardPanel, NavigationBar, PanelGroup, Presence, PresenceBar, React, Router, StackPanel, WorkspaceScreen, WorkspaceSidebar, WorkspaceViewState, div, _;
 
 _ = require('lodash');
@@ -36675,7 +36922,7 @@ module.exports = WorkspaceScreen;
 
 
 
-},{"../Api":227,"../Presence":231,"../common/NavigationBar":235,"../common/PanelGroup":238,"../common/PresenceBar":240,"./CardPanel":247,"./StackPanel":251,"./WorkspaceSidebar":253,"./WorkspaceViewState":254,"lodash":23,"react-router":33,"react/addons":63}],253:[function(require,module,exports){
+},{"../Api":227,"../Presence":232,"../common/NavigationBar":238,"../common/PanelGroup":241,"../common/PresenceBar":243,"./CardPanel":251,"./StackPanel":255,"./WorkspaceSidebar":257,"./WorkspaceViewState":258,"lodash":23,"react-router":33,"react/addons":63}],257:[function(require,module,exports){
 var Panel, React, StackList, WorkspaceSidebar, div, _;
 
 _ = require('lodash');
@@ -36705,7 +36952,7 @@ module.exports = WorkspaceSidebar;
 
 
 
-},{"../common/Panel":237,"./StackList":249,"lodash":23,"react":"M6d2gk"}],254:[function(require,module,exports){
+},{"../common/Panel":240,"./StackList":253,"lodash":23,"react":"M6d2gk"}],258:[function(require,module,exports){
 var WorkspaceViewState, _;
 
 _ = require('lodash');
@@ -36775,7 +37022,7 @@ module.exports = WorkspaceViewState;
 
 
 
-},{"lodash":23}],255:[function(require,module,exports){
+},{"lodash":23}],259:[function(require,module,exports){
 var BacklogCard, React, div;
 
 React = require('react');
@@ -36800,10 +37047,12 @@ module.exports = BacklogCard;
 
 
 
-},{"react":"M6d2gk"}],256:[function(require,module,exports){
-var InboxCard, React, div, em, _ref;
+},{"react":"M6d2gk"}],260:[function(require,module,exports){
+var InboxCard, React, Strings, div, em, _ref;
 
 React = require('react');
+
+Strings = require('../../Strings');
 
 _ref = React.DOM, div = _ref.div, em = _ref.em;
 
@@ -36817,7 +37066,7 @@ InboxCard = React.createClass({
       }, [
         div({
           className: 'title'
-        }, [this.props.card.title]), div({
+        }, [this.props.card.title || Strings.untitledCard]), div({
           className: 'handoff'
         }, ['from ', em({}, 'X'), ' to ', em({}, 'Y'), ' at ', em({}, 'Z')])
       ]), div({
@@ -36831,10 +37080,12 @@ module.exports = InboxCard;
 
 
 
-},{"react":"M6d2gk"}],257:[function(require,module,exports){
-var QueueCard, React, div, em, _ref;
+},{"../../Strings":233,"react":"M6d2gk"}],261:[function(require,module,exports){
+var QueueCard, React, Strings, div, em, _ref;
 
 React = require('react');
+
+Strings = require('../../Strings');
 
 _ref = React.DOM, div = _ref.div, em = _ref.em;
 
@@ -36848,7 +37099,7 @@ QueueCard = React.createClass({
       }, [
         div({
           className: 'title'
-        }, [this.props.card.title]), div({
+        }, [this.props.card.title || Strings.untitledCard]), div({
           className: 'handoff'
         }, ['in queue since ', em({}, 'X')])
       ]), div({
@@ -36862,4 +37113,4 @@ module.exports = QueueCard;
 
 
 
-},{"react":"M6d2gk"}]},{},[227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257]);
+},{"../../Strings":233,"react":"M6d2gk"}]},{},[227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261]);

@@ -1,5 +1,7 @@
 request = require 'superagent'
 
+noop = (->)
+
 class Api
 
   createSession: (login, password, callback) ->
@@ -22,5 +24,11 @@ class Api
   getCard: (organizationId, cardId, callback) ->
     request.get "/api/#{organizationId}/cards/#{cardId}?expand=type", (res) =>
       callback(null, res.body)
+
+  setCardBody: (card, body) ->
+    request.post("#{card.uri}/body").send({body}).end()
+
+  setCardTitle: (card, title) ->
+    request.post("#{card.uri}/title").send({title}).end()
 
 module.exports = new Api()
