@@ -1,14 +1,9 @@
 _ = require 'lodash'
 
-class WorkspaceViewState
+class WorkspaceUrl
 
-  constructor: (component) ->
-
-    params = component.getActiveParams()
-    query = component.getActiveQuery()
-
+  constructor: (params, query) ->
     @organizationId = params.organizationId
-
     @stacks = if query.stacks? then query.stacks.split(',') else []
     @cards  = if query.cards?  then query.cards.split(',')  else []
 
@@ -37,4 +32,4 @@ class WorkspaceViewState
     query.cards  = @cards.join(',')  if @cards.length > 0
     return {to: 'workspace', params, query}
 
-module.exports = WorkspaceViewState
+module.exports = WorkspaceUrl

@@ -1,28 +1,46 @@
-_                  = require 'lodash'
-React              = require 'react/addons'
-Router             = require 'react-router'
-Api                = require '../Api'
-Presence           = require '../Presence'
-NavigationBar      = require '../common/NavigationBar'
-PresenceBar        = require '../common/PresenceBar'
-PanelGroup         = require '../common/PanelGroup'
-WorkspaceSidebar   = require './WorkspaceSidebar'
-WorkspaceViewState = require './WorkspaceViewState'
-StackPanel         = require './StackPanel'
-CardPanel          = require './CardPanel'
-{div}              = React.DOM
+_                   = require 'lodash'
+React               = require 'react/addons'
+Router              = require 'react-router'
+Api                 = require '../Api'
+NavigationBar       = require '../common/NavigationBar'
+PresenceBar         = require '../common/PresenceBar'
+PanelGroup          = require '../common/PanelGroup'
+Flux                = require '../mixins/Flux'
+ActiveUrl           = require '../mixins/ActiveUrl'
+WorkspaceController = require './WorkspaceController'
+WorkspaceUrl        = require './WorkspaceUrl'
+StackPanel          = require './components/StackPanel'
+CardPanel           = require './components/CardPanel'
+WorkspaceSidebar    = require './components/WorkspaceSidebar'
+CardStore           = require './stores/CardStore'
+OrganizationStore   = require './stores/OrganizationStore'
+StackStore          = require './stores/StackStore'
+TeamStore           = require './stores/TeamStore'
+TypeStore           = require './stores/TypeStore'
+UserStore           = require './stores/UserStore'
+{div}               = React.DOM
+
+controller = new WorkspaceController
+  cards:         new CardStore()
+  organizations: new OrganizationStore()
+  stacks:        new StackStore()
+  teams:         new TeamStore()
+  types:         new TypeStore()
+  users:         new UserStore()
 
 WorkspaceScreen = React.createClass {
 
-  mixins: [Router.ActiveState, Router.Navigation],
+  mixins: [
+    Flux('cards', 'organizations', 'stacks', 'teams', 'types', 'users')
+    ActiveUrl(WorkspaceUrl)
+    Router.Navigation
+  ]
+
+  getDefaultProps: ->
+    {controller}
 
   getInitialState: ->
     return {
-      user:          undefined
-      organization:  undefined
-      types:         []
-      teams:         []
-      stacks:        {inbox: undefined, queue: undefined, backlog: []}
       channel:       undefined
       draggingCard:  undefined
       draggingIndex: undefined
@@ -30,40 +48,46 @@ WorkspaceScreen = React.createClass {
       hoveringIndex: undefined
     }
 
+  getStateFromStores: (stores) ->
+    return {
+      currentUser:         stores.users.currentUser
+      currentOrganization: stores.organizations.currentOrganization
+      stacks:              stores.stacks.stacks
+      teams:               stores.teams.teams
+    }
+
   componentWillMount: ->
     window.Screen = this
-    {organizationId} = @getActiveParams()
-    channel = Presence.subscribe(organizationId)
-    @setState {channel}
-    Api.getMyWorkspace organizationId, (res) =>
-      return @transitionTo('login') if res.unauthorized
-      {user, organization, types, teams, stacks} = res.body
-      @setState {user, organization, types, teams, stacks}
+    controller = @getController()
+    controller.setOrganization(@getActiveUrl().organizationId)
+    controller.loadWorkspace()
+    controller.joinPresenceChannel()
 
   componentWillUnmount: ->
-    @state.channel.unsubscribe() if @state.channel?
+    controller.leavePresenceChannel()
     window.Screen = undefined
 
   render: ->
 
-    unless @state.organization?
+    # TODO: Push this check down into the NavigationBar and PresenceBar?
+    unless @state.currentOrganization? and @state.currentUser?
       return div {className: 'workspace screen loading'}, []
 
     div {className: 'workspace screen'}, [
-      NavigationBar {key: 'navigation-bar', organization: @state.organization, user: @state.user}
+      NavigationBar {key: 'navigation-bar', currentOrganization: @state.currentOrganization, currentUser: @state.currentUser}
       div {key: 'main', className: 'main'}, [
         WorkspaceSidebar {stacks: @state.stacks, teams: @state.teams}
         PanelGroup {}, @getActivePanels()
       ]
-      PresenceBar {key: 'presence-bar', user: @state.user, channel: @state.channel}
+      PresenceBar {key: 'presence-bar', currentUser: @state.currentUser}
     ]
 
   getActivePanels: ->
-    viewState = new WorkspaceViewState(this)
+    urlModel = @getActiveUrl()
     position = 0
-    stackPanels = _.map viewState.stacks, (stackId) =>
+    stackPanels = _.map urlModel.stacks, (stackId) =>
       StackPanel {stackId, key: "stack-#{stackId}", position: position++}
-    cardPanels = _.map viewState.cards, (cardId) =>
+    cardPanels = _.map urlModel.cards, (cardId) =>
       CardPanel {cardId, key: "card-#{cardId}", position: position++}
     return stackPanels.concat(cardPanels)
 

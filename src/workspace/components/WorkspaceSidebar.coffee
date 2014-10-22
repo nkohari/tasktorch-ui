@@ -1,6 +1,5 @@
-_         = require 'lodash'
 React     = require 'react'
-Panel     = require '../common/Panel'
+Panel     = require '../../common/Panel'
 StackList = require './StackList'
 {div}     = React.DOM
 

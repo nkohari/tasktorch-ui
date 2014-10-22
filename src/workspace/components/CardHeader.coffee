@@ -1,10 +1,13 @@
 React     = require 'react'
-Text      = require '../common/Text'
-Api       = require '../Api'
-Strings   = require '../Strings'
+Text      = require '../../common/Text'
+Flux      = require '../../mixins/Flux'
+Api       = require '../../Api'
+Strings   = require '../../Strings'
 {div, em} = React.DOM
 
 CardHeader = React.createClass {
+
+  mixins: [Flux()]
 
   render: ->
     div {className: 'card-header'}, [
@@ -21,7 +24,7 @@ CardHeader = React.createClass {
     ]
 
   saveTitle: (title) ->
-    Api.setCardTitle(@props.card, title)
+    @getController().setCardTitle(@props.card, title)
 
 }
 

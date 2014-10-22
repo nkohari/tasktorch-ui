@@ -1,5 +1,5 @@
 React  = require 'react'
-Button = require '../common/Button'
+Button = require '../../common/Button'
 {div}  = React.DOM
 
 CardActionBar = React.createClass {

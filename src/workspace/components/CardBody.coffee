@@ -1,10 +1,12 @@
 React         = require 'react'
-MultilineText = require '../common/MultilineText'
-Api           = require '../Api'
-Strings       = require '../Strings'
+MultilineText = require '../../common/MultilineText'
+Flux          = require '../../mixins/Flux'
+Strings       = require '../../Strings'
 {div}         = React.DOM
 
 CardBody = React.createClass {
+
+  mixins: [Flux()]
 
   render: ->
     div {className: 'card-body'}, [
@@ -12,7 +14,7 @@ CardBody = React.createClass {
     ]
 
   saveBody: (value) ->
-    Api.setCardBody(@props.card, value)
+    @getController().setCardBody(@props.card, value)
 
 }
 

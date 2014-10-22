@@ -1,16 +1,20 @@
 React     = require 'react'
-Strings   = require '../../Strings'
+Strings   = require '../../../Strings'
 {div, em} = React.DOM
 
-QueueCard = React.createClass {
+InboxCard = React.createClass {
 
   render: ->
-    div {className: 'stack-card-body queue'}, [
+    div {className: 'stack-card-body inbox'}, [
       div {className: 'card-top'}, [
         div {className: 'title'},   [@props.card.title or Strings.untitledCard]
         div {className: 'handoff'}, [
-          'in queue since '
+          'from '
           em {}, 'X'
+          ' to '
+          em {}, 'Y'
+          ' at '
+          em {}, 'Z'
         ]
       ]
       div {className: 'card-bottom'}, [@props.card.body]
@@ -18,4 +22,4 @@ QueueCard = React.createClass {
 
 }
 
-module.exports = QueueCard
+module.exports = InboxCard

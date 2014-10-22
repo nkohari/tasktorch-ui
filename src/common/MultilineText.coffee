@@ -29,7 +29,6 @@ MultilineText = React.createClass {
     }
 
   handleKeyUp: (event) ->
-    console.log {which: event.which, shiftKey: event.shiftKey}
     switch event.which
       when Keys.ESCAPE
         @setState {dirty: false, value: @state.previous}, =>
