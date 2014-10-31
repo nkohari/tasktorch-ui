@@ -1,6 +1,6 @@
 class Event
 
-  constructor: ->
+  constructor: (@meta = {}) ->
     @type = @constructor.name.replace(/Event$/, '')
     console.log(this)
 

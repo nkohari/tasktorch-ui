@@ -1,7 +1,7 @@
 _          = require 'lodash'
 request    = require 'superagent'
-arrayEnum  = require '../util/arrayEnum'
-etag       = require '../util/etag'
+arrayEnum  = require '../common/util/arrayEnum'
+etag       = require '../common/util/etag'
 Controller = require '../framework/Controller'
 Header     = require '../Header'
 
@@ -66,7 +66,7 @@ class WorkspaceController extends Controller
 
   setCardBody: (card, body) ->
     request.put("#{card.uri}/body")
-    .set(Header.IfMatch, card.version)
+    .set(Header.IfMatch, etag.encode(card.version))
     .set(Header.Socket, @pusher.connection.socket_id)
     .send {body}
     .end (res) =>

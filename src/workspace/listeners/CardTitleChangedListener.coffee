@@ -5,6 +5,7 @@ class CardTitleChangedListener extends Listener
 
   createEvent: (message) ->
     {document, payload} = message
+    meta = {user: message.user}
     new CardTitleChangedEvent(document.id, payload.title, document.version)
 
 module.exports = CardTitleChangedListener

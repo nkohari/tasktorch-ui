@@ -5,6 +5,7 @@ class CardBodyChangedListener extends Listener
 
   createEvent: (message) ->
     {document, payload} = message
-    new CardBodyChangedEvent(document.id, payload.body, document.version)
+    meta = {user: message.user}
+    new CardBodyChangedEvent(document.id, payload.body, document.version, meta)
 
 module.exports = CardBodyChangedListener
