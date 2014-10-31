@@ -1,22 +1,23 @@
 _          = require 'lodash'
 request    = require 'superagent'
 arrayEnum  = require '../util/arrayEnum'
+etag       = require '../util/etag'
 Controller = require '../framework/Controller'
+Header     = require '../Header'
+
+CardBodyChangedEvent = require './events/CardBodyChangedEvent'
+CardsLoadedEvent = require './events/CardsLoadedEvent'
+CardTitleChangedEvent = require './events/CardTitleChangedEvent'
+JoinedPresenceChannelEvent = require './events/JoinedPresenceChannelEvent'
+StacksLoadedEvent = require './events/StacksLoadedEvent'
+UserConnectedEvent = require './events/UserConnectedEvent'
+UserDisconnectedEvent = require './events/UserDisconnectedEvent'
+WorkspaceLoadedEvent = require './events/WorkspaceLoadedEvent'
 
 class WorkspaceController extends Controller
 
-  Events: arrayEnum [
-    'CardBodyChanged'
-    'CardTitleChanged'
-    'CardsLoaded'
-    'JoinedPresenceChannel'
-    'StacksLoaded'
-    'WorkspaceLoaded'
-    'UserConnected'
-    'UserDisconnected'
-  ]
-
-  constructor: (@stores) ->
+  constructor: (stores, listeners) ->
+    super(stores, listeners)
     @pusher = new Pusher '9bc5b19ceaf8c59adcea',
       authEndpoint: '/api/_auth/presence'
       encrypted: true
@@ -27,46 +28,49 @@ class WorkspaceController extends Controller
   joinPresenceChannel: ->
     channel = @pusher.subscribe("presence-#{@organizationId}")
     channel.bind 'pusher:subscription_succeeded', (channelState) =>
-      event = {success: true, connectedUsers: _.map(channelState.members, (m) -> m)}
-      @dispatch(@Events.JoinedPresenceChannel, event)
+      connectedUsers = _.map channelState.members, (member) -> member
+      @dispatch new JoinedPresenceChannelEvent(connectedUsers)
     channel.bind 'pusher:member_added', (member) =>
-      event = {success: true, user: member.info}
-      @dispatch(@Events.UserConnected, event)
+      @dispatch new UserConnectedEvent(member.info)
     channel.bind 'pusher:member_removed', (member) =>
-      event = {success: true, user: member.info}
-      @dispatch(@Events.UserDisconnected, event)
+      @dispatch new UserDisconnectedEvent(member.info)
+    @bindListeners(channel)
 
   leavePresenceChannel: ->
     @pusher.unsubscribe("presence-#{@organizationId}")
 
   loadWorkspace: ->
     request.get "/api/#{@organizationId}/my/workspace", (res) =>
-      event = {success: true, workspace: res.body}
-      @dispatch(@Events.WorkspaceLoaded, event)
+      @dispatch new WorkspaceLoadedEvent(res.body)
 
   loadStack: (stackId) ->
     request.get "/api/#{@organizationId}/stacks/#{stackId}", (res) =>
-      event = {success: true, stacks: [res.body]}
-      @dispatch(@Events.StacksLoaded, event)
+      @dispatch new StacksLoadedEvent([res.body])
 
   loadCardsInStack: (stackId) ->
     request.get "/api/#{@organizationId}/stacks/#{stackId}/cards", (res) =>
-      event = {success: true, cards: res.body}
-      @dispatch(@Events.CardsLoaded, event)
+      @dispatch new CardsLoadedEvent(res.body)
 
   loadCard: (cardId) ->
-    request.get "/api/#{@organizationId}/cards/#{cardId}?expand=type", (res) =>
-      event = {success: true, cards: [res.body]}
-      @dispatch(@Events.CardsLoaded, event)
+    request.get "/api/#{@organizationId}/cards/#{cardId}", (res) =>
+      @dispatch new CardsLoadedEvent([res.body])
 
   setCardTitle: (card, title) ->
-    request.post("#{card.uri}/title").send({title}).end (res) =>
-      event = {success: true, cardId: card.id, title: title}
-      @dispatch(@Events.CardTitleChanged, event)
+    request.put("#{card.uri}/title")
+    .set(Header.IfMatch, etag.encode(card.version))
+    .set(Header.Socket, @pusher.connection.socket_id)
+    .send {title}
+    .end (res) =>
+      version = etag.decode(res.header['etag'])
+      @dispatch new CardTitleChangedEvent(card.id, title, version)
 
   setCardBody: (card, body) ->
-    request.post("#{card.uri}/body").send({body}).end (res) =>
-      event = {success: true, cardId: card.id, body: body}
-      @dispatch(@Events.CardBodyChanged, event)
+    request.put("#{card.uri}/body")
+    .set(Header.IfMatch, card.version)
+    .set(Header.Socket, @pusher.connection.socket_id)
+    .send {body}
+    .end (res) =>
+      version = etag.decode(res.header['etag'])
+      @dispatch new CardBodyChangedEvent(card.id, body, version)
 
 module.exports = WorkspaceController

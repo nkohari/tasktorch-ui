@@ -6,8 +6,8 @@ class CardStore extends Store
   constructor: ->
     @cards = {}
 
-  getCard: (cardId) ->
-    @cards[cardId]
+  getCard: (id) ->
+    @cards[id]
 
   getCardsInStack: (stackId) ->
     _.filter @cards, (card) -> card.stack.id == stackId
@@ -21,15 +21,17 @@ class CardStore extends Store
     @announce()
 
   onCardBodyChanged: (event) ->
-    card = @cards[event.cardId]
+    card = @cards[event.id]
     if card?
       card.body = event.body
+      card.version = event.version
       @announce()
 
   onCardTitleChanged: (event) ->
-    card = @cards[event.cardId]
+    card = @cards[event.id]
     if card?
       card.title = event.title
+      card.version = event.version
       @announce()
 
 module.exports = CardStore

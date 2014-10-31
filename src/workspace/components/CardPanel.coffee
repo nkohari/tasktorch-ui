@@ -21,8 +21,11 @@ CardPanel = React.createClass {
     cardId: React.PropTypes.string.isRequired
 
   getStateFromStores: (stores) ->
+    card = stores.cards.getCard(@props.cardId)
+    type = stores.types.getType(card.type) if card?
     return {
-      card: stores.cards.getCard(@props.cardId) ? {}
+      card: card ? {}
+      type: type ? {}
     }
 
   componentWillMount: ->
@@ -36,7 +39,7 @@ CardPanel = React.createClass {
       close:      @makeCloseLinkProps()
     }, [
       CardActionBar {card: @state.card}
-      CardHeader {card: @state.card}
+      CardHeader {card: @state.card, type: @state.type}
       CardBody {card: @state.card}
     ]
 

@@ -1,32 +1,18 @@
-_                   = require 'lodash'
-React               = require 'react/addons'
-Router              = require 'react-router'
-Api                 = require '../Api'
-NavigationBar       = require '../common/NavigationBar'
-PresenceBar         = require '../common/PresenceBar'
-PanelGroup          = require '../common/PanelGroup'
-Flux                = require '../mixins/Flux'
-ActiveUrl           = require '../mixins/ActiveUrl'
-WorkspaceController = require './WorkspaceController'
-WorkspaceUrl        = require './WorkspaceUrl'
-StackPanel          = require './components/StackPanel'
-CardPanel           = require './components/CardPanel'
-WorkspaceSidebar    = require './components/WorkspaceSidebar'
-CardStore           = require './stores/CardStore'
-OrganizationStore   = require './stores/OrganizationStore'
-StackStore          = require './stores/StackStore'
-TeamStore           = require './stores/TeamStore'
-TypeStore           = require './stores/TypeStore'
-UserStore           = require './stores/UserStore'
-{div}               = React.DOM
-
-controller = new WorkspaceController
-  cards:         new CardStore()
-  organizations: new OrganizationStore()
-  stacks:        new StackStore()
-  teams:         new TeamStore()
-  types:         new TypeStore()
-  users:         new UserStore()
+_                    = require 'lodash'
+React                = require 'react/addons'
+Router               = require 'react-router'
+Api                  = require '../Api'
+NavigationBar        = require '../common/NavigationBar'
+PresenceBar          = require '../common/PresenceBar'
+PanelGroup           = require '../common/PanelGroup'
+Flux                 = require '../mixins/Flux'
+ActiveUrl            = require '../mixins/ActiveUrl'
+WorkspaceEnvironment = require './WorkspaceEnvironment'
+WorkspaceUrl         = require './WorkspaceUrl'
+StackPanel           = require './components/StackPanel'
+CardPanel            = require './components/CardPanel'
+WorkspaceSidebar     = require './components/WorkspaceSidebar'
+{div}                = React.DOM
 
 WorkspaceScreen = React.createClass {
 
@@ -37,7 +23,7 @@ WorkspaceScreen = React.createClass {
   ]
 
   getDefaultProps: ->
-    {controller}
+    {controller: WorkspaceEnvironment.createController()}
 
   getInitialState: ->
     return {
@@ -83,11 +69,11 @@ WorkspaceScreen = React.createClass {
     ]
 
   getActivePanels: ->
-    urlModel = @getActiveUrl()
+    url = @getActiveUrl()
     position = 0
-    stackPanels = _.map urlModel.stacks, (stackId) =>
+    stackPanels = _.map url.stacks, (stackId) =>
       StackPanel {stackId, key: "stack-#{stackId}", position: position++}
-    cardPanels = _.map urlModel.cards, (cardId) =>
+    cardPanels = _.map url.cards, (cardId) =>
       CardPanel {cardId, key: "card-#{cardId}", position: position++}
     return stackPanels.concat(cardPanels)
 
