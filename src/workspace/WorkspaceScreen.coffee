@@ -16,6 +16,8 @@ WorkspaceSidebar     = require './components/WorkspaceSidebar'
 
 WorkspaceScreen = React.createClass {
 
+  displayName: 'WorkspaceScreen'
+
   mixins: [
     Flux('cards', 'organizations', 'stacks', 'teams', 'types', 'users')
     ActiveUrl(WorkspaceUrl)
@@ -27,7 +29,6 @@ WorkspaceScreen = React.createClass {
 
   getInitialState: ->
     return {
-      channel:       undefined
       draggingCard:  undefined
       draggingIndex: undefined
       hoveringCard:  undefined
@@ -59,12 +60,13 @@ WorkspaceScreen = React.createClass {
     unless @state.currentOrganization? and @state.currentUser?
       return div {className: 'workspace screen loading'}, []
 
+    panels = @getActivePanels()
+    panels.unshift WorkspaceSidebar {key: 'sidebar', stacks: @state.stacks, teams: @state.teams}
+    console.log panels
+
     div {className: 'workspace screen'}, [
       NavigationBar {key: 'navigation-bar', currentOrganization: @state.currentOrganization, currentUser: @state.currentUser}
-      div {key: 'main', className: 'main'}, [
-        WorkspaceSidebar {stacks: @state.stacks, teams: @state.teams}
-        PanelGroup {}, @getActivePanels()
-      ]
+      div {key: 'main', className: 'main'}, panels
       PresenceBar {key: 'presence-bar', currentUser: @state.currentUser}
     ]
 
@@ -75,7 +77,10 @@ WorkspaceScreen = React.createClass {
       StackPanel {stackId, key: "stack-#{stackId}", position: position++}
     cardPanels = _.map url.cards, (cardId) =>
       CardPanel {cardId, key: "card-#{cardId}", position: position++}
-    return stackPanels.concat(cardPanels)
+    return [
+      PanelGroup {key: 'stacks'}, stackPanels
+      PanelGroup {key: 'cards'}, cardPanels
+    ]
 
   startDraggingCard: (draggingCard, draggingIndex) ->
     @setState {draggingCard, draggingIndex}

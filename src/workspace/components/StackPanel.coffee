@@ -38,7 +38,7 @@ StackPanel = React.createClass {
   render: ->
 
     cards = _.map @state.cards, (card, index) =>
-      StackCardFrame {stack: @state.stack, card, index}
+      StackCardFrame {key: "card-frame-#{card.id}", stack: @state.stack, card, index}
 
     Panel {
       panelTitle:  @state.stack.name

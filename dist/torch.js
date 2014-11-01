@@ -35768,6 +35768,7 @@ PanelHeader = require('./PanelHeader');
 div = React.DOM.div;
 
 Panel = React.createClass({
+  displayName: 'Panel',
   render: function() {
     var header, panel;
     header = PanelHeader({
@@ -35796,6 +35797,7 @@ div = React.DOM.div;
 CSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 PanelGroup = React.createClass({
+  displayName: 'PanelGroup',
   render: function() {
     return CSSTransitionGroup({
       component: div,
@@ -36556,6 +36558,7 @@ WorkspaceSidebar = require('./components/WorkspaceSidebar');
 div = React.DOM.div;
 
 WorkspaceScreen = React.createClass({
+  displayName: 'WorkspaceScreen',
   mixins: [Flux('cards', 'organizations', 'stacks', 'teams', 'types', 'users'), ActiveUrl(WorkspaceUrl), Router.Navigation],
   getDefaultProps: function() {
     return {
@@ -36564,7 +36567,6 @@ WorkspaceScreen = React.createClass({
   },
   getInitialState: function() {
     return {
-      channel: void 0,
       draggingCard: void 0,
       draggingIndex: void 0,
       hoveringCard: void 0,
@@ -36592,11 +36594,19 @@ WorkspaceScreen = React.createClass({
     return window.Screen = void 0;
   },
   render: function() {
+    var panels;
     if (!((this.state.currentOrganization != null) && (this.state.currentUser != null))) {
       return div({
         className: 'workspace screen loading'
       }, []);
     }
+    panels = this.getActivePanels();
+    panels.unshift(WorkspaceSidebar({
+      key: 'sidebar',
+      stacks: this.state.stacks,
+      teams: this.state.teams
+    }));
+    console.log(panels);
     return div({
       className: 'workspace screen'
     }, [
@@ -36607,12 +36617,7 @@ WorkspaceScreen = React.createClass({
       }), div({
         key: 'main',
         className: 'main'
-      }, [
-        WorkspaceSidebar({
-          stacks: this.state.stacks,
-          teams: this.state.teams
-        }), PanelGroup({}, this.getActivePanels())
-      ]), PresenceBar({
+      }, panels), PresenceBar({
         key: 'presence-bar',
         currentUser: this.state.currentUser
       })
@@ -36640,7 +36645,13 @@ WorkspaceScreen = React.createClass({
         });
       };
     })(this));
-    return stackPanels.concat(cardPanels);
+    return [
+      PanelGroup({
+        key: 'stacks'
+      }, stackPanels), PanelGroup({
+        key: 'cards'
+      }, cardPanels)
+    ];
   },
   startDraggingCard: function(draggingCard, draggingIndex) {
     return this.setState({
@@ -37155,6 +37166,7 @@ StackPanel = React.createClass({
     cards = _.map(this.state.cards, (function(_this) {
       return function(card, index) {
         return StackCardFrame({
+          key: "card-frame-" + card.id,
           stack: _this.state.stack,
           card: card,
           index: index
