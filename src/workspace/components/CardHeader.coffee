@@ -13,7 +13,6 @@ CardHeader = React.createClass {
 
   render: ->
     div {className: 'card-header'}, [
-      div {key: 'card-type', className: 'type'}, [@props.type.name]
       div {key: 'card-title', className: 'title'}, [
         Text {key: 'card-title-text', placeholder: Strings.untitledCard, value: @props.card.title, save: @saveTitle}
       ]

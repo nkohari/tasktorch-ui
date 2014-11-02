@@ -7,10 +7,9 @@ $action-bar-background-color: #ddd;
 $action-bar-button-color: #ccc;
 $action-bar-border-color: #999;
 $action-bar-font-color: #666;
-$icon-font: 2.2em/0.5em "Entypo";
 $icon-font-color: #666;
 $header-footer-font-color: #fff;
-$header-footer-font-shadow-color: rgba(0, 0, 0, 0.3);
+$header-footer-font-shadow-color: rgba(0, 0, 0, 0.5);
 $header-footer-background-color: #aaa;
 $header-footer-border-color: #666;
 $sidebar-width: 200px;
@@ -65,7 +64,7 @@ input {
 textarea {
   @include editable-text;
   width: 100%;
-  padding: 10px;
+  padding: 4px;
   resize: none;
   overflow: hidden;
   &:focus {
@@ -81,10 +80,11 @@ textarea {
 .icon {
   display: inline-block;
   vertical-align: middle;
-  font: $icon-font;
+  font: 30px/16px normal "Entypo";
+  width: 24px;
   color: $icon-font-color;
-  width: 0.75em;
   text-align: center;
+  margin-top: -2px;
   &.icon-close:before { content: "\274C"; }
   &.icon-stack-inbox:before { content: "\1F4E5"; }
   &.icon-stack-queue:before { content: "\1F4C4"; }
@@ -92,6 +92,7 @@ textarea {
   &.icon-accept:before { content: "\1F44D"; }
   &.icon-hand-back:before { content: "\E712"; }
   &.icon-hand-off:before { content: "\27A6"; }
+  &.icon-card:before { content: "\E730"; }
 }
 
 .screen {
@@ -117,9 +118,9 @@ textarea {
     display: inline-block;
     vertical-align: top;
     font-size: 18px;
-    font-weight: 400;
-    line-height: 32px;
-    text-shadow: 2px 2px $header-footer-font-shadow-color;
+    font-weight: 600;
+    line-height: 36px;
+    text-shadow: 1px 1px 2px $header-footer-font-shadow-color;
   }
   .user {
     display: inline-block;
@@ -316,7 +317,6 @@ textarea {
     background: $action-bar-background-color;
     border-bottom: 1px solid $panel-border-color;
     padding: 10px;
-    margin-bottom: 10px;
     button {
       display: inline-block;
       margin-right: 8px;
@@ -329,16 +329,12 @@ textarea {
     }
   }
   .card-header {
-    padding: 2px 8px;
     margin: 10px;
-    border-left: 6px solid #999;
-    .type {
-      color: #aaa;
-      font-size: 12px;
-    }
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
     .title {
-      color: #000;
-      font-size: 18px;
+      color: #111;
+      font-size: 22px;
       font-weight: 600;
     }
     .handoff {
@@ -352,7 +348,10 @@ textarea {
   }
   .card-body {
     margin: 10px;
-    font-size: 14px;
+    font-size: 18px;
+    font-weight: 400;
+    height: 300px;
+    textarea { height: 100%; }
   }
 }
 

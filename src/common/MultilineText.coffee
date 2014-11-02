@@ -13,9 +13,6 @@ MultilineText = React.createClass {
   componentWillReceiveProps: (newProps) ->
     @setState {dirty: false, previous: newProps.value, value: newProps.value}
 
-  componentDidUpdate: ->
-    @resize()
-
   render: ->
 
     classes = {dirty: @state.dirty}
@@ -40,22 +37,14 @@ MultilineText = React.createClass {
           @getDOMNode().blur()
 
   handleChange: (event) ->
-    @setState {dirty: true, value: event.target.value}, =>
-      @resize()
+    @setState {dirty: true, value: event.target.value}
 
   handleFocus: ->
     @setState {previous: @state.value}
-    @resize()
 
   handleBlur: ->
     @props.save(@state.value) if @state.dirty
     @setState {dirty: false}
-
-  resize: ->
-    return unless @isMounted()
-    node = @getDOMNode()
-    node.style.height = 'auto'
-    node.style.height = node.scrollHeight + 'px'
 
 }
 

@@ -37,7 +37,7 @@ textarea {
   transition-duration: 0.1s;
   transition-timing-function: ease-in-out;
   width: 100%;
-  padding: 10px;
+  padding: 4px;
   resize: none;
   overflow: hidden; }
   textarea.dirty {
@@ -60,10 +60,11 @@ textarea {
 .icon {
   display: inline-block;
   vertical-align: middle;
-  font: 2.2em/0.5em "Entypo";
+  font: 30px/16px normal "Entypo";
+  width: 24px;
   color: #666666;
-  width: 0.75em;
-  text-align: center; }
+  text-align: center;
+  margin-top: -2px; }
   .icon.icon-close:before {
     content: "\274C"; }
   .icon.icon-stack-inbox:before {
@@ -78,6 +79,8 @@ textarea {
     content: "\E712"; }
   .icon.icon-hand-off:before {
     content: "\27A6"; }
+  .icon.icon-card:before {
+    content: "\E730"; }
 
 .screen {
   height: 100vh;
@@ -101,9 +104,9 @@ textarea {
     display: inline-block;
     vertical-align: top;
     font-size: 18px;
-    font-weight: 400;
-    line-height: 32px;
-    text-shadow: 2px 2px rgba(0, 0, 0, 0.3); }
+    font-weight: 600;
+    line-height: 36px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); }
   .navigation .user {
     display: inline-block;
     vertical-align: top;
@@ -270,8 +273,7 @@ textarea {
     width: 100%;
     background: #dddddd;
     border-bottom: 1px solid #999999;
-    padding: 10px;
-    margin-bottom: 10px; }
+    padding: 10px; }
     .card .action-bar button {
       display: inline-block;
       margin-right: 8px;
@@ -282,15 +284,12 @@ textarea {
       background: #cccccc;
       border: 1px solid #999999; }
   .card .card-header {
-    padding: 2px 8px;
     margin: 10px;
-    border-left: 6px solid #999; }
-    .card .card-header .type {
-      color: #aaa;
-      font-size: 12px; }
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc; }
     .card .card-header .title {
-      color: #000;
-      font-size: 18px;
+      color: #111;
+      font-size: 22px;
       font-weight: 600; }
     .card .card-header .handoff {
       font-size: 12px;
@@ -300,7 +299,11 @@ textarea {
         color: #666; }
   .card .card-body {
     margin: 10px;
-    font-size: 14px; }
+    font-size: 18px;
+    font-weight: 400;
+    height: 300px; }
+    .card .card-body textarea {
+      height: 100%; }
 
 .panel-slide-enter {
   opacity: 0;

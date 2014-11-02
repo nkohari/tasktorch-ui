@@ -37,6 +37,7 @@ CardPanel = React.createClass {
     Panel {
       style:      {zIndex: 99 - @props.position}
       panelTitle: @state.card.title or Strings.untitledCard
+      icon:       'card'
       className:  'card'
       close:      @makeCloseLinkProps()
     }, [

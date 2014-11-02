@@ -35308,9 +35308,6 @@ MultilineText = React.createClass({
       value: newProps.value
     });
   },
-  componentDidUpdate: function() {
-    return this.resize();
-  },
   render: function() {
     var classes;
     classes = {
@@ -35347,17 +35344,12 @@ MultilineText = React.createClass({
     return this.setState({
       dirty: true,
       value: event.target.value
-    }, (function(_this) {
-      return function() {
-        return _this.resize();
-      };
-    })(this));
+    });
   },
   handleFocus: function() {
-    this.setState({
+    return this.setState({
       previous: this.state.value
     });
-    return this.resize();
   },
   handleBlur: function() {
     if (this.state.dirty) {
@@ -35366,15 +35358,6 @@ MultilineText = React.createClass({
     return this.setState({
       dirty: false
     });
-  },
-  resize: function() {
-    var node;
-    if (!this.isMounted()) {
-      return;
-    }
-    node = this.getDOMNode();
-    node.style.height = 'auto';
-    return node.style.height = node.scrollHeight + 'px';
   }
 });
 
@@ -36531,9 +36514,6 @@ CardHeader = React.createClass({
       className: 'card-header'
     }, [
       div({
-        key: 'card-type',
-        className: 'type'
-      }, [this.props.type.name]), div({
         key: 'card-title',
         className: 'title'
       }, [
@@ -36606,6 +36586,7 @@ CardPanel = React.createClass({
         zIndex: 99 - this.props.position
       },
       panelTitle: this.state.card.title || Strings.untitledCard,
+      icon: 'card',
       className: 'card',
       close: this.makeCloseLinkProps()
     }, [
