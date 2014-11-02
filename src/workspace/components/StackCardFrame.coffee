@@ -1,10 +1,10 @@
 React        = require 'react/addons'
 Router       = require 'react-router'
 ActiveUrl    = require '../../mixins/ActiveUrl'
-InboxCard    = require './cards/InboxCard'
-QueueCard    = require './cards/QueueCard'
-BacklogCard  = require './cards/BacklogCard'
 WorkspaceUrl = require '../WorkspaceUrl'
+InboxCard    = React.createFactory(require './cards/InboxCard')
+QueueCard    = React.createFactory(require './cards/QueueCard')
+BacklogCard  = React.createFactory(require './cards/BacklogCard')
 {div}        = React.DOM
 {classSet}   = React.addons
 
@@ -14,6 +14,8 @@ CardTypes =
   queue:   QueueCard
 
 StackCardFrame = React.createClass {
+
+  displayName: 'StackCardFrame'
 
   mixins: [
     ActiveUrl(WorkspaceUrl)

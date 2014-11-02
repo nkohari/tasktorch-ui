@@ -5,6 +5,8 @@ Keys       = require '../Keys'
 
 MultilineText = React.createClass {
 
+  displayName: 'MultilineText'
+
   getInitialState: ->
     {dirty: false, previous: undefined, value: @props.value}
 

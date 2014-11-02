@@ -1,16 +1,18 @@
 React         = require 'react'
-MultilineText = require '../../common/MultilineText'
 Flux          = require '../../mixins/Flux'
 Strings       = require '../../Strings'
+MultilineText = React.createFactory(require '../../common/MultilineText')
 {div}         = React.DOM
 
 CardBody = React.createClass {
+
+  displayName: 'CardBody'
 
   mixins: [Flux()]
 
   render: ->
     div {className: 'card-body'}, [
-      MultilineText {placeholder: Strings.cardBody, value: @props.card.body, save: @saveBody}
+      MultilineText {key: 'card-body-text', placeholder: Strings.cardBody, value: @props.card.body, save: @saveBody}
     ]
 
   saveBody: (value) ->

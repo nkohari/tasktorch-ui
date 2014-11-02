@@ -1,10 +1,11 @@
 React  = require 'react'
 Router = require 'react-router'
-{Routes, Route} = Router
+Routes = React.createFactory(Router.Routes)
+Route  = React.createFactory(Router.Route)
 
-LoginScreen             = require './login/LoginScreen'
-WorkspaceScreen         = require './workspace/WorkspaceScreen'
-RedirectToLastWorkspace = require './common/RedirectToLastWorkspace'
+LoginScreen             = React.createFactory(require './login/LoginScreen')
+WorkspaceScreen         = React.createFactory(require './workspace/WorkspaceScreen')
+RedirectToLastWorkspace = React.createFactory(require './common/RedirectToLastWorkspace')
 
 routes = Routes {location: 'history'}, [
   Route {name: 'redirect',  key: 'redirect',  path: '/',               handler: RedirectToLastWorkspace}
@@ -12,4 +13,4 @@ routes = Routes {location: 'history'}, [
   Route {name: 'workspace', key: 'workspace', path: ':organizationId', handler: WorkspaceScreen}
 ]
 
-React.renderComponent(routes, document.body)
+React.render(routes, document.body)

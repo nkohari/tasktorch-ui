@@ -1,14 +1,16 @@
 _              = require 'lodash'
 React          = require 'react'
 Router         = require 'react-router'
-Panel          = require '../../common/Panel'
 Flux           = require '../../mixins/Flux'
 ActiveUrl      = require '../../mixins/ActiveUrl'
 WorkspaceUrl   = require '../WorkspaceUrl'
-StackCardFrame = require './StackCardFrame'
+Panel          = React.createFactory(require '../../common/Panel')
+StackCardFrame = React.createFactory(require './StackCardFrame')
 {ul}           = React.DOM
 
 StackPanel = React.createClass {
+
+  displayName: 'StackPanel'
 
   mixins: [
     Flux('stacks', 'cards')
@@ -50,7 +52,7 @@ StackPanel = React.createClass {
       onDragEnd:   @handleDragEnd
       onDragOver:  @handleDragOver
     }, [
-      ul {ref: 'cardList', className: 'card-list'}, cards
+      ul {key: 'card-list', ref: 'cardList', className: 'card-list'}, cards
     ]
 
   makeCloseLinkProps: ->

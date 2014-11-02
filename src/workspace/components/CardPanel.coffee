@@ -2,15 +2,17 @@ React         = require 'react'
 Router        = require 'react-router'
 Api           = require '../../Api'
 Strings       = require '../../Strings'
-Panel         = require '../../common/Panel'
 Flux          = require '../../mixins/Flux'
 ActiveUrl     = require '../../mixins/ActiveUrl'
 WorkspaceUrl  = require '../WorkspaceUrl'
-CardActionBar = require './CardActionBar'
-CardHeader    = require './CardHeader'
-CardBody      = require './CardBody'
+Panel         = React.createFactory(require '../../common/Panel')
+CardActionBar = React.createFactory(require './CardActionBar')
+CardHeader    = React.createFactory(require './CardHeader')
+CardBody      = React.createFactory(require './CardBody')
 
 CardPanel = React.createClass {
+
+  displayName: 'CardPanel'
 
   mixins: [
     Flux('cards')
@@ -38,9 +40,9 @@ CardPanel = React.createClass {
       className:  'card'
       close:      @makeCloseLinkProps()
     }, [
-      CardActionBar {card: @state.card}
-      CardHeader {card: @state.card, type: @state.type}
-      CardBody {card: @state.card}
+      CardActionBar {key: 'card-actions', card: @state.card}
+      CardHeader {key: 'card-header', card: @state.card, type: @state.type}
+      CardBody {key: 'card-body', card: @state.card}
     ]
 
   makeCloseLinkProps: ->

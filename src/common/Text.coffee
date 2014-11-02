@@ -5,6 +5,8 @@ Keys       = require '../Keys'
 
 Text = React.createClass {
 
+  displayName: 'Text'
+
   getInitialState: ->
     {dirty: false, previous: @props.value, value: @props.value}
 

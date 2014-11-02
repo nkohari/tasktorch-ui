@@ -3,6 +3,8 @@ React = require 'react'
 
 BacklogCard = React.createClass {
 
+  displayName: 'BacklogCard'
+
   render: ->
     div {className: 'stack-card-body backlog'}, [
       div {className: 'card subject'}, [@props.card.title]

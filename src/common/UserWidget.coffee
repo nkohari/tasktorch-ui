@@ -1,13 +1,15 @@
 _      = require 'lodash'
 React  = require 'react'
-Avatar = require './Avatar'
+Avatar = React.createFactory(require './Avatar')
 {div}  = React.DOM
 
 UserWidget = React.createClass {
 
+  displayName: 'UserWidget'
+
   render: ->
     div {className: 'user widget'}, [
-      Avatar {user: @props.user, size: 32}
+      Avatar {key: 'user-avatar', user: @props.user, size: 32}
     ]
 
 }

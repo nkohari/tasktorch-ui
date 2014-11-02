@@ -1,13 +1,14 @@
 React     = require 'react'
-Panel     = require '../../common/Panel'
-StackList = require './StackList'
+StackList = React.createFactory(require './StackList')
 {div}     = React.DOM
 
 WorkspaceSidebar = React.createClass {
 
+  displayName: 'WorkspaceSidebar'
+
   render: ->
     div {className: 'workspace sidebar'}, [
-      StackList {stacks: @props.stacks, teams: @props.teams}
+      StackList {key: 'stack-list', stacks: @props.stacks, teams: @props.teams}
     ]
 
 }

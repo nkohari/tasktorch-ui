@@ -7,6 +7,8 @@ request = require 'superagent'
 
 LoginScreen = React.createClass {
 
+  displayName: 'LoginScreen'
+
   mixins: [Router.Navigation],
 
   getInitialState: ->

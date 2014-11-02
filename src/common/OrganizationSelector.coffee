@@ -3,6 +3,8 @@ React = require 'react'
 
 OrganizationSelector = React.createClass {
 
+  displayName: 'OrganizationSelector'
+
   render: ->
     div {className: "organization widget"}, [@props.organization.name]
 

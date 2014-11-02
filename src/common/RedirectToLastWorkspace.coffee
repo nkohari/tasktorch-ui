@@ -8,6 +8,8 @@ RedirectToLastWorkspace = React.createClass {
       # TODO: Read last organization ID from cookie/session
       transition.redirect('workspace', {organizationId: '1'}, {})
 
+  displayName: 'RedirectToLastWorkspace'
+
   render: ->
     null
 

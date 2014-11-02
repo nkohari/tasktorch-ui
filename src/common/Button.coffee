@@ -1,13 +1,15 @@
-React    = require 'react'
-Icon     = require './Icon'
-{button} = React.DOM
+React = require 'react'
+Icon = React.createFactory(require './Icon')
+{span, button} = React.DOM
 
 Button = React.createClass {
 
+  displayName: 'Button'
+
   render: ->
     button {onClick: @props.onClick}, [
-      Icon {name: @props.icon}
-      @props.text
+      Icon {key: 'button-icon', name: @props.icon}
+      span {key: 'button-text'}, @props.text
     ]
 
 }

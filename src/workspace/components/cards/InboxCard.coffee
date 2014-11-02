@@ -4,6 +4,8 @@ Strings   = require '../../../Strings'
 
 InboxCard = React.createClass {
 
+  displayName: 'InboxCard'
+
   render: ->
     div {className: 'stack-card-body inbox'}, [
       div {className: 'card-top'}, [

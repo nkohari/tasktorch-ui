@@ -4,6 +4,8 @@ Strings   = require '../../../Strings'
 
 QueueCard = React.createClass {
 
+  displayName: 'QueueCard'
+
   render: ->
     div {className: 'stack-card-body queue'}, [
       div {className: 'card-top'}, [

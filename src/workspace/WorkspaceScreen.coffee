@@ -2,16 +2,16 @@ _                    = require 'lodash'
 React                = require 'react/addons'
 Router               = require 'react-router'
 Api                  = require '../Api'
-NavigationBar        = require '../common/NavigationBar'
-PresenceBar          = require '../common/PresenceBar'
-PanelGroup           = require '../common/PanelGroup'
 Flux                 = require '../mixins/Flux'
 ActiveUrl            = require '../mixins/ActiveUrl'
 WorkspaceEnvironment = require './WorkspaceEnvironment'
 WorkspaceUrl         = require './WorkspaceUrl'
-StackPanel           = require './components/StackPanel'
-CardPanel            = require './components/CardPanel'
-WorkspaceSidebar     = require './components/WorkspaceSidebar'
+NavigationBar        = React.createFactory(require '../common/NavigationBar')
+PresenceBar          = React.createFactory(require '../common/PresenceBar')
+PanelGroup           = React.createFactory(require '../common/PanelGroup')
+StackPanel           = React.createFactory(require './components/StackPanel')
+CardPanel            = React.createFactory(require './components/CardPanel')
+WorkspaceSidebar     = React.createFactory(require './components/WorkspaceSidebar')
 {div}                = React.DOM
 
 WorkspaceScreen = React.createClass {
@@ -62,7 +62,6 @@ WorkspaceScreen = React.createClass {
 
     panels = @getActivePanels()
     panels.unshift WorkspaceSidebar {key: 'sidebar', stacks: @state.stacks, teams: @state.teams}
-    console.log panels
 
     div {className: 'workspace screen'}, [
       NavigationBar {key: 'navigation-bar', currentOrganization: @state.currentOrganization, currentUser: @state.currentUser}
@@ -74,12 +73,12 @@ WorkspaceScreen = React.createClass {
     url = @getActiveUrl()
     position = 0
     stackPanels = _.map url.stacks, (stackId) =>
-      StackPanel {stackId, key: "stack-#{stackId}", position: position++}
+      StackPanel {key: "stack-#{stackId}", stackId, position: position++}
     cardPanels = _.map url.cards, (cardId) =>
-      CardPanel {cardId, key: "card-#{cardId}", position: position++}
+      CardPanel {key: "card-#{cardId}", cardId, position: position++}
     return [
-      PanelGroup {key: 'stacks'}, stackPanels
-      PanelGroup {key: 'cards'}, cardPanels
+      PanelGroup {key: 'stack-panels'}, stackPanels
+      PanelGroup {key: 'card-panels'}, cardPanels
     ]
 
   startDraggingCard: (draggingCard, draggingIndex) ->

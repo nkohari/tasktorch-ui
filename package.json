@@ -5,8 +5,8 @@
   "dependencies": {
     "immutable": "2.0.17",
     "lodash": "2.4.1",
-    "react": "0.11.2",
-    "react-router": "0.9.3",
+    "react": "0.12.0",
+    "react-router": "0.10.2",
     "superagent": "0.20.0"
   },
   "devDependencies": {

@@ -1,14 +1,16 @@
 React                = require 'react'
-OrganizationSelector = require './OrganizationSelector'
-UserWidget           = require './UserWidget'
+OrganizationSelector = React.createFactory(require './OrganizationSelector')
+UserWidget           = React.createFactory(require './UserWidget')
 {div}                = React.DOM
 
 NavigationBar = React.createClass {
 
+  displayName: 'NavigationBar'
+
   render: ->
     div {className: 'navigation'}, [
-      OrganizationSelector {organization: @props.currentOrganization}
-      UserWidget {user: @props.currentUser}
+      OrganizationSelector {key: 'organization-selector', organization: @props.currentOrganization}
+      UserWidget {key: 'user-widget', user: @props.currentUser}
     ]
 
 }

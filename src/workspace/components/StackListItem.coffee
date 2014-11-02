@@ -1,24 +1,27 @@
 _            = require 'lodash'
 React        = require 'react/addons'
 Router       = require 'react-router'
-Icon         = require '../../common/Icon'
 ActiveUrl    = require '../../mixins/ActiveUrl'
 WorkspaceUrl = require '../WorkspaceUrl'
+Icon         = React.createFactory(require '../../common/Icon')
+Link         = React.createFactory(Router.Link)
 {li, span}   = React.DOM
-{Link}       = Router
 
 StackListItem = React.createClass {
+
+  displayName: 'StackListItem'
 
   mixins: [
     ActiveUrl(WorkspaceUrl)
   ]
 
   render: ->
+    linkProps = _.extend @makeLinkProps(), {key: 'open-stack-link'}
     li {className: 'stack-list-item'}, [
-      Link @makeLinkProps(), [
-        Icon {name: "stack-#{@props.stack.kind}"}
-        span {className: 'stack-name'}, [@props.stack.name]
-        span {className: 'stack-card-count'}, [@props.stack.cards.length]
+      Link linkProps, [
+        Icon {key: 'stack-icon', name: "stack-#{@props.stack.kind}"}
+        span {key: 'stack-name', className: 'stack-name'}, [@props.stack.name]
+        span {key: 'stack-card-count', className: 'stack-card-count'}, [@props.stack.cards.length]
       ]
     ]
 

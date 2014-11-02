@@ -1,11 +1,13 @@
 _          = require 'lodash'
 React      = require 'react'
 Flux       = require '../mixins/Flux'
-UserWidget = require './UserWidget'
+UserWidget = React.createFactory(require './UserWidget')
 {div}      = React.DOM
 
 PresenceBar = React.createClass {
 
+  displayName: 'PresenceBar'
+  
   mixins: [
     Flux('users')
   ]
@@ -14,7 +16,7 @@ PresenceBar = React.createClass {
     {connectedUsers: stores.users.getConnectedUsers()}
 
   render: ->
-    users = _.map @state.connectedUsers, (user) -> UserWidget {user}
+    users = _.map @state.connectedUsers, (user) -> UserWidget {key: "user-#{user.id}", user}
     div {className: 'presence'}, users
 
 }

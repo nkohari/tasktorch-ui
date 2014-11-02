@@ -3,6 +3,8 @@ React  = require 'react'
 
 Icon = React.createClass {
 
+  displayName: 'Icon'
+
   render: ->
     span {className: "icon icon-#{@props.name}"}, @props.children
 

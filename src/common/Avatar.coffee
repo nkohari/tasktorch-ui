@@ -4,6 +4,8 @@ React  = require 'react'
 
 Avatar = React.createClass {
 
+  displayName: 'Avatar'
+
   getDefaultProps: ->
     {user: undefined, size: 48}
 
