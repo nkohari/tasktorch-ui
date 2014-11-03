@@ -139,23 +139,23 @@ textarea {
       text-align: center;
       width: 140px;
       height: 100%;
-      border-right: 1px solid #777; }
+      border-right: 1px solid #666; }
       .screen-header .navigation a .icon {
         color: #666;
         text-align: left; }
       .screen-header .navigation a.active {
         color: #444;
         background: #999;
-        border-bottom: 2px solid #666; }
+        border-bottom: 4px solid #777; }
         .screen-header .navigation a.active .icon {
           color: #333; }
   .screen-header .user {
     display: inline-block;
-    vertical-align: top;
     height: 100%;
-    float: right; }
+    float: right;
+    padding: 8px 8px 0; }
     .screen-header .user .avatar {
-      border: 2px solid #fff;
+      border: 1px solid #666;
       border-radius: 50%; }
 
 .main {
@@ -273,7 +273,10 @@ textarea {
     .stack-card .card-top .title {
       color: #000;
       font-size: 14px;
-      font-weight: 600; }
+      font-weight: 600;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap; }
     .stack-card .card-top .handoff {
       font-size: 12px;
       color: #999; }
@@ -296,7 +299,6 @@ textarea {
   .card .action-bar {
     width: 100%;
     background: #dddddd;
-    border-bottom: 1px solid #999999;
     padding: 10px; }
     .card .action-bar button {
       display: inline-block;
@@ -315,6 +317,9 @@ textarea {
       color: #111;
       font-size: 22px;
       font-weight: 600; }
+      .card .card-header .title input {
+        text-overflow: ellipsis;
+        white-space: nowrap; }
     .card .card-header .handoff {
       font-size: 12px;
       color: #999; }
