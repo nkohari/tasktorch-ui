@@ -2,7 +2,7 @@ _ = require 'lodash'
 
 class WorkspaceUrl
 
-  constructor: (params, query) ->
+  constructor: (routes, params, query) ->
     @organizationId = params.organizationId
     @stacks = if query.stacks? then query.stacks.split(',') else []
     @cards  = if query.cards?  then query.cards.split(',')  else []

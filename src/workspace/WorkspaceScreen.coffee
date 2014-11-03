@@ -6,8 +6,7 @@ Flux                 = require '../mixins/Flux'
 ActiveUrl            = require '../mixins/ActiveUrl'
 WorkspaceEnvironment = require './WorkspaceEnvironment'
 WorkspaceUrl         = require './WorkspaceUrl'
-NavigationBar        = React.createFactory(require '../common/NavigationBar')
-PresenceBar          = React.createFactory(require '../common/PresenceBar')
+ScreenHeader         = React.createFactory(require '../common/ScreenHeader')
 PanelGroup           = React.createFactory(require '../common/PanelGroup')
 StackPanel           = React.createFactory(require './components/StackPanel')
 CardPanel            = React.createFactory(require './components/CardPanel')
@@ -56,7 +55,7 @@ WorkspaceScreen = React.createClass {
 
   render: ->
 
-    # TODO: Push this check down into the NavigationBar and PresenceBar?
+    # TODO: Push this check down into the ScreenHeader and PresenceBar?
     unless @state.currentOrganization? and @state.currentUser?
       return div {className: 'workspace screen loading'}, []
 
@@ -64,9 +63,8 @@ WorkspaceScreen = React.createClass {
     panels.unshift WorkspaceSidebar {key: 'sidebar', stacks: @state.stacks, teams: @state.teams}
 
     div {className: 'workspace screen'}, [
-      NavigationBar {key: 'navigation-bar', currentOrganization: @state.currentOrganization, currentUser: @state.currentUser}
+      ScreenHeader {key: 'navigation-bar', currentOrganization: @state.currentOrganization, currentUser: @state.currentUser}
       div {key: 'main', className: 'main'}, panels
-      PresenceBar {key: 'presence-bar', currentUser: @state.currentUser}
     ]
 
   getActivePanels: ->

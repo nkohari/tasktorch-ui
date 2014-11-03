@@ -9,7 +9,7 @@ LoginScreen = React.createClass {
 
   displayName: 'LoginScreen'
 
-  mixins: [Router.Navigation],
+  mixins: [Router.Navigation]
 
   getInitialState: ->
     {login: undefined, password: undefined}

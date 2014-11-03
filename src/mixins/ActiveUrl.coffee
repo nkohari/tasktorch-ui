@@ -11,7 +11,10 @@ ActiveUrl = (modelType) ->
       isActive:     React.PropTypes.func.isRequired
 
     getActiveUrl: ->
-      new modelType(@context.activeParams, @context.activeQuery)
+      new modelType(@context.activeRoutes, @context.activeParams, @context.activeQuery)
+
+    isActive: (route) ->
+      @context.isActive(route)
 
   }
 
