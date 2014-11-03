@@ -88,14 +88,14 @@ textarea {
   .icon.icon-bigpicture:before {
     content: "\1F30E"; }
 
-.screen {
+.shell {
   height: 100vh;
   width: 100vw;
   margin: 0;
   padding: 0;
   overflow: hidden; }
 
-.screen-header {
+.shell-header {
   position: absolute;
   top: 0;
   left: 0;
@@ -105,30 +105,30 @@ textarea {
   background: #aaaaaa;
   border-bottom: 1px solid #666666;
   z-index: 9999; }
-  .screen-header .organization {
+  .shell-header .organization {
     display: inline-block;
     vertical-align: top;
     width: 200px;
     height: 100%;
     padding: 8px 4px 4px 10px;
     background: #555; }
-    .screen-header .organization .organization-name {
+    .shell-header .organization .organization-name {
       font-size: 16px;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); }
-    .screen-header .organization .presence {
+    .shell-header .organization .presence {
       font-size: 14px;
       font-weight: 600;
       color: #999; }
-    .screen-header .organization .icon {
+    .shell-header .organization .icon {
       width: 18px;
       font-size: 24px;
       text-align: left;
       color: #999; }
-  .screen-header .navigation {
+  .shell-header .navigation {
     display: inline-block;
     vertical-align: top;
     height: 100%; }
-    .screen-header .navigation a {
+    .shell-header .navigation a {
       padding: 10px 0;
       font-size: 15px;
       font-weight: 600;
@@ -140,38 +140,38 @@ textarea {
       width: 140px;
       height: 100%;
       border-right: 1px solid #666; }
-      .screen-header .navigation a .icon {
+      .shell-header .navigation a .icon {
         color: #666;
         text-align: left; }
-      .screen-header .navigation a.active {
+      .shell-header .navigation a.active {
         color: #444;
         background: #999;
         border-bottom: 4px solid #777; }
-        .screen-header .navigation a.active .icon {
+        .shell-header .navigation a.active .icon {
           color: #333; }
-  .screen-header .user {
+  .shell-header .user {
     display: inline-block;
     height: 100%;
     float: right;
     padding: 8px 8px 0; }
-    .screen-header .user .avatar {
+    .shell-header .user .avatar {
       border: 1px solid #666;
       border-radius: 50%; }
 
-.main {
+.screen {
   padding-top: 54px;
   width: 100%;
   height: 100%;
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap; }
-  .main::-webkit-scrollbar-track {
+  .screen::-webkit-scrollbar-track {
     background: #efefef;
     border-top: 1px solid #ccc; }
-  .main::-webkit-scrollbar {
+  .screen::-webkit-scrollbar {
     height: 16px;
     padding-top: 1px; }
-  .main::-webkit-scrollbar-thumb {
+  .screen::-webkit-scrollbar-thumb {
     background-color: #aaa;
     background-clip: content-box;
     border: 4px solid rgba(255, 255, 255, 0);

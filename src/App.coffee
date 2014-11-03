@@ -3,16 +3,18 @@ Router = require 'react-router'
 Routes = React.createFactory(Router.Routes)
 Route  = React.createFactory(Router.Route)
 
-LoginScreen             = React.createFactory(require './login/LoginScreen')
-WorkspaceScreen         = React.createFactory(require './workspace/WorkspaceScreen')
-BigPictureScreen        = React.createFactory(require './bigpicture/BigPictureScreen')
-RedirectToLastWorkspace = React.createFactory(require './common/RedirectToLastWorkspace')
+Shell            = React.createFactory(require './shell/Shell')
+LoginScreen      = React.createFactory(require './login/LoginScreen')
+WorkspaceScreen  = React.createFactory(require './workspace/WorkspaceScreen')
+BigPictureScreen = React.createFactory(require './bigpicture/BigPictureScreen')
 
+# TODO: DefaultRoute to redirect to last workspace
 routes = Routes {location: 'history'}, [
-  Route {name: 'redirect',   key: 'redirect',   path: '/',                          handler: RedirectToLastWorkspace}
-  Route {name: 'login',      key: 'login',      path: 'login',                      handler: LoginScreen}
-  Route {name: 'bigpicture', key: 'bigpicture', path: ':organizationId/bigpicture', handler: BigPictureScreen}
-  Route {name: 'workspace',  key: 'workspace',  path: ':organizationId/workspace',  handler: WorkspaceScreen}
+  Route {name: 'login', key: 'login', path: 'login', handler: LoginScreen}
+  Route {name: 'shell', key: 'shell', path: ':organizationId', handler: Shell}, [
+    Route {name: 'workspace',  key: 'workspace',  path: 'workspace',  handler: WorkspaceScreen}
+    Route {name: 'bigpicture', key: 'bigpicture', path: 'bigpicture', handler: BigPictureScreen}
+  ]
 ]
 
 React.render(routes, document.body)

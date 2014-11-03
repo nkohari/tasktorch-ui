@@ -1,7 +1,7 @@
 _     = require 'lodash'
 React = require 'react'
 Flux  = require '../mixins/Flux'
-Icon  = React.createFactory(require './Icon')
+Icon  = React.createFactory(require '../common/Icon')
 {div, span} = React.DOM
 
 PresenceWidget = React.createClass {

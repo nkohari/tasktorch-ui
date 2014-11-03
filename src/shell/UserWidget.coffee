@@ -1,6 +1,6 @@
 _      = require 'lodash'
 React  = require 'react'
-Avatar = React.createFactory(require './Avatar')
+Avatar = React.createFactory(require '../common/Avatar')
 {div}  = React.DOM
 
 UserWidget = React.createClass {

@@ -4,12 +4,12 @@ NavigationWidget   = React.createFactory(require './NavigationWidget')
 UserWidget         = React.createFactory(require './UserWidget')
 {div}              = React.DOM
 
-HeaderBar = React.createClass {
+ShellHeader = React.createClass {
 
-  displayName: 'HeaderBar'
+  displayName: 'ShellHeader'
 
   render: ->
-    div {className: 'screen-header'}, [
+    div {className: 'shell-header'}, [
       OrganizationWidget {key: 'organization-widget', organization: @props.currentOrganization}
       NavigationWidget {key: 'navigation-widget'}
       UserWidget {key: 'user-widget', user: @props.currentUser}
@@ -17,4 +17,4 @@ HeaderBar = React.createClass {
 
 }
 
-module.exports = HeaderBar
+module.exports = ShellHeader

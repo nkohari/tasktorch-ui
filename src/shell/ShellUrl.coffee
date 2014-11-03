@@ -1,6 +1,6 @@
 _ = require 'lodash'
 
-class NavigationUrl
+class ShellUrl
 
   constructor: (routes, params, query) ->
     @organizationId = params.organizationId
@@ -10,4 +10,4 @@ class NavigationUrl
     query = {}
     return {to: route, params, query}
 
-module.exports = NavigationUrl
+module.exports = ShellUrl

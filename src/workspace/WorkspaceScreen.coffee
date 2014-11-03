@@ -6,7 +6,6 @@ Flux                 = require '../mixins/Flux'
 ActiveUrl            = require '../mixins/ActiveUrl'
 WorkspaceEnvironment = require './WorkspaceEnvironment'
 WorkspaceUrl         = require './WorkspaceUrl'
-ScreenHeader         = React.createFactory(require '../common/ScreenHeader')
 PanelGroup           = React.createFactory(require '../common/PanelGroup')
 StackPanel           = React.createFactory(require './components/StackPanel')
 CardPanel            = React.createFactory(require './components/CardPanel')
@@ -59,22 +58,15 @@ WorkspaceScreen = React.createClass {
     unless @state.currentOrganization? and @state.currentUser?
       return div {className: 'workspace screen loading'}, []
 
-    panels = @getActivePanels()
-    panels.unshift WorkspaceSidebar {key: 'sidebar', stacks: @state.stacks, teams: @state.teams}
-
-    div {className: 'workspace screen'}, [
-      ScreenHeader {key: 'navigation-bar', currentOrganization: @state.currentOrganization, currentUser: @state.currentUser}
-      div {key: 'main', className: 'main'}, panels
-    ]
-
-  getActivePanels: ->
     url = @getActiveUrl()
     position = 0
     stackPanels = _.map url.stacks, (stackId) =>
       StackPanel {key: "stack-#{stackId}", stackId, position: position++}
     cardPanels = _.map url.cards, (cardId) =>
       CardPanel {key: "card-#{cardId}", cardId, position: position++}
-    return [
+
+    div {className: 'workspace screen'}, [
+      WorkspaceSidebar {key: 'sidebar', stacks: @state.stacks, teams: @state.teams}
       PanelGroup {key: 'stack-panels'}, stackPanels
       PanelGroup {key: 'card-panels'}, cardPanels
     ]

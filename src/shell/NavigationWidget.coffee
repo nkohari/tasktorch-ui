@@ -1,15 +1,15 @@
 React         = require 'react/addons'
 Router        = require 'react-router'
 ActiveUrl     = require '../mixins/ActiveUrl'
-NavigationUrl = require './NavigationUrl'
-Icon          = React.createFactory(require './Icon')
+ShellUrl      = require './ShellUrl'
+Icon          = React.createFactory(require '../common/Icon')
 Link          = React.createFactory(Router.Link)
 {div}         = React.DOM
 {classSet}    = React.addons
 
 NavigationWidget = React.createClass {
 
-  mixins: [ActiveUrl(NavigationUrl)]
+  mixins: [ActiveUrl(ShellUrl)]
 
   displayName: 'NavigationWidget'
 
