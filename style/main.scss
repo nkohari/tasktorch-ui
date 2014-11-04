@@ -86,17 +86,24 @@ textarea {
   color: $icon-font-color;
   text-align: center;
   margin-top: -2px;
+  &.icon-accept:before { content: "\1F44D"; }
   &.icon-close:before { content: "\274C"; }
   &.icon-stack-inbox:before { content: "\1F4E5"; }
   &.icon-stack-queue:before { content: "\1F4C4"; }
   &.icon-stack-backlog:before { content: "\E736"; }
-  &.icon-accept:before { content: "\1F44D"; }
+  &.icon-do-now:before { content: "\1F3AF"; }
+  &.icon-do-later:before { content: "\E003"; }
   &.icon-hand-back:before { content: "\E712"; }
   &.icon-hand-off:before { content: "\27A6"; }
   &.icon-card:before { content: "\E730"; }
+  &.icon-user:before { content: "\1F464"; }
   &.icon-users:before { content: "\1F465"; }
   &.icon-workspace:before { content: "\2692"; }
   &.icon-bigpicture:before { content: "\1F30E"; }
+  &.icon-focus:before { content: "\1F3AF"; }
+  &.icon-archive:before { content: "\1F4E6"; }
+  &.icon-trash:before { content: "\E729"; }
+  &.icon-team:before { content: "\1F465"; }
 }
 
 .shell {
@@ -114,8 +121,8 @@ textarea {
   height: 54px;
   width: 100%;
   color: $header-footer-font-color;
-  background: $header-footer-background-color;
   border-bottom: 1px solid $header-footer-border-color;
+  background: linear-gradient(to bottom, #999, #aaa);
   z-index: 9999;
   .organization {
     display: inline-block;
@@ -164,7 +171,7 @@ textarea {
         color: #444;
         background: #999;
         border-bottom: 4px solid #777;
-        .icon { color: #333; }
+        .icon { color: #444; }
       }
     }
   }
@@ -219,8 +226,7 @@ textarea {
 }
 
 .panel-group {
-  display: inline;
-  .panel:last-child { box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); }
+  @include flow;
 }
 
 .panel {
@@ -249,34 +255,49 @@ textarea {
   }
 }
 
+.panel-slide-enter {
+  opacity: 0;
+  transform: translateX(-100px);
+  transition-property: opacity, transform;
+  transition-duration: 0.15s;
+  transition-timing-function: ease-in-out;
+  &.panel-slide-enter-active { opacity: 1; transform: translateX(0px); }
+}
+
+.panel-slide-leave {
+  opacity: 1;
+  transform: translateX(0px);
+  transition-property: opacity, transform;
+  transition-duration: 0.15s;
+  transition-timing-function: ease-in-out;
+  transform-origin: left top;
+  &.panel-slide-leave-active { opacity: 0; transform: scaleX(0.5) translateX(-100px); }
+}
+
 .stack-list {
-  width: $sidebar-width;
-  max-width: $sidebar-width;
-  ul {
-    margin: 0px;
-    padding: 0px;
-    list-style-type: none;
-    .stack-list-item a {
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      display: block;
-      padding: 6px 8px;
-      background: #fff;
-      border-bottom: 1px solid $panel-border-color;
-      color: $font-color;
-      text-decoration: none;
-      .stack-name { padding-left: 0.2em; }
-      &.active {
-        border-right: 4px solid $active-marker-color;
-      }
-      transition: border 0.1s ease-in-out;
-      .stack-card-count {
-        display: inline-block;
-        float: right;
-        color: #999;
-        text-align: right;
-      }
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
+  .stack-list-item a {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    padding: 6px 8px;
+    background: #fff;
+    border-bottom: 1px solid $panel-border-color;
+    color: $font-color;
+    text-decoration: none;
+    .stack-name { padding-left: 0.2em; }
+    &.active {
+      border-right: 4px solid $active-marker-color;
+    }
+    transition: border 0.1s ease-in-out;
+    .stack-card-count {
+      display: inline-block;
+      float: right;
+      color: #999;
+      text-align: right;
     }
   }
 }
@@ -342,17 +363,18 @@ textarea {
   background: #fff;
   .action-bar {
     width: 100%;
-    background: $action-bar-background-color;
-    padding: 10px;
+    padding: 10px 10px 0;
     button {
       display: inline-block;
-      margin-right: 8px;
+      margin-right: 10px;
       font-size: 13px;
       font-weight: 600;
-      padding: 4px 8px;
-      color: $action-bar-font-color;
-      background: $action-bar-button-color;
-      border: 1px solid $action-bar-border-color;
+      padding: 6px 10px;
+      color: #666;
+      background: linear-gradient(to bottom, #eee, #ddd);
+      box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.5);
+      border: 1px solid #ccc;
+      border-radius: 2px;
     }
   }
   .card-header {
@@ -386,21 +408,24 @@ textarea {
   }
 }
 
-.panel-slide-enter {
-  opacity: 0;
-  transform: translateX(-100px);
-  transition-property: opacity, transform;
-  transition-duration: 0.15s;
-  transition-timing-function: ease-in-out;
-  &.panel-slide-enter-active { opacity: 1; transform: translateX(0px); }
-}
-
-.panel-slide-leave {
-  opacity: 1;
-  transform: translateX(0px);
-  transition-property: opacity, transform;
-  transition-duration: 0.15s;
-  transition-timing-function: ease-in-out;
-  transform-origin: left top;
-  &.panel-slide-leave-active { opacity: 0; transform: scaleX(0.5) translateX(-100px); }
+.team-list {
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
+  .team-list-item a {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    padding: 6px 8px;
+    background: #fff;
+    border-bottom: 1px solid $panel-border-color;
+    color: $font-color;
+    text-decoration: none;
+    .team-name { padding-left: 0.2em; }
+    &.active {
+      border-right: 4px solid $active-marker-color;
+    }
+    transition: border 0.1s ease-in-out;
+  }
 }

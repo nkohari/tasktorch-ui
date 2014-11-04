@@ -85,8 +85,6 @@ textarea {
     content: "\27A6"; }
   .icon.icon-card:before {
     content: "\E730"; }
-  .icon.icon-user:before {
-    content: "\1F464"; }
   .icon.icon-users:before {
     content: "\1F465"; }
   .icon.icon-workspace:before {
@@ -99,8 +97,6 @@ textarea {
     content: "\1F4E6"; }
   .icon.icon-trash:before {
     content: "\E729"; }
-  .icon.icon-team:before {
-    content: "\1F465"; }
 
 .shell {
   height: 100vh;
@@ -236,51 +232,33 @@ textarea {
       float: right;
       cursor: pointer; }
 
-.panel-slide-enter {
-  opacity: 0;
-  transform: translateX(-100px);
-  transition-property: opacity, transform;
-  transition-duration: 0.15s;
-  transition-timing-function: ease-in-out; }
-  .panel-slide-enter.panel-slide-enter-active {
-    opacity: 1;
-    transform: translateX(0px); }
-
-.panel-slide-leave {
-  opacity: 1;
-  transform: translateX(0px);
-  transition-property: opacity, transform;
-  transition-duration: 0.15s;
-  transition-timing-function: ease-in-out;
-  transform-origin: left top; }
-  .panel-slide-leave.panel-slide-leave-active {
-    opacity: 0;
-    transform: scaleX(0.5) translateX(-100px); }
-
 .stack-list {
-  margin: 0px;
-  padding: 0px;
-  list-style-type: none; }
-  .stack-list .stack-list-item a {
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    display: block;
-    padding: 6px 8px;
-    background: #fff;
-    border-bottom: 1px solid #999999;
-    color: black;
-    text-decoration: none;
-    transition: border 0.1s ease-in-out; }
-    .stack-list .stack-list-item a .stack-name {
-      padding-left: 0.2em; }
-    .stack-list .stack-list-item a.active {
-      border-right: 4px solid #cccccc; }
-    .stack-list .stack-list-item a .stack-card-count {
-      display: inline-block;
-      float: right;
-      color: #999;
-      text-align: right; }
+  width: 200px;
+  max-width: 200px; }
+  .stack-list ul {
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none; }
+    .stack-list ul .stack-list-item a {
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: block;
+      padding: 6px 8px;
+      background: #fff;
+      border-bottom: 1px solid #999999;
+      color: black;
+      text-decoration: none;
+      transition: border 0.1s ease-in-out; }
+      .stack-list ul .stack-list-item a .stack-name {
+        padding-left: 0.2em; }
+      .stack-list ul .stack-list-item a.active {
+        border-right: 4px solid #cccccc; }
+      .stack-list ul .stack-list-item a .stack-card-count {
+        display: inline-block;
+        float: right;
+        color: #999;
+        text-align: right; }
 
 .stack {
   width: 291px; }
@@ -370,22 +348,43 @@ textarea {
     .card .card-body textarea {
       height: 100%; }
 
-.team-list {
-  margin: 0px;
-  padding: 0px;
-  list-style-type: none; }
-  .team-list .team-list-item a {
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    display: block;
-    padding: 6px 8px;
-    background: #fff;
-    border-bottom: 1px solid #999999;
-    color: black;
-    text-decoration: none;
-    transition: border 0.1s ease-in-out; }
-    .team-list .team-list-item a .team-name {
-      padding-left: 0.2em; }
-    .team-list .team-list-item a.active {
-      border-right: 4px solid #cccccc; }
+.panel-slide-enter {
+  opacity: 0;
+  transform: translateX(-100px);
+  transition-property: opacity, transform;
+  transition-duration: 0.15s;
+  transition-timing-function: ease-in-out; }
+  .panel-slide-enter.panel-slide-enter-active {
+    opacity: 1;
+    transform: translateX(0px); }
+
+.panel-slide-leave {
+  opacity: 1;
+  transform: translateX(0px);
+  transition-property: opacity, transform;
+  transition-duration: 0.15s;
+  transition-timing-function: ease-in-out;
+  transform-origin: left top; }
+  .panel-slide-leave.panel-slide-leave-active {
+    opacity: 0;
+    transform: scaleX(0.5) translateX(-100px); }
+
+.screen-fade-enter {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition-property: opacity, transform;
+  transition-duration: 0.15s;
+  transition-timing-function: ease-in-out; }
+  .screen-fade-enter.screen-fade-enter-active {
+    opacity: 1;
+    transform: translateY(0px); }
+
+.screen-fade-leave {
+  opacity: 1;
+  transform: translateY(0);
+  transition-property: opacity, transform;
+  transition-duration: 0.15s;
+  transition-timing-function: ease-in-out; }
+  .screen-fade-leave.screen-fade-leave-active {
+    opacity: 0;
+    transform: translateY(-20px); }

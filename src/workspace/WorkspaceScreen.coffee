@@ -46,10 +46,10 @@ WorkspaceScreen = React.createClass {
     controller = @getController()
     controller.setOrganization(@getActiveUrl().organizationId)
     controller.loadWorkspace()
-    controller.joinPresenceChannel()
+    controller.joinOrganizationChannel()
 
   componentWillUnmount: ->
-    controller.leavePresenceChannel()
+    @getController().leaveOrganizationChannel()
     window.Screen = undefined
 
   render: ->

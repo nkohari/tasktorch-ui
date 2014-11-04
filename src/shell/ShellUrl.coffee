@@ -7,7 +7,7 @@ class ShellUrl
 
   makeLinkProps: (route) ->
     params = {@organizationId}
-    query = {}
+    query  = {}
     return {to: route, params, query}
 
 module.exports = ShellUrl

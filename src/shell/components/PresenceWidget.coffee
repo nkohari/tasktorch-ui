@@ -1,7 +1,7 @@
 _     = require 'lodash'
 React = require 'react'
-Flux  = require '../mixins/Flux'
-Icon  = React.createFactory(require '../common/Icon')
+Flux  = require '../../mixins/Flux'
+Icon  = React.createFactory(require '../../common/Icon')
 {div, span} = React.DOM
 
 PresenceWidget = React.createClass {
@@ -9,11 +9,11 @@ PresenceWidget = React.createClass {
   displayName: 'PresenceWidget'
   
   mixins: [
-    Flux('users')
+    Flux('presence')
   ]
 
   getStateFromStores: (stores) ->
-    {connectedUsers: stores.users.getConnectedUsers()}
+    {connectedUsers: stores.presence.getConnectedUsers()}
 
   render: ->
     div {className: 'presence'}, [

@@ -1,46 +1,30 @@
-_          = require 'lodash'
-request    = require 'superagent'
-arrayEnum  = require '../common/util/arrayEnum'
-etag       = require '../common/util/etag'
-Controller = require '../framework/Controller'
-Header     = require '../Header'
-
-CardBodyChangedEvent = require './events/CardBodyChangedEvent'
-CardsLoadedEvent = require './events/CardsLoadedEvent'
+_                     = require 'lodash'
+request               = require 'superagent'
+arrayEnum             = require '../common/util/arrayEnum'
+etag                  = require '../common/util/etag'
+Controller            = require '../framework/Controller'
+EventBus              = require '../EventBus'
+Header                = require '../Header'
+CardBodyChangedEvent  = require './events/CardBodyChangedEvent'
+CardsLoadedEvent      = require './events/CardsLoadedEvent'
 CardTitleChangedEvent = require './events/CardTitleChangedEvent'
-JoinedPresenceChannelEvent = require './events/JoinedPresenceChannelEvent'
-StacksLoadedEvent = require './events/StacksLoadedEvent'
-UserConnectedEvent = require './events/UserConnectedEvent'
-UserDisconnectedEvent = require './events/UserDisconnectedEvent'
-WorkspaceLoadedEvent = require './events/WorkspaceLoadedEvent'
+StacksLoadedEvent     = require './events/StacksLoadedEvent'
+WorkspaceLoadedEvent  = require './events/WorkspaceLoadedEvent'
 
 class WorkspaceController extends Controller
-
-  constructor: (stores, listeners) ->
-    super(stores, listeners)
-    @pusher = new Pusher '9bc5b19ceaf8c59adcea',
-      authEndpoint: '/api/_auth/presence'
-      encrypted: true
 
   setOrganization: (organizationId) ->
     @organizationId = organizationId
 
-  joinPresenceChannel: ->
-    channel = @pusher.subscribe("presence-#{@organizationId}")
-    channel.bind 'pusher:subscription_succeeded', (channelState) =>
-      connectedUsers = _.map channelState.members, (member) -> member
-      @dispatch new JoinedPresenceChannelEvent(connectedUsers)
-    channel.bind 'pusher:member_added', (member) =>
-      @dispatch new UserConnectedEvent(member.info)
-    channel.bind 'pusher:member_removed', (member) =>
-      @dispatch new UserDisconnectedEvent(member.info)
+  joinOrganizationChannel: ->
+    channel = EventBus.subscribe("presence-#{@organizationId}")
     @bindListeners(channel)
 
-  leavePresenceChannel: ->
-    @pusher.unsubscribe("presence-#{@organizationId}")
+  leaveOrganizationChannel: ->
+    EventBus.unsubscribe("presence-#{@organizationId}")
 
   loadWorkspace: ->
-    request.get "/api/#{@organizationId}/my/workspace", (res) =>
+    request.get "/api/#{@organizationId}/me/workspace", (res) =>
       @dispatch new WorkspaceLoadedEvent(res.body)
 
   loadStack: (stackId) ->

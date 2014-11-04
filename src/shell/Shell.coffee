@@ -1,8 +1,10 @@
-React       = require 'react'
-ActiveUrl   = require '../mixins/ActiveUrl'
-Flux        = require '../mixins/Flux'
-ShellUrl    = require './ShellUrl'
-ShellHeader = React.createFactory(require './ShellHeader')
+React            = require 'react/addons'
+ActiveUrl        = require '../mixins/ActiveUrl'
+Flux             = require '../mixins/Flux'
+ShellUrl         = require './ShellUrl'
+ShellEnvironment = require './ShellEnvironment'
+ShellHeader      = React.createFactory(require './components/ShellHeader')
+{div}            = React.DOM
 
 Shell = React.createClass {
 
@@ -10,18 +12,31 @@ Shell = React.createClass {
 
   mixins: [
     ActiveUrl(ShellUrl)
-    Flux('organizations', 'users')
+    Flux('organizations', 'presence')
   ]
+
+  getDefaultProps: ->
+    {controller: ShellEnvironment.createController()}
+
+  # TODO: Could we remove ActiveUrl and just set organizationId as a prop?
 
   getStateFromStores: (stores) ->
     return {
-      currentUser:         stores.users.currentUser
-      currentOrganization: stores.organizations.currentOrganization
+      currentUser:         stores.presence.currentUser
+      currentOrganization: stores.organizations.getOrganization(@getActiveUrl().organizationId)
     }
 
+  componentWillMount: ->
+    controller = @getController()
+    controller.setCurrentOrganization(@getActiveUrl().organizationId)
+    controller.loadCurrentUser()
+    controller.loadMyOrganizations()
+
   render: ->
-    ShellHeader {currentOrganization: @state.currentOrganization, currentUser: @state.currentUser}, [
-      @props.activeRouteHandler
+    Screen = @props.activeRouteHandler
+    div {className: 'shell'}, [
+      ShellHeader {key: 'header', currentOrganization: @state.currentOrganization, currentUser: @state.currentUser}
+      Screen {key: 'screen', currentOrganization: @state.currentOrganization, currentUser: @state.currentUser}
     ]
 
 }

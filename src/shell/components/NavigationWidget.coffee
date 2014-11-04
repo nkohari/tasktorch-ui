@@ -1,8 +1,8 @@
 React         = require 'react/addons'
 Router        = require 'react-router'
-ActiveUrl     = require '../mixins/ActiveUrl'
-ShellUrl      = require './ShellUrl'
-Icon          = React.createFactory(require '../common/Icon')
+ActiveUrl     = require '../../mixins/ActiveUrl'
+ShellUrl      = require '../ShellUrl'
+Icon          = React.createFactory(require '../../common/Icon')
 Link          = React.createFactory(Router.Link)
 {div}         = React.DOM
 {classSet}    = React.addons
@@ -22,11 +22,14 @@ NavigationWidget = React.createClass {
 
   makeLink: (route, text) ->
     url = @getActiveUrl()
-    props = url.makeLinkProps(route)
+    if @isActive(route)
+      props = url.makeLinkProps(route, true)
+    else
+      props = url.makeLinkProps(route)
     props.key = route
     props.className = route
     Link props, [
-      Icon {name: route}
+      Icon {key: 'icon', name: route}
       text
     ]
 
