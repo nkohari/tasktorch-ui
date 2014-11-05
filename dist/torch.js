@@ -36747,10 +36747,9 @@ FocusedCard = React.createClass({
   displayName: 'FocusedCard',
   mixins: [Flux('queue'), ActiveUrl(WorkspaceUrl)],
   getStateFromStores: function(stores) {
-    var _ref1, _ref2;
+    var _ref1;
     return {
-      queue: (_ref1 = stores.queue.getQueue()) != null ? _ref1 : {},
-      focusedCard: (_ref2 = stores.queue.getFocusedCard()) != null ? _ref2 : {}
+      focusedCard: (_ref1 = stores.queue.getFocusedCard()) != null ? _ref1 : {}
     };
   },
   componentWillMount: function() {
@@ -36772,7 +36771,6 @@ FocusedCard = React.createClass({
     var url;
     url = this.getActiveUrl();
     url.addCard(this.state.focusedCard.id);
-    url.addStack(this.state.queue.id);
     return url.makeLinkProps();
   }
 });

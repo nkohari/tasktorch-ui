@@ -19,7 +19,6 @@ FocusedCard = React.createClass {
 
   getStateFromStores: (stores) ->
     return {
-      queue:       stores.queue.getQueue() ? {}
       focusedCard: stores.queue.getFocusedCard() ? {}
     }
 
@@ -35,7 +34,6 @@ FocusedCard = React.createClass {
   makeLinkProps: ->
     url = @getActiveUrl()
     url.addCard(@state.focusedCard.id)
-    url.addStack(@state.queue.id)
     return url.makeLinkProps()
 
 }
