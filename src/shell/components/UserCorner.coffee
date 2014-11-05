@@ -10,13 +10,7 @@ UserWidget = React.createClass {
 
   displayName: 'UserWidget'
 
-  mixins: [Flux('focus')]
-
-  getStateFromStores: (stores) ->
-    {focusedCard: stores.focus.getFocusedCard() ? {}}
-
-  componentWillMount: ->
-    @getController().loadMyFocus()
+  mixins: [Flux()]
 
   render: ->
 
@@ -24,7 +18,7 @@ UserWidget = React.createClass {
       return div {className: 'user loading'}
 
     div {className: 'user'}, [
-      FocusedCard {key: 'focus', className: 'focused-card', focusedCard: @state.focusedCard}
+      FocusedCard {key: 'focus', className: 'focused-card'}
       div {className: 'user-profile'}, [
         MenuTrigger {key: 'trigger'}
         Avatar {key: 'avatar', user: @props.currentUser, size: 32}

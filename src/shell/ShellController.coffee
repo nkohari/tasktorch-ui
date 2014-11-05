@@ -3,7 +3,7 @@ request                    = require 'superagent'
 EventBus                   = require '../EventBus'
 Controller                 = require '../framework/Controller'
 CurrentUserLoadedEvent     = require './events/CurrentUserLoadedEvent'
-FocusLoadedEvent           = require './events/FocusLoadedEvent'
+QueueLoadedEvent           = require './events/QueueLoadedEvent'
 JoinedPresenceChannelEvent = require './events/JoinedPresenceChannelEvent'
 OrganizationsLoadedEvent   = require './events/OrganizationsLoadedEvent'
 UserConnectedEvent         = require './events/UserConnectedEvent'
@@ -19,9 +19,11 @@ class ShellController extends Controller
     request.get "/api/me/organizations", (res) =>
       @dispatch new OrganizationsLoadedEvent(res.body)
 
-  loadMyFocus: ->
-    request.get "/api/#{@organizationId}/me/focus", (res) =>
-      @dispatch new FocusLoadedEvent(res.body)
+  loadMyQueue: ->
+    request.get "/api/#{@organizationId}/me/queue?expand=cards", (res) =>
+      queue = _.omit(res.body, '_related')
+      cards = res.body['_related'].cards
+      @dispatch new QueueLoadedEvent(queue, cards)
 
   setCurrentOrganization: (organizationId) ->
 

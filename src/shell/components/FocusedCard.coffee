@@ -2,6 +2,7 @@ _            = require 'lodash'
 React        = require 'react'
 Router       = require 'react-router'
 ActiveUrl    = require '../../mixins/ActiveUrl'
+Flux         = require '../../mixins/Flux'
 WorkspaceUrl = require '../../workspace/WorkspaceUrl'
 Icon         = React.createFactory(require '../../common/Icon')
 Link         = React.createFactory(Router.Link)
@@ -12,18 +13,29 @@ FocusedCard = React.createClass {
   displayName: 'FocusedCard'
 
   mixins: [
+    Flux('queue')
     ActiveUrl(WorkspaceUrl)
   ]
+
+  getStateFromStores: (stores) ->
+    return {
+      queue:       stores.queue.getQueue() ? {}
+      focusedCard: stores.queue.getFocusedCard() ? {}
+    }
+
+  componentWillMount: ->
+    @getController().loadMyQueue()
 
   render: ->
     linkProps = _.extend {className: 'focused-card'}, @makeLinkProps()
     Link linkProps, [
-      div {name: 'title', className: 'title'}, [@props.focusedCard.title]
+      div {name: 'title', className: 'title'}, [@state.focusedCard.title]
     ]
 
   makeLinkProps: ->
     url = @getActiveUrl()
-    url.addCard(@props.focusedCard.id)
+    url.addCard(@state.focusedCard.id)
+    url.addStack(@state.queue.id)
     return url.makeLinkProps()
 
 }

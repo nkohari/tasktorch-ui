@@ -9,9 +9,9 @@ BacklogCard  = React.createFactory(require './cards/BacklogCard')
 {classSet}   = React.addons
 
 CardTypes =
-  backlog: BacklogCard
-  inbox:   InboxCard
-  queue:   QueueCard
+  Backlog: BacklogCard
+  Inbox:   InboxCard
+  Queue:   QueueCard
 
 StackCardFrame = React.createClass {
 

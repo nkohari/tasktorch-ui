@@ -1,5 +1,5 @@
 ShellController          = require './ShellController'
-FocusedCardStore         = require './stores/FocusedCardStore'
+QueueStore               = require './stores/QueueStore'
 PresenceStore            = require './stores/PresenceStore'
 OrganizationStore        = require './stores/OrganizationStore'
 CardBodyChangedListener  = require './listeners/CardBodyChangedListener'
@@ -10,7 +10,7 @@ ShellEnvironment = {}
 ShellEnvironment.createController = ->
 
   stores =
-    focus:         new FocusedCardStore()
+    queue:         new QueueStore()
     organizations: new OrganizationStore()
     presence:      new PresenceStore()
 

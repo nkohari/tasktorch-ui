@@ -46,7 +46,7 @@ StackPanel = React.createClass {
       panelTitle:  @state.stack.name
       className:   'stack'
       style:       {zIndex: 99 - @props.position}
-      icon:        "stack-#{@state.stack.kind}"
+      icon:        "stack-#{@state.stack.kind.toLowerCase()}"
       close:       @makeCloseLinkProps()
       onDragStart: @handleDragStart
       onDragEnd:   @handleDragEnd

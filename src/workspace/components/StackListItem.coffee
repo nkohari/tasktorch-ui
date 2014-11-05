@@ -19,9 +19,9 @@ StackListItem = React.createClass {
     linkProps = _.extend @makeLinkProps(), {key: 'open-stack-link'}
     li {className: 'stack-list-item'}, [
       Link linkProps, [
-        Icon {key: 'stack-icon', name: "stack-#{@props.stack.kind}"}
+        Icon {key: 'stack-icon', name: "stack-#{@props.stack.kind.toLowerCase()}"}
         span {key: 'stack-name', className: 'stack-name'}, [@props.stack.name]
-        span {key: 'stack-card-count', className: 'stack-card-count'}, [@props.stack.cards.length]
+        span {key: 'stack-card-count', className: 'stack-card-count'}, ['0']
       ]
     ]
 
