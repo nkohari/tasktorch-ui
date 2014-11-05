@@ -7,11 +7,11 @@ Link          = React.createFactory(Router.Link)
 {div}         = React.DOM
 {classSet}    = React.addons
 
-NavigationWidget = React.createClass {
+NavigationMenu = React.createClass {
 
   mixins: [ActiveUrl(ShellUrl)]
 
-  displayName: 'NavigationWidget'
+  displayName: 'NavigationMenu'
 
   render: ->
     url = @getActiveUrl()
@@ -35,4 +35,4 @@ NavigationWidget = React.createClass {
 
 }
 
-module.exports = NavigationWidget
+module.exports = NavigationMenu

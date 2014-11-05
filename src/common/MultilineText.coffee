@@ -24,7 +24,7 @@ MultilineText = React.createClass {
       style.height = node.scrollHeight
 
     textarea {
-      className:   classSet {overflow: 'hidden', dirty: @state.dirty}
+      className:   classSet {editable: true, overflow: 'hidden', dirty: @state.dirty}
       style:       style
       placeholder: @props.placeholder
       value:       @state.value

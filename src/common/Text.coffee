@@ -14,9 +14,8 @@ Text = React.createClass {
     @setState {dirty: false, previous: newProps.value, value: newProps.value}
 
   render: ->
-    classes = {dirty: @state.dirty}
     input {
-      className:   classSet(classes)
+      className:   classSet {editable: true, dirty: @state.dirty}
       placeholder: @props.placeholder
       value:       @state.value
       onChange:    @handleChange

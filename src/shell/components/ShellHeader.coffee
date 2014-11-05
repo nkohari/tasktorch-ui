@@ -1,8 +1,8 @@
 React              = require 'react'
 Flux               = require '../../mixins/Flux'
-OrganizationWidget = React.createFactory(require './OrganizationWidget')
-NavigationWidget   = React.createFactory(require './NavigationWidget')
-UserWidget         = React.createFactory(require './UserWidget')
+OrganizationCorner = React.createFactory(require './OrganizationCorner')
+NavigationMenu     = React.createFactory(require './NavigationMenu')
+UserCorner         = React.createFactory(require './UserCorner')
 {div}              = React.DOM
 
 ShellHeader = React.createClass {
@@ -13,10 +13,10 @@ ShellHeader = React.createClass {
 
   render: ->
     div {className: 'shell-header'}, [
-      OrganizationWidget {key: 'organization', currentOrganization: @props.currentOrganization}
+      OrganizationCorner {key: 'organization', currentOrganization: @props.currentOrganization}
       div {className: 'header-bar'}, [
-        NavigationWidget {key: 'navigation'}
-        UserWidget {key: 'user', currentUser: @props.currentUser}
+        NavigationMenu {key: 'navigation'}
+        UserCorner {key: 'user', currentUser: @props.currentUser}
       ]
     ]
 

@@ -35894,6 +35894,7 @@ MultilineText = React.createClass({
     }
     return textarea({
       className: classSet({
+        editable: true,
         overflow: 'hidden',
         dirty: this.state.dirty
       }),
@@ -36112,12 +36113,11 @@ Text = React.createClass({
     });
   },
   render: function() {
-    var classes;
-    classes = {
-      dirty: this.state.dirty
-    };
     return input({
-      className: classSet(classes),
+      className: classSet({
+        editable: true,
+        dirty: this.state.dirty
+      }),
       placeholder: this.props.placeholder,
       value: this.state.value,
       onChange: this.handleChange,
@@ -36681,7 +36681,7 @@ module.exports = ShellUrl;
 
 
 },{"lodash":23}],272:[function(require,module,exports){
-var ActiveUrl, Icon, Link, NavigationWidget, React, Router, ShellUrl, classSet, div;
+var ActiveUrl, Icon, Link, NavigationMenu, React, Router, ShellUrl, classSet, div;
 
 React = require('react/addons');
 
@@ -36699,9 +36699,9 @@ div = React.DOM.div;
 
 classSet = React.addons.classSet;
 
-NavigationWidget = React.createClass({
+NavigationMenu = React.createClass({
   mixins: [ActiveUrl(ShellUrl)],
-  displayName: 'NavigationWidget',
+  displayName: 'NavigationMenu',
   render: function() {
     var url;
     url = this.getActiveUrl();
@@ -36728,12 +36728,12 @@ NavigationWidget = React.createClass({
   }
 });
 
-module.exports = NavigationWidget;
+module.exports = NavigationMenu;
 
 
 
 },{"../../common/Icon":252,"../../mixins/ActiveUrl":266,"../ShellUrl":271,"react-router":33,"react/addons":64}],273:[function(require,module,exports){
-var Flux, OrganizationWidget, PresenceWidget, React, div;
+var Flux, OrganizationCorner, PresenceWidget, React, div;
 
 React = require('react');
 
@@ -36743,12 +36743,13 @@ PresenceWidget = React.createFactory(require('./PresenceWidget'));
 
 div = React.DOM.div;
 
-OrganizationWidget = React.createClass({
-  displayName: 'OrganizationWidget',
-  mixins: [Flux('organizations')],
+OrganizationCorner = React.createClass({
+  displayName: 'OrganizationCorner',
+  mixins: [Flux('organizations', 'presence')],
   getStateFromStores: function(stores) {
     return {
-      organizations: stores.organizations.getAllOrganizations()
+      organizations: stores.organizations.getAllOrganizations(),
+      connectedUsers: stores.presence.getConnectedUsers()
     };
   },
   render: function() {
@@ -36761,27 +36762,36 @@ OrganizationWidget = React.createClass({
       className: 'organization'
     }, [
       div({
-        key: 'name',
-        className: 'organization-name'
-      }, [this.props.currentOrganization.name]), PresenceWidget({
-        key: 'presence'
-      })
+        key: 'organization'
+      }, [
+        div({
+          key: 'name',
+          className: 'organization-name'
+        }, [this.props.currentOrganization.name]), div({
+          key: 'selector',
+          className: 'organization-selector'
+        }, ['\uE764'])
+      ]), div({
+        key: 'widgets',
+        className: 'widgets'
+      }, [
+        PresenceWidget({
+          key: 'presence',
+          connectedUsers: this.state.connectedUsers
+        })
+      ])
     ]);
   }
 });
 
-module.exports = OrganizationWidget;
+module.exports = OrganizationCorner;
 
 
 
 },{"../../mixins/Flux":267,"./PresenceWidget":274,"react":"M6d2gk"}],274:[function(require,module,exports){
-var Flux, Icon, PresenceWidget, React, div, span, _, _ref;
-
-_ = require('lodash');
+var Icon, PresenceWidget, React, div, span, _ref;
 
 React = require('react');
-
-Flux = require('../../mixins/Flux');
 
 Icon = React.createFactory(require('../../common/Icon'));
 
@@ -36789,12 +36799,6 @@ _ref = React.DOM, div = _ref.div, span = _ref.span;
 
 PresenceWidget = React.createClass({
   displayName: 'PresenceWidget',
-  mixins: [Flux('presence')],
-  getStateFromStores: function(stores) {
-    return {
-      connectedUsers: stores.presence.getConnectedUsers()
-    };
-  },
   render: function() {
     return div({
       className: 'presence'
@@ -36805,7 +36809,7 @@ PresenceWidget = React.createClass({
       }), span({
         key: 'presence-count',
         className: 'presence-count'
-      }, [this.state.connectedUsers.length])
+      }, [this.props.connectedUsers.length])
     ]);
   }
 });
@@ -36814,18 +36818,18 @@ module.exports = PresenceWidget;
 
 
 
-},{"../../common/Icon":252,"../../mixins/Flux":267,"lodash":23,"react":"M6d2gk"}],275:[function(require,module,exports){
-var Flux, NavigationWidget, OrganizationWidget, React, ShellHeader, UserWidget, div;
+},{"../../common/Icon":252,"react":"M6d2gk"}],275:[function(require,module,exports){
+var Flux, NavigationMenu, OrganizationCorner, React, ShellHeader, UserCorner, div;
 
 React = require('react');
 
 Flux = require('../../mixins/Flux');
 
-OrganizationWidget = React.createFactory(require('./OrganizationWidget'));
+OrganizationCorner = React.createFactory(require('./OrganizationCorner'));
 
-NavigationWidget = React.createFactory(require('./NavigationWidget'));
+NavigationMenu = React.createFactory(require('./NavigationMenu'));
 
-UserWidget = React.createFactory(require('./UserWidget'));
+UserCorner = React.createFactory(require('./UserCorner'));
 
 div = React.DOM.div;
 
@@ -36836,15 +36840,15 @@ ShellHeader = React.createClass({
     return div({
       className: 'shell-header'
     }, [
-      OrganizationWidget({
+      OrganizationCorner({
         key: 'organization',
         currentOrganization: this.props.currentOrganization
       }), div({
         className: 'header-bar'
       }, [
-        NavigationWidget({
+        NavigationMenu({
           key: 'navigation'
-        }), UserWidget({
+        }), UserCorner({
           key: 'user',
           currentUser: this.props.currentUser
         })
@@ -36857,7 +36861,7 @@ module.exports = ShellHeader;
 
 
 
-},{"../../mixins/Flux":267,"./NavigationWidget":272,"./OrganizationWidget":273,"./UserWidget":276,"react":"M6d2gk"}],276:[function(require,module,exports){
+},{"../../mixins/Flux":267,"./NavigationMenu":272,"./OrganizationCorner":273,"./UserCorner":276,"react":"M6d2gk"}],276:[function(require,module,exports){
 var Avatar, React, UserWidget, div, _;
 
 _ = require('lodash');
