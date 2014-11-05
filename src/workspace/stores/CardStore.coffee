@@ -10,7 +10,8 @@ class CardStore extends Store
     @cards[id]
 
   getCardsInStack: (stackId) ->
-    _.filter @cards, (card) -> card.stack.id == stackId
+    cards = _.filter(@cards, (card) -> card.stack.id == stackId)
+    _.sortBy(cards, 'rank')
 
   onWorkspaceLoaded: (event) ->
     @cards = _.indexBy(event.cards, 'id')

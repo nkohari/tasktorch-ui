@@ -20,7 +20,7 @@ PanelHeader = React.createClass {
     Icon {key: 'panel-icon', name: @props.icon}
 
   createCloseButton: (props) ->
-    props = _.extend(props, {key: 'panel-close-button', className: 'close'})
+    props = _.extend props, {key: 'panel-close-button', className: 'close'}
     Link props, [
       Icon {key: 'panel-close-button-icon', name: 'close'}
     ]

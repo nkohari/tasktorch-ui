@@ -3,6 +3,7 @@ request                    = require 'superagent'
 EventBus                   = require '../EventBus'
 Controller                 = require '../framework/Controller'
 CurrentUserLoadedEvent     = require './events/CurrentUserLoadedEvent'
+FocusLoadedEvent           = require './events/FocusLoadedEvent'
 JoinedPresenceChannelEvent = require './events/JoinedPresenceChannelEvent'
 OrganizationsLoadedEvent   = require './events/OrganizationsLoadedEvent'
 UserConnectedEvent         = require './events/UserConnectedEvent'
@@ -17,6 +18,10 @@ class ShellController extends Controller
   loadMyOrganizations: ->
     request.get "/api/me/organizations", (res) =>
       @dispatch new OrganizationsLoadedEvent(res.body)
+
+  loadMyFocus: ->
+    request.get "/api/#{@organizationId}/me/focus", (res) =>
+      @dispatch new FocusLoadedEvent(res.body)
 
   setCurrentOrganization: (organizationId) ->
 
@@ -33,5 +38,7 @@ class ShellController extends Controller
       @dispatch new UserConnectedEvent(member.info)
     channel.bind 'pusher:member_removed', (member) =>
       @dispatch new UserDisconnectedEvent(member.info)
+
+    @bindListeners(channel)
 
 module.exports = ShellController
