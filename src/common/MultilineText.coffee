@@ -15,10 +15,17 @@ MultilineText = React.createClass {
 
   render: ->
 
-    classes = {dirty: @state.dirty}
+    style = {}
+
+    if @isMounted()
+      node = @getDOMNode()
+      if node.scrollHeight == node.clientHeight
+        node.style.height = 'auto'
+      style.height = node.scrollHeight
 
     textarea {
-      className:   classSet(classes)
+      className:   classSet {overflow: 'hidden', dirty: @state.dirty}
+      style:       style
       placeholder: @props.placeholder
       value:       @state.value
       onChange:    @handleChange

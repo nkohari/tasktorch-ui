@@ -121,12 +121,9 @@ textarea {
   height: 54px;
   width: 100%;
   color: $header-footer-font-color;
-  border-bottom: 1px solid $header-footer-border-color;
-  background: linear-gradient(to bottom, #999, #aaa);
   z-index: 9999;
   .organization {
-    display: inline-block;
-    vertical-align: top;
+    float: left;
     width: 200px;
     height: 100%;
     padding: 8px 4px 4px 10px;
@@ -147,10 +144,17 @@ textarea {
       color: #999;
     }
   }
+  .header-bar {
+    margin-left: 200px;
+    height: 100%;
+    border-bottom: 1px solid $header-footer-border-color;
+    background: linear-gradient(to bottom, #999, #aaa);
+  }
   .navigation {
     display: inline-block;
     vertical-align: top;
     height: 100%;
+    margin: 0 auto;
     a {
       padding: 10px 0;
       font-size: 15px;
@@ -223,6 +227,23 @@ textarea {
   @include flow;
   width: $sidebar-width;
   z-index: 1000;
+  border-right: 1px solid $panel-border-color;
+  background: $panel-background-color;
+  overflow-x: hidden;
+  overflow-y: auto;
+  white-space: normal;
+}
+
+.search {
+  padding: 0 10px 10px;
+  background: #555;
+  border-right: 1px solid #555;
+  input {
+    font-size: 13px;
+    padding: 4px 8px;
+    border: 1px solid #888;
+    border-radius: 4px
+  }
 }
 
 .panel-group {
@@ -261,17 +282,34 @@ textarea {
   transition-property: opacity, transform;
   transition-duration: 0.15s;
   transition-timing-function: ease-in-out;
-  &.panel-slide-enter-active { opacity: 1; transform: translateX(0px); }
+  -webkit-transform: translateX(-100px);
+  -webkit-transition-property: opacity, transform;
+  -webkit-transition-duration: 0.15s;
+  -webkit-transition-timing-function: ease-in-out;
+  &.panel-slide-enter-active {
+    opacity: 1;
+    transform: translateX(0px);
+    -webkit-transform: translateX(0px);
+  }
 }
 
 .panel-slide-leave {
   opacity: 1;
-  transform: translateX(0px);
+  transform: translateX(0);
   transition-property: opacity, transform;
   transition-duration: 0.15s;
   transition-timing-function: ease-in-out;
   transform-origin: left top;
-  &.panel-slide-leave-active { opacity: 0; transform: scaleX(0.5) translateX(-100px); }
+  -webkit-transform: translateX(0);
+  -webkit-transition-property: opacity, transform;
+  -webkit-transition-duration: 0.15s;
+  -webkit-transition-timing-function: ease-in-out;
+  -webkit-transform-origin: left top;
+  &.panel-slide-leave-active {
+    opacity: 0;
+    transform: translateX(-300px);
+    -webkit-transform: translateX(-300px);
+  }
 }
 
 .stack-list {
@@ -403,8 +441,6 @@ textarea {
     margin: 10px;
     font-size: 18px;
     font-weight: 400;
-    height: 300px;
-    textarea { height: 100%; }
   }
 }
 

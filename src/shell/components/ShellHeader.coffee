@@ -14,8 +14,10 @@ ShellHeader = React.createClass {
   render: ->
     div {className: 'shell-header'}, [
       OrganizationWidget {key: 'organization', currentOrganization: @props.currentOrganization}
-      NavigationWidget {key: 'navigation'}
-      UserWidget {key: 'user', currentUser: @props.currentUser}
+      div {className: 'header-bar'}, [
+        NavigationWidget {key: 'navigation'}
+        UserWidget {key: 'user', currentUser: @props.currentUser}
+      ]
     ]
 
 }

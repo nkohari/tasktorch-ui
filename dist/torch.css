@@ -116,12 +116,9 @@ textarea {
   height: 54px;
   width: 100%;
   color: white;
-  border-bottom: 1px solid #666666;
-  background: linear-gradient(to bottom, #999999, #aaaaaa);
   z-index: 9999; }
   .shell-header .organization {
-    display: inline-block;
-    vertical-align: top;
+    float: left;
     width: 200px;
     height: 100%;
     padding: 8px 4px 4px 10px;
@@ -138,10 +135,16 @@ textarea {
       font-size: 24px;
       text-align: left;
       color: #999; }
+  .shell-header .header-bar {
+    margin-left: 200px;
+    height: 100%;
+    border-bottom: 1px solid #666666;
+    background: linear-gradient(to bottom, #999999, #aaaaaa); }
   .shell-header .navigation {
     display: inline-block;
     vertical-align: top;
-    height: 100%; }
+    height: 100%;
+    margin: 0 auto; }
     .shell-header .navigation a {
       padding: 10px 0;
       font-size: 15px;
@@ -199,7 +202,22 @@ textarea {
   margin: 0;
   padding: 0;
   width: 200px;
-  z-index: 1000; }
+  z-index: 1000;
+  border-right: 1px solid #999999;
+  background: #f9f9f9;
+  overflow-x: hidden;
+  overflow-y: auto;
+  white-space: normal; }
+
+.search {
+  padding: 0 10px 10px;
+  background: #555;
+  border-right: 1px solid #555; }
+  .search input {
+    font-size: 13px;
+    padding: 4px 8px;
+    border: 1px solid #888;
+    border-radius: 4px; }
 
 .panel-group {
   position: relative;
@@ -241,21 +259,32 @@ textarea {
   transform: translateX(-100px);
   transition-property: opacity, transform;
   transition-duration: 0.15s;
-  transition-timing-function: ease-in-out; }
+  transition-timing-function: ease-in-out;
+  -webkit-transform: translateX(-100px);
+  -webkit-transition-property: opacity, transform;
+  -webkit-transition-duration: 0.15s;
+  -webkit-transition-timing-function: ease-in-out; }
   .panel-slide-enter.panel-slide-enter-active {
     opacity: 1;
-    transform: translateX(0px); }
+    transform: translateX(0px);
+    -webkit-transform: translateX(0px); }
 
 .panel-slide-leave {
   opacity: 1;
-  transform: translateX(0px);
+  transform: translateX(0);
   transition-property: opacity, transform;
   transition-duration: 0.15s;
   transition-timing-function: ease-in-out;
-  transform-origin: left top; }
+  transform-origin: left top;
+  -webkit-transform: translateX(0);
+  -webkit-transition-property: opacity, transform;
+  -webkit-transition-duration: 0.15s;
+  -webkit-transition-timing-function: ease-in-out;
+  -webkit-transform-origin: left top; }
   .panel-slide-leave.panel-slide-leave-active {
     opacity: 0;
-    transform: scaleX(0.5) translateX(-100px); }
+    transform: translateX(-300px);
+    -webkit-transform: translateX(-300px); }
 
 .stack-list {
   margin: 0px;
@@ -365,10 +394,7 @@ textarea {
   .card .card-body {
     margin: 10px;
     font-size: 18px;
-    font-weight: 400;
-    height: 300px; }
-    .card .card-body textarea {
-      height: 100%; }
+    font-weight: 400; }
 
 .team-list {
   margin: 0px;

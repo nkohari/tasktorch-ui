@@ -35883,12 +35883,21 @@ MultilineText = React.createClass({
     });
   },
   render: function() {
-    var classes;
-    classes = {
-      dirty: this.state.dirty
-    };
+    var node, style;
+    style = {};
+    if (this.isMounted()) {
+      node = this.getDOMNode();
+      if (node.scrollHeight === node.clientHeight) {
+        node.style.height = 'auto';
+      }
+      style.height = node.scrollHeight;
+    }
     return textarea({
-      className: classSet(classes),
+      className: classSet({
+        overflow: 'hidden',
+        dirty: this.state.dirty
+      }),
+      style: style,
       placeholder: this.props.placeholder,
       value: this.state.value,
       onChange: this.handleChange,
@@ -36830,12 +36839,16 @@ ShellHeader = React.createClass({
       OrganizationWidget({
         key: 'organization',
         currentOrganization: this.props.currentOrganization
-      }), NavigationWidget({
-        key: 'navigation'
-      }), UserWidget({
-        key: 'user',
-        currentUser: this.props.currentUser
-      })
+      }), div({
+        className: 'header-bar'
+      }, [
+        NavigationWidget({
+          key: 'navigation'
+        }), UserWidget({
+          key: 'user',
+          currentUser: this.props.currentUser
+        })
+      ])
     ]);
   }
 });
@@ -37166,7 +37179,7 @@ WorkspaceController = (function(_super) {
   };
 
   WorkspaceController.prototype.setCardTitle = function(card, title) {
-    return request.put("" + card.uri + "/title").set(Header.IfMatch, etag.encode(card.version)).set(Header.Socket, this.pusher.connection.socket_id).send({
+    return request.put("" + card.uri + "/title").set(Header.IfMatch, etag.encode(card.version)).set(Header.Socket, EventBus.connection.socket_id).send({
       title: title
     }).end((function(_this) {
       return function(res) {
@@ -37178,7 +37191,7 @@ WorkspaceController = (function(_super) {
   };
 
   WorkspaceController.prototype.setCardBody = function(card, body) {
-    return request.put("" + card.uri + "/body").set(Header.IfMatch, etag.encode(card.version)).set(Header.Socket, this.pusher.connection.socket_id).send({
+    return request.put("" + card.uri + "/body").set(Header.IfMatch, etag.encode(card.version)).set(Header.Socket, EventBus.connection.socket_id).send({
       body: body
     }).end((function(_this) {
       return function(res) {
@@ -37197,7 +37210,7 @@ module.exports = WorkspaceController;
 
 
 
-},{"../EventBus":232,"../Header":233,"../common/util/arrayEnum":259,"../common/util/etag":260,"../framework/Controller":261,"./events/CardBodyChangedEvent":300,"./events/CardTitleChangedEvent":301,"./events/CardsLoadedEvent":302,"./events/StacksLoadedEvent":303,"./events/WorkspaceLoadedEvent":304,"lodash":23,"superagent":227}],285:[function(require,module,exports){
+},{"../EventBus":232,"../Header":233,"../common/util/arrayEnum":259,"../common/util/etag":260,"../framework/Controller":261,"./events/CardBodyChangedEvent":301,"./events/CardTitleChangedEvent":302,"./events/CardsLoadedEvent":303,"./events/StacksLoadedEvent":304,"./events/WorkspaceLoadedEvent":305,"lodash":23,"superagent":227}],285:[function(require,module,exports){
 var CardBodyChangedListener, CardStore, CardTitleChangedListener, OrganizationStore, StackStore, TeamStore, TypeStore, UserStore, WorkspaceController, WorkspaceEnvironment;
 
 WorkspaceController = require('./WorkspaceController');
@@ -37238,7 +37251,7 @@ module.exports = WorkspaceEnvironment;
 
 
 
-},{"./WorkspaceController":284,"./listeners/CardBodyChangedListener":305,"./listeners/CardTitleChangedListener":306,"./stores/CardStore":307,"./stores/OrganizationStore":308,"./stores/StackStore":309,"./stores/TeamStore":310,"./stores/TypeStore":311,"./stores/UserStore":312}],286:[function(require,module,exports){
+},{"./WorkspaceController":284,"./listeners/CardBodyChangedListener":306,"./listeners/CardTitleChangedListener":307,"./stores/CardStore":308,"./stores/OrganizationStore":309,"./stores/StackStore":310,"./stores/TeamStore":311,"./stores/TypeStore":312,"./stores/UserStore":313}],286:[function(require,module,exports){
 var ActiveUrl, Api, CardPanel, Flux, PanelGroup, React, Router, StackPanel, WorkspaceEnvironment, WorkspaceScreen, WorkspaceSidebar, WorkspaceUrl, div, _;
 
 _ = require('lodash');
@@ -37368,7 +37381,7 @@ module.exports = WorkspaceScreen;
 
 
 
-},{"../Api":230,"../common/PanelGroup":255,"../mixins/ActiveUrl":266,"../mixins/Flux":267,"./WorkspaceEnvironment":285,"./WorkspaceUrl":287,"./components/CardPanel":291,"./components/StackPanel":295,"./components/WorkspaceSidebar":296,"lodash":23,"react-router":33,"react/addons":64}],287:[function(require,module,exports){
+},{"../Api":230,"../common/PanelGroup":255,"../mixins/ActiveUrl":266,"../mixins/Flux":267,"./WorkspaceEnvironment":285,"./WorkspaceUrl":287,"./components/CardPanel":291,"./components/StackPanel":296,"./components/WorkspaceSidebar":297,"lodash":23,"react-router":33,"react/addons":64}],287:[function(require,module,exports){
 var WorkspaceUrl, _;
 
 _ = require('lodash');
@@ -37643,6 +37656,39 @@ module.exports = CardPanel;
 
 
 },{"../../Api":230,"../../Strings":235,"../../common/Panel":254,"../../mixins/ActiveUrl":266,"../../mixins/Flux":267,"../WorkspaceUrl":287,"./CardActionBar":288,"./CardBody":289,"./CardHeader":290,"react":"M6d2gk","react-router":33}],292:[function(require,module,exports){
+var Flux, React, SearchBox, div, input, _ref;
+
+React = require('react');
+
+Flux = require('../../mixins/Flux');
+
+_ref = React.DOM, div = _ref.div, input = _ref.input;
+
+SearchBox = React.createClass({
+  displayName: 'SearchBox',
+  mixins: [Flux()],
+  getInitialState: function() {
+    return {
+      value: this.props.value
+    };
+  },
+  render: function() {
+    return div({
+      className: 'search'
+    }, [
+      input({
+        placeholder: 'Search',
+        value: this.state.value
+      })
+    ]);
+  }
+});
+
+module.exports = SearchBox;
+
+
+
+},{"../../mixins/Flux":267,"react":"M6d2gk"}],293:[function(require,module,exports){
 var ActiveUrl, BacklogCard, CardTypes, InboxCard, QueueCard, React, Router, StackCardFrame, WorkspaceUrl, classSet, div;
 
 React = require('react/addons');
@@ -37744,7 +37790,7 @@ module.exports = StackCardFrame;
 
 
 
-},{"../../mixins/ActiveUrl":266,"../WorkspaceUrl":287,"./cards/BacklogCard":297,"./cards/InboxCard":298,"./cards/QueueCard":299,"react-router":33,"react/addons":64}],293:[function(require,module,exports){
+},{"../../mixins/ActiveUrl":266,"../WorkspaceUrl":287,"./cards/BacklogCard":298,"./cards/InboxCard":299,"./cards/QueueCard":300,"react-router":33,"react/addons":64}],294:[function(require,module,exports){
 var React, StackList, StackListItem, ul, _;
 
 _ = require('lodash');
@@ -37778,7 +37824,7 @@ module.exports = StackList;
 
 
 
-},{"./StackListItem":294,"lodash":23,"react":"M6d2gk"}],294:[function(require,module,exports){
+},{"./StackListItem":295,"lodash":23,"react":"M6d2gk"}],295:[function(require,module,exports){
 var ActiveUrl, Icon, Link, React, Router, StackListItem, WorkspaceUrl, li, span, _, _ref;
 
 _ = require('lodash');
@@ -37834,7 +37880,7 @@ module.exports = StackListItem;
 
 
 
-},{"../../common/Icon":252,"../../mixins/ActiveUrl":266,"../WorkspaceUrl":287,"lodash":23,"react-router":33,"react/addons":64}],295:[function(require,module,exports){
+},{"../../common/Icon":252,"../../mixins/ActiveUrl":266,"../WorkspaceUrl":287,"lodash":23,"react-router":33,"react/addons":64}],296:[function(require,module,exports){
 var ActiveUrl, Flux, Panel, React, Router, StackCardFrame, StackPanel, WorkspaceUrl, ul, _;
 
 _ = require('lodash');
@@ -37958,12 +38004,16 @@ module.exports = StackPanel;
 
 
 
-},{"../../common/Panel":254,"../../mixins/ActiveUrl":266,"../../mixins/Flux":267,"../WorkspaceUrl":287,"./StackCardFrame":292,"lodash":23,"react":"M6d2gk","react-router":33}],296:[function(require,module,exports){
-var Panel, React, StackList, WorkspaceSidebar, div;
+},{"../../common/Panel":254,"../../mixins/ActiveUrl":266,"../../mixins/Flux":267,"../WorkspaceUrl":287,"./StackCardFrame":293,"lodash":23,"react":"M6d2gk","react-router":33}],297:[function(require,module,exports){
+var Flux, Panel, React, SearchBox, StackList, WorkspaceSidebar, div;
 
 React = require('react');
 
+Flux = require('../../mixins/Flux');
+
 Panel = React.createFactory(require('../../common/Panel'));
+
+SearchBox = React.createFactory(require('./SearchBox'));
 
 StackList = React.createFactory(require('./StackList'));
 
@@ -37971,12 +38021,14 @@ div = React.DOM.div;
 
 WorkspaceSidebar = React.createClass({
   displayName: 'WorkspaceSidebar',
+  mixins: [Flux()],
   render: function() {
-    return Panel({
-      panelTitle: 'Stacks',
+    return div({
       className: 'workspace sidebar'
     }, [
-      StackList({
+      SearchBox({
+        key: 'search'
+      }), StackList({
         key: 'stack-list',
         stacks: this.props.stacks,
         teams: this.props.teams
@@ -37989,7 +38041,7 @@ module.exports = WorkspaceSidebar;
 
 
 
-},{"../../common/Panel":254,"./StackList":293,"react":"M6d2gk"}],297:[function(require,module,exports){
+},{"../../common/Panel":254,"../../mixins/Flux":267,"./SearchBox":292,"./StackList":294,"react":"M6d2gk"}],298:[function(require,module,exports){
 var BacklogCard, React, div;
 
 React = require('react');
@@ -38015,7 +38067,7 @@ module.exports = BacklogCard;
 
 
 
-},{"react":"M6d2gk"}],298:[function(require,module,exports){
+},{"react":"M6d2gk"}],299:[function(require,module,exports){
 var InboxCard, React, Strings, div, em, _ref;
 
 React = require('react');
@@ -38049,7 +38101,7 @@ module.exports = InboxCard;
 
 
 
-},{"../../../Strings":235,"react":"M6d2gk"}],299:[function(require,module,exports){
+},{"../../../Strings":235,"react":"M6d2gk"}],300:[function(require,module,exports){
 var QueueCard, React, Strings, div, em, _ref;
 
 React = require('react');
@@ -38083,7 +38135,7 @@ module.exports = QueueCard;
 
 
 
-},{"../../../Strings":235,"react":"M6d2gk"}],300:[function(require,module,exports){
+},{"../../../Strings":235,"react":"M6d2gk"}],301:[function(require,module,exports){
 var CardBodyChangedEvent, Event,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -38108,7 +38160,7 @@ module.exports = CardBodyChangedEvent;
 
 
 
-},{"../../framework/Event":262}],301:[function(require,module,exports){
+},{"../../framework/Event":262}],302:[function(require,module,exports){
 var CardTitleChangedEvent, Event,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -38133,7 +38185,7 @@ module.exports = CardTitleChangedEvent;
 
 
 
-},{"../../framework/Event":262}],302:[function(require,module,exports){
+},{"../../framework/Event":262}],303:[function(require,module,exports){
 var CardsLoadedEvent, Event,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -38156,7 +38208,7 @@ module.exports = CardsLoadedEvent;
 
 
 
-},{"../../framework/Event":262}],303:[function(require,module,exports){
+},{"../../framework/Event":262}],304:[function(require,module,exports){
 var Event, StacksLoadedEvent,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -38179,7 +38231,7 @@ module.exports = StacksLoadedEvent;
 
 
 
-},{"../../framework/Event":262}],304:[function(require,module,exports){
+},{"../../framework/Event":262}],305:[function(require,module,exports){
 var Event, WorkspaceLoadedEvent,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -38202,7 +38254,7 @@ module.exports = WorkspaceLoadedEvent;
 
 
 
-},{"../../framework/Event":262}],305:[function(require,module,exports){
+},{"../../framework/Event":262}],306:[function(require,module,exports){
 var CardBodyChangedEvent, CardBodyChangedListener, Listener,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -38235,7 +38287,7 @@ module.exports = CardBodyChangedListener;
 
 
 
-},{"../../framework/Listener":263,"../events/CardBodyChangedEvent":300}],306:[function(require,module,exports){
+},{"../../framework/Listener":263,"../events/CardBodyChangedEvent":301}],307:[function(require,module,exports){
 var CardTitleChangedEvent, CardTitleChangedListener, Listener,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -38268,7 +38320,7 @@ module.exports = CardTitleChangedListener;
 
 
 
-},{"../../framework/Listener":263,"../events/CardTitleChangedEvent":301}],307:[function(require,module,exports){
+},{"../../framework/Listener":263,"../events/CardTitleChangedEvent":302}],308:[function(require,module,exports){
 var CardStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -38332,7 +38384,7 @@ module.exports = CardStore;
 
 
 
-},{"../../framework/Store":264,"lodash":23}],308:[function(require,module,exports){
+},{"../../framework/Store":264,"lodash":23}],309:[function(require,module,exports){
 var OrganizationStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -38361,7 +38413,7 @@ module.exports = OrganizationStore;
 
 
 
-},{"../../framework/Store":264,"lodash":23}],309:[function(require,module,exports){
+},{"../../framework/Store":264,"lodash":23}],310:[function(require,module,exports){
 var StackStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -38399,7 +38451,7 @@ module.exports = StackStore;
 
 
 
-},{"../../framework/Store":264,"lodash":23}],310:[function(require,module,exports){
+},{"../../framework/Store":264,"lodash":23}],311:[function(require,module,exports){
 var Store, TeamStore, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -38428,7 +38480,7 @@ module.exports = TeamStore;
 
 
 
-},{"../../framework/Store":264,"lodash":23}],311:[function(require,module,exports){
+},{"../../framework/Store":264,"lodash":23}],312:[function(require,module,exports){
 var Store, TypeStore, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -38466,7 +38518,7 @@ module.exports = TypeStore;
 
 
 
-},{"../../framework/Store":264,"lodash":23}],312:[function(require,module,exports){
+},{"../../framework/Store":264,"lodash":23}],313:[function(require,module,exports){
 var Store, UserStore, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -38518,4 +38570,4 @@ module.exports = UserStore;
 
 
 
-},{"../../framework/Store":264,"lodash":23}]},{},[230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306,307,308,309,310,311,312]);
+},{"../../framework/Store":264,"lodash":23}]},{},[230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306,307,308,309,310,311,312,313]);

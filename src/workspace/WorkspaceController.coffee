@@ -42,7 +42,7 @@ class WorkspaceController extends Controller
   setCardTitle: (card, title) ->
     request.put("#{card.uri}/title")
     .set(Header.IfMatch, etag.encode(card.version))
-    .set(Header.Socket, @pusher.connection.socket_id)
+    .set(Header.Socket, EventBus.connection.socket_id)
     .send {title}
     .end (res) =>
       version = etag.decode(res.header['etag'])
@@ -51,7 +51,7 @@ class WorkspaceController extends Controller
   setCardBody: (card, body) ->
     request.put("#{card.uri}/body")
     .set(Header.IfMatch, etag.encode(card.version))
-    .set(Header.Socket, @pusher.connection.socket_id)
+    .set(Header.Socket, EventBus.connection.socket_id)
     .send {body}
     .end (res) =>
       version = etag.decode(res.header['etag'])
