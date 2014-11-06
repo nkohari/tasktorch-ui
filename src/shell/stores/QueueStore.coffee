@@ -19,14 +19,14 @@ class QueueStore extends Store
     @announce()
 
   onCardBodyChanged: (event) ->
-    card = @cards[id]
+    card = @cards[event.id]
     if card?
       card.body = event.body
       card.version = event.version
       @announce()
 
   onCardTitleChanged: (event) ->
-    card = @cards[id]
+    card = @cards[event.id]
     if card?
       card.title = event.title
       card.version = event.version

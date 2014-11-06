@@ -33,6 +33,10 @@ Shell = React.createClass {
     controller.loadMyOrganizations()
 
   render: ->
+
+    unless @state.currentUser? and @state.currentOrganization?
+      return div {className: 'shell loading'}, []
+
     Screen = @props.activeRouteHandler
     div {className: 'shell'}, [
       ShellHeader {key: 'header', currentOrganization: @state.currentOrganization, currentUser: @state.currentUser}

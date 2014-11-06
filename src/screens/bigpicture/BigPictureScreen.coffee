@@ -25,7 +25,7 @@ BigPictureScreen = React.createClass {
 
   render: ->
 
-    div {className: 'big-picture screen'}, [
+    div {className: 'bigpicture screen'}, [
       BigPictureSidebar {key: 'sidebar'}
     ]
 

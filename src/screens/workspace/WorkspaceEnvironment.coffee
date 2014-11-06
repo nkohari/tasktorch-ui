@@ -20,6 +20,8 @@ WorkspaceEnvironment.createController = ->
     types:         new TypeStore()
     users:         new UserStore()
 
+  window._store = stores.stacks
+
   listeners = [
     new CardBodyChangedListener()
     new CardTitleChangedListener()

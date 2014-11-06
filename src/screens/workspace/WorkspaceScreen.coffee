@@ -16,10 +16,14 @@ WorkspaceScreen = React.createClass {
   displayName: 'WorkspaceScreen'
 
   mixins: [
-    Flux('cards', 'organizations', 'stacks', 'teams', 'types', 'users')
+    Flux()
     ActiveUrl(WorkspaceUrl)
     Router.Navigation
   ]
+
+  propTypes:
+    currentOrganization: React.PropTypes.object.isRequired
+    currentUser:         React.PropTypes.object.isRequired
 
   getDefaultProps: ->
     {controller: WorkspaceEnvironment.createController()}
@@ -32,31 +36,16 @@ WorkspaceScreen = React.createClass {
       hoveringIndex: undefined
     }
 
-  getStateFromStores: (stores) ->
-    return {
-      currentUser:         stores.users.currentUser
-      currentOrganization: stores.organizations.currentOrganization
-      stacks:              stores.stacks.stacks
-      teams:               stores.teams.teams
-    }
-
   componentWillMount: ->
     window.Screen = this
     controller = @getController()
-    controller.setOrganization(@getActiveUrl().organizationId)
+    controller.setCurrentOrganization(@props.currentOrganization.id)
     controller.loadWorkspace()
-    controller.joinOrganizationChannel()
 
   componentWillUnmount: ->
-    @getController().leaveOrganizationChannel()
     window.Screen = undefined
 
   render: ->
-
-    # TODO: Push this check down into the ScreenHeader and PresenceBar?
-    unless @state.currentOrganization? and @state.currentUser?
-      return div {className: 'workspace screen loading'}, []
-
     url = @getActiveUrl()
     position = 0
     stackPanels = _.map url.stacks, (stackId) =>
@@ -65,7 +54,7 @@ WorkspaceScreen = React.createClass {
       CardPanel {key: "card-#{cardId}", cardId, position: position++}
 
     div {className: 'workspace screen'}, [
-      WorkspaceSidebar {key: 'sidebar', stacks: @state.stacks, teams: @state.teams}
+      WorkspaceSidebar {key: 'sidebar'}
       PanelGroup {key: 'stack-panels'}, stackPanels
       PanelGroup {key: 'card-panels'}, cardPanels
     ]

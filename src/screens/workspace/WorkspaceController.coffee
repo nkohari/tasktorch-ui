@@ -12,15 +12,12 @@ WorkspaceLoadedEvent  = require 'events/WorkspaceLoadedEvent'
 
 class WorkspaceController extends Controller
 
-  setOrganization: (organizationId) ->
+  setCurrentOrganization: (organizationId) ->
+    if @organizationId?
+      EventBus.unsubscribe("presence-#{@organizationId}")
     @organizationId = organizationId
-
-  joinOrganizationChannel: ->
     channel = EventBus.subscribe("presence-#{@organizationId}")
     @bindListeners(channel)
-
-  leaveOrganizationChannel: ->
-    EventBus.unsubscribe("presence-#{@organizationId}")
 
   loadWorkspace: ->
     request.get "/api/#{@organizationId}/me/workspace", (res) =>

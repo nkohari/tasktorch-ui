@@ -20,7 +20,7 @@ BigPictureSidebar = React.createClass {
 
   render: ->
 
-    div {className: 'big-picture sidebar'}, [
+    div {className: 'bigpicture sidebar'}, [
       List {key: 'team-list', className: 'team-list', component: TeamListItem, kind: 'team', items: @state.teams}
     ]
 
