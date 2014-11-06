@@ -1,0 +1,159 @@
+.shell {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.shell-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 54px;
+  width: 100%;
+  z-index: 9999;
+  .header-bar {
+    position: relative;
+    margin-left: $sidebar-width;
+    height: 100%;
+    border-bottom: 1px solid $header-bar-border-color;
+    background: $header-bar-background-color;
+  }
+}
+
+.organization-corner {
+  float: left;
+  width: $sidebar-width;
+  height: 100%;
+  padding: 8px 4px 4px 10px;
+  background: $organization-background-color;
+  .organization-name {
+    float: left;
+    font-size: 16px;
+    color: $organization-name-text-color;
+    text-shadow: $organization-name-text-shadow;
+  }
+  .menu-trigger {
+    float: right;
+    color: $organization-menu-trigger-color;
+    padding-top: 4px;
+    padding-right: 8px;
+    font: 24px/16px normal $icon-font;
+  }
+  .widgets {
+    clear: both;
+    .presence {
+      font-size: 14px;
+      font-weight: 600;
+      color: $organization-widget-color;
+    }
+    .icon {
+      width: 18px;
+      font-size: 24px;
+      text-align: left;
+      color: $organization-widget-color;
+    }
+  }
+}
+
+.navigation {
+  height: 100%;
+  float: left;
+  a {
+    display: inline-block;
+    width: 140px;
+    height: 100%;
+    padding: 10px 0;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 30px;
+    color: $navigation-text-color;
+    text-decoration: none;
+    text-align: center;
+    border-right: 1px solid $navigation-border-color;
+    .icon {
+      color: $navigation-icon-color;
+      text-align: left;
+    }
+    &.active {
+      color: $navigation-active-icon-color;
+      background: $navigation-active-background-color;
+      border-bottom: 4px solid $navigation-active-indicator-color;
+      .icon { color: $navigation-active-icon-color; }
+    }
+  }
+}
+
+.user-corner {
+  height: 100%;
+  float: right;
+  .focused-card {
+    float: left;
+    height: 100%;
+    width: 250px;
+    padding: 8px 10px;
+    font-size: 14px;
+    font-weight: thin;
+    border-right: 1px solid $focus-border-color;
+    background: $focus-background-color;
+    text-decoration: none;
+    transition-property: color background;
+    transition-duration: 0.15s;
+    transition-timing-function: ease-in-out;
+    &:hover {
+      color: $focus-hover-text-color;
+      background: $focus-hover-background-color;
+    }
+    .title {
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: $focus-title-text-color;
+      text-shadow: 1px 1px 2px $focus-title-text-shadow-color;
+    }
+  }
+  .user-profile {
+    float: right;
+    height: 100%;
+    padding: 8px;
+    background: $user-profile-background-color;
+    .menu-trigger {
+      display: inline-block;
+      vertical-align: middle;
+      color: $user-profile-menu-trigger-color;
+      padding-right: 8px;
+      font: 24px/16px normal $icon-font;
+    }
+    .avatar {
+      display: inline-block;
+      vertical-align: middle;
+      border: 1px solid $user-profile-avatar-border-color;
+      border-radius: 50%;
+    }
+  }
+}
+
+.screen {
+  padding-top: 54px;
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  &::-webkit-scrollbar-track {
+    background: $scrollbar-track-background-color;
+    border-top: 1px solid $scrollbar-track-border-color;
+  }
+  &::-webkit-scrollbar {
+    height: 16px;
+    padding-top: 1px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $scrollbar-thumb-background-color;
+    background-clip: content-box;
+    border: 4px solid $scrollbar-thumb-border-color;
+    border-radius: 16px;
+  }  
+}

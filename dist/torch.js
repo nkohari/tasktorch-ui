@@ -37204,7 +37204,7 @@ OrganizationCorner = React.createClass({
       });
     }
     return div({
-      className: 'organization'
+      className: 'organization-corner'
     }, [
       div({
         key: 'organization'
@@ -37332,7 +37332,7 @@ UserWidget = React.createClass({
       });
     }
     return div({
-      className: 'user'
+      className: 'user-corner'
     }, [
       FocusedCard({
         key: 'focus',

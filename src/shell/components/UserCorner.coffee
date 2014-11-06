@@ -17,7 +17,7 @@ UserWidget = React.createClass {
     unless @props.currentUser?
       return div {className: 'user loading'}
 
-    div {className: 'user'}, [
+    div {className: 'user-corner'}, [
       FocusedCard {key: 'focus', className: 'focused-card'}
       div {className: 'user-profile'}, [
         MenuTrigger {key: 'trigger'}

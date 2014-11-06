@@ -24,7 +24,7 @@ module.exports = (grunt) ->
     sass:
       app:
         files:
-          'dist/torch.css': ['style/**/*.scss']
+          'dist/torch.css': ['style/bundle.scss']
 
     copy:
       app:
