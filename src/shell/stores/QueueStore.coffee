@@ -1,5 +1,5 @@
 _     = require 'lodash'
-Store = require '../../framework/Store'
+Store = require 'framework/Store'
 
 class QueueStore extends Store
 

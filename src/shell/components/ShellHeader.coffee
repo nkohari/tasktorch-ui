@@ -1,5 +1,5 @@
 React              = require 'react'
-Flux               = require '../../mixins/Flux'
+Flux               = require 'mixins/Flux'
 OrganizationCorner = React.createFactory(require './OrganizationCorner')
 NavigationMenu     = React.createFactory(require './NavigationMenu')
 UserCorner         = React.createFactory(require './UserCorner')

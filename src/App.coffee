@@ -4,10 +4,10 @@ Routes           = React.createFactory(Router.Routes)
 Route            = React.createFactory(Router.Route)
 DefaultRoute     = React.createFactory(Router.DefaultRoute)
 Shell            = React.createFactory(require './shell/Shell')
-LoginScreen      = React.createFactory(require './login/LoginScreen')
-WorkspaceScreen  = React.createFactory(require './workspace/WorkspaceScreen')
-BigPictureScreen = React.createFactory(require './bigpicture/BigPictureScreen')
-PlanningScreen   = React.createFactory(require './planning/PlanningScreen')
+LoginScreen      = React.createFactory(require './screens/login/LoginScreen')
+WorkspaceScreen  = React.createFactory(require './screens/workspace/WorkspaceScreen')
+BigPictureScreen = React.createFactory(require './screens/bigpicture/BigPictureScreen')
+PlanningScreen   = React.createFactory(require './screens/planning/PlanningScreen')
 
 # TODO: DefaultRoute to redirect to last workspace
 routes = Routes {location: 'history'}, [

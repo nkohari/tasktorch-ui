@@ -1,8 +1,8 @@
 React         = require 'react/addons'
 Router        = require 'react-router'
-ActiveUrl     = require '../../mixins/ActiveUrl'
+ActiveUrl     = require 'mixins/ActiveUrl'
 ShellUrl      = require '../ShellUrl'
-Icon          = React.createFactory(require '../../common/Icon')
+Icon          = React.createFactory(require 'common/Icon')
 Link          = React.createFactory(Router.Link)
 {div}         = React.DOM
 {classSet}    = React.addons

@@ -1,3 +1,8 @@
+remapify = require 'remapify'
+
+expose = (module) ->
+  {expose: module, cwd: "#{__dirname}/src/#{module}", src: '**/*.coffee'}
+
 module.exports = (grunt) ->
 
   grunt.loadNpmTasks('grunt-browserify')
@@ -15,6 +20,13 @@ module.exports = (grunt) ->
           alias: ['react:react']
           browserifyOptions: {extensions: ['.coffee']}
           transform: ['coffeeify']
+          preBundleCB: (bundle) ->
+            bundle.plugin(remapify, [
+              expose('common')
+              expose('events')
+              expose('framework')
+              expose('mixins')
+            ])
         files:
           'dist/torch.js': ['src/**/*.coffee']
 

@@ -1,13 +1,13 @@
 _                          = require 'lodash'
 request                    = require 'superagent'
-EventBus                   = require '../EventBus'
-Controller                 = require '../framework/Controller'
-CurrentUserLoadedEvent     = require './events/CurrentUserLoadedEvent'
-QueueLoadedEvent           = require './events/QueueLoadedEvent'
-JoinedPresenceChannelEvent = require './events/JoinedPresenceChannelEvent'
-OrganizationsLoadedEvent   = require './events/OrganizationsLoadedEvent'
-UserConnectedEvent         = require './events/UserConnectedEvent'
-UserDisconnectedEvent      = require './events/UserDisconnectedEvent'
+EventBus                   = require 'framework/EventBus'
+Controller                 = require 'framework/Controller'
+CurrentUserLoadedEvent     = require 'events/CurrentUserLoadedEvent'
+QueueLoadedEvent           = require 'events/QueueLoadedEvent'
+JoinedPresenceChannelEvent = require 'events/JoinedPresenceChannelEvent'
+OrganizationsLoadedEvent   = require 'events/OrganizationsLoadedEvent'
+UserConnectedEvent         = require 'events/UserConnectedEvent'
+UserDisconnectedEvent      = require 'events/UserDisconnectedEvent'
 
 class ShellController extends Controller
 

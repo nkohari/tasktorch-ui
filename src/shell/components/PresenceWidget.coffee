@@ -1,5 +1,5 @@
 React = require 'react'
-Icon  = React.createFactory(require '../../common/Icon')
+Icon  = React.createFactory(require 'common/Icon')
 {div, span} = React.DOM
 
 PresenceWidget = React.createClass {

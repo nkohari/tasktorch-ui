@@ -1,5 +1,5 @@
 React      = require 'react/addons'
-Keys       = require '../Keys'
+KeyCode    = require 'framework/enums/KeyCode'
 {classSet} = React.addons
 {textarea} = React.DOM
 
@@ -36,10 +36,10 @@ MultilineText = React.createClass {
 
   handleKeyUp: (event) ->
     switch event.which
-      when Keys.ESCAPE
+      when KeyCode.ESCAPE
         @setState {dirty: false, value: @state.previous}, =>
           @getDOMNode().blur()
-      when Keys.RETURN
+      when KeyCode.RETURN
         if event.shiftKey
           @getDOMNode().blur()
 

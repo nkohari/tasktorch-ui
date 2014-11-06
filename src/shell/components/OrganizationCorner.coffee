@@ -1,6 +1,6 @@
 React          = require 'react'
-Flux           = require '../../mixins/Flux'
-MenuTrigger    = React.createFactory(require '../../common/MenuTrigger')
+Flux           = require 'mixins/Flux'
+MenuTrigger    = React.createFactory(require 'common/MenuTrigger')
 PresenceWidget = React.createFactory(require './PresenceWidget')
 {div}          = React.DOM
 

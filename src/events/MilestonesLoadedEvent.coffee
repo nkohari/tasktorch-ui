@@ -1,4 +1,4 @@
-Event = require '../framework/Event'
+Event = require 'framework/Event'
 
 class MilestonesLoadedEvent extends Event
 

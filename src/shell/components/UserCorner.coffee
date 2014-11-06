@@ -1,8 +1,8 @@
 _           = require 'lodash'
 React       = require 'react'
-Flux        = require '../../mixins/Flux'
-Avatar      = React.createFactory(require '../../common/Avatar')
-MenuTrigger = React.createFactory(require '../../common/MenuTrigger')
+Flux        = require 'mixins/Flux'
+Avatar      = React.createFactory(require 'common/Avatar')
+MenuTrigger = React.createFactory(require 'common/MenuTrigger')
 FocusedCard = React.createFactory(require './FocusedCard')
 {div}       = React.DOM
 

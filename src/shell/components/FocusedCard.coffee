@@ -1,10 +1,10 @@
 _            = require 'lodash'
 React        = require 'react'
 Router       = require 'react-router'
-ActiveUrl    = require '../../mixins/ActiveUrl'
-Flux         = require '../../mixins/Flux'
-WorkspaceUrl = require '../../workspace/WorkspaceUrl'
-Icon         = React.createFactory(require '../../common/Icon')
+ActiveUrl    = require 'mixins/ActiveUrl'
+Flux         = require 'mixins/Flux'
+WorkspaceUrl = require '../../screens/workspace/WorkspaceUrl'
+Icon         = React.createFactory(require 'common/Icon')
 Link         = React.createFactory(Router.Link)
 {div, span}  = React.DOM
 

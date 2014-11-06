@@ -35062,6 +35062,883 @@ module.exports = function(arr, fn, initial){
   return curr;
 };
 },{}],230:[function(require,module,exports){
+var BigPictureScreen, DefaultRoute, LoginScreen, PlanningScreen, React, Route, Router, Routes, Shell, WorkspaceScreen, routes;
+
+React = require('react');
+
+Router = require('react-router');
+
+Routes = React.createFactory(Router.Routes);
+
+Route = React.createFactory(Router.Route);
+
+DefaultRoute = React.createFactory(Router.DefaultRoute);
+
+Shell = React.createFactory(require('./shell/Shell'));
+
+LoginScreen = React.createFactory(require('./screens/login/LoginScreen'));
+
+WorkspaceScreen = React.createFactory(require('./screens/workspace/WorkspaceScreen'));
+
+BigPictureScreen = React.createFactory(require('./screens/bigpicture/BigPictureScreen'));
+
+PlanningScreen = React.createFactory(require('./screens/planning/PlanningScreen'));
+
+routes = Routes({
+  location: 'history'
+}, [
+  Route({
+    name: 'login',
+    key: 'login',
+    path: 'login',
+    handler: LoginScreen
+  }), Route({
+    name: 'shell',
+    key: 'shell',
+    path: ':organizationId',
+    handler: Shell
+  }, [
+    Route({
+      name: 'workspace',
+      key: 'workspace',
+      handler: WorkspaceScreen
+    }), Route({
+      name: 'bigpicture',
+      key: 'bigpicture',
+      handler: BigPictureScreen
+    }), Route({
+      name: 'planning',
+      key: 'planning',
+      handler: PlanningScreen
+    })
+  ])
+]);
+
+React.render(routes, document.body);
+
+
+
+},{"./screens/bigpicture/BigPictureScreen":272,"./screens/login/LoginScreen":280,"./screens/planning/PlanningScreen":283,"./screens/workspace/WorkspaceScreen":291,"./shell/Shell":314,"react":"M6d2gk","react-router":33}],231:[function(require,module,exports){
+var Avatar, React, crypto, img;
+
+crypto = require('crypto');
+
+React = require('react');
+
+img = React.DOM.img;
+
+Avatar = React.createClass({
+  displayName: 'Avatar',
+  getDefaultProps: function() {
+    return {
+      user: void 0,
+      size: 48
+    };
+  },
+  render: function() {
+    return img({
+      className: "avatar",
+      src: this.getImageUrl(),
+      alt: this.props.user.name
+    }, []);
+  },
+  getImageUrl: function() {
+    return "" + this.props.user.avatarUrl + "?s=" + this.props.size;
+  }
+});
+
+module.exports = Avatar;
+
+
+
+},{"crypto":8,"react":"M6d2gk"}],232:[function(require,module,exports){
+var Button, Icon, React, button, span, _ref;
+
+React = require('react');
+
+Icon = React.createFactory(require('./Icon'));
+
+_ref = React.DOM, span = _ref.span, button = _ref.button;
+
+Button = React.createClass({
+  displayName: 'Button',
+  render: function() {
+    return button({
+      onClick: this.props.onClick
+    }, [
+      Icon({
+        key: 'button-icon',
+        name: this.props.icon
+      }), span({
+        key: 'button-text'
+      }, this.props.text)
+    ]);
+  }
+});
+
+module.exports = Button;
+
+
+
+},{"./Icon":233,"react":"M6d2gk"}],233:[function(require,module,exports){
+var Icon, React, span;
+
+React = require('react');
+
+span = React.DOM.span;
+
+Icon = React.createClass({
+  displayName: 'Icon',
+  render: function() {
+    return span({
+      className: "icon icon-" + this.props.name
+    }, this.props.children);
+  }
+});
+
+module.exports = Icon;
+
+
+
+},{"react":"M6d2gk"}],234:[function(require,module,exports){
+var List, React, ul, _;
+
+_ = require('lodash');
+
+React = require('react');
+
+ul = React.DOM.ul;
+
+List = React.createClass({
+  displayName: 'List',
+  render: function() {
+    var Component, items, props;
+    Component = this.props.component;
+    items = _.map(this.props.items, (function(_this) {
+      return function(item) {
+        var props;
+        props = {
+          key: "" + _this.props.kind + "-" + item.id
+        };
+        props[_this.props.kind] = item;
+        return Component(props);
+      };
+    })(this));
+    props = _.omit(this.props, 'component', 'items', 'kind');
+    return ul(props, items);
+  }
+});
+
+module.exports = List;
+
+
+
+},{"lodash":23,"react":"M6d2gk"}],235:[function(require,module,exports){
+var MenuTrigger, React, span;
+
+React = require('react');
+
+span = React.DOM.span;
+
+MenuTrigger = React.createClass({
+  displayName: 'MenuTrigger',
+  render: function() {
+    return span({
+      className: "menu-trigger"
+    }, ['\uE764']);
+  }
+});
+
+module.exports = MenuTrigger;
+
+
+
+},{"react":"M6d2gk"}],236:[function(require,module,exports){
+var KeyCode, MultilineText, React, classSet, textarea;
+
+React = require('react/addons');
+
+KeyCode = require('./../framework/enums/KeyCode.coffee');
+
+classSet = React.addons.classSet;
+
+textarea = React.DOM.textarea;
+
+MultilineText = React.createClass({
+  displayName: 'MultilineText',
+  getInitialState: function() {
+    return {
+      dirty: false,
+      previous: void 0,
+      value: this.props.value
+    };
+  },
+  componentWillReceiveProps: function(newProps) {
+    return this.setState({
+      dirty: false,
+      previous: newProps.value,
+      value: newProps.value
+    });
+  },
+  render: function() {
+    var node, style;
+    style = {};
+    if (this.isMounted()) {
+      node = this.getDOMNode();
+      if (node.scrollHeight === node.clientHeight) {
+        node.style.height = 'auto';
+      }
+      style.height = node.scrollHeight;
+    }
+    return textarea({
+      className: classSet({
+        editable: true,
+        overflow: 'hidden',
+        dirty: this.state.dirty
+      }),
+      style: style,
+      placeholder: this.props.placeholder,
+      value: this.state.value,
+      onChange: this.handleChange,
+      onFocus: this.handleFocus,
+      onBlur: this.handleBlur,
+      onKeyUp: this.handleKeyUp
+    });
+  },
+  handleKeyUp: function(event) {
+    switch (event.which) {
+      case KeyCode.ESCAPE:
+        return this.setState({
+          dirty: false,
+          value: this.state.previous
+        }, (function(_this) {
+          return function() {
+            return _this.getDOMNode().blur();
+          };
+        })(this));
+      case KeyCode.RETURN:
+        if (event.shiftKey) {
+          return this.getDOMNode().blur();
+        }
+    }
+  },
+  handleChange: function(event) {
+    return this.setState({
+      dirty: true,
+      value: event.target.value
+    });
+  },
+  handleFocus: function() {
+    return this.setState({
+      previous: this.state.value
+    });
+  },
+  handleBlur: function() {
+    if (this.state.dirty) {
+      this.props.save(this.state.value);
+    }
+    return this.setState({
+      dirty: false
+    });
+  }
+});
+
+module.exports = MultilineText;
+
+
+
+},{"./../framework/enums/KeyCode.coffee":267,"react/addons":64}],237:[function(require,module,exports){
+var Panel, PanelHeader, React, div, _;
+
+_ = require('lodash');
+
+React = require('react/addons');
+
+PanelHeader = React.createFactory(require('./PanelHeader'));
+
+div = React.DOM.div;
+
+Panel = React.createClass({
+  displayName: 'Panel',
+  render: function() {
+    var classes, header, panel, props, _ref;
+    props = _.extend({}, this.props);
+    classes = (_ref = props.className) != null ? _ref : '';
+    classes = classes.split(' ').concat('panel').join(' ');
+    props.className = classes;
+    header = PanelHeader({
+      key: 'panel-header',
+      panelTitle: this.props.panelTitle,
+      icon: this.props.icon,
+      close: this.props.close
+    });
+    return panel = div(props, [header].concat(this.props.children));
+  }
+});
+
+module.exports = Panel;
+
+
+
+},{"./PanelHeader":239,"lodash":23,"react/addons":64}],238:[function(require,module,exports){
+var CSSTransitionGroup, PanelGroup, React;
+
+React = require('react/addons');
+
+CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup);
+
+PanelGroup = React.createClass({
+  displayName: 'PanelGroup',
+  render: function() {
+    return CSSTransitionGroup({
+      component: 'div',
+      className: 'panel-group',
+      transitionName: 'panel-slide'
+    }, this.props.children);
+  }
+});
+
+module.exports = PanelGroup;
+
+
+
+},{"react/addons":64}],239:[function(require,module,exports){
+var Icon, Link, PanelHeader, React, Router, div, span, _, _ref;
+
+React = require('react');
+
+Router = require('react-router');
+
+_ = require('lodash');
+
+Icon = React.createFactory(require('./Icon'));
+
+Link = React.createFactory(Router.Link);
+
+_ref = React.DOM, div = _ref.div, span = _ref.span;
+
+PanelHeader = React.createClass({
+  displayName: 'PanelHeader',
+  render: function() {
+    var children;
+    children = [];
+    if (this.props.icon != null) {
+      children.push(this.createIcon());
+    }
+    children.push(span({
+      key: 'panel-title',
+      className: 'title'
+    }, [this.props.panelTitle]));
+    if (this.props.close != null) {
+      children.push(this.createCloseButton(this.props.close));
+    }
+    return div({
+      className: 'header'
+    }, children);
+  },
+  createIcon: function() {
+    return Icon({
+      key: 'panel-icon',
+      name: this.props.icon
+    });
+  },
+  createCloseButton: function(props) {
+    props = _.extend(props, {
+      key: 'panel-close-button',
+      className: 'close'
+    });
+    return Link(props, [
+      Icon({
+        key: 'panel-close-button-icon',
+        name: 'close'
+      })
+    ]);
+  }
+});
+
+module.exports = PanelHeader;
+
+
+
+},{"./Icon":233,"lodash":23,"react":"M6d2gk","react-router":33}],240:[function(require,module,exports){
+var React, RedirectToLastWorkspace;
+
+React = require('react');
+
+RedirectToLastWorkspace = React.createClass({
+  statics: {
+    willTransitionTo: function(transition, params, query) {
+      return transition.redirect('workspace', {
+        organizationId: '1'
+      }, {});
+    }
+  },
+  displayName: 'RedirectToLastWorkspace',
+  render: function() {
+    return null;
+  }
+});
+
+module.exports = RedirectToLastWorkspace;
+
+
+
+},{"react":"M6d2gk"}],241:[function(require,module,exports){
+var KeyCode, React, Text, classSet, input;
+
+React = require('react/addons');
+
+KeyCode = require('./../framework/enums/KeyCode.coffee');
+
+classSet = React.addons.classSet;
+
+input = React.DOM.input;
+
+Text = React.createClass({
+  displayName: 'Text',
+  getInitialState: function() {
+    return {
+      dirty: false,
+      previous: this.props.value,
+      value: this.props.value
+    };
+  },
+  componentWillReceiveProps: function(newProps) {
+    return this.setState({
+      dirty: false,
+      previous: newProps.value,
+      value: newProps.value
+    });
+  },
+  render: function() {
+    return input({
+      className: classSet({
+        editable: true,
+        dirty: this.state.dirty
+      }),
+      placeholder: this.props.placeholder,
+      value: this.state.value,
+      onChange: this.handleChange,
+      onFocus: this.handleFocus,
+      onBlur: this.handleBlur,
+      onKeyUp: this.handleKeyUp
+    });
+  },
+  handleKeyUp: function(event) {
+    switch (event.which) {
+      case KeyCode.ESCAPE:
+        return this.setState({
+          dirty: false,
+          value: this.state.previous
+        }, (function(_this) {
+          return function() {
+            return _this.getDOMNode().blur();
+          };
+        })(this));
+      case KeyCode.RETURN:
+        return this.getDOMNode().blur();
+    }
+  },
+  handleChange: function(event) {
+    return this.setState({
+      dirty: true,
+      value: event.target.value
+    });
+  },
+  handleFocus: function() {
+    return this.setState({
+      previous: this.state.value
+    });
+  },
+  handleBlur: function() {
+    if (this.state.dirty) {
+      this.props.save(this.state.value);
+    }
+    return this.setState({
+      dirty: false
+    });
+  }
+});
+
+module.exports = Text;
+
+
+
+},{"./../framework/enums/KeyCode.coffee":267,"react/addons":64}],242:[function(require,module,exports){
+var arrayEnum, _;
+
+_ = require('lodash');
+
+module.exports = arrayEnum = function(values) {
+  return _.object(_.map(values, function(v) {
+    return [v, v];
+  }));
+};
+
+
+
+},{"lodash":23}],243:[function(require,module,exports){
+exports.encode = function(str) {
+  return '\"' + str + '\"';
+};
+
+exports.decode = function(str) {
+  return str.substr(1, str.length - 2);
+};
+
+
+
+},{}],244:[function(require,module,exports){
+var CardBodyChangedEvent, Event,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Event = require('./../framework/Event.coffee');
+
+CardBodyChangedEvent = (function(_super) {
+  __extends(CardBodyChangedEvent, _super);
+
+  function CardBodyChangedEvent(id, body, version, meta) {
+    this.id = id;
+    this.body = body;
+    this.version = version;
+    CardBodyChangedEvent.__super__.constructor.call(this, meta);
+  }
+
+  return CardBodyChangedEvent;
+
+})(Event);
+
+module.exports = CardBodyChangedEvent;
+
+
+
+},{"./../framework/Event.coffee":262}],245:[function(require,module,exports){
+var CardTitleChangedEvent, Event,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Event = require('./../framework/Event.coffee');
+
+CardTitleChangedEvent = (function(_super) {
+  __extends(CardTitleChangedEvent, _super);
+
+  function CardTitleChangedEvent(id, title, version, meta) {
+    this.id = id;
+    this.title = title;
+    this.version = version;
+    CardTitleChangedEvent.__super__.constructor.call(this, meta);
+  }
+
+  return CardTitleChangedEvent;
+
+})(Event);
+
+module.exports = CardTitleChangedEvent;
+
+
+
+},{"./../framework/Event.coffee":262}],246:[function(require,module,exports){
+var CardsLoadedEvent, Event,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Event = require('./../framework/Event.coffee');
+
+CardsLoadedEvent = (function(_super) {
+  __extends(CardsLoadedEvent, _super);
+
+  function CardsLoadedEvent(cards) {
+    this.cards = cards;
+    CardsLoadedEvent.__super__.constructor.call(this);
+  }
+
+  return CardsLoadedEvent;
+
+})(Event);
+
+module.exports = CardsLoadedEvent;
+
+
+
+},{"./../framework/Event.coffee":262}],247:[function(require,module,exports){
+var CurrentUserLoadedEvent, Event,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Event = require('./../framework/Event.coffee');
+
+CurrentUserLoadedEvent = (function(_super) {
+  __extends(CurrentUserLoadedEvent, _super);
+
+  function CurrentUserLoadedEvent(user) {
+    this.user = user;
+    CurrentUserLoadedEvent.__super__.constructor.call(this);
+  }
+
+  return CurrentUserLoadedEvent;
+
+})(Event);
+
+module.exports = CurrentUserLoadedEvent;
+
+
+
+},{"./../framework/Event.coffee":262}],248:[function(require,module,exports){
+var Event, GoalsLoadedEvent,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Event = require('./../framework/Event.coffee');
+
+GoalsLoadedEvent = (function(_super) {
+  __extends(GoalsLoadedEvent, _super);
+
+  function GoalsLoadedEvent(goals) {
+    this.goals = goals;
+    GoalsLoadedEvent.__super__.constructor.call(this);
+  }
+
+  return GoalsLoadedEvent;
+
+})(Event);
+
+module.exports = GoalsLoadedEvent;
+
+
+
+},{"./../framework/Event.coffee":262}],249:[function(require,module,exports){
+var Event, JoinedPresenceChannelEvent,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Event = require('./../framework/Event.coffee');
+
+JoinedPresenceChannelEvent = (function(_super) {
+  __extends(JoinedPresenceChannelEvent, _super);
+
+  function JoinedPresenceChannelEvent(connectedUsers) {
+    this.connectedUsers = connectedUsers;
+    JoinedPresenceChannelEvent.__super__.constructor.call(this);
+  }
+
+  return JoinedPresenceChannelEvent;
+
+})(Event);
+
+module.exports = JoinedPresenceChannelEvent;
+
+
+
+},{"./../framework/Event.coffee":262}],250:[function(require,module,exports){
+var Event, MilestonesLoadedEvent,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Event = require('./../framework/Event.coffee');
+
+MilestonesLoadedEvent = (function(_super) {
+  __extends(MilestonesLoadedEvent, _super);
+
+  function MilestonesLoadedEvent(milestones) {
+    this.milestones = milestones;
+    MilestonesLoadedEvent.__super__.constructor.call(this);
+  }
+
+  return MilestonesLoadedEvent;
+
+})(Event);
+
+module.exports = MilestonesLoadedEvent;
+
+
+
+},{"./../framework/Event.coffee":262}],251:[function(require,module,exports){
+var Event, OrganizationsLoadedEvent,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Event = require('./../framework/Event.coffee');
+
+OrganizationsLoadedEvent = (function(_super) {
+  __extends(OrganizationsLoadedEvent, _super);
+
+  function OrganizationsLoadedEvent(organizations) {
+    this.organizations = organizations;
+    OrganizationsLoadedEvent.__super__.constructor.call(this);
+  }
+
+  return OrganizationsLoadedEvent;
+
+})(Event);
+
+module.exports = OrganizationsLoadedEvent;
+
+
+
+},{"./../framework/Event.coffee":262}],252:[function(require,module,exports){
+var Event, QueueLoadedEvent,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Event = require('./../framework/Event.coffee');
+
+QueueLoadedEvent = (function(_super) {
+  __extends(QueueLoadedEvent, _super);
+
+  function QueueLoadedEvent(queue, cards) {
+    this.queue = queue;
+    this.cards = cards;
+    QueueLoadedEvent.__super__.constructor.call(this);
+  }
+
+  return QueueLoadedEvent;
+
+})(Event);
+
+module.exports = QueueLoadedEvent;
+
+
+
+},{"./../framework/Event.coffee":262}],253:[function(require,module,exports){
+var Event, StacksLoadedEvent,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Event = require('./../framework/Event.coffee');
+
+StacksLoadedEvent = (function(_super) {
+  __extends(StacksLoadedEvent, _super);
+
+  function StacksLoadedEvent(cards) {
+    this.cards = cards;
+    StacksLoadedEvent.__super__.constructor.call(this);
+  }
+
+  return StacksLoadedEvent;
+
+})(Event);
+
+module.exports = StacksLoadedEvent;
+
+
+
+},{"./../framework/Event.coffee":262}],254:[function(require,module,exports){
+var Event, TeamsLoadedEvent,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Event = require('./../framework/Event.coffee');
+
+TeamsLoadedEvent = (function(_super) {
+  __extends(TeamsLoadedEvent, _super);
+
+  function TeamsLoadedEvent(teams) {
+    this.teams = teams;
+    TeamsLoadedEvent.__super__.constructor.call(this);
+  }
+
+  return TeamsLoadedEvent;
+
+})(Event);
+
+module.exports = TeamsLoadedEvent;
+
+
+
+},{"./../framework/Event.coffee":262}],255:[function(require,module,exports){
+var Event, UserConnectedEvent,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Event = require('./../framework/Event.coffee');
+
+UserConnectedEvent = (function(_super) {
+  __extends(UserConnectedEvent, _super);
+
+  function UserConnectedEvent(user) {
+    this.user = user;
+    UserConnectedEvent.__super__.constructor.call(this);
+  }
+
+  return UserConnectedEvent;
+
+})(Event);
+
+module.exports = UserConnectedEvent;
+
+
+
+},{"./../framework/Event.coffee":262}],256:[function(require,module,exports){
+var Event, UserDisconnectedEvent,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Event = require('./../framework/Event.coffee');
+
+UserDisconnectedEvent = (function(_super) {
+  __extends(UserDisconnectedEvent, _super);
+
+  function UserDisconnectedEvent(user) {
+    this.user = user;
+    UserDisconnectedEvent.__super__.constructor.call(this);
+  }
+
+  return UserDisconnectedEvent;
+
+})(Event);
+
+module.exports = UserDisconnectedEvent;
+
+
+
+},{"./../framework/Event.coffee":262}],257:[function(require,module,exports){
+var Event, UsersLoadedEvent,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Event = require('./../framework/Event.coffee');
+
+UsersLoadedEvent = (function(_super) {
+  __extends(UsersLoadedEvent, _super);
+
+  function UsersLoadedEvent(users) {
+    this.users = users;
+    UsersLoadedEvent.__super__.constructor.call(this);
+  }
+
+  return UsersLoadedEvent;
+
+})(Event);
+
+module.exports = UsersLoadedEvent;
+
+
+
+},{"./../framework/Event.coffee":262}],258:[function(require,module,exports){
+var Event, WorkspaceLoadedEvent,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Event = require('./../framework/Event.coffee');
+
+WorkspaceLoadedEvent = (function(_super) {
+  __extends(WorkspaceLoadedEvent, _super);
+
+  function WorkspaceLoadedEvent(workspace) {
+    this.workspace = workspace;
+    WorkspaceLoadedEvent.__super__.constructor.call(this);
+  }
+
+  return WorkspaceLoadedEvent;
+
+})(Event);
+
+module.exports = WorkspaceLoadedEvent;
+
+
+
+},{"./../framework/Event.coffee":262}],259:[function(require,module,exports){
 var Api, noop, request;
 
 request = require('superagent');
@@ -35130,1115 +36007,14 @@ module.exports = new Api();
 
 
 
-},{"superagent":227}],231:[function(require,module,exports){
-var BigPictureScreen, DefaultRoute, LoginScreen, PlanningScreen, React, Route, Router, Routes, Shell, WorkspaceScreen, routes;
-
-React = require('react');
-
-Router = require('react-router');
-
-Routes = React.createFactory(Router.Routes);
-
-Route = React.createFactory(Router.Route);
-
-DefaultRoute = React.createFactory(Router.DefaultRoute);
-
-Shell = React.createFactory(require('./shell/Shell'));
-
-LoginScreen = React.createFactory(require('./login/LoginScreen'));
-
-WorkspaceScreen = React.createFactory(require('./workspace/WorkspaceScreen'));
-
-BigPictureScreen = React.createFactory(require('./bigpicture/BigPictureScreen'));
-
-PlanningScreen = React.createFactory(require('./planning/PlanningScreen'));
-
-routes = Routes({
-  location: 'history'
-}, [
-  Route({
-    name: 'login',
-    key: 'login',
-    path: 'login',
-    handler: LoginScreen
-  }), Route({
-    name: 'shell',
-    key: 'shell',
-    path: ':organizationId',
-    handler: Shell
-  }, [
-    Route({
-      name: 'workspace',
-      key: 'workspace',
-      handler: WorkspaceScreen
-    }), Route({
-      name: 'bigpicture',
-      key: 'bigpicture',
-      handler: BigPictureScreen
-    }), Route({
-      name: 'planning',
-      key: 'planning',
-      handler: PlanningScreen
-    })
-  ])
-]);
-
-React.render(routes, document.body);
-
-
-
-},{"./bigpicture/BigPictureScreen":238,"./login/LoginScreen":268,"./planning/PlanningScreen":273,"./shell/Shell":279,"./workspace/WorkspaceScreen":304,"react":"M6d2gk","react-router":33}],232:[function(require,module,exports){
-module.exports = new Pusher('9bc5b19ceaf8c59adcea', {
-  authEndpoint: '/api/_auth/presence',
-  encrypted: true
-});
-
-
-
-},{}],233:[function(require,module,exports){
-module.exports = {
-  ETag: 'ETag',
-  IfMatch: 'If-Match',
-  Socket: 'X-TaskTorch-Socket'
-};
-
-
-
-},{}],234:[function(require,module,exports){
-module.exports = {
-  TAB: 9,
-  RETURN: 13,
-  ENTER: 13,
-  ESCAPE: 27,
-  SPACE: 32
-};
-
-
-
-},{}],235:[function(require,module,exports){
+},{"superagent":227}],260:[function(require,module,exports){
 exports.untitledCard = 'Untitled Card';
 
 exports.cardBody = 'Card Body';
 
 
 
-},{}],236:[function(require,module,exports){
-var BigPictureController, CardsLoadedEvent, Controller, TeamsLoadedEvent, UsersLoadedEvent, request, _,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-_ = require('lodash');
-
-request = require('superagent');
-
-Controller = require('../framework/Controller');
-
-CardsLoadedEvent = require('./events/CardsLoadedEvent');
-
-TeamsLoadedEvent = require('./events/TeamsLoadedEvent');
-
-UsersLoadedEvent = require('./events/UsersLoadedEvent');
-
-BigPictureController = (function(_super) {
-  __extends(BigPictureController, _super);
-
-  function BigPictureController() {
-    return BigPictureController.__super__.constructor.apply(this, arguments);
-  }
-
-  BigPictureController.prototype.setOrganization = function(organizationId) {
-    return this.organizationId = organizationId;
-  };
-
-  BigPictureController.prototype.loadTeams = function() {
-    return request.get("/api/" + this.organizationId + "/teams", (function(_this) {
-      return function(res) {
-        return _this.dispatch(new TeamsLoadedEvent(res.body));
-      };
-    })(this));
-  };
-
-  BigPictureController.prototype.loadUser = function(userId) {
-    return request.get("/api/users/" + userId, (function(_this) {
-      return function(res) {
-        return _this.dispatch(new UsersLoadedEvent([res.body]));
-      };
-    })(this));
-  };
-
-  BigPictureController.prototype.loadCardsInStack = function(stackId) {
-    return request.get("/api/" + this.organizationId + "/stacks/" + stackId + "/cards", (function(_this) {
-      return function(res) {
-        return _this.dispatch(new CardsLoadedEvent(res.body));
-      };
-    })(this));
-  };
-
-  return BigPictureController;
-
-})(Controller);
-
-module.exports = BigPictureController;
-
-
-
-},{"../framework/Controller":264,"./events/CardsLoadedEvent":243,"./events/TeamsLoadedEvent":244,"./events/UsersLoadedEvent":245,"lodash":23,"superagent":227}],237:[function(require,module,exports){
-var BigPictureController, BigPictureEnvironment, CardStore, TeamStore, UserStore;
-
-BigPictureController = require('./BigPictureController');
-
-CardStore = require('./stores/CardStore');
-
-TeamStore = require('./stores/TeamStore');
-
-UserStore = require('./stores/UserStore');
-
-BigPictureEnvironment = {};
-
-BigPictureEnvironment.createController = function() {
-  var stores;
-  stores = {
-    cards: new CardStore(),
-    teams: new TeamStore(),
-    users: new UserStore()
-  };
-  return new BigPictureController(stores);
-};
-
-module.exports = BigPictureEnvironment;
-
-
-
-},{"./BigPictureController":236,"./stores/CardStore":246,"./stores/TeamStore":247,"./stores/UserStore":248}],238:[function(require,module,exports){
-var ActiveUrl, BigPictureEnvironment, BigPictureScreen, BigPictureSidebar, BigPictureUrl, Flux, React, Router, div, _;
-
-_ = require('lodash');
-
-React = require('react');
-
-Router = require('react-router');
-
-ActiveUrl = require('../mixins/ActiveUrl');
-
-Flux = require('../mixins/Flux');
-
-BigPictureEnvironment = require('./BigPictureEnvironment');
-
-BigPictureUrl = require('./BigPictureUrl');
-
-BigPictureSidebar = React.createFactory(require('./components/BigPictureSidebar'));
-
-div = React.DOM.div;
-
-BigPictureScreen = React.createClass({
-  displayName: 'BigPictureScreen',
-  mixins: [Flux(), ActiveUrl(BigPictureUrl)],
-  getDefaultProps: function() {
-    return {
-      controller: BigPictureEnvironment.createController()
-    };
-  },
-  componentWillMount: function() {
-    return this.getController().setOrganization(this.getActiveUrl().organizationId);
-  },
-  render: function() {
-    return div({
-      className: 'big-picture screen'
-    }, [
-      BigPictureSidebar({
-        key: 'sidebar'
-      })
-    ]);
-  }
-});
-
-module.exports = BigPictureScreen;
-
-
-
-},{"../mixins/ActiveUrl":269,"../mixins/Flux":270,"./BigPictureEnvironment":237,"./BigPictureUrl":239,"./components/BigPictureSidebar":240,"lodash":23,"react":"M6d2gk","react-router":33}],239:[function(require,module,exports){
-var BigPictureUrl, _;
-
-_ = require('lodash');
-
-BigPictureUrl = (function() {
-  function BigPictureUrl(routes, params, query) {
-    this.organizationId = params.organizationId;
-    this.users = query.users != null ? query.users.split(',') : [];
-  }
-
-  BigPictureUrl.prototype.setUsers = function(userIds) {
-    return this.users = _.clone(userIds);
-  };
-
-  BigPictureUrl.prototype.makeLinkProps = function() {
-    var params, query;
-    params = {
-      organizationId: this.organizationId
-    };
-    query = {};
-    if (this.users.length > 0) {
-      query.users = this.users.join(',');
-    }
-    return {
-      to: 'bigpicture',
-      params: params,
-      query: query
-    };
-  };
-
-  return BigPictureUrl;
-
-})();
-
-module.exports = BigPictureUrl;
-
-
-
-},{"lodash":23}],240:[function(require,module,exports){
-var BigPictureSidebar, Flux, List, React, TeamListItem, div;
-
-React = require('react');
-
-Flux = require('../../mixins/Flux');
-
-List = React.createFactory(require('../../common/List'));
-
-TeamListItem = React.createFactory(require('./TeamListItem'));
-
-div = React.DOM.div;
-
-BigPictureSidebar = React.createClass({
-  displayName: 'BigPictureSidebar',
-  mixins: [Flux('teams')],
-  getStateFromStores: function(stores) {
-    return {
-      teams: stores.teams.getAllTeams()
-    };
-  },
-  componentWillMount: function() {
-    return this.getController().loadTeams();
-  },
-  render: function() {
-    return div({
-      className: 'big-picture sidebar'
-    }, [
-      List({
-        key: 'team-list',
-        className: 'team-list',
-        component: TeamListItem,
-        kind: 'team',
-        items: this.state.teams
-      })
-    ]);
-  }
-});
-
-module.exports = BigPictureSidebar;
-
-
-
-},{"../../common/List":252,"../../mixins/Flux":270,"./TeamListItem":241,"react":"M6d2gk"}],241:[function(require,module,exports){
-var ActiveUrl, BigPictureUrl, Icon, Link, React, Router, TeamListItem, li, span, _, _ref;
-
-_ = require('lodash');
-
-React = require('react/addons');
-
-Router = require('react-router');
-
-ActiveUrl = require('../../mixins/ActiveUrl');
-
-BigPictureUrl = require('../BigPictureUrl');
-
-Icon = React.createFactory(require('../../common/Icon'));
-
-Link = React.createFactory(Router.Link);
-
-_ref = React.DOM, li = _ref.li, span = _ref.span;
-
-TeamListItem = React.createClass({
-  displayName: 'TeamListItem',
-  mixins: [ActiveUrl(BigPictureUrl)],
-  render: function() {
-    var linkProps;
-    linkProps = _.extend(this.makeLinkProps(), {
-      key: 'open-team-link'
-    });
-    return li({
-      className: 'team-list-item'
-    }, [
-      Link(linkProps, [
-        Icon({
-          key: 'icon',
-          name: 'team'
-        }), span({
-          key: 'name',
-          className: 'team-name'
-        }, [this.props.team.name])
-      ])
-    ]);
-  },
-  makeLinkProps: function() {
-    var url;
-    url = this.getActiveUrl();
-    url.setUsers(_.pluck(this.props.team.members, 'id'));
-    return url.makeLinkProps();
-  }
-});
-
-module.exports = TeamListItem;
-
-
-
-},{"../../common/Icon":251,"../../mixins/ActiveUrl":269,"../BigPictureUrl":239,"lodash":23,"react-router":33,"react/addons":64}],242:[function(require,module,exports){
-var ActiveUrl, BigPictureUrl, Flux, Panel, React, Router, UserQueuePanel, ul, _;
-
-_ = require('lodash');
-
-React = require('react');
-
-Router = require('react-router');
-
-Flux = require('../../mixins/Flux');
-
-ActiveUrl = require('../../mixins/ActiveUrl');
-
-BigPictureUrl = require('../BigPictureUrl');
-
-Panel = React.createFactory(require('../../common/Panel'));
-
-ul = React.DOM.ul;
-
-UserQueuePanel = React.createClass({
-  displayName: 'UserQueuePanel',
-  mixins: [Flux('cards'), ActiveUrl(BigPictureUrl)],
-  propTypes: {
-    userId: React.PropTypes.string.isRequired
-  },
-  getStateFromStores: function(stores) {
-    var _ref;
-    return {
-      user: (_ref = stores.users.getUser(this.props.userId)) != null ? _ref : {}
-    };
-  },
-  componentWillReceiveProps: function(newProps) {
-    if (this.props.userId !== newProps.userId) {
-      return this.loadUser(newProps.userId);
-    }
-  },
-  componentWillMount: function() {
-    return this.loadUser(this.props.userId);
-  },
-  loadUser: function(userId) {
-    var controller;
-    controller = this.getController();
-    return controller.loadUser(userId);
-  },
-  render: function() {
-    return Panel({
-      panelTitle: this.state.user.name,
-      className: 'user',
-      style: {
-        zIndex: 99 - this.props.position
-      },
-      icon: 'user'
-    }, []);
-  }
-});
-
-module.exports = UserQueuePanel;
-
-
-
-},{"../../common/Panel":255,"../../mixins/ActiveUrl":269,"../../mixins/Flux":270,"../BigPictureUrl":239,"lodash":23,"react":"M6d2gk","react-router":33}],243:[function(require,module,exports){
-var CardsLoadedEvent, Event,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Event = require('../../framework/Event');
-
-CardsLoadedEvent = (function(_super) {
-  __extends(CardsLoadedEvent, _super);
-
-  function CardsLoadedEvent(cards) {
-    this.cards = cards;
-    CardsLoadedEvent.__super__.constructor.call(this);
-  }
-
-  return CardsLoadedEvent;
-
-})(Event);
-
-module.exports = CardsLoadedEvent;
-
-
-
-},{"../../framework/Event":265}],244:[function(require,module,exports){
-var Event, TeamsLoadedEvent,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Event = require('../../framework/Event');
-
-TeamsLoadedEvent = (function(_super) {
-  __extends(TeamsLoadedEvent, _super);
-
-  function TeamsLoadedEvent(teams) {
-    this.teams = teams;
-    TeamsLoadedEvent.__super__.constructor.call(this);
-  }
-
-  return TeamsLoadedEvent;
-
-})(Event);
-
-module.exports = TeamsLoadedEvent;
-
-
-
-},{"../../framework/Event":265}],245:[function(require,module,exports){
-var Event, UsersLoadedEvent,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Event = require('../../framework/Event');
-
-UsersLoadedEvent = (function(_super) {
-  __extends(UsersLoadedEvent, _super);
-
-  function UsersLoadedEvent(users) {
-    this.users = users;
-    UsersLoadedEvent.__super__.constructor.call(this);
-  }
-
-  return UsersLoadedEvent;
-
-})(Event);
-
-module.exports = UsersLoadedEvent;
-
-
-
-},{"../../framework/Event":265}],246:[function(require,module,exports){
-var CardStore, Store, _,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-_ = require('lodash');
-
-Store = require('../../framework/Store');
-
-CardStore = (function(_super) {
-  __extends(CardStore, _super);
-
-  function CardStore() {
-    this.cards = {};
-  }
-
-  CardStore.prototype.getCardsInStack = function(stackId) {
-    return _.filter(this.cards, function(card) {
-      return card.stack === stackId;
-    });
-  };
-
-  CardStore.prototype.onCardsLoaded = function(event) {
-    this.cards = _.extend(this.cards, _.indexBy(event.cards, 'id'));
-    return this.announce();
-  };
-
-  return CardStore;
-
-})(Store);
-
-module.exports = CardStore;
-
-
-
-},{"../../framework/Store":267,"lodash":23}],247:[function(require,module,exports){
-var Store, TeamStore, _,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-_ = require('lodash');
-
-Store = require('../../framework/Store');
-
-TeamStore = (function(_super) {
-  __extends(TeamStore, _super);
-
-  function TeamStore() {
-    this.teams = {};
-  }
-
-  TeamStore.prototype.getAllTeams = function() {
-    return _.values(this.teams);
-  };
-
-  TeamStore.prototype.onTeamsLoaded = function(event) {
-    this.teams = _.extend(this.teams, _.indexBy(event.teams, 'id'));
-    return this.announce();
-  };
-
-  return TeamStore;
-
-})(Store);
-
-module.exports = TeamStore;
-
-
-
-},{"../../framework/Store":267,"lodash":23}],248:[function(require,module,exports){
-var Store, UserStore, _,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-_ = require('lodash');
-
-Store = require('../../framework/Store');
-
-UserStore = (function(_super) {
-  __extends(UserStore, _super);
-
-  function UserStore() {
-    this.users = {};
-  }
-
-  UserStore.prototype.getUser = function(id) {
-    return this.users[id];
-  };
-
-  UserStore.prototype.onUsersLoaded = function(event) {
-    this.users = _.extend(this.users, _.indexBy(event.users, 'id'));
-    console.log(this.users);
-    return this.announce();
-  };
-
-  return UserStore;
-
-})(Store);
-
-module.exports = UserStore;
-
-
-
-},{"../../framework/Store":267,"lodash":23}],249:[function(require,module,exports){
-var Avatar, React, crypto, img;
-
-crypto = require('crypto');
-
-React = require('react');
-
-img = React.DOM.img;
-
-Avatar = React.createClass({
-  displayName: 'Avatar',
-  getDefaultProps: function() {
-    return {
-      user: void 0,
-      size: 48
-    };
-  },
-  render: function() {
-    return img({
-      className: "avatar",
-      src: this.getImageUrl(),
-      alt: this.props.user.name
-    }, []);
-  },
-  getImageUrl: function() {
-    return "" + this.props.user.avatarUrl + "?s=" + this.props.size;
-  }
-});
-
-module.exports = Avatar;
-
-
-
-},{"crypto":8,"react":"M6d2gk"}],250:[function(require,module,exports){
-var Button, Icon, React, button, span, _ref;
-
-React = require('react');
-
-Icon = React.createFactory(require('./Icon'));
-
-_ref = React.DOM, span = _ref.span, button = _ref.button;
-
-Button = React.createClass({
-  displayName: 'Button',
-  render: function() {
-    return button({
-      onClick: this.props.onClick
-    }, [
-      Icon({
-        key: 'button-icon',
-        name: this.props.icon
-      }), span({
-        key: 'button-text'
-      }, this.props.text)
-    ]);
-  }
-});
-
-module.exports = Button;
-
-
-
-},{"./Icon":251,"react":"M6d2gk"}],251:[function(require,module,exports){
-var Icon, React, span;
-
-React = require('react');
-
-span = React.DOM.span;
-
-Icon = React.createClass({
-  displayName: 'Icon',
-  render: function() {
-    return span({
-      className: "icon icon-" + this.props.name
-    }, this.props.children);
-  }
-});
-
-module.exports = Icon;
-
-
-
-},{"react":"M6d2gk"}],252:[function(require,module,exports){
-var List, React, ul, _;
-
-_ = require('lodash');
-
-React = require('react');
-
-ul = React.DOM.ul;
-
-List = React.createClass({
-  displayName: 'List',
-  render: function() {
-    var Component, items, props;
-    Component = this.props.component;
-    items = _.map(this.props.items, (function(_this) {
-      return function(item) {
-        var props;
-        props = {
-          key: "" + _this.props.kind + "-" + item.id
-        };
-        props[_this.props.kind] = item;
-        return Component(props);
-      };
-    })(this));
-    props = _.omit(this.props, 'component', 'items', 'kind');
-    return ul(props, items);
-  }
-});
-
-module.exports = List;
-
-
-
-},{"lodash":23,"react":"M6d2gk"}],253:[function(require,module,exports){
-var MenuTrigger, React, span;
-
-React = require('react');
-
-span = React.DOM.span;
-
-MenuTrigger = React.createClass({
-  displayName: 'MenuTrigger',
-  render: function() {
-    return span({
-      className: "menu-trigger"
-    }, ['\uE764']);
-  }
-});
-
-module.exports = MenuTrigger;
-
-
-
-},{"react":"M6d2gk"}],254:[function(require,module,exports){
-var Keys, MultilineText, React, classSet, textarea;
-
-React = require('react/addons');
-
-Keys = require('../Keys');
-
-classSet = React.addons.classSet;
-
-textarea = React.DOM.textarea;
-
-MultilineText = React.createClass({
-  displayName: 'MultilineText',
-  getInitialState: function() {
-    return {
-      dirty: false,
-      previous: void 0,
-      value: this.props.value
-    };
-  },
-  componentWillReceiveProps: function(newProps) {
-    return this.setState({
-      dirty: false,
-      previous: newProps.value,
-      value: newProps.value
-    });
-  },
-  render: function() {
-    var node, style;
-    style = {};
-    if (this.isMounted()) {
-      node = this.getDOMNode();
-      if (node.scrollHeight === node.clientHeight) {
-        node.style.height = 'auto';
-      }
-      style.height = node.scrollHeight;
-    }
-    return textarea({
-      className: classSet({
-        editable: true,
-        overflow: 'hidden',
-        dirty: this.state.dirty
-      }),
-      style: style,
-      placeholder: this.props.placeholder,
-      value: this.state.value,
-      onChange: this.handleChange,
-      onFocus: this.handleFocus,
-      onBlur: this.handleBlur,
-      onKeyUp: this.handleKeyUp
-    });
-  },
-  handleKeyUp: function(event) {
-    switch (event.which) {
-      case Keys.ESCAPE:
-        return this.setState({
-          dirty: false,
-          value: this.state.previous
-        }, (function(_this) {
-          return function() {
-            return _this.getDOMNode().blur();
-          };
-        })(this));
-      case Keys.RETURN:
-        if (event.shiftKey) {
-          return this.getDOMNode().blur();
-        }
-    }
-  },
-  handleChange: function(event) {
-    return this.setState({
-      dirty: true,
-      value: event.target.value
-    });
-  },
-  handleFocus: function() {
-    return this.setState({
-      previous: this.state.value
-    });
-  },
-  handleBlur: function() {
-    if (this.state.dirty) {
-      this.props.save(this.state.value);
-    }
-    return this.setState({
-      dirty: false
-    });
-  }
-});
-
-module.exports = MultilineText;
-
-
-
-},{"../Keys":234,"react/addons":64}],255:[function(require,module,exports){
-var Panel, PanelHeader, React, div, _;
-
-_ = require('lodash');
-
-React = require('react/addons');
-
-PanelHeader = React.createFactory(require('./PanelHeader'));
-
-div = React.DOM.div;
-
-Panel = React.createClass({
-  displayName: 'Panel',
-  render: function() {
-    var classes, header, panel, props, _ref;
-    props = _.extend({}, this.props);
-    classes = (_ref = props.className) != null ? _ref : '';
-    classes = classes.split(' ').concat('panel').join(' ');
-    props.className = classes;
-    header = PanelHeader({
-      key: 'panel-header',
-      panelTitle: this.props.panelTitle,
-      icon: this.props.icon,
-      close: this.props.close
-    });
-    return panel = div(props, [header].concat(this.props.children));
-  }
-});
-
-module.exports = Panel;
-
-
-
-},{"./PanelHeader":257,"lodash":23,"react/addons":64}],256:[function(require,module,exports){
-var CSSTransitionGroup, PanelGroup, React;
-
-React = require('react/addons');
-
-CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup);
-
-PanelGroup = React.createClass({
-  displayName: 'PanelGroup',
-  render: function() {
-    return CSSTransitionGroup({
-      component: 'div',
-      className: 'panel-group',
-      transitionName: 'panel-slide'
-    }, this.props.children);
-  }
-});
-
-module.exports = PanelGroup;
-
-
-
-},{"react/addons":64}],257:[function(require,module,exports){
-var Icon, Link, PanelHeader, React, Router, div, span, _, _ref;
-
-React = require('react');
-
-Router = require('react-router');
-
-_ = require('lodash');
-
-Icon = React.createFactory(require('./Icon'));
-
-Link = React.createFactory(Router.Link);
-
-_ref = React.DOM, div = _ref.div, span = _ref.span;
-
-PanelHeader = React.createClass({
-  displayName: 'PanelHeader',
-  render: function() {
-    var children;
-    children = [];
-    if (this.props.icon != null) {
-      children.push(this.createIcon());
-    }
-    children.push(span({
-      key: 'panel-title',
-      className: 'title'
-    }, [this.props.panelTitle]));
-    if (this.props.close != null) {
-      children.push(this.createCloseButton(this.props.close));
-    }
-    return div({
-      className: 'header'
-    }, children);
-  },
-  createIcon: function() {
-    return Icon({
-      key: 'panel-icon',
-      name: this.props.icon
-    });
-  },
-  createCloseButton: function(props) {
-    props = _.extend(props, {
-      key: 'panel-close-button',
-      className: 'close'
-    });
-    return Link(props, [
-      Icon({
-        key: 'panel-close-button-icon',
-        name: 'close'
-      })
-    ]);
-  }
-});
-
-module.exports = PanelHeader;
-
-
-
-},{"./Icon":251,"lodash":23,"react":"M6d2gk","react-router":33}],258:[function(require,module,exports){
-var React, RedirectToLastWorkspace;
-
-React = require('react');
-
-RedirectToLastWorkspace = React.createClass({
-  statics: {
-    willTransitionTo: function(transition, params, query) {
-      return transition.redirect('workspace', {
-        organizationId: '1'
-      }, {});
-    }
-  },
-  displayName: 'RedirectToLastWorkspace',
-  render: function() {
-    return null;
-  }
-});
-
-module.exports = RedirectToLastWorkspace;
-
-
-
-},{"react":"M6d2gk"}],259:[function(require,module,exports){
-var Keys, React, Text, classSet, input;
-
-React = require('react/addons');
-
-Keys = require('../Keys');
-
-classSet = React.addons.classSet;
-
-input = React.DOM.input;
-
-Text = React.createClass({
-  displayName: 'Text',
-  getInitialState: function() {
-    return {
-      dirty: false,
-      previous: this.props.value,
-      value: this.props.value
-    };
-  },
-  componentWillReceiveProps: function(newProps) {
-    return this.setState({
-      dirty: false,
-      previous: newProps.value,
-      value: newProps.value
-    });
-  },
-  render: function() {
-    return input({
-      className: classSet({
-        editable: true,
-        dirty: this.state.dirty
-      }),
-      placeholder: this.props.placeholder,
-      value: this.state.value,
-      onChange: this.handleChange,
-      onFocus: this.handleFocus,
-      onBlur: this.handleBlur,
-      onKeyUp: this.handleKeyUp
-    });
-  },
-  handleKeyUp: function(event) {
-    switch (event.which) {
-      case Keys.ESCAPE:
-        return this.setState({
-          dirty: false,
-          value: this.state.previous
-        }, (function(_this) {
-          return function() {
-            return _this.getDOMNode().blur();
-          };
-        })(this));
-      case Keys.RETURN:
-        return this.getDOMNode().blur();
-    }
-  },
-  handleChange: function(event) {
-    return this.setState({
-      dirty: true,
-      value: event.target.value
-    });
-  },
-  handleFocus: function() {
-    return this.setState({
-      previous: this.state.value
-    });
-  },
-  handleBlur: function() {
-    if (this.state.dirty) {
-      this.props.save(this.state.value);
-    }
-    return this.setState({
-      dirty: false
-    });
-  }
-});
-
-module.exports = Text;
-
-
-
-},{"../Keys":234,"react/addons":64}],260:[function(require,module,exports){
-var arrayEnum, _;
-
-_ = require('lodash');
-
-module.exports = arrayEnum = function(values) {
-  return _.object(_.map(values, function(v) {
-    return [v, v];
-  }));
-};
-
-
-
-},{"lodash":23}],261:[function(require,module,exports){
-exports.encode = function(str) {
-  return '\"' + str + '\"';
-};
-
-exports.decode = function(str) {
-  return str.substr(1, str.length - 2);
-};
-
-
-
-},{}],262:[function(require,module,exports){
-var Event, GoalsLoadedEvent,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Event = require('../framework/Event');
-
-GoalsLoadedEvent = (function(_super) {
-  __extends(GoalsLoadedEvent, _super);
-
-  function GoalsLoadedEvent(goals) {
-    this.goals = goals;
-    GoalsLoadedEvent.__super__.constructor.call(this);
-  }
-
-  return GoalsLoadedEvent;
-
-})(Event);
-
-module.exports = GoalsLoadedEvent;
-
-
-
-},{"../framework/Event":265}],263:[function(require,module,exports){
-var Event, MilestonesLoadedEvent,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Event = require('../framework/Event');
-
-MilestonesLoadedEvent = (function(_super) {
-  __extends(MilestonesLoadedEvent, _super);
-
-  function MilestonesLoadedEvent(milestones) {
-    this.milestones = milestones;
-    MilestonesLoadedEvent.__super__.constructor.call(this);
-  }
-
-  return MilestonesLoadedEvent;
-
-})(Event);
-
-module.exports = MilestonesLoadedEvent;
-
-
-
-},{"../framework/Event":265}],264:[function(require,module,exports){
+},{}],261:[function(require,module,exports){
 var Controller, _;
 
 _ = require('lodash');
@@ -36280,7 +36056,7 @@ module.exports = Controller;
 
 
 
-},{"lodash":23}],265:[function(require,module,exports){
+},{"lodash":23}],262:[function(require,module,exports){
 var Event;
 
 Event = (function() {
@@ -36298,7 +36074,15 @@ module.exports = Event;
 
 
 
-},{}],266:[function(require,module,exports){
+},{}],263:[function(require,module,exports){
+module.exports = new Pusher('9bc5b19ceaf8c59adcea', {
+  authEndpoint: '/api/_auth/presence',
+  encrypted: true
+});
+
+
+
+},{}],264:[function(require,module,exports){
 var EventEmitter, Listener,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -36332,7 +36116,7 @@ module.exports = Listener;
 
 
 
-},{"events":18}],267:[function(require,module,exports){
+},{"events":18}],265:[function(require,module,exports){
 var EventEmitter, Store,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -36358,80 +36142,27 @@ module.exports = Store;
 
 
 
-},{"events":18}],268:[function(require,module,exports){
-var Api, LoginScreen, React, Router, button, div, input, request, _, _ref;
-
-_ = require('lodash');
-
-Api = require('../Api');
-
-React = require('react/addons');
-
-Router = require('react-router');
-
-request = require('superagent');
-
-_ref = React.DOM, div = _ref.div, input = _ref.input, button = _ref.button;
-
-LoginScreen = React.createClass({
-  displayName: 'LoginScreen',
-  mixins: [Router.Navigation],
-  getInitialState: function() {
-    return {
-      login: void 0,
-      password: void 0
-    };
-  },
-  render: function() {
-    return div({
-      className: 'login screen'
-    }, [
-      input({
-        type: 'text',
-        name: 'login',
-        onChange: this.handleLoginChange
-      }), input({
-        type: 'password',
-        name: 'password',
-        onChange: this.handlePasswordChange
-      }), button({
-        onClick: this.handleSubmitClicked
-      }, ['Log In'])
-    ]);
-  },
-  handleLoginChange: function(event) {
-    return this.setState({
-      login: event.target.value
-    });
-  },
-  handlePasswordChange: function(event) {
-    return this.setState({
-      password: event.target.value
-    });
-  },
-  handleSubmitClicked: function() {
-    return Api.createSession(this.state.login, this.state.password, (function(_this) {
-      return function(res) {
-        if (res.forbidden) {
-          return alert('nope');
-        }
-        return Api.getMyOrganizations(function(res) {
-          var organizations;
-          organizations = res.body;
-          return _this.transitionTo('workspace', {
-            organizationId: organizations[0].id
-          });
-        });
-      };
-    })(this));
-  }
-});
-
-module.exports = LoginScreen;
+},{"events":18}],266:[function(require,module,exports){
+module.exports = {
+  ETag: 'ETag',
+  IfMatch: 'If-Match',
+  Socket: 'X-TaskTorch-Socket'
+};
 
 
 
-},{"../Api":230,"lodash":23,"react-router":33,"react/addons":64,"superagent":227}],269:[function(require,module,exports){
+},{}],267:[function(require,module,exports){
+module.exports = {
+  TAB: 9,
+  RETURN: 13,
+  ENTER: 13,
+  ESCAPE: 27,
+  SPACE: 32
+};
+
+
+
+},{}],268:[function(require,module,exports){
 var ActiveUrl, React;
 
 React = require('react');
@@ -36457,7 +36188,7 @@ module.exports = ActiveUrl;
 
 
 
-},{"react":"M6d2gk"}],270:[function(require,module,exports){
+},{"react":"M6d2gk"}],269:[function(require,module,exports){
 var ControllerMixin, Flux, React, StoreWatchMixin, _,
   __slice = [].slice;
 
@@ -36530,7 +36261,511 @@ module.exports = Flux;
 
 
 
-},{"lodash":23,"react":"M6d2gk"}],271:[function(require,module,exports){
+},{"lodash":23,"react":"M6d2gk"}],270:[function(require,module,exports){
+var BigPictureController, CardsLoadedEvent, Controller, TeamsLoadedEvent, UsersLoadedEvent, request, _,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+_ = require('lodash');
+
+request = require('superagent');
+
+Controller = require('./../../framework/Controller.coffee');
+
+CardsLoadedEvent = require('./../../events/CardsLoadedEvent.coffee');
+
+TeamsLoadedEvent = require('./../../events/TeamsLoadedEvent.coffee');
+
+UsersLoadedEvent = require('./../../events/UsersLoadedEvent.coffee');
+
+BigPictureController = (function(_super) {
+  __extends(BigPictureController, _super);
+
+  function BigPictureController() {
+    return BigPictureController.__super__.constructor.apply(this, arguments);
+  }
+
+  BigPictureController.prototype.setOrganization = function(organizationId) {
+    return this.organizationId = organizationId;
+  };
+
+  BigPictureController.prototype.loadTeams = function() {
+    return request.get("/api/" + this.organizationId + "/teams", (function(_this) {
+      return function(res) {
+        return _this.dispatch(new TeamsLoadedEvent(res.body));
+      };
+    })(this));
+  };
+
+  BigPictureController.prototype.loadUser = function(userId) {
+    return request.get("/api/users/" + userId, (function(_this) {
+      return function(res) {
+        return _this.dispatch(new UsersLoadedEvent([res.body]));
+      };
+    })(this));
+  };
+
+  BigPictureController.prototype.loadCardsInStack = function(stackId) {
+    return request.get("/api/" + this.organizationId + "/stacks/" + stackId + "/cards", (function(_this) {
+      return function(res) {
+        return _this.dispatch(new CardsLoadedEvent(res.body));
+      };
+    })(this));
+  };
+
+  return BigPictureController;
+
+})(Controller);
+
+module.exports = BigPictureController;
+
+
+
+},{"./../../events/CardsLoadedEvent.coffee":246,"./../../events/TeamsLoadedEvent.coffee":254,"./../../events/UsersLoadedEvent.coffee":257,"./../../framework/Controller.coffee":261,"lodash":23,"superagent":227}],271:[function(require,module,exports){
+var BigPictureController, BigPictureEnvironment, CardStore, TeamStore, UserStore;
+
+BigPictureController = require('./BigPictureController');
+
+CardStore = require('./stores/CardStore');
+
+TeamStore = require('./stores/TeamStore');
+
+UserStore = require('./stores/UserStore');
+
+BigPictureEnvironment = {};
+
+BigPictureEnvironment.createController = function() {
+  var stores;
+  stores = {
+    cards: new CardStore(),
+    teams: new TeamStore(),
+    users: new UserStore()
+  };
+  return new BigPictureController(stores);
+};
+
+module.exports = BigPictureEnvironment;
+
+
+
+},{"./BigPictureController":270,"./stores/CardStore":277,"./stores/TeamStore":278,"./stores/UserStore":279}],272:[function(require,module,exports){
+var ActiveUrl, BigPictureEnvironment, BigPictureScreen, BigPictureSidebar, BigPictureUrl, Flux, React, Router, div, _;
+
+_ = require('lodash');
+
+React = require('react');
+
+Router = require('react-router');
+
+ActiveUrl = require('./../../mixins/ActiveUrl.coffee');
+
+Flux = require('./../../mixins/Flux.coffee');
+
+BigPictureEnvironment = require('./BigPictureEnvironment');
+
+BigPictureUrl = require('./BigPictureUrl');
+
+BigPictureSidebar = React.createFactory(require('./components/BigPictureSidebar'));
+
+div = React.DOM.div;
+
+BigPictureScreen = React.createClass({
+  displayName: 'BigPictureScreen',
+  mixins: [Flux(), ActiveUrl(BigPictureUrl)],
+  getDefaultProps: function() {
+    return {
+      controller: BigPictureEnvironment.createController()
+    };
+  },
+  componentWillMount: function() {
+    return this.getController().setOrganization(this.getActiveUrl().organizationId);
+  },
+  render: function() {
+    return div({
+      className: 'big-picture screen'
+    }, [
+      BigPictureSidebar({
+        key: 'sidebar'
+      })
+    ]);
+  }
+});
+
+module.exports = BigPictureScreen;
+
+
+
+},{"./../../mixins/ActiveUrl.coffee":268,"./../../mixins/Flux.coffee":269,"./BigPictureEnvironment":271,"./BigPictureUrl":273,"./components/BigPictureSidebar":274,"lodash":23,"react":"M6d2gk","react-router":33}],273:[function(require,module,exports){
+var BigPictureUrl, _;
+
+_ = require('lodash');
+
+BigPictureUrl = (function() {
+  function BigPictureUrl(routes, params, query) {
+    this.organizationId = params.organizationId;
+    this.users = query.users != null ? query.users.split(',') : [];
+  }
+
+  BigPictureUrl.prototype.setUsers = function(userIds) {
+    return this.users = _.clone(userIds);
+  };
+
+  BigPictureUrl.prototype.makeLinkProps = function() {
+    var params, query;
+    params = {
+      organizationId: this.organizationId
+    };
+    query = {};
+    if (this.users.length > 0) {
+      query.users = this.users.join(',');
+    }
+    return {
+      to: 'bigpicture',
+      params: params,
+      query: query
+    };
+  };
+
+  return BigPictureUrl;
+
+})();
+
+module.exports = BigPictureUrl;
+
+
+
+},{"lodash":23}],274:[function(require,module,exports){
+var BigPictureSidebar, Flux, List, React, TeamListItem, div;
+
+React = require('react');
+
+Flux = require('./../../../mixins/Flux.coffee');
+
+List = React.createFactory(require('./../../../common/List.coffee'));
+
+TeamListItem = React.createFactory(require('./TeamListItem'));
+
+div = React.DOM.div;
+
+BigPictureSidebar = React.createClass({
+  displayName: 'BigPictureSidebar',
+  mixins: [Flux('teams')],
+  getStateFromStores: function(stores) {
+    return {
+      teams: stores.teams.getAllTeams()
+    };
+  },
+  componentWillMount: function() {
+    return this.getController().loadTeams();
+  },
+  render: function() {
+    return div({
+      className: 'big-picture sidebar'
+    }, [
+      List({
+        key: 'team-list',
+        className: 'team-list',
+        component: TeamListItem,
+        kind: 'team',
+        items: this.state.teams
+      })
+    ]);
+  }
+});
+
+module.exports = BigPictureSidebar;
+
+
+
+},{"./../../../common/List.coffee":234,"./../../../mixins/Flux.coffee":269,"./TeamListItem":275,"react":"M6d2gk"}],275:[function(require,module,exports){
+var ActiveUrl, BigPictureUrl, Icon, Link, React, Router, TeamListItem, li, span, _, _ref;
+
+_ = require('lodash');
+
+React = require('react/addons');
+
+Router = require('react-router');
+
+ActiveUrl = require('./../../../mixins/ActiveUrl.coffee');
+
+BigPictureUrl = require('../BigPictureUrl');
+
+Icon = React.createFactory(require('./../../../common/Icon.coffee'));
+
+Link = React.createFactory(Router.Link);
+
+_ref = React.DOM, li = _ref.li, span = _ref.span;
+
+TeamListItem = React.createClass({
+  displayName: 'TeamListItem',
+  mixins: [ActiveUrl(BigPictureUrl)],
+  render: function() {
+    var linkProps;
+    linkProps = _.extend(this.makeLinkProps(), {
+      key: 'open-team-link'
+    });
+    return li({
+      className: 'team-list-item'
+    }, [
+      Link(linkProps, [
+        Icon({
+          key: 'icon',
+          name: 'team'
+        }), span({
+          key: 'name',
+          className: 'team-name'
+        }, [this.props.team.name])
+      ])
+    ]);
+  },
+  makeLinkProps: function() {
+    var url;
+    url = this.getActiveUrl();
+    url.setUsers(_.pluck(this.props.team.members, 'id'));
+    return url.makeLinkProps();
+  }
+});
+
+module.exports = TeamListItem;
+
+
+
+},{"../BigPictureUrl":273,"./../../../common/Icon.coffee":233,"./../../../mixins/ActiveUrl.coffee":268,"lodash":23,"react-router":33,"react/addons":64}],276:[function(require,module,exports){
+var ActiveUrl, BigPictureUrl, Flux, Panel, React, Router, UserQueuePanel, ul, _;
+
+_ = require('lodash');
+
+React = require('react');
+
+Router = require('react-router');
+
+Flux = require('./../../../mixins/Flux.coffee');
+
+ActiveUrl = require('./../../../mixins/ActiveUrl.coffee');
+
+BigPictureUrl = require('../BigPictureUrl');
+
+Panel = React.createFactory(require('./../../../common/Panel.coffee'));
+
+ul = React.DOM.ul;
+
+UserQueuePanel = React.createClass({
+  displayName: 'UserQueuePanel',
+  mixins: [Flux('cards'), ActiveUrl(BigPictureUrl)],
+  propTypes: {
+    userId: React.PropTypes.string.isRequired
+  },
+  getStateFromStores: function(stores) {
+    var _ref;
+    return {
+      user: (_ref = stores.users.getUser(this.props.userId)) != null ? _ref : {}
+    };
+  },
+  componentWillReceiveProps: function(newProps) {
+    if (this.props.userId !== newProps.userId) {
+      return this.loadUser(newProps.userId);
+    }
+  },
+  componentWillMount: function() {
+    return this.loadUser(this.props.userId);
+  },
+  loadUser: function(userId) {
+    var controller;
+    controller = this.getController();
+    return controller.loadUser(userId);
+  },
+  render: function() {
+    return Panel({
+      panelTitle: this.state.user.name,
+      className: 'user',
+      style: {
+        zIndex: 99 - this.props.position
+      },
+      icon: 'user'
+    }, []);
+  }
+});
+
+module.exports = UserQueuePanel;
+
+
+
+},{"../BigPictureUrl":273,"./../../../common/Panel.coffee":237,"./../../../mixins/ActiveUrl.coffee":268,"./../../../mixins/Flux.coffee":269,"lodash":23,"react":"M6d2gk","react-router":33}],277:[function(require,module,exports){
+var CardStore, Store, _,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+_ = require('lodash');
+
+Store = require('./../../../framework/Store.coffee');
+
+CardStore = (function(_super) {
+  __extends(CardStore, _super);
+
+  function CardStore() {
+    this.cards = {};
+  }
+
+  CardStore.prototype.getCardsInStack = function(stackId) {
+    return _.filter(this.cards, function(card) {
+      return card.stack === stackId;
+    });
+  };
+
+  CardStore.prototype.onCardsLoaded = function(event) {
+    this.cards = _.extend(this.cards, _.indexBy(event.cards, 'id'));
+    return this.announce();
+  };
+
+  return CardStore;
+
+})(Store);
+
+module.exports = CardStore;
+
+
+
+},{"./../../../framework/Store.coffee":265,"lodash":23}],278:[function(require,module,exports){
+var Store, TeamStore, _,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+_ = require('lodash');
+
+Store = require('./../../../framework/Store.coffee');
+
+TeamStore = (function(_super) {
+  __extends(TeamStore, _super);
+
+  function TeamStore() {
+    this.teams = {};
+  }
+
+  TeamStore.prototype.getAllTeams = function() {
+    return _.values(this.teams);
+  };
+
+  TeamStore.prototype.onTeamsLoaded = function(event) {
+    this.teams = _.extend(this.teams, _.indexBy(event.teams, 'id'));
+    return this.announce();
+  };
+
+  return TeamStore;
+
+})(Store);
+
+module.exports = TeamStore;
+
+
+
+},{"./../../../framework/Store.coffee":265,"lodash":23}],279:[function(require,module,exports){
+var Store, UserStore, _,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+_ = require('lodash');
+
+Store = require('./../../../framework/Store.coffee');
+
+UserStore = (function(_super) {
+  __extends(UserStore, _super);
+
+  function UserStore() {
+    this.users = {};
+  }
+
+  UserStore.prototype.getUser = function(id) {
+    return this.users[id];
+  };
+
+  UserStore.prototype.onUsersLoaded = function(event) {
+    this.users = _.extend(this.users, _.indexBy(event.users, 'id'));
+    console.log(this.users);
+    return this.announce();
+  };
+
+  return UserStore;
+
+})(Store);
+
+module.exports = UserStore;
+
+
+
+},{"./../../../framework/Store.coffee":265,"lodash":23}],280:[function(require,module,exports){
+var Api, LoginScreen, React, Router, button, div, input, request, _, _ref;
+
+_ = require('lodash');
+
+Api = require('./../../framework/Api.coffee');
+
+React = require('react/addons');
+
+Router = require('react-router');
+
+request = require('superagent');
+
+_ref = React.DOM, div = _ref.div, input = _ref.input, button = _ref.button;
+
+LoginScreen = React.createClass({
+  displayName: 'LoginScreen',
+  mixins: [Router.Navigation],
+  getInitialState: function() {
+    return {
+      login: void 0,
+      password: void 0
+    };
+  },
+  render: function() {
+    return div({
+      className: 'login screen'
+    }, [
+      input({
+        type: 'text',
+        name: 'login',
+        onChange: this.handleLoginChange
+      }), input({
+        type: 'password',
+        name: 'password',
+        onChange: this.handlePasswordChange
+      }), button({
+        onClick: this.handleSubmitClicked
+      }, ['Log In'])
+    ]);
+  },
+  handleLoginChange: function(event) {
+    return this.setState({
+      login: event.target.value
+    });
+  },
+  handlePasswordChange: function(event) {
+    return this.setState({
+      password: event.target.value
+    });
+  },
+  handleSubmitClicked: function() {
+    return Api.createSession(this.state.login, this.state.password, (function(_this) {
+      return function(res) {
+        if (res.forbidden) {
+          return alert('nope');
+        }
+        return Api.getMyOrganizations(function(res) {
+          var organizations;
+          organizations = res.body;
+          return _this.transitionTo('workspace', {
+            organizationId: organizations[0].id
+          });
+        });
+      };
+    })(this));
+  }
+});
+
+module.exports = LoginScreen;
+
+
+
+},{"./../../framework/Api.coffee":259,"lodash":23,"react-router":33,"react/addons":64,"superagent":227}],281:[function(require,module,exports){
 var Controller, GoalsLoadedEvent, MilestonesLoadedEvent, PlanningController, request, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -36539,11 +36774,11 @@ _ = require('lodash');
 
 request = require('superagent');
 
-Controller = require('../framework/Controller');
+Controller = require('./../../framework/Controller.coffee');
 
-GoalsLoadedEvent = require('../events/GoalsLoadedEvent');
+GoalsLoadedEvent = require('./../../events/GoalsLoadedEvent.coffee');
 
-MilestonesLoadedEvent = require('../events/MilestonesLoadedEvent');
+MilestonesLoadedEvent = require('./../../events/MilestonesLoadedEvent.coffee');
 
 PlanningController = (function(_super) {
   __extends(PlanningController, _super);
@@ -36580,7 +36815,7 @@ module.exports = PlanningController;
 
 
 
-},{"../events/GoalsLoadedEvent":262,"../events/MilestonesLoadedEvent":263,"../framework/Controller":264,"lodash":23,"superagent":227}],272:[function(require,module,exports){
+},{"./../../events/GoalsLoadedEvent.coffee":248,"./../../events/MilestonesLoadedEvent.coffee":250,"./../../framework/Controller.coffee":261,"lodash":23,"superagent":227}],282:[function(require,module,exports){
 var GoalStore, MilestoneStore, PlanningController, PlanningEnvironment;
 
 PlanningController = require('./PlanningController');
@@ -36604,7 +36839,7 @@ module.exports = PlanningEnvironment;
 
 
 
-},{"./PlanningController":271,"./stores/GoalStore":277,"./stores/MilestoneStore":278}],273:[function(require,module,exports){
+},{"./PlanningController":281,"./stores/GoalStore":287,"./stores/MilestoneStore":288}],283:[function(require,module,exports){
 var ActiveUrl, Flux, PlanningEnvironment, PlanningScreen, PlanningSidebar, PlanningUrl, React, Router, div, _;
 
 _ = require('lodash');
@@ -36613,9 +36848,9 @@ React = require('react');
 
 Router = require('react-router');
 
-ActiveUrl = require('../mixins/ActiveUrl');
+ActiveUrl = require('./../../mixins/ActiveUrl.coffee');
 
-Flux = require('../mixins/Flux');
+Flux = require('./../../mixins/Flux.coffee');
 
 PlanningEnvironment = require('./PlanningEnvironment');
 
@@ -36651,7 +36886,7 @@ module.exports = PlanningScreen;
 
 
 
-},{"../mixins/ActiveUrl":269,"../mixins/Flux":270,"./PlanningEnvironment":272,"./PlanningUrl":274,"./components/PlanningSidebar":276,"lodash":23,"react":"M6d2gk","react-router":33}],274:[function(require,module,exports){
+},{"./../../mixins/ActiveUrl.coffee":268,"./../../mixins/Flux.coffee":269,"./PlanningEnvironment":282,"./PlanningUrl":284,"./components/PlanningSidebar":286,"lodash":23,"react":"M6d2gk","react-router":33}],284:[function(require,module,exports){
 var PlanningUrl, _;
 
 _ = require('lodash');
@@ -36690,7 +36925,7 @@ module.exports = PlanningUrl;
 
 
 
-},{"lodash":23}],275:[function(require,module,exports){
+},{"lodash":23}],285:[function(require,module,exports){
 var ActiveUrl, GoalListItem, Icon, Link, PlanningUrl, React, Router, li, span, _, _ref;
 
 _ = require('lodash');
@@ -36699,11 +36934,11 @@ React = require('react/addons');
 
 Router = require('react-router');
 
-ActiveUrl = require('../../mixins/ActiveUrl');
+ActiveUrl = require('./../../../mixins/ActiveUrl.coffee');
 
 PlanningUrl = require('../PlanningUrl');
 
-Icon = React.createFactory(require('../../common/Icon'));
+Icon = React.createFactory(require('./../../../common/Icon.coffee'));
 
 Link = React.createFactory(Router.Link);
 
@@ -36741,14 +36976,14 @@ module.exports = GoalListItem;
 
 
 
-},{"../../common/Icon":251,"../../mixins/ActiveUrl":269,"../PlanningUrl":274,"lodash":23,"react-router":33,"react/addons":64}],276:[function(require,module,exports){
+},{"../PlanningUrl":284,"./../../../common/Icon.coffee":233,"./../../../mixins/ActiveUrl.coffee":268,"lodash":23,"react-router":33,"react/addons":64}],286:[function(require,module,exports){
 var Flux, GoalListItem, List, PlanningSidebar, React, div;
 
 React = require('react');
 
-Flux = require('../../mixins/Flux');
+Flux = require('./../../../mixins/Flux.coffee');
 
-List = React.createFactory(require('../../common/List'));
+List = React.createFactory(require('./../../../common/List.coffee'));
 
 GoalListItem = React.createFactory(require('./GoalListItem'));
 
@@ -36784,14 +37019,14 @@ module.exports = PlanningSidebar;
 
 
 
-},{"../../common/List":252,"../../mixins/Flux":270,"./GoalListItem":275,"react":"M6d2gk"}],277:[function(require,module,exports){
+},{"./../../../common/List.coffee":234,"./../../../mixins/Flux.coffee":269,"./GoalListItem":285,"react":"M6d2gk"}],287:[function(require,module,exports){
 var GoalStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 _ = require('lodash');
 
-Store = require('../../framework/Store');
+Store = require('./../../../framework/Store.coffee');
 
 GoalStore = (function(_super) {
   __extends(GoalStore, _super);
@@ -36817,14 +37052,14 @@ module.exports = GoalStore;
 
 
 
-},{"../../framework/Store":267,"lodash":23}],278:[function(require,module,exports){
+},{"./../../../framework/Store.coffee":265,"lodash":23}],288:[function(require,module,exports){
 var MilestoneStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 _ = require('lodash');
 
-Store = require('../../framework/Store');
+Store = require('./../../../framework/Store.coffee');
 
 MilestoneStore = (function(_super) {
   __extends(MilestoneStore, _super);
@@ -36846,69 +37081,8 @@ module.exports = MilestoneStore;
 
 
 
-},{"../../framework/Store":267,"lodash":23}],279:[function(require,module,exports){
-var ActiveUrl, Flux, React, Shell, ShellEnvironment, ShellHeader, ShellUrl, div;
-
-React = require('react/addons');
-
-ActiveUrl = require('../mixins/ActiveUrl');
-
-Flux = require('../mixins/Flux');
-
-ShellUrl = require('./ShellUrl');
-
-ShellEnvironment = require('./ShellEnvironment');
-
-ShellHeader = React.createFactory(require('./components/ShellHeader'));
-
-div = React.DOM.div;
-
-Shell = React.createClass({
-  displayName: 'Shell',
-  mixins: [ActiveUrl(ShellUrl), Flux('organizations', 'presence')],
-  getDefaultProps: function() {
-    return {
-      controller: ShellEnvironment.createController()
-    };
-  },
-  getStateFromStores: function(stores) {
-    return {
-      currentUser: stores.presence.currentUser,
-      currentOrganization: stores.organizations.getOrganization(this.getActiveUrl().organizationId)
-    };
-  },
-  componentWillMount: function() {
-    var controller;
-    controller = this.getController();
-    controller.setCurrentOrganization(this.getActiveUrl().organizationId);
-    controller.loadCurrentUser();
-    return controller.loadMyOrganizations();
-  },
-  render: function() {
-    var Screen;
-    Screen = this.props.activeRouteHandler;
-    return div({
-      className: 'shell'
-    }, [
-      ShellHeader({
-        key: 'header',
-        currentOrganization: this.state.currentOrganization,
-        currentUser: this.state.currentUser
-      }), Screen({
-        key: 'screen',
-        currentOrganization: this.state.currentOrganization,
-        currentUser: this.state.currentUser
-      })
-    ]);
-  }
-});
-
-module.exports = Shell;
-
-
-
-},{"../mixins/ActiveUrl":269,"../mixins/Flux":270,"./ShellEnvironment":281,"./ShellUrl":282,"./components/ShellHeader":287,"react/addons":64}],280:[function(require,module,exports){
-var Controller, CurrentUserLoadedEvent, EventBus, JoinedPresenceChannelEvent, OrganizationsLoadedEvent, QueueLoadedEvent, ShellController, UserConnectedEvent, UserDisconnectedEvent, request, _,
+},{"./../../../framework/Store.coffee":265,"lodash":23}],289:[function(require,module,exports){
+var CardBodyChangedEvent, CardTitleChangedEvent, CardsLoadedEvent, Controller, EventBus, Header, StacksLoadedEvent, WorkspaceController, WorkspaceLoadedEvent, etag, request, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -36916,877 +37090,23 @@ _ = require('lodash');
 
 request = require('superagent');
 
-EventBus = require('../EventBus');
+etag = require('./../../common/util/etag.coffee');
 
-Controller = require('../framework/Controller');
+Controller = require('./../../framework/Controller.coffee');
 
-CurrentUserLoadedEvent = require('./events/CurrentUserLoadedEvent');
+EventBus = require('./../../framework/EventBus.coffee');
 
-QueueLoadedEvent = require('./events/QueueLoadedEvent');
+Header = require('./../../framework/enums/Header.coffee');
 
-JoinedPresenceChannelEvent = require('./events/JoinedPresenceChannelEvent');
+CardBodyChangedEvent = require('./../../events/CardBodyChangedEvent.coffee');
 
-OrganizationsLoadedEvent = require('./events/OrganizationsLoadedEvent');
+CardsLoadedEvent = require('./../../events/CardsLoadedEvent.coffee');
 
-UserConnectedEvent = require('./events/UserConnectedEvent');
+CardTitleChangedEvent = require('./../../events/CardTitleChangedEvent.coffee');
 
-UserDisconnectedEvent = require('./events/UserDisconnectedEvent');
+StacksLoadedEvent = require('./../../events/StacksLoadedEvent.coffee');
 
-ShellController = (function(_super) {
-  __extends(ShellController, _super);
-
-  function ShellController() {
-    return ShellController.__super__.constructor.apply(this, arguments);
-  }
-
-  ShellController.prototype.loadCurrentUser = function() {
-    return request.get("/api/me", (function(_this) {
-      return function(res) {
-        return _this.dispatch(new CurrentUserLoadedEvent(res.body));
-      };
-    })(this));
-  };
-
-  ShellController.prototype.loadMyOrganizations = function() {
-    return request.get("/api/me/organizations", (function(_this) {
-      return function(res) {
-        return _this.dispatch(new OrganizationsLoadedEvent(res.body));
-      };
-    })(this));
-  };
-
-  ShellController.prototype.loadMyQueue = function() {
-    return request.get("/api/" + this.organizationId + "/me/queue?expand=cards", (function(_this) {
-      return function(res) {
-        var cards, queue;
-        queue = _.omit(res.body, '_related');
-        cards = res.body['_related'].cards;
-        return _this.dispatch(new QueueLoadedEvent(queue, cards));
-      };
-    })(this));
-  };
-
-  ShellController.prototype.setCurrentOrganization = function(organizationId) {
-    var channel;
-    if (this.organizationId != null) {
-      EventBus.unsubscribe("presence-" + this.organizationId);
-    }
-    this.organizationId = organizationId;
-    channel = EventBus.subscribe("presence-" + this.organizationId);
-    channel.bind('pusher:subscription_succeeded', (function(_this) {
-      return function(channelState) {
-        var connectedUsers;
-        connectedUsers = _.map(channelState.members, function(member) {
-          return member;
-        });
-        return _this.dispatch(new JoinedPresenceChannelEvent(connectedUsers));
-      };
-    })(this));
-    channel.bind('pusher:member_added', (function(_this) {
-      return function(member) {
-        return _this.dispatch(new UserConnectedEvent(member.info));
-      };
-    })(this));
-    channel.bind('pusher:member_removed', (function(_this) {
-      return function(member) {
-        return _this.dispatch(new UserDisconnectedEvent(member.info));
-      };
-    })(this));
-    return this.bindListeners(channel);
-  };
-
-  return ShellController;
-
-})(Controller);
-
-module.exports = ShellController;
-
-
-
-},{"../EventBus":232,"../framework/Controller":264,"./events/CurrentUserLoadedEvent":291,"./events/JoinedPresenceChannelEvent":292,"./events/OrganizationsLoadedEvent":293,"./events/QueueLoadedEvent":294,"./events/UserConnectedEvent":295,"./events/UserDisconnectedEvent":296,"lodash":23,"superagent":227}],281:[function(require,module,exports){
-var CardBodyChangedListener, CardTitleChangedListener, OrganizationStore, PresenceStore, QueueStore, ShellController, ShellEnvironment;
-
-ShellController = require('./ShellController');
-
-QueueStore = require('./stores/QueueStore');
-
-PresenceStore = require('./stores/PresenceStore');
-
-OrganizationStore = require('./stores/OrganizationStore');
-
-CardBodyChangedListener = require('./listeners/CardBodyChangedListener');
-
-CardTitleChangedListener = require('./listeners/CardTitleChangedListener');
-
-ShellEnvironment = {};
-
-ShellEnvironment.createController = function() {
-  var listeners, stores;
-  stores = {
-    queue: new QueueStore(),
-    organizations: new OrganizationStore(),
-    presence: new PresenceStore()
-  };
-  listeners = [new CardBodyChangedListener(), new CardTitleChangedListener()];
-  return new ShellController(stores, listeners);
-};
-
-module.exports = ShellEnvironment;
-
-
-
-},{"./ShellController":280,"./listeners/CardBodyChangedListener":297,"./listeners/CardTitleChangedListener":298,"./stores/OrganizationStore":299,"./stores/PresenceStore":300,"./stores/QueueStore":301}],282:[function(require,module,exports){
-var ShellUrl, _;
-
-_ = require('lodash');
-
-ShellUrl = (function() {
-  function ShellUrl(routes, params, query) {
-    this.organizationId = params.organizationId;
-  }
-
-  ShellUrl.prototype.makeLinkProps = function(route) {
-    var params, query;
-    params = {
-      organizationId: this.organizationId
-    };
-    query = {};
-    return {
-      to: route,
-      params: params,
-      query: query
-    };
-  };
-
-  return ShellUrl;
-
-})();
-
-module.exports = ShellUrl;
-
-
-
-},{"lodash":23}],283:[function(require,module,exports){
-var ActiveUrl, Flux, FocusedCard, Icon, Link, React, Router, WorkspaceUrl, div, span, _, _ref;
-
-_ = require('lodash');
-
-React = require('react');
-
-Router = require('react-router');
-
-ActiveUrl = require('../../mixins/ActiveUrl');
-
-Flux = require('../../mixins/Flux');
-
-WorkspaceUrl = require('../../workspace/WorkspaceUrl');
-
-Icon = React.createFactory(require('../../common/Icon'));
-
-Link = React.createFactory(Router.Link);
-
-_ref = React.DOM, div = _ref.div, span = _ref.span;
-
-FocusedCard = React.createClass({
-  displayName: 'FocusedCard',
-  mixins: [Flux('queue'), ActiveUrl(WorkspaceUrl)],
-  getStateFromStores: function(stores) {
-    var _ref1;
-    return {
-      focusedCard: (_ref1 = stores.queue.getFocusedCard()) != null ? _ref1 : {}
-    };
-  },
-  componentWillMount: function() {
-    return this.getController().loadMyQueue();
-  },
-  render: function() {
-    var linkProps;
-    linkProps = _.extend({
-      className: 'focused-card'
-    }, this.makeLinkProps());
-    return Link(linkProps, [
-      div({
-        name: 'title',
-        className: 'title'
-      }, [this.state.focusedCard.title])
-    ]);
-  },
-  makeLinkProps: function() {
-    var url;
-    url = this.getActiveUrl();
-    url.addCard(this.state.focusedCard.id);
-    return url.makeLinkProps();
-  }
-});
-
-module.exports = FocusedCard;
-
-
-
-},{"../../common/Icon":251,"../../mixins/ActiveUrl":269,"../../mixins/Flux":270,"../../workspace/WorkspaceUrl":305,"lodash":23,"react":"M6d2gk","react-router":33}],284:[function(require,module,exports){
-var ActiveUrl, Icon, Link, NavigationMenu, React, Router, ShellUrl, classSet, div;
-
-React = require('react/addons');
-
-Router = require('react-router');
-
-ActiveUrl = require('../../mixins/ActiveUrl');
-
-ShellUrl = require('../ShellUrl');
-
-Icon = React.createFactory(require('../../common/Icon'));
-
-Link = React.createFactory(Router.Link);
-
-div = React.DOM.div;
-
-classSet = React.addons.classSet;
-
-NavigationMenu = React.createClass({
-  mixins: [ActiveUrl(ShellUrl)],
-  displayName: 'NavigationMenu',
-  render: function() {
-    var url;
-    url = this.getActiveUrl();
-    return div({
-      className: 'navigation'
-    }, [this.makeLink('workspace', 'Workspace'), this.makeLink('bigpicture', 'Big Picture'), this.makeLink('planning', 'Planning')]);
-  },
-  makeLink: function(route, text) {
-    var props, url;
-    url = this.getActiveUrl();
-    if (this.isActive(route)) {
-      props = url.makeLinkProps(route, true);
-    } else {
-      props = url.makeLinkProps(route);
-    }
-    props.key = route;
-    props.className = route;
-    return Link(props, [
-      Icon({
-        key: 'icon',
-        name: route
-      }), text
-    ]);
-  }
-});
-
-module.exports = NavigationMenu;
-
-
-
-},{"../../common/Icon":251,"../../mixins/ActiveUrl":269,"../ShellUrl":282,"react-router":33,"react/addons":64}],285:[function(require,module,exports){
-var Flux, MenuTrigger, OrganizationCorner, PresenceWidget, React, div;
-
-React = require('react');
-
-Flux = require('../../mixins/Flux');
-
-MenuTrigger = React.createFactory(require('../../common/MenuTrigger'));
-
-PresenceWidget = React.createFactory(require('./PresenceWidget'));
-
-div = React.DOM.div;
-
-OrganizationCorner = React.createClass({
-  displayName: 'OrganizationCorner',
-  mixins: [Flux('organizations', 'presence')],
-  getStateFromStores: function(stores) {
-    return {
-      organizations: stores.organizations.getAllOrganizations(),
-      connectedUsers: stores.presence.getConnectedUsers()
-    };
-  },
-  render: function() {
-    if (this.props.currentOrganization == null) {
-      return div({
-        className: 'organization loading'
-      });
-    }
-    return div({
-      className: 'organization-corner'
-    }, [
-      div({
-        key: 'organization'
-      }, [
-        div({
-          key: 'name',
-          className: 'organization-name'
-        }, [this.props.currentOrganization.name]), MenuTrigger({
-          key: 'trigger'
-        })
-      ]), div({
-        key: 'widgets',
-        className: 'widgets'
-      }, [
-        PresenceWidget({
-          key: 'presence',
-          connectedUsers: this.state.connectedUsers
-        })
-      ])
-    ]);
-  }
-});
-
-module.exports = OrganizationCorner;
-
-
-
-},{"../../common/MenuTrigger":253,"../../mixins/Flux":270,"./PresenceWidget":286,"react":"M6d2gk"}],286:[function(require,module,exports){
-var Icon, PresenceWidget, React, div, span, _ref;
-
-React = require('react');
-
-Icon = React.createFactory(require('../../common/Icon'));
-
-_ref = React.DOM, div = _ref.div, span = _ref.span;
-
-PresenceWidget = React.createClass({
-  displayName: 'PresenceWidget',
-  render: function() {
-    return div({
-      className: 'presence'
-    }, [
-      Icon({
-        key: 'presence-icon',
-        name: 'users'
-      }), span({
-        key: 'presence-count',
-        className: 'presence-count'
-      }, [this.props.connectedUsers.length])
-    ]);
-  }
-});
-
-module.exports = PresenceWidget;
-
-
-
-},{"../../common/Icon":251,"react":"M6d2gk"}],287:[function(require,module,exports){
-var Flux, NavigationMenu, OrganizationCorner, React, ShellHeader, UserCorner, div;
-
-React = require('react');
-
-Flux = require('../../mixins/Flux');
-
-OrganizationCorner = React.createFactory(require('./OrganizationCorner'));
-
-NavigationMenu = React.createFactory(require('./NavigationMenu'));
-
-UserCorner = React.createFactory(require('./UserCorner'));
-
-div = React.DOM.div;
-
-ShellHeader = React.createClass({
-  displayName: 'ShellHeader',
-  mixins: [Flux()],
-  render: function() {
-    return div({
-      className: 'shell-header'
-    }, [
-      OrganizationCorner({
-        key: 'organization',
-        currentOrganization: this.props.currentOrganization
-      }), div({
-        className: 'header-bar'
-      }, [
-        NavigationMenu({
-          key: 'navigation'
-        }), UserCorner({
-          key: 'user',
-          currentUser: this.props.currentUser
-        })
-      ])
-    ]);
-  }
-});
-
-module.exports = ShellHeader;
-
-
-
-},{"../../mixins/Flux":270,"./NavigationMenu":284,"./OrganizationCorner":285,"./UserCorner":288,"react":"M6d2gk"}],288:[function(require,module,exports){
-var Avatar, Flux, FocusedCard, MenuTrigger, React, UserWidget, div, _;
-
-_ = require('lodash');
-
-React = require('react');
-
-Flux = require('../../mixins/Flux');
-
-Avatar = React.createFactory(require('../../common/Avatar'));
-
-MenuTrigger = React.createFactory(require('../../common/MenuTrigger'));
-
-FocusedCard = React.createFactory(require('./FocusedCard'));
-
-div = React.DOM.div;
-
-UserWidget = React.createClass({
-  displayName: 'UserWidget',
-  mixins: [Flux()],
-  render: function() {
-    if (this.props.currentUser == null) {
-      return div({
-        className: 'user loading'
-      });
-    }
-    return div({
-      className: 'user-corner'
-    }, [
-      FocusedCard({
-        key: 'focus',
-        className: 'focused-card'
-      }), div({
-        className: 'user-profile'
-      }, [
-        MenuTrigger({
-          key: 'trigger'
-        }), Avatar({
-          key: 'avatar',
-          user: this.props.currentUser,
-          size: 32
-        })
-      ])
-    ]);
-  }
-});
-
-module.exports = UserWidget;
-
-
-
-},{"../../common/Avatar":249,"../../common/MenuTrigger":253,"../../mixins/Flux":270,"./FocusedCard":283,"lodash":23,"react":"M6d2gk"}],289:[function(require,module,exports){
-var CardBodyChangedEvent, Event,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Event = require('../../framework/Event');
-
-CardBodyChangedEvent = (function(_super) {
-  __extends(CardBodyChangedEvent, _super);
-
-  function CardBodyChangedEvent(id, body, version, meta) {
-    this.id = id;
-    this.body = body;
-    this.version = version;
-    CardBodyChangedEvent.__super__.constructor.call(this, meta);
-  }
-
-  return CardBodyChangedEvent;
-
-})(Event);
-
-module.exports = CardBodyChangedEvent;
-
-
-
-},{"../../framework/Event":265}],290:[function(require,module,exports){
-var CardTitleChangedEvent, Event,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Event = require('../../framework/Event');
-
-CardTitleChangedEvent = (function(_super) {
-  __extends(CardTitleChangedEvent, _super);
-
-  function CardTitleChangedEvent(id, title, version, meta) {
-    this.id = id;
-    this.title = title;
-    this.version = version;
-    CardTitleChangedEvent.__super__.constructor.call(this, meta);
-  }
-
-  return CardTitleChangedEvent;
-
-})(Event);
-
-module.exports = CardTitleChangedEvent;
-
-
-
-},{"../../framework/Event":265}],291:[function(require,module,exports){
-var CurrentUserLoadedEvent, Event,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Event = require('../../framework/Event');
-
-CurrentUserLoadedEvent = (function(_super) {
-  __extends(CurrentUserLoadedEvent, _super);
-
-  function CurrentUserLoadedEvent(user) {
-    this.user = user;
-    CurrentUserLoadedEvent.__super__.constructor.call(this);
-  }
-
-  return CurrentUserLoadedEvent;
-
-})(Event);
-
-module.exports = CurrentUserLoadedEvent;
-
-
-
-},{"../../framework/Event":265}],292:[function(require,module,exports){
-var Event, JoinedPresenceChannelEvent,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Event = require('../../framework/Event');
-
-JoinedPresenceChannelEvent = (function(_super) {
-  __extends(JoinedPresenceChannelEvent, _super);
-
-  function JoinedPresenceChannelEvent(connectedUsers) {
-    this.connectedUsers = connectedUsers;
-    JoinedPresenceChannelEvent.__super__.constructor.call(this);
-  }
-
-  return JoinedPresenceChannelEvent;
-
-})(Event);
-
-module.exports = JoinedPresenceChannelEvent;
-
-
-
-},{"../../framework/Event":265}],293:[function(require,module,exports){
-var Event, OrganizationsLoadedEvent,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Event = require('../../framework/Event');
-
-OrganizationsLoadedEvent = (function(_super) {
-  __extends(OrganizationsLoadedEvent, _super);
-
-  function OrganizationsLoadedEvent(organizations) {
-    this.organizations = organizations;
-    OrganizationsLoadedEvent.__super__.constructor.call(this);
-  }
-
-  return OrganizationsLoadedEvent;
-
-})(Event);
-
-module.exports = OrganizationsLoadedEvent;
-
-
-
-},{"../../framework/Event":265}],294:[function(require,module,exports){
-var Event, QueueLoadedEvent,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Event = require('../../framework/Event');
-
-QueueLoadedEvent = (function(_super) {
-  __extends(QueueLoadedEvent, _super);
-
-  function QueueLoadedEvent(queue, cards) {
-    this.queue = queue;
-    this.cards = cards;
-    QueueLoadedEvent.__super__.constructor.call(this);
-  }
-
-  return QueueLoadedEvent;
-
-})(Event);
-
-module.exports = QueueLoadedEvent;
-
-
-
-},{"../../framework/Event":265}],295:[function(require,module,exports){
-var Event, UserConnectedEvent,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Event = require('../../framework/Event');
-
-UserConnectedEvent = (function(_super) {
-  __extends(UserConnectedEvent, _super);
-
-  function UserConnectedEvent(user) {
-    this.user = user;
-    UserConnectedEvent.__super__.constructor.call(this);
-  }
-
-  return UserConnectedEvent;
-
-})(Event);
-
-module.exports = UserConnectedEvent;
-
-
-
-},{"../../framework/Event":265}],296:[function(require,module,exports){
-var Event, UserDisconnectedEvent,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Event = require('../../framework/Event');
-
-UserDisconnectedEvent = (function(_super) {
-  __extends(UserDisconnectedEvent, _super);
-
-  function UserDisconnectedEvent(user) {
-    this.user = user;
-    UserDisconnectedEvent.__super__.constructor.call(this);
-  }
-
-  return UserDisconnectedEvent;
-
-})(Event);
-
-module.exports = UserDisconnectedEvent;
-
-
-
-},{"../../framework/Event":265}],297:[function(require,module,exports){
-var CardBodyChangedEvent, CardBodyChangedListener, Listener,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Listener = require('../../framework/Listener');
-
-CardBodyChangedEvent = require('../events/CardBodyChangedEvent');
-
-CardBodyChangedListener = (function(_super) {
-  __extends(CardBodyChangedListener, _super);
-
-  function CardBodyChangedListener() {
-    return CardBodyChangedListener.__super__.constructor.apply(this, arguments);
-  }
-
-  CardBodyChangedListener.prototype.createEvent = function(message) {
-    var document, meta, payload;
-    document = message.document, payload = message.payload;
-    meta = {
-      user: message.user
-    };
-    return new CardBodyChangedEvent(document.id, payload.body, document.version, meta);
-  };
-
-  return CardBodyChangedListener;
-
-})(Listener);
-
-module.exports = CardBodyChangedListener;
-
-
-
-},{"../../framework/Listener":266,"../events/CardBodyChangedEvent":289}],298:[function(require,module,exports){
-var CardTitleChangedEvent, CardTitleChangedListener, Listener,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Listener = require('../../framework/Listener');
-
-CardTitleChangedEvent = require('../events/CardTitleChangedEvent');
-
-CardTitleChangedListener = (function(_super) {
-  __extends(CardTitleChangedListener, _super);
-
-  function CardTitleChangedListener() {
-    return CardTitleChangedListener.__super__.constructor.apply(this, arguments);
-  }
-
-  CardTitleChangedListener.prototype.createEvent = function(message) {
-    var document, meta, payload;
-    document = message.document, payload = message.payload;
-    meta = {
-      user: message.user
-    };
-    return new CardTitleChangedEvent(document.id, payload.title, document.version);
-  };
-
-  return CardTitleChangedListener;
-
-})(Listener);
-
-module.exports = CardTitleChangedListener;
-
-
-
-},{"../../framework/Listener":266,"../events/CardTitleChangedEvent":290}],299:[function(require,module,exports){
-var OrganizationStore, Store, _,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-_ = require('lodash');
-
-Store = require('../../framework/Store');
-
-OrganizationStore = (function(_super) {
-  __extends(OrganizationStore, _super);
-
-  function OrganizationStore() {
-    this.currentOrganization = void 0;
-    this.organizations = {};
-  }
-
-  OrganizationStore.prototype.getOrganization = function(id) {
-    return this.organizations[id];
-  };
-
-  OrganizationStore.prototype.getAllOrganizations = function() {
-    return _.values(this.organizations);
-  };
-
-  OrganizationStore.prototype.onOrganizationsLoaded = function(event) {
-    this.organizations = _.extend(this.organizations, _.indexBy(event.organizations, 'id'));
-    return this.announce();
-  };
-
-  return OrganizationStore;
-
-})(Store);
-
-module.exports = OrganizationStore;
-
-
-
-},{"../../framework/Store":267,"lodash":23}],300:[function(require,module,exports){
-var PresenceStore, Store, _,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-_ = require('lodash');
-
-Store = require('../../framework/Store');
-
-PresenceStore = (function(_super) {
-  __extends(PresenceStore, _super);
-
-  function PresenceStore() {
-    this.currentUser = void 0;
-    this.connectedUsers = [];
-  }
-
-  PresenceStore.prototype.getConnectedUsers = function() {
-    return _.clone(this.connectedUsers);
-  };
-
-  PresenceStore.prototype.onJoinedPresenceChannel = function(event) {
-    this.connectedUsers = event.connectedUsers;
-    return this.announce();
-  };
-
-  PresenceStore.prototype.onUserConnected = function(event) {
-    this.connectedUsers.push(event.user);
-    return this.announce();
-  };
-
-  PresenceStore.prototype.onUserDisconnected = function(event) {
-    this.connectedUsers = _.filter(this.connectedUsers, function(u) {
-      return u.id !== event.user.id;
-    });
-    return this.announce();
-  };
-
-  PresenceStore.prototype.onCurrentUserLoaded = function(event) {
-    this.currentUser = event.user;
-    return this.announce();
-  };
-
-  return PresenceStore;
-
-})(Store);
-
-module.exports = PresenceStore;
-
-
-
-},{"../../framework/Store":267,"lodash":23}],301:[function(require,module,exports){
-var QueueStore, Store, _,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-_ = require('lodash');
-
-Store = require('../../framework/Store');
-
-QueueStore = (function(_super) {
-  __extends(QueueStore, _super);
-
-  function QueueStore() {
-    this.queue = void 0;
-    this.cards = {};
-  }
-
-  QueueStore.prototype.getQueue = function() {
-    return this.queue;
-  };
-
-  QueueStore.prototype.getFocusedCard = function() {
-    return _.first(_.sortBy(this.cards, 'rank'));
-  };
-
-  QueueStore.prototype.onQueueLoaded = function(event) {
-    this.queue = event.queue;
-    this.cards = _.indexBy(event.cards, 'id');
-    return this.announce();
-  };
-
-  QueueStore.prototype.onCardBodyChanged = function(event) {
-    var card;
-    card = this.cards[id];
-    if (card != null) {
-      card.body = event.body;
-      card.version = event.version;
-      return this.announce();
-    }
-  };
-
-  QueueStore.prototype.onCardTitleChanged = function(event) {
-    var card;
-    card = this.cards[id];
-    if (card != null) {
-      card.title = event.title;
-      card.version = event.version;
-      return this.announce();
-    }
-  };
-
-  return QueueStore;
-
-})(Store);
-
-module.exports = QueueStore;
-
-
-
-},{"../../framework/Store":267,"lodash":23}],302:[function(require,module,exports){
-var CardBodyChangedEvent, CardTitleChangedEvent, CardsLoadedEvent, Controller, EventBus, Header, StacksLoadedEvent, WorkspaceController, WorkspaceLoadedEvent, arrayEnum, etag, request, _,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-_ = require('lodash');
-
-request = require('superagent');
-
-arrayEnum = require('../common/util/arrayEnum');
-
-etag = require('../common/util/etag');
-
-Controller = require('../framework/Controller');
-
-EventBus = require('../EventBus');
-
-Header = require('../Header');
-
-CardBodyChangedEvent = require('./events/CardBodyChangedEvent');
-
-CardsLoadedEvent = require('./events/CardsLoadedEvent');
-
-CardTitleChangedEvent = require('./events/CardTitleChangedEvent');
-
-StacksLoadedEvent = require('./events/StacksLoadedEvent');
-
-WorkspaceLoadedEvent = require('./events/WorkspaceLoadedEvent');
+WorkspaceLoadedEvent = require('./../../events/WorkspaceLoadedEvent.coffee');
 
 WorkspaceController = (function(_super) {
   __extends(WorkspaceController, _super);
@@ -37873,7 +37193,7 @@ module.exports = WorkspaceController;
 
 
 
-},{"../EventBus":232,"../Header":233,"../common/util/arrayEnum":260,"../common/util/etag":261,"../framework/Controller":264,"./events/CardBodyChangedEvent":319,"./events/CardTitleChangedEvent":320,"./events/CardsLoadedEvent":321,"./events/StacksLoadedEvent":322,"./events/WorkspaceLoadedEvent":323,"lodash":23,"superagent":227}],303:[function(require,module,exports){
+},{"./../../common/util/etag.coffee":243,"./../../events/CardBodyChangedEvent.coffee":244,"./../../events/CardTitleChangedEvent.coffee":245,"./../../events/CardsLoadedEvent.coffee":246,"./../../events/StacksLoadedEvent.coffee":253,"./../../events/WorkspaceLoadedEvent.coffee":258,"./../../framework/Controller.coffee":261,"./../../framework/EventBus.coffee":263,"./../../framework/enums/Header.coffee":266,"lodash":23,"superagent":227}],290:[function(require,module,exports){
 var CardBodyChangedListener, CardStore, CardTitleChangedListener, OrganizationStore, StackStore, TeamStore, TypeStore, UserStore, WorkspaceController, WorkspaceEnvironment;
 
 WorkspaceController = require('./WorkspaceController');
@@ -37914,8 +37234,8 @@ module.exports = WorkspaceEnvironment;
 
 
 
-},{"./WorkspaceController":302,"./listeners/CardBodyChangedListener":324,"./listeners/CardTitleChangedListener":325,"./stores/CardStore":326,"./stores/OrganizationStore":327,"./stores/StackStore":328,"./stores/TeamStore":329,"./stores/TypeStore":330,"./stores/UserStore":331}],304:[function(require,module,exports){
-var ActiveUrl, Api, CardPanel, Flux, PanelGroup, React, Router, StackPanel, WorkspaceEnvironment, WorkspaceScreen, WorkspaceSidebar, WorkspaceUrl, div, _;
+},{"./WorkspaceController":289,"./listeners/CardBodyChangedListener":306,"./listeners/CardTitleChangedListener":307,"./stores/CardStore":308,"./stores/OrganizationStore":309,"./stores/StackStore":310,"./stores/TeamStore":311,"./stores/TypeStore":312,"./stores/UserStore":313}],291:[function(require,module,exports){
+var ActiveUrl, CardPanel, Flux, PanelGroup, React, Router, StackPanel, WorkspaceEnvironment, WorkspaceScreen, WorkspaceSidebar, WorkspaceUrl, div, _;
 
 _ = require('lodash');
 
@@ -37923,17 +37243,15 @@ React = require('react/addons');
 
 Router = require('react-router');
 
-Api = require('../Api');
+Flux = require('./../../mixins/Flux.coffee');
 
-Flux = require('../mixins/Flux');
-
-ActiveUrl = require('../mixins/ActiveUrl');
+ActiveUrl = require('./../../mixins/ActiveUrl.coffee');
 
 WorkspaceEnvironment = require('./WorkspaceEnvironment');
 
 WorkspaceUrl = require('./WorkspaceUrl');
 
-PanelGroup = React.createFactory(require('../common/PanelGroup'));
+PanelGroup = React.createFactory(require('./../../common/PanelGroup.coffee'));
 
 StackPanel = React.createFactory(require('./components/StackPanel'));
 
@@ -38044,7 +37362,7 @@ module.exports = WorkspaceScreen;
 
 
 
-},{"../Api":230,"../common/PanelGroup":256,"../mixins/ActiveUrl":269,"../mixins/Flux":270,"./WorkspaceEnvironment":303,"./WorkspaceUrl":305,"./components/CardPanel":309,"./components/StackPanel":314,"./components/WorkspaceSidebar":315,"lodash":23,"react-router":33,"react/addons":64}],305:[function(require,module,exports){
+},{"./../../common/PanelGroup.coffee":238,"./../../mixins/ActiveUrl.coffee":268,"./../../mixins/Flux.coffee":269,"./WorkspaceEnvironment":290,"./WorkspaceUrl":292,"./components/CardPanel":296,"./components/StackPanel":301,"./components/WorkspaceSidebar":302,"lodash":23,"react-router":33,"react/addons":64}],292:[function(require,module,exports){
 var WorkspaceUrl, _;
 
 _ = require('lodash');
@@ -38111,12 +37429,12 @@ module.exports = WorkspaceUrl;
 
 
 
-},{"lodash":23}],306:[function(require,module,exports){
+},{"lodash":23}],293:[function(require,module,exports){
 var Button, CardActionBar, React, div;
 
 React = require('react');
 
-Button = React.createFactory(require('../../common/Button'));
+Button = React.createFactory(require('./../../../common/Button.coffee'));
 
 div = React.DOM.div;
 
@@ -38157,16 +37475,16 @@ module.exports = CardActionBar;
 
 
 
-},{"../../common/Button":250,"react":"M6d2gk"}],307:[function(require,module,exports){
-var CardBody, Flux, MultilineText, React, Strings, div;
+},{"./../../../common/Button.coffee":232,"react":"M6d2gk"}],294:[function(require,module,exports){
+var CardBody, Constants, Flux, MultilineText, React, div;
 
 React = require('react');
 
-Flux = require('../../mixins/Flux');
+Flux = require('./../../../mixins/Flux.coffee');
 
-Strings = require('../../Strings');
+Constants = require('./../../../framework/Constants.coffee');
 
-MultilineText = React.createFactory(require('../../common/MultilineText'));
+MultilineText = React.createFactory(require('./../../../common/MultilineText.coffee'));
 
 div = React.DOM.div;
 
@@ -38179,7 +37497,7 @@ CardBody = React.createClass({
     }, [
       MultilineText({
         key: 'card-body-text',
-        placeholder: Strings.cardBody,
+        placeholder: Constants.cardBody,
         value: this.props.card.body,
         save: this.saveBody
       })
@@ -38194,18 +37512,16 @@ module.exports = CardBody;
 
 
 
-},{"../../Strings":235,"../../common/MultilineText":254,"../../mixins/Flux":270,"react":"M6d2gk"}],308:[function(require,module,exports){
-var Api, CardHeader, Flux, React, Strings, Text, div, em, _ref;
+},{"./../../../common/MultilineText.coffee":236,"./../../../framework/Constants.coffee":260,"./../../../mixins/Flux.coffee":269,"react":"M6d2gk"}],295:[function(require,module,exports){
+var CardHeader, Constants, Flux, React, Text, div, em, _ref;
 
 React = require('react');
 
-Flux = require('../../mixins/Flux');
+Flux = require('./../../../mixins/Flux.coffee');
 
-Api = require('../../Api');
+Constants = require('./../../../framework/Constants.coffee');
 
-Strings = require('../../Strings');
-
-Text = React.createFactory(require('../../common/Text'));
+Text = React.createFactory(require('./../../../common/Text.coffee'));
 
 _ref = React.DOM, div = _ref.div, em = _ref.em;
 
@@ -38222,7 +37538,7 @@ CardHeader = React.createClass({
       }, [
         Text({
           key: 'card-title-text',
-          placeholder: Strings.untitledCard,
+          placeholder: Constants.untitledCard,
           value: this.props.card.title,
           save: this.saveTitle
         })
@@ -38238,24 +37554,22 @@ module.exports = CardHeader;
 
 
 
-},{"../../Api":230,"../../Strings":235,"../../common/Text":259,"../../mixins/Flux":270,"react":"M6d2gk"}],309:[function(require,module,exports){
-var ActiveUrl, Api, CardActionBar, CardBody, CardHeader, CardPanel, Flux, Panel, React, Router, Strings, WorkspaceUrl;
+},{"./../../../common/Text.coffee":241,"./../../../framework/Constants.coffee":260,"./../../../mixins/Flux.coffee":269,"react":"M6d2gk"}],296:[function(require,module,exports){
+var ActiveUrl, CardActionBar, CardBody, CardHeader, CardPanel, Constants, Flux, Panel, React, Router, WorkspaceUrl;
 
 React = require('react');
 
 Router = require('react-router');
 
-Api = require('../../Api');
+Constants = require('./../../../framework/Constants.coffee');
 
-Strings = require('../../Strings');
+Flux = require('./../../../mixins/Flux.coffee');
 
-Flux = require('../../mixins/Flux');
-
-ActiveUrl = require('../../mixins/ActiveUrl');
+ActiveUrl = require('./../../../mixins/ActiveUrl.coffee');
 
 WorkspaceUrl = require('../WorkspaceUrl');
 
-Panel = React.createFactory(require('../../common/Panel'));
+Panel = React.createFactory(require('./../../../common/Panel.coffee'));
 
 CardActionBar = React.createFactory(require('./CardActionBar'));
 
@@ -38288,7 +37602,7 @@ CardPanel = React.createClass({
       style: {
         zIndex: 99 - this.props.position
       },
-      panelTitle: this.state.card.title || Strings.untitledCard,
+      panelTitle: this.state.card.title || Constants.untitledCard,
       icon: 'card',
       className: 'card',
       close: this.makeCloseLinkProps()
@@ -38318,12 +37632,12 @@ module.exports = CardPanel;
 
 
 
-},{"../../Api":230,"../../Strings":235,"../../common/Panel":255,"../../mixins/ActiveUrl":269,"../../mixins/Flux":270,"../WorkspaceUrl":305,"./CardActionBar":306,"./CardBody":307,"./CardHeader":308,"react":"M6d2gk","react-router":33}],310:[function(require,module,exports){
+},{"../WorkspaceUrl":292,"./../../../common/Panel.coffee":237,"./../../../framework/Constants.coffee":260,"./../../../mixins/ActiveUrl.coffee":268,"./../../../mixins/Flux.coffee":269,"./CardActionBar":293,"./CardBody":294,"./CardHeader":295,"react":"M6d2gk","react-router":33}],297:[function(require,module,exports){
 var Flux, React, SearchBox, div, input, _ref;
 
 React = require('react');
 
-Flux = require('../../mixins/Flux');
+Flux = require('./../../../mixins/Flux.coffee');
 
 _ref = React.DOM, div = _ref.div, input = _ref.input;
 
@@ -38351,14 +37665,14 @@ module.exports = SearchBox;
 
 
 
-},{"../../mixins/Flux":270,"react":"M6d2gk"}],311:[function(require,module,exports){
+},{"./../../../mixins/Flux.coffee":269,"react":"M6d2gk"}],298:[function(require,module,exports){
 var ActiveUrl, BacklogCard, CardTypes, InboxCard, QueueCard, React, Router, StackCardFrame, WorkspaceUrl, classSet, div;
 
 React = require('react/addons');
 
 Router = require('react-router');
 
-ActiveUrl = require('../../mixins/ActiveUrl');
+ActiveUrl = require('./../../../mixins/ActiveUrl.coffee');
 
 WorkspaceUrl = require('../WorkspaceUrl');
 
@@ -38453,7 +37767,7 @@ module.exports = StackCardFrame;
 
 
 
-},{"../../mixins/ActiveUrl":269,"../WorkspaceUrl":305,"./cards/BacklogCard":316,"./cards/InboxCard":317,"./cards/QueueCard":318,"react-router":33,"react/addons":64}],312:[function(require,module,exports){
+},{"../WorkspaceUrl":292,"./../../../mixins/ActiveUrl.coffee":268,"./cards/BacklogCard":303,"./cards/InboxCard":304,"./cards/QueueCard":305,"react-router":33,"react/addons":64}],299:[function(require,module,exports){
 var React, StackList, StackListItem, ul, _;
 
 _ = require('lodash');
@@ -38487,7 +37801,7 @@ module.exports = StackList;
 
 
 
-},{"./StackListItem":313,"lodash":23,"react":"M6d2gk"}],313:[function(require,module,exports){
+},{"./StackListItem":300,"lodash":23,"react":"M6d2gk"}],300:[function(require,module,exports){
 var ActiveUrl, Icon, Link, React, Router, StackListItem, WorkspaceUrl, li, span, _, _ref;
 
 _ = require('lodash');
@@ -38496,11 +37810,11 @@ React = require('react/addons');
 
 Router = require('react-router');
 
-ActiveUrl = require('../../mixins/ActiveUrl');
+ActiveUrl = require('./../../../mixins/ActiveUrl.coffee');
 
 WorkspaceUrl = require('../WorkspaceUrl');
 
-Icon = React.createFactory(require('../../common/Icon'));
+Icon = React.createFactory(require('./../../../common/Icon.coffee'));
 
 Link = React.createFactory(Router.Link);
 
@@ -38543,7 +37857,7 @@ module.exports = StackListItem;
 
 
 
-},{"../../common/Icon":251,"../../mixins/ActiveUrl":269,"../WorkspaceUrl":305,"lodash":23,"react-router":33,"react/addons":64}],314:[function(require,module,exports){
+},{"../WorkspaceUrl":292,"./../../../common/Icon.coffee":233,"./../../../mixins/ActiveUrl.coffee":268,"lodash":23,"react-router":33,"react/addons":64}],301:[function(require,module,exports){
 var ActiveUrl, Flux, Panel, React, Router, StackCardFrame, StackPanel, WorkspaceUrl, ul, _;
 
 _ = require('lodash');
@@ -38552,13 +37866,13 @@ React = require('react');
 
 Router = require('react-router');
 
-Flux = require('../../mixins/Flux');
+Flux = require('./../../../mixins/Flux.coffee');
 
-ActiveUrl = require('../../mixins/ActiveUrl');
+ActiveUrl = require('./../../../mixins/ActiveUrl.coffee');
 
 WorkspaceUrl = require('../WorkspaceUrl');
 
-Panel = React.createFactory(require('../../common/Panel'));
+Panel = React.createFactory(require('./../../../common/Panel.coffee'));
 
 StackCardFrame = React.createFactory(require('./StackCardFrame'));
 
@@ -38667,14 +37981,14 @@ module.exports = StackPanel;
 
 
 
-},{"../../common/Panel":255,"../../mixins/ActiveUrl":269,"../../mixins/Flux":270,"../WorkspaceUrl":305,"./StackCardFrame":311,"lodash":23,"react":"M6d2gk","react-router":33}],315:[function(require,module,exports){
+},{"../WorkspaceUrl":292,"./../../../common/Panel.coffee":237,"./../../../mixins/ActiveUrl.coffee":268,"./../../../mixins/Flux.coffee":269,"./StackCardFrame":298,"lodash":23,"react":"M6d2gk","react-router":33}],302:[function(require,module,exports){
 var Flux, Panel, React, SearchBox, StackList, WorkspaceSidebar, div;
 
 React = require('react');
 
-Flux = require('../../mixins/Flux');
+Flux = require('./../../../mixins/Flux.coffee');
 
-Panel = React.createFactory(require('../../common/Panel'));
+Panel = React.createFactory(require('./../../../common/Panel.coffee'));
 
 SearchBox = React.createFactory(require('./SearchBox'));
 
@@ -38704,7 +38018,7 @@ module.exports = WorkspaceSidebar;
 
 
 
-},{"../../common/Panel":255,"../../mixins/Flux":270,"./SearchBox":310,"./StackList":312,"react":"M6d2gk"}],316:[function(require,module,exports){
+},{"./../../../common/Panel.coffee":237,"./../../../mixins/Flux.coffee":269,"./SearchBox":297,"./StackList":299,"react":"M6d2gk"}],303:[function(require,module,exports){
 var BacklogCard, React, div;
 
 React = require('react');
@@ -38730,12 +38044,12 @@ module.exports = BacklogCard;
 
 
 
-},{"react":"M6d2gk"}],317:[function(require,module,exports){
-var InboxCard, React, Strings, div, em, _ref;
+},{"react":"M6d2gk"}],304:[function(require,module,exports){
+var Constants, InboxCard, React, div, em, _ref;
 
 React = require('react');
 
-Strings = require('../../../Strings');
+Constants = require('./../../../../framework/Constants.coffee');
 
 _ref = React.DOM, div = _ref.div, em = _ref.em;
 
@@ -38750,7 +38064,7 @@ InboxCard = React.createClass({
       }, [
         div({
           className: 'title'
-        }, [this.props.card.title || Strings.untitledCard]), div({
+        }, [this.props.card.title || Constants.untitledCard]), div({
           className: 'handoff'
         }, ['from ', em({}, 'X'), ' to ', em({}, 'Y'), ' at ', em({}, 'Z')])
       ]), div({
@@ -38764,12 +38078,12 @@ module.exports = InboxCard;
 
 
 
-},{"../../../Strings":235,"react":"M6d2gk"}],318:[function(require,module,exports){
-var QueueCard, React, Strings, div, em, _ref;
+},{"./../../../../framework/Constants.coffee":260,"react":"M6d2gk"}],305:[function(require,module,exports){
+var Constants, QueueCard, React, div, em, _ref;
 
 React = require('react');
 
-Strings = require('../../../Strings');
+Constants = require('./../../../../framework/Constants.coffee');
 
 _ref = React.DOM, div = _ref.div, em = _ref.em;
 
@@ -38784,7 +38098,7 @@ QueueCard = React.createClass({
       }, [
         div({
           className: 'title'
-        }, [this.props.card.title || Strings.untitledCard]), div({
+        }, [this.props.card.title || Constants.untitledCard]), div({
           className: 'handoff'
         }, ['in queue since ', em({}, 'X')])
       ]), div({
@@ -38798,133 +38112,14 @@ module.exports = QueueCard;
 
 
 
-},{"../../../Strings":235,"react":"M6d2gk"}],319:[function(require,module,exports){
-var CardBodyChangedEvent, Event,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Event = require('../../framework/Event');
-
-CardBodyChangedEvent = (function(_super) {
-  __extends(CardBodyChangedEvent, _super);
-
-  function CardBodyChangedEvent(id, body, version, meta) {
-    this.id = id;
-    this.body = body;
-    this.version = version;
-    CardBodyChangedEvent.__super__.constructor.call(this, meta);
-  }
-
-  return CardBodyChangedEvent;
-
-})(Event);
-
-module.exports = CardBodyChangedEvent;
-
-
-
-},{"../../framework/Event":265}],320:[function(require,module,exports){
-var CardTitleChangedEvent, Event,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Event = require('../../framework/Event');
-
-CardTitleChangedEvent = (function(_super) {
-  __extends(CardTitleChangedEvent, _super);
-
-  function CardTitleChangedEvent(id, title, version, meta) {
-    this.id = id;
-    this.title = title;
-    this.version = version;
-    CardTitleChangedEvent.__super__.constructor.call(this, meta);
-  }
-
-  return CardTitleChangedEvent;
-
-})(Event);
-
-module.exports = CardTitleChangedEvent;
-
-
-
-},{"../../framework/Event":265}],321:[function(require,module,exports){
-var CardsLoadedEvent, Event,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Event = require('../../framework/Event');
-
-CardsLoadedEvent = (function(_super) {
-  __extends(CardsLoadedEvent, _super);
-
-  function CardsLoadedEvent(cards) {
-    this.cards = cards;
-    CardsLoadedEvent.__super__.constructor.call(this);
-  }
-
-  return CardsLoadedEvent;
-
-})(Event);
-
-module.exports = CardsLoadedEvent;
-
-
-
-},{"../../framework/Event":265}],322:[function(require,module,exports){
-var Event, StacksLoadedEvent,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Event = require('../../framework/Event');
-
-StacksLoadedEvent = (function(_super) {
-  __extends(StacksLoadedEvent, _super);
-
-  function StacksLoadedEvent(cards) {
-    this.cards = cards;
-    StacksLoadedEvent.__super__.constructor.call(this);
-  }
-
-  return StacksLoadedEvent;
-
-})(Event);
-
-module.exports = StacksLoadedEvent;
-
-
-
-},{"../../framework/Event":265}],323:[function(require,module,exports){
-var Event, WorkspaceLoadedEvent,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Event = require('../../framework/Event');
-
-WorkspaceLoadedEvent = (function(_super) {
-  __extends(WorkspaceLoadedEvent, _super);
-
-  function WorkspaceLoadedEvent(workspace) {
-    this.workspace = workspace;
-    WorkspaceLoadedEvent.__super__.constructor.call(this);
-  }
-
-  return WorkspaceLoadedEvent;
-
-})(Event);
-
-module.exports = WorkspaceLoadedEvent;
-
-
-
-},{"../../framework/Event":265}],324:[function(require,module,exports){
+},{"./../../../../framework/Constants.coffee":260,"react":"M6d2gk"}],306:[function(require,module,exports){
 var CardBodyChangedEvent, CardBodyChangedListener, Listener,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-Listener = require('../../framework/Listener');
+Listener = require('./../../../framework/Listener.coffee');
 
-CardBodyChangedEvent = require('../events/CardBodyChangedEvent');
+CardBodyChangedEvent = require('./../../../events/CardBodyChangedEvent.coffee');
 
 CardBodyChangedListener = (function(_super) {
   __extends(CardBodyChangedListener, _super);
@@ -38950,14 +38145,14 @@ module.exports = CardBodyChangedListener;
 
 
 
-},{"../../framework/Listener":266,"../events/CardBodyChangedEvent":319}],325:[function(require,module,exports){
+},{"./../../../events/CardBodyChangedEvent.coffee":244,"./../../../framework/Listener.coffee":264}],307:[function(require,module,exports){
 var CardTitleChangedEvent, CardTitleChangedListener, Listener,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-Listener = require('../../framework/Listener');
+Listener = require('./../../../framework/Listener.coffee');
 
-CardTitleChangedEvent = require('../events/CardTitleChangedEvent');
+CardTitleChangedEvent = require('./../../../events/CardTitleChangedEvent.coffee');
 
 CardTitleChangedListener = (function(_super) {
   __extends(CardTitleChangedListener, _super);
@@ -38983,14 +38178,14 @@ module.exports = CardTitleChangedListener;
 
 
 
-},{"../../framework/Listener":266,"../events/CardTitleChangedEvent":320}],326:[function(require,module,exports){
+},{"./../../../events/CardTitleChangedEvent.coffee":245,"./../../../framework/Listener.coffee":264}],308:[function(require,module,exports){
 var CardStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 _ = require('lodash');
 
-Store = require('../../framework/Store');
+Store = require('./../../../framework/Store.coffee');
 
 CardStore = (function(_super) {
   __extends(CardStore, _super);
@@ -39049,14 +38244,14 @@ module.exports = CardStore;
 
 
 
-},{"../../framework/Store":267,"lodash":23}],327:[function(require,module,exports){
+},{"./../../../framework/Store.coffee":265,"lodash":23}],309:[function(require,module,exports){
 var OrganizationStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 _ = require('lodash');
 
-Store = require('../../framework/Store');
+Store = require('./../../../framework/Store.coffee');
 
 OrganizationStore = (function(_super) {
   __extends(OrganizationStore, _super);
@@ -39078,14 +38273,14 @@ module.exports = OrganizationStore;
 
 
 
-},{"../../framework/Store":267,"lodash":23}],328:[function(require,module,exports){
+},{"./../../../framework/Store.coffee":265,"lodash":23}],310:[function(require,module,exports){
 var StackStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 _ = require('lodash');
 
-Store = require('../../framework/Store');
+Store = require('./../../../framework/Store.coffee');
 
 StackStore = (function(_super) {
   __extends(StackStore, _super);
@@ -39116,14 +38311,14 @@ module.exports = StackStore;
 
 
 
-},{"../../framework/Store":267,"lodash":23}],329:[function(require,module,exports){
+},{"./../../../framework/Store.coffee":265,"lodash":23}],311:[function(require,module,exports){
 var Store, TeamStore, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 _ = require('lodash');
 
-Store = require('../../framework/Store');
+Store = require('./../../../framework/Store.coffee');
 
 TeamStore = (function(_super) {
   __extends(TeamStore, _super);
@@ -39145,14 +38340,14 @@ module.exports = TeamStore;
 
 
 
-},{"../../framework/Store":267,"lodash":23}],330:[function(require,module,exports){
+},{"./../../../framework/Store.coffee":265,"lodash":23}],312:[function(require,module,exports){
 var Store, TypeStore, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 _ = require('lodash');
 
-Store = require('../../framework/Store');
+Store = require('./../../../framework/Store.coffee');
 
 TypeStore = (function(_super) {
   __extends(TypeStore, _super);
@@ -39183,14 +38378,14 @@ module.exports = TypeStore;
 
 
 
-},{"../../framework/Store":267,"lodash":23}],331:[function(require,module,exports){
+},{"./../../../framework/Store.coffee":265,"lodash":23}],313:[function(require,module,exports){
 var Store, UserStore, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 _ = require('lodash');
 
-Store = require('../../framework/Store');
+Store = require('./../../../framework/Store.coffee');
 
 UserStore = (function(_super) {
   __extends(UserStore, _super);
@@ -39235,4 +38430,728 @@ module.exports = UserStore;
 
 
 
-},{"../../framework/Store":267,"lodash":23}]},{},[230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306,307,308,309,310,311,312,313,314,315,316,317,318,319,320,321,322,323,324,325,326,327,328,329,330,331]);
+},{"./../../../framework/Store.coffee":265,"lodash":23}],314:[function(require,module,exports){
+var ActiveUrl, Flux, React, Shell, ShellEnvironment, ShellHeader, ShellUrl, div;
+
+React = require('react/addons');
+
+ActiveUrl = require('./../mixins/ActiveUrl.coffee');
+
+Flux = require('./../mixins/Flux.coffee');
+
+ShellUrl = require('./ShellUrl');
+
+ShellEnvironment = require('./ShellEnvironment');
+
+ShellHeader = React.createFactory(require('./components/ShellHeader'));
+
+div = React.DOM.div;
+
+Shell = React.createClass({
+  displayName: 'Shell',
+  mixins: [ActiveUrl(ShellUrl), Flux('organizations', 'presence')],
+  getDefaultProps: function() {
+    return {
+      controller: ShellEnvironment.createController()
+    };
+  },
+  getStateFromStores: function(stores) {
+    return {
+      currentUser: stores.presence.currentUser,
+      currentOrganization: stores.organizations.getOrganization(this.getActiveUrl().organizationId)
+    };
+  },
+  componentWillMount: function() {
+    var controller;
+    controller = this.getController();
+    controller.setCurrentOrganization(this.getActiveUrl().organizationId);
+    controller.loadCurrentUser();
+    return controller.loadMyOrganizations();
+  },
+  render: function() {
+    var Screen;
+    Screen = this.props.activeRouteHandler;
+    return div({
+      className: 'shell'
+    }, [
+      ShellHeader({
+        key: 'header',
+        currentOrganization: this.state.currentOrganization,
+        currentUser: this.state.currentUser
+      }), Screen({
+        key: 'screen',
+        currentOrganization: this.state.currentOrganization,
+        currentUser: this.state.currentUser
+      })
+    ]);
+  }
+});
+
+module.exports = Shell;
+
+
+
+},{"./../mixins/ActiveUrl.coffee":268,"./../mixins/Flux.coffee":269,"./ShellEnvironment":316,"./ShellUrl":317,"./components/ShellHeader":322,"react/addons":64}],315:[function(require,module,exports){
+var Controller, CurrentUserLoadedEvent, EventBus, JoinedPresenceChannelEvent, OrganizationsLoadedEvent, QueueLoadedEvent, ShellController, UserConnectedEvent, UserDisconnectedEvent, request, _,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+_ = require('lodash');
+
+request = require('superagent');
+
+EventBus = require('./../framework/EventBus.coffee');
+
+Controller = require('./../framework/Controller.coffee');
+
+CurrentUserLoadedEvent = require('./../events/CurrentUserLoadedEvent.coffee');
+
+QueueLoadedEvent = require('./../events/QueueLoadedEvent.coffee');
+
+JoinedPresenceChannelEvent = require('./../events/JoinedPresenceChannelEvent.coffee');
+
+OrganizationsLoadedEvent = require('./../events/OrganizationsLoadedEvent.coffee');
+
+UserConnectedEvent = require('./../events/UserConnectedEvent.coffee');
+
+UserDisconnectedEvent = require('./../events/UserDisconnectedEvent.coffee');
+
+ShellController = (function(_super) {
+  __extends(ShellController, _super);
+
+  function ShellController() {
+    return ShellController.__super__.constructor.apply(this, arguments);
+  }
+
+  ShellController.prototype.loadCurrentUser = function() {
+    return request.get("/api/me", (function(_this) {
+      return function(res) {
+        return _this.dispatch(new CurrentUserLoadedEvent(res.body));
+      };
+    })(this));
+  };
+
+  ShellController.prototype.loadMyOrganizations = function() {
+    return request.get("/api/me/organizations", (function(_this) {
+      return function(res) {
+        return _this.dispatch(new OrganizationsLoadedEvent(res.body));
+      };
+    })(this));
+  };
+
+  ShellController.prototype.loadMyQueue = function() {
+    return request.get("/api/" + this.organizationId + "/me/queue?expand=cards", (function(_this) {
+      return function(res) {
+        var cards, queue;
+        queue = _.omit(res.body, '_related');
+        cards = res.body['_related'].cards;
+        return _this.dispatch(new QueueLoadedEvent(queue, cards));
+      };
+    })(this));
+  };
+
+  ShellController.prototype.setCurrentOrganization = function(organizationId) {
+    var channel;
+    if (this.organizationId != null) {
+      EventBus.unsubscribe("presence-" + this.organizationId);
+    }
+    this.organizationId = organizationId;
+    channel = EventBus.subscribe("presence-" + this.organizationId);
+    channel.bind('pusher:subscription_succeeded', (function(_this) {
+      return function(channelState) {
+        var connectedUsers;
+        connectedUsers = _.map(channelState.members, function(member) {
+          return member;
+        });
+        return _this.dispatch(new JoinedPresenceChannelEvent(connectedUsers));
+      };
+    })(this));
+    channel.bind('pusher:member_added', (function(_this) {
+      return function(member) {
+        return _this.dispatch(new UserConnectedEvent(member.info));
+      };
+    })(this));
+    channel.bind('pusher:member_removed', (function(_this) {
+      return function(member) {
+        return _this.dispatch(new UserDisconnectedEvent(member.info));
+      };
+    })(this));
+    return this.bindListeners(channel);
+  };
+
+  return ShellController;
+
+})(Controller);
+
+module.exports = ShellController;
+
+
+
+},{"./../events/CurrentUserLoadedEvent.coffee":247,"./../events/JoinedPresenceChannelEvent.coffee":249,"./../events/OrganizationsLoadedEvent.coffee":251,"./../events/QueueLoadedEvent.coffee":252,"./../events/UserConnectedEvent.coffee":255,"./../events/UserDisconnectedEvent.coffee":256,"./../framework/Controller.coffee":261,"./../framework/EventBus.coffee":263,"lodash":23,"superagent":227}],316:[function(require,module,exports){
+var CardBodyChangedListener, CardTitleChangedListener, OrganizationStore, PresenceStore, QueueStore, ShellController, ShellEnvironment;
+
+ShellController = require('./ShellController');
+
+QueueStore = require('./stores/QueueStore');
+
+PresenceStore = require('./stores/PresenceStore');
+
+OrganizationStore = require('./stores/OrganizationStore');
+
+CardBodyChangedListener = require('./listeners/CardBodyChangedListener');
+
+CardTitleChangedListener = require('./listeners/CardTitleChangedListener');
+
+ShellEnvironment = {};
+
+ShellEnvironment.createController = function() {
+  var listeners, stores;
+  stores = {
+    queue: new QueueStore(),
+    organizations: new OrganizationStore(),
+    presence: new PresenceStore()
+  };
+  listeners = [new CardBodyChangedListener(), new CardTitleChangedListener()];
+  return new ShellController(stores, listeners);
+};
+
+module.exports = ShellEnvironment;
+
+
+
+},{"./ShellController":315,"./listeners/CardBodyChangedListener":324,"./listeners/CardTitleChangedListener":325,"./stores/OrganizationStore":326,"./stores/PresenceStore":327,"./stores/QueueStore":328}],317:[function(require,module,exports){
+var ShellUrl, _;
+
+_ = require('lodash');
+
+ShellUrl = (function() {
+  function ShellUrl(routes, params, query) {
+    this.organizationId = params.organizationId;
+  }
+
+  ShellUrl.prototype.makeLinkProps = function(route) {
+    var params, query;
+    params = {
+      organizationId: this.organizationId
+    };
+    query = {};
+    return {
+      to: route,
+      params: params,
+      query: query
+    };
+  };
+
+  return ShellUrl;
+
+})();
+
+module.exports = ShellUrl;
+
+
+
+},{"lodash":23}],318:[function(require,module,exports){
+var ActiveUrl, Flux, FocusedCard, Icon, Link, React, Router, WorkspaceUrl, div, span, _, _ref;
+
+_ = require('lodash');
+
+React = require('react');
+
+Router = require('react-router');
+
+ActiveUrl = require('./../../mixins/ActiveUrl.coffee');
+
+Flux = require('./../../mixins/Flux.coffee');
+
+WorkspaceUrl = require('../../screens/workspace/WorkspaceUrl');
+
+Icon = React.createFactory(require('./../../common/Icon.coffee'));
+
+Link = React.createFactory(Router.Link);
+
+_ref = React.DOM, div = _ref.div, span = _ref.span;
+
+FocusedCard = React.createClass({
+  displayName: 'FocusedCard',
+  mixins: [Flux('queue'), ActiveUrl(WorkspaceUrl)],
+  getStateFromStores: function(stores) {
+    var _ref1;
+    return {
+      focusedCard: (_ref1 = stores.queue.getFocusedCard()) != null ? _ref1 : {}
+    };
+  },
+  componentWillMount: function() {
+    return this.getController().loadMyQueue();
+  },
+  render: function() {
+    var linkProps;
+    linkProps = _.extend({
+      className: 'focused-card'
+    }, this.makeLinkProps());
+    return Link(linkProps, [
+      div({
+        name: 'title',
+        className: 'title'
+      }, [this.state.focusedCard.title])
+    ]);
+  },
+  makeLinkProps: function() {
+    var url;
+    url = this.getActiveUrl();
+    url.addCard(this.state.focusedCard.id);
+    return url.makeLinkProps();
+  }
+});
+
+module.exports = FocusedCard;
+
+
+
+},{"../../screens/workspace/WorkspaceUrl":292,"./../../common/Icon.coffee":233,"./../../mixins/ActiveUrl.coffee":268,"./../../mixins/Flux.coffee":269,"lodash":23,"react":"M6d2gk","react-router":33}],319:[function(require,module,exports){
+var ActiveUrl, Icon, Link, NavigationMenu, React, Router, ShellUrl, classSet, div;
+
+React = require('react/addons');
+
+Router = require('react-router');
+
+ActiveUrl = require('./../../mixins/ActiveUrl.coffee');
+
+ShellUrl = require('../ShellUrl');
+
+Icon = React.createFactory(require('./../../common/Icon.coffee'));
+
+Link = React.createFactory(Router.Link);
+
+div = React.DOM.div;
+
+classSet = React.addons.classSet;
+
+NavigationMenu = React.createClass({
+  mixins: [ActiveUrl(ShellUrl)],
+  displayName: 'NavigationMenu',
+  render: function() {
+    var url;
+    url = this.getActiveUrl();
+    return div({
+      className: 'navigation'
+    }, [this.makeLink('workspace', 'Workspace'), this.makeLink('bigpicture', 'Big Picture'), this.makeLink('planning', 'Planning')]);
+  },
+  makeLink: function(route, text) {
+    var props, url;
+    url = this.getActiveUrl();
+    if (this.isActive(route)) {
+      props = url.makeLinkProps(route, true);
+    } else {
+      props = url.makeLinkProps(route);
+    }
+    props.key = route;
+    props.className = route;
+    return Link(props, [
+      Icon({
+        key: 'icon',
+        name: route
+      }), text
+    ]);
+  }
+});
+
+module.exports = NavigationMenu;
+
+
+
+},{"../ShellUrl":317,"./../../common/Icon.coffee":233,"./../../mixins/ActiveUrl.coffee":268,"react-router":33,"react/addons":64}],320:[function(require,module,exports){
+var Flux, MenuTrigger, OrganizationCorner, PresenceWidget, React, div;
+
+React = require('react');
+
+Flux = require('./../../mixins/Flux.coffee');
+
+MenuTrigger = React.createFactory(require('./../../common/MenuTrigger.coffee'));
+
+PresenceWidget = React.createFactory(require('./PresenceWidget'));
+
+div = React.DOM.div;
+
+OrganizationCorner = React.createClass({
+  displayName: 'OrganizationCorner',
+  mixins: [Flux('organizations', 'presence')],
+  getStateFromStores: function(stores) {
+    return {
+      organizations: stores.organizations.getAllOrganizations(),
+      connectedUsers: stores.presence.getConnectedUsers()
+    };
+  },
+  render: function() {
+    if (this.props.currentOrganization == null) {
+      return div({
+        className: 'organization loading'
+      });
+    }
+    return div({
+      className: 'organization-corner'
+    }, [
+      div({
+        key: 'organization'
+      }, [
+        div({
+          key: 'name',
+          className: 'organization-name'
+        }, [this.props.currentOrganization.name]), MenuTrigger({
+          key: 'trigger'
+        })
+      ]), div({
+        key: 'widgets',
+        className: 'widgets'
+      }, [
+        PresenceWidget({
+          key: 'presence',
+          connectedUsers: this.state.connectedUsers
+        })
+      ])
+    ]);
+  }
+});
+
+module.exports = OrganizationCorner;
+
+
+
+},{"./../../common/MenuTrigger.coffee":235,"./../../mixins/Flux.coffee":269,"./PresenceWidget":321,"react":"M6d2gk"}],321:[function(require,module,exports){
+var Icon, PresenceWidget, React, div, span, _ref;
+
+React = require('react');
+
+Icon = React.createFactory(require('./../../common/Icon.coffee'));
+
+_ref = React.DOM, div = _ref.div, span = _ref.span;
+
+PresenceWidget = React.createClass({
+  displayName: 'PresenceWidget',
+  render: function() {
+    return div({
+      className: 'presence'
+    }, [
+      Icon({
+        key: 'presence-icon',
+        name: 'users'
+      }), span({
+        key: 'presence-count',
+        className: 'presence-count'
+      }, [this.props.connectedUsers.length])
+    ]);
+  }
+});
+
+module.exports = PresenceWidget;
+
+
+
+},{"./../../common/Icon.coffee":233,"react":"M6d2gk"}],322:[function(require,module,exports){
+var Flux, NavigationMenu, OrganizationCorner, React, ShellHeader, UserCorner, div;
+
+React = require('react');
+
+Flux = require('./../../mixins/Flux.coffee');
+
+OrganizationCorner = React.createFactory(require('./OrganizationCorner'));
+
+NavigationMenu = React.createFactory(require('./NavigationMenu'));
+
+UserCorner = React.createFactory(require('./UserCorner'));
+
+div = React.DOM.div;
+
+ShellHeader = React.createClass({
+  displayName: 'ShellHeader',
+  mixins: [Flux()],
+  render: function() {
+    return div({
+      className: 'shell-header'
+    }, [
+      OrganizationCorner({
+        key: 'organization',
+        currentOrganization: this.props.currentOrganization
+      }), div({
+        className: 'header-bar'
+      }, [
+        NavigationMenu({
+          key: 'navigation'
+        }), UserCorner({
+          key: 'user',
+          currentUser: this.props.currentUser
+        })
+      ])
+    ]);
+  }
+});
+
+module.exports = ShellHeader;
+
+
+
+},{"./../../mixins/Flux.coffee":269,"./NavigationMenu":319,"./OrganizationCorner":320,"./UserCorner":323,"react":"M6d2gk"}],323:[function(require,module,exports){
+var Avatar, Flux, FocusedCard, MenuTrigger, React, UserWidget, div, _;
+
+_ = require('lodash');
+
+React = require('react');
+
+Flux = require('./../../mixins/Flux.coffee');
+
+Avatar = React.createFactory(require('./../../common/Avatar.coffee'));
+
+MenuTrigger = React.createFactory(require('./../../common/MenuTrigger.coffee'));
+
+FocusedCard = React.createFactory(require('./FocusedCard'));
+
+div = React.DOM.div;
+
+UserWidget = React.createClass({
+  displayName: 'UserWidget',
+  mixins: [Flux()],
+  render: function() {
+    if (this.props.currentUser == null) {
+      return div({
+        className: 'user loading'
+      });
+    }
+    return div({
+      className: 'user-corner'
+    }, [
+      FocusedCard({
+        key: 'focus',
+        className: 'focused-card'
+      }), div({
+        className: 'user-profile'
+      }, [
+        MenuTrigger({
+          key: 'trigger'
+        }), Avatar({
+          key: 'avatar',
+          user: this.props.currentUser,
+          size: 32
+        })
+      ])
+    ]);
+  }
+});
+
+module.exports = UserWidget;
+
+
+
+},{"./../../common/Avatar.coffee":231,"./../../common/MenuTrigger.coffee":235,"./../../mixins/Flux.coffee":269,"./FocusedCard":318,"lodash":23,"react":"M6d2gk"}],324:[function(require,module,exports){
+var CardBodyChangedEvent, CardBodyChangedListener, Listener,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Listener = require('./../../framework/Listener.coffee');
+
+CardBodyChangedEvent = require('./../../events/CardBodyChangedEvent.coffee');
+
+CardBodyChangedListener = (function(_super) {
+  __extends(CardBodyChangedListener, _super);
+
+  function CardBodyChangedListener() {
+    return CardBodyChangedListener.__super__.constructor.apply(this, arguments);
+  }
+
+  CardBodyChangedListener.prototype.createEvent = function(message) {
+    var document, meta, payload;
+    document = message.document, payload = message.payload;
+    meta = {
+      user: message.user
+    };
+    return new CardBodyChangedEvent(document.id, payload.body, document.version, meta);
+  };
+
+  return CardBodyChangedListener;
+
+})(Listener);
+
+module.exports = CardBodyChangedListener;
+
+
+
+},{"./../../events/CardBodyChangedEvent.coffee":244,"./../../framework/Listener.coffee":264}],325:[function(require,module,exports){
+var CardTitleChangedEvent, CardTitleChangedListener, Listener,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Listener = require('./../../framework/Listener.coffee');
+
+CardTitleChangedEvent = require('./../../events/CardTitleChangedEvent.coffee');
+
+CardTitleChangedListener = (function(_super) {
+  __extends(CardTitleChangedListener, _super);
+
+  function CardTitleChangedListener() {
+    return CardTitleChangedListener.__super__.constructor.apply(this, arguments);
+  }
+
+  CardTitleChangedListener.prototype.createEvent = function(message) {
+    var document, meta, payload;
+    document = message.document, payload = message.payload;
+    meta = {
+      user: message.user
+    };
+    return new CardTitleChangedEvent(document.id, payload.title, document.version);
+  };
+
+  return CardTitleChangedListener;
+
+})(Listener);
+
+module.exports = CardTitleChangedListener;
+
+
+
+},{"./../../events/CardTitleChangedEvent.coffee":245,"./../../framework/Listener.coffee":264}],326:[function(require,module,exports){
+var OrganizationStore, Store, _,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+_ = require('lodash');
+
+Store = require('./../../framework/Store.coffee');
+
+OrganizationStore = (function(_super) {
+  __extends(OrganizationStore, _super);
+
+  function OrganizationStore() {
+    this.currentOrganization = void 0;
+    this.organizations = {};
+  }
+
+  OrganizationStore.prototype.getOrganization = function(id) {
+    return this.organizations[id];
+  };
+
+  OrganizationStore.prototype.getAllOrganizations = function() {
+    return _.values(this.organizations);
+  };
+
+  OrganizationStore.prototype.onOrganizationsLoaded = function(event) {
+    this.organizations = _.extend(this.organizations, _.indexBy(event.organizations, 'id'));
+    return this.announce();
+  };
+
+  return OrganizationStore;
+
+})(Store);
+
+module.exports = OrganizationStore;
+
+
+
+},{"./../../framework/Store.coffee":265,"lodash":23}],327:[function(require,module,exports){
+var PresenceStore, Store, _,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+_ = require('lodash');
+
+Store = require('./../../framework/Store.coffee');
+
+PresenceStore = (function(_super) {
+  __extends(PresenceStore, _super);
+
+  function PresenceStore() {
+    this.currentUser = void 0;
+    this.connectedUsers = [];
+  }
+
+  PresenceStore.prototype.getConnectedUsers = function() {
+    return _.clone(this.connectedUsers);
+  };
+
+  PresenceStore.prototype.onJoinedPresenceChannel = function(event) {
+    this.connectedUsers = event.connectedUsers;
+    return this.announce();
+  };
+
+  PresenceStore.prototype.onUserConnected = function(event) {
+    this.connectedUsers.push(event.user);
+    return this.announce();
+  };
+
+  PresenceStore.prototype.onUserDisconnected = function(event) {
+    this.connectedUsers = _.filter(this.connectedUsers, function(u) {
+      return u.id !== event.user.id;
+    });
+    return this.announce();
+  };
+
+  PresenceStore.prototype.onCurrentUserLoaded = function(event) {
+    this.currentUser = event.user;
+    return this.announce();
+  };
+
+  return PresenceStore;
+
+})(Store);
+
+module.exports = PresenceStore;
+
+
+
+},{"./../../framework/Store.coffee":265,"lodash":23}],328:[function(require,module,exports){
+var QueueStore, Store, _,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+_ = require('lodash');
+
+Store = require('./../../framework/Store.coffee');
+
+QueueStore = (function(_super) {
+  __extends(QueueStore, _super);
+
+  function QueueStore() {
+    this.queue = void 0;
+    this.cards = {};
+  }
+
+  QueueStore.prototype.getQueue = function() {
+    return this.queue;
+  };
+
+  QueueStore.prototype.getFocusedCard = function() {
+    return _.first(_.sortBy(this.cards, 'rank'));
+  };
+
+  QueueStore.prototype.onQueueLoaded = function(event) {
+    this.queue = event.queue;
+    this.cards = _.indexBy(event.cards, 'id');
+    return this.announce();
+  };
+
+  QueueStore.prototype.onCardBodyChanged = function(event) {
+    var card;
+    card = this.cards[id];
+    if (card != null) {
+      card.body = event.body;
+      card.version = event.version;
+      return this.announce();
+    }
+  };
+
+  QueueStore.prototype.onCardTitleChanged = function(event) {
+    var card;
+    card = this.cards[id];
+    if (card != null) {
+      card.title = event.title;
+      card.version = event.version;
+      return this.announce();
+    }
+  };
+
+  return QueueStore;
+
+})(Store);
+
+module.exports = QueueStore;
+
+
+
+},{"./../../framework/Store.coffee":265,"lodash":23}]},{},[230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306,307,308,309,310,311,312,313,314,315,316,317,318,319,320,321,322,323,324,325,326,327,328]);
