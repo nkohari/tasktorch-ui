@@ -16,8 +16,9 @@ NavigationMenu = React.createClass {
   render: ->
     url = @getActiveUrl()
     div {className: 'navigation'}, [
-      @makeLink('workspace', 'Workspace')
+      @makeLink('workspace',  'Workspace')
       @makeLink('bigpicture', 'Big Picture')
+      @makeLink('planning',   'Planning')
     ]
 
   makeLink: (route, text) ->

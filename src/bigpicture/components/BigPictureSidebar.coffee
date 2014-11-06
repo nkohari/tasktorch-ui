@@ -1,18 +1,27 @@
-React    = require 'react'
-Flux     = require '../../mixins/Flux'
-Panel    = React.createFactory(require '../../common/Panel')
-TeamList = React.createFactory(require './TeamList')
+React        = require 'react'
+Flux         = require '../../mixins/Flux'
+List         = React.createFactory(require '../../common/List')
+TeamListItem = React.createFactory(require './TeamListItem')
+{div}        = React.DOM
 
 BigPictureSidebar = React.createClass {
 
   displayName: 'BigPictureSidebar'
 
-  mixins: [Flux()]
+  mixins: [Flux('teams')]
+
+  getStateFromStores: (stores) ->
+    return {
+      teams: stores.teams.getAllTeams()
+    }
+
+  componentWillMount: ->
+    @getController().loadTeams()
 
   render: ->
 
-    Panel {panelTitle: 'Teams', className: 'big-picture sidebar'}, [
-      TeamList {key: 'team-list'}
+    div {className: 'big-picture sidebar'}, [
+      List {key: 'team-list', className: 'team-list', component: TeamListItem, kind: 'team', items: @state.teams}
     ]
 
 }

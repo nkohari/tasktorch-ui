@@ -90,6 +90,8 @@ textarea.editable {
     content: "\2692"; }
   .icon.icon-bigpicture:before {
     content: "\1F30E"; }
+  .icon.icon-planning:before {
+    content: "\1F56A"; }
   .icon.icon-focus:before {
     content: "\1F3AF"; }
   .icon.icon-archive:before {
@@ -100,6 +102,8 @@ textarea.editable {
     content: "\1F465"; }
   .icon.icon-focus:before {
     content: "\1F3AF"; }
+  .icon.icon-goal:before {
+    content: "\1F3C6"; }
 
 .shell {
   height: 100vh;
@@ -466,4 +470,24 @@ textarea.editable {
     .team-list .team-list-item a .team-name {
       padding-left: 0.2em; }
     .team-list .team-list-item a.active {
+      border-right: 4px solid #cccccc; }
+
+.goal-list {
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none; }
+  .goal-list li a {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    padding: 6px 8px;
+    background: #fff;
+    border-bottom: 1px solid #999999;
+    color: black;
+    text-decoration: none;
+    transition: border 0.1s ease-in-out; }
+    .goal-list li a .goal-name {
+      padding-left: 0.2em; }
+    .goal-list li a.active {
       border-right: 4px solid #cccccc; }

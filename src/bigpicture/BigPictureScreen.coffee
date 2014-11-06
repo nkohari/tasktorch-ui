@@ -5,9 +5,7 @@ ActiveUrl             = require '../mixins/ActiveUrl'
 Flux                  = require '../mixins/Flux'
 BigPictureEnvironment = require './BigPictureEnvironment'
 BigPictureUrl         = require './BigPictureUrl'
-PanelGroup            = React.createFactory(require '../common/PanelGroup')
 BigPictureSidebar     = React.createFactory(require './components/BigPictureSidebar')
-UserQueuePanel        = React.createFactory(require './components/UserQueuePanel')
 {div}                 = React.DOM
 
 BigPictureScreen = React.createClass {
@@ -23,20 +21,12 @@ BigPictureScreen = React.createClass {
     {controller: BigPictureEnvironment.createController()}
 
   componentWillMount: ->
-    controller = @getController()
-    controller.setOrganization(@getActiveUrl().organizationId)
-    controller.loadTeams()
+    @getController().setOrganization(@getActiveUrl().organizationId)
 
   render: ->
 
-    url = @getActiveUrl()
-    position = 0
-    userPanels = _.map url.users, (userId) =>
-      UserQueuePanel {key: "user-#{userId}", userId, position: position++}
-
     div {className: 'big-picture screen'}, [
       BigPictureSidebar {key: 'sidebar'}
-      PanelGroup {key: 'user-panels'}, userPanels
     ]
 
 }

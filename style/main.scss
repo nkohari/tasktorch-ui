@@ -95,11 +95,13 @@ textarea.editable {
   &.icon-users:before { content: "\1F465"; }
   &.icon-workspace:before { content: "\2692"; }
   &.icon-bigpicture:before { content: "\1F30E"; }
+  &.icon-planning:before { content: "\1F56A"; }
   &.icon-focus:before { content: "\1F3AF"; }
   &.icon-archive:before { content: "\1F4E6"; }
   &.icon-trash:before { content: "\E729"; }
   &.icon-team:before { content: "\1F465"; }
   &.icon-focus:before { content: "\1F3AF"; }
+  &.icon-goal:before { content: "\1F3C6"; }
 }
 
 .shell {
@@ -516,6 +518,28 @@ textarea.editable {
     color: $font-color;
     text-decoration: none;
     .team-name { padding-left: 0.2em; }
+    &.active {
+      border-right: 4px solid $active-marker-color;
+    }
+    transition: border 0.1s ease-in-out;
+  }
+}
+
+.goal-list {
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
+  li a {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    padding: 6px 8px;
+    background: #fff;
+    border-bottom: 1px solid $panel-border-color;
+    color: $font-color;
+    text-decoration: none;
+    .goal-name { padding-left: 0.2em; }
     &.active {
       border-right: 4px solid $active-marker-color;
     }
