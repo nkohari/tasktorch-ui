@@ -28,7 +28,7 @@ FocusedCard = React.createClass {
   render: ->
     linkProps = _.extend {className: 'focused-card'}, @makeLinkProps()
     Link linkProps, [
-      div {name: 'title', className: 'title'}, [@state.focusedCard.title]
+      div {key: 'title', className: 'title'}, [@state.focusedCard.title]
     ]
 
   makeLinkProps: ->

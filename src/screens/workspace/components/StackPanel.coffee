@@ -6,7 +6,7 @@ ActiveUrl      = require 'mixins/ActiveUrl'
 WorkspaceUrl   = require '../WorkspaceUrl'
 Panel          = React.createFactory(require 'common/Panel')
 StackCardFrame = React.createFactory(require './StackCardFrame')
-{ul}           = React.DOM
+{div, ul}      = React.DOM
 
 StackPanel = React.createClass {
 
@@ -39,6 +39,10 @@ StackPanel = React.createClass {
 
   render: ->
 
+    # TODO: Proper loading indicator
+    unless @state.stack?
+      return div {}, ["Loading"]
+
     cards = _.map @state.cards, (card, index) =>
       StackCardFrame {key: "card-frame-#{card.id}", stack: @state.stack, card, index}
 
@@ -46,7 +50,7 @@ StackPanel = React.createClass {
       panelTitle:  @state.stack.name
       className:   'stack'
       style:       {zIndex: 99 - @props.position}
-      icon:        "stack-#{@state.stack.kind.toLowerCase()}"
+      icon:        "stack-#{@state.stack.kind?.toLowerCase()}"
       close:       @makeCloseLinkProps()
       onDragStart: @handleDragStart
       onDragEnd:   @handleDragEnd

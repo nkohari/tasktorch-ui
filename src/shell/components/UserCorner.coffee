@@ -6,9 +6,9 @@ MenuTrigger = React.createFactory(require 'common/MenuTrigger')
 FocusedCard = React.createFactory(require './FocusedCard')
 {div}       = React.DOM
 
-UserWidget = React.createClass {
+UserCorner = React.createClass {
 
-  displayName: 'UserWidget'
+  displayName: 'UserCorner'
 
   mixins: [Flux()]
 
@@ -19,7 +19,7 @@ UserWidget = React.createClass {
 
     div {className: 'user-corner'}, [
       FocusedCard {key: 'focus', className: 'focused-card'}
-      div {className: 'user-profile'}, [
+      div {key: 'user-profile', className: 'user-profile'}, [
         MenuTrigger {key: 'trigger'}
         Avatar {key: 'avatar', user: @props.currentUser, size: 32}
       ]
@@ -27,4 +27,4 @@ UserWidget = React.createClass {
 
 }
 
-module.exports = UserWidget
+module.exports = UserCorner

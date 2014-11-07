@@ -13,7 +13,7 @@ SearchBox = React.createClass {
 
   render: ->
     div {className: 'search'}, [
-      input {placeholder: 'Search', value: @state.value}
+      input {key: 'search-input', placeholder: 'Search', value: @state.value}
     ]
 
 }

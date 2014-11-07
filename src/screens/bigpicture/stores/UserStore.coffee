@@ -11,7 +11,6 @@ class UserStore extends Store
 
   onUsersLoaded: (event) ->
     @users = _.extend @users, _.indexBy(event.users, 'id')
-    console.log(@users)
     @announce()
 
 module.exports = UserStore

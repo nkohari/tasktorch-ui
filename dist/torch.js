@@ -36681,7 +36681,6 @@ UserStore = (function(_super) {
 
   UserStore.prototype.onUsersLoaded = function(event) {
     this.users = _.extend(this.users, _.indexBy(event.users, 'id'));
-    console.log(this.users);
     return this.announce();
   };
 
@@ -37639,6 +37638,7 @@ SearchBox = React.createClass({
       className: 'search'
     }, [
       input({
+        key: 'search-input',
         placeholder: 'Search',
         value: this.state.value
       })
@@ -37809,7 +37809,7 @@ module.exports = StackListItem;
 
 
 },{"../WorkspaceUrl":292,"./../../../common/Icon.coffee":233,"./../../../mixins/ActiveUrl.coffee":268,"lodash":23,"react-router":33,"react/addons":64}],300:[function(require,module,exports){
-var ActiveUrl, Flux, Panel, React, Router, StackCardFrame, StackPanel, WorkspaceUrl, ul, _;
+var ActiveUrl, Flux, Panel, React, Router, StackCardFrame, StackPanel, WorkspaceUrl, div, ul, _, _ref;
 
 _ = require('lodash');
 
@@ -37827,7 +37827,7 @@ Panel = React.createFactory(require('./../../../common/Panel.coffee'));
 
 StackCardFrame = React.createFactory(require('./StackCardFrame'));
 
-ul = React.DOM.ul;
+_ref = React.DOM, div = _ref.div, ul = _ref.ul;
 
 StackPanel = React.createClass({
   displayName: 'StackPanel',
@@ -37856,7 +37856,10 @@ StackPanel = React.createClass({
     return controller.loadCardsInStack(stackId);
   },
   render: function() {
-    var cards;
+    var cards, _ref1;
+    if (this.state.stack == null) {
+      return div({}, ["Loading"]);
+    }
     cards = _.map(this.state.cards, (function(_this) {
       return function(card, index) {
         return StackCardFrame({
@@ -37873,7 +37876,7 @@ StackPanel = React.createClass({
       style: {
         zIndex: 99 - this.props.position
       },
-      icon: "stack-" + (this.state.stack.kind.toLowerCase()),
+      icon: "stack-" + ((_ref1 = this.state.stack.kind) != null ? _ref1.toLowerCase() : void 0),
       close: this.makeCloseLinkProps(),
       onDragStart: this.handleDragStart,
       onDragEnd: this.handleDragEnd,
@@ -37899,8 +37902,8 @@ StackPanel = React.createClass({
     return console.log("stopped dragging from stack " + this.state.stack.id);
   },
   handleDragOver: function(event) {
-    var draggingCard, draggingIndex, hoveringCard, hoveringIndex, rect, _ref;
-    _ref = Screen.state, draggingCard = _ref.draggingCard, draggingIndex = _ref.draggingIndex, hoveringCard = _ref.hoveringCard, hoveringIndex = _ref.hoveringIndex;
+    var draggingCard, draggingIndex, hoveringCard, hoveringIndex, rect, _ref1;
+    _ref1 = Screen.state, draggingCard = _ref1.draggingCard, draggingIndex = _ref1.draggingIndex, hoveringCard = _ref1.hoveringCard, hoveringIndex = _ref1.hoveringIndex;
     if (!((draggingCard != null) && (hoveringCard != null))) {
       return;
     }
@@ -38659,7 +38662,7 @@ FocusedCard = React.createClass({
     }, this.makeLinkProps());
     return Link(linkProps, [
       div({
-        name: 'title',
+        key: 'title',
         className: 'title'
       }, [this.state.focusedCard.title])
     ]);
@@ -38841,6 +38844,7 @@ ShellHeader = React.createClass({
         key: 'organization',
         currentOrganization: this.props.currentOrganization
       }), div({
+        key: 'header-bar',
         className: 'header-bar'
       }, [
         NavigationMenu({
@@ -38859,7 +38863,7 @@ module.exports = ShellHeader;
 
 
 },{"./../../mixins/Flux.coffee":269,"./NavigationMenu":318,"./OrganizationCorner":319,"./UserCorner":322,"react":"M6d2gk"}],322:[function(require,module,exports){
-var Avatar, Flux, FocusedCard, MenuTrigger, React, UserWidget, div, _;
+var Avatar, Flux, FocusedCard, MenuTrigger, React, UserCorner, div, _;
 
 _ = require('lodash');
 
@@ -38875,8 +38879,8 @@ FocusedCard = React.createFactory(require('./FocusedCard'));
 
 div = React.DOM.div;
 
-UserWidget = React.createClass({
-  displayName: 'UserWidget',
+UserCorner = React.createClass({
+  displayName: 'UserCorner',
   mixins: [Flux()],
   render: function() {
     if (this.props.currentUser == null) {
@@ -38891,6 +38895,7 @@ UserWidget = React.createClass({
         key: 'focus',
         className: 'focused-card'
       }), div({
+        key: 'user-profile',
         className: 'user-profile'
       }, [
         MenuTrigger({
@@ -38905,7 +38910,7 @@ UserWidget = React.createClass({
   }
 });
 
-module.exports = UserWidget;
+module.exports = UserCorner;
 
 
 
