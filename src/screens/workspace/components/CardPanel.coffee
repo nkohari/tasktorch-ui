@@ -8,13 +8,14 @@ Panel         = React.createFactory(require 'common/Panel')
 CardActionBar = React.createFactory(require './CardActionBar')
 CardHeader    = React.createFactory(require './CardHeader')
 CardBody      = React.createFactory(require './CardBody')
+{div}         = React.DOM
 
 CardPanel = React.createClass {
 
   displayName: 'CardPanel'
 
   mixins: [
-    Flux('cards')
+    Flux('cards', 'types')
     ActiveUrl(WorkspaceUrl)
   ]
 
@@ -24,26 +25,31 @@ CardPanel = React.createClass {
   getStateFromStores: (stores) ->
     card = stores.cards.getCard(@props.cardId)
     type = stores.types.getType(card.type) if card?
-    return {
-      card: card ? {}
-      type: type ? {}
-    }
+    {card, type}
 
   componentWillMount: ->
     @getController().loadCard(@props.cardId)
 
   render: ->
+
+    if @state.card? and @state.type?
+      title = @state.card.title or Constants.untitledCard
+      children = [
+        CardActionBar {key: 'card-actions', card: @state.card}
+        CardHeader {key: 'card-header', card: @state.card, type: @state.type}
+        CardBody {key: 'card-body', card: @state.card}
+      ]
+    else 
+      title = 'Loading'
+      children = []
+
     Panel {
       style:      {zIndex: 99 - @props.position}
-      panelTitle: @state.card.title or Constants.untitledCard
+      panelTitle: title
       icon:       'card'
       className:  'card'
       close:      @makeCloseLinkProps()
-    }, [
-      CardActionBar {key: 'card-actions', card: @state.card}
-      CardHeader {key: 'card-header', card: @state.card, type: @state.type}
-      CardBody {key: 'card-body', card: @state.card}
-    ]
+    }, children
 
   makeCloseLinkProps: ->
     url = @getActiveUrl()

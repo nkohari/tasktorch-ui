@@ -1,15 +1,15 @@
-_                    = require 'lodash'
-React                = require 'react/addons'
-Router               = require 'react-router'
-Flux                 = require 'mixins/Flux'
-ActiveUrl            = require 'mixins/ActiveUrl'
-WorkspaceEnvironment = require './WorkspaceEnvironment'
-WorkspaceUrl         = require './WorkspaceUrl'
-PanelGroup           = React.createFactory(require 'common/PanelGroup')
-StackPanel           = React.createFactory(require './components/StackPanel')
-CardPanel            = React.createFactory(require './components/CardPanel')
-WorkspaceSidebar     = React.createFactory(require './components/WorkspaceSidebar')
-{div}                = React.DOM
+_                          = require 'lodash'
+React                      = require 'react/addons'
+Router                     = require 'react-router'
+Flux                       = require 'mixins/Flux'
+ActiveUrl                  = require 'mixins/ActiveUrl'
+WorkspaceControllerFactory = require './WorkspaceControllerFactory'
+WorkspaceUrl               = require './WorkspaceUrl'
+PanelGroup                 = React.createFactory(require 'common/PanelGroup')
+StackPanel                 = React.createFactory(require './components/StackPanel')
+CardPanel                  = React.createFactory(require './components/CardPanel')
+WorkspaceSidebar           = React.createFactory(require './components/WorkspaceSidebar')
+{div}                      = React.DOM
 
 WorkspaceScreen = React.createClass {
 
@@ -26,7 +26,7 @@ WorkspaceScreen = React.createClass {
     currentUser:         React.PropTypes.object.isRequired
 
   getDefaultProps: ->
-    {controller: WorkspaceEnvironment.createController()}
+    {controller: WorkspaceControllerFactory.create()}
 
   getInitialState: ->
     return {
@@ -46,6 +46,7 @@ WorkspaceScreen = React.createClass {
     window.Screen = undefined
 
   render: ->
+    
     url = @getActiveUrl()
     position = 0
     stackPanels = _.map url.stacks, (stackId) =>

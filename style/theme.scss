@@ -9,76 +9,78 @@ $sidebar-width: 200px;
 $stack-panel-width: 291px;
 $card-panel-width: 582px;
 
-$panel-background-color: #f9f9f9;
-$panel-header-background-color: #ccc;
+$panel-border: 1px solid #999;
+$panel-background: #f9f9f9;
+$panel-header-background: #ccc;
 $panel-header-text-color: #666;
 $panel-header-icon-color: #666;
-$panel-border-color: #999;
 
-$scrollbar-track-background-color: #efefef;
-$scrollbar-track-border-color: #ccc;
-$scrollbar-thumb-background-color: #aaa;
-$scrollbar-thumb-border-color: transparent;
+$scrollbar-track-background: #efefef;
+$scrollbar-track-border: 1px solid #ccc;
+$scrollbar-thumb-background: #aaa;
+$scrollbar-thumb-border: 4px solid transparent;
 
-$editable-text-border-color: transparent;
-$editable-text-hover-background-color: #f9f9f9;
-$editable-text-hover-border-color: #aaa;
-$editable-text-active-background-color: #fff;
-$editable-text-active-border-color: #888;
+$editable-text-border: 1px dashed transparent;
+$editable-text-hover-background: #f9f9f9;
+$editable-text-hover-border: 1px dashed #aaa;
+$editable-text-active-background: #fff;
+$editable-text-active-border: 1px solid #888;
 $editable-text-active-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+$editable-text-dirty-border: 1px solid #090;
 
-$header-bar-border-color: #666;
-$header-bar-background-color: linear-gradient(to bottom, #999, #aaa);
+$header-bar-border: 1px solid #999;
+$header-bar-background: linear-gradient(to bottom, #999, #aaa);
+$header-bar-shadow: 0;
 
 $organization-name-text-color: #fff;
 $organization-name-text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-$organization-background-color: #555;
+$organization-background: #555;
 $organization-menu-trigger-color: #999;
 $organization-widget-color: #999;
 
 $navigation-text-color: #666;
 $navigation-icon-color: #666;
-$navigation-border-color: #666;
+$navigation-border: 1px solid #666;
 $navigation-active-color: #444;
 $navigation-active-icon-color: #444;
-$navigation-active-background-color: #999;
-$navigation-active-indicator-color: #777;
+$navigation-active-background: #888;
 
-$focus-border-color: #555;
-$focus-background-color: #555;
+$focus-border: 1px solid #555;
+$focus-background: #555;
 $focus-hover-text-color: #fff;
-$focus-hover-background-color: #666;
+$focus-hover-background: #666;
 $focus-title-text-color: #ccc;
 $focus-title-text-shadow-color: rgba(0, 0, 0, 0.5);
 
-$user-profile-background-color: #444;
+$user-profile-background: #444;
 $user-profile-menu-trigger-color: #999;
-$user-profile-avatar-border-color: #999;
+$user-profile-avatar-border: 1px solid #999;
 
-$search-background-color: #555;
-$search-input-background-color: #666;
-$search-input-border-color: #888;
+$search-background: #555;
+$search-input-border: 1px solid #888;
+$search-input-background: #666;
 $search-input-active-text-color: #000;
-$search-input-active-background-color: #fff;
+$search-input-active-background: #fff;
 
-$sidebar-background-color: #fff;
-$sidebar-border-color: #999;
-$sidebar-list-background-color: #fff;
-$sidebar-item-border-color: #999;
-$sidebar-item-background-color: #fff;
+$sidebar-background: #fff;
+$sidebar-border: 1px solid #999;
+$sidebar-shadow: 0;
+$sidebar-list-background: #fff;
+$sidebar-item-border: 1px solid #999;
+$sidebar-item-background: #fff;
 $sidebar-item-count-color: #999;
 
 $active-marker-color: #ccc;
-$stack-card-background-color: #fff;
+$stack-card-background: #fff;
 $stack-card-title-color: #000;
-$stack-card-contextual-border: #ccc;
+$stack-card-contextual-border: 1px dotted #ccc;
 $stack-card-contextual-color: #666;
 
-$card-actions-background-color: #ddd;
-$card-actions-border-color: #999;
+$card-actions-background: #ddd;
+$card-actions-border: 1px solid #999;
 $card-actions-button-text-color: #666;
-$card-actions-button-background-color: linear-gradient(to bottom, #eee, #ddd);
+$card-actions-button-background: linear-gradient(to bottom, #eee, #ddd);
+$card-actions-button-border: 1px solid #ccc;
 $card-actions-button-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.5);
-$card-actions-button-border-color: #ccc;
 
-$card-header-border-color: #ccc;
+$card-header-border: 1px solid #ccc;

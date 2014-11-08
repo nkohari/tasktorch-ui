@@ -17,8 +17,9 @@
     position: relative;
     margin-left: $sidebar-width;
     height: 100%;
-    border-bottom: 1px solid $header-bar-border-color;
-    background: $header-bar-background-color;
+    border-bottom: $header-bar-border;
+    background: $header-bar-background;
+    box-shadow: $header-bar-shadow;
   }
 }
 
@@ -27,7 +28,7 @@
   width: $sidebar-width;
   height: 100%;
   padding: 8px 4px 4px 10px;
-  background: $organization-background-color;
+  background: $organization-background;
   .organization-name {
     float: left;
     font-size: 16px;
@@ -71,15 +72,14 @@
     color: $navigation-text-color;
     text-decoration: none;
     text-align: center;
-    border-right: 1px solid $navigation-border-color;
+    border-right: $navigation-border;
     .icon {
       color: $navigation-icon-color;
       text-align: left;
     }
     &.active {
       color: $navigation-active-icon-color;
-      background: $navigation-active-background-color;
-      border-bottom: 4px solid $navigation-active-indicator-color;
+      background: $navigation-active-background;
       .icon { color: $navigation-active-icon-color; }
     }
   }
@@ -95,15 +95,15 @@
     padding: 8px 10px;
     font-size: 14px;
     font-weight: thin;
-    border-right: 1px solid $focus-border-color;
-    background: $focus-background-color;
+    border-right: $focus-border;
+    background: $focus-background;
     text-decoration: none;
     transition-property: color background;
     transition-duration: 0.15s;
     transition-timing-function: ease-in-out;
     &:hover {
       color: $focus-hover-text-color;
-      background: $focus-hover-background-color;
+      background: $focus-hover-background;
     }
     .title {
       width: 100%;
@@ -118,7 +118,7 @@
     float: right;
     height: 100%;
     padding: 8px;
-    background: $user-profile-background-color;
+    background: $user-profile-background;
     .menu-trigger {
       display: inline-block;
       vertical-align: middle;
@@ -129,7 +129,7 @@
     .avatar {
       display: inline-block;
       vertical-align: middle;
-      border: 1px solid $user-profile-avatar-border-color;
+      border: $user-profile-avatar-border;
       border-radius: 50%;
     }
   }
@@ -143,17 +143,17 @@
   overflow-y: hidden;
   white-space: nowrap;
   &::-webkit-scrollbar-track {
-    background: $scrollbar-track-background-color;
-    border-top: 1px solid $scrollbar-track-border-color;
+    background: $scrollbar-track-background;
+    border-top: $scrollbar-track-border;
   }
   &::-webkit-scrollbar {
     height: 16px;
     padding-top: 1px;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: $scrollbar-thumb-background-color;
+    background: $scrollbar-thumb-background;
     background-clip: content-box;
-    border: 4px solid $scrollbar-thumb-border-color;
+    border: $scrollbar-thumb-border;
     border-radius: 16px;
   }  
 }

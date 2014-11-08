@@ -1,19 +1,19 @@
 .search {
   padding: 0 10px 10px;
-  background: $search-background-color;
+  background: $search-background;
   input {
     width: 100%;
     font-size: 13px;
     padding: 4px 8px;
-    background: $search-input-background-color;
-    border: 1px solid $search-input-border-color;
+    background: $search-input-background;
+    border: $search-input-border;
     border-radius: 4px;
     transition-property: border, background;
     transition-duration: 0.2s;
     transition-timing-function: ease-in-out;
     &:focus {
       color: $search-input-active-text-color;
-      background: $search-input-active-background-color;
+      background: $search-input-active-background;
       outline: none !important;
     }
   }
@@ -23,15 +23,15 @@
   margin: 0px;
   padding: 0px;
   list-style-type: none;
-  background: $sidebar-list-background-color;
+  background: $sidebar-list-background;
   li a {
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     display: block;
     padding: 6px 8px;
-    background: $sidebar-item-background-color;
-    border-bottom: 1px solid $sidebar-item-border-color;
+    background: $sidebar-item-background;
+    border-bottom: $sidebar-item-border;
     color: #000;
     text-decoration: none;
     transition: border 0.1s ease-in-out;
@@ -60,8 +60,8 @@
   cursor: -webkit-grab;
   cursor: -moz-grab;
   cursor: grab;
-  border-bottom: 1px solid $panel-border-color;
-  background: $stack-card-background-color;
+  border-bottom: $panel-border;
+  background: $stack-card-background;
   padding: 6px;
   transition: border 0.1s ease-in-out;
   &.dragging {
@@ -96,7 +96,7 @@
     overflow: hidden;
     padding-top: 6px;
     margin-top: 6px;
-    border-top: 1px dotted $stack-card-contextual-border;
+    border-top: $stack-card-contextual-border;
     color: $stack-card-contextual-color;
     font-size: 13px;
     line-height: 17px;
@@ -117,16 +117,16 @@
       font-weight: 600;
       padding: 6px 10px;
       color: $card-actions-button-text-color;
-      background: $card-actions-button-background-color;
+      background: $card-actions-button-background;
       box-shadow: $card-actions-button-shadow;
-      border: 1px solid $card-actions-button-border-color;
+      border: $card-actions-button-border;
       border-radius: 2px;
     }
   }
   .card-header {
     margin: 10px;
     padding-bottom: 10px;
-    border-bottom: 1px solid $card-header-border-color;
+    border-bottom: $card-header-border;
     .title {
       color: #111;
       font-size: 22px;

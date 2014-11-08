@@ -5,7 +5,7 @@ Flux          = require 'mixins/Flux'
 ActiveUrl     = require 'mixins/ActiveUrl'
 BigPictureUrl = require '../BigPictureUrl'
 Panel         = React.createFactory(require 'common/Panel')
-{ul}          = React.DOM
+{div, ul}     = React.DOM
 
 UserQueuePanel = React.createClass {
 
@@ -21,7 +21,7 @@ UserQueuePanel = React.createClass {
 
   getStateFromStores: (stores) ->
     return {
-      user: stores.users.getUser(@props.userId) ? {}
+      user: stores.users.getUser(@props.userId)
     }
 
   componentWillReceiveProps: (newProps) ->
@@ -35,6 +35,10 @@ UserQueuePanel = React.createClass {
     controller.loadUser(userId)
 
   render: ->
+
+    # TODO: Proper loading indicator
+    unless @state.user?
+      return div {}, ["Loading"]
 
     Panel {
       panelTitle:  @state.user.name

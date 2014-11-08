@@ -22,20 +22,20 @@ body {
 }
 
 @mixin editable-text {
-  border: 1px dashed $editable-text-border-color;
+  border: $editable-text-border;
   transition-property: border, background, box-shadow;
   transition-duration: 0.1s;
   transition-timing-function: ease-in-out;
   &.dirty {
-    border-color: #090 !important;
+    border: $editable-text-dirty-border !important;
   }
   &:hover {
-    background: $editable-text-hover-background-color;
-    border: 1px dashed $editable-text-hover-border-color;
+    background: $editable-text-hover-background;
+    border: $editable-text-hover-border;
   }
   &:focus {
-    background: $editable-text-active-background-color;
-    border: 1px solid $editable-text-active-border-color;
+    background: $editable-text-active-background;
+    border: $editable-text-active-border;
     outline: none !important;
     box-shadow: $editable-text-active-shadow;
   }
@@ -98,8 +98,9 @@ textarea.editable {
   @include panel-flow;
   width: $sidebar-width;
   z-index: 1000;
-  border-right: 1px solid $sidebar-border-color;
-  background: $sidebar-background-color;
+  border-right: $sidebar-border;
+  background: $sidebar-background;
+  box-shadow: $sidebar-shadow;
   overflow-x: hidden;
   overflow-y: auto;
   white-space: normal;
@@ -111,8 +112,8 @@ textarea.editable {
 
 .panel {
   @include panel-flow;
-  border-right: 1px solid $panel-border-color;
-  background: $panel-background-color;
+  border-right: $panel-border;
+  background: $panel-background;
   overflow-x: hidden;
   overflow-y: auto;
   white-space: normal;
@@ -120,10 +121,10 @@ textarea.editable {
     font-size: 14px;
     font-weight: 600;
     color: $panel-header-text-color;
-    background: $panel-header-background-color;
+    background: $panel-header-background;
     overflow: hidden;
     padding: 5px;
-    border-bottom: 1px solid $panel-border-color;
+    border-bottom: $panel-border;
     .title {
       display: inline-block;
       padding-left: 0.2em;

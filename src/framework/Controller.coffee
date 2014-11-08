@@ -2,17 +2,13 @@ _ = require 'lodash'
 
 class Controller
 
-  constructor: (@stores, @listeners) ->
-    _.each @listeners, (listener) =>
-      listener.on 'event', @dispatch.bind(this)
+  constructor: (@eventBus, @stores) ->
+    @eventBus.registerStores(@stores)
 
-  dispatch: (event) ->
-    func = "on#{event.type}"
-    _.each @stores, (store) ->
-      store[func].apply(store, [event]) if store[func]?
+  publish: (event) ->
+    @eventBus.publish(event)
 
-  bindListeners: (channel) ->
-    _.each @listeners, (listener) =>
-      listener.bind(channel)
+  getStores: (names...) ->
+    _.pick @stores, _.flatten(names)
 
 module.exports = Controller

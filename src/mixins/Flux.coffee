@@ -30,12 +30,14 @@ StoreWatchMixin = (storesToWatch) ->
         controller.stores[name].removeListener('change', @_updateState)
 
     getInitialState: ->
-      @getStateFromStores(@getController().stores)
+      @_getUpdatedStateFromStores()
 
     _updateState: ->
-      if @isMounted
-        newState = @getStateFromStores(@getController().stores)
-        @setState(newState)
+      @setState(@_getUpdatedStateFromStores()) if @isMounted()
+
+    _getUpdatedStateFromStores: ->
+      stores = @getController().getStores(storesToWatch)
+      @getStateFromStores(stores)
 
   }
 

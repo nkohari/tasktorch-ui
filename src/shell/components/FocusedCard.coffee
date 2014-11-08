@@ -19,13 +19,18 @@ FocusedCard = React.createClass {
 
   getStateFromStores: (stores) ->
     return {
-      focusedCard: stores.queue.getFocusedCard() ? {}
+      focusedCard: stores.queue.getFocusedCard()
     }
 
   componentWillMount: ->
     @getController().loadMyQueue()
 
   render: ->
+
+    # TODO: Proper loading indicator
+    unless @state.focusedCard?
+      return div {}, ["Loading"]
+
     linkProps = _.extend {className: 'focused-card'}, @makeLinkProps()
     Link linkProps, [
       div {key: 'title', className: 'title'}, [@state.focusedCard.title]

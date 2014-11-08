@@ -1,10 +1,10 @@
-React            = require 'react/addons'
-ActiveUrl        = require 'mixins/ActiveUrl'
-Flux             = require 'mixins/Flux'
-ShellUrl         = require './ShellUrl'
-ShellEnvironment = require './ShellEnvironment'
-ShellHeader      = React.createFactory(require './components/ShellHeader')
-{div}            = React.DOM
+React                  = require 'react/addons'
+ActiveUrl              = require 'mixins/ActiveUrl'
+Flux                   = require 'mixins/Flux'
+ShellUrl               = require './ShellUrl'
+ShellControllerFactory = require './ShellControllerFactory'
+ShellHeader            = React.createFactory(require './components/ShellHeader')
+{div}                  = React.DOM
 
 Shell = React.createClass {
 
@@ -16,7 +16,7 @@ Shell = React.createClass {
   ]
 
   getDefaultProps: ->
-    {controller: ShellEnvironment.createController()}
+    {controller: ShellControllerFactory.create()}
 
   # TODO: Could we remove ActiveUrl and just set organizationId as a prop?
 

@@ -13,10 +13,6 @@ class CardStore extends Store
     cards = _.filter(@cards, (card) -> card.stack.id == stackId)
     _.sortBy(cards, 'rank')
 
-  onWorkspaceLoaded: (event) ->
-    @cards = _.indexBy(event.cards, 'id')
-    @announce()
-
   onCardsLoaded: (event) ->
     @cards = _.extend @cards, _.indexBy(event.cards, 'id')
     @announce()
