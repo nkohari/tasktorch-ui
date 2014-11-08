@@ -1,11 +1,11 @@
-_              = require 'lodash'
-React          = require 'react'
-Flux           = require 'mixins/Flux'
-Panel          = React.createFactory(require 'common/Panel')
-SidebarSection = React.createFactory(require 'common/SidebarSection')
-SearchBox      = React.createFactory(require './SearchBox')
-StackListItem  = React.createFactory(require './StackListItem')
-{div, ul}      = React.DOM
+_                = require 'lodash'
+React            = require 'react'
+Flux             = require 'mixins/Flux'
+Panel            = React.createFactory(require 'common/Panel')
+SidebarItemGroup = React.createFactory(require 'common/SidebarItemGroup')
+SearchBox        = React.createFactory(require './SearchBox')
+StackSidebarItem = React.createFactory(require './StackSidebarItem')
+{div, ul}        = React.DOM
 
 WorkspaceSidebar = React.createClass {
 
@@ -21,11 +21,11 @@ WorkspaceSidebar = React.createClass {
   render: ->
 
     myStacks = _.map @state.stacks, (stack) =>
-      StackListItem {key: "stack-#{stack.id}", stack}
+      StackSidebarItem {key: "stack-#{stack.id}", stack}
 
     div {className: 'workspace sidebar'}, [
       SearchBox {key: 'search'}
-      SidebarSection {key: 'my-stacks', header: 'My Stacks'}, myStacks
+      SidebarItemGroup {key: 'my-stacks', header: 'My Stacks'}, myStacks
     ]
 
 }

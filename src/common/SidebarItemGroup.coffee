@@ -2,16 +2,16 @@ _         = require 'lodash'
 React     = require 'react'
 {div, ul} = React.DOM
 
-SidebarSection = React.createClass {
+SidebarItemGroup = React.createClass {
 
-  displayName: 'SidebarSection'
+  displayName: 'SidebarItemGroup'
 
   render: ->
-    div {className: 'section'}, [
+    div {className: 'group'}, [
       div {key: 'header', className: 'header'}, [@props.header]
       ul {key: 'items'}, @props.children
     ]
 
 }
 
-module.exports = SidebarSection
+module.exports = SidebarItemGroup

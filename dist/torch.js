@@ -35581,7 +35581,7 @@ module.exports = RedirectToLastWorkspace;
 
 
 },{"react":"M6d2gk"}],243:[function(require,module,exports){
-var React, SidebarSection, div, ul, _, _ref;
+var React, SidebarItemGroup, div, ul, _, _ref;
 
 _ = require('lodash');
 
@@ -35589,11 +35589,11 @@ React = require('react');
 
 _ref = React.DOM, div = _ref.div, ul = _ref.ul;
 
-SidebarSection = React.createClass({
-  displayName: 'SidebarSection',
+SidebarItemGroup = React.createClass({
+  displayName: 'SidebarItemGroup',
   render: function() {
     return div({
-      className: 'section'
+      className: 'group'
     }, [
       div({
         key: 'header',
@@ -35605,7 +35605,7 @@ SidebarSection = React.createClass({
   }
 });
 
-module.exports = SidebarSection;
+module.exports = SidebarItemGroup;
 
 
 
@@ -36749,15 +36749,17 @@ module.exports = BigPictureUrl;
 
 
 },{"lodash":23}],282:[function(require,module,exports){
-var BigPictureSidebar, Flux, List, React, TeamListItem, div;
+var BigPictureSidebar, Flux, React, SidebarItemGroup, TeamSidebarItem, div, _;
+
+_ = require('lodash');
 
 React = require('react');
 
 Flux = require('./../../../mixins/Flux.coffee');
 
-List = React.createFactory(require('./../../../common/List.coffee'));
+SidebarItemGroup = React.createFactory(require('./../../../common/SidebarItemGroup.coffee'));
 
-TeamListItem = React.createFactory(require('./TeamListItem'));
+TeamSidebarItem = React.createFactory(require('./TeamSidebarItem'));
 
 div = React.DOM.div;
 
@@ -36773,16 +36775,22 @@ BigPictureSidebar = React.createClass({
     return this.getController().loadTeams();
   },
   render: function() {
+    var teams;
+    teams = _.map(this.state.teams, (function(_this) {
+      return function(team) {
+        return TeamSidebarItem({
+          key: "team-" + team.id,
+          team: team
+        });
+      };
+    })(this));
     return div({
       className: 'bigpicture sidebar'
     }, [
-      List({
-        key: 'team-list',
-        className: 'team-list',
-        component: TeamListItem,
-        kind: 'team',
-        items: this.state.teams
-      })
+      SidebarItemGroup({
+        key: 'teams',
+        header: 'Teams'
+      }, teams)
     ]);
   }
 });
@@ -36791,8 +36799,8 @@ module.exports = BigPictureSidebar;
 
 
 
-},{"./../../../common/List.coffee":236,"./../../../mixins/Flux.coffee":277,"./TeamListItem":283,"react":"M6d2gk"}],283:[function(require,module,exports){
-var ActiveUrl, BigPictureUrl, Icon, Link, React, Router, TeamListItem, li, span, _, _ref;
+},{"./../../../common/SidebarItemGroup.coffee":243,"./../../../mixins/Flux.coffee":277,"./TeamSidebarItem":283,"lodash":23,"react":"M6d2gk"}],283:[function(require,module,exports){
+var ActiveUrl, BigPictureUrl, Icon, Link, React, Router, TeamSidebarItem, li, span, _, _ref;
 
 _ = require('lodash');
 
@@ -36810,8 +36818,8 @@ Link = React.createFactory(Router.Link);
 
 _ref = React.DOM, li = _ref.li, span = _ref.span;
 
-TeamListItem = React.createClass({
-  displayName: 'TeamListItem',
+TeamSidebarItem = React.createClass({
+  displayName: 'TeamSidebarItem',
   mixins: [ActiveUrl(BigPictureUrl)],
   render: function() {
     var linkProps;
@@ -36840,7 +36848,7 @@ TeamListItem = React.createClass({
   }
 });
 
-module.exports = TeamListItem;
+module.exports = TeamSidebarItem;
 
 
 
@@ -37231,7 +37239,7 @@ module.exports = PlanningUrl;
 
 
 },{"lodash":23}],293:[function(require,module,exports){
-var ActiveUrl, GoalListItem, Icon, Link, PlanningUrl, React, Router, li, span, _, _ref;
+var ActiveUrl, GoalSidebarItem, Icon, Link, PlanningUrl, React, Router, li, span, _, _ref;
 
 _ = require('lodash');
 
@@ -37249,8 +37257,8 @@ Link = React.createFactory(Router.Link);
 
 _ref = React.DOM, li = _ref.li, span = _ref.span;
 
-GoalListItem = React.createClass({
-  displayName: 'GoalListItem',
+GoalSidebarItem = React.createClass({
+  displayName: 'GoalSidebarItem',
   mixins: [ActiveUrl(PlanningUrl)],
   render: function() {
     var linkProps;
@@ -37277,20 +37285,22 @@ GoalListItem = React.createClass({
   }
 });
 
-module.exports = GoalListItem;
+module.exports = GoalSidebarItem;
 
 
 
 },{"../PlanningUrl":292,"./../../../common/Icon.coffee":235,"./../../../mixins/ActiveUrl.coffee":276,"lodash":23,"react-router":33,"react/addons":64}],294:[function(require,module,exports){
-var Flux, GoalListItem, List, PlanningSidebar, React, div;
+var Flux, GoalSidebarItem, PlanningSidebar, React, SidebarItemGroup, div, _;
+
+_ = require('lodash');
 
 React = require('react');
 
 Flux = require('./../../../mixins/Flux.coffee');
 
-List = React.createFactory(require('./../../../common/List.coffee'));
+SidebarItemGroup = React.createFactory(require('./../../../common/SidebarItemGroup.coffee'));
 
-GoalListItem = React.createFactory(require('./GoalListItem'));
+GoalSidebarItem = React.createFactory(require('./GoalSidebarItem'));
 
 div = React.DOM.div;
 
@@ -37306,16 +37316,22 @@ PlanningSidebar = React.createClass({
     return this.getController().loadGoals();
   },
   render: function() {
+    var goals;
+    goals = _.map(this.state.goals, (function(_this) {
+      return function(goal) {
+        return GoalSidebarItem({
+          key: "goal-" + goal.id,
+          goal: goal
+        });
+      };
+    })(this));
     return div({
       className: 'planning sidebar'
     }, [
-      List({
-        key: 'goal-list',
-        className: 'goal-list',
-        component: GoalListItem,
-        kind: 'goal',
-        items: this.state.goals
-      })
+      SidebarItemGroup({
+        key: 'goals',
+        header: "Goals"
+      }, goals)
     ]);
   }
 });
@@ -37324,7 +37340,7 @@ module.exports = PlanningSidebar;
 
 
 
-},{"./../../../common/List.coffee":236,"./../../../mixins/Flux.coffee":277,"./GoalListItem":293,"react":"M6d2gk"}],295:[function(require,module,exports){
+},{"./../../../common/SidebarItemGroup.coffee":243,"./../../../mixins/Flux.coffee":277,"./GoalSidebarItem":293,"lodash":23,"react":"M6d2gk"}],295:[function(require,module,exports){
 var GoalStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -37631,7 +37647,7 @@ module.exports = WorkspaceScreen;
 
 
 
-},{"./../../common/PanelGroup.coffee":240,"./../../mixins/ActiveUrl.coffee":276,"./../../mixins/Flux.coffee":277,"./WorkspaceControllerFactory":298,"./WorkspaceUrl":300,"./components/CardPanel":304,"./components/StackPanel":308,"./components/WorkspaceSidebar":309,"lodash":23,"react-router":33,"react/addons":64}],300:[function(require,module,exports){
+},{"./../../common/PanelGroup.coffee":240,"./../../mixins/ActiveUrl.coffee":276,"./../../mixins/Flux.coffee":277,"./WorkspaceControllerFactory":298,"./WorkspaceUrl":300,"./components/CardPanel":304,"./components/StackPanel":307,"./components/WorkspaceSidebar":309,"lodash":23,"react-router":33,"react/addons":64}],300:[function(require,module,exports){
 var WorkspaceUrl, _;
 
 _ = require('lodash');
@@ -38048,59 +38064,6 @@ module.exports = StackCardFrame;
 
 
 },{"../WorkspaceUrl":300,"./../../../mixins/ActiveUrl.coffee":276,"./cards/BacklogCard":310,"./cards/InboxCard":311,"./cards/QueueCard":312,"react-router":33,"react/addons":64}],307:[function(require,module,exports){
-var ActiveUrl, Icon, Link, React, Router, StackListItem, WorkspaceUrl, li, span, _, _ref;
-
-_ = require('lodash');
-
-React = require('react/addons');
-
-Router = require('react-router');
-
-ActiveUrl = require('./../../../mixins/ActiveUrl.coffee');
-
-WorkspaceUrl = require('../WorkspaceUrl');
-
-Icon = React.createFactory(require('./../../../common/Icon.coffee'));
-
-Link = React.createFactory(Router.Link);
-
-_ref = React.DOM, li = _ref.li, span = _ref.span;
-
-StackListItem = React.createClass({
-  displayName: 'StackListItem',
-  mixins: [ActiveUrl(WorkspaceUrl)],
-  render: function() {
-    var linkProps;
-    linkProps = _.extend(this.makeLinkProps(), {
-      key: 'open-link'
-    });
-    return li({
-      className: 'sidebar-item'
-    }, [
-      Link(linkProps, [
-        Icon({
-          key: 'icon',
-          name: "stack-" + (this.props.stack.kind.toLowerCase())
-        }), span({
-          key: 'name',
-          className: 'name'
-        }, [this.props.stack.name])
-      ])
-    ]);
-  },
-  makeLinkProps: function() {
-    var url;
-    url = this.getActiveUrl();
-    url.addStack(this.props.stack.id);
-    return url.makeLinkProps();
-  }
-});
-
-module.exports = StackListItem;
-
-
-
-},{"../WorkspaceUrl":300,"./../../../common/Icon.coffee":235,"./../../../mixins/ActiveUrl.coffee":276,"lodash":23,"react-router":33,"react/addons":64}],308:[function(require,module,exports){
 var ActiveUrl, Flux, Panel, React, Router, StackCardFrame, StackPanel, WorkspaceUrl, div, ul, _, _ref;
 
 _ = require('lodash');
@@ -38227,8 +38190,61 @@ module.exports = StackPanel;
 
 
 
-},{"../WorkspaceUrl":300,"./../../../common/Panel.coffee":239,"./../../../mixins/ActiveUrl.coffee":276,"./../../../mixins/Flux.coffee":277,"./StackCardFrame":306,"lodash":23,"react":"M6d2gk","react-router":33}],309:[function(require,module,exports){
-var Flux, Panel, React, SearchBox, SidebarSection, StackListItem, WorkspaceSidebar, div, ul, _, _ref;
+},{"../WorkspaceUrl":300,"./../../../common/Panel.coffee":239,"./../../../mixins/ActiveUrl.coffee":276,"./../../../mixins/Flux.coffee":277,"./StackCardFrame":306,"lodash":23,"react":"M6d2gk","react-router":33}],308:[function(require,module,exports){
+var ActiveUrl, Icon, Link, React, Router, StackListItem, WorkspaceUrl, li, span, _, _ref;
+
+_ = require('lodash');
+
+React = require('react/addons');
+
+Router = require('react-router');
+
+ActiveUrl = require('./../../../mixins/ActiveUrl.coffee');
+
+WorkspaceUrl = require('../WorkspaceUrl');
+
+Icon = React.createFactory(require('./../../../common/Icon.coffee'));
+
+Link = React.createFactory(Router.Link);
+
+_ref = React.DOM, li = _ref.li, span = _ref.span;
+
+StackListItem = React.createClass({
+  displayName: 'StackListItem',
+  mixins: [ActiveUrl(WorkspaceUrl)],
+  render: function() {
+    var linkProps;
+    linkProps = _.extend(this.makeLinkProps(), {
+      key: 'open-link'
+    });
+    return li({
+      className: 'sidebar-item'
+    }, [
+      Link(linkProps, [
+        Icon({
+          key: 'icon',
+          name: "stack-" + (this.props.stack.kind.toLowerCase())
+        }), span({
+          key: 'name',
+          className: 'name'
+        }, [this.props.stack.name])
+      ])
+    ]);
+  },
+  makeLinkProps: function() {
+    var url;
+    url = this.getActiveUrl();
+    url.addStack(this.props.stack.id);
+    return url.makeLinkProps();
+  }
+});
+
+module.exports = StackListItem;
+
+
+
+},{"../WorkspaceUrl":300,"./../../../common/Icon.coffee":235,"./../../../mixins/ActiveUrl.coffee":276,"lodash":23,"react-router":33,"react/addons":64}],309:[function(require,module,exports){
+var Flux, Panel, React, SearchBox, SidebarItemGroup, StackSidebarItem, WorkspaceSidebar, div, ul, _, _ref;
 
 _ = require('lodash');
 
@@ -38238,11 +38254,11 @@ Flux = require('./../../../mixins/Flux.coffee');
 
 Panel = React.createFactory(require('./../../../common/Panel.coffee'));
 
-SidebarSection = React.createFactory(require('./../../../common/SidebarSection.coffee'));
+SidebarItemGroup = React.createFactory(require('./../../../common/SidebarItemGroup.coffee'));
 
 SearchBox = React.createFactory(require('./SearchBox'));
 
-StackListItem = React.createFactory(require('./StackListItem'));
+StackSidebarItem = React.createFactory(require('./StackSidebarItem'));
 
 _ref = React.DOM, div = _ref.div, ul = _ref.ul;
 
@@ -38258,7 +38274,7 @@ WorkspaceSidebar = React.createClass({
     var myStacks;
     myStacks = _.map(this.state.stacks, (function(_this) {
       return function(stack) {
-        return StackListItem({
+        return StackSidebarItem({
           key: "stack-" + stack.id,
           stack: stack
         });
@@ -38269,7 +38285,7 @@ WorkspaceSidebar = React.createClass({
     }, [
       SearchBox({
         key: 'search'
-      }), SidebarSection({
+      }), SidebarItemGroup({
         key: 'my-stacks',
         header: 'My Stacks'
       }, myStacks)
@@ -38281,7 +38297,7 @@ module.exports = WorkspaceSidebar;
 
 
 
-},{"./../../../common/Panel.coffee":239,"./../../../common/SidebarSection.coffee":243,"./../../../mixins/Flux.coffee":277,"./SearchBox":305,"./StackListItem":307,"lodash":23,"react":"M6d2gk"}],310:[function(require,module,exports){
+},{"./../../../common/Panel.coffee":239,"./../../../common/SidebarItemGroup.coffee":243,"./../../../mixins/Flux.coffee":277,"./SearchBox":305,"./StackSidebarItem":308,"lodash":23,"react":"M6d2gk"}],310:[function(require,module,exports){
 var BacklogCard, React, div;
 
 React = require('react');

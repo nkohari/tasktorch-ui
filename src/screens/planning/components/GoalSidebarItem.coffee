@@ -7,9 +7,9 @@ Icon        = React.createFactory(require 'common/Icon')
 Link        = React.createFactory(Router.Link)
 {li, span}  = React.DOM
 
-GoalListItem = React.createClass {
+GoalSidebarItem = React.createClass {
 
-  displayName: 'GoalListItem'
+  displayName: 'GoalSidebarItem'
 
   mixins: [ActiveUrl(PlanningUrl)]
 
@@ -29,4 +29,4 @@ GoalListItem = React.createClass {
 
 }
 
-module.exports = GoalListItem
+module.exports = GoalSidebarItem

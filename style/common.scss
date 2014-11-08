@@ -104,21 +104,22 @@ textarea.editable {
   overflow-x: hidden;
   overflow-y: auto;
   white-space: normal;
-  .section {
+  .group {
+    background: $sidebar-group-background;
+    border-bottom: $sidebar-group-border;
     .header {
       font-size: 14px;
       padding: 6px 8px;
-      color: $sidebar-section-header-text-color;
-      text-shadow: $sidebar-section-header-text-shadow;
-      background: $sidebar-section-header-background;
-      border-bottom: $sidebar-section-header-border;
+      color: $sidebar-group-header-text-color;
+      text-shadow: $sidebar-group-header-text-shadow;
+      background: $sidebar-group-header-background;
+      border-bottom: $sidebar-group-header-border;
     }
   }
   ul {
     margin: 0px;
     padding: 0px;
     list-style-type: none;
-    background: $sidebar-list-background;
     li a {
       font-size: 14px;
       cursor: pointer;
@@ -132,6 +133,7 @@ textarea.editable {
       &.active {
         color: $sidebar-item-active-text-color;
         background: $sidebar-item-active-background;
+        box-shadow: $sidebar-item-active-shadow;
         .icon {
           color: $sidebar-item-active-icon-color;
         }
@@ -161,7 +163,7 @@ textarea.editable {
     color: $panel-header-text-color;
     background: $panel-header-background;
     overflow: hidden;
-    padding: 5px;
+    padding: 8px 6px;
     border-bottom: $panel-border;
     .title {
       display: inline-block;

@@ -1,8 +1,9 @@
-React        = require 'react'
-Flux         = require 'mixins/Flux'
-List         = React.createFactory(require 'common/List')
-GoalListItem = React.createFactory(require './GoalListItem')
-{div}        = React.DOM
+_                = require 'lodash'
+React            = require 'react'
+Flux             = require 'mixins/Flux'
+SidebarItemGroup = React.createFactory(require 'common/SidebarItemGroup')
+GoalSidebarItem  = React.createFactory(require './GoalSidebarItem')
+{div}            = React.DOM
 
 PlanningSidebar = React.createClass {
 
@@ -19,8 +20,12 @@ PlanningSidebar = React.createClass {
     @getController().loadGoals()
 
   render: ->
+
+    goals = _.map @state.goals, (goal) =>
+      GoalSidebarItem {key: "goal-#{goal.id}", goal}
+
     div {className: 'planning sidebar'}, [
-      List {key: 'goal-list', className: 'goal-list', component: GoalListItem, kind: 'goal', items: @state.goals}
+      SidebarItemGroup {key: 'goals', header: "Goals"}, goals
     ]
 
 }

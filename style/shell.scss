@@ -74,7 +74,7 @@
     text-decoration: none;
     text-align: center;
     border-right: $navigation-border;
-    transition-property: background, color;
+    transition-property: background;
     transition-duration: 0.15s;
     transition-timing-function: ease-in;
     .icon {
@@ -83,9 +83,10 @@
     }
     &.active {
       color: $navigation-active-text-color;
+      font-weight: $navigation-active-font-weight;
       text-shadow: $navigation-active-text-shadow;
       background: $navigation-active-background;
-      font-weight: $navigation-active-font-weight;
+      box-shadow: $navigation-active-shadow;
       .icon { color: $navigation-active-icon-color; }
     }
   }

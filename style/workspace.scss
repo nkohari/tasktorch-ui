@@ -34,15 +34,16 @@
   cursor: grab;
   border-bottom: $panel-border;
   background: $stack-card-background;
-  padding: 6px;
-  transition: border 0.1s ease-in-out;
+  padding: 8px;
+  transition: box-shadow 0.1s ease-in-out;
   &.dragging {
     cursor: -webkit-grabbing;
     cursor: -moz-grabbing;
     cursor: grabbing;
   }
   &.active {
-    border-right: 4px solid $active-marker-color;
+    background: $stack-card-active-background;
+    box-shadow: $stack-card-active-shadow;
   }
   .card-top {
     .title {

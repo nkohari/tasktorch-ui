@@ -7,9 +7,9 @@ Icon          = React.createFactory(require 'common/Icon')
 Link          = React.createFactory(Router.Link)
 {li, span}    = React.DOM
 
-TeamListItem = React.createClass {
+TeamSidebarItem = React.createClass {
 
-  displayName: 'TeamListItem'
+  displayName: 'TeamSidebarItem'
 
   mixins: [ActiveUrl(BigPictureUrl)]
 
@@ -29,4 +29,4 @@ TeamListItem = React.createClass {
 
 }
 
-module.exports = TeamListItem
+module.exports = TeamSidebarItem

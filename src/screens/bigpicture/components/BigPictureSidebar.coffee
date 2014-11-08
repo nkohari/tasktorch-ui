@@ -1,8 +1,9 @@
-React        = require 'react'
-Flux         = require 'mixins/Flux'
-List         = React.createFactory(require 'common/List')
-TeamListItem = React.createFactory(require './TeamListItem')
-{div}        = React.DOM
+_                = require 'lodash'
+React            = require 'react'
+Flux             = require 'mixins/Flux'
+SidebarItemGroup = React.createFactory(require 'common/SidebarItemGroup')
+TeamSidebarItem  = React.createFactory(require './TeamSidebarItem')
+{div}            = React.DOM
 
 BigPictureSidebar = React.createClass {
 
@@ -20,8 +21,11 @@ BigPictureSidebar = React.createClass {
 
   render: ->
 
+    teams = _.map @state.teams, (team) =>
+      TeamSidebarItem {key: "team-#{team.id}", team}
+
     div {className: 'bigpicture sidebar'}, [
-      List {key: 'team-list', className: 'team-list', component: TeamListItem, kind: 'team', items: @state.teams}
+      SidebarItemGroup {key: 'teams', header: 'Teams'}, teams
     ]
 
 }
