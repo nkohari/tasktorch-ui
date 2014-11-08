@@ -67,19 +67,25 @@
     height: 100%;
     padding: 10px 0;
     font-size: 15px;
-    font-weight: 600;
     line-height: 30px;
     color: $navigation-text-color;
+    text-shadow: $navigation-text-shadow;
+    font-weight: $navigation-font-weight;
     text-decoration: none;
     text-align: center;
     border-right: $navigation-border;
+    transition-property: background, color;
+    transition-duration: 0.15s;
+    transition-timing-function: ease-in;
     .icon {
       color: $navigation-icon-color;
       text-align: left;
     }
     &.active {
-      color: $navigation-active-icon-color;
+      color: $navigation-active-text-color;
+      text-shadow: $navigation-active-text-shadow;
       background: $navigation-active-background;
+      font-weight: $navigation-active-font-weight;
       .icon { color: $navigation-active-icon-color; }
     }
   }
@@ -102,8 +108,10 @@
     transition-duration: 0.15s;
     transition-timing-function: ease-in-out;
     &:hover {
-      color: $focus-hover-text-color;
       background: $focus-hover-background;
+      .title {
+        color: $focus-hover-title-text-color;
+      }
     }
     .title {
       width: 100%;

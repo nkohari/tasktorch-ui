@@ -2,14 +2,13 @@ PlanningController = require './PlanningController'
 GoalStore          = require './stores/GoalStore'
 MilestoneStore     = require './stores/MilestoneStore'
 
-PlanningEnvironment = {}
+PlanningControllerFactory = {}
 
-PlanningEnvironment.createController = ->
+PlanningControllerFactory.create = (organizationId, eventBus) ->
 
-  stores =
+  new PlanningController(organizationId, eventBus, {
     goals:      new GoalStore()
     milestones: new MilestoneStore()
+  })
 
-  return new PlanningController(stores)
-
-module.exports = PlanningEnvironment
+module.exports = PlanningControllerFactory

@@ -16,12 +16,11 @@ StackListItem = React.createClass {
   ]
 
   render: ->
-    linkProps = _.extend @makeLinkProps(), {key: 'open-stack-link'}
-    li {className: 'stack-list-item'}, [
+    linkProps = _.extend @makeLinkProps(), {key: 'open-link'}
+    li {className: 'sidebar-item'}, [
       Link linkProps, [
-        Icon {key: 'stack-icon', name: "stack-#{@props.stack.kind.toLowerCase()}"}
-        span {key: 'stack-name', className: 'stack-name'}, [@props.stack.name]
-        span {key: 'stack-card-count', className: 'stack-card-count'}, ['0']
+        Icon {key: 'icon', name: "stack-#{@props.stack.kind.toLowerCase()}"}
+        span {key: 'name', className: 'name'}, [@props.stack.name]
       ]
     ]
 

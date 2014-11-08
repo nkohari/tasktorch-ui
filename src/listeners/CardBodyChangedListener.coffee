@@ -3,6 +3,8 @@ CardBodyChangedEvent = require 'events/CardBodyChangedEvent'
 
 class CardBodyChangedListener extends Listener
 
+  listensFor: 'CardBodyChanged'
+
   createEvent: (message) ->
     {document, payload} = message
     meta = {user: message.user}

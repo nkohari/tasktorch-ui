@@ -12,45 +12,41 @@ WorkspaceLoadedEvent  = require 'events/WorkspaceLoadedEvent'
 
 class WorkspaceController extends Controller
 
-  setCurrentOrganization: (organizationId) ->
-    if @organizationId?
-      EventBus.unsubscribe("presence-#{@organizationId}")
-    @organizationId = organizationId
-    channel = EventBus.subscribe("presence-#{@organizationId}")
-    @bindListeners(channel)
+  constructor: (@organizationId, eventBus, stores) ->
+    super(eventBus, stores)
 
   loadWorkspace: ->
     request.get "/api/#{@organizationId}/me/workspace", (res) =>
-      @dispatch new WorkspaceLoadedEvent(res.body)
+      @publish new WorkspaceLoadedEvent(res.body)
 
   loadStack: (stackId) ->
     request.get "/api/#{@organizationId}/stacks/#{stackId}", (res) =>
-      @dispatch new StacksLoadedEvent([res.body])
+      @publish new StacksLoadedEvent([res.body])
 
   loadCardsInStack: (stackId) ->
     request.get "/api/#{@organizationId}/stacks/#{stackId}/cards", (res) =>
-      @dispatch new CardsLoadedEvent(res.body)
+      @publish new CardsLoadedEvent(res.body)
 
   loadCard: (cardId) ->
     request.get "/api/#{@organizationId}/cards/#{cardId}", (res) =>
-      @dispatch new CardsLoadedEvent([res.body])
+      @publish new CardsLoadedEvent([res.body])
 
   setCardTitle: (card, title) ->
     request.put("#{card.uri}/title")
     .set(Header.IfMatch, etag.encode(card.version))
-    .set(Header.Socket, EventBus.connection.socket_id)
+    .set(Header.Socket, @eventBus.getSocketId())
     .send {title}
     .end (res) =>
       version = etag.decode(res.header['etag'])
-      @dispatch new CardTitleChangedEvent(card.id, title, version)
+      @publish new CardTitleChangedEvent(card.id, title, version)
 
   setCardBody: (card, body) ->
     request.put("#{card.uri}/body")
     .set(Header.IfMatch, etag.encode(card.version))
-    .set(Header.Socket, EventBus.connection.socket_id)
+    .set(Header.Socket, @eventBus.getSocketId())
     .send {body}
     .end (res) =>
       version = etag.decode(res.header['etag'])
-      @dispatch new CardBodyChangedEvent(card.id, body, version)
+      @publish new CardBodyChangedEvent(card.id, body, version)
 
 module.exports = WorkspaceController

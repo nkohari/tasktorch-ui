@@ -2,11 +2,8 @@
 
 class Listener extends EventEmitter
 
-  constructor: ->
-    @type = @constructor.name.replace(/Listener$/, '')
-
   bind: (channel) ->
-    channel.bind(@type, @handle.bind(this))
+    channel.bind(@listensFor, @handle.bind(this))
 
   handle: (message) ->
     @emit('event', @createEvent(message))

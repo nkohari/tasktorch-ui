@@ -1,7 +1,5 @@
 React                  = require 'react/addons'
-ActiveUrl              = require 'mixins/ActiveUrl'
 Flux                   = require 'mixins/Flux'
-ShellUrl               = require './ShellUrl'
 ShellControllerFactory = require './ShellControllerFactory'
 ShellHeader            = React.createFactory(require './components/ShellHeader')
 {div}                  = React.DOM
@@ -11,24 +9,20 @@ Shell = React.createClass {
   displayName: 'Shell'
 
   mixins: [
-    ActiveUrl(ShellUrl)
     Flux('organizations', 'presence')
   ]
 
-  getDefaultProps: ->
-    {controller: ShellControllerFactory.create()}
-
-  # TODO: Could we remove ActiveUrl and just set organizationId as a prop?
+  createController: ->
+    ShellControllerFactory.create(@props.params.organizationId, @props.eventBus)
 
   getStateFromStores: (stores) ->
     return {
       currentUser:         stores.presence.currentUser
-      currentOrganization: stores.organizations.getOrganization(@getActiveUrl().organizationId)
+      currentOrganization: stores.organizations.getOrganization(@props.params.organizationId)
     }
 
   componentWillMount: ->
     controller = @getController()
-    controller.setCurrentOrganization(@getActiveUrl().organizationId)
     controller.loadCurrentUser()
     controller.loadMyOrganizations()
 

@@ -6,15 +6,15 @@ MilestonesLoadedEvent = require 'events/MilestonesLoadedEvent'
 
 class PlanningController extends Controller
 
-  setOrganization: (organizationId) ->
-    @organizationId = organizationId
+  constructor: (@organizationId, eventBus, stores) ->
+    super(eventBus, stores)
 
   loadGoals: ->
     request.get "/api/#{@organizationId}/goals", (res) =>
-      @dispatch new GoalsLoadedEvent(res.body)
+      @publish new GoalsLoadedEvent(res.body)
 
   loadMilestonesInGoal: (goalId) ->
     request.get "/api/#{@organizationId}/goals/#{goalId}/milestones", (res) =>
-      @dispatch new MilestonesLoadedEvent(res.body)
+      @publish new MilestonesLoadedEvent(res.body)
 
 module.exports = PlanningController

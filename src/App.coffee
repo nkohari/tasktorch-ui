@@ -16,9 +16,9 @@ eventBus = EventBusFactory.create()
 routes = Routes {location: 'history'}, [
   Route {name: 'login', key: 'login', path: 'login', handler: LoginScreen}
   Route {name: 'shell', key: 'shell', path: ':organizationId', handler: Shell, eventBus}, [
-    Route {name: 'workspace',  key: 'workspace',  handler: WorkspaceScreen, eventBus}
+    Route {name: 'workspace',  key: 'workspace',  handler: WorkspaceScreen,  eventBus}
     Route {name: 'bigpicture', key: 'bigpicture', handler: BigPictureScreen, eventBus}
-    Route {name: 'planning',   key: 'planning',   handler: PlanningScreen, eventBus}
+    Route {name: 'planning',   key: 'planning',   handler: PlanningScreen,   eventBus}
   ]
 ]
 

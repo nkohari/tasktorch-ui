@@ -8,14 +8,15 @@ UserStore           = require './stores/UserStore'
 
 WorkspaceControllerFactory = {}
 
-WorkspaceControllerFactory.create = (eventBus) ->
+WorkspaceControllerFactory.create = (organizationId, eventBus) ->
 
-  new WorkspaceController eventBus,
+  new WorkspaceController(organizationId, eventBus, {
     cards:         new CardStore()
     organizations: new OrganizationStore()
     stacks:        new StackStore()
     teams:         new TeamStore()
     types:         new TypeStore()
     users:         new UserStore()
+  })
 
 module.exports = WorkspaceControllerFactory

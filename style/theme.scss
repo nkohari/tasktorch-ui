@@ -28,8 +28,8 @@ $editable-text-active-border: 1px solid #888;
 $editable-text-active-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 $editable-text-dirty-border: 1px solid #090;
 
-$header-bar-border: 1px solid #999;
-$header-bar-background: linear-gradient(to bottom, #999, #aaa);
+$header-bar-border: 2px solid #666;
+$header-bar-background: #666;
 $header-bar-shadow: 0;
 
 $organization-name-text-color: #fff;
@@ -38,37 +38,50 @@ $organization-background: #555;
 $organization-menu-trigger-color: #999;
 $organization-widget-color: #999;
 
-$navigation-text-color: #666;
-$navigation-icon-color: #666;
-$navigation-border: 1px solid #666;
-$navigation-active-color: #444;
-$navigation-active-icon-color: #444;
-$navigation-active-background: #888;
+$navigation-text-color: #aaa;
+$navigation-text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+$navigation-font-weight: normal;
+$navigation-icon-color: #aaa;
+$navigation-border: 1px solid #555;
+$navigation-active-text-color: #000;
+$navigation-active-text-shadow: none;
+$navigation-active-font-weight: 600;
+$navigation-active-icon-color: #000;
+$navigation-active-background: #eee;
 
 $focus-border: 1px solid #555;
 $focus-background: #555;
-$focus-hover-text-color: #fff;
-$focus-hover-background: #666;
 $focus-title-text-color: #ccc;
 $focus-title-text-shadow-color: rgba(0, 0, 0, 0.5);
+$focus-hover-background: #888;
+$focus-hover-title-text-color: #fff;
 
 $user-profile-background: #444;
 $user-profile-menu-trigger-color: #999;
 $user-profile-avatar-border: 1px solid #999;
 
 $search-background: #555;
+$search-border: 0;
 $search-input-border: 1px solid #888;
 $search-input-background: #666;
 $search-input-active-text-color: #000;
 $search-input-active-background: #fff;
 
-$sidebar-background: #fff;
-$sidebar-border: 1px solid #999;
+$sidebar-background: #666;
+$sidebar-border: 2px solid #666;
 $sidebar-shadow: 0;
-$sidebar-list-background: #fff;
-$sidebar-item-border: 1px solid #999;
-$sidebar-item-background: #fff;
-$sidebar-item-count-color: #999;
+$sidebar-list-background: #666;
+$sidebar-item-text-color: #ccc;
+$sidebar-item-icon-color: #ccc;
+$sidebar-item-border: 0;
+$sidebar-item-background: #666;
+$sidebar-item-active-text-color: #fff;
+$sidebar-item-active-icon-color: #fff;
+$sidebar-item-active-background: #999;
+$sidebar-section-header-text-color: #eee;
+$sidebar-section-header-text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+$sidebar-section-header-background: #444;
+$sidebar-section-header-border: 0;
 
 $active-marker-color: #ccc;
 $stack-card-background: #fff;

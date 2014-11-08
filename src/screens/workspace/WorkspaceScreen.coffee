@@ -25,8 +25,8 @@ WorkspaceScreen = React.createClass {
     currentOrganization: React.PropTypes.object.isRequired
     currentUser:         React.PropTypes.object.isRequired
 
-  getDefaultProps: ->
-    {controller: WorkspaceControllerFactory.create()}
+  createController: ->
+    WorkspaceControllerFactory.create(@props.params.organizationId, @props.eventBus)
 
   getInitialState: ->
     return {
@@ -39,7 +39,6 @@ WorkspaceScreen = React.createClass {
   componentWillMount: ->
     window.Screen = this
     controller = @getController()
-    controller.setCurrentOrganization(@props.currentOrganization.id)
     controller.loadWorkspace()
 
   componentWillUnmount: ->

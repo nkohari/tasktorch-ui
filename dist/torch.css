@@ -115,12 +115,43 @@ textarea.editable {
   padding: 0;
   width: 200px;
   z-index: 1000;
-  border-right: 1px solid #999999;
-  background: white;
+  border-right: 2px solid #666666;
+  background: #666666;
   box-shadow: 0;
   overflow-x: hidden;
   overflow-y: auto;
   white-space: normal; }
+  .sidebar .section .header {
+    font-size: 14px;
+    padding: 6px 8px;
+    color: #eeeeee;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    background: #444444;
+    border-bottom: 0; }
+  .sidebar ul {
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+    background: #666666; }
+    .sidebar ul li a {
+      font-size: 14px;
+      cursor: pointer;
+      display: block;
+      padding: 6px 8px;
+      background: #666666;
+      border-bottom: 0;
+      color: #cccccc;
+      text-decoration: none;
+      transition: background 0.1s ease-in-out; }
+      .sidebar ul li a.active {
+        color: white;
+        background: #999999; }
+        .sidebar ul li a.active .icon {
+          color: white; }
+      .sidebar ul li a .icon {
+        color: #cccccc; }
+      .sidebar ul li a .name {
+        padding-left: 4px; }
 
 .panel-group {
   position: relative;
@@ -208,8 +239,8 @@ textarea.editable {
     position: relative;
     margin-left: 200px;
     height: 100%;
-    border-bottom: 1px solid #999999;
-    background: linear-gradient(to bottom, #999999, #aaaaaa);
+    border-bottom: 2px solid #666666;
+    background: #666666;
     box-shadow: 0; }
 
 .organization-corner {
@@ -250,20 +281,26 @@ textarea.editable {
     height: 100%;
     padding: 10px 0;
     font-size: 15px;
-    font-weight: 600;
     line-height: 30px;
-    color: #666666;
+    color: #aaaaaa;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    font-weight: normal;
     text-decoration: none;
     text-align: center;
-    border-right: 1px solid #666666; }
+    border-right: 1px solid #555555;
+    transition-property: background, color;
+    transition-duration: 0.15s;
+    transition-timing-function: ease-in; }
     .navigation a .icon {
-      color: #666666;
+      color: #aaaaaa;
       text-align: left; }
     .navigation a.active {
-      color: #444444;
-      background: #888888; }
+      color: black;
+      text-shadow: none;
+      background: #eeeeee;
+      font-weight: 600; }
       .navigation a.active .icon {
-        color: #444444; }
+        color: black; }
 
 .user-corner {
   height: 100%;
@@ -282,8 +319,9 @@ textarea.editable {
     transition-duration: 0.15s;
     transition-timing-function: ease-in-out; }
     .user-corner .focused-card:hover {
-      color: white;
-      background: #666666; }
+      background: #888888; }
+      .user-corner .focused-card:hover .title {
+        color: white; }
     .user-corner .focused-card .title {
       width: 100%;
       overflow: hidden;
@@ -329,7 +367,8 @@ textarea.editable {
 
 .search {
   padding: 0 10px 10px;
-  background: #555555; }
+  background: #555555;
+  border-bottom: 0; }
   .search input {
     width: 100%;
     font-size: 13px;
@@ -344,32 +383,6 @@ textarea.editable {
       color: black;
       background: white;
       outline: none !important; }
-
-.stack-list {
-  margin: 0px;
-  padding: 0px;
-  list-style-type: none;
-  background: white; }
-  .stack-list li a {
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    display: block;
-    padding: 6px 8px;
-    background: white;
-    border-bottom: 1px solid #999999;
-    color: #000;
-    text-decoration: none;
-    transition: border 0.1s ease-in-out; }
-    .stack-list li a.active {
-      border-right: 4px solid #cccccc; }
-    .stack-list li a .stack-name {
-      padding-left: 0.2em; }
-    .stack-list li a .stack-card-count {
-      display: inline-block;
-      float: right;
-      color: #999999;
-      text-align: right; }
 
 .stack {
   width: 291px; }

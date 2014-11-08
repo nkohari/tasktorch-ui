@@ -104,6 +104,44 @@ textarea.editable {
   overflow-x: hidden;
   overflow-y: auto;
   white-space: normal;
+  .section {
+    .header {
+      font-size: 14px;
+      padding: 6px 8px;
+      color: $sidebar-section-header-text-color;
+      text-shadow: $sidebar-section-header-text-shadow;
+      background: $sidebar-section-header-background;
+      border-bottom: $sidebar-section-header-border;
+    }
+  }
+  ul {
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+    background: $sidebar-list-background;
+    li a {
+      font-size: 14px;
+      cursor: pointer;
+      display: block;
+      padding: 6px 8px;
+      background: $sidebar-item-background;
+      border-bottom: $sidebar-item-border;
+      color: $sidebar-item-text-color;
+      text-decoration: none;
+      transition: background 0.1s ease-in-out;
+      &.active {
+        color: $sidebar-item-active-text-color;
+        background: $sidebar-item-active-background;
+        .icon {
+          color: $sidebar-item-active-icon-color;
+        }
+      }
+      .icon {
+        color: $sidebar-item-icon-color;
+      }
+      .name { padding-left: 4px; }
+    }
+  }
 }
 
 .panel-group {

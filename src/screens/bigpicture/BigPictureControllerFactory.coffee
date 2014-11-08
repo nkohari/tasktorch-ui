@@ -5,13 +5,12 @@ UserStore            = require './stores/UserStore'
 
 BigPictureEnvironment = {}
 
-BigPictureEnvironment.createController = ->
+BigPictureEnvironment.createController = (organizationId, eventBus) ->
 
-  stores =
+  new BigPictureController(organizationId, eventBus, {
     cards: new CardStore()
     teams: new TeamStore()
     users: new UserStore()
-
-  return new BigPictureController(stores)
+  })
 
 module.exports = BigPictureEnvironment

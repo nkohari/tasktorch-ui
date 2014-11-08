@@ -1,6 +1,7 @@
 .search {
   padding: 0 10px 10px;
   background: $search-background;
+  border-bottom: $search-border;
   input {
     width: 100%;
     font-size: 13px;
@@ -15,35 +16,6 @@
       color: $search-input-active-text-color;
       background: $search-input-active-background;
       outline: none !important;
-    }
-  }
-}
-
-.stack-list {
-  margin: 0px;
-  padding: 0px;
-  list-style-type: none;
-  background: $sidebar-list-background;
-  li a {
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    display: block;
-    padding: 6px 8px;
-    background: $sidebar-item-background;
-    border-bottom: $sidebar-item-border;
-    color: #000;
-    text-decoration: none;
-    transition: border 0.1s ease-in-out;
-    &.active {
-      border-right: 4px solid $active-marker-color;
-    }
-    .stack-name { padding-left: 0.2em; }
-    .stack-card-count {
-      display: inline-block;
-      float: right;
-      color: $sidebar-item-count-color;
-      text-align: right;
     }
   }
 }

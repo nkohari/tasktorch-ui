@@ -1,7 +1,7 @@
 _     = require 'lodash'
 React = require 'react'
 
-ControllerMixin =
+FluxMixin = (storesToWatch...) -> {
 
   contextTypes:
     controller: React.PropTypes.object
@@ -12,38 +12,41 @@ ControllerMixin =
   getChildContext: ->
     return {controller: @getController()}
 
+  componentWillMount: ->
+    controller = @getController()
+    controller.attachToEventBus() if @_isControllingComponent()
+    _.each storesToWatch, (name) =>
+      controller.stores[name].on('change', @_updateState)
+
+  componentWillUnmount: ->
+    controller = @getController()
+    controller.detachFromEventBus() if @_isControllingComponent()
+    _.each storesToWatch, (name) =>
+      controller.stores[name].removeListener('change', @_updateState)
+
+  getInitialState: ->
+    if storesToWatch.length == 0
+      return null
+    else
+      return @_getUpdatedStateFromStores()
+
   getController: ->
-    @props.controller ? @context?.controller
+    if @_isControllingComponent()
+      @_controller = @createController() unless @_controller?
+      return @_controller
+    else
+      return @context?.controller
 
-StoreWatchMixin = (storesToWatch) ->
+  _isControllingComponent: ->
+    @createController? and _.isFunction(@createController)
 
-  return {
+  _updateState: ->
+    @setState(@_getUpdatedStateFromStores()) if @isMounted()
 
-    componentWillMount: ->
-      controller = @getController()
-      _.each storesToWatch, (name) =>
-        controller.stores[name].on('change', @_updateState)
+  _getUpdatedStateFromStores: ->
+    stores = @getController().getStores(storesToWatch)
+    @getStateFromStores(stores)
 
-    componentWillUnmount: ->
-      controller = @getController()
-      _.each storesToWatch, (name) =>
-        controller.stores[name].removeListener('change', @_updateState)
+}
 
-    getInitialState: ->
-      @_getUpdatedStateFromStores()
-
-    _updateState: ->
-      @setState(@_getUpdatedStateFromStores()) if @isMounted()
-
-    _getUpdatedStateFromStores: ->
-      stores = @getController().getStores(storesToWatch)
-      @getStateFromStores(stores)
-
-  }
-
-Flux = (storesToWatch...) ->
-  mixin = _.extend {}, ControllerMixin
-  mixin = _.extend(mixin, StoreWatchMixin(storesToWatch)) if storesToWatch.length > 0
-  return mixin
-
-module.exports = Flux
+module.exports = FluxMixin
