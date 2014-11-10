@@ -94,11 +94,15 @@ $stack-card-contextual-color: #666;
 $stack-card-active-background: linear-gradient(to bottom, #fff, #eee);
 $stack-card-active-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
 
-$card-actions-background: #ddd;
-$card-actions-border: 1px solid #999;
-$card-actions-button-text-color: #666;
-$card-actions-button-background: linear-gradient(to bottom, #eee, #ddd);
-$card-actions-button-border: 1px solid #ccc;
-$card-actions-button-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.5);
+$card-action-bar-background: #ccc;
+$card-action-bar-border: 1px solid #999;
+$card-action-button-text-color: #333;
+$card-action-button-border: 1px solid #999;
+$card-action-button-background: linear-gradient(to bottom, #eee, #ddd);
+$card-action-button-hover-text-color: #000;
+$card-action-button-hover-background: linear-gradient(to bottom, #fff, #ddd);
+$card-action-button-active-text-color: #000;
+$card-action-button-active-background: #eee;
+$card-action-button-active-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.3);
 
 $card-header-border: 1px solid #ccc;

@@ -35249,7 +35249,9 @@ module.exports = Avatar;
 
 
 },{"crypto":8,"react":"M6d2gk"}],234:[function(require,module,exports){
-var Button, Icon, React, button, span, _ref;
+var Button, Icon, React, button, span, _, _ref;
+
+_ = require('lodash');
 
 React = require('react');
 
@@ -35260,14 +35262,14 @@ _ref = React.DOM, span = _ref.span, button = _ref.button;
 Button = React.createClass({
   displayName: 'Button',
   render: function() {
-    return button({
-      onClick: this.props.onClick
-    }, [
+    var props;
+    props = _.omit(this.props, 'icon', 'text');
+    return button(props, [
       Icon({
-        key: 'button-icon',
+        key: 'icon',
         name: this.props.icon
       }), span({
-        key: 'button-text'
+        key: 'text'
       }, this.props.text)
     ]);
   }
@@ -35277,7 +35279,7 @@ module.exports = Button;
 
 
 
-},{"./Icon":235,"react":"M6d2gk"}],235:[function(require,module,exports){
+},{"./Icon":235,"lodash":23,"react":"M6d2gk"}],235:[function(require,module,exports){
 var Icon, React, span;
 
 React = require('react');
@@ -37729,29 +37731,39 @@ CardActionBar = React.createClass({
     return div({
       className: 'action-bar'
     }, [
-      Button({
-        key: 'do',
-        icon: 'do',
-        text: 'Do'
-      }), Button({
-        key: 'defer',
-        icon: 'defer',
-        text: 'Defer'
-      }), Button({
-        key: 'hand-back',
-        icon: 'hand-back',
-        text: 'Hand Back'
-      }), Button({
-        key: 'hand-off',
-        icon: 'hand-off',
-        text: 'Hand Off'
-      }), Button({
-        key: 'archive',
-        icon: 'archive'
-      }), Button({
-        key: 'trash',
-        icon: 'trash'
-      })
+      div({
+        className: 'button-group'
+      }, [
+        Button({
+          key: 'do',
+          icon: 'do',
+          text: 'Do'
+        }), Button({
+          key: 'defer',
+          icon: 'defer',
+          text: 'Defer'
+        }), Button({
+          key: 'hand-back',
+          icon: 'hand-back',
+          text: 'Hand Back'
+        }), Button({
+          key: 'hand-off',
+          icon: 'hand-off',
+          text: 'Hand Off'
+        })
+      ]), div({
+        className: 'button-group right'
+      }, [
+        Button({
+          key: 'archive',
+          icon: 'archive',
+          className: 'right'
+        }), Button({
+          key: 'trash',
+          icon: 'trash',
+          className: 'right'
+        })
+      ])
     ]);
   }
 });

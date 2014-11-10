@@ -74,11 +74,11 @@ textarea.editable {
   .icon.icon-stack-backlog:before {
     content: "\E736"; }
   .icon.icon-do:before {
-    content: "\1F3AF"; }
+    content: "\1F44D"; }
   .icon.icon-defer:before {
-    content: "\E003"; }
+    content: "\1F554"; }
   .icon.icon-hand-back:before {
-    content: "\E712"; }
+    content: "\1F519"; }
   .icon.icon-hand-off:before {
     content: "\27A6"; }
   .icon.icon-card:before {
@@ -96,7 +96,7 @@ textarea.editable {
   .icon.icon-focus:before {
     content: "\1F3AF"; }
   .icon.icon-archive:before {
-    content: "\1F4E6"; }
+    content: "\E800"; }
   .icon.icon-trash:before {
     content: "\E729"; }
   .icon.icon-team:before {
@@ -441,18 +441,37 @@ textarea.editable {
   background: #fff; }
   .card .action-bar {
     width: 100%;
-    padding: 10px 10px 0; }
+    background: #cccccc;
+    border-bottom: 1px solid #999999;
+    padding: 4px; }
+    .card .action-bar .button-group {
+      display: inline-block; }
+      .card .action-bar .button-group.right {
+        float: right; }
     .card .action-bar button {
       display: inline-block;
-      margin-right: 10px;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: bold;
       padding: 6px 10px;
-      color: #666666;
+      color: #333333;
+      border: 1px solid #999999;
+      border-right: 0;
       background: linear-gradient(to bottom, #eeeeee, #dddddd);
-      box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.5);
-      border: 1px solid #cccccc;
-      border-radius: 2px; }
+      outline: none !important; }
+      .card .action-bar button:first-child {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px; }
+      .card .action-bar button:last-child {
+        border-right: 1px solid #999999;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px; }
+      .card .action-bar button:hover {
+        color: black;
+        background: linear-gradient(to bottom, white, #dddddd); }
+      .card .action-bar button:active {
+        color: black;
+        background: #eeeeee;
+        box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.3); }
   .card .card-header {
     margin: 10px;
     padding-bottom: 10px;
