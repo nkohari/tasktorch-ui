@@ -1,5 +1,6 @@
 WorkspaceController = require './WorkspaceController'
 CardStore           = require './stores/CardStore'
+GoalStore           = require './stores/GoalStore'
 OrganizationStore   = require './stores/OrganizationStore'
 StackStore          = require './stores/StackStore'
 TeamStore           = require './stores/TeamStore'
@@ -12,6 +13,7 @@ WorkspaceControllerFactory.create = (organizationId, eventBus) ->
 
   new WorkspaceController(organizationId, eventBus, {
     cards:         new CardStore()
+    goals:         new GoalStore()
     organizations: new OrganizationStore()
     stacks:        new StackStore()
     teams:         new TeamStore()

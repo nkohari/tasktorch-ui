@@ -25,7 +25,7 @@ $editable-text-hover-background: #f9f9f9;
 $editable-text-hover-border: 1px dashed #aaa;
 $editable-text-active-background: #fff;
 $editable-text-active-border: 1px solid #888;
-$editable-text-active-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+$editable-text-active-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 $editable-text-dirty-border: 1px solid #090;
 
 $header-bar-border: 1px solid #555;
@@ -59,7 +59,7 @@ $focus-hover-title-text-color: #fff;
 
 $user-profile-background: #444;
 $user-profile-menu-trigger-color: #999;
-$user-profile-avatar-border: 1px solid #999;
+$user-profile-avatar-border: 0;
 
 $search-background: #555;
 $search-border: 0;
@@ -94,8 +94,11 @@ $stack-card-contextual-color: #666;
 $stack-card-active-background: linear-gradient(to bottom, #fff, #eee);
 $stack-card-active-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
 
-$card-action-bar-background: #ccc;
-$card-action-bar-border: 1px solid #999;
+$card-header-background: linear-gradient(to bottom, #eee, #ccc);
+$card-header-border: 1px solid #999;
+
+$card-action-bar-background: 0;
+$card-action-bar-border: 0;
 $card-action-button-text-color: #333;
 $card-action-button-border: 1px solid #999;
 $card-action-button-background: linear-gradient(to bottom, #eee, #ddd);
@@ -104,5 +107,3 @@ $card-action-button-hover-background: linear-gradient(to bottom, #fff, #ddd);
 $card-action-button-active-text-color: #000;
 $card-action-button-active-background: #eee;
 $card-action-button-active-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.3);
-
-$card-header-border: 1px solid #ccc;

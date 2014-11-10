@@ -77,14 +77,90 @@
 }
 
 .card {
+  @include panel-flow;
+  position: relative;
+  border-right: $panel-border;
+  background: $panel-background;
   width: $card-panel-width;
   background: #fff;
-  .action-bar {
+  .close {
+    display: block;
+    position: absolute;
+    right: 6px;
+    top: 8px;
+    color: #666;
+    transition: color 0.15s;
+    &:hover {
+      color: #000;
+    }
+  }
+  .header {
+    padding: 6px;
+    background: $card-header-background;
+    border-left: 6px solid;
+    border-bottom: $card-header-border;
+    .title {
+      color: #111;
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      margin-right: 24px;
+      input {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+    .location {
+      display: inline-block;
+      font-size: 14px;
+      color: #999;
+      margin-left: 6px;
+      margin-bottom: 10px;
+    }
+    .goal {
+      display: inline-block;
+      font-size: 14px;
+      color: #999;
+      margin-left: 6px;
+      margin-bottom: 10px;
+    }
+    .placeholder {
+      opacity: 0;
+      &:hover { opacity: 1; }
+    }
+    a, a:visited {
+      cursor: hand;
+      padding: 1px 6px;
+      margin-left: 6px;
+      color: #666;
+      background: #ccc;
+      text-decoration: none;
+      border: 1px solid #aaa;
+      border-radius: 4px;
+      transition-property: color, background;
+      transition-duration: 0.15s;
+      transition-timing-function: ease-in-out;
+    }
+    a:hover {
+      color: #000;
+      background: #bbb;
+      border: 1px solid #999;
+    }
+    a:active {
+      color: #333;
+      background: #bbb;
+    }
+    .icon {
+      width: auto;
+      margin-right: 4px;
+    }
+  }
+  .actions {
+    padding: 4px;
     width: 100%;
     background: $card-action-bar-background;
     border-bottom: $card-action-bar-border;
-    padding: 4px;
-    .button-group {
+    .group {
       display: inline-block;
       &.right { float: right; }
     }
@@ -118,32 +194,46 @@
       }
     }
   }
-  .card-header {
-    margin: 10px;
-    padding-bottom: 10px;
-    border-bottom: $card-header-border;
-    .title {
-      color: #111;
-      font-size: 22px;
-      font-weight: 600;
-      input {
-        text-overflow: ellipsis;
-        white-space: nowrap;
+  .details {
+    overflow-x: hidden;
+    overflow-y: auto;
+    .participants {
+      padding: 10px 16px;
+      background: #efefef;
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 10px;
+      .group {
+        display: inline-block;
+        .title {
+          margin: 0 6px;
+          display: inline-block;
+          font-size: 14px;
+          color: #999;
+        }
+      }
+      .sidelines {
+        float: right;
+      }
+      ul {
+        display: inline-block;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        li {
+          display: inline-block;
+        }
+      }
+      .avatar {
+        display: inline-block;
+        vertical-align: middle;
+        border-radius: 50%;
       }
     }
-    .handoff {
-      font-size: 12px;
-      color: #999;
-      em {
-        font-style: normal;
-        color: #666;
-      }
+    .body {
+      font-size: 18px;
+      font-weight: 400;
+      margin: 10px;
     }
-  }
-  .card-body {
-    margin: 10px;
-    font-size: 18px;
-    font-weight: 400;
   }
 }
 

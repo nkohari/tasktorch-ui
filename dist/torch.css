@@ -20,10 +20,11 @@ body {
 
 input.editable {
   border: 1px dashed transparent;
+  background: transparent;
   transition-property: border, background, box-shadow;
   transition-duration: 0.1s;
   transition-timing-function: ease-in-out;
-  padding: 4px;
+  padding: 2px;
   width: 100%; }
   input.editable.dirty {
     border: 1px solid #009900 !important; }
@@ -34,10 +35,11 @@ input.editable {
     background: white;
     border: 1px solid #888888;
     outline: none !important;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); }
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); }
 
 textarea.editable {
   border: 1px dashed transparent;
+  background: transparent;
   transition-property: border, background, box-shadow;
   transition-duration: 0.1s;
   transition-timing-function: ease-in-out;
@@ -54,7 +56,7 @@ textarea.editable {
     background: white;
     border: 1px solid #888888;
     outline: none !important;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); }
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); }
 
 .icon {
   display: inline-block;
@@ -78,7 +80,7 @@ textarea.editable {
   .icon.icon-defer:before {
     content: "\1F554"; }
   .icon.icon-hand-back:before {
-    content: "\1F519"; }
+    content: "\E712"; }
   .icon.icon-hand-off:before {
     content: "\27A6"; }
   .icon.icon-card:before {
@@ -189,8 +191,7 @@ textarea.editable {
       padding-left: 0.2em; }
     .panel .header .close {
       color: #666666;
-      float: right;
-      cursor: pointer; }
+      float: right; }
 
 .panel-slide-enter {
   opacity: 0;
@@ -349,7 +350,7 @@ textarea.editable {
     .user-corner .user-profile .avatar {
       display: inline-block;
       vertical-align: middle;
-      border: 1px solid #999999;
+      border: 0;
       border-radius: 50%; }
 
 .screen {
@@ -437,18 +438,88 @@ textarea.editable {
     height: 57px; }
 
 .card {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  border-right: 1px solid #999999;
+  background: #f9f9f9;
   width: 582px;
   background: #fff; }
-  .card .action-bar {
+  .card .close {
+    display: block;
+    position: absolute;
+    right: 6px;
+    top: 8px;
+    color: #666;
+    transition: color 0.15s; }
+    .card .close:hover {
+      color: #000; }
+  .card .header {
+    padding: 6px;
+    background: linear-gradient(to bottom, #eeeeee, #cccccc);
+    border-left: 6px solid;
+    border-bottom: 1px solid #999999; }
+    .card .header .title {
+      color: #111;
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      margin-right: 24px; }
+      .card .header .title input {
+        text-overflow: ellipsis;
+        white-space: nowrap; }
+    .card .header .location {
+      display: inline-block;
+      font-size: 14px;
+      color: #999;
+      margin-left: 6px;
+      margin-bottom: 10px; }
+    .card .header .goal {
+      display: inline-block;
+      font-size: 14px;
+      color: #999;
+      margin-left: 6px;
+      margin-bottom: 10px; }
+    .card .header .placeholder {
+      opacity: 0; }
+      .card .header .placeholder:hover {
+        opacity: 1; }
+    .card .header a, .card .header a:visited {
+      cursor: hand;
+      padding: 1px 6px;
+      margin-left: 6px;
+      color: #666;
+      background: #ccc;
+      text-decoration: none;
+      border: 1px solid #aaa;
+      border-radius: 4px;
+      transition-property: color, background;
+      transition-duration: 0.15s;
+      transition-timing-function: ease-in-out; }
+    .card .header a:hover {
+      color: #000;
+      background: #bbb;
+      border: 1px solid #999; }
+    .card .header a:active {
+      color: #333;
+      background: #bbb; }
+    .card .header .icon {
+      width: auto;
+      margin-right: 4px; }
+  .card .actions {
+    padding: 4px;
     width: 100%;
-    background: #cccccc;
-    border-bottom: 1px solid #999999;
-    padding: 4px; }
-    .card .action-bar .button-group {
+    background: 0;
+    border-bottom: 0; }
+    .card .actions .group {
       display: inline-block; }
-      .card .action-bar .button-group.right {
+      .card .actions .group.right {
         float: right; }
-    .card .action-bar button {
+    .card .actions button {
       display: inline-block;
       font-size: 13px;
       font-weight: bold;
@@ -458,38 +529,49 @@ textarea.editable {
       border-right: 0;
       background: linear-gradient(to bottom, #eeeeee, #dddddd);
       outline: none !important; }
-      .card .action-bar button:first-child {
+      .card .actions button:first-child {
         border-top-left-radius: 4px;
         border-bottom-left-radius: 4px; }
-      .card .action-bar button:last-child {
+      .card .actions button:last-child {
         border-right: 1px solid #999999;
         border-top-right-radius: 4px;
         border-bottom-right-radius: 4px; }
-      .card .action-bar button:hover {
+      .card .actions button:hover {
         color: black;
         background: linear-gradient(to bottom, white, #dddddd); }
-      .card .action-bar button:active {
+      .card .actions button:active {
         color: black;
         background: #eeeeee;
         box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.3); }
-  .card .card-header {
-    margin: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #cccccc; }
-    .card .card-header .title {
-      color: #111;
-      font-size: 22px;
-      font-weight: 600; }
-      .card .card-header .title input {
-        text-overflow: ellipsis;
-        white-space: nowrap; }
-    .card .card-header .handoff {
-      font-size: 12px;
-      color: #999; }
-      .card .card-header .handoff em {
-        font-style: normal;
-        color: #666; }
-  .card .card-body {
-    margin: 10px;
-    font-size: 18px;
-    font-weight: 400; }
+  .card .details {
+    overflow-x: hidden;
+    overflow-y: auto; }
+    .card .details .participants {
+      padding: 10px 16px;
+      background: #efefef;
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 10px; }
+      .card .details .participants .group {
+        display: inline-block; }
+        .card .details .participants .group .title {
+          margin: 0 6px;
+          display: inline-block;
+          font-size: 14px;
+          color: #999; }
+      .card .details .participants .sidelines {
+        float: right; }
+      .card .details .participants ul {
+        display: inline-block;
+        list-style-type: none;
+        padding: 0;
+        margin: 0; }
+        .card .details .participants ul li {
+          display: inline-block; }
+      .card .details .participants .avatar {
+        display: inline-block;
+        vertical-align: middle;
+        border-radius: 50%; }
+    .card .details .body {
+      font-size: 18px;
+      font-weight: 400;
+      margin: 10px; }

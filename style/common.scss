@@ -23,6 +23,7 @@ body {
 
 @mixin editable-text {
   border: $editable-text-border;
+  background: transparent;
   transition-property: border, background, box-shadow;
   transition-duration: 0.1s;
   transition-timing-function: ease-in-out;
@@ -43,7 +44,7 @@ body {
 
 input.editable {
   @include editable-text;
-  padding: 4px;
+  padding: 2px;
   width: 100%;
 }
 
@@ -69,7 +70,7 @@ textarea.editable {
   &.icon-stack-backlog:before { content: "\E736"; }
   &.icon-do:before { content: "\1F44D"; }
   &.icon-defer:before { content: "\1F554"; }
-  &.icon-hand-back:before { content: "\1F519"; }
+  &.icon-hand-back:before { content: "\E712"; }
   &.icon-hand-off:before { content: "\27A6"; }
   &.icon-card:before { content: "\E730"; }
   &.icon-user:before { content: "\1F464"; }
@@ -172,7 +173,6 @@ textarea.editable {
     .close {
       color: $panel-header-icon-color;
       float: right;
-      cursor: pointer;
     }
   }
 }

@@ -16,13 +16,13 @@ FluxMixin = (storesToWatch...) -> {
     controller = @getController()
     controller.attachToEventBus() if @_isControllingComponent()
     _.each storesToWatch, (name) =>
-      controller.stores[name].on('change', @_updateState)
+      controller.getStore(name).on('change', @_updateState)
 
   componentWillUnmount: ->
     controller = @getController()
     controller.detachFromEventBus() if @_isControllingComponent()
     _.each storesToWatch, (name) =>
-      controller.stores[name].removeListener('change', @_updateState)
+      controller.getStore(name).removeListener('change', @_updateState)
 
   getInitialState: ->
     if storesToWatch.length == 0
@@ -44,8 +44,12 @@ FluxMixin = (storesToWatch...) -> {
     @setState(@_getUpdatedStateFromStores()) if @isMounted()
 
   _getUpdatedStateFromStores: ->
-    stores = @getController().getStores(storesToWatch)
-    @getStateFromStores(stores)
+    try
+      stores = @getController().getStores(storesToWatch)
+      @getStateFromStores(stores)
+    catch err
+      console.error("Error synchronizing with stores: #{err}")
+      throw err
 
 }
 

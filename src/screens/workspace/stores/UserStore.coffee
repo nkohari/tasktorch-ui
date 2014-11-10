@@ -8,8 +8,21 @@ class UserStore extends Store
     @users = {}
     @connectedUsers = []
 
+  getUser: (id) ->
+    @users[id]
+
+  getUsers: (ids...) ->
+    _.map _.flatten(ids), (id) => @users[id]
+
+  getCurrentUser: ->
+    @currentUser
+
   getConnectedUsers: ->
     _.clone(@connectedUsers)
+
+  onUsersLoaded: (event) ->
+    @users = _.extend @users, _.indexBy(event.users, 'id')
+    @announce()
 
   onJoinedPresenceChannel: (event) ->
     @connectedUsers = event.connectedUsers

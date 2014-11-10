@@ -21,10 +21,6 @@ WorkspaceScreen = React.createClass {
     Router.Navigation
   ]
 
-  propTypes:
-    currentOrganization: React.PropTypes.object.isRequired
-    currentUser:         React.PropTypes.object.isRequired
-
   createController: ->
     WorkspaceControllerFactory.create(@props.params.organizationId, @props.eventBus)
 

@@ -11,8 +11,8 @@ CardBody = React.createClass {
   mixins: [Flux()]
 
   render: ->
-    div {className: 'card-body'}, [
-      MultilineText {key: 'card-body-text', placeholder: Constants.cardBody, value: @props.card.body, save: @saveBody}
+    div {className: 'body'}, [
+      MultilineText {key: 'text', placeholder: Constants.cardBody, value: @props.card.body, save: @saveBody}
     ]
 
   saveBody: (value) ->

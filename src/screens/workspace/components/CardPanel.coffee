@@ -1,13 +1,14 @@
+_             = require 'lodash'
 React         = require 'react'
 Router        = require 'react-router'
 Constants     = require 'framework/Constants'
 Flux          = require 'mixins/Flux'
 ActiveUrl     = require 'mixins/ActiveUrl'
 WorkspaceUrl  = require '../WorkspaceUrl'
-Panel         = React.createFactory(require 'common/Panel')
-CardActionBar = React.createFactory(require './CardActionBar')
+Icon          = React.createFactory(require 'common/Icon')
 CardHeader    = React.createFactory(require './CardHeader')
-CardBody      = React.createFactory(require './CardBody')
+CardDetails      = React.createFactory(require './CardDetails')
+Link          = React.createFactory(Router.Link)
 {div}         = React.DOM
 
 CardPanel = React.createClass {
@@ -15,7 +16,7 @@ CardPanel = React.createClass {
   displayName: 'CardPanel'
 
   mixins: [
-    Flux('cards', 'types')
+    Flux('cards', 'goals', 'types', 'stacks', 'users')
     ActiveUrl(WorkspaceUrl)
   ]
 
@@ -24,37 +25,40 @@ CardPanel = React.createClass {
 
   getStateFromStores: (stores) ->
     card = stores.cards.getCard(@props.cardId)
-    type = stores.types.getType(card.type) if card?
-    {card, type}
+    if card?
+      goal = stores.goals.getGoal(card.goal.id)
+      stack = stores.stacks.getStack(card.stack.id)
+      type = stores.types.getType(card.type.id)
+      participants = stores.users.getUsers(_.pluck(card.participants, 'id'))
+    {card, goal, participants, stack, type}
 
   componentWillMount: ->
     @getController().loadCard(@props.cardId)
 
   render: ->
 
-    if @state.card? and @state.type?
-      title = @state.card.title or Constants.untitledCard
+    if @state.card?
       children = [
-        CardActionBar {key: 'card-actions', card: @state.card}
-        CardHeader {key: 'card-header', card: @state.card, type: @state.type}
-        CardBody {key: 'card-body', card: @state.card}
+        @makeCloseLink()
+        CardHeader {key: 'header', card: @state.card, goal: @state.goal, stack: @state.stack, type: @state.type}
+        CardDetails {key: 'details', card: @state.card, participants: @state.participants}
       ]
     else 
       title = 'Loading'
       children = []
 
-    Panel {
+    div {
       style:      {zIndex: 99 - @props.position}
-      panelTitle: title
-      icon:       'card'
       className:  'card'
-      close:      @makeCloseLinkProps()
     }, children
 
-  makeCloseLinkProps: ->
+  makeCloseLink: ->
     url = @getActiveUrl()
     url.removeCard(@props.cardId)
-    return url.makeLinkProps()
+    props = _.extend {key: 'close', className: 'close'}, url.makeLinkProps()
+    Link props, [
+      Icon {key: 'close', name: 'close'}
+    ]
 
 }
 

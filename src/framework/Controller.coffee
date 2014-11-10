@@ -21,8 +21,13 @@ class Controller
   publish: (event) ->
     @eventBus.publish(event)
 
+  getStore: (name) ->
+    store = @stores[name]
+    throw new Error("No store named '#{name}' has been defined in #{@constructor.name}") unless store?
+    return store
+
   getStores: (names...) ->
-    _.pick @stores, _.flatten(names)
+    _.object _.map _.flatten(names), (name) => [name, @getStore(name)]
 
   _dispatch: (event) ->
     func = "on#{event.type}"

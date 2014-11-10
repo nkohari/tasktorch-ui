@@ -34,7 +34,7 @@ Shell = React.createClass {
     Screen = @props.activeRouteHandler
     div {className: 'shell'}, [
       ShellHeader {key: 'header', currentOrganization: @state.currentOrganization, currentUser: @state.currentUser}
-      Screen {key: 'screen', currentOrganization: @state.currentOrganization, currentUser: @state.currentUser}
+      Screen {key: 'screen'}
     ]
 
 }
