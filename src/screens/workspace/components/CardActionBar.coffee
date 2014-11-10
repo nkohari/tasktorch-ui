@@ -8,8 +8,8 @@ CardActionBar = React.createClass {
 
   render: ->
     div {className: 'action-bar'}, [
-      Button {key: 'do-later',  icon: 'do-now',    text: 'Do Now'}
-      Button {key: 'do-now',    icon: 'do-later',  text: 'Do Later'}
+      Button {key: 'do',        icon: 'do',        text: 'Do'}
+      Button {key: 'defer',     icon: 'defer',     text: 'Defer'}
       Button {key: 'hand-back', icon: 'hand-back', text: 'Hand Back'}
       Button {key: 'hand-off',  icon: 'hand-off',  text: 'Hand Off'}
       Button {key: 'archive',   icon: 'archive'}

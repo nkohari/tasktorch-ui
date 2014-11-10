@@ -73,9 +73,9 @@ textarea.editable {
     content: "\1F4C4"; }
   .icon.icon-stack-backlog:before {
     content: "\E736"; }
-  .icon.icon-do-now:before {
+  .icon.icon-do:before {
     content: "\1F3AF"; }
-  .icon.icon-do-later:before {
+  .icon.icon-defer:before {
     content: "\E003"; }
   .icon.icon-hand-back:before {
     content: "\E712"; }
@@ -117,7 +117,7 @@ textarea.editable {
   z-index: 1000;
   border-right: 1px solid #555555;
   background: #666666;
-  box-shadow: 1px -1px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0;
   overflow-x: hidden;
   overflow-y: auto;
   white-space: normal; }
@@ -180,7 +180,7 @@ textarea.editable {
     font-size: 14px;
     font-weight: 600;
     color: #666666;
-    background: #cccccc;
+    background: linear-gradient(to bottom, #eeeeee, #cccccc);
     overflow: hidden;
     padding: 8px 6px;
     border-bottom: 1px solid #999999; }
@@ -194,14 +194,16 @@ textarea.editable {
 
 .panel-slide-enter {
   opacity: 0;
-  transform: translateX(-100px);
+  transform: translateX(-300px);
   transition-property: opacity, transform;
-  transition-duration: 0.15s;
-  transition-timing-function: ease-in-out;
-  -webkit-transform: translateX(-100px);
+  transition-duration: 0.1s;
+  transform-origin: left center;
+  transition-timing-function: ease-in;
+  -webkit-transform: translateX(-300px);
+  -webkit-transform-origin: left center;
   -webkit-transition-property: opacity, transform;
-  -webkit-transition-duration: 0.15s;
-  -webkit-transition-timing-function: ease-in-out; }
+  -webkit-transition-duration: 0.1s;
+  -webkit-transition-timing-function: ease-in; }
   .panel-slide-enter.panel-slide-enter-active {
     opacity: 1;
     transform: translateX(0px);
@@ -211,14 +213,14 @@ textarea.editable {
   opacity: 1;
   transform: translateX(0);
   transition-property: opacity, transform;
-  transition-duration: 0.15s;
-  transition-timing-function: ease-in-out;
-  transform-origin: left top;
+  transition-duration: 0.1s;
+  transition-timing-function: linear;
+  transform-origin: left center;
   -webkit-transform: translateX(0);
+  -webkit-transform-origin: left center;
   -webkit-transition-property: opacity, transform;
-  -webkit-transition-duration: 0.15s;
-  -webkit-transition-timing-function: ease-in-out;
-  -webkit-transform-origin: left top; }
+  -webkit-transition-duration: 0.1s;
+  -webkit-transition-timing-function: linear; }
   .panel-slide-leave.panel-slide-leave-active {
     opacity: 0;
     transform: translateX(-300px);
@@ -244,7 +246,7 @@ textarea.editable {
     height: 100%;
     border-bottom: 1px solid #555555;
     background: #666666;
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5); }
+    box-shadow: 0; }
 
 .organization-corner {
   float: left;
@@ -400,15 +402,14 @@ textarea.editable {
   cursor: grab;
   border-bottom: 1px solid #999999;
   background: white;
-  padding: 8px;
-  transition: box-shadow 0.1s ease-in-out; }
+  padding: 8px; }
   .stack-card.dragging {
     cursor: -webkit-grabbing;
     cursor: -moz-grabbing;
     cursor: grabbing; }
   .stack-card.active {
     background: linear-gradient(to bottom, white, #eeeeee);
-    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2); }
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3); }
   .stack-card .card-top {
     padding: 2px 6px;
     border-left: 6px solid #999; }

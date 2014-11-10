@@ -67,8 +67,8 @@ textarea.editable {
   &.icon-stack-inbox:before { content: "\1F4E5"; }
   &.icon-stack-queue:before { content: "\1F4C4"; }
   &.icon-stack-backlog:before { content: "\E736"; }
-  &.icon-do-now:before { content: "\1F3AF"; }
-  &.icon-do-later:before { content: "\E003"; }
+  &.icon-do:before { content: "\1F3AF"; }
+  &.icon-defer:before { content: "\E003"; }
   &.icon-hand-back:before { content: "\E712"; }
   &.icon-hand-off:before { content: "\27A6"; }
   &.icon-card:before { content: "\E730"; }
@@ -179,14 +179,16 @@ textarea.editable {
 
 .panel-slide-enter {
   opacity: 0;
-  transform: translateX(-100px);
+  transform: translateX(-300px);
   transition-property: opacity, transform;
-  transition-duration: 0.15s;
-  transition-timing-function: ease-in-out;
-  -webkit-transform: translateX(-100px);
+  transition-duration: 0.1s;
+  transform-origin: left center;
+  transition-timing-function: ease-in;
+  -webkit-transform: translateX(-300px);
+  -webkit-transform-origin: left center;
   -webkit-transition-property: opacity, transform;
-  -webkit-transition-duration: 0.15s;
-  -webkit-transition-timing-function: ease-in-out;
+  -webkit-transition-duration: 0.1s;
+  -webkit-transition-timing-function: ease-in;
   &.panel-slide-enter-active {
     opacity: 1;
     transform: translateX(0px);
@@ -198,14 +200,14 @@ textarea.editable {
   opacity: 1;
   transform: translateX(0);
   transition-property: opacity, transform;
-  transition-duration: 0.15s;
-  transition-timing-function: ease-in-out;
-  transform-origin: left top;
+  transition-duration: 0.1s;
+  transition-timing-function: linear;
+  transform-origin: left center;
   -webkit-transform: translateX(0);
+  -webkit-transform-origin: left center;
   -webkit-transition-property: opacity, transform;
-  -webkit-transition-duration: 0.15s;
-  -webkit-transition-timing-function: ease-in-out;
-  -webkit-transform-origin: left top;
+  -webkit-transition-duration: 0.1s;
+  -webkit-transition-timing-function: linear;
   &.panel-slide-leave-active {
     opacity: 0;
     transform: translateX(-300px);

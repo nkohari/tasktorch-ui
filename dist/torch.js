@@ -37730,13 +37730,13 @@ CardActionBar = React.createClass({
       className: 'action-bar'
     }, [
       Button({
-        key: 'do-later',
-        icon: 'do-now',
-        text: 'Do Now'
+        key: 'do',
+        icon: 'do',
+        text: 'Do'
       }), Button({
-        key: 'do-now',
-        icon: 'do-later',
-        text: 'Do Later'
+        key: 'defer',
+        icon: 'defer',
+        text: 'Defer'
       }), Button({
         key: 'hand-back',
         icon: 'hand-back',

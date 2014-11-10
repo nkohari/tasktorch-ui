@@ -35,7 +35,6 @@
   border-bottom: $panel-border;
   background: $stack-card-background;
   padding: 8px;
-  transition: box-shadow 0.1s ease-in-out;
   &.dragging {
     cursor: -webkit-grabbing;
     cursor: -moz-grabbing;
