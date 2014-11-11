@@ -7,7 +7,8 @@ ActiveUrl     = require 'mixins/ActiveUrl'
 WorkspaceUrl  = require '../WorkspaceUrl'
 Icon          = React.createFactory(require 'common/Icon')
 CardHeader    = React.createFactory(require './CardHeader')
-CardDetails      = React.createFactory(require './CardDetails')
+CardSubheader = React.createFactory(require './CardSubheader')
+CardDetails   = React.createFactory(require './CardDetails')
 Link          = React.createFactory(Router.Link)
 {div}         = React.DOM
 
@@ -25,12 +26,13 @@ CardPanel = React.createClass {
 
   getStateFromStores: (stores) ->
     card = stores.cards.getCard(@props.cardId)
+    currentUser = stores.users.getCurrentUser()
     if card?
       goal = stores.goals.getGoal(card.goal.id)
       stack = stores.stacks.getStack(card.stack.id)
       type = stores.types.getType(card.type.id)
       participants = stores.users.getUsers(_.pluck(card.participants, 'id'))
-    {card, goal, participants, stack, type}
+    {card, goal, participants, stack, type, currentUser}
 
   componentWillMount: ->
     @getController().loadCard(@props.cardId)
@@ -51,7 +53,8 @@ CardPanel = React.createClass {
       className:  'card'
     }, [
       @makeCloseLink()
-      CardHeader {key: 'header', card: @state.card, goal: @state.goal, stack: @state.stack, type: @state.type}
+      CardHeader {key: 'header', card: @state.card, stack: @state.stack, type: @state.type}
+      CardSubheader {key: 'subheader', card: @state.card, goal: @state.goal, stack: @state.stack, participants: @state.participants, currentUser: @state.currentUser}
       CardDetails {key: 'details', card: @state.card, participants: @state.participants}
     ]
 

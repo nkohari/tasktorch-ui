@@ -32,11 +32,13 @@ CardLocation = React.createClass {
       return div {className: 'location loading'}, []
 
     props = @makeStackLinkProps()
-    div {className: 'location'}, [
-      'in'
-      Link props, [
-        Icon {key: 'icon', name: "stack-#{@state.stack.kind.toLowerCase()}"}
-        @formatStackName()
+    div {className: 'location aspect'}, [
+      div {key: 'name', className: 'name'}, ['Stack']
+      div {key: 'value', className: 'value'}, [
+        Link props, [
+          Icon {key: 'icon', name: "stack-#{@state.stack.kind.toLowerCase()}"}
+          @formatStackName()
+        ]
       ]
     ]
 

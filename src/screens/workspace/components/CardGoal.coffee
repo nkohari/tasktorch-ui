@@ -13,11 +13,13 @@ CardGoal = React.createClass {
   mixins: [ActiveUrl(WorkspaceUrl)]
 
   render: ->
-    div {className: 'goal'}, [
-      'part of'
-      Link @makeLinkProps(), [
-        Icon {key: 'icon', name: 'goal'}
-        @props.goal.name
+    div {className: 'goal aspect'}, [
+      div {key: 'name', className: 'name'}, ['Goal']
+      div {key: 'value', className: 'value'}, [
+        Link @makeLinkProps(), [
+          Icon {key: 'icon', name: 'goal'}
+          @props.goal.name
+        ]
       ]
     ]
 
