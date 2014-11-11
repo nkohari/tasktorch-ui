@@ -96,37 +96,44 @@
   height: 100%;
   float: right;
   .focused-card {
+    display: inline-block;
     float: left;
     height: 100%;
     width: 250px;
     padding: 8px 10px;
     font-size: 14px;
-    font-weight: thin;
-    border-right: $focus-border;
+    border-left: $focus-border;
     background: $focus-background;
     text-decoration: none;
-    transition-property: color background;
+    transition-property: color, background;
     transition-duration: 0.15s;
     transition-timing-function: ease-in-out;
-    &:hover {
-      background: $focus-hover-background;
-      .title {
-        color: $focus-hover-title-text-color;
-      }
-    }
-    .title {
+    a, a:visited {
+      display: inline-block;
       width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      color: $focus-title-text-color;
-      text-shadow: 1px 1px 2px $focus-title-text-shadow-color;
+      font-weight: 600;
+      color: $focus-link-color;
+      text-shadow: 1px 1px 2px $focus-link-shadow-color;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #333;
+      text-decoration: underline;
+    }
+    a:active {
+      color: #666;
+      text-decoration: underline;
     }
   }
   .user-profile {
+    display: inline-block;
     float: right;
     height: 100%;
     padding: 8px;
+    border-left: $user-profile-border;
     background: $user-profile-background;
     .menu-trigger {
       display: inline-block;

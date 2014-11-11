@@ -97,7 +97,7 @@
   .header {
     padding: 6px;
     background: $card-header-background;
-    border-left: 6px solid;
+    border-top: 6px solid;
     border-bottom: $card-header-border;
     .title {
       color: #111;
@@ -198,29 +198,31 @@
     overflow-x: hidden;
     overflow-y: auto;
     .participants {
-      padding: 10px 16px;
       background: #efefef;
-      border-bottom: 1px solid #ccc;
-      margin-bottom: 10px;
-      .group {
+      border: 1px solid #ccc;
+      margin: 10px;
+      .owner {
         display: inline-block;
+        background: #ddd;
+        padding: 4px 6px;
+        border-right: 1px solid #ccc;
         .title {
-          margin: 0 6px;
+          padding: 0 8px 0 4px;
           display: inline-block;
           font-size: 14px;
           color: #999;
         }
       }
-      .sidelines {
-        float: right;
-      }
-      ul {
+      .participating {
         display: inline-block;
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-        li {
-          display: inline-block;
+        padding: 4px 6px;
+        ul {
+          list-style-type: none;
+          padding: 0;
+          margin: 0;
+          li {
+            display: inline-block;
+          }
         }
       }
       .avatar {

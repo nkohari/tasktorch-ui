@@ -35,22 +35,25 @@ CardPanel = React.createClass {
   componentWillMount: ->
     @getController().loadCard(@props.cardId)
 
+  isReady: ->
+    @state.card? and @state.stack? and @state.type? and
+      _.compact(@state.participants).length == @state.card.participants.length
+
   render: ->
 
-    if @state.card?
-      children = [
-        @makeCloseLink()
-        CardHeader {key: 'header', card: @state.card, goal: @state.goal, stack: @state.stack, type: @state.type}
-        CardDetails {key: 'details', card: @state.card, participants: @state.participants}
-      ]
-    else 
-      title = 'Loading'
-      children = []
+    style = {zIndex: 99 - @props.position}
+
+    unless @isReady()
+      return div {style, className: 'card loading'}, []
 
     div {
-      style:      {zIndex: 99 - @props.position}
+      style
       className:  'card'
-    }, children
+    }, [
+      @makeCloseLink()
+      CardHeader {key: 'header', card: @state.card, goal: @state.goal, stack: @state.stack, type: @state.type}
+      CardDetails {key: 'details', card: @state.card, participants: @state.participants}
+    ]
 
   makeCloseLink: ->
     url = @getActiveUrl()

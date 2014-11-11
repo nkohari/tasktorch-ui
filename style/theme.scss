@@ -28,8 +28,8 @@ $editable-text-active-border: 1px solid #888;
 $editable-text-active-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 $editable-text-dirty-border: 1px solid #090;
 
-$header-bar-border: 1px solid #555;
-$header-bar-background: #666;
+$header-bar-border: 1px solid #999;
+$header-bar-background: linear-gradient(to bottom, #fff, #ddd);
 $header-bar-shadow: 0;
 
 $organization-name-text-color: #fff;
@@ -38,28 +38,27 @@ $organization-background: #555;
 $organization-menu-trigger-color: #999;
 $organization-widget-color: #999;
 
-$navigation-text-color: #aaa;
-$navigation-text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-$navigation-font-weight: normal;
-$navigation-icon-color: #aaa;
-$navigation-border: 1px solid #555;
+$navigation-text-color: #666;
+$navigation-text-shadow: none;
+$navigation-font-weight: 600;
+$navigation-icon-color: #666;
+$navigation-border: 1px solid #999;
 $navigation-active-text-color: #000;
 $navigation-active-text-shadow: none;
 $navigation-active-font-weight: 600;
 $navigation-active-icon-color: #000;
-$navigation-active-background: linear-gradient(to bottom, #fff, #ddd);
-$navigation-active-shadow: inset 0 0 2px rgba(0, 0, 0, 0.5);
+$navigation-active-background: linear-gradient(to bottom, #ddd, #fff);
+$navigation-active-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
 
-$focus-border: 1px solid #555;
-$focus-background: #555;
-$focus-title-text-color: #ccc;
-$focus-title-text-shadow-color: rgba(0, 0, 0, 0.5);
-$focus-hover-background: #888;
-$focus-hover-title-text-color: #fff;
+$focus-border: 1px solid #999;
+$focus-background: linear-gradient(to bottom, #eee, #ccc);
+$focus-link-color: #000;
+$focus-link-shadow-color: none;
 
-$user-profile-background: #444;
+$user-profile-border: 1px solid #999;
+$user-profile-background: linear-gradient(to bottom, #fff, #ddd);
 $user-profile-menu-trigger-color: #999;
-$user-profile-avatar-border: 0;
+$user-profile-avatar-border: none;
 
 $search-background: #555;
 $search-border: 0;
@@ -91,7 +90,7 @@ $stack-card-background: #fff;
 $stack-card-title-color: #000;
 $stack-card-contextual-border: 1px dotted #ccc;
 $stack-card-contextual-color: #666;
-$stack-card-active-background: linear-gradient(to bottom, #fff, #eee);
+$stack-card-active-background: linear-gradient(to bottom, #eee, #fff);
 $stack-card-active-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
 
 $card-header-background: linear-gradient(to bottom, #eee, #ccc);

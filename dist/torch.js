@@ -37525,7 +37525,9 @@ WorkspaceController = (function(_super) {
         card = _.omit(res.body, '_related');
         _this.publish(new StacksLoadedEvent([stack]));
         _this.publish(new TypesLoadedEvent([type]));
-        _this.publish(new GoalsLoadedEvent([goal]));
+        if (goal != null) {
+          _this.publish(new GoalsLoadedEvent([goal]));
+        }
         _this.publish(new UsersLoadedEvent(participants));
         return _this.publish(new CardsLoadedEvent([card]));
       };
@@ -37960,7 +37962,7 @@ CardHeader = React.createClass({
     return div({
       className: 'header',
       style: {
-        borderLeftColor: '#999'
+        borderTopColor: '#099'
       }
     }, children);
   },
@@ -38113,32 +38115,36 @@ CardPanel = React.createClass({
   componentWillMount: function() {
     return this.getController().loadCard(this.props.cardId);
   },
+  isReady: function() {
+    return (this.state.card != null) && (this.state.stack != null) && (this.state.type != null) && _.compact(this.state.participants).length === this.state.card.participants.length;
+  },
   render: function() {
-    var children, title;
-    if (this.state.card != null) {
-      children = [
-        this.makeCloseLink(), CardHeader({
-          key: 'header',
-          card: this.state.card,
-          goal: this.state.goal,
-          stack: this.state.stack,
-          type: this.state.type
-        }), CardDetails({
-          key: 'details',
-          card: this.state.card,
-          participants: this.state.participants
-        })
-      ];
-    } else {
-      title = 'Loading';
-      children = [];
+    var style;
+    style = {
+      zIndex: 99 - this.props.position
+    };
+    if (!this.isReady()) {
+      return div({
+        style: style,
+        className: 'card loading'
+      }, []);
     }
     return div({
-      style: {
-        zIndex: 99 - this.props.position
-      },
+      style: style,
       className: 'card'
-    }, children);
+    }, [
+      this.makeCloseLink(), CardHeader({
+        key: 'header',
+        card: this.state.card,
+        goal: this.state.goal,
+        stack: this.state.stack,
+        type: this.state.type
+      }), CardDetails({
+        key: 'details',
+        card: this.state.card,
+        participants: this.state.participants
+      })
+    ]);
   },
   makeCloseLink: function() {
     var props, url;
@@ -38162,7 +38168,7 @@ module.exports = CardPanel;
 
 
 },{"../WorkspaceUrl":301,"./../../../common/Icon.coffee":235,"./../../../framework/Constants.coffee":264,"./../../../mixins/ActiveUrl.coffee":277,"./../../../mixins/Flux.coffee":278,"./CardDetails":303,"./CardHeader":305,"lodash":23,"react":"M6d2gk","react-router":33}],308:[function(require,module,exports){
-var Avatar, CardParticipants, React, div, li, ul, _, _ref;
+var Avatar, CardParticipants, React, div, li, span, ul, _, _ref;
 
 _ = require('lodash');
 
@@ -38170,7 +38176,7 @@ React = require('react');
 
 Avatar = React.createFactory(require('./../../../common/Avatar.coffee'));
 
-_ref = React.DOM, div = _ref.div, ul = _ref.ul, li = _ref.li;
+_ref = React.DOM, div = _ref.div, span = _ref.span, ul = _ref.ul, li = _ref.li;
 
 CardParticipants = React.createClass({
   displayName: 'CardParticipants',
@@ -38196,17 +38202,17 @@ CardParticipants = React.createClass({
       className: 'participants'
     }, [
       div({
-        className: 'owner group'
+        className: 'owner'
       }, [
-        Avatar({
+        span({
+          className: 'title'
+        }, ['Owner']), Avatar({
           key: 'owner',
           user: owner,
           size: 32
-        }), div({
-          className: 'title'
-        }, ['Owner'])
+        })
       ]), div({
-        className: 'sidelines group'
+        className: 'participating'
       }, [ul({}, sideline)])
     ]);
   }
@@ -39358,19 +39364,12 @@ FocusedCard = React.createClass({
     return this.getController().loadMyQueue();
   },
   render: function() {
-    var linkProps;
     if (this.state.focusedCard == null) {
       return div({}, ["Loading"]);
     }
-    linkProps = _.extend({
+    return div({
       className: 'focused-card'
-    }, this.makeLinkProps());
-    return Link(linkProps, [
-      div({
-        key: 'title',
-        className: 'title'
-      }, [this.state.focusedCard.title])
-    ]);
+    }, [Link(this.makeLinkProps(), [this.state.focusedCard.title])]);
   },
   makeLinkProps: function() {
     var url;

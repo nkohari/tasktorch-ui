@@ -39,7 +39,7 @@ class WorkspaceController extends Controller
       card = _.omit(res.body, '_related')
       @publish new StacksLoadedEvent([stack])
       @publish new TypesLoadedEvent([type])
-      @publish new GoalsLoadedEvent([goal])
+      @publish new GoalsLoadedEvent([goal]) if goal?
       @publish new UsersLoadedEvent(participants)
       @publish new CardsLoadedEvent([card])
 

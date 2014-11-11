@@ -34,7 +34,7 @@ CardHeader = React.createClass {
 
     div {
       className: 'header'
-      style:     {borderLeftColor: '#999'}
+      style:     {borderTopColor: '#099'}
     }, children
 
   saveTitle: (title) ->

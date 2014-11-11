@@ -1,7 +1,7 @@
-_             = require 'lodash'
-React         = require 'react'
-Avatar        = React.createFactory(require 'common/Avatar')
-{div, ul, li} = React.DOM
+_      = require 'lodash'
+React  = require 'react'
+Avatar = React.createFactory(require 'common/Avatar')
+{div, span, ul, li} = React.DOM
 
 CardParticipants = React.createClass {
 
@@ -16,11 +16,11 @@ CardParticipants = React.createClass {
       ]
 
     div {className: 'participants'}, [
-      div {className: 'owner group'}, [
+      div {className: 'owner'}, [
+        span {className: 'title'}, ['Owner']
         Avatar {key: 'owner', user: owner, size: 32}
-        div {className: 'title'}, ['Owner']
       ]
-      div {className: 'sidelines group'}, [
+      div {className: 'participating'}, [
         ul {}, sideline
       ]
     ]
