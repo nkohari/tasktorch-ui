@@ -36892,7 +36892,7 @@ module.exports = LoadStackRequest;
 
 
 },{"./../events/StacksLoadedEvent.coffee":253,"./../events/TeamsLoadedEvent.coffee":254,"./../events/UsersLoadedEvent.coffee":257,"./../framework/Request.coffee":263,"lodash":23,"superagent":227}],286:[function(require,module,exports){
-var CardBodyChangedEvent, Request, SetCardBodyRequest, etag, superagent, _,
+var CardBodyChangedEvent, Header, Request, SetCardBodyRequest, etag, superagent, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -36901,6 +36901,8 @@ _ = require('lodash');
 superagent = require('superagent');
 
 etag = require('./../common/util/etag.coffee');
+
+Header = require('./../framework/enums/Header.coffee');
 
 Request = require('./../framework/Request.coffee');
 
@@ -36915,13 +36917,13 @@ SetCardBodyRequest = (function(_super) {
   }
 
   SetCardBodyRequest.prototype.execute = function(context, eventBus) {
-    return superagent.put("" + this.card.uri + "/body").set(Header.IfMatch, etag.encode(card.version)).set(Header.Socket, eventBus.getSocketId()).send({
+    return superagent.put("" + this.card.uri + "/body").set(Header.IfMatch, etag.encode(this.card.version)).set(Header.Socket, eventBus.getSocketId()).send({
       body: this.body
     }).end((function(_this) {
       return function(res) {
         var version;
         version = etag.decode(res.header['etag']);
-        return eventBus.publish(new CardBodyChangedEvent(card.id, body, version));
+        return eventBus.publish(new CardBodyChangedEvent(_this.card.id, body, version));
       };
     })(this));
   };
@@ -36934,8 +36936,8 @@ module.exports = SetCardBodyRequest;
 
 
 
-},{"./../common/util/etag.coffee":242,"./../events/CardBodyChangedEvent.coffee":243,"./../framework/Request.coffee":263,"lodash":23,"superagent":227}],287:[function(require,module,exports){
-var CardTitleChangedEvent, Request, SetCardTitleRequest, etag, superagent, _,
+},{"./../common/util/etag.coffee":242,"./../events/CardBodyChangedEvent.coffee":243,"./../framework/Request.coffee":263,"./../framework/enums/Header.coffee":265,"lodash":23,"superagent":227}],287:[function(require,module,exports){
+var CardTitleChangedEvent, Header, Request, SetCardTitleRequest, etag, superagent, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -36944,6 +36946,8 @@ _ = require('lodash');
 superagent = require('superagent');
 
 etag = require('./../common/util/etag.coffee');
+
+Header = require('./../framework/enums/Header.coffee');
 
 Request = require('./../framework/Request.coffee');
 
@@ -36958,13 +36962,13 @@ SetCardTitleRequest = (function(_super) {
   }
 
   SetCardTitleRequest.prototype.execute = function(context, eventBus) {
-    return superagent.put("" + this.card.uri + "/title").set(Header.IfMatch, etag.encode(card.version)).set(Header.Socket, eventBus.getSocketId()).send({
+    return superagent.put("" + this.card.uri + "/title").set(Header.IfMatch, etag.encode(this.card.version)).set(Header.Socket, eventBus.getSocketId()).send({
       title: this.title
     }).end((function(_this) {
       return function(res) {
         var version;
         version = etag.decode(res.header['etag']);
-        return eventBus.publish(new CardTitleChangedEvent(card.id, title, version));
+        return eventBus.publish(new CardTitleChangedEvent(_this.card.id, title, version));
       };
     })(this));
   };
@@ -36977,7 +36981,7 @@ module.exports = SetCardTitleRequest;
 
 
 
-},{"./../common/util/etag.coffee":242,"./../events/CardTitleChangedEvent.coffee":244,"./../framework/Request.coffee":263,"lodash":23,"superagent":227}],288:[function(require,module,exports){
+},{"./../common/util/etag.coffee":242,"./../events/CardTitleChangedEvent.coffee":244,"./../framework/Request.coffee":263,"./../framework/enums/Header.coffee":265,"lodash":23,"superagent":227}],288:[function(require,module,exports){
 var ActiveUrl, BigPictureScreen, BigPictureSidebar, BigPictureUrl, Observe, React, Router, div, _;
 
 _ = require('lodash');
