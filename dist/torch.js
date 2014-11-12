@@ -37757,7 +37757,7 @@ CardHeader = React.createClass({
     return div({
       className: 'header',
       style: {
-        borderTopColor: '#099'
+        borderTopColor: this.props.kind.color
       }
     }, [
       div({

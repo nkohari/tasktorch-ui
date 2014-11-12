@@ -23,7 +23,7 @@ CardHeader = React.createClass {
   render: ->
     div {
       className: 'header'
-      style:     {borderTopColor: '#099'} # TODO: Color should match the card's kind
+      style:     {borderTopColor: @props.kind.color}
     }, [
       div {key: 'title', className: 'title'}, [
         Text {key: 'title-text', placeholder: Constants.untitledCard, value: @props.card.title, save: @saveTitle}
