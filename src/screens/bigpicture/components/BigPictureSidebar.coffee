@@ -1,15 +1,18 @@
-_                = require 'lodash'
-React            = require 'react'
-Flux             = require 'mixins/Flux'
-SidebarItemGroup = React.createFactory(require 'common/SidebarItemGroup')
-TeamSidebarItem  = React.createFactory(require './TeamSidebarItem')
-{div}            = React.DOM
+_                   = require 'lodash'
+React               = require 'react'
+Observe             = require 'mixins/Observe'
+LoadAllTeamsRequest = require 'requests/LoadAllTeamsRequest'
+SidebarItemGroup    = React.createFactory(require 'common/SidebarItemGroup')
+TeamSidebarItem     = React.createFactory(require './TeamSidebarItem')
+{div}               = React.DOM
 
 BigPictureSidebar = React.createClass {
 
   displayName: 'BigPictureSidebar'
 
-  mixins: [Flux('teams')]
+  mixins: [
+    Observe('teams')
+  ]
 
   getStateFromStores: (stores) ->
     return {
@@ -17,14 +20,14 @@ BigPictureSidebar = React.createClass {
     }
 
   componentWillMount: ->
-    @getController().loadTeams()
+    @execute new LoadAllTeamsRequest()
 
   render: ->
 
     teams = _.map @state.teams, (team) =>
       TeamSidebarItem {key: "team-#{team.id}", team}
 
-    div {className: 'bigpicture sidebar'}, [
+    div {className: 'bigpicture sidebar panel'}, [
       SidebarItemGroup {key: 'teams', header: 'Teams'}, teams
     ]
 

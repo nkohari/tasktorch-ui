@@ -1,12 +1,12 @@
 React        = require 'react'
-Flux         = require 'mixins/Flux'
+Observe      = require 'mixins/Observe'
 {div, input} = React.DOM
 
 SearchBox = React.createClass {
 
   displayName: 'SearchBox'
 
-  mixins: [Flux()]
+  mixins: [Observe()]
 
   getInitialState: ->
     {value: @props.value}

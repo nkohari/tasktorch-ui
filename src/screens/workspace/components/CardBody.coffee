@@ -1,14 +1,15 @@
-React         = require 'react'
-Flux          = require 'mixins/Flux'
-Constants     = require 'framework/Constants'
-MultilineText = React.createFactory(require 'common/MultilineText')
-{div}         = React.DOM
+React              = require 'react'
+Observe            = require 'mixins/Observe'
+Constants          = require 'framework/Constants'
+SetCardBodyRequest = require 'requests/SetCardBodyRequest'
+MultilineText      = React.createFactory(require 'common/MultilineText')
+{div}              = React.DOM
 
 CardBody = React.createClass {
 
   displayName: 'CardBody'
 
-  mixins: [Flux()]
+  mixins: [Observe()]
 
   render: ->
     div {className: 'body'}, [
@@ -16,7 +17,7 @@ CardBody = React.createClass {
     ]
 
   saveBody: (value) ->
-    @getController().setCardBody(@props.card, value)
+    @execute new SetCardBodyRequest(@props.card, value)
 
 }
 

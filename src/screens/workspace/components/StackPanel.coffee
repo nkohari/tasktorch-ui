@@ -1,20 +1,19 @@
-_              = require 'lodash'
-React          = require 'react'
-Router         = require 'react-router'
-Flux           = require 'mixins/Flux'
-ActiveUrl      = require 'mixins/ActiveUrl'
-WorkspaceUrl   = require '../WorkspaceUrl'
-Panel          = React.createFactory(require 'common/Panel')
-StackCardFrame = React.createFactory(require './StackCardFrame')
-{div, ul}      = React.DOM
+_                       = require 'lodash'
+React                   = require 'react'
+Router                  = require 'react-router'
+Observe                 = require 'mixins/Observe'
+LoadStackRequest        = require 'requests/LoadStackRequest'
+LoadCardsInStackRequest = require 'requests/LoadCardsInStackRequest'
+StackHeader             = React.createFactory(require './StackHeader')
+StackCardFrame          = React.createFactory(require './StackCardFrame')
+{div, ul}               = React.DOM
 
 StackPanel = React.createClass {
 
   displayName: 'StackPanel'
 
   mixins: [
-    Flux('stacks', 'cards')
-    ActiveUrl(WorkspaceUrl)
+    Observe('stacks', 'cards')
   ]
 
   propTypes:
@@ -33,36 +32,29 @@ StackPanel = React.createClass {
     @loadStack(@props.stackId)
 
   loadStack: (stackId) ->
-    controller = @getController()
-    controller.loadStack(stackId)
-    controller.loadCardsInStack(stackId)
+    @execute new LoadStackRequest(stackId)
+    @execute new LoadCardsInStackRequest(stackId)
 
   render: ->
 
-    # TODO: Proper loading indicator
-    unless @state.stack?
-      return div {}, ["Loading"]
+    children = []
+    if @state.stack? and @state.cards?
+      cards = _.map @state.cards, (card, index) =>
+        StackCardFrame {key: "card-frame-#{card.id}", stack: @state.stack, card, index}
+      children = [
+        StackHeader {key: 'header', className: 'header', stack: @state.stack}
+        div {key: 'body', className: 'body'}, [
+          ul {key: 'cards', ref: 'cardList', className: 'card-list'}, cards
+        ]
+      ]
 
-    cards = _.map @state.cards, (card, index) =>
-      StackCardFrame {key: "card-frame-#{card.id}", stack: @state.stack, card, index}
-
-    Panel {
-      panelTitle:  @state.stack.name
-      className:   'stack'
+    div {
       style:       {zIndex: 99 - @props.position}
-      icon:        "stack-#{@state.stack.kind?.toLowerCase()}"
-      close:       @makeCloseLinkProps()
+      className:   'stack panel'
       onDragStart: @handleDragStart
       onDragEnd:   @handleDragEnd
       onDragOver:  @handleDragOver
-    }, [
-      ul {key: 'card-list', ref: 'cardList', className: 'card-list'}, cards
-    ]
-
-  makeCloseLinkProps: ->
-    url = @getActiveUrl()
-    url.removeStack(@state.stack.id)
-    return url.makeLinkProps()
+    }, children
 
   handleDragStart: (event) ->
     console.log("started dragging from stack #{@state.stack.id}")

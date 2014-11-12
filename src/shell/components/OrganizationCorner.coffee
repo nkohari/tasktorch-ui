@@ -1,5 +1,4 @@
 React          = require 'react'
-Flux           = require 'mixins/Flux'
 MenuTrigger    = React.createFactory(require 'common/MenuTrigger')
 PresenceWidget = React.createFactory(require './PresenceWidget')
 {div}          = React.DOM
@@ -7,16 +6,6 @@ PresenceWidget = React.createFactory(require './PresenceWidget')
 OrganizationCorner = React.createClass {
 
   displayName: 'OrganizationCorner'
-
-  mixins: [
-    Flux('organizations', 'presence')
-  ]
-
-  getStateFromStores: (stores) ->
-    return {
-      organizations:  stores.organizations.getAllOrganizations()
-      connectedUsers: stores.presence.getConnectedUsers()
-    }
 
   render: ->
 
@@ -29,7 +18,7 @@ OrganizationCorner = React.createClass {
         MenuTrigger {key: 'trigger'}
       ]
       div {key: 'widgets', className: 'widgets'}, [
-        PresenceWidget {key: 'presence', connectedUsers: @state.connectedUsers}
+        PresenceWidget {key: 'presence', connectedUsers: @props.connectedUsers}
       ]
     ]
 

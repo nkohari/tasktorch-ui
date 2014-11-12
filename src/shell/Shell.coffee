@@ -1,30 +1,31 @@
-React                  = require 'react/addons'
-Flux                   = require 'mixins/Flux'
-ShellControllerFactory = require './ShellControllerFactory'
-ShellHeader            = React.createFactory(require './components/ShellHeader')
-{div}                  = React.DOM
+React                      = require 'react/addons'
+Observe                    = require 'mixins/Observe'
+JoinPresenceChannelRequest = require 'requests/JoinPresenceChannelRequest'
+LoadCurrentUserRequest     = require 'requests/LoadCurrentUserRequest'
+LoadMyOrganizationsRequest = require 'requests/LoadMyOrganizationsRequest'
+ShellHeader                = React.createFactory(require './components/ShellHeader')
+{div}                      = React.DOM
 
 Shell = React.createClass {
 
   displayName: 'Shell'
 
   mixins: [
-    Flux('organizations', 'presence')
+    Observe('organizations', 'presence')
   ]
-
-  createController: ->
-    ShellControllerFactory.create(@props.params.organizationId, @props.eventBus)
 
   getStateFromStores: (stores) ->
     return {
       currentUser:         stores.presence.currentUser
       currentOrganization: stores.organizations.getOrganization(@props.params.organizationId)
+      organizations:       stores.organizations.getAllOrganizations()
+      connectedUsers:      stores.presence.getConnectedUsers()
     }
 
   componentWillMount: ->
-    controller = @getController()
-    controller.loadCurrentUser()
-    controller.loadMyOrganizations()
+    @execute new JoinPresenceChannelRequest()
+    @execute new LoadCurrentUserRequest()
+    @execute new LoadMyOrganizationsRequest()
 
   render: ->
 
@@ -33,7 +34,7 @@ Shell = React.createClass {
 
     Screen = @props.activeRouteHandler
     div {className: 'shell'}, [
-      ShellHeader {key: 'header', currentOrganization: @state.currentOrganization, currentUser: @state.currentUser}
+      ShellHeader {key: 'header', currentOrganization: @state.currentOrganization, currentUser: @state.currentUser, organizations: @state.organizations, connectedUsers: @state.connectedUsers}
       Screen {key: 'screen'}
     ]
 

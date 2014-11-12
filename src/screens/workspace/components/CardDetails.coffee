@@ -1,5 +1,5 @@
 React    = require 'react'
-Flux     = require 'mixins/Flux'
+Observe  = require 'mixins/Observe'
 CardBody = React.createFactory(require './CardBody')
 {div}    = React.DOM
 
@@ -7,7 +7,7 @@ CardDetails = React.createClass {
 
   displayName: 'CardDetails'
 
-  mixins: [Flux()]
+  mixins: [Observe()]
 
   render: ->
     div {className: 'details'}, [

@@ -1,28 +1,24 @@
-_                          = require 'lodash'
-React                      = require 'react/addons'
-Router                     = require 'react-router'
-Flux                       = require 'mixins/Flux'
-ActiveUrl                  = require 'mixins/ActiveUrl'
-WorkspaceControllerFactory = require './WorkspaceControllerFactory'
-WorkspaceUrl               = require './WorkspaceUrl'
-PanelGroup                 = React.createFactory(require 'common/PanelGroup')
-StackPanel                 = React.createFactory(require './components/StackPanel')
-CardPanel                  = React.createFactory(require './components/CardPanel')
-WorkspaceSidebar           = React.createFactory(require './components/WorkspaceSidebar')
-{div}                      = React.DOM
+_                  = require 'lodash'
+React              = require 'react/addons'
+Router             = require 'react-router'
+ActiveUrl          = require 'mixins/ActiveUrl'
+Observe            = require 'mixins/Observe'
+WorkspaceUrl       = require './WorkspaceUrl'
+StackPanel         = React.createFactory(require './components/StackPanel')
+CardPanel          = React.createFactory(require './components/CardPanel')
+WorkspaceSidebar   = React.createFactory(require './components/WorkspaceSidebar')
+CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
+{div}              = React.DOM
 
 WorkspaceScreen = React.createClass {
 
   displayName: 'WorkspaceScreen'
 
   mixins: [
-    Flux()
+    Observe()
     ActiveUrl(WorkspaceUrl)
     Router.Navigation
   ]
-
-  createController: ->
-    WorkspaceControllerFactory.create(@props.params.organizationId, @props.eventBus)
 
   getInitialState: ->
     return {
@@ -33,9 +29,8 @@ WorkspaceScreen = React.createClass {
     }
 
   componentWillMount: ->
+    # TODO: This is for drag&drop, replace it with something sane
     window.Screen = this
-    controller = @getController()
-    controller.loadWorkspace()
 
   componentWillUnmount: ->
     window.Screen = undefined
@@ -51,8 +46,7 @@ WorkspaceScreen = React.createClass {
 
     div {className: 'workspace screen'}, [
       WorkspaceSidebar {key: 'sidebar'}
-      PanelGroup {key: 'stack-panels'}, stackPanels
-      PanelGroup {key: 'card-panels'}, cardPanels
+      CSSTransitionGroup {transitionName: 'panel-slide'}, stackPanels.concat(cardPanels)
     ]
 
   startDraggingCard: (draggingCard, draggingIndex) ->

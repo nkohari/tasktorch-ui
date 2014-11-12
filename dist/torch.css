@@ -108,13 +108,18 @@ textarea.editable {
   .icon.icon-goal:before {
     content: "\1F3C6"; }
 
-.sidebar {
+.panel {
   position: relative;
   display: inline-block;
   vertical-align: top;
   height: 100%;
   margin: 0;
   padding: 0;
+  white-space: normal; }
+  .panel:last-child {
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5); }
+
+.sidebar {
   width: 200px;
   z-index: 1000;
   border-right: 1px solid #555555;
@@ -157,41 +162,6 @@ textarea.editable {
         color: #cccccc; }
       .sidebar ul li a .name {
         padding-left: 4px; }
-
-.panel-group {
-  position: relative;
-  display: inline-block;
-  vertical-align: top;
-  height: 100%;
-  margin: 0;
-  padding: 0; }
-
-.panel {
-  position: relative;
-  display: inline-block;
-  vertical-align: top;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  border-right: 1px solid #999999;
-  background: #f9f9f9;
-  overflow-x: hidden;
-  overflow-y: auto;
-  white-space: normal; }
-  .panel .header {
-    font-size: 14px;
-    font-weight: 600;
-    color: #666666;
-    background: linear-gradient(to bottom, #eeeeee, #cccccc);
-    overflow: hidden;
-    padding: 8px 6px;
-    border-bottom: 1px solid #999999; }
-    .panel .header .title {
-      display: inline-block;
-      padding-left: 0.2em; }
-    .panel .header .close {
-      color: #666666;
-      float: right; }
 
 .panel-slide-enter {
   opacity: 0;
@@ -399,10 +369,36 @@ textarea.editable {
       outline: none !important; }
 
 .stack {
-  width: 291px; }
-  .stack .card-list {
-    margin: 0;
-    padding: 0; }
+  width: 291px;
+  border-right: 1px solid #999999;
+  background: #f9f9f9; }
+  .stack .header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 600;
+    color: #666666;
+    background: linear-gradient(to bottom, #eeeeee, #cccccc);
+    overflow: hidden;
+    padding: 8px 6px;
+    border-bottom: 1px solid #999999; }
+    .stack .header .title {
+      display: inline-block;
+      padding-left: 0.2em; }
+    .stack .header .close {
+      color: #666666;
+      float: right; }
+  .stack .body {
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+    margin-top: 35px; }
+    .stack .body .card-list {
+      margin: 0;
+      padding: 0; }
 
 .stack-card {
   cursor: -webkit-grab;
@@ -418,23 +414,23 @@ textarea.editable {
   .stack-card.active {
     background: linear-gradient(to bottom, #eeeeee, white);
     box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3); }
-  .stack-card .card-top {
+  .stack-card .top {
     padding: 2px 6px;
     border-left: 6px solid #999; }
-    .stack-card .card-top .title {
+    .stack-card .top .title {
       color: black;
       font-size: 14px;
       font-weight: 600;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap; }
-    .stack-card .card-top .handoff {
+    .stack-card .top .handoff {
       font-size: 12px;
       color: #999; }
-      .stack-card .card-top .handoff em {
+      .stack-card .top .handoff em {
         font-style: normal;
         color: #666; }
-  .stack-card .card-bottom {
+  .stack-card .bottom {
     overflow: hidden;
     padding-top: 6px;
     margin-top: 6px;
@@ -446,12 +442,6 @@ textarea.editable {
 
 .card {
   position: relative;
-  display: inline-block;
-  vertical-align: top;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  position: relative;
   border-right: 1px solid #999999;
   background: #f9f9f9;
   width: 582px;
@@ -460,7 +450,7 @@ textarea.editable {
     display: block;
     position: absolute;
     right: 6px;
-    top: 8px;
+    top: 12px;
     color: #666;
     transition: color 0.15s; }
     .card .close:hover {
@@ -478,16 +468,16 @@ textarea.editable {
       .card .header .title input {
         text-overflow: ellipsis;
         white-space: nowrap; }
-    .card .header .actions {
+    .card .header .commands {
       padding: 4px;
       width: 100%;
       background: 0;
       border-bottom: 0; }
-      .card .header .actions .group {
+      .card .header .commands .group {
         display: inline-block; }
-        .card .header .actions .group.right {
+        .card .header .commands .group.right {
           float: right; }
-      .card .header .actions button {
+      .card .header .commands button {
         display: inline-block;
         font-size: 13px;
         font-weight: bold;
@@ -497,17 +487,17 @@ textarea.editable {
         border-right: 0;
         background: linear-gradient(to bottom, #eeeeee, #dddddd);
         outline: none !important; }
-        .card .header .actions button:first-child {
+        .card .header .commands button:first-child {
           border-top-left-radius: 4px;
           border-bottom-left-radius: 4px; }
-        .card .header .actions button:last-child {
+        .card .header .commands button:last-child {
           border-right: 1px solid #999999;
           border-top-right-radius: 4px;
           border-bottom-right-radius: 4px; }
-        .card .header .actions button:hover {
+        .card .header .commands button:hover {
           color: black;
           background: linear-gradient(to bottom, white, #dddddd); }
-        .card .header .actions button:active {
+        .card .header .commands button:active {
           color: black;
           background: #eeeeee;
           box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.3); }

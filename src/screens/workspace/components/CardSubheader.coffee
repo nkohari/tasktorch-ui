@@ -1,6 +1,6 @@
 _                = require 'lodash'
 React            = require 'react'
-Flux             = require 'mixins/Flux'
+Observe          = require 'mixins/Observe'
 CardGoal         = React.createFactory(require './CardGoal')
 CardLocation     = React.createFactory(require './CardLocation')
 CardParticipants = React.createFactory(require './CardParticipants')
@@ -10,14 +10,14 @@ CardSubheader = React.createClass {
 
   displayName: 'CardSubheader'
 
-  mixins: [Flux()]
+  mixins: [Observe()]
 
   render: ->
 
     children = _.compact [
       CardLocation {key: 'location', stackId: @props.stack.id}
-      CardGoal {key: 'goal', goal: @props.goal} if @props.goal?
-      CardParticipants {key: 'participants', card: @props.card, participants: @props.participants, currentUser: @props.currentUser}
+      CardGoal {key: 'goal', goalId: @props.card.goal.id} if @props.card.goal?
+      CardParticipants {key: 'participants', card: @props.card}
     ]
 
     div {className: 'subheader'}, children

@@ -86,17 +86,20 @@ textarea.editable {
   &.icon-goal:before { content: "\1F3C6"; }
 }
 
-@mixin panel-flow {
+.panel {
   position: relative;
   display: inline-block;
   vertical-align: top;
   height: 100%;
   margin: 0;
   padding: 0;
+  white-space: normal;
+  &:last-child {
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
+  }
 }
 
 .sidebar {
-  @include panel-flow;
   width: $sidebar-width;
   z-index: 1000;
   border-right: $sidebar-border;
@@ -143,36 +146,6 @@ textarea.editable {
         color: $sidebar-item-icon-color;
       }
       .name { padding-left: 4px; }
-    }
-  }
-}
-
-.panel-group {
-  @include panel-flow;
-}
-
-.panel {
-  @include panel-flow;
-  border-right: $panel-border;
-  background: $panel-background;
-  overflow-x: hidden;
-  overflow-y: auto;
-  white-space: normal;
-  .header {
-    font-size: 14px;
-    font-weight: 600;
-    color: $panel-header-text-color;
-    background: $panel-header-background;
-    overflow: hidden;
-    padding: 8px 6px;
-    border-bottom: $panel-border;
-    .title {
-      display: inline-block;
-      padding-left: 0.2em;
-    }
-    .close {
-      color: $panel-header-icon-color;
-      float: right;
     }
   }
 }

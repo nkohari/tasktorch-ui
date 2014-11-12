@@ -26,6 +26,7 @@ module.exports = (grunt) ->
               expose('events')
               expose('framework')
               expose('mixins')
+              expose('requests')
             ])
         files:
           'dist/torch.js': ['src/**/*.coffee']

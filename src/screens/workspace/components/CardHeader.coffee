@@ -1,23 +1,24 @@
-_                  = require 'lodash'
-React              = require 'react'
-Flux               = require 'mixins/Flux'
-Constants          = require 'framework/Constants'
-Text               = React.createFactory(require 'common/Text')
-InboxCardActions   = React.createFactory(require './actions/InboxCardActions')
-QueueCardActions   = React.createFactory(require './actions/QueueCardActions')
-BacklogCardActions = React.createFactory(require './actions/BacklogCardActions')
-{div}              = React.DOM
+_                   = require 'lodash'
+React               = require 'react'
+Observe             = require 'mixins/Observe'
+Constants           = require 'framework/Constants'
+SetCardTitleRequest = require 'requests/SetCardTitleRequest'
+Text                = React.createFactory(require 'common/Text')
+InboxCardCommands   = React.createFactory(require './commands/InboxCardCommands')
+QueueCardCommands   = React.createFactory(require './commands/QueueCardCommands')
+BacklogCardCommands = React.createFactory(require './commands/BacklogCardCommands')
+{div}               = React.DOM
 
-Actions =
-  Inbox:   InboxCardActions
-  Queue:   QueueCardActions
-  Backlog: BacklogCardActions
+Commands =
+  Inbox:   InboxCardCommands
+  Queue:   QueueCardCommands
+  Backlog: BacklogCardCommands
 
 CardHeader = React.createClass {
 
   displayName: 'CardHeader'
 
-  mixins: [Flux()]
+  mixins: [Observe()]
 
   render: ->
     div {
@@ -27,11 +28,11 @@ CardHeader = React.createClass {
       div {key: 'title', className: 'title'}, [
         Text {key: 'title-text', placeholder: Constants.untitledCard, value: @props.card.title, save: @saveTitle}
       ]
-      Actions[@props.stack.kind] {key: 'actions', card: @props.card}
+      Commands[@props.stack.kind] {key: 'commands', card: @props.card}
     ]
 
   saveTitle: (title) ->
-    @getController().setCardTitle(@props.card, title)
+    @execute new SetCardTitleRequest(@props.card, title)
 
 }
 

@@ -2,7 +2,7 @@ Event = require 'framework/Event'
 
 class StacksLoadedEvent extends Event
 
-  constructor: (@cards) ->
+  constructor: (@stacks) ->
     super()
 
 module.exports = StacksLoadedEvent

@@ -1,6 +1,6 @@
 _           = require 'lodash'
 React       = require 'react'
-Flux        = require 'mixins/Flux'
+Observe     = require 'mixins/Observe'
 Avatar      = React.createFactory(require 'common/Avatar')
 MenuTrigger = React.createFactory(require 'common/MenuTrigger')
 FocusedCard = React.createFactory(require './FocusedCard')
@@ -10,7 +10,7 @@ UserCorner = React.createClass {
 
   displayName: 'UserCorner'
 
-  mixins: [Flux()]
+  mixins: [Observe()]
 
   render: ->
 

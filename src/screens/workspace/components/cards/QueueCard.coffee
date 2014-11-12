@@ -8,14 +8,14 @@ QueueCard = React.createClass {
 
   render: ->
     div {className: 'stack-card-body queue'}, [
-      div {className: 'card-top'}, [
+      div {className: 'top'}, [
         div {className: 'title'},   [@props.card.title or Constants.untitledCard]
         div {className: 'handoff'}, [
           'in queue since '
           em {}, 'X'
         ]
       ]
-      div {className: 'card-bottom'}, [@props.card.body]
+      div {className: 'bottom'}, [@props.card.body]
     ]
 
 }

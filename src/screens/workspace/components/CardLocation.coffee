@@ -1,18 +1,20 @@
-React        = require 'react'
-Router       = require 'react-router'
-Flux         = require 'mixins/Flux'
-ActiveUrl    = require 'mixins/ActiveUrl'
-WorkspaceUrl = require '../WorkspaceUrl'
-Icon         = React.createFactory(require 'common/Icon')
-Link         = React.createFactory(Router.Link)
-{div}        = React.DOM
+_                = require 'lodash'
+React            = require 'react'
+Router           = require 'react-router'
+Observe          = require 'mixins/Observe'
+ActiveUrl        = require 'mixins/ActiveUrl'
+WorkspaceUrl     = require '../WorkspaceUrl'
+LoadStackRequest = require 'requests/LoadStackRequest'
+Icon             = React.createFactory(require 'common/Icon')
+Link             = React.createFactory(Router.Link)
+{div}            = React.DOM
 
 CardLocation = React.createClass {
 
   displayName: 'CardLocation'
 
   mixins: [
-    Flux('stacks', 'users')
+    Observe('stacks', 'teams', 'users')
     ActiveUrl(WorkspaceUrl)
   ]
 
@@ -21,17 +23,18 @@ CardLocation = React.createClass {
     stack = stores.stacks.getStack(@props.stackId)
     if stack?
       owner = stores.users.getUser(stack.owner.id) if stack.owner?
-    {currentUser, stack, owner}
+      team = stores.teams.getTeam(stack.team.id) if stack.team?
+    {currentUser, stack, owner, team}
 
   componentWillMount: ->
-    @getController().loadStack(@props.stackId)
+    @execute new LoadStackRequest(@props.stackId)
 
   render: ->
 
     unless @state.stack? and @state.owner?
       return div {className: 'location loading'}, []
 
-    props = @makeStackLinkProps()
+    props = _.extend {key: 'link'}, @makeStackLinkProps()
     div {className: 'location aspect'}, [
       div {key: 'name', className: 'name'}, ['Stack']
       div {key: 'value', className: 'value'}, [
