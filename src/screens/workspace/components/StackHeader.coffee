@@ -15,7 +15,7 @@ StackHeader = React.createClass {
 
   render: ->
     div {className: 'header'}, [
-      Icon {key: 'icon', name: "stack-#{@props.stack.kind?.toLowerCase()}"}
+      Icon {key: 'icon', name: "stack-#{@props.stack.type?.toLowerCase()}"}
       span {key: 'title', name: 'title'}, [@props.stack.name]
       @makeCloseLink()
     ]

@@ -35126,7 +35126,7 @@ React.render(routes, document.body);
 
 
 
-},{"./EventBusFactory":232,"./screens/bigpicture/BigPictureScreen":289,"./screens/login/LoginScreen":293,"./screens/planning/PlanningScreen":294,"./screens/workspace/WorkspaceScreen":298,"./shell/Shell":320,"react":"M6d2gk","react-router":33}],231:[function(require,module,exports){
+},{"./EventBusFactory":232,"./screens/bigpicture/BigPictureScreen":288,"./screens/login/LoginScreen":292,"./screens/planning/PlanningScreen":293,"./screens/workspace/WorkspaceScreen":297,"./shell/Shell":319,"react":"M6d2gk","react-router":33}],231:[function(require,module,exports){
 var EventBus, _,
   __slice = [].slice;
 
@@ -35200,7 +35200,7 @@ module.exports = EventBus;
 
 
 },{"lodash":23}],232:[function(require,module,exports){
-var CardBodyChangedListener, CardStore, CardTitleChangedListener, EventBus, EventBusFactory, GoalStore, JoinedPresenceChannelListener, MilestoneStore, OrganizationStore, PresenceStore, QueueStore, StackStore, TeamStore, TypeStore, UserConnectedListener, UserDisconnectedListener, UserStore;
+var CardBodyChangedListener, CardStore, CardTitleChangedListener, EventBus, EventBusFactory, GoalStore, JoinedPresenceChannelListener, KindStore, MilestoneStore, OrganizationStore, PresenceStore, QueueStore, StackStore, TeamStore, UserConnectedListener, UserDisconnectedListener, UserStore;
 
 EventBus = require('./EventBus');
 
@@ -35220,7 +35220,7 @@ StackStore = require('./stores/StackStore');
 
 TeamStore = require('./stores/TeamStore');
 
-TypeStore = require('./stores/TypeStore');
+KindStore = require('./stores/KindStore');
 
 UserStore = require('./stores/UserStore');
 
@@ -35241,13 +35241,13 @@ EventBusFactory.create = function() {
   stores = {
     cards: new CardStore(),
     goals: new GoalStore(),
+    kinds: new KindStore(),
     milestones: new MilestoneStore(),
     organizations: new OrganizationStore(),
     presence: new PresenceStore(),
     queue: new QueueStore(),
     stacks: new StackStore(),
     teams: new TeamStore(),
-    types: new TypeStore(),
     users: new UserStore()
   };
   listeners = [new CardBodyChangedListener(), new CardTitleChangedListener(), new JoinedPresenceChannelListener(), new UserConnectedListener(), new UserDisconnectedListener()];
@@ -35258,7 +35258,7 @@ module.exports = EventBusFactory;
 
 
 
-},{"./EventBus":231,"./listeners/CardBodyChangedListener":268,"./listeners/CardTitleChangedListener":269,"./listeners/JoinedPresenceChannelListener":270,"./listeners/UserConnectedListener":271,"./listeners/UserDisconnectedListener":272,"./stores/CardStore":328,"./stores/GoalStore":329,"./stores/MilestoneStore":330,"./stores/OrganizationStore":331,"./stores/PresenceStore":332,"./stores/QueueStore":333,"./stores/StackStore":334,"./stores/TeamStore":335,"./stores/TypeStore":336,"./stores/UserStore":337}],233:[function(require,module,exports){
+},{"./EventBus":231,"./listeners/CardBodyChangedListener":267,"./listeners/CardTitleChangedListener":268,"./listeners/JoinedPresenceChannelListener":269,"./listeners/UserConnectedListener":270,"./listeners/UserDisconnectedListener":271,"./stores/CardStore":327,"./stores/GoalStore":328,"./stores/KindStore":329,"./stores/MilestoneStore":330,"./stores/OrganizationStore":331,"./stores/PresenceStore":332,"./stores/QueueStore":333,"./stores/StackStore":334,"./stores/TeamStore":335,"./stores/UserStore":336}],233:[function(require,module,exports){
 var Avatar, React, crypto, img;
 
 crypto = require('crypto');
@@ -35343,39 +35343,6 @@ module.exports = Icon;
 
 
 },{"react":"M6d2gk"}],236:[function(require,module,exports){
-var List, React, ul, _;
-
-_ = require('lodash');
-
-React = require('react');
-
-ul = React.DOM.ul;
-
-List = React.createClass({
-  displayName: 'List',
-  render: function() {
-    var Component, items, props;
-    Component = this.props.component;
-    items = _.map(this.props.items, (function(_this) {
-      return function(item) {
-        var props;
-        props = {
-          key: "" + _this.props.kind + "-" + item.id
-        };
-        props[_this.props.kind] = item;
-        return Component(props);
-      };
-    })(this));
-    props = _.omit(this.props, 'component', 'items', 'kind');
-    return ul(props, items);
-  }
-});
-
-module.exports = List;
-
-
-
-},{"lodash":23,"react":"M6d2gk"}],237:[function(require,module,exports){
 var MenuTrigger, React, span;
 
 React = require('react');
@@ -35395,7 +35362,7 @@ module.exports = MenuTrigger;
 
 
 
-},{"react":"M6d2gk"}],238:[function(require,module,exports){
+},{"react":"M6d2gk"}],237:[function(require,module,exports){
 var KeyCode, MultilineText, React, classSet, textarea;
 
 React = require('react/addons');
@@ -35489,7 +35456,7 @@ module.exports = MultilineText;
 
 
 
-},{"./../framework/enums/KeyCode.coffee":267,"react/addons":64}],239:[function(require,module,exports){
+},{"./../framework/enums/KeyCode.coffee":266,"react/addons":64}],238:[function(require,module,exports){
 var React, RedirectToLastWorkspace;
 
 React = require('react');
@@ -35512,7 +35479,7 @@ module.exports = RedirectToLastWorkspace;
 
 
 
-},{"react":"M6d2gk"}],240:[function(require,module,exports){
+},{"react":"M6d2gk"}],239:[function(require,module,exports){
 var React, SidebarItemGroup, div, ul, _, _ref;
 
 _ = require('lodash');
@@ -35541,7 +35508,7 @@ module.exports = SidebarItemGroup;
 
 
 
-},{"lodash":23,"react":"M6d2gk"}],241:[function(require,module,exports){
+},{"lodash":23,"react":"M6d2gk"}],240:[function(require,module,exports){
 var KeyCode, React, Text, classSet, input;
 
 React = require('react/addons');
@@ -35622,7 +35589,7 @@ module.exports = Text;
 
 
 
-},{"./../framework/enums/KeyCode.coffee":267,"react/addons":64}],242:[function(require,module,exports){
+},{"./../framework/enums/KeyCode.coffee":266,"react/addons":64}],241:[function(require,module,exports){
 var arrayEnum, _;
 
 _ = require('lodash');
@@ -35635,7 +35602,7 @@ module.exports = arrayEnum = function(values) {
 
 
 
-},{"lodash":23}],243:[function(require,module,exports){
+},{"lodash":23}],242:[function(require,module,exports){
 exports.encode = function(str) {
   return '\"' + str + '\"';
 };
@@ -35646,7 +35613,7 @@ exports.decode = function(str) {
 
 
 
-},{}],244:[function(require,module,exports){
+},{}],243:[function(require,module,exports){
 var CardBodyChangedEvent, Event,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -35671,7 +35638,7 @@ module.exports = CardBodyChangedEvent;
 
 
 
-},{"./../framework/Event.coffee":261}],245:[function(require,module,exports){
+},{"./../framework/Event.coffee":260}],244:[function(require,module,exports){
 var CardTitleChangedEvent, Event,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -35696,7 +35663,7 @@ module.exports = CardTitleChangedEvent;
 
 
 
-},{"./../framework/Event.coffee":261}],246:[function(require,module,exports){
+},{"./../framework/Event.coffee":260}],245:[function(require,module,exports){
 var CardsLoadedEvent, Event,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -35719,7 +35686,7 @@ module.exports = CardsLoadedEvent;
 
 
 
-},{"./../framework/Event.coffee":261}],247:[function(require,module,exports){
+},{"./../framework/Event.coffee":260}],246:[function(require,module,exports){
 var CurrentUserLoadedEvent, Event,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -35742,7 +35709,7 @@ module.exports = CurrentUserLoadedEvent;
 
 
 
-},{"./../framework/Event.coffee":261}],248:[function(require,module,exports){
+},{"./../framework/Event.coffee":260}],247:[function(require,module,exports){
 var Event, GoalsLoadedEvent,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -35765,7 +35732,7 @@ module.exports = GoalsLoadedEvent;
 
 
 
-},{"./../framework/Event.coffee":261}],249:[function(require,module,exports){
+},{"./../framework/Event.coffee":260}],248:[function(require,module,exports){
 var Event, JoinedPresenceChannelEvent,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -35788,7 +35755,30 @@ module.exports = JoinedPresenceChannelEvent;
 
 
 
-},{"./../framework/Event.coffee":261}],250:[function(require,module,exports){
+},{"./../framework/Event.coffee":260}],249:[function(require,module,exports){
+var Event, KindsLoadedEvent,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Event = require('./../framework/Event.coffee');
+
+KindsLoadedEvent = (function(_super) {
+  __extends(KindsLoadedEvent, _super);
+
+  function KindsLoadedEvent(kinds) {
+    this.kinds = kinds;
+    KindsLoadedEvent.__super__.constructor.call(this);
+  }
+
+  return KindsLoadedEvent;
+
+})(Event);
+
+module.exports = KindsLoadedEvent;
+
+
+
+},{"./../framework/Event.coffee":260}],250:[function(require,module,exports){
 var Event, MilestonesLoadedEvent,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -35811,7 +35801,7 @@ module.exports = MilestonesLoadedEvent;
 
 
 
-},{"./../framework/Event.coffee":261}],251:[function(require,module,exports){
+},{"./../framework/Event.coffee":260}],251:[function(require,module,exports){
 var Event, OrganizationsLoadedEvent,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -35834,7 +35824,7 @@ module.exports = OrganizationsLoadedEvent;
 
 
 
-},{"./../framework/Event.coffee":261}],252:[function(require,module,exports){
+},{"./../framework/Event.coffee":260}],252:[function(require,module,exports){
 var Event, QueueLoadedEvent,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -35858,7 +35848,7 @@ module.exports = QueueLoadedEvent;
 
 
 
-},{"./../framework/Event.coffee":261}],253:[function(require,module,exports){
+},{"./../framework/Event.coffee":260}],253:[function(require,module,exports){
 var Event, StacksLoadedEvent,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -35881,7 +35871,7 @@ module.exports = StacksLoadedEvent;
 
 
 
-},{"./../framework/Event.coffee":261}],254:[function(require,module,exports){
+},{"./../framework/Event.coffee":260}],254:[function(require,module,exports){
 var Event, TeamsLoadedEvent,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -35904,30 +35894,7 @@ module.exports = TeamsLoadedEvent;
 
 
 
-},{"./../framework/Event.coffee":261}],255:[function(require,module,exports){
-var Event, TypesLoadedEvent,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Event = require('./../framework/Event.coffee');
-
-TypesLoadedEvent = (function(_super) {
-  __extends(TypesLoadedEvent, _super);
-
-  function TypesLoadedEvent(types) {
-    this.types = types;
-    TypesLoadedEvent.__super__.constructor.call(this);
-  }
-
-  return TypesLoadedEvent;
-
-})(Event);
-
-module.exports = TypesLoadedEvent;
-
-
-
-},{"./../framework/Event.coffee":261}],256:[function(require,module,exports){
+},{"./../framework/Event.coffee":260}],255:[function(require,module,exports){
 var Event, UserConnectedEvent,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -35950,7 +35917,7 @@ module.exports = UserConnectedEvent;
 
 
 
-},{"./../framework/Event.coffee":261}],257:[function(require,module,exports){
+},{"./../framework/Event.coffee":260}],256:[function(require,module,exports){
 var Event, UserDisconnectedEvent,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -35973,7 +35940,7 @@ module.exports = UserDisconnectedEvent;
 
 
 
-},{"./../framework/Event.coffee":261}],258:[function(require,module,exports){
+},{"./../framework/Event.coffee":260}],257:[function(require,module,exports){
 var Event, UsersLoadedEvent,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -35996,7 +35963,7 @@ module.exports = UsersLoadedEvent;
 
 
 
-},{"./../framework/Event.coffee":261}],259:[function(require,module,exports){
+},{"./../framework/Event.coffee":260}],258:[function(require,module,exports){
 var Api, noop, request;
 
 request = require('superagent');
@@ -36065,14 +36032,14 @@ module.exports = new Api();
 
 
 
-},{"superagent":227}],260:[function(require,module,exports){
+},{"superagent":227}],259:[function(require,module,exports){
 exports.untitledCard = 'Untitled Card';
 
 exports.cardBody = 'Card Body';
 
 
 
-},{}],261:[function(require,module,exports){
+},{}],260:[function(require,module,exports){
 var Event;
 
 Event = (function() {
@@ -36089,7 +36056,7 @@ module.exports = Event;
 
 
 
-},{}],262:[function(require,module,exports){
+},{}],261:[function(require,module,exports){
 module.exports = new Pusher('9bc5b19ceaf8c59adcea', {
   authEndpoint: '/api/_auth/presence',
   encrypted: true
@@ -36097,7 +36064,7 @@ module.exports = new Pusher('9bc5b19ceaf8c59adcea', {
 
 
 
-},{}],263:[function(require,module,exports){
+},{}],262:[function(require,module,exports){
 var EventEmitter, Listener,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -36131,7 +36098,7 @@ module.exports = Listener;
 
 
 
-},{"events":18}],264:[function(require,module,exports){
+},{"events":18}],263:[function(require,module,exports){
 var Request;
 
 Request = (function() {
@@ -36149,7 +36116,7 @@ module.exports = Request;
 
 
 
-},{}],265:[function(require,module,exports){
+},{}],264:[function(require,module,exports){
 var EventEmitter, Store,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -36177,7 +36144,7 @@ module.exports = Store;
 
 
 
-},{"events":18}],266:[function(require,module,exports){
+},{"events":18}],265:[function(require,module,exports){
 module.exports = {
   ETag: 'ETag',
   IfMatch: 'If-Match',
@@ -36186,7 +36153,7 @@ module.exports = {
 
 
 
-},{}],267:[function(require,module,exports){
+},{}],266:[function(require,module,exports){
 module.exports = {
   TAB: 9,
   RETURN: 13,
@@ -36197,7 +36164,7 @@ module.exports = {
 
 
 
-},{}],268:[function(require,module,exports){
+},{}],267:[function(require,module,exports){
 var CardBodyChangedEvent, CardBodyChangedListener, Listener,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -36232,7 +36199,7 @@ module.exports = CardBodyChangedListener;
 
 
 
-},{"./../events/CardBodyChangedEvent.coffee":244,"./../framework/Listener.coffee":263}],269:[function(require,module,exports){
+},{"./../events/CardBodyChangedEvent.coffee":243,"./../framework/Listener.coffee":262}],268:[function(require,module,exports){
 var CardTitleChangedEvent, CardTitleChangedListener, Listener,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -36267,7 +36234,7 @@ module.exports = CardTitleChangedListener;
 
 
 
-},{"./../events/CardTitleChangedEvent.coffee":245,"./../framework/Listener.coffee":263}],270:[function(require,module,exports){
+},{"./../events/CardTitleChangedEvent.coffee":244,"./../framework/Listener.coffee":262}],269:[function(require,module,exports){
 var JoinedPresenceChannelEvent, JoinedPresenceChannelListener, Listener, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -36303,7 +36270,7 @@ module.exports = JoinedPresenceChannelListener;
 
 
 
-},{"./../events/JoinedPresenceChannelEvent.coffee":249,"./../framework/Listener.coffee":263,"lodash":23}],271:[function(require,module,exports){
+},{"./../events/JoinedPresenceChannelEvent.coffee":248,"./../framework/Listener.coffee":262,"lodash":23}],270:[function(require,module,exports){
 var Listener, UserConnectedEvent, UserConnectedListener,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -36333,7 +36300,7 @@ module.exports = UserConnectedListener;
 
 
 
-},{"./../events/UserConnectedEvent.coffee":256,"./../framework/Listener.coffee":263}],272:[function(require,module,exports){
+},{"./../events/UserConnectedEvent.coffee":255,"./../framework/Listener.coffee":262}],271:[function(require,module,exports){
 var Listener, UserDisconnectedEvent, UserDisconnectedListener,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -36363,7 +36330,7 @@ module.exports = UserDisconnectedListener;
 
 
 
-},{"./../events/UserDisconnectedEvent.coffee":257,"./../framework/Listener.coffee":263}],273:[function(require,module,exports){
+},{"./../events/UserDisconnectedEvent.coffee":256,"./../framework/Listener.coffee":262}],272:[function(require,module,exports){
 var ActiveUrl, React;
 
 React = require('react');
@@ -36389,7 +36356,7 @@ module.exports = ActiveUrl;
 
 
 
-},{"react":"M6d2gk"}],274:[function(require,module,exports){
+},{"react":"M6d2gk"}],273:[function(require,module,exports){
 var Observe, React, _,
   __slice = [].slice;
 
@@ -36479,7 +36446,7 @@ module.exports = Observe;
 
 
 
-},{"lodash":23,"react":"M6d2gk"}],275:[function(require,module,exports){
+},{"lodash":23,"react":"M6d2gk"}],274:[function(require,module,exports){
 var CurrentUserLoadedEvent, JoinPresenceChannelRequest, Request,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -36507,7 +36474,7 @@ module.exports = JoinPresenceChannelRequest;
 
 
 
-},{"./../events/CurrentUserLoadedEvent.coffee":247,"./../framework/Request.coffee":264}],276:[function(require,module,exports){
+},{"./../events/CurrentUserLoadedEvent.coffee":246,"./../framework/Request.coffee":263}],275:[function(require,module,exports){
 var GoalsLoadedEvent, LoadAllGoalsRequest, Request, superagent, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -36543,7 +36510,7 @@ module.exports = LoadAllGoalsRequest;
 
 
 
-},{"./../events/TeamsLoadedEvent.coffee":254,"./../framework/Request.coffee":264,"lodash":23,"superagent":227}],277:[function(require,module,exports){
+},{"./../events/TeamsLoadedEvent.coffee":254,"./../framework/Request.coffee":263,"lodash":23,"superagent":227}],276:[function(require,module,exports){
 var LoadAllTeamsRequest, Request, TeamsLoadedEvent, superagent, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -36579,8 +36546,8 @@ module.exports = LoadAllTeamsRequest;
 
 
 
-},{"./../events/TeamsLoadedEvent.coffee":254,"./../framework/Request.coffee":264,"lodash":23,"superagent":227}],278:[function(require,module,exports){
-var CardsLoadedEvent, GoalsLoadedEvent, LoadCardRequest, Request, StacksLoadedEvent, TypesLoadedEvent, UsersLoadedEvent, superagent, _,
+},{"./../events/TeamsLoadedEvent.coffee":254,"./../framework/Request.coffee":263,"lodash":23,"superagent":227}],277:[function(require,module,exports){
+var CardsLoadedEvent, GoalsLoadedEvent, KindsLoadedEvent, LoadCardRequest, Request, StacksLoadedEvent, UsersLoadedEvent, superagent, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -36592,7 +36559,7 @@ Request = require('./../framework/Request.coffee');
 
 StacksLoadedEvent = require('./../events/StacksLoadedEvent.coffee');
 
-TypesLoadedEvent = require('./../events/TypesLoadedEvent.coffee');
+KindsLoadedEvent = require('./../events/KindsLoadedEvent.coffee');
 
 GoalsLoadedEvent = require('./../events/GoalsLoadedEvent.coffee');
 
@@ -36608,13 +36575,13 @@ LoadCardRequest = (function(_super) {
   }
 
   LoadCardRequest.prototype.execute = function(context, eventBus) {
-    return superagent.get("/api/" + context.organizationId + "/cards/" + this.cardId + "?expand=stack,type", (function(_this) {
+    return superagent.get("/api/" + context.organizationId + "/cards/" + this.cardId + "?expand=stack,kind", (function(_this) {
       return function(res) {
-        var card, stack, type, _ref;
-        _ref = res.body['_related'], stack = _ref.stack, type = _ref.type;
+        var card, kind, stack, _ref;
+        _ref = res.body['_related'], stack = _ref.stack, kind = _ref.kind;
         card = _.omit(res.body, '_related');
         eventBus.publish(new StacksLoadedEvent([stack]));
-        eventBus.publish(new TypesLoadedEvent([type]));
+        eventBus.publish(new KindsLoadedEvent([kind]));
         return eventBus.publish(new CardsLoadedEvent([card]));
       };
     })(this));
@@ -36628,7 +36595,7 @@ module.exports = LoadCardRequest;
 
 
 
-},{"./../events/CardsLoadedEvent.coffee":246,"./../events/GoalsLoadedEvent.coffee":248,"./../events/StacksLoadedEvent.coffee":253,"./../events/TypesLoadedEvent.coffee":255,"./../events/UsersLoadedEvent.coffee":258,"./../framework/Request.coffee":264,"lodash":23,"superagent":227}],279:[function(require,module,exports){
+},{"./../events/CardsLoadedEvent.coffee":245,"./../events/GoalsLoadedEvent.coffee":247,"./../events/KindsLoadedEvent.coffee":249,"./../events/StacksLoadedEvent.coffee":253,"./../events/UsersLoadedEvent.coffee":257,"./../framework/Request.coffee":263,"lodash":23,"superagent":227}],278:[function(require,module,exports){
 var CardsLoadedEvent, LoadCardsInStackRequest, Request, superagent, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -36664,7 +36631,7 @@ module.exports = LoadCardsInStackRequest;
 
 
 
-},{"./../events/CardsLoadedEvent.coffee":246,"./../framework/Request.coffee":264,"lodash":23,"superagent":227}],280:[function(require,module,exports){
+},{"./../events/CardsLoadedEvent.coffee":245,"./../framework/Request.coffee":263,"lodash":23,"superagent":227}],279:[function(require,module,exports){
 var CurrentUserLoadedEvent, LoadCurrentUserRequest, Request, superagent,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -36698,7 +36665,7 @@ module.exports = LoadCurrentUserRequest;
 
 
 
-},{"./../events/CurrentUserLoadedEvent.coffee":247,"./../framework/Request.coffee":264,"superagent":227}],281:[function(require,module,exports){
+},{"./../events/CurrentUserLoadedEvent.coffee":246,"./../framework/Request.coffee":263,"superagent":227}],280:[function(require,module,exports){
 var GoalsLoadedEvent, LoadGoalRequest, Request, superagent, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -36734,7 +36701,7 @@ module.exports = LoadGoalRequest;
 
 
 
-},{"./../events/GoalsLoadedEvent.coffee":248,"./../framework/Request.coffee":264,"lodash":23,"superagent":227}],282:[function(require,module,exports){
+},{"./../events/GoalsLoadedEvent.coffee":247,"./../framework/Request.coffee":263,"lodash":23,"superagent":227}],281:[function(require,module,exports){
 var LoadMyOrganizationsRequest, OrganizationsLoadedEvent, Request, superagent,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -36768,7 +36735,7 @@ module.exports = LoadMyOrganizationsRequest;
 
 
 
-},{"./../events/OrganizationsLoadedEvent.coffee":251,"./../framework/Request.coffee":264,"superagent":227}],283:[function(require,module,exports){
+},{"./../events/OrganizationsLoadedEvent.coffee":251,"./../framework/Request.coffee":263,"superagent":227}],282:[function(require,module,exports){
 var LoadMyQueueRequest, QueueLoadedEvent, Request, superagent, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -36807,7 +36774,7 @@ module.exports = LoadMyQueueRequest;
 
 
 
-},{"./../events/QueueLoadedEvent.coffee":252,"./../framework/Request.coffee":264,"lodash":23,"superagent":227}],284:[function(require,module,exports){
+},{"./../events/QueueLoadedEvent.coffee":252,"./../framework/Request.coffee":263,"lodash":23,"superagent":227}],283:[function(require,module,exports){
 var LoadMyQueueRequest, Request, StacksLoadedEvent, superagent,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -36841,7 +36808,7 @@ module.exports = LoadMyQueueRequest;
 
 
 
-},{"./../events/StacksLoadedEvent.coffee":253,"./../framework/Request.coffee":264,"superagent":227}],285:[function(require,module,exports){
+},{"./../events/StacksLoadedEvent.coffee":253,"./../framework/Request.coffee":263,"superagent":227}],284:[function(require,module,exports){
 var LoadParticipantsOnCardRequest, Request, UsersLoadedEvent, superagent,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -36875,7 +36842,7 @@ module.exports = LoadParticipantsOnCardRequest;
 
 
 
-},{"./../events/UsersLoadedEvent.coffee":258,"./../framework/Request.coffee":264,"superagent":227}],286:[function(require,module,exports){
+},{"./../events/UsersLoadedEvent.coffee":257,"./../framework/Request.coffee":263,"superagent":227}],285:[function(require,module,exports){
 var LoadStackRequest, Request, StacksLoadedEvent, TeamsLoadedEvent, UsersLoadedEvent, superagent, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -36924,7 +36891,7 @@ module.exports = LoadStackRequest;
 
 
 
-},{"./../events/StacksLoadedEvent.coffee":253,"./../events/TeamsLoadedEvent.coffee":254,"./../events/UsersLoadedEvent.coffee":258,"./../framework/Request.coffee":264,"lodash":23,"superagent":227}],287:[function(require,module,exports){
+},{"./../events/StacksLoadedEvent.coffee":253,"./../events/TeamsLoadedEvent.coffee":254,"./../events/UsersLoadedEvent.coffee":257,"./../framework/Request.coffee":263,"lodash":23,"superagent":227}],286:[function(require,module,exports){
 var CardBodyChangedEvent, Request, SetCardBodyRequest, etag, superagent, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -36967,7 +36934,7 @@ module.exports = SetCardBodyRequest;
 
 
 
-},{"./../common/util/etag.coffee":243,"./../events/CardBodyChangedEvent.coffee":244,"./../framework/Request.coffee":264,"lodash":23,"superagent":227}],288:[function(require,module,exports){
+},{"./../common/util/etag.coffee":242,"./../events/CardBodyChangedEvent.coffee":243,"./../framework/Request.coffee":263,"lodash":23,"superagent":227}],287:[function(require,module,exports){
 var CardTitleChangedEvent, Request, SetCardTitleRequest, etag, superagent, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -37010,7 +36977,7 @@ module.exports = SetCardTitleRequest;
 
 
 
-},{"./../common/util/etag.coffee":243,"./../events/CardTitleChangedEvent.coffee":245,"./../framework/Request.coffee":264,"lodash":23,"superagent":227}],289:[function(require,module,exports){
+},{"./../common/util/etag.coffee":242,"./../events/CardTitleChangedEvent.coffee":244,"./../framework/Request.coffee":263,"lodash":23,"superagent":227}],288:[function(require,module,exports){
 var ActiveUrl, BigPictureScreen, BigPictureSidebar, BigPictureUrl, Observe, React, Router, div, _;
 
 _ = require('lodash');
@@ -37047,7 +37014,7 @@ module.exports = BigPictureScreen;
 
 
 
-},{"./../../mixins/ActiveUrl.coffee":273,"./../../mixins/Observe.coffee":274,"./BigPictureUrl":290,"./components/BigPictureSidebar":291,"lodash":23,"react":"M6d2gk","react-router":33}],290:[function(require,module,exports){
+},{"./../../mixins/ActiveUrl.coffee":272,"./../../mixins/Observe.coffee":273,"./BigPictureUrl":289,"./components/BigPictureSidebar":290,"lodash":23,"react":"M6d2gk","react-router":33}],289:[function(require,module,exports){
 var BigPictureUrl, _;
 
 _ = require('lodash');
@@ -37086,7 +37053,7 @@ module.exports = BigPictureUrl;
 
 
 
-},{"lodash":23}],291:[function(require,module,exports){
+},{"lodash":23}],290:[function(require,module,exports){
 var BigPictureSidebar, LoadAllTeamsRequest, Observe, React, SidebarItemGroup, TeamSidebarItem, div, _;
 
 _ = require('lodash');
@@ -37139,7 +37106,7 @@ module.exports = BigPictureSidebar;
 
 
 
-},{"./../../../common/SidebarItemGroup.coffee":240,"./../../../mixins/Observe.coffee":274,"./../../../requests/LoadAllTeamsRequest.coffee":277,"./TeamSidebarItem":292,"lodash":23,"react":"M6d2gk"}],292:[function(require,module,exports){
+},{"./../../../common/SidebarItemGroup.coffee":239,"./../../../mixins/Observe.coffee":273,"./../../../requests/LoadAllTeamsRequest.coffee":276,"./TeamSidebarItem":291,"lodash":23,"react":"M6d2gk"}],291:[function(require,module,exports){
 var ActiveUrl, BigPictureUrl, Icon, Link, React, Router, TeamSidebarItem, li, span, _, _ref;
 
 _ = require('lodash');
@@ -37192,7 +37159,7 @@ module.exports = TeamSidebarItem;
 
 
 
-},{"../BigPictureUrl":290,"./../../../common/Icon.coffee":235,"./../../../mixins/ActiveUrl.coffee":273,"lodash":23,"react-router":33,"react/addons":64}],293:[function(require,module,exports){
+},{"../BigPictureUrl":289,"./../../../common/Icon.coffee":235,"./../../../mixins/ActiveUrl.coffee":272,"lodash":23,"react-router":33,"react/addons":64}],292:[function(require,module,exports){
 var Api, LoginScreen, React, Router, button, div, input, request, _, _ref;
 
 _ = require('lodash');
@@ -37265,7 +37232,7 @@ module.exports = LoginScreen;
 
 
 
-},{"./../../framework/Api.coffee":259,"lodash":23,"react-router":33,"react/addons":64,"superagent":227}],294:[function(require,module,exports){
+},{"./../../framework/Api.coffee":258,"lodash":23,"react-router":33,"react/addons":64,"superagent":227}],293:[function(require,module,exports){
 var ActiveUrl, Observe, PlanningScreen, PlanningSidebar, PlanningUrl, React, Router, div, _;
 
 _ = require('lodash');
@@ -37302,7 +37269,7 @@ module.exports = PlanningScreen;
 
 
 
-},{"./../../mixins/ActiveUrl.coffee":273,"./../../mixins/Observe.coffee":274,"./PlanningUrl":295,"./components/PlanningSidebar":297,"lodash":23,"react":"M6d2gk","react-router":33}],295:[function(require,module,exports){
+},{"./../../mixins/ActiveUrl.coffee":272,"./../../mixins/Observe.coffee":273,"./PlanningUrl":294,"./components/PlanningSidebar":296,"lodash":23,"react":"M6d2gk","react-router":33}],294:[function(require,module,exports){
 var PlanningUrl, _;
 
 _ = require('lodash');
@@ -37341,7 +37308,7 @@ module.exports = PlanningUrl;
 
 
 
-},{"lodash":23}],296:[function(require,module,exports){
+},{"lodash":23}],295:[function(require,module,exports){
 var ActiveUrl, GoalSidebarItem, Icon, Link, PlanningUrl, React, Router, li, span, _, _ref;
 
 _ = require('lodash');
@@ -37392,7 +37359,7 @@ module.exports = GoalSidebarItem;
 
 
 
-},{"../PlanningUrl":295,"./../../../common/Icon.coffee":235,"./../../../mixins/ActiveUrl.coffee":273,"lodash":23,"react-router":33,"react/addons":64}],297:[function(require,module,exports){
+},{"../PlanningUrl":294,"./../../../common/Icon.coffee":235,"./../../../mixins/ActiveUrl.coffee":272,"lodash":23,"react-router":33,"react/addons":64}],296:[function(require,module,exports){
 var GoalSidebarItem, LoadAllGoalsRequest, Observe, PlanningSidebar, React, SidebarItemGroup, div, _;
 
 _ = require('lodash');
@@ -37445,7 +37412,7 @@ module.exports = PlanningSidebar;
 
 
 
-},{"./../../../common/SidebarItemGroup.coffee":240,"./../../../mixins/Observe.coffee":274,"./../../../requests/LoadAllGoalsRequest.coffee":276,"./GoalSidebarItem":296,"lodash":23,"react":"M6d2gk"}],298:[function(require,module,exports){
+},{"./../../../common/SidebarItemGroup.coffee":239,"./../../../mixins/Observe.coffee":273,"./../../../requests/LoadAllGoalsRequest.coffee":275,"./GoalSidebarItem":295,"lodash":23,"react":"M6d2gk"}],297:[function(require,module,exports){
 var ActiveUrl, CSSTransitionGroup, CardPanel, Observe, React, Router, StackPanel, WorkspaceScreen, WorkspaceSidebar, WorkspaceUrl, div, _;
 
 _ = require('lodash');
@@ -37543,7 +37510,7 @@ module.exports = WorkspaceScreen;
 
 
 
-},{"./../../mixins/ActiveUrl.coffee":273,"./../../mixins/Observe.coffee":274,"./WorkspaceUrl":299,"./components/CardPanel":305,"./components/StackPanel":311,"./components/WorkspaceSidebar":313,"lodash":23,"react-router":33,"react/addons":64}],299:[function(require,module,exports){
+},{"./../../mixins/ActiveUrl.coffee":272,"./../../mixins/Observe.coffee":273,"./WorkspaceUrl":298,"./components/CardPanel":304,"./components/StackPanel":310,"./components/WorkspaceSidebar":312,"lodash":23,"react-router":33,"react/addons":64}],298:[function(require,module,exports){
 var WorkspaceUrl, _;
 
 _ = require('lodash');
@@ -37610,7 +37577,7 @@ module.exports = WorkspaceUrl;
 
 
 
-},{"lodash":23}],300:[function(require,module,exports){
+},{"lodash":23}],299:[function(require,module,exports){
 var CardBody, Constants, MultilineText, Observe, React, SetCardBodyRequest, div;
 
 React = require('react');
@@ -37649,7 +37616,7 @@ module.exports = CardBody;
 
 
 
-},{"./../../../common/MultilineText.coffee":238,"./../../../framework/Constants.coffee":260,"./../../../mixins/Observe.coffee":274,"./../../../requests/SetCardBodyRequest.coffee":287,"react":"M6d2gk"}],301:[function(require,module,exports){
+},{"./../../../common/MultilineText.coffee":237,"./../../../framework/Constants.coffee":259,"./../../../mixins/Observe.coffee":273,"./../../../requests/SetCardBodyRequest.coffee":286,"react":"M6d2gk"}],300:[function(require,module,exports){
 var CardBody, CardDetails, Observe, React, div;
 
 React = require('react');
@@ -37679,7 +37646,7 @@ module.exports = CardDetails;
 
 
 
-},{"./../../../mixins/Observe.coffee":274,"./CardBody":300,"react":"M6d2gk"}],302:[function(require,module,exports){
+},{"./../../../mixins/Observe.coffee":273,"./CardBody":299,"react":"M6d2gk"}],301:[function(require,module,exports){
 var ActiveUrl, CardGoal, Icon, Link, LoadGoalRequest, Observe, React, Router, WorkspaceUrl, a, div, _ref;
 
 React = require('react');
@@ -37754,7 +37721,7 @@ module.exports = CardGoal;
 
 
 
-},{"../WorkspaceUrl":299,"./../../../common/Icon.coffee":235,"./../../../mixins/ActiveUrl.coffee":273,"./../../../mixins/Observe.coffee":274,"./../../../requests/LoadGoalRequest.coffee":281,"react":"M6d2gk","react-router":33}],303:[function(require,module,exports){
+},{"../WorkspaceUrl":298,"./../../../common/Icon.coffee":235,"./../../../mixins/ActiveUrl.coffee":272,"./../../../mixins/Observe.coffee":273,"./../../../requests/LoadGoalRequest.coffee":280,"react":"M6d2gk","react-router":33}],302:[function(require,module,exports){
 var BacklogCardCommands, CardHeader, Commands, Constants, InboxCardCommands, Observe, QueueCardCommands, React, SetCardTitleRequest, Text, div, _;
 
 _ = require('lodash');
@@ -37803,7 +37770,7 @@ CardHeader = React.createClass({
           value: this.props.card.title,
           save: this.saveTitle
         })
-      ]), Commands[this.props.stack.kind]({
+      ]), Commands[this.props.stack.type]({
         key: 'commands',
         card: this.props.card
       })
@@ -37818,7 +37785,7 @@ module.exports = CardHeader;
 
 
 
-},{"./../../../common/Text.coffee":241,"./../../../framework/Constants.coffee":260,"./../../../mixins/Observe.coffee":274,"./../../../requests/SetCardTitleRequest.coffee":288,"./commands/BacklogCardCommands":317,"./commands/InboxCardCommands":318,"./commands/QueueCardCommands":319,"lodash":23,"react":"M6d2gk"}],304:[function(require,module,exports){
+},{"./../../../common/Text.coffee":240,"./../../../framework/Constants.coffee":259,"./../../../mixins/Observe.coffee":273,"./../../../requests/SetCardTitleRequest.coffee":287,"./commands/BacklogCardCommands":316,"./commands/InboxCardCommands":317,"./commands/QueueCardCommands":318,"lodash":23,"react":"M6d2gk"}],303:[function(require,module,exports){
 var ActiveUrl, CardLocation, Icon, Link, LoadStackRequest, Observe, React, Router, WorkspaceUrl, div, _;
 
 _ = require('lodash');
@@ -37889,7 +37856,7 @@ CardLocation = React.createClass({
         Link(props, [
           Icon({
             key: 'icon',
-            name: "stack-" + (this.state.stack.kind.toLowerCase())
+            name: "stack-" + (this.state.stack.type.toLowerCase())
           }), this.formatStackName()
         ])
       ])
@@ -37902,7 +37869,7 @@ CardLocation = React.createClass({
     } else {
       name = "" + this.state.owner.name + "'s";
     }
-    switch (this.state.stack.kind) {
+    switch (this.state.stack.type) {
       case 'Queue':
         return "" + name + " Queue";
       case 'Inbox':
@@ -37923,7 +37890,7 @@ module.exports = CardLocation;
 
 
 
-},{"../WorkspaceUrl":299,"./../../../common/Icon.coffee":235,"./../../../mixins/ActiveUrl.coffee":273,"./../../../mixins/Observe.coffee":274,"./../../../requests/LoadStackRequest.coffee":286,"lodash":23,"react":"M6d2gk","react-router":33}],305:[function(require,module,exports){
+},{"../WorkspaceUrl":298,"./../../../common/Icon.coffee":235,"./../../../mixins/ActiveUrl.coffee":272,"./../../../mixins/Observe.coffee":273,"./../../../requests/LoadStackRequest.coffee":285,"lodash":23,"react":"M6d2gk","react-router":33}],304:[function(require,module,exports){
 var ActiveUrl, CardDetails, CardHeader, CardPanel, CardSubheader, Constants, Icon, Link, LoadCardRequest, Observe, React, Router, WorkspaceUrl, div, _;
 
 _ = require('lodash');
@@ -37956,21 +37923,21 @@ div = React.DOM.div;
 
 CardPanel = React.createClass({
   displayName: 'CardPanel',
-  mixins: [Observe('cards', 'stacks', 'types'), ActiveUrl(WorkspaceUrl)],
+  mixins: [Observe('cards', 'kinds', 'stacks'), ActiveUrl(WorkspaceUrl)],
   propTypes: {
     cardId: React.PropTypes.string.isRequired
   },
   getStateFromStores: function(stores) {
-    var card, stack, type;
+    var card, kind, stack;
     card = stores.cards.getCard(this.props.cardId);
     if (card != null) {
+      kind = stores.kinds.getKind(card.kind.id);
       stack = stores.stacks.getStack(card.stack.id);
-      type = stores.types.getType(card.type.id);
     }
     return {
       card: card,
-      stack: stack,
-      type: type
+      kind: kind,
+      stack: stack
     };
   },
   componentWillReceiveProps: function(newProps) {
@@ -37987,22 +37954,22 @@ CardPanel = React.createClass({
   render: function() {
     var children;
     children = [];
-    if ((this.state.card != null) && (this.state.stack != null) && (this.state.type != null)) {
+    if ((this.state.card != null) && (this.state.stack != null) && (this.state.kind != null)) {
       children = [
         this.makeCloseLink(), CardHeader({
           key: 'header',
           card: this.state.card,
           stack: this.state.stack,
-          type: this.state.type
+          kind: this.state.kind
         }), CardSubheader({
           key: 'subheader',
           card: this.state.card,
           stack: this.state.stack,
-          type: this.state.type
+          kind: this.state.kind
         }), CardDetails({
           key: 'details',
           card: this.state.card,
-          type: this.state.type
+          kind: this.state.kind
         })
       ];
     }
@@ -38034,7 +38001,7 @@ module.exports = CardPanel;
 
 
 
-},{"../WorkspaceUrl":299,"./../../../common/Icon.coffee":235,"./../../../framework/Constants.coffee":260,"./../../../mixins/ActiveUrl.coffee":273,"./../../../mixins/Observe.coffee":274,"./../../../requests/LoadCardRequest.coffee":278,"./CardDetails":301,"./CardHeader":303,"./CardSubheader":307,"lodash":23,"react":"M6d2gk","react-router":33}],306:[function(require,module,exports){
+},{"../WorkspaceUrl":298,"./../../../common/Icon.coffee":235,"./../../../framework/Constants.coffee":259,"./../../../mixins/ActiveUrl.coffee":272,"./../../../mixins/Observe.coffee":273,"./../../../requests/LoadCardRequest.coffee":277,"./CardDetails":300,"./CardHeader":302,"./CardSubheader":306,"lodash":23,"react":"M6d2gk","react-router":33}],305:[function(require,module,exports){
 var Avatar, CardParticipants, LoadParticipantsOnCardRequest, Observe, React, div, li, span, ul, _, _ref;
 
 _ = require('lodash');
@@ -38104,7 +38071,7 @@ module.exports = CardParticipants;
 
 
 
-},{"./../../../common/Avatar.coffee":233,"./../../../mixins/Observe.coffee":274,"./../../../requests/LoadParticipantsOnCardRequest.coffee":285,"lodash":23,"react":"M6d2gk"}],307:[function(require,module,exports){
+},{"./../../../common/Avatar.coffee":233,"./../../../mixins/Observe.coffee":273,"./../../../requests/LoadParticipantsOnCardRequest.coffee":284,"lodash":23,"react":"M6d2gk"}],306:[function(require,module,exports){
 var CardGoal, CardLocation, CardParticipants, CardSubheader, Observe, React, div, _;
 
 _ = require('lodash');
@@ -38148,7 +38115,7 @@ module.exports = CardSubheader;
 
 
 
-},{"./../../../mixins/Observe.coffee":274,"./CardGoal":302,"./CardLocation":304,"./CardParticipants":306,"lodash":23,"react":"M6d2gk"}],308:[function(require,module,exports){
+},{"./../../../mixins/Observe.coffee":273,"./CardGoal":301,"./CardLocation":303,"./CardParticipants":305,"lodash":23,"react":"M6d2gk"}],307:[function(require,module,exports){
 var Observe, React, SearchBox, div, input, _ref;
 
 React = require('react');
@@ -38182,8 +38149,8 @@ module.exports = SearchBox;
 
 
 
-},{"./../../../mixins/Observe.coffee":274,"react":"M6d2gk"}],309:[function(require,module,exports){
-var ActiveUrl, BacklogCard, CardTypes, InboxCard, QueueCard, React, Router, StackCardFrame, WorkspaceUrl, classSet, div;
+},{"./../../../mixins/Observe.coffee":273,"react":"M6d2gk"}],308:[function(require,module,exports){
+var ActiveUrl, BacklogCard, CardComponents, InboxCard, QueueCard, React, Router, StackCardFrame, WorkspaceUrl, classSet, div;
 
 React = require('react/addons');
 
@@ -38203,7 +38170,7 @@ div = React.DOM.div;
 
 classSet = React.addons.classSet;
 
-CardTypes = {
+CardComponents = {
   Backlog: BacklogCard,
   Inbox: InboxCard,
   Queue: QueueCard
@@ -38240,7 +38207,7 @@ StackCardFrame = React.createClass({
       onDragOver: this.handleDragOver,
       onDragLeave: this.handleDragLeave
     }, [
-      CardTypes[this.props.stack.kind]({
+      CardComponents[this.props.stack.type]({
         card: this.props.card
       })
     ]);
@@ -38284,7 +38251,7 @@ module.exports = StackCardFrame;
 
 
 
-},{"../WorkspaceUrl":299,"./../../../mixins/ActiveUrl.coffee":273,"./cards/BacklogCard":314,"./cards/InboxCard":315,"./cards/QueueCard":316,"react-router":33,"react/addons":64}],310:[function(require,module,exports){
+},{"../WorkspaceUrl":298,"./../../../mixins/ActiveUrl.coffee":272,"./cards/BacklogCard":313,"./cards/InboxCard":314,"./cards/QueueCard":315,"react-router":33,"react/addons":64}],309:[function(require,module,exports){
 var ActiveUrl, Icon, Link, React, Router, StackHeader, WorkspaceUrl, div, span, _, _ref;
 
 _ = require('lodash');
@@ -38313,7 +38280,7 @@ StackHeader = React.createClass({
     }, [
       Icon({
         key: 'icon',
-        name: "stack-" + ((_ref1 = this.props.stack.kind) != null ? _ref1.toLowerCase() : void 0)
+        name: "stack-" + ((_ref1 = this.props.stack.type) != null ? _ref1.toLowerCase() : void 0)
       }), span({
         key: 'title',
         name: 'title'
@@ -38341,7 +38308,7 @@ module.exports = StackHeader;
 
 
 
-},{"../WorkspaceUrl":299,"./../../../common/Icon.coffee":235,"./../../../mixins/ActiveUrl.coffee":273,"lodash":23,"react":"M6d2gk","react-router":33}],311:[function(require,module,exports){
+},{"../WorkspaceUrl":298,"./../../../common/Icon.coffee":235,"./../../../mixins/ActiveUrl.coffee":272,"lodash":23,"react":"M6d2gk","react-router":33}],310:[function(require,module,exports){
 var LoadCardsInStackRequest, LoadStackRequest, Observe, React, Router, StackCardFrame, StackHeader, StackPanel, div, ul, _, _ref;
 
 _ = require('lodash');
@@ -38467,7 +38434,7 @@ module.exports = StackPanel;
 
 
 
-},{"./../../../mixins/Observe.coffee":274,"./../../../requests/LoadCardsInStackRequest.coffee":279,"./../../../requests/LoadStackRequest.coffee":286,"./StackCardFrame":309,"./StackHeader":310,"lodash":23,"react":"M6d2gk","react-router":33}],312:[function(require,module,exports){
+},{"./../../../mixins/Observe.coffee":273,"./../../../requests/LoadCardsInStackRequest.coffee":278,"./../../../requests/LoadStackRequest.coffee":285,"./StackCardFrame":308,"./StackHeader":309,"lodash":23,"react":"M6d2gk","react-router":33}],311:[function(require,module,exports){
 var ActiveUrl, Icon, Link, React, Router, StackListItem, WorkspaceUrl, li, span, _, _ref;
 
 _ = require('lodash');
@@ -38500,7 +38467,7 @@ StackListItem = React.createClass({
       Link(linkProps, [
         Icon({
           key: 'icon',
-          name: "stack-" + (this.props.stack.kind.toLowerCase())
+          name: "stack-" + (this.props.stack.type.toLowerCase())
         }), span({
           key: 'name',
           className: 'name'
@@ -38520,7 +38487,7 @@ module.exports = StackListItem;
 
 
 
-},{"../WorkspaceUrl":299,"./../../../common/Icon.coffee":235,"./../../../mixins/ActiveUrl.coffee":273,"lodash":23,"react-router":33,"react/addons":64}],313:[function(require,module,exports){
+},{"../WorkspaceUrl":298,"./../../../common/Icon.coffee":235,"./../../../mixins/ActiveUrl.coffee":272,"lodash":23,"react-router":33,"react/addons":64}],312:[function(require,module,exports){
 var LoadMyStacksRequest, Observe, React, SearchBox, SidebarItemGroup, StackSidebarItem, WorkspaceSidebar, div, ul, _, _ref;
 
 _ = require('lodash');
@@ -38577,7 +38544,7 @@ module.exports = WorkspaceSidebar;
 
 
 
-},{"./../../../common/SidebarItemGroup.coffee":240,"./../../../mixins/Observe.coffee":274,"./../../../requests/LoadMyStacksRequest.coffee":284,"./SearchBox":308,"./StackSidebarItem":312,"lodash":23,"react":"M6d2gk"}],314:[function(require,module,exports){
+},{"./../../../common/SidebarItemGroup.coffee":239,"./../../../mixins/Observe.coffee":273,"./../../../requests/LoadMyStacksRequest.coffee":283,"./SearchBox":307,"./StackSidebarItem":311,"lodash":23,"react":"M6d2gk"}],313:[function(require,module,exports){
 var BacklogCard, React, div;
 
 React = require('react');
@@ -38603,7 +38570,7 @@ module.exports = BacklogCard;
 
 
 
-},{"react":"M6d2gk"}],315:[function(require,module,exports){
+},{"react":"M6d2gk"}],314:[function(require,module,exports){
 var Constants, InboxCard, React, div, em, _ref;
 
 React = require('react');
@@ -38637,7 +38604,7 @@ module.exports = InboxCard;
 
 
 
-},{"./../../../../framework/Constants.coffee":260,"react":"M6d2gk"}],316:[function(require,module,exports){
+},{"./../../../../framework/Constants.coffee":259,"react":"M6d2gk"}],315:[function(require,module,exports){
 var Constants, QueueCard, React, div, em, _ref;
 
 React = require('react');
@@ -38671,7 +38638,7 @@ module.exports = QueueCard;
 
 
 
-},{"./../../../../framework/Constants.coffee":260,"react":"M6d2gk"}],317:[function(require,module,exports){
+},{"./../../../../framework/Constants.coffee":259,"react":"M6d2gk"}],316:[function(require,module,exports){
 var BacklogCardCommands, Button, React, div;
 
 React = require('react');
@@ -38721,7 +38688,7 @@ module.exports = BacklogCardCommands;
 
 
 
-},{"./../../../../common/Button.coffee":234,"react":"M6d2gk"}],318:[function(require,module,exports){
+},{"./../../../../common/Button.coffee":234,"react":"M6d2gk"}],317:[function(require,module,exports){
 var Button, InboxCardCommands, React, div;
 
 React = require('react');
@@ -38779,7 +38746,7 @@ module.exports = InboxCardCommands;
 
 
 
-},{"./../../../../common/Button.coffee":234,"react":"M6d2gk"}],319:[function(require,module,exports){
+},{"./../../../../common/Button.coffee":234,"react":"M6d2gk"}],318:[function(require,module,exports){
 var Button, QueueCardCommands, React, div;
 
 React = require('react');
@@ -38829,7 +38796,7 @@ module.exports = QueueCardCommands;
 
 
 
-},{"./../../../../common/Button.coffee":234,"react":"M6d2gk"}],320:[function(require,module,exports){
+},{"./../../../../common/Button.coffee":234,"react":"M6d2gk"}],319:[function(require,module,exports){
 var JoinPresenceChannelRequest, LoadCurrentUserRequest, LoadMyOrganizationsRequest, Observe, React, Shell, ShellHeader, div;
 
 React = require('react/addons');
@@ -38890,7 +38857,7 @@ module.exports = Shell;
 
 
 
-},{"./../mixins/Observe.coffee":274,"./../requests/JoinPresenceChannelRequest.coffee":275,"./../requests/LoadCurrentUserRequest.coffee":280,"./../requests/LoadMyOrganizationsRequest.coffee":282,"./components/ShellHeader":326,"react/addons":64}],321:[function(require,module,exports){
+},{"./../mixins/Observe.coffee":273,"./../requests/JoinPresenceChannelRequest.coffee":274,"./../requests/LoadCurrentUserRequest.coffee":279,"./../requests/LoadMyOrganizationsRequest.coffee":281,"./components/ShellHeader":325,"react/addons":64}],320:[function(require,module,exports){
 var ShellUrl, _;
 
 _ = require('lodash');
@@ -38921,7 +38888,7 @@ module.exports = ShellUrl;
 
 
 
-},{"lodash":23}],322:[function(require,module,exports){
+},{"lodash":23}],321:[function(require,module,exports){
 var ActiveUrl, FocusedCard, Icon, Link, LoadMyQueueRequest, Observe, React, Router, WorkspaceUrl, div, span, _, _ref;
 
 _ = require('lodash');
@@ -38975,7 +38942,7 @@ module.exports = FocusedCard;
 
 
 
-},{"../../screens/workspace/WorkspaceUrl":299,"./../../common/Icon.coffee":235,"./../../mixins/ActiveUrl.coffee":273,"./../../mixins/Observe.coffee":274,"./../../requests/LoadMyQueueRequest.coffee":283,"lodash":23,"react":"M6d2gk","react-router":33}],323:[function(require,module,exports){
+},{"../../screens/workspace/WorkspaceUrl":298,"./../../common/Icon.coffee":235,"./../../mixins/ActiveUrl.coffee":272,"./../../mixins/Observe.coffee":273,"./../../requests/LoadMyQueueRequest.coffee":282,"lodash":23,"react":"M6d2gk","react-router":33}],322:[function(require,module,exports){
 var ActiveUrl, Icon, Link, NavigationMenu, React, Router, ShellUrl, classSet, div;
 
 React = require('react/addons');
@@ -39027,7 +38994,7 @@ module.exports = NavigationMenu;
 
 
 
-},{"../ShellUrl":321,"./../../common/Icon.coffee":235,"./../../mixins/ActiveUrl.coffee":273,"react-router":33,"react/addons":64}],324:[function(require,module,exports){
+},{"../ShellUrl":320,"./../../common/Icon.coffee":235,"./../../mixins/ActiveUrl.coffee":272,"react-router":33,"react/addons":64}],323:[function(require,module,exports){
 var MenuTrigger, OrganizationCorner, PresenceWidget, React, div;
 
 React = require('react');
@@ -39075,7 +39042,7 @@ module.exports = OrganizationCorner;
 
 
 
-},{"./../../common/MenuTrigger.coffee":237,"./PresenceWidget":325,"react":"M6d2gk"}],325:[function(require,module,exports){
+},{"./../../common/MenuTrigger.coffee":236,"./PresenceWidget":324,"react":"M6d2gk"}],324:[function(require,module,exports){
 var Icon, PresenceWidget, React, div, span, _ref;
 
 React = require('react');
@@ -39105,7 +39072,7 @@ module.exports = PresenceWidget;
 
 
 
-},{"./../../common/Icon.coffee":235,"react":"M6d2gk"}],326:[function(require,module,exports){
+},{"./../../common/Icon.coffee":235,"react":"M6d2gk"}],325:[function(require,module,exports){
 var NavigationMenu, Observe, OrganizationCorner, React, ShellHeader, UserCorner, div;
 
 React = require('react');
@@ -39151,7 +39118,7 @@ module.exports = ShellHeader;
 
 
 
-},{"./../../mixins/Observe.coffee":274,"./NavigationMenu":323,"./OrganizationCorner":324,"./UserCorner":327,"react":"M6d2gk"}],327:[function(require,module,exports){
+},{"./../../mixins/Observe.coffee":273,"./NavigationMenu":322,"./OrganizationCorner":323,"./UserCorner":326,"react":"M6d2gk"}],326:[function(require,module,exports){
 var Avatar, FocusedCard, MenuTrigger, Observe, React, UserCorner, div, _;
 
 _ = require('lodash');
@@ -39203,7 +39170,7 @@ module.exports = UserCorner;
 
 
 
-},{"./../../common/Avatar.coffee":233,"./../../common/MenuTrigger.coffee":237,"./../../mixins/Observe.coffee":274,"./FocusedCard":322,"lodash":23,"react":"M6d2gk"}],328:[function(require,module,exports){
+},{"./../../common/Avatar.coffee":233,"./../../common/MenuTrigger.coffee":236,"./../../mixins/Observe.coffee":273,"./FocusedCard":321,"lodash":23,"react":"M6d2gk"}],327:[function(require,module,exports){
 var CardStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -39264,7 +39231,7 @@ module.exports = CardStore;
 
 
 
-},{"./../framework/Store.coffee":265,"lodash":23}],329:[function(require,module,exports){
+},{"./../framework/Store.coffee":264,"lodash":23}],328:[function(require,module,exports){
 var GoalStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -39301,7 +39268,40 @@ module.exports = GoalStore;
 
 
 
-},{"./../framework/Store.coffee":265,"lodash":23}],330:[function(require,module,exports){
+},{"./../framework/Store.coffee":264,"lodash":23}],329:[function(require,module,exports){
+var KindStore, Store, _,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+_ = require('lodash');
+
+Store = require('./../framework/Store.coffee');
+
+KindStore = (function(_super) {
+  __extends(KindStore, _super);
+
+  function KindStore() {
+    this.kinds = {};
+  }
+
+  KindStore.prototype.getKind = function(id) {
+    return this.kinds[id];
+  };
+
+  KindStore.prototype.onKindsLoaded = function(event) {
+    this.kinds = _.extend(this.kinds, _.indexBy(event.kinds, 'id'));
+    return this.announce();
+  };
+
+  return KindStore;
+
+})(Store);
+
+module.exports = KindStore;
+
+
+
+},{"./../framework/Store.coffee":264,"lodash":23}],330:[function(require,module,exports){
 var MilestoneStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -39330,7 +39330,7 @@ module.exports = MilestoneStore;
 
 
 
-},{"./../framework/Store.coffee":265,"lodash":23}],331:[function(require,module,exports){
+},{"./../framework/Store.coffee":264,"lodash":23}],331:[function(require,module,exports){
 var OrganizationStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -39367,7 +39367,7 @@ module.exports = OrganizationStore;
 
 
 
-},{"./../framework/Store.coffee":265,"lodash":23}],332:[function(require,module,exports){
+},{"./../framework/Store.coffee":264,"lodash":23}],332:[function(require,module,exports){
 var PresenceStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -39418,7 +39418,7 @@ module.exports = PresenceStore;
 
 
 
-},{"./../framework/Store.coffee":265,"lodash":23}],333:[function(require,module,exports){
+},{"./../framework/Store.coffee":264,"lodash":23}],333:[function(require,module,exports){
 var QueueStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -39477,7 +39477,7 @@ module.exports = QueueStore;
 
 
 
-},{"./../framework/Store.coffee":265,"lodash":23}],334:[function(require,module,exports){
+},{"./../framework/Store.coffee":264,"lodash":23}],334:[function(require,module,exports){
 var StackStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -39514,7 +39514,7 @@ module.exports = StackStore;
 
 
 
-},{"./../framework/Store.coffee":265,"lodash":23}],335:[function(require,module,exports){
+},{"./../framework/Store.coffee":264,"lodash":23}],335:[function(require,module,exports){
 var Store, TeamStore, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -39551,40 +39551,7 @@ module.exports = TeamStore;
 
 
 
-},{"./../framework/Store.coffee":265,"lodash":23}],336:[function(require,module,exports){
-var Store, TypeStore, _,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-_ = require('lodash');
-
-Store = require('./../framework/Store.coffee');
-
-TypeStore = (function(_super) {
-  __extends(TypeStore, _super);
-
-  function TypeStore() {
-    this.types = {};
-  }
-
-  TypeStore.prototype.getType = function(id) {
-    return this.types[id];
-  };
-
-  TypeStore.prototype.onTypesLoaded = function(event) {
-    this.types = _.extend(this.types, _.indexBy(event.types, 'id'));
-    return this.announce();
-  };
-
-  return TypeStore;
-
-})(Store);
-
-module.exports = TypeStore;
-
-
-
-},{"./../framework/Store.coffee":265,"lodash":23}],337:[function(require,module,exports){
+},{"./../framework/Store.coffee":264,"lodash":23}],336:[function(require,module,exports){
 var Store, UserStore, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -39666,4 +39633,4 @@ module.exports = UserStore;
 
 
 
-},{"./../framework/Store.coffee":265,"lodash":23}]},{},[230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306,307,308,309,310,311,312,313,314,315,316,317,318,319,320,321,322,323,324,325,326,327,328,329,330,331,332,333,334,335,336,337]);
+},{"./../framework/Store.coffee":264,"lodash":23}]},{},[230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306,307,308,309,310,311,312,313,314,315,316,317,318,319,320,321,322,323,324,325,326,327,328,329,330,331,332,333,334,335,336]);

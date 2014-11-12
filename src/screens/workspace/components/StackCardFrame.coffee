@@ -8,7 +8,7 @@ BacklogCard  = React.createFactory(require './cards/BacklogCard')
 {div}        = React.DOM
 {classSet}   = React.addons
 
-CardTypes =
+CardComponents =
   Backlog: BacklogCard
   Inbox:   InboxCard
   Queue:   QueueCard
@@ -47,7 +47,7 @@ StackCardFrame = React.createClass {
       onDragOver:     @handleDragOver
       onDragLeave:    @handleDragLeave
     }, [
-      CardTypes[@props.stack.kind] {card: @props.card}
+      CardComponents[@props.stack.type] {card: @props.card}
     ]
 
   handleClick: ->

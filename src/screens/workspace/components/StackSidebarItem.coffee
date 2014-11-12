@@ -19,7 +19,7 @@ StackListItem = React.createClass {
     linkProps = _.extend @makeLinkProps(), {key: 'open-link'}
     li {className: 'sidebar-item'}, [
       Link linkProps, [
-        Icon {key: 'icon', name: "stack-#{@props.stack.kind.toLowerCase()}"}
+        Icon {key: 'icon', name: "stack-#{@props.stack.type.toLowerCase()}"}
         span {key: 'name', className: 'name'}, [@props.stack.name]
       ]
     ]

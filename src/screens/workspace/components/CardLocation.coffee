@@ -39,7 +39,7 @@ CardLocation = React.createClass {
       div {key: 'name', className: 'name'}, ['Stack']
       div {key: 'value', className: 'value'}, [
         Link props, [
-          Icon {key: 'icon', name: "stack-#{@state.stack.kind.toLowerCase()}"}
+          Icon {key: 'icon', name: "stack-#{@state.stack.type.toLowerCase()}"}
           @formatStackName()
         ]
       ]
@@ -51,7 +51,7 @@ CardLocation = React.createClass {
       name = 'My'
     else
       name = "#{@state.owner.name}'s"
-    switch @state.stack.kind
+    switch @state.stack.type
       when 'Queue'
         return "#{name} Queue"
       when 'Inbox'

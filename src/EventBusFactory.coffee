@@ -7,7 +7,7 @@ PresenceStore                 = require './stores/PresenceStore'
 QueueStore                    = require './stores/QueueStore'
 StackStore                    = require './stores/StackStore'
 TeamStore                     = require './stores/TeamStore'
-TypeStore                     = require './stores/TypeStore'
+KindStore                     = require './stores/KindStore'
 UserStore                     = require './stores/UserStore'
 CardBodyChangedListener       = require './listeners/CardBodyChangedListener'
 CardTitleChangedListener      = require './listeners/CardTitleChangedListener'
@@ -22,13 +22,13 @@ EventBusFactory.create = ->
   stores =
     cards:         new CardStore()
     goals:         new GoalStore()
+    kinds:         new KindStore()
     milestones:    new MilestoneStore()
     organizations: new OrganizationStore()
     presence:      new PresenceStore()
     queue:         new QueueStore()
     stacks:        new StackStore()
     teams:         new TeamStore()
-    types:         new TypeStore()
     users:         new UserStore()
 
   listeners = [
