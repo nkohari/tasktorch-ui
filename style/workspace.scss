@@ -1,5 +1,20 @@
+.panel {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  height: 100%;
+  margin-right: 10px;
+  padding: 0;
+  white-space: normal;
+  overflow: hidden;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
 .search {
-  padding: 0 10px 10px;
+  padding: 10px;
   background: $search-background;
   border-bottom: $search-border;
   input {
@@ -22,12 +37,9 @@
 
 .stack {
   width: $stack-panel-width;
-  border-right: $panel-border;
+  border: $panel-border;
   background: $panel-background;
   .header {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     font-size: 14px;
     font-weight: 600;
@@ -46,14 +58,14 @@
     }
   }
   .body {
-    position: relative;
     overflow-x: hidden;
     overflow-y: auto;
     height: 100%;
-    margin-top: 35px;
+    background: transparent;
     .card-list {
       margin: 0;
       padding: 0;
+      margin-bottom: 36px;
     }
   }
 }
@@ -64,7 +76,6 @@
   cursor: grab;
   border-bottom: $panel-border;
   background: $stack-card-background;
-  padding: 8px;
   &.dragging {
     cursor: -webkit-grabbing;
     cursor: -moz-grabbing;
@@ -74,41 +85,44 @@
     background: $stack-card-active-background;
     box-shadow: $stack-card-active-shadow;
   }
-  .top {
-    .title {
-      color: $stack-card-title-color;
-      font-size: 14px;
-      font-weight: 600;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    .handoff {
-      font-size: 12px;
-      color: #999;
-      em {
-        font-style: normal;
-        color: #666;
+  .body {
+    border-left: 6px solid #ccc;
+    padding: 6px 8px;
+    .top {
+      padding: 2px 0px;
+      .title {
+        color: $stack-card-title-color;
+        font-size: 14px;
+        font-weight: 600;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .handoff {
+        font-size: 11px;
+        color: #999;
+        em {
+          font-style: normal;
+          color: #666;
+        }
       }
     }
-    padding: 2px 6px;
-    border-left: 6px solid #999;
-  }
-  .bottom {
-    overflow: hidden;
-    padding-top: 6px;
-    margin-top: 6px;
-    border-top: $stack-card-contextual-border;
-    color: $stack-card-contextual-color;
-    font-size: 13px;
-    line-height: 17px;
-    height: 57px;
+    .bottom {
+      overflow: hidden;
+      padding-top: 6px;
+      margin-top: 6px;
+      border-top: $stack-card-contextual-border;
+      color: $stack-card-contextual-color;
+      font-size: 13px;
+      line-height: 17px;
+      height: 57px;
+    }
   }
 }
 
 .card {
   position: relative;
-  border-right: $panel-border;
+  border: $panel-border;
   background: $panel-background;
   width: $card-panel-width;
   background: #fff;
@@ -150,7 +164,7 @@
       button {
         display: inline-block;
         font-size: 13px;
-        font-weight: bold;
+        font-weight: 600;
         padding: 6px 10px;
         color: $card-command-button-text-color;
         border: $card-command-button-border;
@@ -183,7 +197,7 @@
     padding: 4px 0;
     border-bottom: 1px solid #ccc;
     .aspect {
-      font-size: 14px;
+      font-size: 13px;
       .name {
         display: inline-block;
         padding: 6px 10px;
@@ -261,8 +275,9 @@
       }
     }
     .body {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 400;
+      line-height: 1.6em;
       margin: 10px;
     }
   }

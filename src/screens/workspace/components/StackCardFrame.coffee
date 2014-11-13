@@ -1,6 +1,7 @@
 React        = require 'react/addons'
 Router       = require 'react-router'
 ActiveUrl    = require 'mixins/ActiveUrl'
+Observe      = require 'mixins/Observe'
 WorkspaceUrl = require '../WorkspaceUrl'
 InboxCard    = React.createFactory(require './cards/InboxCard')
 QueueCard    = React.createFactory(require './cards/QueueCard')
@@ -18,6 +19,7 @@ StackCardFrame = React.createClass {
   displayName: 'StackCardFrame'
 
   mixins: [
+    Observe('kinds')
     ActiveUrl(WorkspaceUrl)
     Router.Navigation
   ]
@@ -25,6 +27,9 @@ StackCardFrame = React.createClass {
   propTypes:
     card:  React.PropTypes.object.isRequired
     stack: React.PropTypes.object.isRequired
+
+  getStateFromStores: (stores) ->
+    {kind: stores.kinds.getKind(@props.card.kind.id)}
 
   getInitialState: ->
     {dragging: false, hovering: false}
@@ -37,6 +42,10 @@ StackCardFrame = React.createClass {
       hovering:     @state.hovering
       active:       @getActiveUrl().isCardActive(@props.card.id)
 
+    children = []
+    if @state.kind?
+      children = CardComponents[@props.stack.type] {card: @props.card, kind: @state.kind}
+
     div {
       className:      classSet(classes)
       draggable:      true
@@ -46,9 +55,7 @@ StackCardFrame = React.createClass {
       onDragEnd:      @handleDragEnd
       onDragOver:     @handleDragOver
       onDragLeave:    @handleDragLeave
-    }, [
-      CardComponents[@props.stack.type] {card: @props.card}
-    ]
+    }, children
 
   handleClick: ->
     url = @getActiveUrl()

@@ -1,14 +1,15 @@
-_                  = require 'lodash'
-React              = require 'react/addons'
-Router             = require 'react-router'
-ActiveUrl          = require 'mixins/ActiveUrl'
-Observe            = require 'mixins/Observe'
-WorkspaceUrl       = require './WorkspaceUrl'
-StackPanel         = React.createFactory(require './components/StackPanel')
-CardPanel          = React.createFactory(require './components/CardPanel')
-WorkspaceSidebar   = React.createFactory(require './components/WorkspaceSidebar')
-CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
-{div}              = React.DOM
+_                   = require 'lodash'
+React               = require 'react/addons'
+Router              = require 'react-router'
+ActiveUrl           = require 'mixins/ActiveUrl'
+Observe             = require 'mixins/Observe'
+LoadAllKindsRequest = require 'requests/LoadAllKindsRequest'
+WorkspaceUrl        = require './WorkspaceUrl'
+StackPanel          = React.createFactory(require './components/StackPanel')
+CardPanel           = React.createFactory(require './components/CardPanel')
+WorkspaceSidebar    = React.createFactory(require './components/WorkspaceSidebar')
+CSSTransitionGroup  = React.createFactory(React.addons.CSSTransitionGroup)
+{div}               = React.DOM
 
 WorkspaceScreen = React.createClass {
 
@@ -31,6 +32,7 @@ WorkspaceScreen = React.createClass {
   componentWillMount: ->
     # TODO: This is for drag&drop, replace it with something sane
     window.Screen = this
+    @execute new LoadAllKindsRequest()
 
   componentWillUnmount: ->
     window.Screen = undefined
@@ -46,7 +48,7 @@ WorkspaceScreen = React.createClass {
 
     div {className: 'workspace screen'}, [
       WorkspaceSidebar {key: 'sidebar'}
-      CSSTransitionGroup {transitionName: 'panel-slide'}, stackPanels.concat(cardPanels)
+      CSSTransitionGroup {component: 'div', className: 'content', transitionName: 'panel-slide'}, stackPanels.concat(cardPanels)
     ]
 
   startDraggingCard: (draggingCard, draggingIndex) ->

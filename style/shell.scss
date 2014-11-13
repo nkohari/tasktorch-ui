@@ -10,7 +10,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  height: 54px;
+  height: $header-height;
   width: 100%;
   z-index: 9999;
   .header-bar {
@@ -31,7 +31,7 @@
   background: $organization-background;
   .organization-name {
     float: left;
-    font-size: 16px;
+    font-size: 14px;
     color: $organization-name-text-color;
     text-shadow: $organization-name-text-shadow;
   }
@@ -62,6 +62,8 @@
   height: 100%;
   float: left;
   a {
+    position: relative;
+    overflow: hidden;
     display: inline-block;
     width: 140px;
     height: 100%;
@@ -73,21 +75,29 @@
     font-weight: $navigation-font-weight;
     text-decoration: none;
     text-align: center;
-    border-right: $navigation-border;
     transition-property: background;
     transition-duration: 0.15s;
     transition-timing-function: ease-in;
     .icon {
-      color: $navigation-icon-color;
-      text-align: left;
+      position: absolute;
+      top: 40px;
+      left: 0;
+      color: transparent;
+      width: 140px;
+      text-align: center;
+      font-size: 140px;
     }
     &.active {
       color: $navigation-active-text-color;
+      border-left: $navigation-active-border;
+      border-right: $navigation-active-border;
       font-weight: $navigation-active-font-weight;
       text-shadow: $navigation-active-text-shadow;
       background: $navigation-active-background;
       box-shadow: $navigation-active-shadow;
-      .icon { color: $navigation-active-icon-color; }
+      .icon {
+        color: rgba(255, 255, 255, 0.2);
+      }
     }
   }
 }
@@ -114,7 +124,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      font-weight: 600;
+      font-weight: 400;
       color: $focus-link-color;
       text-shadow: 1px 1px 2px $focus-link-shadow-color;
       text-decoration: none;
@@ -151,6 +161,33 @@
   }
 }
 
+.logo-corner {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: $sidebar-width;
+  height: $logo-height;
+  z-index: 1000;
+  padding: 4px;
+  background: $dark url('/dist/logo.png') 4px 4px no-repeat;
+  ul.links {
+    margin: 0;
+    padding: 2px 0 0 54px;
+    li {
+      list-style-type: none;
+      height: 20px;
+      a {
+        font-size: 13px;
+        color: $light;
+        text-decoration: none;
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
 .screen {
   padding-top: 54px;
   width: 100%;
@@ -158,18 +195,24 @@
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
-  &::-webkit-scrollbar-track {
-    background: $scrollbar-track-background;
-    border-top: $scrollbar-track-border;
+  .content {
+    position: relative;
+    height: 100%;
+    padding: 10px;
+    margin-left: $sidebar-width;
+    overflow-x: auto;
+    overflow-y: hidden;
+    &::-webkit-scrollbar {
+      height: 20px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.3);
+      background-clip: content-box;
+      border: 5px solid transparent;
+      border-radius: 20px;
+    }
   }
-  &::-webkit-scrollbar {
-    height: 16px;
-    padding-top: 1px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: $scrollbar-thumb-background;
-    background-clip: content-box;
-    border: $scrollbar-thumb-border;
-    border-radius: 16px;
-  }  
 }

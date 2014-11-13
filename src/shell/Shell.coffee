@@ -4,6 +4,7 @@ JoinPresenceChannelRequest = require 'requests/JoinPresenceChannelRequest'
 LoadCurrentUserRequest     = require 'requests/LoadCurrentUserRequest'
 LoadMyOrganizationsRequest = require 'requests/LoadMyOrganizationsRequest'
 ShellHeader                = React.createFactory(require './components/ShellHeader')
+LogoCorner                 = React.createFactory(require './components/LogoCorner')
 {div}                      = React.DOM
 
 Shell = React.createClass {
@@ -36,6 +37,7 @@ Shell = React.createClass {
     div {className: 'shell'}, [
       ShellHeader {key: 'header', currentOrganization: @state.currentOrganization, currentUser: @state.currentUser, organizations: @state.organizations, connectedUsers: @state.connectedUsers}
       Screen {key: 'screen'}
+      LogoCorner {key: 'logo'}
     ]
 
 }

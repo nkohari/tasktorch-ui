@@ -27,7 +27,7 @@ BigPictureSidebar = React.createClass {
     teams = _.map @state.teams, (team) =>
       TeamSidebarItem {key: "team-#{team.id}", team}
 
-    div {className: 'bigpicture sidebar panel'}, [
+    div {className: 'bigpicture sidebar'}, [
       SidebarItemGroup {key: 'teams', header: 'Teams'}, teams
     ]
 

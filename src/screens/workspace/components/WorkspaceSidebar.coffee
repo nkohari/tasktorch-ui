@@ -26,7 +26,7 @@ WorkspaceSidebar = React.createClass {
     myStacks = _.map @state.stacks, (stack) =>
       StackSidebarItem {key: "stack-#{stack.id}", stack}
 
-    div {className: 'workspace sidebar panel'}, [
+    div {className: 'workspace sidebar'}, [
       SearchBox {key: 'search'}
       SidebarItemGroup {key: 'my-stacks', header: 'My Stacks'}, myStacks
     ]

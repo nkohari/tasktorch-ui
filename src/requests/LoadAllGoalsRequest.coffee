@@ -1,7 +1,7 @@
 _                = require 'lodash'
 superagent       = require 'superagent'
 Request          = require 'framework/Request'
-GoalsLoadedEvent = require 'events/TeamsLoadedEvent'
+GoalsLoadedEvent = require 'events/GoalsLoadedEvent'
 
 class LoadAllGoalsRequest extends Request
 

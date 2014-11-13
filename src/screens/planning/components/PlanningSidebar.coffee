@@ -25,7 +25,7 @@ PlanningSidebar = React.createClass {
     goals = _.map @state.goals, (goal) =>
       GoalSidebarItem {key: "goal-#{goal.id}", goal}
 
-    div {className: 'planning sidebar panel'}, [
+    div {className: 'planning sidebar'}, [
       SidebarItemGroup {key: 'goals', header: "Goals"}, goals
     ]
 

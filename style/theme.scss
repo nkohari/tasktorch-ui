@@ -1,24 +1,32 @@
-$font: "Source Sans Pro";
+$font: "Open Sans";
 $icon-font: "Entypo";
 
-$dat-blue: #0c1044;
+/* Wine */
+/*$normal: #511225;
+$dark: #3e0d1c;
+$light: #7b1b38;*/
 
-/* new variables */
+/* Midnight */
+/*$normal: #151f53;
+$dark: #10173c;
+$light: #1f2e7c;*/
+
+/* Generic Shit */
+$normal: #0b2f4c;
+$dark: #092337;
+$light: #15588f;
 
 $sidebar-width: 200px;
 $stack-panel-width: 291px;
 $card-panel-width: 582px;
+$header-height: 54px;
+$logo-height: 58px;
 
 $panel-border: 1px solid #999;
 $panel-background: #f9f9f9;
 $panel-header-background: linear-gradient(to bottom, #eee, #ccc);
 $panel-header-text-color: #666;
 $panel-header-icon-color: #666;
-
-$scrollbar-track-background: #efefef;
-$scrollbar-track-border: 1px solid #ccc;
-$scrollbar-thumb-background: #aaa;
-$scrollbar-thumb-border: 4px solid transparent;
 
 $editable-text-border: 1px dashed transparent;
 $editable-text-hover-background: #f9f9f9;
@@ -28,69 +36,69 @@ $editable-text-active-border: 1px solid #888;
 $editable-text-active-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 $editable-text-dirty-border: 1px solid #090;
 
-$header-bar-border: 1px solid #999;
-$header-bar-background: linear-gradient(to bottom, #fff, #ddd);
+$header-bar-border: 1px solid $dark;
+$header-bar-background: $normal;
 $header-bar-shadow: 0;
 
 $organization-name-text-color: #fff;
 $organization-name-text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-$organization-background: #555;
+$organization-background: $dark;
 $organization-menu-trigger-color: #999;
 $organization-widget-color: #999;
 
-$navigation-text-color: #666;
+$navigation-text-color: #fff;
 $navigation-text-shadow: none;
-$navigation-font-weight: 600;
-$navigation-icon-color: #666;
-$navigation-border: 1px solid #999;
-$navigation-active-text-color: #000;
+$navigation-font-weight: 400;
+$navigation-icon-color: #fff;
+$navigation-border: 0;
+$navigation-active-text-color: #fff;
 $navigation-active-text-shadow: none;
-$navigation-active-font-weight: 600;
-$navigation-active-icon-color: #000;
-$navigation-active-background: linear-gradient(to bottom, #ddd, #fff);
-$navigation-active-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+$navigation-active-font-weight: 400;
+$navigation-active-icon-color: #fff;
+$navigation-active-background: $light;
+$navigation-active-border: 1px solid rgba(255, 255, 255, 0.2);
+$navigation-active-shadow: none;
 
-$focus-border: 1px solid #999;
-$focus-background: linear-gradient(to bottom, #eee, #ccc);
-$focus-link-color: #000;
+$focus-border: 0;
+$focus-background: transparent;
+$focus-link-color: #fff;
 $focus-link-shadow-color: none;
 
-$user-profile-border: 1px solid #999;
-$user-profile-background: linear-gradient(to bottom, #fff, #ddd);
+$user-profile-border: 0;
+$user-profile-background: $normal;
 $user-profile-menu-trigger-color: #999;
 $user-profile-avatar-border: none;
 
-$search-background: #555;
+$search-background: $normal;
 $search-border: 0;
 $search-input-border: 1px solid #888;
-$search-input-background: #666;
+$search-input-background: $dark;
 $search-input-active-text-color: #000;
 $search-input-active-background: #fff;
 
-$sidebar-background: #666;
-$sidebar-border: 1px solid #555;
+$sidebar-background: $normal;
+$sidebar-border: 0;
 $sidebar-shadow: 0;
-$sidebar-group-background: #666;
+$sidebar-group-background: $normal;
 $sidebar-group-border: 0;
-$sidebar-group-header-text-color: #eee;
+$sidebar-group-header-text-color: #fff;
 $sidebar-group-header-text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-$sidebar-group-header-background: #444;
+$sidebar-group-header-background: $normal;
 $sidebar-group-header-border: 0;
-$sidebar-item-text-color: #ccc;
-$sidebar-item-icon-color: #ccc;
+$sidebar-item-text-color: #fff;
+$sidebar-item-icon-color: #fff;
 $sidebar-item-border: 0;
-$sidebar-item-background: #666;
+$sidebar-item-background: $normal;
 $sidebar-item-active-text-color: #fff;
 $sidebar-item-active-icon-color: #fff;
-$sidebar-item-active-background: linear-gradient(to bottom, #888, #777);
+$sidebar-item-active-background: $light;
 $sidebar-item-active-shadow: none;
 
-$active-marker-color: #ccc;
 $stack-card-background: #fff;
 $stack-card-title-color: #000;
 $stack-card-contextual-border: 1px dotted #ccc;
 $stack-card-contextual-color: #666;
-$stack-card-active-background: linear-gradient(to bottom, #eee, #fff);
+$stack-card-active-background: linear-gradient(to right, #f3f3f3, #fff);
 $stack-card-active-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
 
 $card-header-background: linear-gradient(to bottom, #eee, #ccc);
