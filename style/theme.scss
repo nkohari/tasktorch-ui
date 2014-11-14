@@ -11,10 +11,15 @@ $light: #7b1b38;*/
 $dark: #10173c;
 $light: #1f2e7c;*/
 
-/* Generic Shit */
-$normal: #0b2f4c;
+/* Blue */
+/*$normal: #0b2f4c;
 $dark: #092337;
-$light: #15588f;
+$light: #15588f;*/
+
+/* Black */
+$normal: #283040;
+$dark: #1e2430;
+$light: #5c6982;
 
 $sidebar-width: 200px;
 $stack-panel-width: 291px;
@@ -91,7 +96,7 @@ $sidebar-item-border: 0;
 $sidebar-item-background: $normal;
 $sidebar-item-active-text-color: #fff;
 $sidebar-item-active-icon-color: #fff;
-$sidebar-item-active-background: $light;
+$sidebar-item-active-background: $dark;
 $sidebar-item-active-shadow: none;
 
 $stack-card-background: #fff;

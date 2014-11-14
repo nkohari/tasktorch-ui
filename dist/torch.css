@@ -6,7 +6,10 @@ $light: #7b1b38;*/
 /*$normal: #151f53;
 $dark: #10173c;
 $light: #1f2e7c;*/
-/* Generic Shit */
+/* Blue */
+/*$normal: #0b2f4c;
+$dark: #092337;
+$light: #15588f;*/
 html {
   box-sizing: border-box; }
 
@@ -14,8 +17,8 @@ html {
   box-sizing: inherit; }
 
 @font-face {
-  font-family: "Entypo";
-  src: url(/dist/entypo.woff); }
+  font-family: 'Entypo';
+  src: url("/dist/entypo.woff"); }
 
 body {
   font-family: "Open Sans";
@@ -69,52 +72,10 @@ textarea.editable {
 .icon {
   display: inline-block;
   vertical-align: middle;
-  font: 30px/16px normal "Entypo";
+  font: 34px/16px normal "Entypo";
   width: 24px;
   text-align: center;
   margin-top: -2px; }
-  .icon.icon-accept:before {
-    content: "\1F44D"; }
-  .icon.icon-close:before {
-    content: "\274C"; }
-  .icon.icon-stack-inbox:before {
-    content: "\1F4E5"; }
-  .icon.icon-stack-queue:before {
-    content: "\1F4C4"; }
-  .icon.icon-stack-backlog:before {
-    content: "\E736"; }
-  .icon.icon-do:before {
-    content: "\1F44D"; }
-  .icon.icon-defer:before {
-    content: "\1F554"; }
-  .icon.icon-hand-back:before {
-    content: "\E712"; }
-  .icon.icon-hand-off:before {
-    content: "\27A6"; }
-  .icon.icon-card:before {
-    content: "\E730"; }
-  .icon.icon-user:before {
-    content: "\1F464"; }
-  .icon.icon-users:before {
-    content: "\1F465"; }
-  .icon.icon-workspace:before {
-    content: "\2692"; }
-  .icon.icon-bigpicture:before {
-    content: "\1F30E"; }
-  .icon.icon-planning:before {
-    content: "\1F56A"; }
-  .icon.icon-focus:before {
-    content: "\1F3AF"; }
-  .icon.icon-archive:before {
-    content: "\E800"; }
-  .icon.icon-trash:before {
-    content: "\E729"; }
-  .icon.icon-team:before {
-    content: "\1F465"; }
-  .icon.icon-focus:before {
-    content: "\1F3AF"; }
-  .icon.icon-goal:before {
-    content: "\1F3C6"; }
 
 .sidebar {
   position: absolute;
@@ -125,7 +86,7 @@ textarea.editable {
   height: 100%;
   z-index: 1000;
   border-right: 0;
-  background: #0b2f4c;
+  background: #283040;
   box-shadow: 0;
   margin: 0;
   margin-bottom: 58px;
@@ -133,14 +94,14 @@ textarea.editable {
   overflow-y: auto;
   white-space: normal; }
   .sidebar .group {
-    background: #0b2f4c;
+    background: #283040;
     border-bottom: 0; }
     .sidebar .group .header {
       font-size: 13px;
       padding: 6px 8px;
       color: white;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-      background: #0b2f4c;
+      background: #283040;
       border-bottom: 0; }
   .sidebar ul {
     margin: 0px;
@@ -151,14 +112,14 @@ textarea.editable {
       cursor: pointer;
       display: block;
       padding: 6px 8px;
-      background: #0b2f4c;
+      background: #283040;
       color: white;
       border-top: 1px solid transparent;
       text-decoration: none;
       transition: background 0.1s ease-in-out; }
       .sidebar ul li a.active {
         color: white;
-        background: #15588f;
+        background: #1e2430;
         box-shadow: none; }
         .sidebar ul li a.active .icon {
           color: white; }
@@ -201,6 +162,69 @@ textarea.editable {
     transform: translateX(-300px);
     -webkit-transform: translateX(-300px); }
 
+.icon-accept:before {
+  content: "\1F44D"; }
+
+.icon-close:before {
+  content: "\274C"; }
+
+.icon-stack-inbox:before {
+  content: "\1F4E5"; }
+
+.icon-stack-queue:before {
+  content: "\1F4C4"; }
+
+.icon-stack-backlog:before {
+  content: "\E736"; }
+
+.icon-do:before {
+  content: "\1F44D"; }
+
+.icon-defer:before {
+  content: "\1F554"; }
+
+.icon-hand-back:before {
+  content: "\E712"; }
+
+.icon-hand-off:before {
+  content: "\27A6"; }
+
+.icon-card:before {
+  content: "\E730"; }
+
+.icon-user:before {
+  content: "\1F464"; }
+
+.icon-users:before {
+  content: "\1F465"; }
+
+.icon-workspace:before {
+  content: "\2692"; }
+
+.icon-bigpicture:before {
+  content: "\1F30E"; }
+
+.icon-planning:before {
+  content: "\1F56A"; }
+
+.icon-focus:before {
+  content: "\1F3AF"; }
+
+.icon-archive:before {
+  content: "\E800"; }
+
+.icon-trash:before {
+  content: "\E729"; }
+
+.icon-team:before {
+  content: "\1F465"; }
+
+.icon-focus:before {
+  content: "\1F3AF"; }
+
+.icon-goal:before {
+  content: "\1F3C6"; }
+
 .shell {
   height: 100vh;
   width: 100vw;
@@ -219,8 +243,8 @@ textarea.editable {
     position: relative;
     margin-left: 200px;
     height: 100%;
-    border-bottom: 1px solid #092337;
-    background: #0b2f4c;
+    border-bottom: 1px solid #1e2430;
+    background: #283040;
     box-shadow: 0; }
 
 .organization-corner {
@@ -228,7 +252,7 @@ textarea.editable {
   width: 200px;
   height: 100%;
   padding: 8px 4px 4px 10px;
-  background: #092337; }
+  background: #1e2430; }
   .organization-corner .organization-name {
     float: left;
     font-size: 14px;
@@ -286,7 +310,7 @@ textarea.editable {
       border-right: 1px solid rgba(255, 255, 255, 0.2);
       font-weight: 400;
       text-shadow: none;
-      background: #15588f;
+      background: #5c6982;
       box-shadow: none; }
       .navigation a.active .icon {
         color: rgba(255, 255, 255, 0.2); }
@@ -329,7 +353,7 @@ textarea.editable {
     height: 100%;
     padding: 8px;
     border-left: 0;
-    background: #0b2f4c; }
+    background: #283040; }
     .user-corner .user-profile .menu-trigger {
       display: inline-block;
       vertical-align: middle;
@@ -350,7 +374,7 @@ textarea.editable {
   height: 58px;
   z-index: 1000;
   padding: 4px;
-  background: #092337 url("/dist/logo.png") 4px 4px no-repeat; }
+  background: #1e2430 url("/dist/logo.png") 4px 4px no-repeat; }
   .logo-corner ul.links {
     margin: 0;
     padding: 2px 0 0 54px; }
@@ -359,7 +383,7 @@ textarea.editable {
       height: 20px; }
       .logo-corner ul.links li a {
         font-size: 13px;
-        color: #15588f;
+        color: #5c6982;
         text-decoration: none; }
         .logo-corner ul.links li a:hover {
           color: #fff; }
@@ -403,13 +427,13 @@ textarea.editable {
 
 .search {
   padding: 10px;
-  background: #0b2f4c;
+  background: #283040;
   border-bottom: 0; }
   .search input {
     width: 100%;
     font-size: 13px;
     padding: 4px 8px;
-    background: #092337;
+    background: #1e2430;
     border: 1px solid #888888;
     border-radius: 4px;
     transition-property: border, background;

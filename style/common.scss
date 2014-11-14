@@ -7,8 +7,8 @@ html {
 }
 
 @font-face {
-  font-family: "Entypo";
-  src: url(/dist/entypo.woff);
+  font-family: 'Entypo';
+  src: url('/dist/entypo.woff');
 }
 
 body {
@@ -59,31 +59,10 @@ textarea.editable {
 .icon {
   display: inline-block;
   vertical-align: middle;
-  font: 30px/16px normal $icon-font;
+  font: 34px/16px normal $icon-font;
   width: 24px;
   text-align: center;
   margin-top: -2px;
-  &.icon-accept:before { content: "\1F44D"; }
-  &.icon-close:before { content: "\274C"; }
-  &.icon-stack-inbox:before { content: "\1F4E5"; }
-  &.icon-stack-queue:before { content: "\1F4C4"; }
-  &.icon-stack-backlog:before { content: "\E736"; }
-  &.icon-do:before { content: "\1F44D"; }
-  &.icon-defer:before { content: "\1F554"; }
-  &.icon-hand-back:before { content: "\E712"; }
-  &.icon-hand-off:before { content: "\27A6"; }
-  &.icon-card:before { content: "\E730"; }
-  &.icon-user:before { content: "\1F464"; }
-  &.icon-users:before { content: "\1F465"; }
-  &.icon-workspace:before { content: "\2692"; }
-  &.icon-bigpicture:before { content: "\1F30E"; }
-  &.icon-planning:before { content: "\1F56A"; }
-  &.icon-focus:before { content: "\1F3AF"; }
-  &.icon-archive:before { content: "\E800"; }
-  &.icon-trash:before { content: "\E729"; }
-  &.icon-team:before { content: "\1F465"; }
-  &.icon-focus:before { content: "\1F3AF"; }
-  &.icon-goal:before { content: "\1F3C6"; }
 }
 
 .sidebar {
