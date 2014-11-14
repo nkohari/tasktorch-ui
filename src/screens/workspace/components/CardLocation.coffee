@@ -1,6 +1,7 @@
 _                = require 'lodash'
 React            = require 'react'
 Router           = require 'react-router'
+Format           = require 'framework/Format'
 Observe          = require 'mixins/Observe'
 ActiveUrl        = require 'mixins/ActiveUrl'
 WorkspaceUrl     = require '../WorkspaceUrl'
@@ -29,35 +30,27 @@ CardLocation = React.createClass {
   componentWillMount: ->
     @execute new LoadStackRequest(@props.stackId)
 
+  isReady: ->
+    @state.stack? and @state.currentUser? and (@state.owner? or not @state.stack.owner?) and (@state.team? or not @state.stack.team?)
+
   render: ->
+    children = if @isReady() then @renderChildren() else []
+    div {className: 'location aspect'}, children
 
-    unless @state.stack? and @state.owner?
-      return div {className: 'location loading'}, []
-
+  renderChildren: ->
+    name = Format.stackName {
+      stack: @state.stack
+      owner: @state.owner
+      team:  @state.team
+      currentUser: @state.currentUser
+    }
     props = _.extend {key: 'link'}, @makeStackLinkProps()
-    div {className: 'location aspect'}, [
-      div {key: 'name', className: 'name'}, ['Stack']
-      div {key: 'value', className: 'value'}, [
-        Link props, [
-          Icon {key: 'icon', name: "stack-#{@state.stack.type.toLowerCase()}"}
-          @formatStackName()
-        ]
+    return [
+      Link props, [
+        Icon {key: 'icon', name: "stack-#{@state.stack.type.toLowerCase()}"}
+        name
       ]
     ]
-
-  # TODO: Support teams, and make it say "My Queue" if it's the current user
-  formatStackName: ->
-    if @state.owner?.id == @state.currentUser.id
-      name = 'My'
-    else
-      name = "#{@state.owner.name}'s"
-    switch @state.stack.type
-      when 'Queue'
-        return "#{name} Queue"
-      when 'Inbox'
-        return "#{name} Inbox"
-      else
-        return @state.stack.name
 
   makeStackLinkProps: ->
     url = @getActiveUrl()

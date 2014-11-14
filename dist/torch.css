@@ -10,6 +10,7 @@ $light: #1f2e7c;*/
 /*$normal: #0b2f4c;
 $dark: #092337;
 $light: #15588f;*/
+/* Black */
 html {
   box-sizing: border-box; }
 
@@ -40,13 +41,13 @@ input.editable {
   input.editable.dirty {
     border: 1px solid #009900 !important; }
   input.editable:hover {
-    background: #f9f9f9;
+    background: transparent;
     border: 1px dashed #aaaaaa; }
   input.editable:focus {
     background: white;
     border: 1px solid #888888;
     outline: none !important;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); }
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5); }
 
 textarea.editable {
   border: 1px dashed transparent;
@@ -61,13 +62,13 @@ textarea.editable {
   textarea.editable.dirty {
     border: 1px solid #009900 !important; }
   textarea.editable:hover {
-    background: #f9f9f9;
+    background: transparent;
     border: 1px dashed #aaaaaa; }
   textarea.editable:focus {
     background: white;
     border: 1px solid #888888;
     outline: none !important;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); }
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5); }
 
 .icon {
   display: inline-block;
@@ -85,9 +86,9 @@ textarea.editable {
   width: 200px;
   height: 100%;
   z-index: 1000;
-  border-right: 0;
+  border-right: none;
   background: #283040;
-  box-shadow: 0;
+  box-shadow: none;
   margin: 0;
   margin-bottom: 58px;
   overflow-x: hidden;
@@ -97,9 +98,11 @@ textarea.editable {
     background: #283040;
     border-bottom: 0; }
     .sidebar .group .header {
-      font-size: 13px;
-      padding: 6px 8px;
-      color: white;
+      font-size: 12px;
+      padding: 4px 8px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #999999;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
       background: #283040;
       border-bottom: 0; }
@@ -113,18 +116,19 @@ textarea.editable {
       display: block;
       padding: 6px 8px;
       background: #283040;
-      color: white;
-      border-top: 1px solid transparent;
+      color: #999999;
       text-decoration: none;
-      transition: background 0.1s ease-in-out; }
+      transition: background 0.1s ease-in-out;
+      border-left: 6px solid transparent; }
       .sidebar ul li a.active {
         color: white;
         background: #1e2430;
+        border-left: 6px solid #009999;
         box-shadow: none; }
         .sidebar ul li a.active .icon {
           color: white; }
       .sidebar ul li a .icon {
-        color: white; }
+        color: #999999; }
       .sidebar ul li a .name {
         padding-left: 4px; }
 
@@ -225,6 +229,30 @@ textarea.editable {
 .icon-goal:before {
   content: "\1F3C6"; }
 
+.icon-add:before {
+  content: "\2795"; }
+
+.icon-move:before {
+  content: "\2630"; }
+
+.icon-assign:before {
+  content: "\E700"; }
+
+.icon-action-inprogress:before {
+  content: "\1F504"; }
+
+.icon-action-warning:before {
+  content: "\1F6AB"; }
+
+.icon-action-complete:before {
+  content: "\2713"; }
+
+.icon-add-comment:before {
+  content: "\1F4E3"; }
+
+.icon-add-file:before {
+  content: "\1F4CE"; }
+
 .shell {
   height: 100vh;
   width: 100vw;
@@ -243,16 +271,16 @@ textarea.editable {
     position: relative;
     margin-left: 200px;
     height: 100%;
-    border-bottom: 1px solid #1e2430;
+    border-bottom: none;
     background: #283040;
-    box-shadow: 0; }
+    box-shadow: none; }
 
 .organization-corner {
   float: left;
   width: 200px;
   height: 100%;
   padding: 8px 4px 4px 10px;
-  background: #1e2430; }
+  background: #3c485f; }
   .organization-corner .organization-name {
     float: left;
     font-size: 14px;
@@ -285,12 +313,13 @@ textarea.editable {
     display: inline-block;
     width: 140px;
     height: 100%;
-    padding: 10px 0;
+    padding: 6px 0 10px 0;
     font-size: 15px;
     line-height: 30px;
-    color: white;
+    color: #aaaaaa;
     text-shadow: none;
     font-weight: 400;
+    border-top: 6px solid transparent;
     text-decoration: none;
     text-align: center;
     transition-property: background;
@@ -306,14 +335,13 @@ textarea.editable {
       font-size: 140px; }
     .navigation a.active {
       color: white;
-      border-left: 1px solid rgba(255, 255, 255, 0.2);
-      border-right: 1px solid rgba(255, 255, 255, 0.2);
+      border-top: 6px solid #009999;
       font-weight: 400;
       text-shadow: none;
-      background: #5c6982;
+      background: #1e2430;
       box-shadow: none; }
       .navigation a.active .icon {
-        color: rgba(255, 255, 255, 0.2); }
+        color: rgba(255, 255, 255, 0.1); }
 
 .user-corner {
   height: 100%;
@@ -383,7 +411,7 @@ textarea.editable {
       height: 20px; }
       .logo-corner ul.links li a {
         font-size: 13px;
-        color: #5c6982;
+        color: #666;
         text-decoration: none; }
         .logo-corner ul.links li a:hover {
           color: #fff; }
@@ -392,11 +420,9 @@ textarea.editable {
   padding-top: 54px;
   width: 100%;
   height: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: nowrap; }
+  overflow: hidden; }
   .screen .content {
-    position: relative;
+    display: flex;
     height: 100%;
     padding: 10px;
     margin-left: 200px;
@@ -413,13 +439,13 @@ textarea.editable {
       border-radius: 20px; }
 
 .panel {
-  position: relative;
-  display: inline-block;
+  display: flex;
+  flex: none;
+  flex-direction: column;
   vertical-align: top;
   height: 100%;
   margin-right: 10px;
   padding: 0;
-  white-space: normal;
   overflow: hidden;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5); }
   .panel:last-child {
@@ -470,8 +496,7 @@ textarea.editable {
     background: transparent; }
     .stack .body .card-list {
       margin: 0;
-      padding: 0;
-      margin-bottom: 36px; }
+      padding: 0; }
 
 .stack-card {
   cursor: -webkit-grab;
@@ -523,22 +548,67 @@ textarea.editable {
   .card .close {
     display: block;
     position: absolute;
+    z-index: 1001;
     right: 6px;
     top: 12px;
     color: #666;
     transition: color 0.15s; }
     .card .close:hover {
       color: #000; }
+  .card .button-group {
+    display: inline-block;
+    vertical-align: middle; }
+    .card .button-group.right {
+      float: right; }
+    .card .button-group button {
+      display: inline-block;
+      height: 32px;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 10px;
+      color: #333333;
+      border: 1px solid #999999;
+      border-right: 0;
+      background: linear-gradient(to bottom, #eeeeee, #dddddd);
+      outline: none !important; }
+      .card .button-group button:first-child {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px; }
+      .card .button-group button:last-child {
+        border-right: 1px solid #999999;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px; }
+      .card .button-group button:hover {
+        color: black;
+        background: linear-gradient(to bottom, white, #dddddd); }
+      .card .button-group button:active {
+        color: black;
+        background: #eeeeee;
+        box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.3); }
   .card .header {
+    flex: none;
+    z-index: 1000;
     padding: 6px;
     background: linear-gradient(to bottom, #eeeeee, #cccccc);
     border-top: 6px solid;
-    border-bottom: 1px solid #999999; }
+    border-bottom: 1px solid #999999;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3); }
+    .card .header .location, .card .header .goal {
+      display: inline-block;
+      font-size: 13px;
+      margin-bottom: 4px; }
+      .card .header .location a, .card .header .goal a {
+        color: #666;
+        text-decoration: none;
+        margin-right: 10px; }
+        .card .header .location a:visited, .card .header .goal a:visited {
+          color: #666; }
+        .card .header .location a:hover, .card .header .goal a:hover {
+          text-decoration: underline; }
     .card .header .title {
       color: #111;
       font-size: 22px;
-      font-weight: 600;
-      margin-right: 24px; }
+      font-weight: 600; }
       .card .header .title input {
         text-overflow: ellipsis;
         white-space: nowrap; }
@@ -547,103 +617,107 @@ textarea.editable {
       width: 100%;
       background: 0;
       border-bottom: 0; }
-      .card .header .commands .group {
-        display: inline-block; }
-        .card .header .commands .group.right {
-          float: right; }
-      .card .header .commands button {
-        display: inline-block;
-        font-size: 13px;
-        font-weight: 600;
-        padding: 6px 10px;
-        color: #333333;
-        border: 1px solid #999999;
-        border-right: 0;
-        background: linear-gradient(to bottom, #eeeeee, #dddddd);
-        outline: none !important; }
-        .card .header .commands button:first-child {
-          border-top-left-radius: 4px;
-          border-bottom-left-radius: 4px; }
-        .card .header .commands button:last-child {
-          border-right: 1px solid #999999;
-          border-top-right-radius: 4px;
-          border-bottom-right-radius: 4px; }
-        .card .header .commands button:hover {
-          color: black;
-          background: linear-gradient(to bottom, white, #dddddd); }
-        .card .header .commands button:active {
-          color: black;
-          background: #eeeeee;
-          box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.3); }
-  .card .subheader {
-    background: #eee;
-    padding: 4px 0;
-    border-bottom: 1px solid #ccc; }
-    .card .subheader .aspect {
-      font-size: 13px; }
-      .card .subheader .aspect .name {
-        display: inline-block;
-        padding: 6px 10px;
-        width: 100px;
-        text-align: right;
-        color: #666; }
-      .card .subheader .aspect .value {
-        display: inline-block;
-        padding: 6px 0; }
-        .card .subheader .aspect .value a, .card .subheader .aspect .value a:visited {
-          cursor: hand;
-          color: #333;
-          font-weight: 600;
-          text-decoration: none; }
-          .card .subheader .aspect .value a .icon, .card .subheader .aspect .value a:visited .icon {
-            margin: 0 -1px 0 -4px; }
-        .card .subheader .aspect .value a:hover {
-          color: #000;
-          text-decoration: underline; }
-        .card .subheader .aspect .value ul {
-          list-style-type: none;
-          padding: 0;
-          margin: 0; }
-          .card .subheader .aspect .value ul li {
-            display: inline-block;
-            margin-right: 8px;
-            font-weight: 600; }
-          .card .subheader .aspect .value ul .avatar {
-            vertical-align: middle;
-            border-radius: 50%;
-            margin-right: 2px; }
   .card .details {
+    flex: 1;
     overflow-x: hidden;
     overflow-y: auto; }
-    .card .details .participants {
-      background: #efefef;
-      border: 1px solid #ccc;
-      margin: 10px; }
-      .card .details .participants .owner {
-        display: inline-block;
-        background: #ddd;
-        padding: 4px 6px;
-        border-right: 1px solid #ccc; }
-        .card .details .participants .owner .title {
-          padding: 0 8px 0 4px;
-          display: inline-block;
-          font-size: 14px;
-          color: #999; }
-      .card .details .participants .participating {
-        display: inline-block;
-        padding: 4px 6px; }
-        .card .details .participants .participating ul {
-          list-style-type: none;
-          padding: 0;
-          margin: 0; }
-          .card .details .participants .participating ul li {
-            display: inline-block; }
-      .card .details .participants .avatar {
-        display: inline-block;
-        vertical-align: middle;
-        border-radius: 50%; }
     .card .details .body {
       font-size: 16px;
       font-weight: 400;
       line-height: 1.6em;
-      margin: 10px; }
+      margin: 10px 10px 0px 10px; }
+    .card .details .actions {
+      margin: 10px;
+      border: 1px solid #ccc;
+      background: #f3f3f3; }
+      .card .details .actions .stage {
+        border-bottom: 1px solid #ccc;
+        padding: 10px;
+        transition: all 1s ease-in-out; }
+        .card .details .actions .stage:last-child {
+          border-bottom: none; }
+        .card .details .actions .stage .title {
+          font-size: 16px;
+          font-weight: 600;
+          margin-bottom: 4px; }
+        .card .details .actions .stage ul {
+          margin: 0;
+          padding: 0;
+          list-style-type: none; }
+          .card .details .actions .stage ul .action {
+            padding: 2px 0; }
+            .card .details .actions .stage ul .action .handle {
+              float: right;
+              display: none;
+              color: #999;
+              margin-left: 6px; }
+            .card .details .actions .stage ul .action .owner {
+              display: inline-block;
+              vertical-align: middle;
+              color: #999;
+              margin-right: 6px; }
+            .card .details .actions .stage ul .action .status {
+              display: inline-block;
+              vertical-align: middle;
+              margin-right: 6px;
+              border: 1px solid #999;
+              border-radius: 4px;
+              background: #fff;
+              text-align: center; }
+            .card .details .actions .stage ul .action .text {
+              display: inline-block;
+              vertical-align: middle;
+              font-size: 16px;
+              width: 455px; }
+            .card .details .actions .stage ul .action.complete .status {
+              color: #666;
+              background: #ddd; }
+            .card .details .actions .stage ul .action.complete .text {
+              text-decoration: line-through;
+              color: #666; }
+              .card .details .actions .stage ul .action.complete .text:focus {
+                text-decoration: none; }
+            .card .details .actions .stage ul .action.warning .status {
+              color: #900; }
+            .card .details .actions .stage ul .action.warning .text {
+              color: #900; }
+            .card .details .actions .stage ul .action.inprogress .status {
+              color: #090; }
+            .card .details .actions .stage ul .action.inprogress .text {
+              color: #090; }
+            .card .details .actions .stage ul .action:hover .handle {
+              display: block; }
+  .card .footer {
+    flex: none;
+    z-index: 1000;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    background: linear-gradient(to bottom, #eeeeee, #cccccc);
+    border-top: 1px solid #aaaaaa;
+    line-height: 0; }
+    .card .footer .comment-box {
+      width: 100%;
+      height: 42px;
+      padding: 4px;
+      font-size: 13px;
+      line-height: 1.3em;
+      border: 1px solid #aaa;
+      background: #fff;
+      resize: none; }
+      .card .footer .comment-box:focus {
+        background: #fff; }
+    .card .footer .participants {
+      display: inline-block;
+      vertical-align: middle;
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+      line-height: 0; }
+      .card .footer .participants .participant {
+        display: inline-block;
+        padding: 2px; }
+        .card .footer .participants .participant .avatar {
+          border-radius: 50%; }
+      .card .footer .participants .owner {
+        border: 1px solid #999;
+        background: #ccc; }

@@ -23,18 +23,18 @@ CardGoal = React.createClass {
   componentWillMount: ->
     @execute new LoadGoalRequest(@props.goalId)
 
+  isReady: ->
+    @state.goal?
+
   render: ->
+    children = if @isReady() then @renderChildren() else []
+    div {className: 'goal aspect'}, children
 
-    unless @state.goal?
-      return div {className: 'goal aspect loading'}, []
-
-    div {className: 'goal aspect'}, [
-      div {key: 'name', className: 'name'}, ['Goal']
-      div {key: 'value', className: 'value'}, [
-        Link @makeLinkProps(), [
-          Icon {key: 'icon', name: 'goal'}
-          @state.goal.name
-        ]
+  renderChildren: ->
+    return [
+      Link @makeLinkProps(), [
+        Icon {key: 'icon', name: 'goal'}
+        @state.goal.name
       ]
     ]
 

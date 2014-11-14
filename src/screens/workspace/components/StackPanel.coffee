@@ -13,7 +13,7 @@ StackPanel = React.createClass {
   displayName: 'StackPanel'
 
   mixins: [
-    Observe('stacks', 'cards')
+    Observe('stacks', 'cards', 'teams', 'users')
   ]
 
   propTypes:
@@ -35,18 +35,12 @@ StackPanel = React.createClass {
     @execute new LoadStackRequest(stackId)
     @execute new LoadCardsInStackRequest(stackId)
 
+  isReady: ->
+    @state.stack? and @state.cards?
+
   render: ->
 
-    children = []
-    if @state.stack? and @state.cards?
-      cards = _.map @state.cards, (card, index) =>
-        StackCardFrame {key: "card-frame-#{card.id}", stack: @state.stack, card, index}
-      children = [
-        StackHeader {key: 'header', className: 'header', stack: @state.stack}
-        div {key: 'body', className: 'body'}, [
-          ul {key: 'cards', ref: 'cardList', className: 'card-list'}, cards
-        ]
-      ]
+    children = if @isReady() then @renderChildren() else []
 
     div {
       style:       {zIndex: 99 - @props.position}
@@ -55,6 +49,16 @@ StackPanel = React.createClass {
       onDragEnd:   @handleDragEnd
       onDragOver:  @handleDragOver
     }, children
+
+  renderChildren: ->
+    cards = _.map @state.cards, (card, index) =>
+      StackCardFrame {key: "card-frame-#{card.id}", stack: @state.stack, card, index}
+    children = [
+      StackHeader {key: 'header', className: 'header', stack: @state.stack}
+      div {key: 'body', className: 'body'}, [
+        ul {key: 'cards', ref: 'cardList', className: 'card-list'}, cards
+      ]
+    ]
 
   handleDragStart: (event) ->
     console.log("started dragging from stack #{@state.stack.id}")

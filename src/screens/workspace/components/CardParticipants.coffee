@@ -21,23 +21,18 @@ CardParticipants = React.createClass {
   componentWillMount: ->
     @execute new LoadParticipantsOnCardRequest(@props.card.id)
 
+  isReady: ->
+    @state.currentUser? and (@state.owner? or not @props.card.owner?) and @state.participants?
+
   render: ->
+    children = if @isReady() then @renderChildren() else []
+    ul {className: 'participants'}, children
 
-    unless @state.currentUser? and @state.participants?
-      return div {className: 'participants aspect loading'}, []
-
-    users = _.map @state.participants, (user) =>
-      li {key: "user-#{user.id}"}, [
-        Avatar {key: 'avatar', user, size: 18}
-        if user.id == @state.currentUser.id then 'Me' else user.name
-      ]
-
-    div {className: 'participants aspect'}, [
-      div {key: 'name', className: 'name'}, ['Participants']
-      div {key: 'value', className: 'value'}, [
-        ul {key: 'users'}, users
-      ]
-    ]
+  renderChildren: ->
+    _.map @state.participants, (user) =>
+      li {key: "user-#{user.id}", className: 'participant'}, [
+        Avatar {key: 'avatar', user, size: 32}
+      ] 
 
 }
 

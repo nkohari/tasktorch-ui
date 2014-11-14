@@ -85,8 +85,10 @@ textarea.editable {
     background: $sidebar-group-background;
     border-bottom: $sidebar-group-border;
     .header {
-      font-size: 13px;
-      padding: 6px 8px;
+      font-size: 12px;
+      padding: 4px 8px;
+      font-weight: 600;
+      text-transform: uppercase;
       color: $sidebar-group-header-text-color;
       text-shadow: $sidebar-group-header-text-shadow;
       background: $sidebar-group-header-background;
@@ -104,12 +106,13 @@ textarea.editable {
       padding: 6px 8px;
       background: $sidebar-item-background;
       color: $sidebar-item-text-color;
-      border-top: 1px solid transparent;
       text-decoration: none;
       transition: background 0.1s ease-in-out;
+      border-left: 6px solid transparent;
       &.active {
         color: $sidebar-item-active-text-color;
         background: $sidebar-item-active-background;
+        border-left: 6px solid $active;
         box-shadow: $sidebar-item-active-shadow;
         .icon {
           color: $sidebar-item-active-icon-color;

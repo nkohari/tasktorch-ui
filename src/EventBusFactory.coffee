@@ -1,13 +1,15 @@
 EventBus                      = require './EventBus'
+ActionStore                   = require './stores/ActionStore'
 CardStore                     = require './stores/CardStore'
 GoalStore                     = require './stores/GoalStore'
+KindStore                     = require './stores/KindStore'
 MilestoneStore                = require './stores/MilestoneStore'
 OrganizationStore             = require './stores/OrganizationStore'
 PresenceStore                 = require './stores/PresenceStore'
 QueueStore                    = require './stores/QueueStore'
 StackStore                    = require './stores/StackStore'
+StageStore                    = require './stores/StageStore'
 TeamStore                     = require './stores/TeamStore'
-KindStore                     = require './stores/KindStore'
 UserStore                     = require './stores/UserStore'
 CardBodyChangedListener       = require './listeners/CardBodyChangedListener'
 CardTitleChangedListener      = require './listeners/CardTitleChangedListener'
@@ -20,6 +22,7 @@ EventBusFactory = {}
 EventBusFactory.create = ->
 
   stores =
+    actions:       new ActionStore()
     cards:         new CardStore()
     goals:         new GoalStore()
     kinds:         new KindStore()
@@ -28,6 +31,7 @@ EventBusFactory.create = ->
     presence:      new PresenceStore()
     queue:         new QueueStore()
     stacks:        new StackStore()
+    stages:        new StageStore()
     teams:         new TeamStore()
     users:         new UserStore()
 

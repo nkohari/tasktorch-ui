@@ -19,7 +19,9 @@ $light: #15588f;*/
 /* Black */
 $normal: #283040;
 $dark: #1e2430;
-$light: #5c6982;
+$light: #3c485f;
+$active: #099;
+$pop: #8b305b;
 
 $sidebar-width: 200px;
 $stack-panel-width: 291px;
@@ -34,33 +36,33 @@ $panel-header-text-color: #666;
 $panel-header-icon-color: #666;
 
 $editable-text-border: 1px dashed transparent;
-$editable-text-hover-background: #f9f9f9;
+$editable-text-hover-background: transparent;
 $editable-text-hover-border: 1px dashed #aaa;
 $editable-text-active-background: #fff;
 $editable-text-active-border: 1px solid #888;
-$editable-text-active-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+$editable-text-active-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
 $editable-text-dirty-border: 1px solid #090;
 
-$header-bar-border: 1px solid $dark;
+$header-bar-border: none;
 $header-bar-background: $normal;
-$header-bar-shadow: 0;
+$header-bar-shadow: none;
 
 $organization-name-text-color: #fff;
 $organization-name-text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-$organization-background: $dark;
+$organization-background: $light;
 $organization-menu-trigger-color: #999;
 $organization-widget-color: #999;
 
-$navigation-text-color: #fff;
+$navigation-text-color: #aaa;
 $navigation-text-shadow: none;
 $navigation-font-weight: 400;
-$navigation-icon-color: #fff;
+$navigation-icon-color: #aaa;
 $navigation-border: 0;
 $navigation-active-text-color: #fff;
 $navigation-active-text-shadow: none;
 $navigation-active-font-weight: 400;
 $navigation-active-icon-color: #fff;
-$navigation-active-background: $light;
+$navigation-active-background: $dark;
 $navigation-active-border: 1px solid rgba(255, 255, 255, 0.2);
 $navigation-active-shadow: none;
 
@@ -82,17 +84,17 @@ $search-input-active-text-color: #000;
 $search-input-active-background: #fff;
 
 $sidebar-background: $normal;
-$sidebar-border: 0;
-$sidebar-shadow: 0;
+$sidebar-border: none;
+$sidebar-shadow: none;
 $sidebar-group-background: $normal;
 $sidebar-group-border: 0;
-$sidebar-group-header-text-color: #fff;
+$sidebar-group-header-text-color: #999;
 $sidebar-group-header-text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 $sidebar-group-header-background: $normal;
 $sidebar-group-header-border: 0;
-$sidebar-item-text-color: #fff;
-$sidebar-item-icon-color: #fff;
-$sidebar-item-border: 0;
+$sidebar-item-text-color: #999;
+$sidebar-item-icon-color: #999;
+$sidebar-item-border: none;
 $sidebar-item-background: $normal;
 $sidebar-item-active-text-color: #fff;
 $sidebar-item-active-icon-color: #fff;
@@ -108,6 +110,8 @@ $stack-card-active-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
 
 $card-header-background: linear-gradient(to bottom, #eee, #ccc);
 $card-header-border: 1px solid #999;
+$card-footer-background: linear-gradient(to bottom, #eee, #ccc);
+$card-footer-border: 1px solid #aaa;
 
 $card-commands-background: 0;
 $card-commands-border: 0;

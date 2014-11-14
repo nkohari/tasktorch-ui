@@ -67,12 +67,13 @@
     display: inline-block;
     width: 140px;
     height: 100%;
-    padding: 10px 0;
+    padding: 6px 0 10px 0;
     font-size: 15px;
     line-height: 30px;
     color: $navigation-text-color;
     text-shadow: $navigation-text-shadow;
     font-weight: $navigation-font-weight;
+    border-top: 6px solid transparent;
     text-decoration: none;
     text-align: center;
     transition-property: background;
@@ -89,14 +90,13 @@
     }
     &.active {
       color: $navigation-active-text-color;
-      border-left: $navigation-active-border;
-      border-right: $navigation-active-border;
+      border-top: 6px solid $active;
       font-weight: $navigation-active-font-weight;
       text-shadow: $navigation-active-text-shadow;
       background: $navigation-active-background;
       box-shadow: $navigation-active-shadow;
       .icon {
-        color: rgba(255, 255, 255, 0.2);
+        color: rgba(255, 255, 255, 0.1);
       }
     }
   }
@@ -178,7 +178,7 @@
       height: 20px;
       a {
         font-size: 13px;
-        color: $light;
+        color: #666;
         text-decoration: none;
         &:hover {
           color: #fff;
@@ -192,11 +192,9 @@
   padding-top: 54px;
   width: 100%;
   height: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: nowrap;
+  overflow: hidden;
   .content {
-    position: relative;
+    display: flex;
     height: 100%;
     padding: 10px;
     margin-left: $sidebar-width;

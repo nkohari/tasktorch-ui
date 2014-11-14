@@ -1,17 +1,17 @@
-_                  = require 'lodash'
-React              = require 'react'
-Router             = require 'react-router'
-Constants          = require 'framework/Constants'
-Observe            = require 'mixins/Observe'
-ActiveUrl          = require 'mixins/ActiveUrl'
-WorkspaceUrl       = require '../WorkspaceUrl'
-LoadCardRequest    = require 'requests/LoadCardRequest'
-Icon               = React.createFactory(require 'common/Icon')
-CardHeader         = React.createFactory(require './CardHeader')
-CardSubheader      = React.createFactory(require './CardSubheader')
-CardDetails        = React.createFactory(require './CardDetails')
-Link               = React.createFactory(Router.Link)
-{div}              = React.DOM
+_               = require 'lodash'
+React           = require 'react'
+Router          = require 'react-router'
+Constants       = require 'framework/Constants'
+Observe         = require 'mixins/Observe'
+ActiveUrl       = require 'mixins/ActiveUrl'
+WorkspaceUrl    = require '../WorkspaceUrl'
+LoadCardRequest = require 'requests/LoadCardRequest'
+Icon            = React.createFactory(require 'common/Icon')
+CardHeader      = React.createFactory(require './CardHeader')
+CardDetails     = React.createFactory(require './CardDetails')
+CardFooter      = React.createFactory(require './CardFooter')
+Link            = React.createFactory(Router.Link)
+{div}           = React.DOM
 
 CardPanel = React.createClass {
 
@@ -43,19 +43,23 @@ CardPanel = React.createClass {
 
   render: ->
 
-    children = []
     if @state.card? and @state.stack? and @state.kind?
-      children = [
-        @makeCloseLink()
-        CardHeader {key: 'header', card: @state.card, stack: @state.stack, kind: @state.kind}
-        CardSubheader {key: 'subheader', card: @state.card, stack: @state.stack, kind: @state.kind}
-        CardDetails {key: 'details', card: @state.card, kind: @state.kind}
-      ]
+      children = @renderChildren()
+    else
+      children = []
 
     div {
       style: {zIndex: 99 - @props.position}
       className: 'card panel'
     }, children
+
+  renderChildren: ->
+    return [
+      @makeCloseLink()
+      CardHeader {key: 'header', card: @state.card, stack: @state.stack, kind: @state.kind}
+      CardDetails {key: 'details', card: @state.card, kind: @state.kind}
+      CardFooter {key: 'footer', card: @state.card}
+    ]
 
   makeCloseLink: ->
     url = @getActiveUrl()
