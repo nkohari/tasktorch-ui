@@ -117,9 +117,10 @@ textarea.editable {
       padding: 6px 8px;
       background: #283040;
       color: #999999;
+      border-left: 6px solid transparent;
       text-decoration: none;
-      transition: background 0.1s ease-in-out;
-      border-left: 6px solid transparent; }
+      transition-property: color background;
+      transition-duration: 0.1s; }
       .sidebar ul li a.active {
         color: white;
         background: #1e2430;
@@ -127,8 +128,13 @@ textarea.editable {
         box-shadow: none; }
         .sidebar ul li a.active .icon {
           color: white; }
+      .sidebar ul li a:hover {
+        color: white; }
+        .sidebar ul li a:hover .icon {
+          color: white; }
       .sidebar ul li a .icon {
-        color: #999999; }
+        color: #999999;
+        transition: all 0.1s linear; }
       .sidebar ul li a .name {
         padding-left: 4px; }
 
@@ -322,17 +328,11 @@ textarea.editable {
     border-top: 6px solid transparent;
     text-decoration: none;
     text-align: center;
-    transition-property: background;
-    transition-duration: 0.15s;
-    transition-timing-function: ease-in; }
-    .navigation a .icon {
-      position: absolute;
-      top: 40px;
-      left: 0;
-      color: transparent;
-      width: 140px;
-      text-align: center;
-      font-size: 140px; }
+    transition-property: color background;
+    transition-duration: 0.1s;
+    transition-timing-function: linear; }
+    .navigation a:hover {
+      color: #fff; }
     .navigation a.active {
       color: white;
       border-top: 6px solid #009999;
@@ -342,6 +342,14 @@ textarea.editable {
       box-shadow: none; }
       .navigation a.active .icon {
         color: rgba(255, 255, 255, 0.1); }
+    .navigation a .icon {
+      position: absolute;
+      top: 40px;
+      left: 0;
+      color: transparent;
+      width: 140px;
+      text-align: center;
+      font-size: 140px; }
 
 .user-corner {
   height: 100%;
@@ -489,30 +497,28 @@ textarea.editable {
     .stack .header .close {
       color: #666666;
       float: right; }
-  .stack .body {
+  .stack .cards {
     overflow-x: hidden;
     overflow-y: auto;
     height: 100%;
-    background: transparent; }
-    .stack .body .card-list {
-      margin: 0;
-      padding: 0; }
+    background: #efefef;
+    margin: 0;
+    padding: 4px; }
 
 .stack-card {
   cursor: -webkit-grab;
   cursor: -moz-grab;
   cursor: grab;
-  border-bottom: 1px solid #999999;
-  background: white; }
+  border: 1px solid transparent;
+  border-left: 6px solid transparent;
+  border-radius: 4px;
+  background: #fff;
+  margin-bottom: 4px; }
+  .stack-card:last-child {
+    margin-bottom: 0; }
   .stack-card.dragging {
-    cursor: -webkit-grabbing;
-    cursor: -moz-grabbing;
-    cursor: grabbing; }
-  .stack-card.active {
-    background: linear-gradient(to right, #f3f3f3, white);
-    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3); }
+    background: #eee; }
   .stack-card .body {
-    border-left: 6px solid #ccc;
     padding: 6px 8px; }
     .stack-card .body .top {
       padding: 2px 0px; }
@@ -550,7 +556,7 @@ textarea.editable {
     position: absolute;
     z-index: 1001;
     right: 6px;
-    top: 12px;
+    top: 6px;
     color: #666;
     transition: color 0.15s; }
     .card .close:hover {
@@ -590,7 +596,7 @@ textarea.editable {
     z-index: 1000;
     padding: 6px;
     background: linear-gradient(to bottom, #eeeeee, #cccccc);
-    border-top: 6px solid;
+    border-left: 6px solid;
     border-bottom: 1px solid #999999;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.3); }
     .card .header .location, .card .header .goal {
@@ -600,15 +606,17 @@ textarea.editable {
       .card .header .location a, .card .header .goal a {
         color: #666;
         text-decoration: none;
-        margin-right: 10px; }
+        margin-right: 10px;
+        transition: color 0.15s linear; }
         .card .header .location a:visited, .card .header .goal a:visited {
           color: #666; }
         .card .header .location a:hover, .card .header .goal a:hover {
-          text-decoration: underline; }
+          color: #000; }
     .card .header .title {
       color: #111;
       font-size: 22px;
-      font-weight: 600; }
+      font-weight: 600;
+      margin-right: 24px; }
       .card .header .title input {
         text-overflow: ellipsis;
         white-space: nowrap; }
@@ -629,6 +637,7 @@ textarea.editable {
     .card .details .actions {
       margin: 10px;
       border: 1px solid #ccc;
+      border-radius: 4px;
       background: #f3f3f3; }
       .card .details .actions .stage {
         border-bottom: 1px solid #ccc;

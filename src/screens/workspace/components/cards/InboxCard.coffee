@@ -7,10 +7,7 @@ InboxCard = React.createClass {
   displayName: 'InboxCard'
 
   render: ->
-    div {
-      style: {borderColor: @props.kind.color}
-      className: 'body inbox'
-    }, [
+    div {className: 'body inbox'}, [
       div {className: 'top'}, [
         div {className: 'title'},   [@props.card.title or Constants.untitledCard]
         div {className: 'handoff'}, [

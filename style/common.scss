@@ -106,9 +106,10 @@ textarea.editable {
       padding: 6px 8px;
       background: $sidebar-item-background;
       color: $sidebar-item-text-color;
-      text-decoration: none;
-      transition: background 0.1s ease-in-out;
       border-left: 6px solid transparent;
+      text-decoration: none;
+      transition-property: color background;
+      transition-duration: 0.1s;
       &.active {
         color: $sidebar-item-active-text-color;
         background: $sidebar-item-active-background;
@@ -118,8 +119,13 @@ textarea.editable {
           color: $sidebar-item-active-icon-color;
         }
       }
+      &:hover {
+        color: $sidebar-item-active-text-color;
+        .icon { color: $sidebar-item-active-icon-color; }
+      }
       .icon {
         color: $sidebar-item-icon-color;
+        transition: all 0.1s linear;
       }
       .name { padding-left: 4px; }
     }

@@ -57,15 +57,13 @@
       float: right;
     }
   }
-  .body {
+  .cards {
     overflow-x: hidden;
     overflow-y: auto;
     height: 100%;
-    background: transparent;
-    .card-list {
-      margin: 0;
-      padding: 0;
-    }
+    background: #efefef;
+    margin: 0;
+    padding: 4px;
   }
 }
 
@@ -73,19 +71,18 @@
   cursor: -webkit-grab;
   cursor: -moz-grab;
   cursor: grab;
-  border-bottom: $panel-border;
-  background: $stack-card-background;
-  &.dragging {
-    cursor: -webkit-grabbing;
-    cursor: -moz-grabbing;
-    cursor: grabbing;
+  border: 1px solid transparent;
+  border-left: 6px solid transparent;
+  border-radius: 4px;
+  background: #fff;
+  margin-bottom: 4px;
+  &:last-child {
+    margin-bottom: 0;
   }
-  &.active {
-    background: $stack-card-active-background;
-    box-shadow: $stack-card-active-shadow;
+  &.dragging {
+    background: #eee;
   }
   .body {
-    border-left: 6px solid #ccc;
     padding: 6px 8px;
     .top {
       padding: 2px 0px;
@@ -130,7 +127,7 @@
     position: absolute;
     z-index: 1001;
     right: 6px;
-    top: 12px;
+    top: 6px;
     color: #666;
     transition: color 0.15s;
     &:hover {
@@ -177,7 +174,7 @@
     z-index: 1000;
     padding: 6px;
     background: $card-header-background;
-    border-top: 6px solid;
+    border-left: 6px solid;
     border-bottom: $card-header-border;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
     .location, .goal {
@@ -188,14 +185,16 @@
         color: #666;
         text-decoration: none;
         margin-right: 10px;
+        transition: color 0.15s linear;
         &:visited { color: #666; }
-        &:hover { text-decoration: underline; }
+        &:hover { color: #000; }
       }
     }
     .title {
       color: #111;
       font-size: 22px;
       font-weight: 600;
+      margin-right: 24px;
       input {
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -221,6 +220,7 @@
     .actions {
       margin: 10px;
       border: 1px solid #ccc;
+      border-radius: 4px;
       background: #f3f3f3;
       .stage {
         border-bottom: 1px solid #ccc;

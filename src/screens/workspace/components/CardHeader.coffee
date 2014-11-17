@@ -25,17 +25,17 @@ CardHeader = React.createClass {
   render: ->
 
     children = _.compact [
-      CardLocation {key: 'location', stackId: @props.stack.id}
-      CardGoal {key: 'goal', goalId: @props.card.goal.id} if @props.card.goal?
       div {key: 'title', className: 'title'}, [
         Text {key: 'title-text', placeholder: Constants.untitledCard, value: @props.card.title, save: @saveTitle}
       ]
+      CardLocation {key: 'location', stackId: @props.stack.id}
+      CardGoal {key: 'goal', goalId: @props.card.goal.id} if @props.card.goal?
       Commands[@props.stack.type] {key: 'commands', card: @props.card}
     ]
 
     div {
       className: 'header'
-      style:     {borderTopColor: @props.kind.color}
+      style:     {borderLeftColor: @props.kind.color}
     }, children
 
   saveTitle: (title) ->

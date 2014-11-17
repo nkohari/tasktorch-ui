@@ -55,9 +55,7 @@ StackPanel = React.createClass {
       StackCardFrame {key: "card-frame-#{card.id}", stack: @state.stack, card, index}
     children = [
       StackHeader {key: 'header', className: 'header', stack: @state.stack}
-      div {key: 'body', className: 'body'}, [
-        ul {key: 'cards', ref: 'cardList', className: 'card-list'}, cards
-      ]
+      ul {key: 'cards', ref: 'cardList', className: 'cards'}, cards
     ]
 
   handleDragStart: (event) ->

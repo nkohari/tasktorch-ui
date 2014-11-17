@@ -7,9 +7,9 @@ Icon         = React.createFactory(require 'common/Icon')
 Link         = React.createFactory(Router.Link)
 {li, span}   = React.DOM
 
-StackListItem = React.createClass {
+StackSidebarItem = React.createClass {
 
-  displayName: 'StackListItem'
+  displayName: 'StackSidebarItem'
 
   mixins: [
     ActiveUrl(WorkspaceUrl)
@@ -31,4 +31,4 @@ StackListItem = React.createClass {
 
 }
 
-module.exports = StackListItem
+module.exports = StackSidebarItem

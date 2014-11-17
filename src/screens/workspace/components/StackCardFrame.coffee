@@ -43,10 +43,13 @@ StackCardFrame = React.createClass {
       active:       @getActiveUrl().isCardActive(@props.card.id)
 
     children = []
+    style = {}
     if @state.kind?
+      style.borderColor = @state.kind.color
       children = CardComponents[@props.stack.type] {card: @props.card, kind: @state.kind}
 
     div {
+      style
       className:      classSet(classes)
       draggable:      true
       'aria-grabbed': @state.dragging

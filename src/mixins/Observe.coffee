@@ -54,7 +54,7 @@ Observe = (storesToWatch...) -> {
       stores = @getEventBus().getStores(storesToWatch)
       return @getStateFromStores(stores)
     catch err
-      console.error("Error synchronizing with stores: #{err}")
+      console.error(err)
       throw err
 
 }

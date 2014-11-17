@@ -9,7 +9,7 @@ exports.stackName = ({stack, owner, team, currentUser}) ->
       else
         return "#{owner.name}'s"
     else
-      return "#{team.name}'s"
+      return team.name
 
   switch stack.type
     when StackType.Queue

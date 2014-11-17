@@ -2,34 +2,45 @@ _                   = require 'lodash'
 React               = require 'react'
 Observe             = require 'mixins/Observe'
 LoadMyStacksRequest = require 'requests/LoadMyStacksRequest'
-SidebarItemGroup    = React.createFactory(require 'common/SidebarItemGroup')
+LoadMyTeamsRequest  = require 'requests/LoadMyTeamsRequest'
 SearchBox           = React.createFactory(require './SearchBox')
-StackSidebarItem    = React.createFactory(require './StackSidebarItem')
+MyStackList         = React.createFactory(require './MyStackList')
+TeamStackList       = React.createFactory(require './TeamStackList')
 {div, ul}           = React.DOM
 
 WorkspaceSidebar = React.createClass {
 
   displayName: 'WorkspaceSidebar'
 
-  mixins: [Observe('stacks')]
+  mixins: [Observe('teams', 'stacks', 'users')]
 
   getStateFromStores: (stores) ->
-    return {
-      stacks: stores.stacks.getAllStacks()
-    }
+    currentUser = stores.users.getCurrentUser()
+    if currentUser?
+      teams = stores.teams.getTeamsByMember(currentUser.id)
+      stacks = stores.stacks.getStacksByOwner(currentUser.id)
+    {currentUser, teams, stacks}
 
   componentWillMount: ->
     @execute new LoadMyStacksRequest()
+    @execute new LoadMyTeamsRequest()
+
+  isReady: ->
+    @state.teams? and @state.stacks?
 
   render: ->
+    children = if @isReady() then @renderChildren() else []
+    div {className: 'workspace sidebar'}, children
 
-    myStacks = _.map @state.stacks, (stack) =>
-      StackSidebarItem {key: "stack-#{stack.id}", stack}
+  renderChildren: ->
 
-    div {className: 'workspace sidebar'}, [
+    teams = _.map @state.teams, (team) =>
+      TeamStackList {key: "team-#{team.id}", team}
+
+    return [
       SearchBox {key: 'search'}
-      SidebarItemGroup {key: 'my-stacks', header: 'My Stacks'}, myStacks
-    ]
+      MyStackList {key: 'me', stacks: @state.stacks}
+    ].concat(teams)
 
 }
 

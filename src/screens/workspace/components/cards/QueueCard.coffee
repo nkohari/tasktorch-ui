@@ -7,10 +7,7 @@ QueueCard = React.createClass {
   displayName: 'QueueCard'
 
   render: ->
-    div {
-      style: {borderColor: @props.kind.color}
-      className: 'body queue'
-    }, [
+    div {className: 'body queue'}, [
       div {className: 'top'}, [
         div {className: 'title'},   [@props.card.title or Constants.untitledCard]
         div {className: 'handoff'}, [

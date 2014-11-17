@@ -76,17 +76,11 @@
     border-top: 6px solid transparent;
     text-decoration: none;
     text-align: center;
-    transition-property: background;
-    transition-duration: 0.15s;
-    transition-timing-function: ease-in;
-    .icon {
-      position: absolute;
-      top: 40px;
-      left: 0;
-      color: transparent;
-      width: 140px;
-      text-align: center;
-      font-size: 140px;
+    transition-property: color background;
+    transition-duration: 0.1s;
+    transition-timing-function: linear;
+    &:hover {
+      color: #fff;
     }
     &.active {
       color: $navigation-active-text-color;
@@ -98,6 +92,15 @@
       .icon {
         color: rgba(255, 255, 255, 0.1);
       }
+    }
+    .icon {
+      position: absolute;
+      top: 40px;
+      left: 0;
+      color: transparent;
+      width: 140px;
+      text-align: center;
+      font-size: 140px;
     }
   }
 }
