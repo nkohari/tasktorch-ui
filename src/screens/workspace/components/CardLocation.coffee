@@ -8,7 +8,7 @@ WorkspaceUrl     = require '../WorkspaceUrl'
 LoadStackRequest = require 'requests/LoadStackRequest'
 Icon             = React.createFactory(require 'common/Icon')
 Link             = React.createFactory(Router.Link)
-{div}            = React.DOM
+{li}             = React.DOM
 
 CardLocation = React.createClass {
 
@@ -35,7 +35,7 @@ CardLocation = React.createClass {
 
   render: ->
     children = if @isReady() then @renderChildren() else []
-    div {className: 'location aspect'}, children
+    li {className: 'location'}, children
 
   renderChildren: ->
     name = Format.stackName {

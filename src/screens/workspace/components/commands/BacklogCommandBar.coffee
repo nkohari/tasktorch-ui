@@ -2,9 +2,9 @@ React  = require 'react'
 Button = React.createFactory(require 'common/Button')
 {div}  = React.DOM
 
-BacklogCardCommands = React.createClass {
+BacklogCommandBar = React.createClass {
 
-  displayName: 'BacklogCardCommands'
+  displayName: 'BacklogCommandBar'
 
   render: ->
     div {className: 'backlog commands'}, [
@@ -20,4 +20,4 @@ BacklogCardCommands = React.createClass {
 
 }
 
-module.exports = BacklogCardCommands
+module.exports = BacklogCommandBar

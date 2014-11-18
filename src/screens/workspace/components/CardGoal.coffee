@@ -6,7 +6,7 @@ WorkspaceUrl    = require '../WorkspaceUrl'
 LoadGoalRequest = require 'requests/LoadGoalRequest'
 Icon            = React.createFactory(require 'common/Icon')
 Link            = React.createFactory(Router.Link)
-{div, a}        = React.DOM
+{li, a}         = React.DOM
 
 CardGoal = React.createClass {
 
@@ -28,7 +28,7 @@ CardGoal = React.createClass {
 
   render: ->
     children = if @isReady() then @renderChildren() else []
-    div {className: 'goal aspect'}, children
+    li {className: 'goal'}, children
 
   renderChildren: ->
     return [

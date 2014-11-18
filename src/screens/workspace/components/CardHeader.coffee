@@ -1,20 +1,19 @@
-_                   = require 'lodash'
-React               = require 'react'
-Observe             = require 'mixins/Observe'
-Constants           = require 'framework/Constants'
-SetCardTitleRequest = require 'requests/SetCardTitleRequest'
-Text                = React.createFactory(require 'common/Text')
-CardGoal            = React.createFactory(require './CardGoal')
-CardLocation        = React.createFactory(require './CardLocation')
-InboxCardCommands   = React.createFactory(require './commands/InboxCardCommands')
-QueueCardCommands   = React.createFactory(require './commands/QueueCardCommands')
-BacklogCardCommands = React.createFactory(require './commands/BacklogCardCommands')
-{div}               = React.DOM
+_                  = require 'lodash'
+React              = require 'react'
+Observe            = require 'mixins/Observe'
+CardTitle          = React.createFactory(require './CardTitle')
+CardWidgets        = React.createFactory(require './CardWidgets')
+CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
+{div}              = React.DOM
 
-Commands =
-  Inbox:   InboxCardCommands
-  Queue:   QueueCardCommands
-  Backlog: BacklogCardCommands
+CommandBars =
+  Inbox:   React.createFactory(require './commands/InboxCommandBar')
+  Queue:   React.createFactory(require './commands/QueueCommandBar')
+  Backlog: React.createFactory(require './commands/BacklogCommandBar')
+
+CommandPanels =
+  Defer:   React.createFactory(require './commands/DeferCommandPanel')
+  HandOff: React.createFactory(require './commands/HandOffCommandPanel')
 
 CardHeader = React.createClass {
 
@@ -22,24 +21,39 @@ CardHeader = React.createClass {
 
   mixins: [Observe()]
 
+  propTypes:
+    card: React.PropTypes.object.isRequired
+    stack: React.PropTypes.object.isRequired
+
+  getInitialState: ->
+    {command: undefined}
+
   render: ->
 
-    children = _.compact [
-      div {key: 'title', className: 'title'}, [
-        Text {key: 'title-text', placeholder: Constants.untitledCard, value: @props.card.title, save: @saveTitle}
-      ]
-      CardLocation {key: 'location', stackId: @props.stack.id}
-      CardGoal {key: 'goal', goalId: @props.card.goal.id} if @props.card.goal?
-      Commands[@props.stack.type] {key: 'commands', card: @props.card}
-    ]
-
-    div {
+    header = div {
       className: 'header'
       style:     {borderLeftColor: @props.kind.color}
-    }, children
+    }, [
+      CardTitle {key: 'title', card: @props.card}
+      CardWidgets {key: 'location', card: @props.card, stack: @props.stack}
+      CommandBars[@props.stack.type] {key: 'commands', card: @props.card, @showCommandPanel}
+    ]
 
-  saveTitle: (title) ->
-    @execute new SetCardTitleRequest(@props.card, title)
+    if @state.command?
+      command = CommandPanels[@state.command] {key: 'command', card: @props.card, stack: @props.stack, @hideCommandPanel}
+
+    div {className: 'top'}, _.compact [
+      header
+      CSSTransitionGroup {key: 'command', className: 'command-frame', component: 'div', transitionName: 'command-slide'}, [
+        command if command?
+      ]
+    ]
+
+  showCommandPanel: (command) ->
+    @setState {command}
+
+  hideCommandPanel: ->
+    @setState {command: undefined}
 
 }
 

@@ -102,7 +102,7 @@ textarea.editable {
       padding: 4px 8px;
       font-weight: 600;
       text-transform: uppercase;
-      color: #999999;
+      color: #aaaaaa;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
       background: #283040;
       border-bottom: 0; }
@@ -258,6 +258,12 @@ textarea.editable {
 
 .icon-add-file:before {
   content: "\1F4CE"; }
+
+.icon-ok:before {
+  content: "\2713"; }
+
+.icon-cancel:before {
+  content: "\274C"; }
 
 .shell {
   height: 100vh;
@@ -591,27 +597,19 @@ textarea.editable {
         color: black;
         background: #eeeeee;
         box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.3); }
+      .card .button-group button:disabled {
+        color: #999999;
+        background: #dddddd;
+        box-shadow: none; }
   .card .header {
     flex: none;
+    position: relative;
     z-index: 1000;
     padding: 6px;
     background: linear-gradient(to bottom, #eeeeee, #cccccc);
     border-left: 6px solid;
     border-bottom: 1px solid #999999;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.3); }
-    .card .header .location, .card .header .goal {
-      display: inline-block;
-      font-size: 13px;
-      margin-bottom: 4px; }
-      .card .header .location a, .card .header .goal a {
-        color: #666;
-        text-decoration: none;
-        margin-right: 10px;
-        transition: color 0.15s linear; }
-        .card .header .location a:visited, .card .header .goal a:visited {
-          color: #666; }
-        .card .header .location a:hover, .card .header .goal a:hover {
-          color: #000; }
     .card .header .title {
       color: #111;
       font-size: 22px;
@@ -620,11 +618,34 @@ textarea.editable {
       .card .header .title input {
         text-overflow: ellipsis;
         white-space: nowrap; }
+    .card .header .widgets {
+      list-style-type: none;
+      padding: 0;
+      margin: 0 0 4px 0; }
+      .card .header .widgets li {
+        display: inline-block;
+        font-size: 13px; }
+        .card .header .widgets li a {
+          color: #666;
+          text-decoration: none;
+          margin-right: 10px;
+          transition: color 0.15s linear; }
+          .card .header .widgets li a:visited {
+            color: #666; }
+          .card .header .widgets li a:hover {
+            color: #000; }
     .card .header .commands {
       padding: 4px;
       width: 100%;
       background: 0;
       border-bottom: 0; }
+  .card .command {
+    padding: 10px 10px 10px 18px;
+    font-size: 14px;
+    background: #eee;
+    border-bottom: 1px solid #ccc; }
+    .card .command .buttons {
+      float: right; }
   .card .details {
     flex: 1;
     overflow-x: hidden;
@@ -698,6 +719,7 @@ textarea.editable {
               display: block; }
   .card .footer {
     flex: none;
+    position: relative;
     z-index: 1000;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
     padding: 10px;
@@ -730,3 +752,35 @@ textarea.editable {
       .card .footer .participants .owner {
         border: 1px solid #999;
         background: #ccc; }
+
+.command-slide-enter {
+  opacity: 0;
+  transform: translateY(-50px);
+  transition-property: opacity, transform;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-in;
+  -webkit-transform: translateY(-50px);
+  -webkit-transform-origin: left center;
+  -webkit-transition-property: opacity, transform;
+  -webkit-transition-duration: 0.1s;
+  -webkit-transition-timing-function: ease-in; }
+  .command-slide-enter.command-slide-enter-active {
+    opacity: 1;
+    transform: translateY(0px);
+    -webkit-transform: translateY(0px); }
+
+.command-slide-leave {
+  opacity: 1;
+  transform: translateY(0);
+  transition-property: opacity, transform;
+  transition-duration: 0.1s;
+  transition-timing-function: linear;
+  -webkit-transform: translateY(0);
+  -webkit-transform-origin: left center;
+  -webkit-transition-property: opacity, transform;
+  -webkit-transition-duration: 0.1s;
+  -webkit-transition-timing-function: linear; }
+  .command-slide-leave.command-slide-leave-active {
+    opacity: 0;
+    transform: translateY(-50px);
+    -webkit-transform: translateY(-50px); }

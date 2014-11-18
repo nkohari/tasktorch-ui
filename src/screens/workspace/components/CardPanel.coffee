@@ -41,13 +41,11 @@ CardPanel = React.createClass {
   loadCard: (cardId) ->
     @execute new LoadCardRequest(cardId)
 
+  isReady: ->
+    @state.card? and @state.stack? and @state.kind?
+
   render: ->
-
-    if @state.card? and @state.stack? and @state.kind?
-      children = @renderChildren()
-    else
-      children = []
-
+    children = if @isReady() then @renderChildren() else []
     div {
       style: {zIndex: 99 - @props.position}
       className: 'card panel'
