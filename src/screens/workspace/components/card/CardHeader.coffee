@@ -1,25 +1,26 @@
 _                  = require 'lodash'
 React              = require 'react'
 Observe            = require 'mixins/Observe'
+CardCommandContext = require './CardCommandContext'
 CardTitle          = React.createFactory(require './CardTitle')
 CardWidgets        = React.createFactory(require './CardWidgets')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
 {div}              = React.DOM
 
 CommandBars =
-  Inbox:   React.createFactory(require './commands/InboxCommandBar')
-  Queue:   React.createFactory(require './commands/QueueCommandBar')
-  Backlog: React.createFactory(require './commands/BacklogCommandBar')
+  Inbox:   React.createFactory(require './commandBars/InboxCommandBar')
+  Queue:   React.createFactory(require './commandBars/QueueCommandBar')
+  Backlog: React.createFactory(require './commandBars/BacklogCommandBar')
 
 CommandPanels =
-  Defer:   React.createFactory(require './commands/DeferCommandPanel')
-  HandOff: React.createFactory(require './commands/HandOffCommandPanel')
+  Defer:   React.createFactory(require './commandPanels/DeferCommandPanel')
+  HandOff: React.createFactory(require './commandPanels/HandOffCommandPanel')
 
 CardHeader = React.createClass {
 
   displayName: 'CardHeader'
 
-  mixins: [Observe()]
+  mixins: [Observe(), CardCommandContext]
 
   propTypes:
     card: React.PropTypes.object.isRequired
@@ -35,15 +36,15 @@ CardHeader = React.createClass {
 
     div {
       className: 'header'
-      style:     {borderLeftColor: @props.kind.color}
+      style:     {borderColor: @props.kind.color}
     }, [
       div {key: 'fixed', className: 'fixed'}, [
         CardTitle {key: 'title', card: @props.card}
         CardWidgets {key: 'location', card: @props.card, stack: @props.stack}
-        CommandBar {key: 'commands', card: @props.card, activeCommand: @state.command, @showCommand}
+        CommandBar {key: 'commands', card: @props.card}
       ]
       CSSTransitionGroup {key: 'flexible', className: 'flexible', component: 'div', transitionName: 'command-slide'}, [
-        CommandPanel {key: 'command', card: @props.card, stack: @props.stack, @hideCommand} if @state.command?
+        CommandPanel {key: 'command', card: @props.card, stack: @props.stack} if @state.command?
       ]
     ]
 

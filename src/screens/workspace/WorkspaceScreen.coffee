@@ -5,9 +5,9 @@ ActiveUrl           = require 'mixins/ActiveUrl'
 Observe             = require 'mixins/Observe'
 LoadAllKindsRequest = require 'requests/LoadAllKindsRequest'
 WorkspaceUrl        = require './WorkspaceUrl'
-StackPanel          = React.createFactory(require './components/StackPanel')
-CardPanel           = React.createFactory(require './components/CardPanel')
-WorkspaceSidebar    = React.createFactory(require './components/WorkspaceSidebar')
+StackPanel          = React.createFactory(require './components/stack/StackPanel')
+CardPanel           = React.createFactory(require './components/card/CardPanel')
+WorkspaceSidebar    = React.createFactory(require './components/sidebar/WorkspaceSidebar')
 CSSTransitionGroup  = React.createFactory(React.addons.CSSTransitionGroup)
 {div}               = React.DOM
 

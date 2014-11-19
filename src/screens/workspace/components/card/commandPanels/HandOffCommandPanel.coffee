@@ -1,4 +1,5 @@
 React                      = require 'react'
+CardCommandContext         = require '../CardCommandContext'
 Button                     = React.createFactory(require 'common/Button')
 MultilineText              = React.createFactory(require 'common/MultilineText')
 CommandArgument            = React.createFactory(require './CommandArgument')
@@ -9,8 +10,7 @@ HandOffCommandPanel = React.createClass {
 
   displayName: 'HandOffCommandPanel'
 
-  propTypes:
-    hideCommand: React.PropTypes.func.isRequired
+  mixins: [CardCommandContext]
 
   render: ->
     div {className: 'handoff command'}, [
@@ -22,7 +22,7 @@ HandOffCommandPanel = React.createClass {
       ]
       div {key: 'buttons', className: 'buttons'}, [
         Button {key: 'ok', text: 'OK'}
-        Button {key: 'cancel', text: 'Cancel', onClick: @props.hideCommand}
+        Button {key: 'cancel', text: 'Cancel', onClick: @context.hideCommand}
       ]
     ]
 

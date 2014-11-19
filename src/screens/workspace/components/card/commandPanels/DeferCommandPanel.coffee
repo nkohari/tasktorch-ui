@@ -1,10 +1,13 @@
-React  = require 'react'
-Button = React.createFactory(require 'common/Button')
-{div}  = React.DOM
+React              = require 'react'
+CardCommandContext = require '../CardCommandContext'
+Button             = React.createFactory(require 'common/Button')
+{div}              = React.DOM
 
 DeferCommandPanel = React.createClass {
 
   displayName: 'DeferCommandPanel'
+
+  mixins: [CardCommandContext]
 
   propTypes:
     hideCommand: React.PropTypes.func.isRequired
@@ -15,7 +18,7 @@ DeferCommandPanel = React.createClass {
       'Defer'
       div {key: 'buttons', className: 'buttons'}, [
         Button {key: 'ok', icon: 'ok', text: 'OK'}
-        Button {key: 'cancel', icon: 'cancel', text: 'Cancel', onClick: @props.hideCommand}
+        Button {key: 'cancel', icon: 'cancel', text: 'Cancel', onClick: @context.hideCommand}
       ]
     ]
 

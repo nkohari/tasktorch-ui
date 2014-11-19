@@ -36253,7 +36253,7 @@ React.render(routes, document.body);
 
 
 
-},{"./EventBusFactory":233,"./screens/bigpicture/BigPictureScreen":301,"./screens/login/LoginScreen":305,"./screens/planning/PlanningScreen":306,"./screens/workspace/WorkspaceScreen":310,"./shell/Shell":344,"react":"M6d2gk","react-router":34}],232:[function(require,module,exports){
+},{"./EventBusFactory":233,"./screens/bigpicture/BigPictureScreen":301,"./screens/login/LoginScreen":305,"./screens/planning/PlanningScreen":306,"./screens/workspace/WorkspaceScreen":310,"./shell/Shell":345,"react":"M6d2gk","react-router":34}],232:[function(require,module,exports){
 var EventBus, _,
   __slice = [].slice;
 
@@ -36394,7 +36394,7 @@ module.exports = EventBusFactory;
 
 
 
-},{"./EventBus":232,"./listeners/CardBodyChangedListener":275,"./listeners/CardTitleChangedListener":276,"./listeners/JoinedPresenceChannelListener":277,"./listeners/UserConnectedListener":278,"./listeners/UserDisconnectedListener":279,"./stores/ActionStore":353,"./stores/CardStore":354,"./stores/GoalStore":355,"./stores/KindStore":356,"./stores/MilestoneStore":357,"./stores/OrganizationStore":358,"./stores/PresenceStore":359,"./stores/QueueStore":360,"./stores/StackStore":361,"./stores/StageStore":362,"./stores/SuggestionStore":363,"./stores/TeamStore":364,"./stores/UserStore":365}],234:[function(require,module,exports){
+},{"./EventBus":232,"./listeners/CardBodyChangedListener":275,"./listeners/CardTitleChangedListener":276,"./listeners/JoinedPresenceChannelListener":277,"./listeners/UserConnectedListener":278,"./listeners/UserDisconnectedListener":279,"./stores/ActionStore":354,"./stores/CardStore":355,"./stores/GoalStore":356,"./stores/KindStore":357,"./stores/MilestoneStore":358,"./stores/OrganizationStore":359,"./stores/PresenceStore":360,"./stores/QueueStore":361,"./stores/StackStore":362,"./stores/StageStore":363,"./stores/SuggestionStore":364,"./stores/TeamStore":365,"./stores/UserStore":366}],234:[function(require,module,exports){
 var Avatar, React, crypto, img;
 
 crypto = require('crypto');
@@ -38923,11 +38923,11 @@ LoadAllKindsRequest = require('./../../requests/LoadAllKindsRequest.coffee');
 
 WorkspaceUrl = require('./WorkspaceUrl');
 
-StackPanel = React.createFactory(require('./components/StackPanel'));
+StackPanel = React.createFactory(require('./components/stack/StackPanel'));
 
-CardPanel = React.createFactory(require('./components/CardPanel'));
+CardPanel = React.createFactory(require('./components/card/CardPanel'));
 
-WorkspaceSidebar = React.createFactory(require('./components/WorkspaceSidebar'));
+WorkspaceSidebar = React.createFactory(require('./components/sidebar/WorkspaceSidebar'));
 
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup);
 
@@ -39009,7 +39009,7 @@ module.exports = WorkspaceScreen;
 
 
 
-},{"./../../mixins/ActiveUrl.coffee":280,"./../../mixins/Observe.coffee":281,"./../../requests/LoadAllKindsRequest.coffee":285,"./WorkspaceUrl":311,"./components/CardPanel":321,"./components/StackPanel":330,"./components/WorkspaceSidebar":333,"lodash":24,"react-router":34,"react/addons":65}],311:[function(require,module,exports){
+},{"./../../mixins/ActiveUrl.coffee":280,"./../../mixins/Observe.coffee":281,"./../../requests/LoadAllKindsRequest.coffee":285,"./WorkspaceUrl":311,"./components/card/CardPanel":322,"./components/sidebar/WorkspaceSidebar":338,"./components/stack/StackPanel":341,"lodash":24,"react-router":34,"react/addons":65}],311:[function(require,module,exports){
 var WorkspaceUrl, _;
 
 _ = require('lodash');
@@ -39081,13 +39081,13 @@ var ActionStatus, CardAction, Icon, Observe, React, Text, classSet, div, input, 
 
 React = require('react/addons');
 
-Observe = require('./../../../mixins/Observe.coffee');
+Observe = require('./../../../../mixins/Observe.coffee');
 
-ActionStatus = require('./../../../framework/enums/ActionStatus.coffee');
+ActionStatus = require('./../../../../framework/enums/ActionStatus.coffee');
 
-Icon = React.createFactory(require('./../../../common/Icon.coffee'));
+Icon = React.createFactory(require('./../../../../common/Icon.coffee'));
 
-Text = React.createFactory(require('./../../../common/Text.coffee'));
+Text = React.createFactory(require('./../../../../common/Text.coffee'));
 
 _ref = React.DOM, div = _ref.div, li = _ref.li, input = _ref.input;
 
@@ -39132,14 +39132,14 @@ module.exports = CardAction;
 
 
 
-},{"./../../../common/Icon.coffee":236,"./../../../common/Text.coffee":241,"./../../../framework/enums/ActionStatus.coffee":270,"./../../../mixins/Observe.coffee":281,"react/addons":65}],313:[function(require,module,exports){
+},{"./../../../../common/Icon.coffee":236,"./../../../../common/Text.coffee":241,"./../../../../framework/enums/ActionStatus.coffee":270,"./../../../../mixins/Observe.coffee":281,"react/addons":65}],313:[function(require,module,exports){
 var CardAction, CardActionGroup, Icon, React, a, classSet, div, li, ul, _, _ref;
 
 _ = require('lodash');
 
 React = require('react/addons');
 
-Icon = React.createFactory(require('./../../../common/Icon.coffee'));
+Icon = React.createFactory(require('./../../../../common/Icon.coffee'));
 
 CardAction = React.createFactory(require('./CardAction'));
 
@@ -39173,18 +39173,18 @@ module.exports = CardActionGroup;
 
 
 
-},{"./../../../common/Icon.coffee":236,"./CardAction":312,"lodash":24,"react/addons":65}],314:[function(require,module,exports){
+},{"./../../../../common/Icon.coffee":236,"./CardAction":312,"lodash":24,"react/addons":65}],314:[function(require,module,exports){
 var CardActionGroup, CardActions, LoadActionsByCardRequest, LoadStagesByKindRequest, Observe, React, div, li, ul, _, _ref;
 
 _ = require('lodash');
 
 React = require('react');
 
-Observe = require('./../../../mixins/Observe.coffee');
+Observe = require('./../../../../mixins/Observe.coffee');
 
-LoadActionsByCardRequest = require('./../../../requests/LoadActionsByCardRequest.coffee');
+LoadActionsByCardRequest = require('./../../../../requests/LoadActionsByCardRequest.coffee');
 
-LoadStagesByKindRequest = require('./../../../requests/LoadStagesByKindRequest.coffee');
+LoadStagesByKindRequest = require('./../../../../requests/LoadStagesByKindRequest.coffee');
 
 CardActionGroup = React.createFactory(require('./CardActionGroup'));
 
@@ -39236,18 +39236,18 @@ module.exports = CardActions;
 
 
 
-},{"./../../../mixins/Observe.coffee":281,"./../../../requests/LoadActionsByCardRequest.coffee":283,"./../../../requests/LoadStagesByKindRequest.coffee":298,"./CardActionGroup":313,"lodash":24,"react":"M6d2gk"}],315:[function(require,module,exports){
+},{"./../../../../mixins/Observe.coffee":281,"./../../../../requests/LoadActionsByCardRequest.coffee":283,"./../../../../requests/LoadStagesByKindRequest.coffee":298,"./CardActionGroup":313,"lodash":24,"react":"M6d2gk"}],315:[function(require,module,exports){
 var CardBody, Constants, MultilineText, Observe, React, SetCardBodyRequest, div;
 
 React = require('react');
 
-Observe = require('./../../../mixins/Observe.coffee');
+Observe = require('./../../../../mixins/Observe.coffee');
 
-Constants = require('./../../../framework/Constants.coffee');
+Constants = require('./../../../../framework/Constants.coffee');
 
-SetCardBodyRequest = require('./../../../requests/SetCardBodyRequest.coffee');
+SetCardBodyRequest = require('./../../../../requests/SetCardBodyRequest.coffee');
 
-MultilineText = React.createFactory(require('./../../../common/MultilineText.coffee'));
+MultilineText = React.createFactory(require('./../../../../common/MultilineText.coffee'));
 
 div = React.DOM.div;
 
@@ -39276,12 +39276,44 @@ module.exports = CardBody;
 
 
 
-},{"./../../../common/MultilineText.coffee":238,"./../../../framework/Constants.coffee":263,"./../../../mixins/Observe.coffee":281,"./../../../requests/SetCardBodyRequest.coffee":299,"react":"M6d2gk"}],316:[function(require,module,exports){
+},{"./../../../../common/MultilineText.coffee":238,"./../../../../framework/Constants.coffee":263,"./../../../../mixins/Observe.coffee":281,"./../../../../requests/SetCardBodyRequest.coffee":299,"react":"M6d2gk"}],316:[function(require,module,exports){
+var CardCommandContext, React, _;
+
+_ = require('lodash');
+
+React = require('react');
+
+CardCommandContext = {
+  contextTypes: {
+    activeCommand: React.PropTypes.string,
+    hideCommand: React.PropTypes.func,
+    showCommand: React.PropTypes.func
+  },
+  childContextTypes: {
+    activeCommand: React.PropTypes.string,
+    hideCommand: React.PropTypes.func.isRequired,
+    showCommand: React.PropTypes.func.isRequired
+  },
+  getChildContext: function() {
+    var _ref, _ref1, _ref2, _ref3, _ref4, _ref5, _ref6;
+    return {
+      activeCommand: (_ref = (_ref1 = this.state) != null ? _ref1.command : void 0) != null ? _ref : (_ref2 = this.context) != null ? _ref2.activeCommand : void 0,
+      hideCommand: (_ref3 = this.hideCommand) != null ? _ref3 : (_ref4 = this.context) != null ? _ref4.hideCommand : void 0,
+      showCommand: (_ref5 = this.showCommand) != null ? _ref5 : (_ref6 = this.context) != null ? _ref6.showCommand : void 0
+    };
+  }
+};
+
+module.exports = CardCommandContext;
+
+
+
+},{"lodash":24,"react":"M6d2gk"}],317:[function(require,module,exports){
 var CardActions, CardBody, CardDetails, Observe, React, div;
 
 React = require('react');
 
-Observe = require('./../../../mixins/Observe.coffee');
+Observe = require('./../../../../mixins/Observe.coffee');
 
 CardBody = React.createFactory(require('./CardBody'));
 
@@ -39312,16 +39344,16 @@ module.exports = CardDetails;
 
 
 
-},{"./../../../mixins/Observe.coffee":281,"./CardActions":314,"./CardBody":315,"react":"M6d2gk"}],317:[function(require,module,exports){
+},{"./../../../../mixins/Observe.coffee":281,"./CardActions":314,"./CardBody":315,"react":"M6d2gk"}],318:[function(require,module,exports){
 var Button, CardFooter, CardParticipants, Icon, Observe, React, div, textarea, _ref;
 
 React = require('react');
 
-Observe = require('./../../../mixins/Observe.coffee');
+Observe = require('./../../../../mixins/Observe.coffee');
 
-Icon = React.createFactory(require('./../../../common/Icon.coffee'));
+Icon = React.createFactory(require('./../../../../common/Icon.coffee'));
 
-Button = React.createFactory(require('./../../../common/Button.coffee'));
+Button = React.createFactory(require('./../../../../common/Button.coffee'));
 
 CardParticipants = React.createFactory(require('./CardParticipants'));
 
@@ -39356,22 +39388,22 @@ module.exports = CardFooter;
 
 
 
-},{"./../../../common/Button.coffee":235,"./../../../common/Icon.coffee":236,"./../../../mixins/Observe.coffee":281,"./CardParticipants":322,"react":"M6d2gk"}],318:[function(require,module,exports){
+},{"./../../../../common/Button.coffee":235,"./../../../../common/Icon.coffee":236,"./../../../../mixins/Observe.coffee":281,"./CardParticipants":323,"react":"M6d2gk"}],319:[function(require,module,exports){
 var ActiveUrl, CardGoal, Icon, Link, LoadGoalRequest, Observe, React, Router, WorkspaceUrl, a, li, _ref;
 
 React = require('react');
 
 Router = require('react-router');
 
-ActiveUrl = require('./../../../mixins/ActiveUrl.coffee');
+ActiveUrl = require('./../../../../mixins/ActiveUrl.coffee');
 
-Observe = require('./../../../mixins/Observe.coffee');
+Observe = require('./../../../../mixins/Observe.coffee');
 
-WorkspaceUrl = require('../WorkspaceUrl');
+WorkspaceUrl = require('../../WorkspaceUrl');
 
-LoadGoalRequest = require('./../../../requests/LoadGoalRequest.coffee');
+LoadGoalRequest = require('./../../../../requests/LoadGoalRequest.coffee');
 
-Icon = React.createFactory(require('./../../../common/Icon.coffee'));
+Icon = React.createFactory(require('./../../../../common/Icon.coffee'));
 
 Link = React.createFactory(Router.Link);
 
@@ -39426,14 +39458,16 @@ module.exports = CardGoal;
 
 
 
-},{"../WorkspaceUrl":311,"./../../../common/Icon.coffee":236,"./../../../mixins/ActiveUrl.coffee":280,"./../../../mixins/Observe.coffee":281,"./../../../requests/LoadGoalRequest.coffee":290,"react":"M6d2gk","react-router":34}],319:[function(require,module,exports){
-var CSSTransitionGroup, CardHeader, CardTitle, CardWidgets, CommandBars, CommandPanels, Observe, React, div, _;
+},{"../../WorkspaceUrl":311,"./../../../../common/Icon.coffee":236,"./../../../../mixins/ActiveUrl.coffee":280,"./../../../../mixins/Observe.coffee":281,"./../../../../requests/LoadGoalRequest.coffee":290,"react":"M6d2gk","react-router":34}],320:[function(require,module,exports){
+var CSSTransitionGroup, CardCommandContext, CardHeader, CardTitle, CardWidgets, CommandBars, CommandPanels, Observe, React, div, _;
 
 _ = require('lodash');
 
 React = require('react');
 
-Observe = require('./../../../mixins/Observe.coffee');
+Observe = require('./../../../../mixins/Observe.coffee');
+
+CardCommandContext = require('./CardCommandContext');
 
 CardTitle = React.createFactory(require('./CardTitle'));
 
@@ -39444,19 +39478,19 @@ CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup);
 div = React.DOM.div;
 
 CommandBars = {
-  Inbox: React.createFactory(require('./commands/InboxCommandBar')),
-  Queue: React.createFactory(require('./commands/QueueCommandBar')),
-  Backlog: React.createFactory(require('./commands/BacklogCommandBar'))
+  Inbox: React.createFactory(require('./commandBars/InboxCommandBar')),
+  Queue: React.createFactory(require('./commandBars/QueueCommandBar')),
+  Backlog: React.createFactory(require('./commandBars/BacklogCommandBar'))
 };
 
 CommandPanels = {
-  Defer: React.createFactory(require('./commands/DeferCommandPanel')),
-  HandOff: React.createFactory(require('./commands/HandOffCommandPanel'))
+  Defer: React.createFactory(require('./commandPanels/DeferCommandPanel')),
+  HandOff: React.createFactory(require('./commandPanels/HandOffCommandPanel'))
 };
 
 CardHeader = React.createClass({
   displayName: 'CardHeader',
-  mixins: [Observe()],
+  mixins: [Observe(), CardCommandContext],
   propTypes: {
     card: React.PropTypes.object.isRequired,
     stack: React.PropTypes.object.isRequired
@@ -39475,7 +39509,7 @@ CardHeader = React.createClass({
     return div({
       className: 'header',
       style: {
-        borderLeftColor: this.props.kind.color
+        borderColor: this.props.kind.color
       }
     }, [
       div({
@@ -39491,9 +39525,7 @@ CardHeader = React.createClass({
           stack: this.props.stack
         }), CommandBar({
           key: 'commands',
-          card: this.props.card,
-          activeCommand: this.state.command,
-          showCommand: this.showCommand
+          card: this.props.card
         })
       ]), CSSTransitionGroup({
         key: 'flexible',
@@ -39504,8 +39536,7 @@ CardHeader = React.createClass({
         this.state.command != null ? CommandPanel({
           key: 'command',
           card: this.props.card,
-          stack: this.props.stack,
-          hideCommand: this.hideCommand
+          stack: this.props.stack
         }) : void 0
       ])
     ]);
@@ -39526,7 +39557,7 @@ module.exports = CardHeader;
 
 
 
-},{"./../../../mixins/Observe.coffee":281,"./CardTitle":323,"./CardWidgets":324,"./commands/BacklogCommandBar":337,"./commands/DeferCommandPanel":340,"./commands/HandOffCommandPanel":341,"./commands/InboxCommandBar":342,"./commands/QueueCommandBar":343,"lodash":24,"react":"M6d2gk"}],320:[function(require,module,exports){
+},{"./../../../../mixins/Observe.coffee":281,"./CardCommandContext":316,"./CardTitle":324,"./CardWidgets":325,"./commandBars/BacklogCommandBar":327,"./commandBars/InboxCommandBar":329,"./commandBars/QueueCommandBar":330,"./commandPanels/DeferCommandPanel":332,"./commandPanels/HandOffCommandPanel":333,"lodash":24,"react":"M6d2gk"}],321:[function(require,module,exports){
 var ActiveUrl, CardLocation, Format, Icon, Link, LoadStackRequest, Observe, React, Router, WorkspaceUrl, li, _;
 
 _ = require('lodash');
@@ -39535,17 +39566,17 @@ React = require('react');
 
 Router = require('react-router');
 
-Format = require('./../../../framework/Format.coffee');
+Format = require('./../../../../framework/Format.coffee');
 
-Observe = require('./../../../mixins/Observe.coffee');
+Observe = require('./../../../../mixins/Observe.coffee');
 
-ActiveUrl = require('./../../../mixins/ActiveUrl.coffee');
+ActiveUrl = require('./../../../../mixins/ActiveUrl.coffee');
 
-WorkspaceUrl = require('../WorkspaceUrl');
+WorkspaceUrl = require('../../WorkspaceUrl');
 
-LoadStackRequest = require('./../../../requests/LoadStackRequest.coffee');
+LoadStackRequest = require('./../../../../requests/LoadStackRequest.coffee');
 
-Icon = React.createFactory(require('./../../../common/Icon.coffee'));
+Icon = React.createFactory(require('./../../../../common/Icon.coffee'));
 
 Link = React.createFactory(Router.Link);
 
@@ -39618,7 +39649,7 @@ module.exports = CardLocation;
 
 
 
-},{"../WorkspaceUrl":311,"./../../../common/Icon.coffee":236,"./../../../framework/Format.coffee":266,"./../../../mixins/ActiveUrl.coffee":280,"./../../../mixins/Observe.coffee":281,"./../../../requests/LoadStackRequest.coffee":297,"lodash":24,"react":"M6d2gk","react-router":34}],321:[function(require,module,exports){
+},{"../../WorkspaceUrl":311,"./../../../../common/Icon.coffee":236,"./../../../../framework/Format.coffee":266,"./../../../../mixins/ActiveUrl.coffee":280,"./../../../../mixins/Observe.coffee":281,"./../../../../requests/LoadStackRequest.coffee":297,"lodash":24,"react":"M6d2gk","react-router":34}],322:[function(require,module,exports){
 var ActiveUrl, CardDetails, CardFooter, CardHeader, CardPanel, Constants, Icon, Link, LoadCardRequest, Observe, React, Router, WorkspaceUrl, div, _;
 
 _ = require('lodash');
@@ -39627,17 +39658,17 @@ React = require('react');
 
 Router = require('react-router');
 
-Constants = require('./../../../framework/Constants.coffee');
+Constants = require('./../../../../framework/Constants.coffee');
 
-Observe = require('./../../../mixins/Observe.coffee');
+Observe = require('./../../../../mixins/Observe.coffee');
 
-ActiveUrl = require('./../../../mixins/ActiveUrl.coffee');
+ActiveUrl = require('./../../../../mixins/ActiveUrl.coffee');
 
-WorkspaceUrl = require('../WorkspaceUrl');
+WorkspaceUrl = require('../../WorkspaceUrl');
 
-LoadCardRequest = require('./../../../requests/LoadCardRequest.coffee');
+LoadCardRequest = require('./../../../../requests/LoadCardRequest.coffee');
 
-Icon = React.createFactory(require('./../../../common/Icon.coffee'));
+Icon = React.createFactory(require('./../../../../common/Icon.coffee'));
 
 CardHeader = React.createFactory(require('./CardHeader'));
 
@@ -39730,18 +39761,18 @@ module.exports = CardPanel;
 
 
 
-},{"../WorkspaceUrl":311,"./../../../common/Icon.coffee":236,"./../../../framework/Constants.coffee":263,"./../../../mixins/ActiveUrl.coffee":280,"./../../../mixins/Observe.coffee":281,"./../../../requests/LoadCardRequest.coffee":287,"./CardDetails":316,"./CardFooter":317,"./CardHeader":319,"lodash":24,"react":"M6d2gk","react-router":34}],322:[function(require,module,exports){
+},{"../../WorkspaceUrl":311,"./../../../../common/Icon.coffee":236,"./../../../../framework/Constants.coffee":263,"./../../../../mixins/ActiveUrl.coffee":280,"./../../../../mixins/Observe.coffee":281,"./../../../../requests/LoadCardRequest.coffee":287,"./CardDetails":317,"./CardFooter":318,"./CardHeader":320,"lodash":24,"react":"M6d2gk","react-router":34}],323:[function(require,module,exports){
 var Avatar, CardParticipants, LoadParticipantsOnCardRequest, Observe, React, div, li, span, ul, _, _ref;
 
 _ = require('lodash');
 
 React = require('react');
 
-Observe = require('./../../../mixins/Observe.coffee');
+Observe = require('./../../../../mixins/Observe.coffee');
 
-LoadParticipantsOnCardRequest = require('./../../../requests/LoadParticipantsOnCardRequest.coffee');
+LoadParticipantsOnCardRequest = require('./../../../../requests/LoadParticipantsOnCardRequest.coffee');
 
-Avatar = React.createFactory(require('./../../../common/Avatar.coffee'));
+Avatar = React.createFactory(require('./../../../../common/Avatar.coffee'));
 
 _ref = React.DOM, div = _ref.div, span = _ref.span, ul = _ref.ul, li = _ref.li;
 
@@ -39790,20 +39821,20 @@ module.exports = CardParticipants;
 
 
 
-},{"./../../../common/Avatar.coffee":234,"./../../../mixins/Observe.coffee":281,"./../../../requests/LoadParticipantsOnCardRequest.coffee":295,"lodash":24,"react":"M6d2gk"}],323:[function(require,module,exports){
+},{"./../../../../common/Avatar.coffee":234,"./../../../../mixins/Observe.coffee":281,"./../../../../requests/LoadParticipantsOnCardRequest.coffee":295,"lodash":24,"react":"M6d2gk"}],324:[function(require,module,exports){
 var CardTitle, Constants, Observe, React, SetCardTitleRequest, Text, div, _;
 
 _ = require('lodash');
 
 React = require('react');
 
-Observe = require('./../../../mixins/Observe.coffee');
+Observe = require('./../../../../mixins/Observe.coffee');
 
-Constants = require('./../../../framework/Constants.coffee');
+Constants = require('./../../../../framework/Constants.coffee');
 
-SetCardTitleRequest = require('./../../../requests/SetCardTitleRequest.coffee');
+SetCardTitleRequest = require('./../../../../requests/SetCardTitleRequest.coffee');
 
-Text = React.createFactory(require('./../../../common/Text.coffee'));
+Text = React.createFactory(require('./../../../../common/Text.coffee'));
 
 div = React.DOM.div;
 
@@ -39831,14 +39862,14 @@ module.exports = CardTitle;
 
 
 
-},{"./../../../common/Text.coffee":241,"./../../../framework/Constants.coffee":263,"./../../../mixins/Observe.coffee":281,"./../../../requests/SetCardTitleRequest.coffee":300,"lodash":24,"react":"M6d2gk"}],324:[function(require,module,exports){
+},{"./../../../../common/Text.coffee":241,"./../../../../framework/Constants.coffee":263,"./../../../../mixins/Observe.coffee":281,"./../../../../requests/SetCardTitleRequest.coffee":300,"lodash":24,"react":"M6d2gk"}],325:[function(require,module,exports){
 var CardGoal, CardLocation, CardWidgets, Observe, React, ul, _;
 
 _ = require('lodash');
 
 React = require('react');
 
-Observe = require('./../../../mixins/Observe.coffee');
+Observe = require('./../../../../mixins/Observe.coffee');
 
 CardGoal = React.createFactory(require('./CardGoal'));
 
@@ -39868,79 +39899,20 @@ module.exports = CardWidgets;
 
 
 
-},{"./../../../mixins/Observe.coffee":281,"./CardGoal":318,"./CardLocation":320,"lodash":24,"react":"M6d2gk"}],325:[function(require,module,exports){
-var MyStackList, Observe, React, StackSidebarItem, StackType, div, ul, _, _ref;
-
-_ = require('lodash');
-
-React = require('react');
-
-Observe = require('./../../../mixins/Observe.coffee');
-
-StackType = require('./../../../framework/enums/StackType.coffee');
-
-StackSidebarItem = React.createFactory(require('./StackSidebarItem'));
-
-_ref = React.DOM, div = _ref.div, ul = _ref.ul;
-
-MyStackList = React.createClass({
-  displayName: 'MyStackList',
-  render: function() {
-    var children, inbox, queue;
-    inbox = _.find(this.props.stacks, function(stack) {
-      return stack.type === StackType.Inbox;
-    });
-    queue = _.find(this.props.stacks, function(stack) {
-      return stack.type === StackType.Queue;
-    });
-    console.log({
-      stacks: this.props.stacks,
-      inbox: inbox,
-      queue: queue
-    });
-    children = [];
-    if ((inbox != null) && (queue != null)) {
-      children = [
-        StackSidebarItem({
-          key: 'inbox',
-          stack: inbox
-        }), StackSidebarItem({
-          key: 'queue',
-          stack: queue
-        })
-      ];
-    }
-    return div({
-      className: 'me group'
-    }, [
-      div({
-        key: 'header',
-        className: 'header'
-      }, ['My Work']), ul({
-        key: 'items'
-      }, children)
-    ]);
-  }
-});
-
-module.exports = MyStackList;
-
-
-
-},{"./../../../framework/enums/StackType.coffee":274,"./../../../mixins/Observe.coffee":281,"./StackSidebarItem":331,"lodash":24,"react":"M6d2gk"}],326:[function(require,module,exports){
+},{"./../../../../mixins/Observe.coffee":281,"./CardGoal":319,"./CardLocation":321,"lodash":24,"react":"M6d2gk"}],326:[function(require,module,exports){
 var Avatar, Icon, LoadRecipientSuggestionsRequest, Observe, React, RecipientSelector, a, classSet, div, input, li, span, ul, _, _ref;
 
 _ = require('lodash');
 
 React = require('react');
 
-Observe = require('./../../../mixins/Observe.coffee');
+Observe = require('./../../../../mixins/Observe.coffee');
 
-LoadRecipientSuggestionsRequest = require('./../../../requests/LoadRecipientSuggestionsRequest.coffee');
+LoadRecipientSuggestionsRequest = require('./../../../../requests/LoadRecipientSuggestionsRequest.coffee');
 
-Avatar = React.createFactory(require('./../../../common/Avatar.coffee'));
+Avatar = React.createFactory(require('./../../../../common/Avatar.coffee'));
 
-Icon = React.createFactory(require('./../../../common/Icon.coffee'));
+Icon = React.createFactory(require('./../../../../common/Icon.coffee'));
 
 _ref = React.DOM, a = _ref.a, div = _ref.div, input = _ref.input, span = _ref.span, ul = _ref.ul, li = _ref.li;
 
@@ -40114,12 +40086,432 @@ module.exports = RecipientSelector;
 
 
 
-},{"./../../../common/Avatar.coffee":234,"./../../../common/Icon.coffee":236,"./../../../mixins/Observe.coffee":281,"./../../../requests/LoadRecipientSuggestionsRequest.coffee":296,"lodash":24,"react":"M6d2gk"}],327:[function(require,module,exports){
+},{"./../../../../common/Avatar.coffee":234,"./../../../../common/Icon.coffee":236,"./../../../../mixins/Observe.coffee":281,"./../../../../requests/LoadRecipientSuggestionsRequest.coffee":296,"lodash":24,"react":"M6d2gk"}],327:[function(require,module,exports){
+var BacklogCommandBar, CardCommand, CardCommandContext, CommandButton, React, div, _;
+
+_ = require('lodash');
+
+React = require('react');
+
+CardCommand = require('./../../../../../framework/enums/CardCommand.coffee');
+
+CardCommandContext = require('../CardCommandContext');
+
+CommandButton = React.createFactory(require('./CommandButton'));
+
+div = React.DOM.div;
+
+BacklogCommandBar = React.createClass({
+  displayName: 'BacklogCommandBar',
+  mixins: [CardCommandContext],
+  render: function() {
+    return div({
+      className: 'queue commands'
+    }, [
+      div({
+        key: 'left',
+        className: 'button-group'
+      }, [
+        CommandButton({
+          key: 'do',
+          icon: 'do',
+          text: 'Do',
+          command: CardCommand.Do
+        }), CommandButton({
+          key: 'hand-off',
+          icon: 'hand-off',
+          text: 'Hand Off',
+          command: CardCommand.HandOff
+        })
+      ]), div({
+        key: 'right',
+        className: 'button-group right'
+      }, [
+        CommandButton({
+          key: 'archive',
+          icon: 'archive',
+          command: CardCommand.Archive
+        }), CommandButton({
+          key: 'trash',
+          icon: 'trash',
+          command: CardCommand.Trash
+        })
+      ])
+    ]);
+  }
+});
+
+module.exports = BacklogCommandBar;
+
+
+
+},{"../CardCommandContext":316,"./../../../../../framework/enums/CardCommand.coffee":271,"./CommandButton":328,"lodash":24,"react":"M6d2gk"}],328:[function(require,module,exports){
+var Button, CardCommandContext, CommandButton, React, classSet, div, _;
+
+_ = require('lodash');
+
+React = require('react/addons');
+
+CardCommandContext = require('../CardCommandContext');
+
+Button = React.createFactory(require('./../../../../../common/Button.coffee'));
+
+div = React.DOM.div;
+
+classSet = React.addons.classSet;
+
+CommandButton = React.createClass({
+  displayName: 'CommandButton',
+  mixins: [CardCommandContext],
+  propTypes: {
+    command: React.PropTypes.string.isRequired
+  },
+  render: function() {
+    var classes;
+    classes = {
+      active: this.context.activeCommand === this.props.command
+    };
+    return Button({
+      className: classSet(classes),
+      icon: this.props.icon,
+      text: this.props.text,
+      onClick: this.onButtonClicked
+    });
+  },
+  onButtonClicked: function() {
+    if (this.context.activeCommand === this.props.command) {
+      return this.context.hideCommand();
+    } else {
+      return this.context.showCommand(this.props.command);
+    }
+  }
+});
+
+module.exports = CommandButton;
+
+
+
+},{"../CardCommandContext":316,"./../../../../../common/Button.coffee":235,"lodash":24,"react/addons":65}],329:[function(require,module,exports){
+var CardCommand, CardCommandContext, CommandButton, InboxCommandBar, React, div;
+
+React = require('react');
+
+CardCommand = require('./../../../../../framework/enums/CardCommand.coffee');
+
+CardCommandContext = require('../CardCommandContext');
+
+CommandButton = React.createFactory(require('./CommandButton'));
+
+div = React.DOM.div;
+
+InboxCommandBar = React.createClass({
+  displayName: 'InboxCommandBar',
+  mixins: [CardCommandContext],
+  render: function() {
+    return div({
+      className: 'inbox commands'
+    }, [
+      div({
+        key: 'left',
+        className: 'button-group'
+      }, [
+        CommandButton({
+          key: 'do',
+          icon: 'do',
+          text: 'Do',
+          command: CardCommand.Do
+        }), CommandButton({
+          key: 'defer',
+          icon: 'defer',
+          text: 'Defer',
+          command: CardCommand.Defer
+        }), CommandButton({
+          key: 'hand-back',
+          icon: 'hand-back',
+          text: 'Hand Back',
+          command: CardCommand.HandBack
+        }), CommandButton({
+          key: 'hand-off',
+          icon: 'hand-off',
+          text: 'Hand Off',
+          command: CardCommand.HandOff
+        })
+      ]), div({
+        key: 'right',
+        className: 'button-group right'
+      }, [
+        CommandButton({
+          key: 'archive',
+          icon: 'archive',
+          command: CardCommand.Archive
+        }), CommandButton({
+          key: 'trash',
+          icon: 'trash',
+          command: CardCommand.Trash
+        })
+      ])
+    ]);
+  }
+});
+
+module.exports = InboxCommandBar;
+
+
+
+},{"../CardCommandContext":316,"./../../../../../framework/enums/CardCommand.coffee":271,"./CommandButton":328,"react":"M6d2gk"}],330:[function(require,module,exports){
+var CardCommand, CardCommandContext, CommandButton, QueueCommandBar, React, div, _;
+
+_ = require('lodash');
+
+React = require('react');
+
+CardCommand = require('./../../../../../framework/enums/CardCommand.coffee');
+
+CardCommandContext = require('../CardCommandContext');
+
+CommandButton = React.createFactory(require('./CommandButton'));
+
+div = React.DOM.div;
+
+QueueCommandBar = React.createClass({
+  displayName: 'QueueCommandBar',
+  mixins: [CardCommandContext],
+  render: function() {
+    return div({
+      className: 'queue commands'
+    }, [
+      div({
+        key: 'left',
+        className: 'button-group'
+      }, [
+        CommandButton({
+          key: 'defer',
+          icon: 'defer',
+          text: 'Defer',
+          command: CardCommand.Defer
+        }), CommandButton({
+          key: 'hand-off',
+          icon: 'hand-off',
+          text: 'Hand Off',
+          command: CardCommand.HandOff
+        })
+      ]), div({
+        key: 'right',
+        className: 'button-group right'
+      }, [
+        CommandButton({
+          key: 'archive',
+          icon: 'archive',
+          command: CardCommand.Archive
+        }), CommandButton({
+          key: 'trash',
+          icon: 'trash',
+          command: CardCommand.Trash
+        })
+      ])
+    ]);
+  }
+});
+
+module.exports = QueueCommandBar;
+
+
+
+},{"../CardCommandContext":316,"./../../../../../framework/enums/CardCommand.coffee":271,"./CommandButton":328,"lodash":24,"react":"M6d2gk"}],331:[function(require,module,exports){
+var CommandArgument, React, div, em, label, _ref;
+
+React = require('react');
+
+_ref = React.DOM, div = _ref.div, em = _ref.em, label = _ref.label;
+
+CommandArgument = React.createClass({
+  displayName: 'CommandArgument',
+  render: function() {
+    return div({
+      className: 'argument'
+    }, [
+      label({
+        key: 'label'
+      }, [this.props.label, this.props.hint != null ? em({}, this.props.hint) : void 0])
+    ].concat(this.props.children));
+  }
+});
+
+module.exports = CommandArgument;
+
+
+
+},{"react":"M6d2gk"}],332:[function(require,module,exports){
+var Button, CardCommandContext, DeferCommandPanel, React, div;
+
+React = require('react');
+
+CardCommandContext = require('../CardCommandContext');
+
+Button = React.createFactory(require('./../../../../../common/Button.coffee'));
+
+div = React.DOM.div;
+
+DeferCommandPanel = React.createClass({
+  displayName: 'DeferCommandPanel',
+  mixins: [CardCommandContext],
+  propTypes: {
+    hideCommand: React.PropTypes.func.isRequired
+  },
+  render: function() {
+    return div({
+      className: 'defer command'
+    }, [
+      'Defer', div({
+        key: 'buttons',
+        className: 'buttons'
+      }, [
+        Button({
+          key: 'ok',
+          icon: 'ok',
+          text: 'OK'
+        }), Button({
+          key: 'cancel',
+          icon: 'cancel',
+          text: 'Cancel',
+          onClick: this.context.hideCommand
+        })
+      ])
+    ]);
+  }
+});
+
+module.exports = DeferCommandPanel;
+
+
+
+},{"../CardCommandContext":316,"./../../../../../common/Button.coffee":235,"react":"M6d2gk"}],333:[function(require,module,exports){
+var Button, CardCommandContext, CommandArgument, HandOffCommandPanel, MultilineText, React, RecipientSelector, div, em, label, textarea, _ref;
+
+React = require('react');
+
+CardCommandContext = require('../CardCommandContext');
+
+Button = React.createFactory(require('./../../../../../common/Button.coffee'));
+
+MultilineText = React.createFactory(require('./../../../../../common/MultilineText.coffee'));
+
+CommandArgument = React.createFactory(require('./CommandArgument'));
+
+RecipientSelector = React.createFactory(require('../RecipientSelector'));
+
+_ref = React.DOM, div = _ref.div, em = _ref.em, label = _ref.label, textarea = _ref.textarea;
+
+HandOffCommandPanel = React.createClass({
+  displayName: 'HandOffCommandPanel',
+  mixins: [CardCommandContext],
+  render: function() {
+    return div({
+      className: 'handoff command'
+    }, [
+      CommandArgument({
+        key: 'recipient',
+        label: 'Recipient'
+      }, [
+        RecipientSelector({
+          key: 'selector',
+          placeholder: 'Choose a user or team'
+        })
+      ]), CommandArgument({
+        key: 'message',
+        label: 'Message',
+        hint: '(optional)'
+      }, [
+        MultilineText({
+          key: 'message',
+          className: 'message'
+        })
+      ]), div({
+        key: 'buttons',
+        className: 'buttons'
+      }, [
+        Button({
+          key: 'ok',
+          text: 'OK'
+        }), Button({
+          key: 'cancel',
+          text: 'Cancel',
+          onClick: this.context.hideCommand
+        })
+      ])
+    ]);
+  }
+});
+
+module.exports = HandOffCommandPanel;
+
+
+
+},{"../CardCommandContext":316,"../RecipientSelector":326,"./../../../../../common/Button.coffee":235,"./../../../../../common/MultilineText.coffee":238,"./CommandArgument":331,"react":"M6d2gk"}],334:[function(require,module,exports){
+var MyStackList, Observe, React, StackSidebarItem, StackType, div, ul, _, _ref;
+
+_ = require('lodash');
+
+React = require('react');
+
+Observe = require('./../../../../mixins/Observe.coffee');
+
+StackType = require('./../../../../framework/enums/StackType.coffee');
+
+StackSidebarItem = React.createFactory(require('./StackSidebarItem'));
+
+_ref = React.DOM, div = _ref.div, ul = _ref.ul;
+
+MyStackList = React.createClass({
+  displayName: 'MyStackList',
+  render: function() {
+    var children, inbox, queue;
+    inbox = _.find(this.props.stacks, function(stack) {
+      return stack.type === StackType.Inbox;
+    });
+    queue = _.find(this.props.stacks, function(stack) {
+      return stack.type === StackType.Queue;
+    });
+    console.log({
+      stacks: this.props.stacks,
+      inbox: inbox,
+      queue: queue
+    });
+    children = [];
+    if ((inbox != null) && (queue != null)) {
+      children = [
+        StackSidebarItem({
+          key: 'inbox',
+          stack: inbox
+        }), StackSidebarItem({
+          key: 'queue',
+          stack: queue
+        })
+      ];
+    }
+    return div({
+      className: 'me group'
+    }, [
+      div({
+        key: 'header',
+        className: 'header'
+      }, ['My Work']), ul({
+        key: 'items'
+      }, children)
+    ]);
+  }
+});
+
+module.exports = MyStackList;
+
+
+
+},{"./../../../../framework/enums/StackType.coffee":274,"./../../../../mixins/Observe.coffee":281,"./StackSidebarItem":336,"lodash":24,"react":"M6d2gk"}],335:[function(require,module,exports){
 var Observe, React, SearchBox, div, input, _ref;
 
 React = require('react');
 
-Observe = require('./../../../mixins/Observe.coffee');
+Observe = require('./../../../../mixins/Observe.coffee');
 
 _ref = React.DOM, div = _ref.div, input = _ref.input;
 
@@ -40148,18 +40540,203 @@ module.exports = SearchBox;
 
 
 
-},{"./../../../mixins/Observe.coffee":281,"react":"M6d2gk"}],328:[function(require,module,exports){
+},{"./../../../../mixins/Observe.coffee":281,"react":"M6d2gk"}],336:[function(require,module,exports){
+var ActiveUrl, Icon, Link, React, Router, StackSidebarItem, WorkspaceUrl, li, span, _, _ref;
+
+_ = require('lodash');
+
+React = require('react/addons');
+
+Router = require('react-router');
+
+ActiveUrl = require('./../../../../mixins/ActiveUrl.coffee');
+
+WorkspaceUrl = require('../../WorkspaceUrl');
+
+Icon = React.createFactory(require('./../../../../common/Icon.coffee'));
+
+Link = React.createFactory(Router.Link);
+
+_ref = React.DOM, li = _ref.li, span = _ref.span;
+
+StackSidebarItem = React.createClass({
+  displayName: 'StackSidebarItem',
+  mixins: [ActiveUrl(WorkspaceUrl)],
+  render: function() {
+    var linkProps;
+    linkProps = _.extend(this.makeLinkProps(), {
+      key: 'open-link'
+    });
+    return li({
+      className: 'sidebar-item'
+    }, [
+      Link(linkProps, [
+        Icon({
+          key: 'icon',
+          name: "stack-" + (this.props.stack.type.toLowerCase())
+        }), span({
+          key: 'name',
+          className: 'name'
+        }, [this.props.stack.name])
+      ])
+    ]);
+  },
+  makeLinkProps: function() {
+    var url;
+    url = this.getActiveUrl();
+    url.addStack(this.props.stack.id);
+    return url.makeLinkProps();
+  }
+});
+
+module.exports = StackSidebarItem;
+
+
+
+},{"../../WorkspaceUrl":311,"./../../../../common/Icon.coffee":236,"./../../../../mixins/ActiveUrl.coffee":280,"lodash":24,"react-router":34,"react/addons":65}],337:[function(require,module,exports){
+var Observe, React, StackSidebarItem, TeamStackList, div, ul, _, _ref;
+
+_ = require('lodash');
+
+React = require('react');
+
+Observe = require('./../../../../mixins/Observe.coffee');
+
+StackSidebarItem = React.createFactory(require('./StackSidebarItem'));
+
+_ref = React.DOM, div = _ref.div, ul = _ref.ul;
+
+TeamStackList = React.createClass({
+  displayName: 'TeamStackList',
+  mixins: [Observe('stacks')],
+  getStateFromStores: function(stores) {
+    return {
+      stacks: stores.stacks.getStacksByTeam(this.props.team.id)
+    };
+  },
+  isReady: function() {
+    return this.state.stacks != null;
+  },
+  render: function() {
+    var children;
+    children = this.isReady() ? this.renderChildren() : [];
+    return div({
+      className: 'team group'
+    }, children);
+  },
+  renderChildren: function() {
+    var stacks;
+    stacks = _.map(this.state.stacks, (function(_this) {
+      return function(stack) {
+        return StackSidebarItem({
+          key: "stack-" + stack.id,
+          stack: stack
+        });
+      };
+    })(this));
+    return [
+      div({
+        key: 'header',
+        className: 'header'
+      }, [this.props.team.name]), ul({
+        key: 'items'
+      }, stacks)
+    ];
+  }
+});
+
+module.exports = TeamStackList;
+
+
+
+},{"./../../../../mixins/Observe.coffee":281,"./StackSidebarItem":336,"lodash":24,"react":"M6d2gk"}],338:[function(require,module,exports){
+var LoadMyStacksRequest, LoadMyTeamsRequest, MyStackList, Observe, React, SearchBox, TeamStackList, WorkspaceSidebar, div, ul, _, _ref;
+
+_ = require('lodash');
+
+React = require('react');
+
+Observe = require('./../../../../mixins/Observe.coffee');
+
+LoadMyStacksRequest = require('./../../../../requests/LoadMyStacksRequest.coffee');
+
+LoadMyTeamsRequest = require('./../../../../requests/LoadMyTeamsRequest.coffee');
+
+SearchBox = React.createFactory(require('./SearchBox'));
+
+MyStackList = React.createFactory(require('./MyStackList'));
+
+TeamStackList = React.createFactory(require('./TeamStackList'));
+
+_ref = React.DOM, div = _ref.div, ul = _ref.ul;
+
+WorkspaceSidebar = React.createClass({
+  displayName: 'WorkspaceSidebar',
+  mixins: [Observe('teams', 'stacks', 'users')],
+  getStateFromStores: function(stores) {
+    var currentUser, stacks, teams;
+    currentUser = stores.users.getCurrentUser();
+    if (currentUser != null) {
+      teams = stores.teams.getTeamsByMember(currentUser.id);
+      stacks = stores.stacks.getStacksByOwner(currentUser.id);
+    }
+    return {
+      currentUser: currentUser,
+      teams: teams,
+      stacks: stacks
+    };
+  },
+  componentWillMount: function() {
+    this.execute(new LoadMyStacksRequest());
+    return this.execute(new LoadMyTeamsRequest());
+  },
+  isReady: function() {
+    return (this.state.teams != null) && (this.state.stacks != null);
+  },
+  render: function() {
+    var children;
+    children = this.isReady() ? this.renderChildren() : [];
+    return div({
+      className: 'workspace sidebar'
+    }, children);
+  },
+  renderChildren: function() {
+    var teams;
+    teams = _.map(this.state.teams, (function(_this) {
+      return function(team) {
+        return TeamStackList({
+          key: "team-" + team.id,
+          team: team
+        });
+      };
+    })(this));
+    return [
+      SearchBox({
+        key: 'search'
+      }), MyStackList({
+        key: 'me',
+        stacks: this.state.stacks
+      })
+    ].concat(teams);
+  }
+});
+
+module.exports = WorkspaceSidebar;
+
+
+
+},{"./../../../../mixins/Observe.coffee":281,"./../../../../requests/LoadMyStacksRequest.coffee":293,"./../../../../requests/LoadMyTeamsRequest.coffee":294,"./MyStackList":334,"./SearchBox":335,"./TeamStackList":337,"lodash":24,"react":"M6d2gk"}],339:[function(require,module,exports){
 var ActiveUrl, BacklogCard, CardComponents, InboxCard, Observe, QueueCard, React, Router, StackCardFrame, WorkspaceUrl, classSet, div;
 
 React = require('react/addons');
 
 Router = require('react-router');
 
-ActiveUrl = require('./../../../mixins/ActiveUrl.coffee');
+ActiveUrl = require('./../../../../mixins/ActiveUrl.coffee');
 
-Observe = require('./../../../mixins/Observe.coffee');
+Observe = require('./../../../../mixins/Observe.coffee');
 
-WorkspaceUrl = require('../WorkspaceUrl');
+WorkspaceUrl = require('../../WorkspaceUrl');
 
 InboxCard = React.createFactory(require('./cards/InboxCard'));
 
@@ -40263,7 +40840,7 @@ module.exports = StackCardFrame;
 
 
 
-},{"../WorkspaceUrl":311,"./../../../mixins/ActiveUrl.coffee":280,"./../../../mixins/Observe.coffee":281,"./cards/BacklogCard":334,"./cards/InboxCard":335,"./cards/QueueCard":336,"react-router":34,"react/addons":65}],329:[function(require,module,exports){
+},{"../../WorkspaceUrl":311,"./../../../../mixins/ActiveUrl.coffee":280,"./../../../../mixins/Observe.coffee":281,"./cards/BacklogCard":342,"./cards/InboxCard":343,"./cards/QueueCard":344,"react-router":34,"react/addons":65}],340:[function(require,module,exports){
 var ActiveUrl, Format, Icon, Link, Observe, React, Router, StackHeader, WorkspaceUrl, div, span, _, _ref;
 
 _ = require('lodash');
@@ -40272,15 +40849,15 @@ React = require('react');
 
 Router = require('react-router');
 
-Format = require('./../../../framework/Format.coffee');
+Format = require('./../../../../framework/Format.coffee');
 
-ActiveUrl = require('./../../../mixins/ActiveUrl.coffee');
+ActiveUrl = require('./../../../../mixins/ActiveUrl.coffee');
 
-Observe = require('./../../../mixins/Observe.coffee');
+Observe = require('./../../../../mixins/Observe.coffee');
 
-WorkspaceUrl = require('../WorkspaceUrl');
+WorkspaceUrl = require('../../WorkspaceUrl');
 
-Icon = React.createFactory(require('./../../../common/Icon.coffee'));
+Icon = React.createFactory(require('./../../../../common/Icon.coffee'));
 
 Link = React.createFactory(Router.Link);
 
@@ -40345,7 +40922,7 @@ module.exports = StackHeader;
 
 
 
-},{"../WorkspaceUrl":311,"./../../../common/Icon.coffee":236,"./../../../framework/Format.coffee":266,"./../../../mixins/ActiveUrl.coffee":280,"./../../../mixins/Observe.coffee":281,"lodash":24,"react":"M6d2gk","react-router":34}],330:[function(require,module,exports){
+},{"../../WorkspaceUrl":311,"./../../../../common/Icon.coffee":236,"./../../../../framework/Format.coffee":266,"./../../../../mixins/ActiveUrl.coffee":280,"./../../../../mixins/Observe.coffee":281,"lodash":24,"react":"M6d2gk","react-router":34}],341:[function(require,module,exports){
 var LoadCardsInStackRequest, LoadStackRequest, Observe, React, Router, StackCardFrame, StackHeader, StackPanel, div, ul, _, _ref;
 
 _ = require('lodash');
@@ -40354,11 +40931,11 @@ React = require('react');
 
 Router = require('react-router');
 
-Observe = require('./../../../mixins/Observe.coffee');
+Observe = require('./../../../../mixins/Observe.coffee');
 
-LoadStackRequest = require('./../../../requests/LoadStackRequest.coffee');
+LoadStackRequest = require('./../../../../requests/LoadStackRequest.coffee');
 
-LoadCardsInStackRequest = require('./../../../requests/LoadCardsInStackRequest.coffee');
+LoadCardsInStackRequest = require('./../../../../requests/LoadCardsInStackRequest.coffee');
 
 StackHeader = React.createFactory(require('./StackHeader'));
 
@@ -40479,192 +41056,7 @@ module.exports = StackPanel;
 
 
 
-},{"./../../../mixins/Observe.coffee":281,"./../../../requests/LoadCardsInStackRequest.coffee":288,"./../../../requests/LoadStackRequest.coffee":297,"./StackCardFrame":328,"./StackHeader":329,"lodash":24,"react":"M6d2gk","react-router":34}],331:[function(require,module,exports){
-var ActiveUrl, Icon, Link, React, Router, StackSidebarItem, WorkspaceUrl, li, span, _, _ref;
-
-_ = require('lodash');
-
-React = require('react/addons');
-
-Router = require('react-router');
-
-ActiveUrl = require('./../../../mixins/ActiveUrl.coffee');
-
-WorkspaceUrl = require('../WorkspaceUrl');
-
-Icon = React.createFactory(require('./../../../common/Icon.coffee'));
-
-Link = React.createFactory(Router.Link);
-
-_ref = React.DOM, li = _ref.li, span = _ref.span;
-
-StackSidebarItem = React.createClass({
-  displayName: 'StackSidebarItem',
-  mixins: [ActiveUrl(WorkspaceUrl)],
-  render: function() {
-    var linkProps;
-    linkProps = _.extend(this.makeLinkProps(), {
-      key: 'open-link'
-    });
-    return li({
-      className: 'sidebar-item'
-    }, [
-      Link(linkProps, [
-        Icon({
-          key: 'icon',
-          name: "stack-" + (this.props.stack.type.toLowerCase())
-        }), span({
-          key: 'name',
-          className: 'name'
-        }, [this.props.stack.name])
-      ])
-    ]);
-  },
-  makeLinkProps: function() {
-    var url;
-    url = this.getActiveUrl();
-    url.addStack(this.props.stack.id);
-    return url.makeLinkProps();
-  }
-});
-
-module.exports = StackSidebarItem;
-
-
-
-},{"../WorkspaceUrl":311,"./../../../common/Icon.coffee":236,"./../../../mixins/ActiveUrl.coffee":280,"lodash":24,"react-router":34,"react/addons":65}],332:[function(require,module,exports){
-var Observe, React, StackSidebarItem, TeamStackList, div, ul, _, _ref;
-
-_ = require('lodash');
-
-React = require('react');
-
-Observe = require('./../../../mixins/Observe.coffee');
-
-StackSidebarItem = React.createFactory(require('./StackSidebarItem'));
-
-_ref = React.DOM, div = _ref.div, ul = _ref.ul;
-
-TeamStackList = React.createClass({
-  displayName: 'TeamStackList',
-  mixins: [Observe('stacks')],
-  getStateFromStores: function(stores) {
-    return {
-      stacks: stores.stacks.getStacksByTeam(this.props.team.id)
-    };
-  },
-  isReady: function() {
-    return this.state.stacks != null;
-  },
-  render: function() {
-    var children;
-    children = this.isReady() ? this.renderChildren() : [];
-    return div({
-      className: 'team group'
-    }, children);
-  },
-  renderChildren: function() {
-    var stacks;
-    stacks = _.map(this.state.stacks, (function(_this) {
-      return function(stack) {
-        return StackSidebarItem({
-          key: "stack-" + stack.id,
-          stack: stack
-        });
-      };
-    })(this));
-    return [
-      div({
-        key: 'header',
-        className: 'header'
-      }, [this.props.team.name]), ul({
-        key: 'items'
-      }, stacks)
-    ];
-  }
-});
-
-module.exports = TeamStackList;
-
-
-
-},{"./../../../mixins/Observe.coffee":281,"./StackSidebarItem":331,"lodash":24,"react":"M6d2gk"}],333:[function(require,module,exports){
-var LoadMyStacksRequest, LoadMyTeamsRequest, MyStackList, Observe, React, SearchBox, TeamStackList, WorkspaceSidebar, div, ul, _, _ref;
-
-_ = require('lodash');
-
-React = require('react');
-
-Observe = require('./../../../mixins/Observe.coffee');
-
-LoadMyStacksRequest = require('./../../../requests/LoadMyStacksRequest.coffee');
-
-LoadMyTeamsRequest = require('./../../../requests/LoadMyTeamsRequest.coffee');
-
-SearchBox = React.createFactory(require('./SearchBox'));
-
-MyStackList = React.createFactory(require('./MyStackList'));
-
-TeamStackList = React.createFactory(require('./TeamStackList'));
-
-_ref = React.DOM, div = _ref.div, ul = _ref.ul;
-
-WorkspaceSidebar = React.createClass({
-  displayName: 'WorkspaceSidebar',
-  mixins: [Observe('teams', 'stacks', 'users')],
-  getStateFromStores: function(stores) {
-    var currentUser, stacks, teams;
-    currentUser = stores.users.getCurrentUser();
-    if (currentUser != null) {
-      teams = stores.teams.getTeamsByMember(currentUser.id);
-      stacks = stores.stacks.getStacksByOwner(currentUser.id);
-    }
-    return {
-      currentUser: currentUser,
-      teams: teams,
-      stacks: stacks
-    };
-  },
-  componentWillMount: function() {
-    this.execute(new LoadMyStacksRequest());
-    return this.execute(new LoadMyTeamsRequest());
-  },
-  isReady: function() {
-    return (this.state.teams != null) && (this.state.stacks != null);
-  },
-  render: function() {
-    var children;
-    children = this.isReady() ? this.renderChildren() : [];
-    return div({
-      className: 'workspace sidebar'
-    }, children);
-  },
-  renderChildren: function() {
-    var teams;
-    teams = _.map(this.state.teams, (function(_this) {
-      return function(team) {
-        return TeamStackList({
-          key: "team-" + team.id,
-          team: team
-        });
-      };
-    })(this));
-    return [
-      SearchBox({
-        key: 'search'
-      }), MyStackList({
-        key: 'me',
-        stacks: this.state.stacks
-      })
-    ].concat(teams);
-  }
-});
-
-module.exports = WorkspaceSidebar;
-
-
-
-},{"./../../../mixins/Observe.coffee":281,"./../../../requests/LoadMyStacksRequest.coffee":293,"./../../../requests/LoadMyTeamsRequest.coffee":294,"./MyStackList":325,"./SearchBox":327,"./TeamStackList":332,"lodash":24,"react":"M6d2gk"}],334:[function(require,module,exports){
+},{"./../../../../mixins/Observe.coffee":281,"./../../../../requests/LoadCardsInStackRequest.coffee":288,"./../../../../requests/LoadStackRequest.coffee":297,"./StackCardFrame":339,"./StackHeader":340,"lodash":24,"react":"M6d2gk","react-router":34}],342:[function(require,module,exports){
 var BacklogCard, React, div;
 
 React = require('react');
@@ -40690,12 +41082,12 @@ module.exports = BacklogCard;
 
 
 
-},{"react":"M6d2gk"}],335:[function(require,module,exports){
+},{"react":"M6d2gk"}],343:[function(require,module,exports){
 var Constants, InboxCard, React, div, em, _ref;
 
 React = require('react');
 
-Constants = require('./../../../../framework/Constants.coffee');
+Constants = require('./../../../../../framework/Constants.coffee');
 
 _ref = React.DOM, div = _ref.div, em = _ref.em;
 
@@ -40724,12 +41116,12 @@ module.exports = InboxCard;
 
 
 
-},{"./../../../../framework/Constants.coffee":263,"react":"M6d2gk"}],336:[function(require,module,exports){
+},{"./../../../../../framework/Constants.coffee":263,"react":"M6d2gk"}],344:[function(require,module,exports){
 var Constants, QueueCard, React, div, em, _ref;
 
 React = require('react');
 
-Constants = require('./../../../../framework/Constants.coffee');
+Constants = require('./../../../../../framework/Constants.coffee');
 
 _ref = React.DOM, div = _ref.div, em = _ref.em;
 
@@ -40758,365 +41150,7 @@ module.exports = QueueCard;
 
 
 
-},{"./../../../../framework/Constants.coffee":263,"react":"M6d2gk"}],337:[function(require,module,exports){
-var BacklogCommandBar, Button, React, div;
-
-React = require('react');
-
-Button = React.createFactory(require('./../../../../common/Button.coffee'));
-
-div = React.DOM.div;
-
-BacklogCommandBar = React.createClass({
-  displayName: 'BacklogCommandBar',
-  render: function() {
-    return div({
-      className: 'backlog commands'
-    }, [
-      div({
-        key: 'left',
-        className: 'button-group'
-      }, [
-        Button({
-          key: 'do',
-          icon: 'do',
-          text: 'Do'
-        }), Button({
-          key: 'hand-off',
-          icon: 'hand-off',
-          text: 'Hand Off'
-        })
-      ]), div({
-        key: 'right',
-        className: 'button-group right'
-      }, [
-        Button({
-          key: 'archive',
-          icon: 'archive',
-          className: 'right'
-        }), Button({
-          key: 'trash',
-          icon: 'trash',
-          className: 'right'
-        })
-      ])
-    ]);
-  }
-});
-
-module.exports = BacklogCommandBar;
-
-
-
-},{"./../../../../common/Button.coffee":235,"react":"M6d2gk"}],338:[function(require,module,exports){
-var CommandArgument, React, div, em, label, _ref;
-
-React = require('react');
-
-_ref = React.DOM, div = _ref.div, em = _ref.em, label = _ref.label;
-
-CommandArgument = React.createClass({
-  displayName: 'CommandArgument',
-  render: function() {
-    return div({
-      className: 'argument'
-    }, [
-      label({
-        key: 'label'
-      }, [this.props.label, this.props.hint != null ? em({}, this.props.hint) : void 0])
-    ].concat(this.props.children));
-  }
-});
-
-module.exports = CommandArgument;
-
-
-
-},{"react":"M6d2gk"}],339:[function(require,module,exports){
-var Button, CommandButton, React, classSet, div, _;
-
-_ = require('lodash');
-
-React = require('react/addons');
-
-Button = React.createFactory(require('./../../../../common/Button.coffee'));
-
-div = React.DOM.div;
-
-classSet = React.addons.classSet;
-
-CommandButton = React.createClass({
-  displayName: 'CommandButton',
-  propTypes: {
-    activeCommand: React.PropTypes.string,
-    command: React.PropTypes.string.isRequired,
-    showCommand: React.PropTypes.func.isRequired
-  },
-  render: function() {
-    var classes;
-    classes = {
-      active: this.props.activeCommand === this.props.command
-    };
-    return Button({
-      className: classSet(classes),
-      icon: this.props.icon,
-      text: this.props.text,
-      onClick: this.onButtonClicked
-    });
-  },
-  onButtonClicked: function() {
-    return this.props.showCommand(this.props.command);
-  }
-});
-
-module.exports = CommandButton;
-
-
-
-},{"./../../../../common/Button.coffee":235,"lodash":24,"react/addons":65}],340:[function(require,module,exports){
-var Button, DeferCommandPanel, React, div;
-
-React = require('react');
-
-Button = React.createFactory(require('./../../../../common/Button.coffee'));
-
-div = React.DOM.div;
-
-DeferCommandPanel = React.createClass({
-  displayName: 'DeferCommandPanel',
-  propTypes: {
-    hideCommand: React.PropTypes.func.isRequired
-  },
-  render: function() {
-    return div({
-      className: 'defer command'
-    }, [
-      'Defer', div({
-        key: 'buttons',
-        className: 'buttons'
-      }, [
-        Button({
-          key: 'ok',
-          icon: 'ok',
-          text: 'OK'
-        }), Button({
-          key: 'cancel',
-          icon: 'cancel',
-          text: 'Cancel',
-          onClick: this.props.hideCommand
-        })
-      ])
-    ]);
-  }
-});
-
-module.exports = DeferCommandPanel;
-
-
-
-},{"./../../../../common/Button.coffee":235,"react":"M6d2gk"}],341:[function(require,module,exports){
-var Button, CommandArgument, HandOffCommandPanel, MultilineText, React, RecipientSelector, div, em, label, textarea, _ref;
-
-React = require('react');
-
-Button = React.createFactory(require('./../../../../common/Button.coffee'));
-
-MultilineText = React.createFactory(require('./../../../../common/MultilineText.coffee'));
-
-CommandArgument = React.createFactory(require('./CommandArgument'));
-
-RecipientSelector = React.createFactory(require('../RecipientSelector'));
-
-_ref = React.DOM, div = _ref.div, em = _ref.em, label = _ref.label, textarea = _ref.textarea;
-
-HandOffCommandPanel = React.createClass({
-  displayName: 'HandOffCommandPanel',
-  propTypes: {
-    hideCommand: React.PropTypes.func.isRequired
-  },
-  render: function() {
-    return div({
-      className: 'handoff command'
-    }, [
-      CommandArgument({
-        key: 'recipient',
-        label: 'Recipient'
-      }, [
-        RecipientSelector({
-          key: 'selector',
-          placeholder: 'Choose a user or team'
-        })
-      ]), CommandArgument({
-        key: 'message',
-        label: 'Message',
-        hint: '(optional)'
-      }, [
-        MultilineText({
-          key: 'message',
-          className: 'message'
-        })
-      ]), div({
-        key: 'buttons',
-        className: 'buttons'
-      }, [
-        Button({
-          key: 'ok',
-          text: 'OK'
-        }), Button({
-          key: 'cancel',
-          text: 'Cancel',
-          onClick: this.props.hideCommand
-        })
-      ])
-    ]);
-  }
-});
-
-module.exports = HandOffCommandPanel;
-
-
-
-},{"../RecipientSelector":326,"./../../../../common/Button.coffee":235,"./../../../../common/MultilineText.coffee":238,"./CommandArgument":338,"react":"M6d2gk"}],342:[function(require,module,exports){
-var Button, CardCommand, InboxCommandBar, React, div;
-
-React = require('react');
-
-CardCommand = require('./../../../../framework/enums/CardCommand.coffee');
-
-Button = React.createFactory(require('./../../../../common/Button.coffee'));
-
-div = React.DOM.div;
-
-InboxCommandBar = React.createClass({
-  displayName: 'InboxCommandBar',
-  propTypes: {
-    showCommandPanel: React.PropTypes.func.isRequired
-  },
-  render: function() {
-    var show;
-    show = (function(_this) {
-      return function(command) {
-        return function() {
-          return _this.props.showCommandPanel(command);
-        };
-      };
-    })(this);
-    return div({
-      className: 'inbox commands'
-    }, [
-      div({
-        key: 'left',
-        className: 'button-group'
-      }, [
-        Button({
-          key: 'do',
-          icon: 'do',
-          text: 'Do'
-        }), Button({
-          key: 'defer',
-          icon: 'defer',
-          text: 'Defer',
-          onClick: show(CardCommand.Defer)
-        }), Button({
-          key: 'hand-back',
-          icon: 'hand-back',
-          text: 'Hand Back',
-          onClick: show(CardCommand.HandBack)
-        }), Button({
-          key: 'hand-off',
-          icon: 'hand-off',
-          text: 'Hand Off',
-          onClick: show(CardCommand.HandOff)
-        })
-      ]), div({
-        key: 'right',
-        className: 'button-group right'
-      }, [
-        Button({
-          key: 'archive',
-          icon: 'archive',
-          className: 'right'
-        }), Button({
-          key: 'trash',
-          icon: 'trash',
-          className: 'right'
-        })
-      ])
-    ]);
-  }
-});
-
-module.exports = InboxCommandBar;
-
-
-
-},{"./../../../../common/Button.coffee":235,"./../../../../framework/enums/CardCommand.coffee":271,"react":"M6d2gk"}],343:[function(require,module,exports){
-var CardCommand, CommandButton, QueueCommandBar, React, div, _;
-
-_ = require('lodash');
-
-React = require('react');
-
-CardCommand = require('./../../../../framework/enums/CardCommand.coffee');
-
-CommandButton = React.createFactory(require('./CommandButton'));
-
-div = React.DOM.div;
-
-QueueCommandBar = React.createClass({
-  displayName: 'QueueCommandBar',
-  propTypes: {
-    activeCommand: React.PropTypes.string,
-    showCommand: React.PropTypes.func.isRequired
-  },
-  render: function() {
-    return div({
-      className: 'queue commands'
-    }, [
-      div({
-        key: 'left',
-        className: 'button-group'
-      }, [
-        this.makeButton({
-          key: 'defer',
-          icon: 'defer',
-          text: 'Defer',
-          command: CardCommand.Defer
-        }), this.makeButton({
-          key: 'hand-off',
-          icon: 'hand-off',
-          text: 'Hand Off',
-          command: CardCommand.HandOff
-        })
-      ]), div({
-        key: 'right',
-        className: 'button-group right'
-      }, [
-        this.makeButton({
-          key: 'archive',
-          icon: 'archive',
-          command: CardCommand.Archive
-        }), this.makeButton({
-          key: 'trash',
-          icon: 'trash',
-          command: CardCommand.Trash
-        })
-      ])
-    ]);
-  },
-  makeButton: function(props) {
-    return CommandButton(_.extend(props, {
-      activeCommand: this.props.activeCommand,
-      showCommand: this.props.showCommand
-    }));
-  }
-});
-
-module.exports = QueueCommandBar;
-
-
-
-},{"./../../../../framework/enums/CardCommand.coffee":271,"./CommandButton":339,"lodash":24,"react":"M6d2gk"}],344:[function(require,module,exports){
+},{"./../../../../../framework/Constants.coffee":263,"react":"M6d2gk"}],345:[function(require,module,exports){
 var JoinPresenceChannelRequest, LoadCurrentUserRequest, LoadMyOrganizationsRequest, LogoCorner, Observe, React, Shell, ShellHeader, div;
 
 React = require('react/addons');
@@ -41181,7 +41215,7 @@ module.exports = Shell;
 
 
 
-},{"./../mixins/Observe.coffee":281,"./../requests/JoinPresenceChannelRequest.coffee":282,"./../requests/LoadCurrentUserRequest.coffee":289,"./../requests/LoadMyOrganizationsRequest.coffee":291,"./components/LogoCorner":347,"./components/ShellHeader":351,"react/addons":65}],345:[function(require,module,exports){
+},{"./../mixins/Observe.coffee":281,"./../requests/JoinPresenceChannelRequest.coffee":282,"./../requests/LoadCurrentUserRequest.coffee":289,"./../requests/LoadMyOrganizationsRequest.coffee":291,"./components/LogoCorner":348,"./components/ShellHeader":352,"react/addons":65}],346:[function(require,module,exports){
 var ShellUrl, _;
 
 _ = require('lodash');
@@ -41212,7 +41246,7 @@ module.exports = ShellUrl;
 
 
 
-},{"lodash":24}],346:[function(require,module,exports){
+},{"lodash":24}],347:[function(require,module,exports){
 var ActiveUrl, FocusedCard, Icon, Link, LoadMyQueueRequest, Observe, React, Router, WorkspaceUrl, div, span, _, _ref;
 
 _ = require('lodash');
@@ -41266,7 +41300,7 @@ module.exports = FocusedCard;
 
 
 
-},{"../../screens/workspace/WorkspaceUrl":311,"./../../common/Icon.coffee":236,"./../../mixins/ActiveUrl.coffee":280,"./../../mixins/Observe.coffee":281,"./../../requests/LoadMyQueueRequest.coffee":292,"lodash":24,"react":"M6d2gk","react-router":34}],347:[function(require,module,exports){
+},{"../../screens/workspace/WorkspaceUrl":311,"./../../common/Icon.coffee":236,"./../../mixins/ActiveUrl.coffee":280,"./../../mixins/Observe.coffee":281,"./../../requests/LoadMyQueueRequest.coffee":292,"lodash":24,"react":"M6d2gk","react-router":34}],348:[function(require,module,exports){
 var LogoCorner, React, a, div, li, ul, _ref;
 
 React = require('react');
@@ -41300,7 +41334,7 @@ module.exports = LogoCorner;
 
 
 
-},{"react":"M6d2gk"}],348:[function(require,module,exports){
+},{"react":"M6d2gk"}],349:[function(require,module,exports){
 var ActiveUrl, Icon, Link, NavigationMenu, React, Router, ShellUrl, classSet, div;
 
 React = require('react/addons');
@@ -41352,7 +41386,7 @@ module.exports = NavigationMenu;
 
 
 
-},{"../ShellUrl":345,"./../../common/Icon.coffee":236,"./../../mixins/ActiveUrl.coffee":280,"react-router":34,"react/addons":65}],349:[function(require,module,exports){
+},{"../ShellUrl":346,"./../../common/Icon.coffee":236,"./../../mixins/ActiveUrl.coffee":280,"react-router":34,"react/addons":65}],350:[function(require,module,exports){
 var MenuTrigger, OrganizationCorner, PresenceWidget, React, div;
 
 React = require('react');
@@ -41400,7 +41434,7 @@ module.exports = OrganizationCorner;
 
 
 
-},{"./../../common/MenuTrigger.coffee":237,"./PresenceWidget":350,"react":"M6d2gk"}],350:[function(require,module,exports){
+},{"./../../common/MenuTrigger.coffee":237,"./PresenceWidget":351,"react":"M6d2gk"}],351:[function(require,module,exports){
 var Icon, PresenceWidget, React, div, span, _ref;
 
 React = require('react');
@@ -41430,7 +41464,7 @@ module.exports = PresenceWidget;
 
 
 
-},{"./../../common/Icon.coffee":236,"react":"M6d2gk"}],351:[function(require,module,exports){
+},{"./../../common/Icon.coffee":236,"react":"M6d2gk"}],352:[function(require,module,exports){
 var NavigationMenu, Observe, OrganizationCorner, React, ShellHeader, UserCorner, div;
 
 React = require('react');
@@ -41476,7 +41510,7 @@ module.exports = ShellHeader;
 
 
 
-},{"./../../mixins/Observe.coffee":281,"./NavigationMenu":348,"./OrganizationCorner":349,"./UserCorner":352,"react":"M6d2gk"}],352:[function(require,module,exports){
+},{"./../../mixins/Observe.coffee":281,"./NavigationMenu":349,"./OrganizationCorner":350,"./UserCorner":353,"react":"M6d2gk"}],353:[function(require,module,exports){
 var Avatar, FocusedCard, MenuTrigger, Observe, React, UserCorner, div, _;
 
 _ = require('lodash');
@@ -41528,7 +41562,7 @@ module.exports = UserCorner;
 
 
 
-},{"./../../common/Avatar.coffee":234,"./../../common/MenuTrigger.coffee":237,"./../../mixins/Observe.coffee":281,"./FocusedCard":346,"lodash":24,"react":"M6d2gk"}],353:[function(require,module,exports){
+},{"./../../common/Avatar.coffee":234,"./../../common/MenuTrigger.coffee":237,"./../../mixins/Observe.coffee":281,"./FocusedCard":347,"lodash":24,"react":"M6d2gk"}],354:[function(require,module,exports){
 var ActionStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -41569,7 +41603,7 @@ module.exports = ActionStore;
 
 
 
-},{"./../framework/Store.coffee":269,"lodash":24}],354:[function(require,module,exports){
+},{"./../framework/Store.coffee":269,"lodash":24}],355:[function(require,module,exports){
 var CardStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -41630,7 +41664,7 @@ module.exports = CardStore;
 
 
 
-},{"./../framework/Store.coffee":269,"lodash":24}],355:[function(require,module,exports){
+},{"./../framework/Store.coffee":269,"lodash":24}],356:[function(require,module,exports){
 var GoalStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -41667,7 +41701,7 @@ module.exports = GoalStore;
 
 
 
-},{"./../framework/Store.coffee":269,"lodash":24}],356:[function(require,module,exports){
+},{"./../framework/Store.coffee":269,"lodash":24}],357:[function(require,module,exports){
 var KindStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -41700,7 +41734,7 @@ module.exports = KindStore;
 
 
 
-},{"./../framework/Store.coffee":269,"lodash":24}],357:[function(require,module,exports){
+},{"./../framework/Store.coffee":269,"lodash":24}],358:[function(require,module,exports){
 var MilestoneStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -41729,7 +41763,7 @@ module.exports = MilestoneStore;
 
 
 
-},{"./../framework/Store.coffee":269,"lodash":24}],358:[function(require,module,exports){
+},{"./../framework/Store.coffee":269,"lodash":24}],359:[function(require,module,exports){
 var OrganizationStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -41766,7 +41800,7 @@ module.exports = OrganizationStore;
 
 
 
-},{"./../framework/Store.coffee":269,"lodash":24}],359:[function(require,module,exports){
+},{"./../framework/Store.coffee":269,"lodash":24}],360:[function(require,module,exports){
 var PresenceStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -41817,7 +41851,7 @@ module.exports = PresenceStore;
 
 
 
-},{"./../framework/Store.coffee":269,"lodash":24}],360:[function(require,module,exports){
+},{"./../framework/Store.coffee":269,"lodash":24}],361:[function(require,module,exports){
 var QueueStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -41876,7 +41910,7 @@ module.exports = QueueStore;
 
 
 
-},{"./../framework/Store.coffee":269,"lodash":24}],361:[function(require,module,exports){
+},{"./../framework/Store.coffee":269,"lodash":24}],362:[function(require,module,exports){
 var StackStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -41926,7 +41960,7 @@ module.exports = StackStore;
 
 
 
-},{"./../framework/Store.coffee":269,"lodash":24}],362:[function(require,module,exports){
+},{"./../framework/Store.coffee":269,"lodash":24}],363:[function(require,module,exports){
 var StageStore, Store, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -41967,7 +42001,7 @@ module.exports = StageStore;
 
 
 
-},{"./../framework/Store.coffee":269,"lodash":24}],363:[function(require,module,exports){
+},{"./../framework/Store.coffee":269,"lodash":24}],364:[function(require,module,exports){
 var Store, SuggestionStore, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -42000,7 +42034,7 @@ module.exports = SuggestionStore;
 
 
 
-},{"./../framework/Store.coffee":269,"lodash":24}],364:[function(require,module,exports){
+},{"./../framework/Store.coffee":269,"lodash":24}],365:[function(require,module,exports){
 var Store, TeamStore, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -42045,7 +42079,7 @@ module.exports = TeamStore;
 
 
 
-},{"./../framework/Store.coffee":269,"lodash":24}],365:[function(require,module,exports){
+},{"./../framework/Store.coffee":269,"lodash":24}],366:[function(require,module,exports){
 var Store, UserStore, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -42127,4 +42161,4 @@ module.exports = UserStore;
 
 
 
-},{"./../framework/Store.coffee":269,"lodash":24}]},{},[231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306,307,308,309,310,311,312,313,314,315,316,317,318,319,320,321,322,323,324,325,326,327,328,329,330,331,332,333,334,335,336,337,338,339,340,341,342,343,344,345,346,347,348,349,350,351,352,353,354,355,356,357,358,359,360,361,362,363,364,365]);
+},{"./../framework/Store.coffee":269,"lodash":24}]},{},[231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306,307,308,309,310,311,312,313,314,315,316,317,318,319,320,321,322,323,324,325,326,327,328,329,330,331,332,333,334,335,336,337,338,339,340,341,342,343,344,345,346,347,348,349,350,351,352,353,354,355,356,357,358,359,360,361,362,363,364,365,366]);
