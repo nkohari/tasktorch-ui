@@ -1,6 +1,5 @@
-React      = require 'react/addons'
+React      = require 'react'
 KeyCode    = require 'framework/enums/KeyCode'
-{classSet} = React.addons
 {textarea} = React.DOM
 
 MultilineText = React.createClass {
@@ -23,8 +22,11 @@ MultilineText = React.createClass {
         node.style.height = 'auto'
       style.height = node.scrollHeight
 
+    classes = @props.className ? ''
+    classes += ' dirty' if @state.dirty
+
     textarea {
-      className:   classSet {editable: true, overflow: 'hidden', dirty: @state.dirty}
+      className:   classes
       style:       style
       placeholder: @props.placeholder
       value:       @state.value
@@ -50,7 +52,7 @@ MultilineText = React.createClass {
     @setState {previous: @state.value}
 
   handleBlur: ->
-    @props.save(@state.value) if @state.dirty
+    @props.save(@state.value) if @props.save? and @state.dirty
     @setState {dirty: false}
 
 }

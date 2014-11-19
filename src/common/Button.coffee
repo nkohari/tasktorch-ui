@@ -9,8 +9,8 @@ Button = React.createClass {
 
   render: ->
     props = _.omit(@props, 'icon', 'text')
-    button props, [
-      Icon {key: 'icon', name: @props.icon}
+    button props, _.compact [
+      Icon {key: 'icon', name: @props.icon} if @props.icon?
       span {key: 'text'}, @props.text
     ]
 

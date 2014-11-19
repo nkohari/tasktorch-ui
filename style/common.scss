@@ -138,16 +138,10 @@ textarea.editable {
   transition-property: opacity, transform;
   transition-duration: 0.1s;
   transform-origin: left center;
-  transition-timing-function: ease-in;
-  -webkit-transform: translateX(-300px);
-  -webkit-transform-origin: left center;
-  -webkit-transition-property: opacity, transform;
-  -webkit-transition-duration: 0.1s;
-  -webkit-transition-timing-function: ease-in;
+  transition-timing-function: ease-out;
   &.panel-slide-enter-active {
     opacity: 1;
     transform: translateX(0px);
-    -webkit-transform: translateX(0px);
   }
 }
 
@@ -158,14 +152,8 @@ textarea.editable {
   transition-duration: 0.1s;
   transition-timing-function: linear;
   transform-origin: left center;
-  -webkit-transform: translateX(0);
-  -webkit-transform-origin: left center;
-  -webkit-transition-property: opacity, transform;
-  -webkit-transition-duration: 0.1s;
-  -webkit-transition-timing-function: linear;
   &.panel-slide-leave-active {
     opacity: 0;
     transform: translateX(-300px);
-    -webkit-transform: translateX(-300px);
   }
 }

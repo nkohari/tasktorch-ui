@@ -1,20 +1,28 @@
-React  = require 'react'
-Button = React.createFactory(require 'common/Button')
-{div}  = React.DOM
+React                      = require 'react'
+Button                     = React.createFactory(require 'common/Button')
+MultilineText              = React.createFactory(require 'common/MultilineText')
+CommandArgument            = React.createFactory(require './CommandArgument')
+RecipientSelector          = React.createFactory(require '../RecipientSelector')
+{div, em, label, textarea} = React.DOM
 
 HandOffCommandPanel = React.createClass {
 
   displayName: 'HandOffCommandPanel'
 
   propTypes:
-    hideCommandPanel: React.PropTypes.func.isRequired
+    hideCommand: React.PropTypes.func.isRequired
 
   render: ->
     div {className: 'handoff command'}, [
-      'Handoff'
+      CommandArgument {key: 'recipient', label: 'Recipient'}, [
+        RecipientSelector {key: 'selector', placeholder: 'Choose a user or team'}
+      ]
+      CommandArgument {key: 'message', label: 'Message', hint: '(optional)'}, [
+        MultilineText {key: 'message', className: 'message'}
+      ]
       div {key: 'buttons', className: 'buttons'}, [
-        Button {key: 'ok', icon: 'ok', text: 'OK'}
-        Button {key: 'cancel', icon: 'cancel', text: 'Cancel', onClick: @props.hideCommandPanel}
+        Button {key: 'ok', text: 'OK'}
+        Button {key: 'cancel', text: 'Cancel', onClick: @props.hideCommand}
       ]
     ]
 

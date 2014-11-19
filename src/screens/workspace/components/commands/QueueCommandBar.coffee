@@ -1,31 +1,32 @@
-_           = require 'lodash'
-React       = require 'react'
-CardCommand = require 'framework/enums/CardCommand'
-Button      = React.createFactory(require 'common/Button')
-{div}       = React.DOM
+_             = require 'lodash'
+React         = require 'react'
+CardCommand   = require 'framework/enums/CardCommand'
+CommandButton = React.createFactory(require './CommandButton')
+{div}         = React.DOM
 
 QueueCommandBar = React.createClass {
 
   displayName: 'QueueCommandBar'
 
   propTypes:
-    showCommandPanel: React.PropTypes.func.isRequired
+    activeCommand: React.PropTypes.string
+    showCommand:   React.PropTypes.func.isRequired
 
   render: ->
 
-    show = (command) =>
-      return () => @props.showCommandPanel(command)
-
     div {className: 'queue commands'}, [
       div {key: 'left', className: 'button-group'}, [
-        Button {key: 'defer',     icon: 'defer',     text: 'Defer',    onClick: show(CardCommand.Defer)}
-        Button {key: 'hand-off',  icon: 'hand-off',  text: 'Hand Off', onClick: show(CardCommand.HandOff)}
+        @makeButton {key: 'defer',    icon: 'defer',    text: 'Defer',    command: CardCommand.Defer}
+        @makeButton {key: 'hand-off', icon: 'hand-off', text: 'Hand Off', command: CardCommand.HandOff}
       ]
       div {key: 'right', className: 'button-group right'}, [
-        Button {key: 'archive',   icon: 'archive'}
-        Button {key: 'trash',     icon: 'trash'}
+        @makeButton {key: 'archive',  icon: 'archive',  command: CardCommand.Archive}
+        @makeButton {key: 'trash',    icon: 'trash',    command: CardCommand.Trash}
       ]
     ]
+
+  makeButton: (props) ->
+    CommandButton _.extend props, {activeCommand: @props.activeCommand, showCommand: @props.showCommand}
 
 }
 

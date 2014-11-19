@@ -9,6 +9,7 @@ PresenceStore                 = require './stores/PresenceStore'
 QueueStore                    = require './stores/QueueStore'
 StackStore                    = require './stores/StackStore'
 StageStore                    = require './stores/StageStore'
+SuggestionStore               = require './stores/SuggestionStore'
 TeamStore                     = require './stores/TeamStore'
 UserStore                     = require './stores/UserStore'
 CardBodyChangedListener       = require './listeners/CardBodyChangedListener'
@@ -32,6 +33,7 @@ EventBusFactory.create = ->
     queue:         new QueueStore()
     stacks:        new StackStore()
     stages:        new StageStore()
+    suggestions:   new SuggestionStore()
     teams:         new TeamStore()
     users:         new UserStore()
 

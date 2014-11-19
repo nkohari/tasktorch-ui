@@ -7,7 +7,7 @@ DeferCommandPanel = React.createClass {
   displayName: 'DeferCommandPanel'
 
   propTypes:
-    hideCommandPanel: React.PropTypes.func.isRequired
+    hideCommand: React.PropTypes.func.isRequired
 
   render: ->
 
@@ -15,7 +15,7 @@ DeferCommandPanel = React.createClass {
       'Defer'
       div {key: 'buttons', className: 'buttons'}, [
         Button {key: 'ok', icon: 'ok', text: 'OK'}
-        Button {key: 'cancel', icon: 'cancel', text: 'Cancel', onClick: @props.hideCommandPanel}
+        Button {key: 'cancel', icon: 'cancel', text: 'Cancel', onClick: @props.hideCommand}
       ]
     ]
 

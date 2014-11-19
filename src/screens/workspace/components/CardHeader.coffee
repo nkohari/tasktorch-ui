@@ -30,29 +30,27 @@ CardHeader = React.createClass {
 
   render: ->
 
-    header = div {
+    CommandBar   = CommandBars[@props.stack.type]
+    CommandPanel = CommandPanels[@state.command] if @state.command?
+
+    div {
       className: 'header'
       style:     {borderLeftColor: @props.kind.color}
     }, [
-      CardTitle {key: 'title', card: @props.card}
-      CardWidgets {key: 'location', card: @props.card, stack: @props.stack}
-      CommandBars[@props.stack.type] {key: 'commands', card: @props.card, @showCommandPanel}
-    ]
-
-    if @state.command?
-      command = CommandPanels[@state.command] {key: 'command', card: @props.card, stack: @props.stack, @hideCommandPanel}
-
-    div {className: 'top'}, _.compact [
-      header
-      CSSTransitionGroup {key: 'command', className: 'command-frame', component: 'div', transitionName: 'command-slide'}, [
-        command if command?
+      div {key: 'fixed', className: 'fixed'}, [
+        CardTitle {key: 'title', card: @props.card}
+        CardWidgets {key: 'location', card: @props.card, stack: @props.stack}
+        CommandBar {key: 'commands', card: @props.card, activeCommand: @state.command, @showCommand}
+      ]
+      CSSTransitionGroup {key: 'flexible', className: 'flexible', component: 'div', transitionName: 'command-slide'}, [
+        CommandPanel {key: 'command', card: @props.card, stack: @props.stack, @hideCommand} if @state.command?
       ]
     ]
 
-  showCommandPanel: (command) ->
-    @setState {command}
+  showCommand: (command) ->
+    @setState {command: command}
 
-  hideCommandPanel: ->
+  hideCommand: ->
     @setState {command: undefined}
 
 }

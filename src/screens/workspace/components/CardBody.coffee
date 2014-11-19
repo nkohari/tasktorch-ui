@@ -13,7 +13,13 @@ CardBody = React.createClass {
 
   render: ->
     div {className: 'body'}, [
-      MultilineText {key: 'text', placeholder: Constants.cardBody, value: @props.card.body, save: @saveBody}
+      MultilineText {
+        key:         'text'
+        className:   'editable'
+        placeholder: Constants.cardBody
+        value:       @props.card.body
+        save:        @saveBody
+      }
     ]
 
   saveBody: (value) ->

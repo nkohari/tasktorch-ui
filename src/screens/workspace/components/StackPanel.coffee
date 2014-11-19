@@ -51,10 +51,18 @@ StackPanel = React.createClass {
     }, children
 
   renderChildren: ->
-    cards = _.map @state.cards, (card, index) =>
-      StackCardFrame {key: "card-frame-#{card.id}", stack: @state.stack, card, index}
-    children = [
+
+    if @state.cards.length == 0
+      emptyMessage = div {key: 'empty', className: 'empty-message'}, ['Nothing here']
+      cards = []
+    else
+      emptyMessage = undefined
+      cards = _.map @state.cards, (card, index) =>
+        StackCardFrame {key: "card-frame-#{card.id}", stack: @state.stack, card, index}
+
+    return _.compact [
       StackHeader {key: 'header', className: 'header', stack: @state.stack}
+      emptyMessage if emptyMessage?
       ul {key: 'cards', ref: 'cardList', className: 'cards'}, cards
     ]
 
