@@ -1,59 +1,59 @@
 /* Stack Panel */
 
-@-webkit-keyframes stack-frame-enter {
+@-webkit-keyframes stack-enter {
   from { margin-left: -($stack-panel-width + $panel-margin); }
   to   { margin-left: 0; }
 }
 
-.stack-frame.slide-enter {
-  -webkit-animation: stack-frame-enter 200ms ease-out;
+.stack.slide-enter {
+  -webkit-animation: stack-enter 200ms ease-out;
 }
 
-@-webkit-keyframes stack-frame-leave {
+@-webkit-keyframes stack-leave {
   from { margin-left: 0; }
   to   { margin-left: -($stack-panel-width + $panel-margin); }
 }
 
-.stack-frame.slide-leave {
-  -webkit-animation: stack-frame-leave 200ms linear;
+.stack.slide-leave {
+  -webkit-animation: stack-leave 50ms linear;
 }
 
 /* Card Panel */
 
-@-webkit-keyframes card-frame-enter {
+@-webkit-keyframes card-enter {
   from { margin-left: -($card-panel-width + $panel-margin); }
   to   { margin-left: 0; }
 }
 
-.card-frame.slide-enter {
-  -webkit-animation: card-frame-enter 200ms ease-out;
+.card.slide-enter {
+  -webkit-animation: card-enter 200ms ease-out;
 }
 
-@-webkit-keyframes card-frame-leave {
+@-webkit-keyframes card-leave {
   from { margin-left: 0; }
   to   { margin-left: -($card-panel-width + $panel-margin); }
 }
 
-.card-frame.slide-leave {
-  -webkit-animation: card-frame-leave 200ms linear;
+.card.slide-leave {
+  -webkit-animation: card-leave 100ms linear;
 }
 
 /* Command Panel */
 
-@-webkit-keyframes command-frame-enter {
+@-webkit-keyframes command-enter {
   from { margin-top: -200px; }
   to   { margin-top: 0px; }
 }
 
-.command-frame.slide-enter {
-  -webkit-animation: command-frame-enter 200ms ease-out;
+.command.slide-enter {
+  -webkit-animation: command-enter 200ms ease-out;
 }
 
-@-webkit-keyframes command-frame-leave {
+@-webkit-keyframes command-leave {
   from { margin-top: 0px; }
   to   { margin-top: -200px; }
 }
 
-.command-frame.slide-leave {
-  -webkit-animation: command-frame-leave 200ms linear;
+.command.slide-leave {
+  -webkit-animation: command-leave 50ms linear;
 }

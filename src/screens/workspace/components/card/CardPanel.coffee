@@ -48,10 +48,8 @@ CardPanel = React.createClass {
     children = if @isReady() then @renderChildren() else []
     div {
       style: {zIndex: 99 - @props.position}
-      className: 'card-frame'
-    }, [
-      div {className: 'card'}, children
-    ]
+      className: 'card panel'
+    }, children
 
   renderChildren: ->
     return [

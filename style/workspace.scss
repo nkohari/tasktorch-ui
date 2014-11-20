@@ -1,27 +1,13 @@
-@mixin content-frame {
+.content > .panel {
   position: relative;
   flex: none;
   height: 100%;
-  padding: 0;
-}
-
-@mixin content-panel {
   display: flex;
   flex-direction: column;
-  height: 100%;
   vertical-align: top;
   overflow: hidden;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
-}
-
-.stack-frame {
-  @include content-frame;
-  width: $stack-panel-width + $panel-margin;
-}
-
-.card-frame {
-  @include content-frame;
-  width: $card-panel-width + $panel-margin;
+  margin-right: $panel-margin;
 }
 
 .search {
@@ -47,7 +33,6 @@
 }
 
 .stack {
-  @include content-panel;
   width: $stack-panel-width;
   min-width: $stack-panel-width;
   border: $panel-border;
@@ -139,7 +124,6 @@
 }
 
 .card {
-  @include content-panel;
   position: relative;
   border: $panel-border;
   background: $panel-background;
@@ -250,6 +234,11 @@
       width: 100%;
       background: $card-commands-background;
       border-bottom: $card-commands-border;
+    }
+    &.expanded {
+      .fixed {
+        border-bottom: 1px solid #aaa;
+      }
     }
   }
   .details {
@@ -387,7 +376,7 @@
   -webkit-user-select: none;
   a {
     position: relative;
-    z-index: 10000;
+    z-index: 1000;
     display: block;
     padding: 4px 8px;
     background: linear-gradient(to bottom, #fff, #eee 50%, #ddd);
@@ -416,7 +405,7 @@
   }
   .drop {
     position: absolute;
-    z-index: 10001;
+    z-index: 1001;
     width: 100%;
     border: 1px solid #999;
     border-top: 0px;
@@ -477,7 +466,6 @@
 .command {
   padding: 10px;
   font-size: 13px;
-  border-top: 1px solid #aaa;
   .argument {
     margin-bottom: 4px;
     label {

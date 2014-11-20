@@ -44,15 +44,11 @@ StackPanel = React.createClass {
 
     div {
       style:     {zIndex: 99 - @props.position}
-      className: 'stack-frame'
-    }, [
-      div {
-        className:   'stack'
-        onDragStart: @handleDragStart
-        onDragEnd:   @handleDragEnd
-        onDragOver:  @handleDragOver
-      }, children
-    ]
+      className: 'stack panel'
+      onDragStart: @handleDragStart
+      onDragEnd:   @handleDragEnd
+      onDragOver:  @handleDragOver
+    }, children
 
   renderChildren: ->
 

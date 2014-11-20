@@ -232,67 +232,67 @@ textarea.editable {
   content: "\274C"; }
 
 /* Stack Panel */
-@-webkit-keyframes stack-frame-enter {
+@-webkit-keyframes stack-enter {
   from {
     margin-left: -301px; }
 
   to {
     margin-left: 0; } }
 
-.stack-frame.slide-enter {
-  -webkit-animation: stack-frame-enter 200ms ease-out; }
+.stack.slide-enter {
+  -webkit-animation: stack-enter 200ms ease-out; }
 
-@-webkit-keyframes stack-frame-leave {
+@-webkit-keyframes stack-leave {
   from {
     margin-left: 0; }
 
   to {
     margin-left: -301px; } }
 
-.stack-frame.slide-leave {
-  -webkit-animation: stack-frame-leave 200ms linear; }
+.stack.slide-leave {
+  -webkit-animation: stack-leave 50ms linear; }
 
 /* Card Panel */
-@-webkit-keyframes card-frame-enter {
+@-webkit-keyframes card-enter {
   from {
     margin-left: -592px; }
 
   to {
     margin-left: 0; } }
 
-.card-frame.slide-enter {
-  -webkit-animation: card-frame-enter 200ms ease-out; }
+.card.slide-enter {
+  -webkit-animation: card-enter 200ms ease-out; }
 
-@-webkit-keyframes card-frame-leave {
+@-webkit-keyframes card-leave {
   from {
     margin-left: 0; }
 
   to {
     margin-left: -592px; } }
 
-.card-frame.slide-leave {
-  -webkit-animation: card-frame-leave 200ms linear; }
+.card.slide-leave {
+  -webkit-animation: card-leave 100ms linear; }
 
 /* Command Panel */
-@-webkit-keyframes command-frame-enter {
+@-webkit-keyframes command-enter {
   from {
     margin-top: -200px; }
 
   to {
     margin-top: 0px; } }
 
-.command-frame.slide-enter {
-  -webkit-animation: command-frame-enter 200ms ease-out; }
+.command.slide-enter {
+  -webkit-animation: command-enter 200ms ease-out; }
 
-@-webkit-keyframes command-frame-leave {
+@-webkit-keyframes command-leave {
   from {
     margin-top: 0px; }
 
   to {
     margin-top: -200px; } }
 
-.command-frame.slide-leave {
-  -webkit-animation: command-frame-leave 200ms linear; }
+.command.slide-leave {
+  -webkit-animation: command-leave 50ms linear; }
 
 .shell {
   height: 100vh;
@@ -481,19 +481,16 @@ textarea.editable {
       border: 5px solid transparent;
       border-radius: 20px; }
 
-.stack-frame {
+.content > .panel {
   position: relative;
   flex: none;
   height: 100%;
-  padding: 0;
-  width: 301px; }
-
-.card-frame {
-  position: relative;
-  flex: none;
-  height: 100%;
-  padding: 0;
-  width: 592px; }
+  display: flex;
+  flex-direction: column;
+  vertical-align: top;
+  overflow: hidden;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
+  margin-right: 10px; }
 
 .search {
   padding: 10px;
@@ -515,12 +512,6 @@ textarea.editable {
       outline: none !important; }
 
 .stack {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  vertical-align: top;
-  overflow: hidden;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
   width: 291px;
   min-width: 291px;
   border: 1px solid #999999;
@@ -597,12 +588,6 @@ textarea.editable {
       height: 57px; }
 
 .card {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  vertical-align: top;
-  overflow: hidden;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
   position: relative;
   border: 1px solid #999999;
   background: #f9f9f9;
@@ -699,6 +684,8 @@ textarea.editable {
       width: 100%;
       background: 0;
       border-bottom: 0; }
+    .card .header.expanded .fixed {
+      border-bottom: 1px solid #aaa; }
   .card .details {
     flex: 1;
     overflow-x: hidden;
@@ -812,7 +799,7 @@ textarea.editable {
   -webkit-user-select: none; }
   .selector a {
     position: relative;
-    z-index: 10000;
+    z-index: 1000;
     display: block;
     padding: 4px 8px;
     background: linear-gradient(to bottom, white, #eeeeee 50%, #dddddd);
@@ -837,7 +824,7 @@ textarea.editable {
       color: #000; }
   .selector .drop {
     position: absolute;
-    z-index: 10001;
+    z-index: 1001;
     width: 100%;
     border: 1px solid #999;
     border-top: 0px;
@@ -883,8 +870,7 @@ textarea.editable {
 
 .command {
   padding: 10px;
-  font-size: 13px;
-  border-top: 1px solid #aaa; }
+  font-size: 13px; }
   .command .argument {
     margin-bottom: 4px; }
     .command .argument label {

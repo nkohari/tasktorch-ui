@@ -39503,25 +39503,17 @@ CardHeader = React.createClass({
     };
   },
   render: function() {
-    var classes, flexibleChildren;
+    var classes, command;
     classes = {
       header: true,
       expanded: this.state.command != null
     };
-    flexibleChildren = [];
     if (this.state.command != null) {
-      flexibleChildren = [
-        div({
-          key: 'frame',
-          className: 'command-frame'
-        }, [
-          CommandPanels[this.state.command]({
-            key: 'command',
-            card: this.props.card,
-            stack: this.props.stack
-          })
-        ])
-      ];
+      command = CommandPanels[this.state.command]({
+        key: 'command',
+        card: this.props.card,
+        stack: this.props.stack
+      });
     }
     return div({
       className: classSet(classes),
@@ -39549,7 +39541,7 @@ CardHeader = React.createClass({
         className: 'flexible',
         component: 'div',
         transitionName: 'slide'
-      }, flexibleChildren)
+      }, [command != null ? command : void 0])
     ]);
   },
   showCommand: function(command) {
@@ -39731,12 +39723,8 @@ CardPanel = React.createClass({
       style: {
         zIndex: 99 - this.props.position
       },
-      className: 'card-frame'
-    }, [
-      div({
-        className: 'card'
-      }, children)
-    ]);
+      className: 'card panel'
+    }, children);
   },
   renderChildren: function() {
     return [
@@ -40992,15 +40980,11 @@ StackPanel = React.createClass({
       style: {
         zIndex: 99 - this.props.position
       },
-      className: 'stack-frame'
-    }, [
-      div({
-        className: 'stack',
-        onDragStart: this.handleDragStart,
-        onDragEnd: this.handleDragEnd,
-        onDragOver: this.handleDragOver
-      }, children)
-    ]);
+      className: 'stack panel',
+      onDragStart: this.handleDragStart,
+      onDragEnd: this.handleDragEnd,
+      onDragOver: this.handleDragOver
+    }, children);
   },
   renderChildren: function() {
     var cards, emptyMessage;
