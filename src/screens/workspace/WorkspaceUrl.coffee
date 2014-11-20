@@ -8,7 +8,7 @@ class WorkspaceUrl
     @cards  = if query.cards?  then query.cards.split(',')  else []
 
   addStack: (stackId) ->
-    @stacks.push(stackId) unless _.contains(@stacks, stackId)
+    @stacks.unshift(stackId) unless _.contains(@stacks, stackId)
 
   removeStack: (stackId) ->
     @stacks = _.without(@stacks, stackId)
@@ -17,7 +17,7 @@ class WorkspaceUrl
     _.contains(@stacks, stackId)
 
   addCard: (cardId) ->
-    @cards.push(cardId) unless _.contains(@cards, cardId)
+    @cards.unshift(cardId) unless _.contains(@cards, cardId)
 
   removeCard: (cardId) ->
     @cards = _.without(@cards, cardId)

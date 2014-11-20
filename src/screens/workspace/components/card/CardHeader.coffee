@@ -32,12 +32,17 @@ CardHeader = React.createClass {
 
   render: ->
 
-    CommandBar   = CommandBars[@props.stack.type]
-    CommandPanel = CommandPanels[@state.command] if @state.command?
-
     classes =
       header:   true
       expanded: @state.command?
+
+    flexibleChildren = []
+    if @state.command?
+      flexibleChildren = [
+        div {key: 'frame', className: 'command-frame'}, [
+          CommandPanels[@state.command] {key: 'command', card: @props.card, stack: @props.stack}
+        ]
+      ]
 
     div {
       className: classSet(classes)
@@ -46,11 +51,9 @@ CardHeader = React.createClass {
       div {key: 'fixed', className: 'fixed'}, [
         CardTitle {key: 'title', card: @props.card}
         CardWidgets {key: 'location', card: @props.card, stack: @props.stack}
-        CommandBar {key: 'commands', card: @props.card}
+        CommandBars[@props.stack.type] {key: 'commands', card: @props.card}
       ]
-      CSSTransitionGroup {key: 'flexible', className: 'flexible', component: 'div', transitionName: 'command-slide'}, [
-        CommandPanel {key: 'command', card: @props.card, stack: @props.stack} if @state.command?
-      ]
+      CSSTransitionGroup {key: 'flexible', className: 'flexible', component: 'div', transitionName: 'slide'}, flexibleChildren
     ]
 
   showCommand: (command) ->

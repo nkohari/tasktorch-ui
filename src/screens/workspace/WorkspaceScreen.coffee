@@ -48,7 +48,7 @@ WorkspaceScreen = React.createClass {
 
     div {className: 'workspace screen'}, [
       WorkspaceSidebar {key: 'sidebar'}
-      CSSTransitionGroup {component: 'div', className: 'content', transitionName: 'panel-slide'}, stackPanels.concat(cardPanels)
+      CSSTransitionGroup {component: 'div', className: 'content', transitionName: 'slide'}, stackPanels.concat(cardPanels)
     ]
 
   startDraggingCard: (draggingCard, draggingIndex) ->

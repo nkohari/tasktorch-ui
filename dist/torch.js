@@ -36528,11 +36528,9 @@ MultilineText = React.createClass({
     style = {};
     if (this.isMounted()) {
       node = this.getDOMNode();
-      console.log("scrollHeight = " + node.scrollHeight + ", clientHeight = " + node.clientHeight);
       if (node.scrollHeight === node.clientHeight) {
         node.style.height = 'auto';
       }
-      console.log("SET: scrollHeight = " + node.scrollHeight + ", clientHeight = " + node.clientHeight);
       style.height = node.scrollHeight;
     }
     classes = (_ref = this.props.className) != null ? _ref : '';
@@ -37400,7 +37398,7 @@ var CardCommand, arrayEnum;
 
 arrayEnum = require('./../../common/util/arrayEnum.coffee');
 
-module.exports = CardCommand = arrayEnum(['Defer', 'HandOff', 'Archive', 'Trash']);
+module.exports = CardCommand = arrayEnum(['Do', 'Defer', 'HandBack', 'HandOff', 'Archive', 'Trash']);
 
 
 
@@ -38983,7 +38981,7 @@ WorkspaceScreen = React.createClass({
       }), CSSTransitionGroup({
         component: 'div',
         className: 'content',
-        transitionName: 'panel-slide'
+        transitionName: 'slide'
       }, stackPanels.concat(cardPanels))
     ]);
   },
@@ -39025,7 +39023,7 @@ WorkspaceUrl = (function() {
 
   WorkspaceUrl.prototype.addStack = function(stackId) {
     if (!_.contains(this.stacks, stackId)) {
-      return this.stacks.push(stackId);
+      return this.stacks.unshift(stackId);
     }
   };
 
@@ -39039,7 +39037,7 @@ WorkspaceUrl = (function() {
 
   WorkspaceUrl.prototype.addCard = function(cardId) {
     if (!_.contains(this.cards, cardId)) {
-      return this.cards.push(cardId);
+      return this.cards.unshift(cardId);
     }
   };
 
@@ -39505,15 +39503,26 @@ CardHeader = React.createClass({
     };
   },
   render: function() {
-    var CommandBar, CommandPanel, classes;
-    CommandBar = CommandBars[this.props.stack.type];
-    if (this.state.command != null) {
-      CommandPanel = CommandPanels[this.state.command];
-    }
+    var classes, flexibleChildren;
     classes = {
       header: true,
       expanded: this.state.command != null
     };
+    flexibleChildren = [];
+    if (this.state.command != null) {
+      flexibleChildren = [
+        div({
+          key: 'frame',
+          className: 'command-frame'
+        }, [
+          CommandPanels[this.state.command]({
+            key: 'command',
+            card: this.props.card,
+            stack: this.props.stack
+          })
+        ])
+      ];
+    }
     return div({
       className: classSet(classes),
       style: {
@@ -39531,7 +39540,7 @@ CardHeader = React.createClass({
           key: 'location',
           card: this.props.card,
           stack: this.props.stack
-        }), CommandBar({
+        }), CommandBars[this.props.stack.type]({
           key: 'commands',
           card: this.props.card
         })
@@ -39539,14 +39548,8 @@ CardHeader = React.createClass({
         key: 'flexible',
         className: 'flexible',
         component: 'div',
-        transitionName: 'command-slide'
-      }, [
-        this.state.command != null ? CommandPanel({
-          key: 'command',
-          card: this.props.card,
-          stack: this.props.stack
-        }) : void 0
-      ])
+        transitionName: 'slide'
+      }, flexibleChildren)
     ]);
   },
   showCommand: function(command) {
@@ -39728,8 +39731,12 @@ CardPanel = React.createClass({
       style: {
         zIndex: 99 - this.props.position
       },
-      className: 'card panel'
-    }, children);
+      className: 'card-frame'
+    }, [
+      div({
+        className: 'card'
+      }, children)
+    ]);
   },
   renderChildren: function() {
     return [
@@ -40985,11 +40992,15 @@ StackPanel = React.createClass({
       style: {
         zIndex: 99 - this.props.position
       },
-      className: 'stack panel',
-      onDragStart: this.handleDragStart,
-      onDragEnd: this.handleDragEnd,
-      onDragOver: this.handleDragOver
-    }, children);
+      className: 'stack-frame'
+    }, [
+      div({
+        className: 'stack',
+        onDragStart: this.handleDragStart,
+        onDragEnd: this.handleDragEnd,
+        onDragOver: this.handleDragOver
+      }, children)
+    ]);
   },
   renderChildren: function() {
     var cards, emptyMessage;

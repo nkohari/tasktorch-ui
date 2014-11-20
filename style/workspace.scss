@@ -1,17 +1,27 @@
-.panel {
+@mixin content-frame {
   position: relative;
-  display: flex;
   flex: none;
-  flex-direction: column;
-  vertical-align: top;
   height: 100%;
-  margin-right: 10px;
   padding: 0;
+}
+
+@mixin content-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  vertical-align: top;
   overflow: hidden;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
-  &:last-child {
-    margin-right: 0;
-  }
+}
+
+.stack-frame {
+  @include content-frame;
+  width: $stack-panel-width + $panel-margin;
+}
+
+.card-frame {
+  @include content-frame;
+  width: $card-panel-width + $panel-margin;
 }
 
 .search {
@@ -37,6 +47,7 @@
 }
 
 .stack {
+  @include content-panel;
   width: $stack-panel-width;
   min-width: $stack-panel-width;
   border: $panel-border;
@@ -128,6 +139,7 @@
 }
 
 .card {
+  @include content-panel;
   position: relative;
   border: $panel-border;
   background: $panel-background;
@@ -504,29 +516,5 @@
         background: $card-command-button-active-background;
       }
     }
-  }
-}
-
-.command-slide-enter {
-  position: relative;
-  overflow: hidden;
-  max-height: 50px;
-  transform: translateY(-300px);
-  transition: all 0.2s;
-  &.command-slide-enter-active {
-    max-height: 1000px;
-    transform: translateY(0);
-  }
-}
-
-.command-slide-leave {
-  position: relative;
-  overflow: hidden;
-  max-height: 1000px;
-  transform: translateY(0);
-  transition: all 0.2s;
-  &.command-slide-leave-active {
-    max-height: 50px;
-    transform: translateY(-300px);
   }
 }

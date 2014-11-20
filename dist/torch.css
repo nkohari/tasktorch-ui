@@ -138,26 +138,6 @@ textarea.editable {
       .sidebar ul li a .name {
         padding-left: 4px; }
 
-.panel-slide-enter {
-  opacity: 0;
-  max-width: 0px;
-  transform: translateX(-600px);
-  transition: all 250ms; }
-  .panel-slide-enter.panel-slide-enter-active {
-    opacity: 1;
-    max-width: 600px;
-    transform: translateX(0px); }
-
-.panel-slide-leave {
-  opacity: 1;
-  max-width: 600px;
-  transform: translateX(0);
-  transition: all 250ms; }
-  .panel-slide-leave.panel-slide-leave-active {
-    opacity: 0;
-    max-width: 0px;
-    transform: translateX(-600px); }
-
 .icon-accept:before {
   content: "\1F44D"; }
 
@@ -250,6 +230,80 @@ textarea.editable {
 
 .icon-cancel:before {
   content: "\274C"; }
+
+.stack-frame.slide-enter {
+  width: 0px;
+  transition: all 250ms ease-out; }
+  .stack-frame.slide-enter .stack {
+    transition: all 250ms ease-out;
+    transform: translateX(-291px);
+    opacity: 0; }
+  .stack-frame.slide-enter.slide-enter-active {
+    width: 301px; }
+    .stack-frame.slide-enter.slide-enter-active .stack {
+      transform: translateX(0);
+      opacity: 1; }
+
+.stack-frame.slide-leave {
+  width: 301px;
+  transition: all 250ms linear; }
+  .stack-frame.slide-leave .stack {
+    transition: all 250ms linear;
+    transform: translateX(0);
+    opacity: 1; }
+  .stack-frame.slide-leave.slide-leave-active {
+    width: 0px; }
+    .stack-frame.slide-leave.slide-leave-active .stack {
+      transform: translateX(-291px);
+      opacity: 0; }
+
+.card-frame.slide-enter {
+  width: 0px;
+  transition: all 250ms ease-out; }
+  .card-frame.slide-enter .card {
+    transition: all 250ms ease-out;
+    transform: translateX(-582px);
+    opacity: 0; }
+  .card-frame.slide-enter.slide-enter-active {
+    width: 592px; }
+    .card-frame.slide-enter.slide-enter-active .card {
+      transform: translateX(0);
+      opacity: 1; }
+
+.card-frame.slide-leave {
+  width: 592px;
+  transition: all 250ms linear; }
+  .card-frame.slide-leave .card {
+    transition: all 250ms linear;
+    transform: translateX(0);
+    opacity: 1; }
+  .card-frame.slide-leave.slide-leave-active {
+    width: 0px; }
+    .card-frame.slide-leave.slide-leave-active .card {
+      transform: translateX(-582px);
+      opacity: 0; }
+
+.command-frame.slide-enter {
+  max-height: 0px;
+  transition: all 200ms ease-out; }
+  .command-frame.slide-enter .command {
+    transform: translateY(-200px);
+    transition: all 200ms ease-out; }
+  .command-frame.slide-enter.slide-enter-active {
+    max-height: 200px; }
+    .command-frame.slide-enter.slide-enter-active .command {
+      transform: translateY(0); }
+
+.command-frame.slide-leave {
+  max-height: 200px;
+  transition: all 200ms linear; }
+  .command-frame.slide-leave .command {
+    transform: translateY(0);
+    transition: all 200ms linear; }
+  .command-frame.slide-leave.slide-leave-active {
+    max-height: 0px; }
+    .command-frame.slide-leave.slide-leave-active .command {
+      transform: translateY(-200px); }
 
 .shell {
   height: 100vh;
@@ -438,19 +492,19 @@ textarea.editable {
       border: 5px solid transparent;
       border-radius: 20px; }
 
-.panel {
+.stack-frame {
   position: relative;
-  display: flex;
   flex: none;
-  flex-direction: column;
-  vertical-align: top;
   height: 100%;
-  margin-right: 10px;
   padding: 0;
-  overflow: hidden;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5); }
-  .panel:last-child {
-    margin-right: 0; }
+  width: 301px; }
+
+.card-frame {
+  position: relative;
+  flex: none;
+  height: 100%;
+  padding: 0;
+  width: 592px; }
 
 .search {
   padding: 10px;
@@ -472,6 +526,12 @@ textarea.editable {
       outline: none !important; }
 
 .stack {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  vertical-align: top;
+  overflow: hidden;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
   width: 291px;
   min-width: 291px;
   border: 1px solid #999999;
@@ -548,6 +608,12 @@ textarea.editable {
       height: 57px; }
 
 .card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  vertical-align: top;
+  overflow: hidden;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
   position: relative;
   border: 1px solid #999999;
   background: #f9f9f9;
@@ -860,23 +926,3 @@ textarea.editable {
       background: linear-gradient(to bottom, white, #eeeeee 50%, #dddddd); }
     .command .buttons button:active {
       background: linear-gradient(to bottom, #dddddd, #eeeeee 50%, white); }
-
-.command-slide-enter {
-  position: relative;
-  overflow: hidden;
-  max-height: 50px;
-  transform: translateY(-300px);
-  transition: all 0.2s; }
-  .command-slide-enter.command-slide-enter-active {
-    max-height: 1000px;
-    transform: translateY(0); }
-
-.command-slide-leave {
-  position: relative;
-  overflow: hidden;
-  max-height: 1000px;
-  transform: translateY(0);
-  transition: all 0.2s; }
-  .command-slide-leave.command-slide-leave-active {
-    max-height: 50px;
-    transform: translateY(-300px); }
