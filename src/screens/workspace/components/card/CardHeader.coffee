@@ -1,11 +1,12 @@
 _                  = require 'lodash'
-React              = require 'react'
+React              = require 'react/addons'
 Observe            = require 'mixins/Observe'
 CardCommandContext = require './CardCommandContext'
 CardTitle          = React.createFactory(require './CardTitle')
 CardWidgets        = React.createFactory(require './CardWidgets')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
 {div}              = React.DOM
+{classSet}         = React.addons
 
 CommandBars =
   Inbox:   React.createFactory(require './commandBars/InboxCommandBar')
@@ -34,8 +35,12 @@ CardHeader = React.createClass {
     CommandBar   = CommandBars[@props.stack.type]
     CommandPanel = CommandPanels[@state.command] if @state.command?
 
+    classes =
+      header:   true
+      expanded: @state.command?
+
     div {
-      className: 'header'
+      className: classSet(classes)
       style:     {borderColor: @props.kind.color}
     }, [
       div {key: 'fixed', className: 'fixed'}, [

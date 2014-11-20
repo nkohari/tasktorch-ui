@@ -134,26 +134,24 @@ textarea.editable {
 
 .panel-slide-enter {
   opacity: 0;
-  transform: translateX(-300px);
-  transition-property: opacity, transform;
-  transition-duration: 0.1s;
-  transform-origin: left center;
-  transition-timing-function: ease-out;
+  max-width: 0px;
+  transform: translateX(-600px);
+  transition: all 250ms;
   &.panel-slide-enter-active {
     opacity: 1;
+    max-width: 600px;
     transform: translateX(0px);
   }
 }
 
 .panel-slide-leave {
   opacity: 1;
+  max-width: 600px;
   transform: translateX(0);
-  transition-property: opacity, transform;
-  transition-duration: 0.1s;
-  transition-timing-function: linear;
-  transform-origin: left center;
+  transition: all 250ms;
   &.panel-slide-leave-active {
     opacity: 0;
-    transform: translateX(-300px);
+    max-width: 0px;
+    transform: translateX(-600px);
   }
 }

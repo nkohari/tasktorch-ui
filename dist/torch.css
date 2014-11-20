@@ -140,25 +140,23 @@ textarea.editable {
 
 .panel-slide-enter {
   opacity: 0;
-  transform: translateX(-300px);
-  transition-property: opacity, transform;
-  transition-duration: 0.1s;
-  transform-origin: left center;
-  transition-timing-function: ease-out; }
+  max-width: 0px;
+  transform: translateX(-600px);
+  transition: all 250ms; }
   .panel-slide-enter.panel-slide-enter-active {
     opacity: 1;
+    max-width: 600px;
     transform: translateX(0px); }
 
 .panel-slide-leave {
   opacity: 1;
+  max-width: 600px;
   transform: translateX(0);
-  transition-property: opacity, transform;
-  transition-duration: 0.1s;
-  transition-timing-function: linear;
-  transform-origin: left center; }
+  transition: all 250ms; }
   .panel-slide-leave.panel-slide-leave-active {
     opacity: 0;
-    transform: translateX(-300px); }
+    max-width: 0px;
+    transform: translateX(-600px); }
 
 .icon-accept:before {
   content: "\1F44D"; }
@@ -475,6 +473,7 @@ textarea.editable {
 
 .stack {
   width: 291px;
+  min-width: 291px;
   border: 1px solid #999999;
   background: #f9f9f9; }
   .stack .header {
@@ -553,6 +552,7 @@ textarea.editable {
   border: 1px solid #999999;
   background: #f9f9f9;
   width: 582px;
+  min-width: 582px;
   background: #fff; }
   .card .close {
     display: block;
@@ -862,23 +862,21 @@ textarea.editable {
       background: linear-gradient(to bottom, #dddddd, #eeeeee 50%, white); }
 
 .command-slide-enter {
-  opacity: 0;
-  transform: scaleY(0) translateY(-100px);
-  transform-origin: top center;
-  transition-property: opacity, transform;
-  transition-duration: 0.1s;
-  transition-timing-function: ease-out; }
+  position: relative;
+  overflow: hidden;
+  max-height: 50px;
+  transform: translateY(-300px);
+  transition: all 0.2s; }
   .command-slide-enter.command-slide-enter-active {
-    opacity: 1;
-    transform: scaleY(1) translateY(0px); }
+    max-height: 1000px;
+    transform: translateY(0); }
 
 .command-slide-leave {
-  opacity: 1;
-  transform: scaleY(1) translateY(0);
-  transform-origin: top center;
-  transition-property: opacity, transform;
-  transition-duration: 0.1s;
-  transition-timing-function: linear; }
+  position: relative;
+  overflow: hidden;
+  max-height: 1000px;
+  transform: translateY(0);
+  transition: all 0.2s; }
   .command-slide-leave.command-slide-leave-active {
-    opacity: 0;
-    transform: scaleY(0) translateY(-100px); }
+    max-height: 50px;
+    transform: translateY(-300px); }

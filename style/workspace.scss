@@ -38,6 +38,7 @@
 
 .stack {
   width: $stack-panel-width;
+  min-width: $stack-panel-width;
   border: $panel-border;
   background: $panel-background;
   .header {
@@ -131,6 +132,7 @@
   border: $panel-border;
   background: $panel-background;
   width: $card-panel-width;
+  min-width: $card-panel-width;
   background: #fff;
   .close {
     display: block;
@@ -506,27 +508,25 @@
 }
 
 .command-slide-enter {
-  opacity: 0;
-  transform: scaleY(0) translateY(-100px);
-  transform-origin: top center;
-  transition-property: opacity, transform;
-  transition-duration: 0.1s;
-  transition-timing-function: ease-out;
+  position: relative;
+  overflow: hidden;
+  max-height: 50px;
+  transform: translateY(-300px);
+  transition: all 0.2s;
   &.command-slide-enter-active {
-    opacity: 1;
-    transform: scaleY(1) translateY(0px);
+    max-height: 1000px;
+    transform: translateY(0);
   }
 }
 
 .command-slide-leave {
-  opacity: 1;
-  transform: scaleY(1) translateY(0);
-  transform-origin: top center;
-  transition-property: opacity, transform;
-  transition-duration: 0.1s;
-  transition-timing-function: linear;
+  position: relative;
+  overflow: hidden;
+  max-height: 1000px;
+  transform: translateY(0);
+  transition: all 0.2s;
   &.command-slide-leave-active {
-    opacity: 0;
-    transform: scaleY(0) translateY(-100px);
+    max-height: 50px;
+    transform: translateY(-300px);
   }
 }

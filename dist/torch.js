@@ -36528,9 +36528,11 @@ MultilineText = React.createClass({
     style = {};
     if (this.isMounted()) {
       node = this.getDOMNode();
+      console.log("scrollHeight = " + node.scrollHeight + ", clientHeight = " + node.clientHeight);
       if (node.scrollHeight === node.clientHeight) {
         node.style.height = 'auto';
       }
+      console.log("SET: scrollHeight = " + node.scrollHeight + ", clientHeight = " + node.clientHeight);
       style.height = node.scrollHeight;
     }
     classes = (_ref = this.props.className) != null ? _ref : '';
@@ -39459,11 +39461,11 @@ module.exports = CardGoal;
 
 
 },{"../../WorkspaceUrl":311,"./../../../../common/Icon.coffee":236,"./../../../../mixins/ActiveUrl.coffee":280,"./../../../../mixins/Observe.coffee":281,"./../../../../requests/LoadGoalRequest.coffee":290,"react":"M6d2gk","react-router":34}],320:[function(require,module,exports){
-var CSSTransitionGroup, CardCommandContext, CardHeader, CardTitle, CardWidgets, CommandBars, CommandPanels, Observe, React, div, _;
+var CSSTransitionGroup, CardCommandContext, CardHeader, CardTitle, CardWidgets, CommandBars, CommandPanels, Observe, React, classSet, div, _;
 
 _ = require('lodash');
 
-React = require('react');
+React = require('react/addons');
 
 Observe = require('./../../../../mixins/Observe.coffee');
 
@@ -39476,6 +39478,8 @@ CardWidgets = React.createFactory(require('./CardWidgets'));
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup);
 
 div = React.DOM.div;
+
+classSet = React.addons.classSet;
 
 CommandBars = {
   Inbox: React.createFactory(require('./commandBars/InboxCommandBar')),
@@ -39501,13 +39505,17 @@ CardHeader = React.createClass({
     };
   },
   render: function() {
-    var CommandBar, CommandPanel;
+    var CommandBar, CommandPanel, classes;
     CommandBar = CommandBars[this.props.stack.type];
     if (this.state.command != null) {
       CommandPanel = CommandPanels[this.state.command];
     }
+    classes = {
+      header: true,
+      expanded: this.state.command != null
+    };
     return div({
-      className: 'header',
+      className: classSet(classes),
       style: {
         borderColor: this.props.kind.color
       }
@@ -39557,7 +39565,7 @@ module.exports = CardHeader;
 
 
 
-},{"./../../../../mixins/Observe.coffee":281,"./CardCommandContext":316,"./CardTitle":324,"./CardWidgets":325,"./commandBars/BacklogCommandBar":327,"./commandBars/InboxCommandBar":329,"./commandBars/QueueCommandBar":330,"./commandPanels/DeferCommandPanel":332,"./commandPanels/HandOffCommandPanel":333,"lodash":24,"react":"M6d2gk"}],321:[function(require,module,exports){
+},{"./../../../../mixins/Observe.coffee":281,"./CardCommandContext":316,"./CardTitle":324,"./CardWidgets":325,"./commandBars/BacklogCommandBar":327,"./commandBars/InboxCommandBar":329,"./commandBars/QueueCommandBar":330,"./commandPanels/DeferCommandPanel":332,"./commandPanels/HandOffCommandPanel":333,"lodash":24,"react/addons":65}],321:[function(require,module,exports){
 var ActiveUrl, CardLocation, Format, Icon, Link, LoadStackRequest, Observe, React, Router, WorkspaceUrl, li, _;
 
 _ = require('lodash');
