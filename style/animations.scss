@@ -1,97 +1,59 @@
+/* Stack Panel */
+
+@-webkit-keyframes stack-frame-enter {
+  from { margin-left: -($stack-panel-width + $panel-margin); }
+  to   { margin-left: 0; }
+}
+
 .stack-frame.slide-enter {
-  width: 0px;
-  transition: all 250ms ease-out;
-  .stack {
-    transition: all 250ms ease-out;
-    transform: translateX(-$stack-panel-width);
-    opacity: 0;
-  }
-  &.slide-enter-active {
-    width: $stack-panel-width + $panel-margin;
-    .stack {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
+  -webkit-animation: stack-frame-enter 200ms ease-out;
+}
+
+@-webkit-keyframes stack-frame-leave {
+  from { margin-left: 0; }
+  to   { margin-left: -($stack-panel-width + $panel-margin); }
 }
 
 .stack-frame.slide-leave {
-  width: $stack-panel-width + $panel-margin;
-  transition: all 250ms linear;
-  .stack {
-    transition: all 250ms linear;
-    transform: translateX(0);
-    opacity: 1;
-  }
-  &.slide-leave-active {
-    width: 0px;
-    .stack {
-      transform: translateX(-$stack-panel-width);
-      opacity: 0;
-    }
-  }
+  -webkit-animation: stack-frame-leave 200ms linear;
+}
+
+/* Card Panel */
+
+@-webkit-keyframes card-frame-enter {
+  from { margin-left: -($card-panel-width + $panel-margin); }
+  to   { margin-left: 0; }
 }
 
 .card-frame.slide-enter {
-  width: 0px;
-  transition: all 250ms ease-out;
-  .card {
-    transition: all 250ms ease-out;
-    transform: translateX(-$card-panel-width);
-    opacity: 0;
-  }
-  &.slide-enter-active {
-    width: $card-panel-width + $panel-margin;
-    .card {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
+  -webkit-animation: card-frame-enter 200ms ease-out;
+}
+
+@-webkit-keyframes card-frame-leave {
+  from { margin-left: 0; }
+  to   { margin-left: -($card-panel-width + $panel-margin); }
 }
 
 .card-frame.slide-leave {
-  width: $card-panel-width + $panel-margin;
-  transition: all 250ms linear;
-  .card {
-    transition: all 250ms linear;
-    transform: translateX(0);
-    opacity: 1;
-  }
-  &.slide-leave-active {
-    width: 0px;
-    .card {
-      transform: translateX(-$card-panel-width);
-      opacity: 0;
-    }
-  }
+  -webkit-animation: card-frame-leave 200ms linear;
+}
+
+/* Command Panel */
+
+@-webkit-keyframes command-frame-enter {
+  from { margin-top: -200px; }
+  to   { margin-top: 0px; }
 }
 
 .command-frame.slide-enter {
-  max-height: 0px;
-  transition: all 200ms ease-out;
-  .command {
-    transform: translateY(-200px);
-    transition: all 200ms ease-out;
-  }
-  &.slide-enter-active {
-    max-height: 200px;
-    .command {
-      transform: translateY(0);
-    }
-  }
+  -webkit-animation: command-frame-enter 200ms ease-out;
+}
+
+@-webkit-keyframes command-frame-leave {
+  from { margin-top: 0px; }
+  to   { margin-top: -200px; }
 }
 
 .command-frame.slide-leave {
-  max-height: 200px;
-  transition: all 200ms linear;
-  .command {
-    transform: translateY(0);
-    transition: all 200ms linear;
-  }
-  &.slide-leave-active {
-    max-height: 0px;
-    .command {
-      transform: translateY(-200px);
-    }
-  }
+  -webkit-animation: command-frame-leave 200ms linear;
 }
