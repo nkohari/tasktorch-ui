@@ -1,12 +1,11 @@
 _                  = require 'lodash'
 React              = require 'react'
-Router             = require 'react-router'
 ActiveUrl          = require 'mixins/ActiveUrl'
 Observe            = require 'mixins/Observe'
 LoadMyQueueRequest = require 'requests/LoadMyQueueRequest'
 WorkspaceUrl       = require '../../screens/workspace/WorkspaceUrl'
 Icon               = React.createFactory(require 'common/Icon')
-Link               = React.createFactory(Router.Link)
+Hotlink            = React.createFactory(require 'common/Hotlink')
 {div, span}        = React.DOM
 
 FocusedCard = React.createClass {
@@ -32,8 +31,9 @@ FocusedCard = React.createClass {
     unless @state.focusedCard?
       return div {}, ["Loading"]
 
+    linkProps = _.extend {key: 'link', hotkey: 'f'}, @makeLinkProps()
     div {className: 'focused-card'}, [
-      Link @makeLinkProps(), [@state.focusedCard.title]
+      Hotlink linkProps, [@state.focusedCard.title]
     ]
 
   makeLinkProps: ->

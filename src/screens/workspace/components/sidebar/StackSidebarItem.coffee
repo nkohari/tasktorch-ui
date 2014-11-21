@@ -1,10 +1,10 @@
 _            = require 'lodash'
+keymaster    = require 'keymaster'
 React        = require 'react/addons'
-Router       = require 'react-router'
 ActiveUrl    = require 'mixins/ActiveUrl'
 WorkspaceUrl = require '../../WorkspaceUrl'
 Icon         = React.createFactory(require 'common/Icon')
-Link         = React.createFactory(Router.Link)
+Hotlink      = React.createFactory(require 'common/Hotlink')
 {li, span}   = React.DOM
 
 StackSidebarItem = React.createClass {
@@ -16,9 +16,9 @@ StackSidebarItem = React.createClass {
   ]
 
   render: ->
-    linkProps = _.extend @makeLinkProps(), {key: 'open-link'}
+    linkProps = _.extend @makeLinkProps(), {key: 'open-link', hotkey: @props.hotkey}
     li {className: 'sidebar-item'}, [
-      Link linkProps, [
+      Hotlink linkProps, [
         Icon {key: 'icon', name: "stack-#{@props.stack.type.toLowerCase()}"}
         span {key: 'name', className: 'name'}, [@props.stack.name]
       ]

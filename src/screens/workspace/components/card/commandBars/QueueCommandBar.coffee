@@ -16,7 +16,7 @@ QueueCommandBar = React.createClass {
     div {className: 'queue commands'}, [
       div {key: 'left', className: 'button-group'}, [
         CommandButton {key: 'defer',    icon: 'defer',    text: 'Defer',    command: CardCommand.Defer}
-        CommandButton {key: 'hand-off', icon: 'hand-off', text: 'Hand Off', command: CardCommand.HandOff}
+        CommandButton {key: 'hand-off', icon: 'hand-off', text: 'Hand Off', hotkey: 'h', command: CardCommand.HandOff}
       ]
       div {key: 'right', className: 'button-group right'}, [
         CommandButton {key: 'archive',  icon: 'archive',  command: CardCommand.Archive}

@@ -20,6 +20,7 @@ CommandButton = React.createClass {
       className: classSet(classes)
       icon:      @props.icon
       text:      @props.text
+      hotkey:    @props.hotkey
       onClick:   @onButtonClicked
     }
 

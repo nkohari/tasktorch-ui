@@ -1,41 +1,43 @@
 /* Stack Panel */
 
 @-webkit-keyframes stack-enter {
-  from { margin-left: -($stack-panel-width + $panel-margin); }
-  to   { margin-left: 0; }
+  0%   { opacity: 0; margin-left: -($stack-panel-width + $panel-margin); margin-right: $panel-margin; }
+  50%  { opacity: 0; margin-left: -($stack-panel-width + $panel-margin); margin-right: $stack-panel-width + $panel-margin; }
+  100% { opacity: 1; margin-left: 0; margin-right: $panel-margin; }
 }
 
 .stack.slide-enter {
-  -webkit-animation: stack-enter 200ms ease-out;
+  -webkit-animation: stack-enter 300ms ease-out;
 }
 
 @-webkit-keyframes stack-leave {
-  from { margin-left: 0; }
-  to   { margin-left: -($stack-panel-width + $panel-margin); }
+  from { opacity: 1; margin-left: 0; }
+  to   { opacity: 0; margin-left: -($stack-panel-width + $panel-margin); }
 }
 
 .stack.slide-leave {
-  -webkit-animation: stack-leave 50ms linear;
+  -webkit-animation: stack-leave 200ms linear;
 }
 
 /* Card Panel */
 
 @-webkit-keyframes card-enter {
-  from { margin-left: -($card-panel-width + $panel-margin); }
-  to   { margin-left: 0; }
+  0%   { opacity: 0; margin-left: -($card-panel-width + $panel-margin); margin-right: $panel-margin; }
+  50%  { opacity: 0; margin-left: -($card-panel-width + $panel-margin); margin-right: $card-panel-width + $panel-margin; }
+  100% { opacity: 1; margin-left: 0; margin-right: $panel-margin; }
 }
 
 .card.slide-enter {
-  -webkit-animation: card-enter 200ms ease-out;
+  -webkit-animation: card-enter 300ms ease-out;
 }
 
 @-webkit-keyframes card-leave {
-  from { margin-left: 0; }
-  to   { margin-left: -($card-panel-width + $panel-margin); }
+  from { opacity: 1; margin-left: 0; }
+  to   { opacity: 0; margin-left: -($card-panel-width + $panel-margin); }
 }
 
 .card.slide-leave {
-  -webkit-animation: card-leave 100ms linear;
+  -webkit-animation: card-leave 200ms linear;
 }
 
 /* Command Panel */
@@ -55,5 +57,5 @@
 }
 
 .command.slide-leave {
-  -webkit-animation: command-leave 50ms linear;
+  -webkit-animation: command-leave 100ms linear;
 }
