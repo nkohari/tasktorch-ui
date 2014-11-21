@@ -1,0 +1,72 @@
+.actions
+  margin: 10px
+  border: 1px solid #ccc
+  border-radius: 4px
+  background: #f3f3f3
+  
+  .stage
+    border-bottom: 1px solid #ccc
+    padding: 10px
+    transition: all 1s ease-in-out
+    &:last-child { border-bottom: none }
+    
+    .title
+      font-size: 16px
+      font-weight: 600
+      margin-bottom: 4px
+      
+  ul
+    margin: 0
+    padding: 0
+    list-style-type: none
+    
+    .action
+      padding: 2px 0
+      
+      .handle
+        float: right
+        display: none
+        color: #999
+        margin-left: 6px
+        
+      .owner
+        display: inline-block
+        vertical-align: middle
+        color: #999
+        margin-right: 6px
+        
+      .status
+        display: inline-block
+        vertical-align: middle
+        margin-right: 6px
+        border: 1px solid #999
+        border-radius: 4px
+        background: #fff
+        text-align: center
+        
+      .text
+        display: inline-block
+        vertical-align: middle
+        font-size: 16px
+        width: 455px
+        
+      &.complete
+        .status
+          color: #666
+          background: #ddd
+        .text
+          text-decoration: line-through
+          color: #666
+          &:focus { text-decoration: none }
+            
+      &.warning
+        .status { color: #900 }
+        .text { color: #900 }
+          
+      &.inprogress
+        .status { color: #090 }
+        .text { color: #090 }
+          
+      &:hover
+        .handle
+          display: block

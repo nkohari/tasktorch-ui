@@ -1,0 +1,57 @@
+.card
+  position: relative
+  border: $panel-border
+  background: $panel-background
+  width: $card-panel-width
+  min-width: $card-panel-width
+  background: #fff
+  
+  .close
+    display: block
+    position: absolute
+    z-index: 1001
+    right: 6px
+    top: 6px
+    color: #666
+    transition: color 0.15s
+    &:hover
+      color: #000
+
+  .details
+    flex: 1
+    overflow-x: hidden
+    overflow-y: auto
+    
+    .body
+      font-size: 16px
+      font-weight: 400
+      line-height: 1.6em
+      margin: 10px 10px 0px 10px
+
+@keyframes card-enter
+  0%
+    opacity: 0
+    margin-left: -($card-panel-width + $panel-margin)
+    margin-right: $panel-margin
+  50%
+    opacity: 0
+    margin-left: -($card-panel-width + $panel-margin)
+    margin-right: $card-panel-width + $panel-margin
+  100%
+    opacity: 1
+    margin-left: 0
+    margin-right: $panel-margin
+
+.card.slide-enter
+  animation: card-enter 300ms ease-out
+
+@keyframes card-leave
+  from
+    opacity: 1
+    margin-left: 0
+  to
+    opacity: 0
+    margin-left: -($card-panel-width + $panel-margin)
+
+.card.slide-leave
+  animation: card-leave 200ms linear

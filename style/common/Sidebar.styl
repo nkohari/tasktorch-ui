@@ -1,0 +1,69 @@
+.sidebar
+  position: absolute
+  top: $header-height
+  left: 0
+  vertical-align: top
+  width: $sidebar-width
+  height: 100%
+  z-index: 1000
+  border-right: $sidebar-border
+  background: $sidebar-background
+  box-shadow: $sidebar-shadow
+  margin: 0
+  margin-bottom: $logo-height
+  overflow-x: hidden
+  overflow-y: auto
+  white-space: normal
+  
+  .group
+    background: $sidebar-group-background
+    border-bottom: $sidebar-group-border
+    
+    .header
+      font-size: 12px
+      padding: 4px 8px
+      font-weight: 600
+      text-transform: uppercase
+      color: $sidebar-group-header-text-color
+      text-shadow: $sidebar-group-header-text-shadow
+      background: $sidebar-group-header-background
+      border-bottom: $sidebar-group-header-border
+
+  ul
+    margin: 0px
+    padding: 0px
+    list-style-type: none
+    
+    li a
+      font-size: 13px
+      cursor: pointer
+      display: block
+      padding: 6px 8px
+      background: $sidebar-item-background
+      color: $sidebar-item-text-color
+      border-left: 6px solid transparent
+      text-decoration: none
+      transition-property: color background
+      transition-duration: 0.1s
+      
+      &.active
+        color: $sidebar-item-active-text-color
+        background: $sidebar-item-active-background
+        border-left: 6px solid $active
+        box-shadow: $sidebar-item-active-shadow
+        
+        .icon
+          color: $sidebar-item-active-icon-color
+          
+      &:hover
+        color: $sidebar-item-active-text-color
+        
+        .icon
+          color: $sidebar-item-active-icon-color
+
+      .icon
+        color: $sidebar-item-icon-color
+        transition: all 0.1s linear
+
+      .name
+        padding-left: 4px

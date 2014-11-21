@@ -1,0 +1,69 @@
+.stack
+  width: $stack-panel-width
+  min-width: $stack-panel-width
+  border: $panel-border
+  background: $panel-background
+  
+  .header
+    width: 100%
+    font-size: 14px
+    font-weight: 600
+    color: $panel-header-text-color
+    background: $panel-header-background
+    overflow: hidden
+    padding: 8px 6px
+    border-bottom: $panel-border
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
+    
+    .title
+      display: inline-block
+      padding-left: 0.2em
+      
+    .close
+      color: $panel-header-icon-color
+      float: right
+      
+  .cards
+    overflow-x: hidden
+    overflow-y: auto
+    height: 100%
+    margin: 0
+    padding: 4px
+    
+  .empty-message
+    position: absolute
+    left: 0
+    top: 50%
+    width: 100%
+    font-size: 14px
+    font-weight: 600
+    color: #ccc
+    text-align: center
+
+@keyframes stack-enter
+  0%
+    opacity: 0
+    margin-left: -($stack-panel-width + $panel-margin)
+    margin-right: $panel-margin
+  50%
+    opacity: 0
+    margin-left: -($stack-panel-width + $panel-margin)
+    margin-right: $stack-panel-width + $panel-margin
+  100%
+    opacity: 1
+    margin-left: 0
+    margin-right: $panel-margin
+
+.stack.slide-enter
+  animation: stack-enter 300ms ease-out
+
+@keyframes stack-leave
+  from
+    opacity: 1
+    margin-left: 0
+  to
+    opacity: 0
+    margin-left: -($stack-panel-width + $panel-margin)
+
+.stack.slide-leave
+  animation: stack-leave 200ms linear

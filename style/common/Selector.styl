@@ -1,0 +1,80 @@
+.selector
+  position: relative
+  user-select: none
+          
+  &.expanded
+    a
+      background: linear-gradient(to bottom, #ddd, #eee 50%, #fff)
+      border-radius: 4px 4px 0 0
+
+  a
+    position: relative
+    z-index: 1000
+    display: block
+    padding: 4px 8px
+    background: linear-gradient(to bottom, #fff, #eee 50%, #ddd)
+    border: 1px solid #999
+    border-radius: 4px
+    line-height: 20px
+    text-decoration: none
+    cursor: pointer
+    overflow: hidden
+    
+    .value
+      color: #000
+      font-size: 13px
+      margin-right: 28px
+      text-overflow: ellipsis
+      &.placeholder { color: #666 }
+        
+    .indicator
+      position: absolute
+      top: 0
+      right: 8px
+      font: 28px $icon-font
+      color: #000
+      
+  .drop
+    position: absolute
+    z-index: 1001
+    width: 100%
+    border: 1px solid #999
+    border-top: 0px
+    margin-top: -1px
+    border-radius: 0 0 4px 4px
+    padding: 4px
+    background: #fff
+    
+    .suggest
+      position: relative
+      border: 1px solid #ccc
+      input
+        padding: 4px 28px 4px 4px
+        width: 100%
+        border: none !important
+        outline: none !important
+      .indicator
+        position: absolute
+        top: 0
+        right: 8px
+        font: 28px $icon-font
+        color: #999
+        
+    ul
+      list-style-type: none
+      padding: 0
+      margin: 0
+      li
+        cursor: pointer
+        font-size: 13px
+        padding: 4px
+        background: #fff
+        .icon
+          margin-right: 4px
+        .avatar
+          border-radius: 50%
+          margin-right: 4px
+        &:hover
+          background: #ccc
+        &:first-child
+          margin-top: 4px

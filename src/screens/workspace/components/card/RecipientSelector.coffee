@@ -33,7 +33,7 @@ RecipientSelector = React.createClass {
     if @state.expanded
       drop = div {key: 'drop', className: 'drop'}, [
         div {key: 'suggest', className: 'suggest'}, [
-          input {key: 'input', type: 'text', value: @state.phrase, onChange: @onInputChanged}
+          input {key: 'input', ref: 'input', type: 'text', value: @state.phrase, onChange: @onInputChanged}
           span {key: 'icon', className: 'indicator'}, ['\uD83D\uDD0D']
         ]
         ul {key: 'options', className: 'options'}, options
@@ -50,7 +50,7 @@ RecipientSelector = React.createClass {
       expanded:  @state.expanded
       empty:     not @state.selection?
 
-    div {className: classSet(classes)}, _.compact [
+    div {className: classSet(classes), tabIndex: -1, onBlur: @onBlur}, _.compact [
       a {key: 'trigger', onClick: @onTriggerClicked}, [
         value
         span {key: 'indicator', className: 'indicator'}, [
@@ -59,6 +59,9 @@ RecipientSelector = React.createClass {
       ]
       drop if drop?
     ]
+
+  onBlur: ->
+    console.log('blur')
 
   renderUserOptionsGroup: ->
     _.map @state.options.users, (user) =>
@@ -75,7 +78,9 @@ RecipientSelector = React.createClass {
       ]
 
   onTriggerClicked: (event) ->
-    @setState {expanded: !@state.expanded}
+    expanded = !@state.expanded
+    @setState {expanded}, =>
+      @refs.input.getDOMNode().focus() if expanded
 
   onInputChanged: (event) ->
     phrase = event.target.value

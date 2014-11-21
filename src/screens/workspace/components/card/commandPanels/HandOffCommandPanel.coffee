@@ -12,10 +12,13 @@ HandOffCommandPanel = React.createClass {
 
   mixins: [CardCommandContext]
 
+  componentDidMount: ->
+    @refs.selector.getDOMNode().focus()
+
   render: ->
     div {className: 'handoff command'}, [
       CommandArgument {key: 'recipient', label: 'Recipient'}, [
-        RecipientSelector {key: 'selector', placeholder: 'Choose a user or team'}
+        RecipientSelector {key: 'selector', ref: 'selector', placeholder: 'Choose a user or team'}
       ]
       CommandArgument {key: 'message', label: 'Message', hint: '(optional)'}, [
         MultilineText {key: 'message', className: 'message'}

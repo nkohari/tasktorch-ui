@@ -1,0 +1,38 @@
+button
+  display: inline-block
+  height: 32px
+  font-size: 13px
+  padding: 6px 10px
+  color: $subtle-text-color
+  border: 1px solid $steel-border-color
+  border-radius: $button-border-radius
+  margin-right: 4px
+  background: linear-gradient(to bottom, $button-highlight-color, $button-lowlight-color)
+  outline: none !important
+  &:active, &.active
+    color: $text-color;
+    background: linear-gradient(to bottom, $button-lowlight-color, $button-highlight-color)
+    box-shadow: inset 0px 0px $shadow-blur $shadow-color
+  &:hover
+    color: $text-color;
+  &:disabled
+    color: $disabled-text-color;
+    background: $button-lowlight-color
+    box-shadow: none
+
+.button-group
+  display: inline-block
+  vertical-align: middle
+  &.right { float: right }
+
+  button
+    border-right: 0
+    margin-right: 0
+    border-radius: 0
+    &:first-child
+      border-top-left-radius: $button-border-radius
+      border-bottom-left-radius: $button-border-radius
+    &:last-child
+      border-right: 1px solid $steel-border-color
+      border-top-right-radius: $button-border-radius
+      border-bottom-right-radius: $button-border-radius

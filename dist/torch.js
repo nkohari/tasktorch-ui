@@ -40311,6 +40311,7 @@ RecipientSelector = React.createClass({
         }, [
           input({
             key: 'input',
+            ref: 'input',
             type: 'text',
             value: this.state.phrase,
             onChange: this.onInputChanged
@@ -40342,7 +40343,9 @@ RecipientSelector = React.createClass({
       empty: this.state.selection == null
     };
     return div({
-      className: classSet(classes)
+      className: classSet(classes),
+      tabIndex: -1,
+      onBlur: this.onBlur
     }, _.compact([
       a({
         key: 'trigger',
@@ -40354,6 +40357,9 @@ RecipientSelector = React.createClass({
         }, [this.state.expanded ? '\u25B4' : '\u25BE'])
       ]), drop != null ? drop : void 0
     ]));
+  },
+  onBlur: function() {
+    return console.log('blur');
   },
   renderUserOptionsGroup: function() {
     return _.map(this.state.options.users, (function(_this) {
@@ -40393,9 +40399,17 @@ RecipientSelector = React.createClass({
     })(this));
   },
   onTriggerClicked: function(event) {
+    var expanded;
+    expanded = !this.state.expanded;
     return this.setState({
-      expanded: !this.state.expanded
-    });
+      expanded: expanded
+    }, (function(_this) {
+      return function() {
+        if (expanded) {
+          return _this.refs.input.getDOMNode().focus();
+        }
+      };
+    })(this));
   },
   onInputChanged: function(event) {
     var phrase;
@@ -40764,6 +40778,9 @@ _ref = React.DOM, div = _ref.div, em = _ref.em, label = _ref.label, textarea = _
 HandOffCommandPanel = React.createClass({
   displayName: 'HandOffCommandPanel',
   mixins: [CardCommandContext],
+  componentDidMount: function() {
+    return this.refs.selector.getDOMNode().focus();
+  },
   render: function() {
     return div({
       className: 'handoff command'
@@ -40774,6 +40791,7 @@ HandOffCommandPanel = React.createClass({
       }, [
         RecipientSelector({
           key: 'selector',
+          ref: 'selector',
           placeholder: 'Choose a user or team'
         })
       ]), CommandArgument({

@@ -9,6 +9,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-contrib-clean')
   grunt.loadNpmTasks('grunt-contrib-copy')
   grunt.loadNpmTasks('grunt-contrib-sass')
+  grunt.loadNpmTasks('grunt-contrib-stylus')
   grunt.loadNpmTasks('grunt-contrib-watch')
   grunt.loadNpmTasks('grunt-notify')
 
@@ -34,10 +35,13 @@ module.exports = (grunt) ->
     clean:
       app: ['dist']
 
-    sass:
+    stylus:
       app:
+        options:
+          paths: ['style/imports']
+          import: ['nib', 'variables']
         files:
-          'dist/torch.css': ['style/bundle.scss']
+          'dist/torch.css': ['style/**/!(imports)/*.styl']
 
     copy:
       app:
@@ -47,11 +51,11 @@ module.exports = (grunt) ->
       browserify:
         options:
           title: 'Grunt'
-          message: 'Browserify rebuild complete'
-      sass:
+          message: 'JS build complete'
+      stylus:
         options:
           title: 'Grunt'
-          message: 'SASS rebuild complete'
+          message: 'CSS build complete'
 
     watch:
       code:
@@ -59,9 +63,9 @@ module.exports = (grunt) ->
         tasks: ['browserify:app', 'notify:browserify']
         options: {spawn: false}
       style:
-        files: ['style/**/*.scss']
-        tasks: ['sass:app', 'notify:sass']
+        files: ['style/**/*.styl']
+        tasks: ['stylus:app', 'notify:stylus']
         options: {spawn: false}
 
-  grunt.registerTask 'build', ['browserify', 'sass', 'copy']
+  grunt.registerTask 'build', ['browserify', 'stylus', 'copy']
   grunt.registerTask 'default', ['build']
