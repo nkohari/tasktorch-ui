@@ -7,8 +7,9 @@ QueueCard = React.createClass {
   displayName: 'QueueCard'
 
   render: ->
-    div {className: 'body queue'}, [
-      div {className: 'top'}, [
+    style = {borderLeftColor: @props.kind.color}
+    div {className: 'queue summary'}, [
+      div {style, className: 'top'}, [
         div {className: 'title'},   [@props.card.title or Constants.untitledCard]
         div {className: 'handoff'}, [
           'in queue since '

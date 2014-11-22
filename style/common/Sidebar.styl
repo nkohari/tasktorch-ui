@@ -6,9 +6,7 @@
   width: $sidebar-width
   height: 100%
   z-index: 1000
-  border-right: $sidebar-border
-  background: $sidebar-background
-  box-shadow: $sidebar-shadow
+  background: $normal
   margin: 0
   margin-bottom: $logo-height
   overflow-x: hidden
@@ -16,18 +14,15 @@
   white-space: normal
   
   .group
-    background: $sidebar-group-background
-    border-bottom: $sidebar-group-border
     
     .header
       font-size: 12px
+      line-height: 20px;
       padding: 4px 8px
       font-weight: 600
       text-transform: uppercase
-      color: $sidebar-group-header-text-color
-      text-shadow: $sidebar-group-header-text-shadow
-      background: $sidebar-group-header-background
-      border-bottom: $sidebar-group-header-border
+      color: $sidebar-text-color
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5)
 
   ul
     margin: 0px
@@ -35,35 +30,22 @@
     list-style-type: none
     
     li a
-      font-size: 13px
-      cursor: pointer
       display: block
+      font-size: 13px
+      line-height: 20px;
       padding: 6px 8px
-      background: $sidebar-item-background
-      color: $sidebar-item-text-color
+      color: $sidebar-text-color
       border-left: 6px solid transparent
       text-decoration: none
-      transition-property: color background
-      transition-duration: 0.1s
+      transition: all $activate-animation-delay linear
       
       &.active
-        color: $sidebar-item-active-text-color
-        background: $sidebar-item-active-background
-        border-left: 6px solid $active
-        box-shadow: $sidebar-item-active-shadow
-        
-        .icon
-          color: $sidebar-item-active-icon-color
-          
-      &:hover
-        color: $sidebar-item-active-text-color
-        
-        .icon
-          color: $sidebar-item-active-icon-color
+        color: $sidebar-active-text-color
+        background: $sidebar-active-background-color
+        border-left: 6px solid $active-marker-color
+        .icon { color: $sidebar-active-text-color }
 
       .icon
+        margin-right: 4px;
         color: $sidebar-item-icon-color
-        transition: all 0.1s linear
-
-      .name
-        padding-left: 4px
+        transition: all $activate-animation-delay linear

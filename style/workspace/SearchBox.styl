@@ -1,20 +1,16 @@
 .search
-  padding: 10px
   background: $search-background
-  border-bottom: $search-border
+  padding: 8px
 
   input
     width: 100%
     font-size: 13px
-    padding: 4px 8px
-    background: $search-input-background
-    border: $search-input-border
-    border-radius: 4px
-    transition-property: border, background
-    transition-duration: 0.2s
-    transition-timing-function: ease-in-out
+    padding: 8px 12px
+    border: 0;
+    border-radius: 8px
+    background: $dark
+    transition: background $activate-animation-delay ease-out;
     
     &:focus
-      color: $search-input-active-text-color
-      background: $search-input-active-background
+      color: #fff
       outline: none !important

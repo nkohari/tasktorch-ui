@@ -11,24 +11,17 @@
     padding: 6px 0 10px 0
     font-size: 15px
     line-height: 30px
-    color: $navigation-text-color
-    text-shadow: $navigation-text-shadow
-    font-weight: $navigation-font-weight
+    color: $sidebar-text-color
     border-top: 6px solid transparent
     text-decoration: none
     text-align: center
-    transition-property: color background
-    transition-duration: 0.1s
-    transition-timing-function: linear
+    transition: all $hover-animation-delay linear
     &:hover
       color: #fff
     &.active
-      color: $navigation-active-text-color
-      border-top: 6px solid $active
-      font-weight: $navigation-active-font-weight
-      text-shadow: $navigation-active-text-shadow
-      background: $navigation-active-background
-      box-shadow: $navigation-active-shadow
+      color: #fff
+      border-top: 6px solid $active-marker-color
+      background: $dark
       .icon
         color: rgba(255, 255, 255, 0.1)
         

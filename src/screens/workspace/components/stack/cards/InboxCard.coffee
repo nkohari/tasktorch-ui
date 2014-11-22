@@ -1,22 +1,22 @@
 React     = require 'react'
 Constants = require 'framework/Constants'
-{div, em} = React.DOM
+{div}     = React.DOM
 
 InboxCard = React.createClass {
 
   displayName: 'InboxCard'
 
   render: ->
-    div {className: 'body inbox'}, [
+
+    div {className: 'summary'}, [
+      div {
+        className: 'indicator'
+        style: {borderColor: @props.kind.color}
+      }
       div {className: 'top'}, [
         div {className: 'title'},   [@props.card.title or Constants.untitledCard]
         div {className: 'handoff'}, [
-          'from '
-          em {}, 'X'
-          ' to '
-          em {}, 'Y'
-          ' at '
-          em {}, 'Z'
+          'November 21'
         ]
       ]
       div {className: 'bottom'}, [@props.card.body]

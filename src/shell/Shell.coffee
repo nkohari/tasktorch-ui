@@ -5,6 +5,7 @@ LoadCurrentUserRequest     = require 'requests/LoadCurrentUserRequest'
 LoadMyOrganizationsRequest = require 'requests/LoadMyOrganizationsRequest'
 ShellHeader                = React.createFactory(require './components/ShellHeader')
 LogoCorner                 = React.createFactory(require './components/LogoCorner')
+CSSTransitionGroup         = React.createFactory(React.addons.CSSTransitionGroup)
 {div}                      = React.DOM
 
 Shell = React.createClass {
@@ -36,7 +37,9 @@ Shell = React.createClass {
     Screen = @props.activeRouteHandler
     div {className: 'shell'}, [
       ShellHeader {key: 'header', currentOrganization: @state.currentOrganization, currentUser: @state.currentUser, organizations: @state.organizations, connectedUsers: @state.connectedUsers}
-      Screen {key: 'screen'}
+      CSSTransitionGroup {key: 'screen', transitionName: 'navigate'}, [
+        Screen {key: 'screen'}
+      ]
       LogoCorner {key: 'logo'}
     ]
 
