@@ -7,7 +7,11 @@ StackFooter = React.createClass {
   displayName: 'StackFooter'
 
   render: ->
-    div {className: 'footer'}, []
+    div {className: 'footer'}, [
+      div {className: 'button-group right'}, [
+        Button {key: 'create-card', icon: 'create-card'}
+      ]
+    ]
 
 }
 

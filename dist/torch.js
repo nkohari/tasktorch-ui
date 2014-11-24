@@ -41324,7 +41324,16 @@ StackFooter = React.createClass({
   render: function() {
     return div({
       className: 'footer'
-    }, []);
+    }, [
+      div({
+        className: 'button-group right'
+      }, [
+        Button({
+          key: 'create-card',
+          icon: 'create-card'
+        })
+      ])
+    ]);
   }
 });
 
