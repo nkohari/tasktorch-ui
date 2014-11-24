@@ -3,7 +3,7 @@ React               = require 'react'
 Observe             = require 'mixins/Observe'
 LoadMyStacksRequest = require 'requests/LoadMyStacksRequest'
 LoadMyTeamsRequest  = require 'requests/LoadMyTeamsRequest'
-SearchBox           = React.createFactory(require './SearchBox')
+Navigation          = React.createFactory(require 'common/Navigation')
 MyStackList         = React.createFactory(require './MyStackList')
 TeamStackList       = React.createFactory(require './TeamStackList')
 {div, ul}           = React.DOM
@@ -38,7 +38,7 @@ WorkspaceSidebar = React.createClass {
       TeamStackList {key: "team-#{team.id}", team}
 
     return [
-      SearchBox {key: 'search'}
+      Navigation {key: 'navigation'}
       MyStackList {key: 'me', stacks: @state.stacks}
     ].concat(teams)
 

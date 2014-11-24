@@ -16,6 +16,9 @@ ActiveUrl = (modelType) ->
     isActive: (route) ->
       @context.isActive(route)
 
+    getActiveRoutes: ->
+      @context.activeRoutes.slice(0)
+
   }
 
 module.exports = ActiveUrl

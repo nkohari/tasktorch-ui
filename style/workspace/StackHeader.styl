@@ -1,18 +1,15 @@
 .stack > .header
   width: 100%
+  height: $stack-header-height
   font-size: 14px
   font-weight: 600
-  color: $panel-header-text-color
-  background: $panel-header-background
+  color: $black
+  background: linear-gradient(to bottom, #eee, #ccc)
   overflow: hidden
   padding: 8px 6px
-  border-bottom: $panel-border
+  border-bottom: 1px solid $panel-border-color
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
   
   .title
     display: inline-block
-    padding-left: 0.2em
-    
-  .close
-    color: $panel-header-icon-color
-    float: right
+    padding-left: 4px

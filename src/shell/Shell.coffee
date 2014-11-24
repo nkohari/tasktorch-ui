@@ -3,8 +3,8 @@ Observe                    = require 'mixins/Observe'
 JoinPresenceChannelRequest = require 'requests/JoinPresenceChannelRequest'
 LoadCurrentUserRequest     = require 'requests/LoadCurrentUserRequest'
 LoadMyOrganizationsRequest = require 'requests/LoadMyOrganizationsRequest'
-ShellHeader                = React.createFactory(require './components/ShellHeader')
-LogoCorner                 = React.createFactory(require './components/LogoCorner')
+TopCorner                  = React.createFactory(require './components/TopCorner')
+BottomCorner               = React.createFactory(require './components/BottomCorner')
 CSSTransitionGroup         = React.createFactory(React.addons.CSSTransitionGroup)
 {div}                      = React.DOM
 
@@ -29,20 +29,21 @@ Shell = React.createClass {
     @execute new LoadCurrentUserRequest()
     @execute new LoadMyOrganizationsRequest()
 
+  isReady: ->
+    @state.currentUser? and @state.currentOrganization?
+
   render: ->
+    children = if @isReady() then @renderChildren() else []
+    div {className: 'shell'}, children
 
-    unless @state.currentUser? and @state.currentOrganization?
-      return div {className: 'shell loading'}, []
-
+  renderChildren: ->
     Screen = @props.activeRouteHandler
-    div {className: 'shell'}, [
-      ShellHeader {key: 'header', currentOrganization: @state.currentOrganization, currentUser: @state.currentUser, organizations: @state.organizations, connectedUsers: @state.connectedUsers}
-      CSSTransitionGroup {key: 'screen', transitionName: 'navigate'}, [
-        Screen {key: 'screen'}
-      ]
-      LogoCorner {key: 'logo'}
+    return [
+      TopCorner {key: 'top-corner', currentOrganization: @state.currentOrganization, currentUser: @state.currentUser, organizations: @state.organizations, connectedUsers: @state.connectedUsers}
+      Screen {key: 'screen'}
+      BottomCorner {key: 'bottom-corner'}
     ]
-
+    
 }
 
 module.exports = Shell

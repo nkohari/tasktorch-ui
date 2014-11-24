@@ -39,7 +39,7 @@ StackHeader = React.createClass {
 
     return [
       Icon {key: 'icon', name: "stack-#{@props.stack.type.toLowerCase()}"}
-      span {key: 'title', name: 'title'}, [name]
+      span {key: 'title', className: 'title'}, [name]
     ]
 
 }

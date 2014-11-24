@@ -2,7 +2,7 @@
   margin: 10px
   border: 1px solid #ccc
   border-radius: 4px
-  background: #f3f3f3
+  background: $bright-white
   
   .stage
     border-bottom: 1px solid #ccc
@@ -25,9 +25,10 @@
       
       .handle
         float: right
-        display: none
+        opacity: 0
         color: #999
         margin-left: 6px
+        transition: opacity $hover-animation-delay ease-in-out
         
       .owner
         display: inline-block
@@ -48,7 +49,7 @@
         display: inline-block
         vertical-align: middle
         font-size: 16px
-        width: 455px
+        width: $card-panel-width - 128px
         
       &.complete
         .status
@@ -68,5 +69,4 @@
         .text { color: #090 }
           
       &:hover
-        .handle
-          display: block
+        .handle { opacity: 1 }

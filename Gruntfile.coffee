@@ -39,7 +39,7 @@ module.exports = (grunt) ->
       app:
         options:
           paths: ['style/imports']
-          import: ['nib', 'variables']
+          import: ['nib', 'functions', 'variables']
         files:
           'dist/torch.css': ['style/**/!(imports)/*.styl']
 

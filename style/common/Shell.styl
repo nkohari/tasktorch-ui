@@ -1,0 +1,132 @@
+html
+  box-sizing: border-box
+
+*, *:before, *:after
+  box-sizing: inherit
+
+@font-face
+  font-family: 'Entypo'
+  src: url('/dist/entypo.woff')
+
+body
+  font-family: $font
+  height: 100%
+  width: 100%
+  margin: 0
+  padding: 0
+  background: $steel-blue url(/dist/bg/bright-squares.png)
+  overflow: hidden
+  text-rendering: optimizeLegibility
+
+.shell
+  height: 100vh
+  width: 100vw
+  margin: 0
+  padding: 0
+  overflow: hidden
+
+.screen
+  width: 100%
+  height: 100%
+  overflow: hidden
+  padding: 10px
+  
+  .content
+    position: relative
+    z-index: 10001
+    display: flex
+    height: 100%
+    padding: $content-margin
+    margin-left: $sidebar-width
+    overflow-x: auto
+    overflow-y: hidden
+    background: $white url(/dist/bg/bright-squares.png)
+    border-radius: 6px
+    &::-webkit-scrollbar
+      height: 20px
+    &::-webkit-scrollbar-track
+      background: transparent
+    &::-webkit-scrollbar-thumb
+      background: rgba(0, 0, 0, 0.3)
+      background-clip: content-box
+      border: 5px solid transparent
+      border-radius: 20px
+
+.corner
+  z-index: 10000
+  position: absolute
+  width: 100%
+  height: $corner-height
+  background: shadow(30%)
+
+  &.top
+    top: 0
+    left: 0
+    
+    .avatar
+      display: inline-block
+      height: 40px
+      width: 40px
+      vertical-align: middle
+      margin: 10px 0 0 10px
+      border-radius: 50%
+      
+    .context
+      display: inline-block
+      vertical-align: middle
+      margin: 10px 0 0 10px
+      .user
+        font-size: 16px
+        color: #eee
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8)
+      .organization
+        font-size: 14px
+        color: #bbb
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8)
+      
+  &.bottom
+    bottom: 0
+    left: 0
+    
+    .links
+      position: absolute
+      left: 60px
+      top: 34px
+      a
+        display: inline-block
+        color: #999
+        font-size: 13px
+        text-decoration: none
+        margin-right: 10px
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8)
+        transition: color $hover-animation-delay linear
+        &:visited { color: #999 }
+        &:hover { color: #fff }
+        &:active { color: #fff }
+
+    .logo
+      height: 100%
+      background: 10px 10px url('/dist/logo.png') no-repeat
+      font-family: 'Gotham'
+      text-transform: uppercase
+      font-weight: 400
+      letter-spacing: 0.5px
+      padding-left: 60px
+      padding-top: 18px
+      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8)
+      .first { color: $purple; }
+      .second { color: $orange; }
+    
+@keyframes screen-navigate-enter
+  from { opacity: 0 }
+  to   { opacity: 1 }
+
+.screen.navigate-enter
+  animation: screen-navigate-enter 1000ms ease-out
+
+@keyframes screen-navigate-leave
+  from { opacity: 1 }
+  to   { opacity: 0 }
+
+.screen.navigate-leave
+  animation: screen-navigate-leave 200ms linear
