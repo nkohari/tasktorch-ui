@@ -3,7 +3,7 @@ React               = require 'react'
 Observe             = require 'mixins/Observe'
 LoadMyStacksRequest = require 'requests/LoadMyStacksRequest'
 LoadMyTeamsRequest  = require 'requests/LoadMyTeamsRequest'
-Navigation          = React.createFactory(require 'common/Navigation')
+NavigationMenu      = React.createFactory(require 'common/NavigationMenu')
 MyStackList         = React.createFactory(require './MyStackList')
 TeamStackList       = React.createFactory(require './TeamStackList')
 {div, ul}           = React.DOM
@@ -34,13 +34,15 @@ WorkspaceSidebar = React.createClass {
 
   renderChildren: ->
 
-    teams = _.map @state.teams, (team) =>
+    groups = [
+      MyStackList {key: 'me', stacks: @state.stacks}
+    ].concat _.map @state.teams, (team) =>
       TeamStackList {key: "team-#{team.id}", team}
 
     return [
-      Navigation {key: 'navigation'}
-      MyStackList {key: 'me', stacks: @state.stacks}
-    ].concat(teams)
+      NavigationMenu {key: 'navigation'}
+      div {key: 'menu', className: 'menu'}, groups
+    ]
 
 }
 

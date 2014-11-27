@@ -33,12 +33,12 @@ Shell = React.createClass {
     @state.currentUser? and @state.currentOrganization?
 
   render: ->
-    children = if @isReady() then @renderChildren() else []
-    div {className: 'shell'}, children
 
-  renderChildren: ->
+    unless @isReady()
+      return div {className: 'loading'}, []
+
     Screen = @props.activeRouteHandler
-    return [
+    div {className: 'shell'}, [
       TopCorner {key: 'top-corner', currentOrganization: @state.currentOrganization, currentUser: @state.currentUser, organizations: @state.organizations, connectedUsers: @state.connectedUsers}
       Screen {key: 'screen'}
       BottomCorner {key: 'bottom-corner'}

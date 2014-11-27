@@ -2,7 +2,6 @@
   flex: none
   position: relative
   z-index: 1000
-  box-shadow: 0 1px $shadow-blur $shadow-color
   border-bottom: 6px solid
   &.expanded
     .fixed { border-bottom: 1px solid $steel-light-border-color }
@@ -20,7 +19,7 @@
   .title
     color: $text-color
     font-size: 22px
-    font-weight: 600
+    font-weight: $bold-font-weight
     margin-right: 24px
     input
       text-overflow: ellipsis
@@ -44,4 +43,4 @@
   .commands
     padding: 4px
     width: 100%
-    button { font-weight: 600 }
+    button { font-weight: $bold-font-weight }

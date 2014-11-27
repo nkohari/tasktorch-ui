@@ -1,6 +1,8 @@
 html
   box-sizing: border-box
-
+  height: 100%
+  width: 100%
+  
 *, *:before, *:after
   box-sizing: inherit
 
@@ -9,25 +11,27 @@ html
   src: url('/dist/entypo.woff')
 
 body
-  font-family: $font
+  font-family: $shell-font
+  font-weight: $normal-font-weight
   height: 100%
   width: 100%
   margin: 0
   padding: 0
-  background: $steel-blue url(/dist/bg/bright-squares.png)
+  background: $steel-blue $background-texture
   overflow: hidden
   text-rendering: optimizeLegibility
-
+  -webkit-font-smoothing: subpixel-antialiased
+  
 .shell
-  height: 100vh
-  width: 100vw
+  height: 100%
+  width: 100%
   margin: 0
   padding: 0
   overflow: hidden
 
 .screen
-  width: 100%
   height: 100%
+  width: 100%
   overflow: hidden
   padding: 10px
   
@@ -40,7 +44,7 @@ body
     margin-left: $sidebar-width
     overflow-x: auto
     overflow-y: hidden
-    background: #fff url(/dist/bg/bright-squares.png)
+    background: $bright-white $background-texture
     border-radius: 6px
     &::-webkit-scrollbar
       height: 20px

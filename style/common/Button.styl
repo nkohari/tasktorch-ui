@@ -9,12 +9,13 @@ button
   margin-right: 4px
   background: linear-gradient(to bottom, $button-highlight-color, $button-lowlight-color)
   outline: none !important
+  box-shadow: 0 1px 0 shadow(10%)
   &:active, &.active
-    color: $text-color;
+    color: $dark-black
     background: linear-gradient(to bottom, $button-lowlight-color, $button-highlight-color)
     box-shadow: inset 0px 0px $shadow-blur $shadow-color
   &:hover
-    color: $text-color;
+    color: $dark-black
   &:disabled
     color: $disabled-text-color;
     background: $button-lowlight-color

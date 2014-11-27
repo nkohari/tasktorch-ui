@@ -3,7 +3,7 @@ React            = require 'react'
 Observe          = require 'mixins/Observe'
 StackType        = require 'framework/enums/StackType'
 StackSidebarItem = React.createFactory(require './StackSidebarItem')
-{div, ul}        = React.DOM
+{section, header, ul} = React.DOM
 
 MyStackList = React.createClass {
 
@@ -21,8 +21,8 @@ MyStackList = React.createClass {
         StackSidebarItem {key: 'queue', stack: queue, hotkey: 'q'}
       ]
 
-    div {className: 'me group'}, [
-      div {key: 'header', className: 'header'}, ['My Work']
+    section {className: 'me group'}, [
+      header {key: 'header'}, ['My Work']
       ul {key: 'items'}, children
     ]
 

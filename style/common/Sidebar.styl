@@ -2,54 +2,50 @@
   position: absolute
   top: 0
   left: 0
-  padding: $corner-height 0
-  vertical-align: top
-  width: $sidebar-width + $content-margin
-  height: 100%
   z-index: 1000
+  height: 100%
+  width: $sidebar-width + $content-margin
   margin: 0
-  margin-bottom: $logo-height
+  padding: $corner-height 0
   overflow-x: hidden
   overflow-y: auto
+
+.sidebar > .menu
   
-  .group
+  section
     
-    .header
+    header
       font-size: 13px
       padding: 7px 10px
-      font-weight: 600
+      font-weight: $bold-font-weight
       text-transform: uppercase
       color: $sidebar-header-text-color
       text-shadow: 1px 1px 0 $dark-black
 
-  ul
-    margin: 0px
-    padding: 0px
-    list-style-type: none
-    
-    li a
-      display: block
-      font-size: 14px
-      line-height: 20px;
-      padding: 6px 8px
-      color: $sidebar-text-color
-      border-left: 6px solid transparent
-      text-decoration: none
-      text-shadow: 1px 1px 0 $dark-black
-      transition: all $hover-animation-delay linear
+    ul
+      margin: 0px
+      padding: 0px
+      list-style-type: none
       
-      &:hover, &:active {
-        color: $white
-        .icon { color: $white }
-      }
-      
-      &.active
-        color: $sidebar-active-text-color
-        background: $sidebar-active-background-color
-        border-left: 6px solid $active-marker-color
-        .icon { color: $sidebar-active-text-color }
+      li a
+        display: block
+        font-size: 14px
+        line-height: 20px;
+        padding: 6px 8px
+        color: $sidebar-text-color
+        border-left: 6px solid transparent
+        text-decoration: none
+        text-shadow: 1px 1px 0 $dark-black
+        transition-property: color, background
+        transition-duration: $hover-animation-delay
+        &:hover, &:active
+          color: $white
+          .icon { color: $white }
+        
+        &.active
+          color: $sidebar-active-text-color
+          background: $sidebar-active-background-color
+          border-left: 6px solid $active-marker-color
 
-      .icon
-        margin-right: 6px;
-        color: $sidebar-item-icon-color
-        transition: all $hover-animation-delay linear
+        .icon
+          margin-right: 4px;

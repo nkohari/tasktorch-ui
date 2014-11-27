@@ -2,7 +2,7 @@ _                = require 'lodash'
 React            = require 'react'
 Observe          = require 'mixins/Observe'
 StackSidebarItem = React.createFactory(require './StackSidebarItem')
-{div, ul}        = React.DOM
+{section, header, ul} = React.DOM
 
 TeamStackList = React.createClass {
 
@@ -18,7 +18,7 @@ TeamStackList = React.createClass {
 
   render: ->
     children = if @isReady() then @renderChildren() else []
-    div {className: 'team group'}, children
+    section {className: 'team group'}, children
 
   renderChildren: ->
 
@@ -26,7 +26,7 @@ TeamStackList = React.createClass {
       StackSidebarItem {key: "stack-#{stack.id}", stack}
 
     return [
-      div {key: 'header', className: 'header'}, [@props.team.name]
+      header {key: 'header'}, [@props.team.name]
       ul {key: 'items'}, stacks
     ]
 
