@@ -18,7 +18,7 @@ CardPanel = React.createClass {
   displayName: 'CardPanel'
 
   mixins: [
-    Observe('cards', 'kinds', 'stacks')
+    Observe('cards', 'kinds', 'stacks', 'users')
     ActiveUrl(WorkspaceUrl)
   ]
 
@@ -30,7 +30,8 @@ CardPanel = React.createClass {
     if card?
       kind = stores.kinds.getKind(card.kind.id)
       stack = stores.stacks.getStack(card.stack.id)
-    {card, kind, stack}
+      owner = stores.users.getUser(card.owner.id) if card.owner?
+    {card, kind, stack, owner}
 
   componentWillReceiveProps: (newProps) ->
     @loadCard(newProps.cardId) if @props.cardId != newProps.cardId
@@ -42,7 +43,7 @@ CardPanel = React.createClass {
     @execute new LoadCardRequest(cardId)
 
   isReady: ->
-    @state.card? and @state.stack? and @state.kind?
+    @state.card? and @state.stack? and @state.kind? and (@state.owner? or not @state.card.owner?)
 
   render: ->
     children = if @isReady() then @renderChildren() else []
@@ -54,7 +55,7 @@ CardPanel = React.createClass {
   renderChildren: ->
     return [
       @makeCloseLink()
-      CardHeader {key: 'header', card: @state.card, stack: @state.stack, kind: @state.kind}
+      CardHeader {key: 'header', card: @state.card, stack: @state.stack, kind: @state.kind, owner: @state.owner}
       CardDetails {key: 'details', card: @state.card, kind: @state.kind}
       CardFooter {key: 'footer', card: @state.card}
     ]

@@ -4,30 +4,33 @@
   border: 1px solid #bbb
   margin-bottom: $stack-card-margin;
   transition: border $activate-animation-delay linear;
+  border-radius: 4px
   &:last-child { margin-bottom: 0 }
   &.active { border: 1px solid #888 }
-  &.dragging { box-shadow: 0 0 3px $shadow-color }
+  &.dragging { box-shadow: 0 0 5px $shadow-color }
       
   .top
-    padding: 4px 8px;
+    padding: 8px
     background: linear-gradient(to bottom, #fff, #eee)
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #ddd
+    border-top-right-radius: 4px
+    border-top-left-radius: 4px
     .title
       color: $text-color
-      font-size: 14px
+      font-size: 16px
       font-weight: $bold-font-weight
       overflow: hidden
       text-overflow: ellipsis
       white-space: nowrap
     .handoff
-      font-size: 11px
+      font-size: 12px
       color: #999
         
   .bottom
     height: 51px
-    margin: 8px;
+    margin: 8px
     overflow: hidden
     font-family: $content-font
-    color: $very-subtle-text-color;
-    font-size: 13px
+    color: $subtle-text-color
+    font-size: 14px
     line-height: 17px

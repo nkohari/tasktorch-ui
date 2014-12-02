@@ -69,16 +69,18 @@ body
     
     .avatar
       display: inline-block
-      height: 40px
-      width: 40px
       vertical-align: middle
+      height: 44px
+      width: 44px
+      padding: 2px
       margin: 10px 0 0 10px
       border-radius: 50%
+      background: $steel-blue
       
     .context
       display: inline-block
       vertical-align: middle
-      margin: 10px 0 0 10px
+      margin: 14px 0 0 10px
       .user
         font-size: 16px
         color: #eee
@@ -101,9 +103,9 @@ body
         color: #999
         font-size: 13px
         text-decoration: none
-        margin-right: 10px
         text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8)
         transition: color $hover-animation-delay linear
+        padding-right: 8px
         &:visited { color: #999 }
         &:hover { color: #fff }
         &:active { color: #fff }
@@ -113,13 +115,16 @@ body
       background: 10px 10px url('/dist/logo.png') no-repeat
       font-family: 'Gotham'
       text-transform: uppercase
+      font-size: 17px
       font-weight: 400
       letter-spacing: 0.5px
       padding-left: 60px
       padding-top: 18px
       text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8)
-      .first { color: $purple; }
-      .second { color: $orange; }
+      .first
+        color: $purple
+      .second
+        color: $orange
     
 @keyframes screen-navigate-enter
   from { opacity: 0 }

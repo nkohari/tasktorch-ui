@@ -12,9 +12,10 @@ class LoadCardRequest extends Request
   constructor: (@cardId) ->
 
   execute: (context, eventBus) ->
-    superagent.get "/api/#{context.organizationId}/cards/#{@cardId}?expand=stack,kind", (res) =>
-      {stack, kind} = res.body['_related']
+    superagent.get "/api/#{context.organizationId}/cards/#{@cardId}?expand=owner,stack,kind", (res) =>
+      {owner, stack, kind} = res.body['_related']
       card = _.omit(res.body, '_related')
+      eventBus.publish new UsersLoadedEvent([owner]) if owner?
       eventBus.publish new StacksLoadedEvent([stack])
       eventBus.publish new KindsLoadedEvent([kind])
       eventBus.publish new CardsLoadedEvent([card])

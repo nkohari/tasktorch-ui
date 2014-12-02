@@ -11,9 +11,9 @@
     overflow-y: auto
     
     .body
-      font-size: 16px
-      font-weight: 400
-      line-height: 1.6em
+      font-size: 18px
+      font-weight: $normal-font-weight
+      line-height: 24px
       margin: 10px 10px 0px 10px
 
 @keyframes card-enter
@@ -31,7 +31,7 @@
     margin-right: $panel-margin
 
 .card.slide-enter
-  animation: card-enter 300ms ease-out
+  animation: card-enter 500ms ease-out
 
 @keyframes card-leave
   from
@@ -42,4 +42,4 @@
     margin-left: -($card-panel-width + $panel-margin)
 
 .card.slide-leave
-  animation: card-leave 200ms linear
+  animation: card-leave 250ms linear

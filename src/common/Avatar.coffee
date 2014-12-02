@@ -1,19 +1,17 @@
-crypto = require 'crypto'
-React  = require 'react'
-{img}  = React.DOM
+React          = require 'react'
+{div, img}     = React.DOM
+Tooltip        = React.createFactory(require './Tooltip')
+OverlayTrigger = React.createFactory(require './OverlayTrigger')
 
 Avatar = React.createClass {
 
   displayName: 'Avatar'
 
-  getDefaultProps: ->
-    {user: undefined, size: 48}
-
   render: ->
-    img {className: "avatar", src: @getImageUrl(), alt: @props.user.name}, []
+    overlay = Tooltip {className: 'overlay', text: @props.user.name}
 
-  getImageUrl: ->
-    return "#{@props.user.avatarUrl}?s=#{@props.size}"
+    OverlayTrigger {placement: 'right', trigger: 'click', overlay},
+      img {key: 'image', className: 'avatar', src: @props.user.avatarUrl}
 
 }
 
