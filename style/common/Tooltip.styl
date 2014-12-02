@@ -1,0 +1,84 @@
+$arrow-width = 5px
+$tooltip-text-color = $white
+$tooltip-arrow-color = $black
+$tooltip-background-color = $black
+$tooltip-border-color = $black
+
+.tooltip
+  position: absolute
+  z-index: $overlay-zindex
+  display: block
+  background: $tooltip-background-color
+  border: 1px solid $tooltip-border-color
+  border-radius: 4px
+
+  .text
+    padding: 4px 8px
+    font-size: 14px
+    color: $tooltip-text-color
+
+  .arrow, .arrow:after
+    position: absolute
+    width: 0
+    height: 0
+    border: $arrow-width solid transparent
+  
+  .arrow:after
+    content: " "
+    
+  &.top
+    margin-top: -($arrow-width)
+    .arrow
+      bottom: -($arrow-width)
+      left: 50%
+      margin-left: -($arrow-width)
+      border-bottom-width: 0
+      border-top-color: $tooltip-border-color
+      &:after
+        bottom: 1px
+        margin-left: -($arrow-width)
+        border-bottom-width: 0
+        border-top-color: $tooltip-arrow-color
+
+  &.right
+    margin-left: $arrow-width
+    .arrow
+      top: 50%
+      left: -($arrow-width)
+      margin-top: -($arrow-width)
+      border-left-width: 0
+      border-right-color: $tooltip-border-color
+      &:after
+        left: 1px
+        bottom: -($arrow-width)
+        border-left-width: 0
+        border-right-color: $tooltip-arrow-color
+
+  &.bottom
+    margin-top: $arrow-width
+    .arrow
+      top: -($arrow-width)
+      left: 50%
+      margin-left: -($arrow-width)
+      border-top-width: 0
+      border-bottom-color: $tooltip-border-color
+      &:after
+        top: 1px
+        margin-left: -($arrow-width)
+        border-top-width: 0
+        border-bottom-color: $tooltip-arrow-color
+
+  &.left
+    margin-left: -($arrow-width)
+    .arrow
+      top: 50%
+      right: -($arrow-width)
+      margin-top: -($arrow-width)
+      border-right-width: 0
+      border-left-color: $tooltip-border-color
+      &:after
+        right: 1px
+        bottom: -($arrow-width)
+        border-right-width: 0
+        border-left-color: $tooltip-arrow-color
+    

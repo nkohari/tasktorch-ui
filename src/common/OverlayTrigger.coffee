@@ -19,10 +19,10 @@ OverlayTrigger = React.createClass {
     }
 
   componentDidMount: ->
-    @_renderLayerAndOverlay()
+    @_renderOverlay()
 
   componentDidUpdate: ->
-    @_renderLayerAndOverlay()
+    @_renderOverlay()
 
   componentWillUnmount: ->
     @_unmountOverlay()
@@ -38,15 +38,6 @@ OverlayTrigger = React.createClass {
       props.onMouseOut = @handleMouseOut
 
     React.addons.cloneWithProps(React.Children.only(@props.children), props)
-
-  renderOverlay: ->
-    unless @state.overlayVisible
-      return span {}
-    React.addons.cloneWithProps @props.overlay, {
-      placement: @props.placement
-      position:  @state.overlayPosition
-      hide:      @hideOverlay
-    }
 
   showOverlay: ->
     @setState {overlayVisible: true}, =>
@@ -89,45 +80,44 @@ OverlayTrigger = React.createClass {
     else
       @hideOverlay()
 
-  getContainerDOMNode: ->
-    if @props.container.getDOMNode?
-      @props.container.getDOMNode()
-    else
-      @props.container
+  _renderOverlay: ->
+    # Create a div that can act as a container for the overlay, and append
+    # it to the trigger's offsetParent. (This will pin the overlay to the correct
+    # element in the DOM, even if the user scrolls.)
+    unless @_container?
+      @_container = document.createElement('div')
+      @getDOMNode().offsetParent.appendChild(@_container)
 
-  _renderLayerAndOverlay: ->
-    # Create a div that can act as a layer container, and then render the overlay into it.
-    unless @_layer?
-      @_layer = document.createElement('div')
-      @getContainerDOMNode().appendChild(@_layer)
-    @_overlay = React.render(@renderOverlay(), @_layer)
+    # Render the overlay content into the container.
+    @_overlay = React.render(@_getOverlayContent(), @_container)
+
+  _getOverlayContent: ->
+    unless @state.overlayVisible
+      return span {}
+    React.addons.cloneWithProps @props.overlay, {
+      placement: @props.placement
+      position:  @state.overlayPosition
+      hide:      @hideOverlay
+    }
 
   _unmountOverlay: ->
-    if @_layer?
-      React.unmountComponentAtNode(@_layer)
-      @getContainerDOMNode().removeChild(@_layer)
-      @_layer = undefined
     @_overlay = undefined
+    if @_container?
+      React.unmountComponentAtNode(@_container)
+      @getDOMNode().offsetParent.removeChild(@_container)
+      @_container = undefined
 
   _getOffset: ->
     trigger = @getDOMNode()
-    container = @getContainerDOMNode()
-
-    if container.tagName == 'BODY'
-      offset = dom.getOffset(trigger)
-    else
-      offset = dom.getRelativePosition(trigger, container)
-
+    offset  = dom.getOffset(trigger)
     return _.extend offset, {
       height: trigger.offsetHeight
       width:  trigger.offsetWidth
     }
 
   _recalculateOverlayPosition: ->
-    offset = @_getOffset()
-    console.log(offset)
+    offset  = @_getOffset()
     overlay = @_overlay.getDOMNode()
-    console.log {width: overlay.offsetWidth, height: overlay.offsetHeight}
     switch @props.placement
       when 'top'
         return {

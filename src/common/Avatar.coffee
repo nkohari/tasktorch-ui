@@ -9,7 +9,7 @@ Avatar = React.createClass {
 
   render: ->
     overlay = Tooltip {text: @props.user.name}
-    OverlayTrigger {placement: 'right', trigger: 'click', overlay},
+    OverlayTrigger {placement: 'top', trigger: 'click', overlay},
       img {className: 'avatar', src: @props.user.avatarUrl}
 
 }

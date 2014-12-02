@@ -16,7 +16,7 @@ CardAction = React.createClass {
 
   render: ->
     tooltip = Tooltip {text: @props.action.status}
-    trigger = OverlayTrigger {container: @props.overlayContainer, placement: 'right', trigger: 'click', overlay: tooltip},
+    trigger = OverlayTrigger {placement: 'right', trigger: 'click', overlay: tooltip},
       div {key: 'status', className: 'status'}, [
         Icon {key: 'icon', name: "action-#{@props.action.status.toLowerCase()}"}
       ]

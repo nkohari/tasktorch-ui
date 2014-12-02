@@ -13,7 +13,7 @@ CardDetails = React.createClass {
   render: ->
     div {className: 'details'}, [
       CardBody {key: 'body', card: @props.card}
-      CardActions {key: 'actions', card: @props.card, kind: @props.kind, overlayContainer: @props.overlayContainer}
+      CardActions {key: 'actions', card: @props.card, kind: @props.kind}
     ]
 
 }

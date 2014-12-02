@@ -56,7 +56,7 @@ CardPanel = React.createClass {
     return [
       @makeCloseLink()
       CardHeader {key: 'header', card: @state.card, stack: @state.stack, kind: @state.kind, owner: @state.owner}
-      CardDetails {key: 'details', card: @state.card, kind: @state.kind, overlayContainer: this}
+      CardDetails {key: 'details', card: @state.card, kind: @state.kind}
       CardFooter {key: 'footer', card: @state.card}
     ]
 

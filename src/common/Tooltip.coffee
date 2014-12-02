@@ -1,5 +1,6 @@
-React = require 'react'
-{div} = React.DOM
+React      = require 'react/addons'
+{div}      = React.DOM
+{classSet} = React.addons
 
 Tooltip = React.createClass {
 
@@ -7,17 +8,15 @@ Tooltip = React.createClass {
 
   render: ->
 
-    style =
-      position: 'absolute'
-      zIndex:   100000
-      left:     @props.position.left
-      top:      @props.position.top
+    classes = {tooltip: true}
+    classes[@props.placement] = true
 
     div {
-      className: 'tooltip'
-      style
+      className: classSet(classes)
+      style: {left: @props.position.left, top: @props.position.top}
     }, [
-      @props.text
+      div {key: 'arrow', className: 'arrow'}
+      div {key: 'text',  className: 'text'}, [@props.text]
     ]
 
 }

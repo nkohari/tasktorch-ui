@@ -1,7 +1,11 @@
+exports.getData = getData = (node, key) ->
+  # TODO: Support attribute lookups also for IE10
+  node.dataset[key]
+
 exports.getComputedStyle = getComputedStyle = (node) ->
   node.ownerDocument.defaultView.getComputedStyle(node, null)
 
-exports.getOffset = getOffset = (node) ->
+exports.getPosition = getPosition = (node) ->
   doc = document.documentElement
 
   if node.getBoundingClientRect?
@@ -14,25 +18,26 @@ exports.getOffset = getOffset = (node) ->
     left: rect.left + window.pageXOffset - doc.clientLeft
   }
 
-exports.getRelativePosition = getRelativePosition = (node, parent) ->
-  offset = getOffset(node)
+exports.getOffset = getOffset = (node) ->
+  position = getPosition(node)
+  parent = node.offsetParent
 
   if parent.nodeName isnt 'HTML'
-    parentOffset = getOffset(parent)
+    parentPosition = getPosition(parent)
   else
-    parentOffset = {top: 0, left: 0}
+    parentPosition = {top: 0, left: 0}
 
   parentStyle = getComputedStyle(parent)
-  parentOffset.top  += parseInt(parentStyle.borderTopWidth,  10)
-  parentOffset.left += parseInt(parentStyle.borderLeftWidth, 10)
+  parentPosition.top  += parseInt(parentStyle.borderTopWidth,  10)
+  parentPosition.left += parseInt(parentStyle.borderLeftWidth, 10)
 
   nodeStyle = getComputedStyle(node)
-  offset.top  += parent.scrollTop
-  offset.left += parent.scrollLeft
-  offset.top  -= parseInt(nodeStyle.marginTop,  10)
-  offset.left -= parseInt(nodeStyle.marginLeft, 10)
+  position.top  += parent.scrollTop
+  position.left += parent.scrollLeft
+  position.top  -= parseInt(nodeStyle.marginTop,  10)
+  position.left -= parseInt(nodeStyle.marginLeft, 10)
 
   return {
-    top:  offset.top  - parentOffset.top
-    left: offset.left - parentOffset.left
+    top:  position.top  - parentPosition.top
+    left: position.left - parentPosition.left
   }
