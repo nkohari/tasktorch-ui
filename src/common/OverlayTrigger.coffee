@@ -20,12 +20,14 @@ OverlayTrigger = React.createClass {
 
   componentDidMount: ->
     @_renderOverlay()
+    window.addEventListener('resize', @_updateOverlayPosition)
 
   componentDidUpdate: ->
     @_renderOverlay()
 
   componentWillUnmount: ->
     @_unmountOverlay()
+    window.removeEventListener('resize', @_updateOverlayPosition)
 
   render: ->
     props = {}
@@ -40,8 +42,7 @@ OverlayTrigger = React.createClass {
     React.addons.cloneWithProps(React.Children.only(@props.children), props)
 
   showOverlay: ->
-    @setState {overlayVisible: true}, =>
-      @setState {overlayPosition: @_recalculateOverlayPosition()}
+    @setState {overlayVisible: true}, => @_updateOverlayPosition()
 
   hideOverlay: ->
     @setState {overlayVisible: false}
@@ -79,6 +80,10 @@ OverlayTrigger = React.createClass {
       @_timeout = setTimeout(hide, @props.delay)
     else
       @hideOverlay()
+
+  _updateOverlayPosition: ->
+    return unless @state.overlayVisible
+    @setState {overlayPosition: @_recalculateOverlayPosition()}
 
   _renderOverlay: ->
     # Create a div that can act as a container for the overlay, and append
