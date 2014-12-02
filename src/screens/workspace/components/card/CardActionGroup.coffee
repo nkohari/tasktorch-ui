@@ -12,7 +12,7 @@ CardActionGroup = React.createClass {
   render: ->
 
     actions = _.map @props.actions, (action) =>
-      CardAction {key: "action-#{action.id}", action}
+      CardAction {key: "action-#{action.id}", action, overlayContainer: @props.overlayContainer}
 
     div {className: 'stage'}, [
       div {className: 'title'}, [@props.stage.name]

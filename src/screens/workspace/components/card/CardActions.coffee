@@ -32,7 +32,7 @@ CardActions = React.createClass {
   renderChildren: ->
     _.map @state.stages, (stage) =>
       actions = _.filter @state.actions, (action) -> action.stage.id == stage.id
-      CardActionGroup {key: "stage-#{stage.id}", card: @props.card, kind: @props.kind, stage, actions}
+      CardActionGroup {key: "stage-#{stage.id}", card: @props.card, kind: @props.kind, stage, actions, overlayContainer: @props.overlayContainer}
 
 }
 

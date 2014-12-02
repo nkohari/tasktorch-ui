@@ -3,6 +3,8 @@ Observe          = require 'mixins/Observe'
 ActionStatus     = require 'framework/enums/ActionStatus'
 Icon             = React.createFactory(require 'common/Icon')
 Text             = React.createFactory(require 'common/Text')
+OverlayTrigger   = React.createFactory(require 'common/OverlayTrigger')
+Tooltip          = React.createFactory(require 'common/Tooltip')
 {div, li, input} = React.DOM
 {classSet}       = React.addons
 
@@ -13,10 +15,14 @@ CardAction = React.createClass {
   mixins: [Observe()]
 
   render: ->
-    li {className: "action #{@props.action.status.toLowerCase()}"}, [
+    tooltip = Tooltip {text: @props.action.status}
+    trigger = OverlayTrigger {container: @props.overlayContainer, placement: 'right', trigger: 'click', overlay: tooltip},
       div {key: 'status', className: 'status'}, [
         Icon {key: 'icon', name: "action-#{@props.action.status.toLowerCase()}"}
       ]
+
+    li {className: "action #{@props.action.status.toLowerCase()}"}, [
+      trigger
       div {key: 'owner', className: 'owner unassigned'}, [
         Icon {key: 'icon', name: 'assign'}
       ]
