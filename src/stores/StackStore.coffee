@@ -13,7 +13,6 @@ class StackStore extends Store
     _.values(@stacks)
 
   getStacksByOwner: (userId) ->
-    console.log(@stacks)
     _.filter @stacks, (stack) -> stack.owner? and stack.owner.id == userId
 
   getStacksByTeam: (teamId) ->

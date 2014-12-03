@@ -61,6 +61,7 @@ RecipientSelector = React.createClass {
     ]
 
   onBlur: ->
+    # TODO
     console.log('blur')
 
   renderUserOptionsGroup: ->

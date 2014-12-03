@@ -81,4 +81,17 @@ $tooltip-border-color = $black
         bottom: -($arrow-width)
         border-right-width: 0
         border-left-color: $tooltip-arrow-color
-    
+ 
+@keyframes tooltip-enter
+  from { opacity: 0; transform: translateY(10px) }
+  to   { opacity: 1; transform: translateY(0) }
+
+.tooltip.slide-enter
+  animation: tooltip-enter 50ms ease-out
+
+@keyframes tooltip-leave
+  from { opacity: 1; transform: translateY(0) }
+  to   { opacity: 0; transform: translateY(10px) }
+
+.tooltip.slide-leave
+  animation: tooltip-leave 50ms linear

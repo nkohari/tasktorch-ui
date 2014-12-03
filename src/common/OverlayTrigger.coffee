@@ -2,6 +2,7 @@ _           = require 'lodash'
 React       = require 'react/addons'
 dom         = require 'common/util/dom'
 {div, span} = React.DOM
+CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
 
 OverlayTrigger = React.createClass {
 
@@ -81,6 +82,13 @@ OverlayTrigger = React.createClass {
     else
       @hideOverlay()
 
+  getContainerDOMNode: ->
+    @getDOMNode().offsetParent
+
+  getOverlayDOMNode: ->
+    # The overlay content is the only child of the <div> rendered by the CSSTransitionGroup.
+    @_overlay.getDOMNode().children[0]
+
   _updateOverlayPosition: ->
     return unless @state.overlayVisible
     @setState {overlayPosition: @_recalculateOverlayPosition()}
@@ -91,26 +99,30 @@ OverlayTrigger = React.createClass {
     # element in the DOM, even if the user scrolls.)
     unless @_container?
       @_container = document.createElement('div')
-      @getDOMNode().offsetParent.appendChild(@_container)
+      @getContainerDOMNode().appendChild(@_container)
+
+    content = CSSTransitionGroup {
+      component: 'div'
+      transitionName: @props.transition ? 'slide'
+    }, @_getOverlayContent()
 
     # Render the overlay content into the container.
-    @_overlay = React.render(@_getOverlayContent(), @_container)
+    @_overlay = React.render(content, @_container)
 
   _getOverlayContent: ->
-    unless @state.overlayVisible
-      return span {}
-    React.addons.cloneWithProps @props.overlay, {
+    return null unless @state.overlayVisible
+    React.addons.cloneWithProps(@props.overlay, {
       placement: @props.placement
       position:  @state.overlayPosition
       hide:      @hideOverlay
-    }
+    })
 
   _unmountOverlay: ->
     @_overlay = undefined
-    if @_container?
-      React.unmountComponentAtNode(@_container)
-      @getDOMNode().offsetParent.removeChild(@_container)
-      @_container = undefined
+    return unless @_container?
+    React.unmountComponentAtNode(@_container)
+    @getContainerDOMNode().removeChild(@_container)
+    @_container = undefined
 
   _getOffset: ->
     trigger = @getDOMNode()
@@ -122,7 +134,7 @@ OverlayTrigger = React.createClass {
 
   _recalculateOverlayPosition: ->
     offset  = @_getOffset()
-    overlay = @_overlay.getDOMNode()
+    overlay = @getOverlayDOMNode()
     switch @props.placement
       when 'top'
         return {
