@@ -2,6 +2,7 @@ EventBus                      = require './EventBus'
 ActionStore                   = require './stores/ActionStore'
 CardStore                     = require './stores/CardStore'
 GoalStore                     = require './stores/GoalStore'
+HandoffStore                  = require './stores/HandoffStore'
 KindStore                     = require './stores/KindStore'
 MilestoneStore                = require './stores/MilestoneStore'
 OrganizationStore             = require './stores/OrganizationStore'
@@ -26,6 +27,7 @@ EventBusFactory.create = ->
     actions:       new ActionStore()
     cards:         new CardStore()
     goals:         new GoalStore()
+    handoffs:      new HandoffStore()
     kinds:         new KindStore()
     milestones:    new MilestoneStore()
     organizations: new OrganizationStore()

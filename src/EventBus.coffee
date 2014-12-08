@@ -26,6 +26,7 @@ class EventBus
       listener.bind(channel)
 
   publish: (event) ->
+    console.log(event)
     func = "on#{event.type}"
     _.each @stores, (store) ->
       store[func].apply(store, [event]) if store[func]?

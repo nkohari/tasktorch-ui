@@ -21,6 +21,7 @@ StackSidebarItem = React.createClass {
       Hotlink linkProps, [
         Icon {key: 'icon', name: "stack-#{@props.stack.type.toLowerCase()}"}
         span {key: 'name', className: 'name'}, [@props.stack.name]
+        span {key: 'count', className: 'count'}, [@props.stack.cards.length]
       ]
     ]
 

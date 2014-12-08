@@ -9,9 +9,8 @@ class CardStore extends Store
   getCard: (id) ->
     @cards[id]
 
-  getCardsInStack: (stackId) ->
-    cards = _.filter(@cards, (card) -> card.stack.id == stackId)
-    _.sortBy(cards, 'rank')
+  getCards: (ids...) ->
+    _.values _.pick(@cards, _.flatten(ids))
 
   onCardsLoaded: (event) ->
     @cards = _.extend @cards, _.indexBy(event.cards, 'id')
