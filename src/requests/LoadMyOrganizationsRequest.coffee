@@ -6,6 +6,7 @@ class LoadMyOrganizationsRequest extends Request
 
   execute: (context, eventBus) ->
     superagent.get "/api/me/organizations", (res) =>
-      eventBus.publish new OrganizationsLoadedEvent(res.body)
+      {organizations} = res.body
+      eventBus.publish new OrganizationsLoadedEvent(organizations)
 
 module.exports = LoadMyOrganizationsRequest

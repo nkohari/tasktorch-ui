@@ -12,7 +12,7 @@ QueueCardList = React.createClass {
   mixins: [Observe('cards')]
 
   getStateFromStores: (stores) ->
-    {cards: stores.cards.getCards(_.pluck(@props.stack.cards, 'id'))}
+    {cards: stores.cards.getCards(@props.stack.cards)}
 
   componentWillMount: ->
     # TODO: Load actions too, depending on what QueueCard wants

@@ -28,9 +28,9 @@ CardPanel = React.createClass {
   getStateFromStores: (stores) ->
     card = stores.cards.getCard(@props.cardId)
     if card?
-      kind = stores.kinds.getKind(card.kind.id)
-      stack = stores.stacks.getStack(card.stack.id)
-      owner = stores.users.getUser(card.owner.id) if card.owner?
+      kind = stores.kinds.getKind(card.kind)
+      stack = stores.stacks.getStack(card.stack)
+      owner = stores.users.getUser(card.owner) if card.owner?
     {card, kind, stack, owner}
 
   componentWillReceiveProps: (newProps) ->

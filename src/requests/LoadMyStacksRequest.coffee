@@ -2,10 +2,11 @@ superagent        = require 'superagent'
 Request           = require 'framework/Request'
 StacksLoadedEvent = require 'events/StacksLoadedEvent'
 
-class LoadMyQueueRequest extends Request
+class LoadMyStacksRequest extends Request
 
   execute: (context, eventBus) ->
     superagent.get "/api/#{context.organizationId}/me/stacks", (res) =>
-      eventBus.publish new StacksLoadedEvent(res.body)
+      {stacks} = res.body
+      eventBus.publish new StacksLoadedEvent(stacks)
 
-module.exports = LoadMyQueueRequest
+module.exports = LoadMyStacksRequest

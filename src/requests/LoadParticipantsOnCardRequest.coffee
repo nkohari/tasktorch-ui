@@ -8,6 +8,7 @@ class LoadParticipantsOnCardRequest extends Request
 
   execute: (context, eventBus) ->
     superagent.get "/api/#{context.organizationId}/cards/#{@cardId}/participants", (res) =>
-      eventBus.publish new UsersLoadedEvent(res.body)
+      {users} = res.body
+      eventBus.publish new UsersLoadedEvent(users)
 
 module.exports = LoadParticipantsOnCardRequest

@@ -7,8 +7,8 @@ class LoadMyQueueRequest extends Request
 
   execute: (context, eventBus) ->
     superagent.get "/api/#{context.organizationId}/me/queue?expand=cards", (res) =>
-      queue = _.omit(res.body, '_related')
-      cards = res.body['_related'].cards
+      {stack} = res.body
+      cards = _.values(res.body.related.cards)
       eventBus.publish new QueueLoadedEvent(queue, cards)
 
 module.exports = LoadMyQueueRequest

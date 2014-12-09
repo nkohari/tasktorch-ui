@@ -14,7 +14,7 @@ CardWidgets = React.createClass {
   render: ->
     ul {className: 'widgets'}, _.compact [
       CardLocation {key: 'location', stackId: @props.stack.id}
-      CardGoal {key: 'goal', goalId: @props.card.goal.id} if @props.card.goal?
+      CardGoal {key: 'goal', goalId: @props.card.goal} if @props.card.goal?
     ]
 
 }

@@ -10,7 +10,7 @@ class StageStore extends Store
     @stages[id]
 
   getStagesByKind: (kindId) ->
-    stages = _.filter(@stages, (stage) -> stage.kind.id == kindId)
+    stages = _.filter(@stages, (stage) -> stage.kind == kindId)
     _.sortBy(stages, 'rank')
 
   onStagesLoaded: (event) ->

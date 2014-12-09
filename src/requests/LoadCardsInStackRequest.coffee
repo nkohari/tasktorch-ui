@@ -9,6 +9,7 @@ class LoadCardsInStackRequest extends Request
 
   execute: (context, eventBus) ->
     superagent.get "/api/#{context.organizationId}/stacks/#{@stackId}/cards", (res) =>
-      eventBus.publish new CardsLoadedEvent(res.body)
+      {cards} = res.body
+      eventBus.publish new CardsLoadedEvent(cards)
 
 module.exports = LoadCardsInStackRequest

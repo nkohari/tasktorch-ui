@@ -7,6 +7,7 @@ class LoadAllTeamsRequest extends Request
 
   execute: (context, eventBus) ->
     superagent.get "/api/#{context.organizationId}/teams", (res) =>
-      eventBus.publish new TeamsLoadedEvent(res.body)
+      {teams} = res.body
+      eventBus.publish new TeamsLoadedEvent(teams)
 
 module.exports = LoadAllTeamsRequest

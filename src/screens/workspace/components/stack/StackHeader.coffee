@@ -17,8 +17,8 @@ StackHeader = React.createClass {
   getStateFromStores: (stores) ->
     return {
       currentUser: stores.users.getCurrentUser()
-      owner: stores.users.getUser(@props.stack.owner.id) if @props.stack.owner?
-      team:  stores.teams.getTeam(@props.stack.team.id)  if @props.stack.team?
+      owner: stores.users.getUser(@props.stack.owner) if @props.stack.owner?
+      team:  stores.teams.getTeam(@props.stack.team)  if @props.stack.team?
     }
 
   isReady: ->

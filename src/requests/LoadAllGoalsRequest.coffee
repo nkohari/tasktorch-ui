@@ -7,6 +7,7 @@ class LoadAllGoalsRequest extends Request
 
   execute: (context, eventBus) ->
     superagent.get "/api/#{context.organizationId}/goals", (res) =>
-      eventBus.publish new GoalsLoadedEvent(res.body)
+      {goals} = res.body
+      eventBus.publish new GoalsLoadedEvent(goals)
 
 module.exports = LoadAllGoalsRequest

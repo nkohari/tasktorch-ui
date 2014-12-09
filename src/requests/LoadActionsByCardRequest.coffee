@@ -9,6 +9,7 @@ class LoadActionsByCardRequest extends Request
 
   execute: (context, eventBus) ->
     superagent.get "/api/#{context.organizationId}/cards/#{@cardId}/actions", (res) =>
-      eventBus.publish new ActionsLoadedEvent(res.body)
+      {actions} = res.body
+      eventBus.publish new ActionsLoadedEvent(actions)
 
 module.exports = LoadActionsByCardRequest

@@ -17,10 +17,12 @@ class LoadRecipientSuggestionsRequest extends Request
 
   loadUsers: (context, callback) ->
     superagent.get "/api/#{context.organizationId}/members?suggest=#{@phrase}", (res) =>
-      callback(null, res.body)
+      {users} = res.body
+      callback(null, users)
 
   loadTeams: (context, callback) ->
     superagent.get "/api/#{context.organizationId}/teams?suggest=#{@phrase}", (res) =>
-      callback(null, res.body)
+      {teams} = res.body
+      callback(null, teams)
 
 module.exports = LoadRecipientSuggestionsRequest

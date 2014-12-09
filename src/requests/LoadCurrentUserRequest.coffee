@@ -6,6 +6,7 @@ class LoadCurrentUserRequest extends Request
 
   execute: (context, eventBus) ->
     superagent.get "/api/me", (res) =>
-      eventBus.publish new CurrentUserLoadedEvent(res.body)
+      {user} = res.body
+      eventBus.publish new CurrentUserLoadedEvent(user)
 
 module.exports = LoadCurrentUserRequest

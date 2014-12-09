@@ -12,10 +12,10 @@ InboxCard = React.createClass {
   mixins: [Observe('handoffs')]
 
   getStateFromStores: (stores) ->
-    {handoff: stores.handoffs.getHandoff(@props.card.lastHandoff.id)}
+    {handoff: stores.handoffs.getHandoff(@props.card.lastHandoff)}
 
   isReady: ->
-    @state.handoff?
+    @state.handoff? or not @props.card.lastHandoff?
 
   getChildren: ->
     if @isReady() then @renderChildren() else []

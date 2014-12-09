@@ -13,8 +13,7 @@ class TeamStore extends Store
     _.values(@teams)
 
   getTeamsByMember: (userId) ->
-    _.filter @teams, (team) ->
-      _.any team.members, (m) -> m.id == userId
+    _.filter @teams, (team) -> _.contains(team.members, userId)
 
   onTeamsLoaded: (event) ->
     @teams = _.indexBy(event.teams, 'id')

@@ -13,10 +13,10 @@ class StackStore extends Store
     _.values(@stacks)
 
   getStacksByOwner: (userId) ->
-    _.filter @stacks, (stack) -> stack.owner? and stack.owner.id == userId
+    _.filter @stacks, (stack) -> stack.owner? and stack.owner == userId
 
   getStacksByTeam: (teamId) ->
-    _.filter @stacks, (stack) -> stack.team? and stack.team.id == teamId
+    _.filter @stacks, (stack) -> stack.team? and stack.team == teamId
 
   onStacksLoaded: (event) ->
     @stacks = _.extend @stacks, _.indexBy(event.stacks, 'id')

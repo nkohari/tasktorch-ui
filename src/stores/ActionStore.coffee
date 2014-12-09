@@ -10,7 +10,7 @@ class ActionStore extends Store
     @actions[id]
 
   getActionsByCard: (cardId) ->
-    actions = _.filter(@actions, (action) -> action.card.id == cardId)
+    actions = _.filter(@actions, (action) -> action.card == cardId)
     _.sortBy(actions, 'rank')
 
   onActionsLoaded: (event) ->

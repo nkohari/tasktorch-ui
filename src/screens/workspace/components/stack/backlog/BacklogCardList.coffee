@@ -12,7 +12,7 @@ BacklogCardList = React.createClass {
   mixins: [Observe('cards')]
 
   getStateFromStores: (stores) ->
-    {cards: stores.cards.getCards(_.pluck(@props.stack.cards, 'id'))}
+    {cards: stores.cards.getCards(@props.stack.cards)}
 
   componentWillMount: ->
     @execute new LoadCardsInStackRequest(@props.stack.id)
