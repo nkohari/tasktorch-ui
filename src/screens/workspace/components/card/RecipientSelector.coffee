@@ -94,6 +94,7 @@ RecipientSelector = React.createClass {
       item: _.find(@state.options.users, (user) -> user.id == event.target.dataset.id)
     }
     @setState {expanded: false, phrase: undefined, options: undefined, selection}
+    @props.onChange(selection) if @props.onChange?
 
   onTeamClicked: (event) ->
     selection = {
@@ -101,6 +102,7 @@ RecipientSelector = React.createClass {
       item: _.find(@state.options.teams, (team) -> team.id == event.target.dataset.id)
     }
     @setState {expanded: false, phrase: undefined, options: undefined, selection}
+    @props.onChange(selection) if @props.onChange?
 
 }
 

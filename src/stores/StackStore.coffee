@@ -22,4 +22,9 @@ class StackStore extends Store
     @stacks = _.extend @stacks, _.indexBy(event.stacks, 'id')
     @announce()
 
+  onCardHandedOff: (event) ->
+    @stacks[event.oldStack.id] = event.oldStack
+    @stacks[event.newStack.id] = event.newStack
+    @announce()
+
 module.exports = StackStore

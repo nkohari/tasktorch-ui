@@ -8,9 +8,15 @@ Avatar = React.createClass {
   displayName: 'Avatar'
 
   render: ->
+
+    if @props.className?
+      classes = @props.className.split(/\s+/).concat('avatar').join(' ')
+    else
+      classes = 'avatar'
+
     overlay = Tooltip {text: @props.user.name}
     OverlayTrigger {placement: 'top', trigger: 'click', transition: 'slide', overlay},
-      img {className: 'avatar', src: @props.user.avatarUrl}
+      img {className: classes, src: @props.user.avatarUrl}
 
 }
 

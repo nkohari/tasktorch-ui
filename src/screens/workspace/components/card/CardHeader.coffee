@@ -45,7 +45,7 @@ CardHeader = React.createClass {
       style:     {borderColor: @props.kind.color}
     }, [
       div {key: 'fixed', className: 'fixed'}, [
-        Avatar {key: 'owner', user: @props.owner}
+        Avatar {key: 'owner', className: 'owner', user: @props.owner}
         div {key: 'info', className: 'info'}, [
           CardTitle {key: 'title', card: @props.card}
           CardWidgets {key: 'location', card: @props.card, stack: @props.stack}

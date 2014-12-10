@@ -2,7 +2,6 @@ EventBus                      = require './EventBus'
 ActionStore                   = require './stores/ActionStore'
 CardStore                     = require './stores/CardStore'
 GoalStore                     = require './stores/GoalStore'
-HandoffStore                  = require './stores/HandoffStore'
 KindStore                     = require './stores/KindStore'
 MilestoneStore                = require './stores/MilestoneStore'
 OrganizationStore             = require './stores/OrganizationStore'
@@ -14,6 +13,7 @@ SuggestionStore               = require './stores/SuggestionStore'
 TeamStore                     = require './stores/TeamStore'
 UserStore                     = require './stores/UserStore'
 CardBodyChangedListener       = require './listeners/CardBodyChangedListener'
+CardHandedOffListener         = require './listeners/CardHandedOffListener'
 CardTitleChangedListener      = require './listeners/CardTitleChangedListener'
 JoinedPresenceChannelListener = require './listeners/JoinedPresenceChannelListener'
 UserConnectedListener         = require './listeners/UserConnectedListener'
@@ -27,7 +27,6 @@ EventBusFactory.create = ->
     actions:       new ActionStore()
     cards:         new CardStore()
     goals:         new GoalStore()
-    handoffs:      new HandoffStore()
     kinds:         new KindStore()
     milestones:    new MilestoneStore()
     organizations: new OrganizationStore()
@@ -41,6 +40,7 @@ EventBusFactory.create = ->
 
   listeners = [
     new CardBodyChangedListener()
+    new CardHandedOffListener()
     new CardTitleChangedListener()
     new JoinedPresenceChannelListener()
     new UserConnectedListener()

@@ -10,7 +10,12 @@ class CardStore extends Store
     @cards[id]
 
   getCards: (ids...) ->
-    _.values _.pick(@cards, _.flatten(ids))
+    cards = []
+    for id in _.flatten(ids)
+      card = @cards[id]
+      return undefined unless card?
+      cards.push(card)
+    return cards
 
   onCardsLoaded: (event) ->
     @cards = _.extend @cards, _.indexBy(event.cards, 'id')
@@ -29,5 +34,9 @@ class CardStore extends Store
       card.title = event.title
       card.version = event.version
       @announce()
+
+  onCardHandedOff: (event) ->
+    @cards[event.card.id] = event.card
+    @announce()
 
 module.exports = CardStore

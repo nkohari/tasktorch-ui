@@ -23,7 +23,7 @@ BacklogCard = React.createClass {
         div {className: 'title'},   [@props.card.title or Constants.untitledCard]
         div {className: 'handoff'}, ['created on X']
       ]
-      div {className: 'bottom'}, ['...']
+      div {className: 'bottom'}, [@props.card.body]
     ]
 
 }

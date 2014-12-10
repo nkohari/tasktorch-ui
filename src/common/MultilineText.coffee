@@ -47,6 +47,7 @@ MultilineText = React.createClass {
 
   handleChange: (event) ->
     @setState {dirty: true, value: event.target.value}
+    @props.onChange(event) if @props.onChange?
 
   handleFocus: ->
     @setState {previous: @state.value}

@@ -1,33 +1,17 @@
-_                       = require 'lodash'
-React                   = require 'react'
-Observe                 = require 'mixins/Observe'
-LoadCardsInStackRequest = require 'requests/LoadCardsInStackRequest'
-BacklogCard             = React.createFactory(require './BacklogCard')
-{ul}                    = React.DOM
+_           = require 'lodash'
+React       = require 'react'
+BacklogCard = React.createFactory(require './BacklogCard')
+{ul}        = React.DOM
 
 BacklogCardList = React.createClass {
 
   displayName: 'BacklogCardList'
 
-  mixins: [Observe('cards')]
-
-  getStateFromStores: (stores) ->
-    {cards: stores.cards.getCards(@props.stack.cards)}
-
-  componentWillMount: ->
-    @execute new LoadCardsInStackRequest(@props.stack.id)
-
-  isReady: ->
-    @state.cards?
-
-  getChildren: ->
-    if @isReady() then @renderChildren() else []
-
   render: ->
-    ul {className: 'queue cards'}, @getChildren()
+    ul {className: 'queue cards'}, @renderChildren()
 
   renderChildren: ->
-    _.map @state.cards, (card) =>
+    _.map @props.cards, (card) =>
       BacklogCard {key: "card-#{card.id}", stack: @props.stack, card}
 
 }

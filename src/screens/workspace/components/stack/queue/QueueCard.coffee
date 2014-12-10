@@ -8,22 +8,13 @@ QueueCard = React.createClass {
 
   displayName: 'QueueCard'
 
-  isReady: ->
-    true # TODO
-
-  getChildren: ->
-    if @isReady() then @renderChildren() else []
-
   render: ->
-    StackCard {card: @props.card}, @getChildren()
-
-  renderChildren: ->
-    return [
+    StackCard {card: @props.card}, [
       div {className: 'top'}, [
         div {className: 'title'},   [@props.card.title or Constants.untitledCard]
         div {className: 'handoff'}, ['in queue since X']
       ]
-      div {className: 'bottom'}, ['...']
+      div {className: 'bottom'}, [@props.card.body]
     ]
 
 }

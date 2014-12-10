@@ -1,33 +1,17 @@
-_                       = require 'lodash'
-React                   = require 'react'
-Observe                 = require 'mixins/Observe'
-LoadCardsInInboxRequest = require 'requests/LoadCardsInInboxRequest'
-InboxCard               = React.createFactory(require './InboxCard')
-{ul}                    = React.DOM
+_         = require 'lodash'
+React     = require 'react'
+InboxCard = React.createFactory(require './InboxCard')
+{ul}      = React.DOM
 
 InboxCardList = React.createClass {
 
   displayName: 'InboxCardList'
 
-  mixins: [Observe('cards')]
-
-  getStateFromStores: (stores) ->
-    {cards: stores.cards.getCards(@props.stack.cards)}
-
-  componentWillMount: ->
-    @execute new LoadCardsInInboxRequest(@props.stack.id)
-
-  isReady: ->
-    @state.cards?
-
-  getChildren: ->
-    if @isReady() then @renderChildren() else []
-
   render: ->
-    ul {className: 'inbox cards'}, @getChildren()
+    ul {className: 'inbox cards'}, @renderChildren()
 
   renderChildren: ->
-    _.map @state.cards, (card) =>
+    _.map @props.cards, (card) =>
       InboxCard {key: "card-#{card.id}", stack: @props.stack, card}
 
 }

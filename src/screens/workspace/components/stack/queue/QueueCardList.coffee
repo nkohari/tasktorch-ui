@@ -1,34 +1,17 @@
-_                       = require 'lodash'
-React                   = require 'react'
-Observe                 = require 'mixins/Observe'
-LoadCardsInStackRequest = require 'requests/LoadCardsInStackRequest'
-QueueCard               = React.createFactory(require './QueueCard')
-{ul}                    = React.DOM
+_         = require 'lodash'
+React     = require 'react'
+QueueCard = React.createFactory(require './QueueCard')
+{ul}      = React.DOM
 
 QueueCardList = React.createClass {
 
   displayName: 'QueueCardList'
 
-  mixins: [Observe('cards')]
-
-  getStateFromStores: (stores) ->
-    {cards: stores.cards.getCards(@props.stack.cards)}
-
-  componentWillMount: ->
-    # TODO: Load actions too, depending on what QueueCard wants
-    @execute new LoadCardsInStackRequest(@props.stack.id)
-
-  isReady: ->
-    @state.cards?
-
-  getChildren: ->
-    if @isReady() then @renderChildren() else []
-
   render: ->
-    ul {className: 'queue cards'}, @getChildren()
+    ul {className: 'queue cards'}, @renderChildren()
 
   renderChildren: ->
-    _.map @state.cards, (card) =>
+    _.map @props.cards, (card) =>
       QueueCard {key: "card-#{card.id}", stack: @props.stack, card}
 
 }

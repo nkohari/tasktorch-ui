@@ -1,23 +1,24 @@
-_                = require 'lodash'
-React            = require 'react'
-Router           = require 'react-router'
-ActiveUrl        = require 'mixins/ActiveUrl'
-Observe          = require 'mixins/Observe'
-WorkspaceUrl     = require '../../WorkspaceUrl'
-LoadStackRequest = require 'requests/LoadStackRequest'
-Icon             = React.createFactory(require 'common/Icon')
-StackHeader      = React.createFactory(require './StackHeader')
-StackCardList    = React.createFactory(require './StackCardList')
-StackFooter      = React.createFactory(require './StackFooter')
-Link             = React.createFactory(Router.Link)
-{div}            = React.DOM
+_                       = require 'lodash'
+React                   = require 'react'
+Router                  = require 'react-router'
+ActiveUrl               = require 'mixins/ActiveUrl'
+Observe                 = require 'mixins/Observe'
+WorkspaceUrl            = require '../../WorkspaceUrl'
+LoadStackRequest        = require 'requests/LoadStackRequest'
+LoadCardsInStackRequest = require 'requests/LoadCardsInStackRequest'
+Icon                    = React.createFactory(require 'common/Icon')
+StackHeader             = React.createFactory(require './StackHeader')
+StackCardList           = React.createFactory(require './StackCardList')
+StackFooter             = React.createFactory(require './StackFooter')
+Link                    = React.createFactory(Router.Link)
+{div}                   = React.DOM
 
 StackPanel = React.createClass {
 
   displayName: 'StackPanel'
 
   mixins: [
-    Observe('stacks')
+    Observe('cards', 'stacks')
     ActiveUrl(WorkspaceUrl)
   ]
 
@@ -25,7 +26,9 @@ StackPanel = React.createClass {
     stackId: React.PropTypes.string.isRequired
 
   getStateFromStores: (stores) ->
-    {stack: stores.stacks.getStack(@props.stackId)}
+    stack = stores.stacks.getStack(@props.stackId)
+    cards = stores.cards.getCards(stack.cards) if stack?
+    {stack, cards}
 
   componentWillReceiveProps: (newProps) ->
     @loadStack(newProps.stackId) if @props.stackId != newProps.stackId
@@ -35,9 +38,10 @@ StackPanel = React.createClass {
 
   loadStack: (stackId) ->
     @execute new LoadStackRequest(stackId)
+    @execute new LoadCardsInStackRequest(stackId)
 
   isReady: ->
-    @state.stack?
+    @state.stack? and @state.cards?
 
   getChildren: ->
     if @isReady() then @renderChildren() else []
@@ -52,7 +56,7 @@ StackPanel = React.createClass {
     return [
       @makeCloseLink()
       StackHeader {key: 'header', stack: @state.stack}
-      StackCardList {key: 'cards', stack: @state.stack}
+      StackCardList {key: 'cards', stack: @state.stack, cards: @state.cards}
       StackFooter {key: 'footer', stack: @state.stack}
     ]
 
