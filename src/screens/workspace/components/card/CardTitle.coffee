@@ -12,9 +12,12 @@ CardTitle = React.createClass {
 
   mixins: [Observe()]
 
+  componentDidMount: ->
+    @refs.text.getDOMNode().focus() unless @props.card.title
+
   render: ->
     div {className: 'title'}, [
-      Text {key: 'text', placeholder: Constants.untitledCard, value: @props.card.title, save: @saveTitle}
+      Text {key: 'text', ref: 'text', placeholder: Constants.untitledCard, value: @props.card.title, save: @saveTitle}
     ]
 
   saveTitle: (title) ->

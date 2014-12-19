@@ -1,21 +1,16 @@
-_                     = require 'lodash'
-superagent            = require 'superagent'
-etag                  = require 'common/util/etag'
-Header                = require 'framework/enums/Header'
-Request               = require 'framework/Request'
-CardTitleChangedEvent = require 'events/CardTitleChangedEvent'
+superagent       = require 'superagent'
+Request          = require 'framework/Request'
+CardChangedEvent = require 'events/CardChangedEvent'
 
 class SetCardTitleRequest extends Request
 
   constructor: (@card, @title) ->
 
   execute: (context, eventBus) ->
-    superagent.put("#{@card.uri}/title")
-    .set(Header.IfMatch, etag.encode(@card.version))
-    .set(Header.Socket, eventBus.getSocketId())
+    superagent.put("/api/#{@card.organization}/cards/#{@card.id}/title")
     .send {@title}
     .end (res) =>
-      version = etag.decode(res.header['etag'])
-      eventBus.publish new CardTitleChangedEvent(@card.id, title, version)
+      {card} = res.body
+      eventBus.publish new CardChangedEvent(card)
 
 module.exports = SetCardTitleRequest

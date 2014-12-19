@@ -12,9 +12,7 @@ StageStore                    = require './stores/StageStore'
 SuggestionStore               = require './stores/SuggestionStore'
 TeamStore                     = require './stores/TeamStore'
 UserStore                     = require './stores/UserStore'
-CardBodyChangedListener       = require './listeners/CardBodyChangedListener'
-CardHandedOffListener         = require './listeners/CardHandedOffListener'
-CardTitleChangedListener      = require './listeners/CardTitleChangedListener'
+DocumentChangedListener       = require './listeners/DocumentChangedListener'
 JoinedPresenceChannelListener = require './listeners/JoinedPresenceChannelListener'
 UserConnectedListener         = require './listeners/UserConnectedListener'
 UserDisconnectedListener      = require './listeners/UserDisconnectedListener'
@@ -39,9 +37,7 @@ EventBusFactory.create = ->
     users:         new UserStore()
 
   listeners = [
-    new CardBodyChangedListener()
-    new CardHandedOffListener()
-    new CardTitleChangedListener()
+    new DocumentChangedListener()
     new JoinedPresenceChannelListener()
     new UserConnectedListener()
     new UserDisconnectedListener()

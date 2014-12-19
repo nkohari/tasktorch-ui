@@ -4,6 +4,7 @@ Observe             = require 'mixins/Observe'
 LoadMyStacksRequest = require 'requests/LoadMyStacksRequest'
 LoadMyTeamsRequest  = require 'requests/LoadMyTeamsRequest'
 NavigationMenu      = React.createFactory(require 'common/NavigationMenu')
+CreateCardButton    = React.createFactory(require './CreateCardButton')
 MyStackList         = React.createFactory(require './MyStackList')
 TeamStackList       = React.createFactory(require './TeamStackList')
 {div, ul}           = React.DOM
@@ -41,6 +42,7 @@ WorkspaceSidebar = React.createClass {
 
     return [
       NavigationMenu {key: 'navigation'}
+      CreateCardButton {key: 'create-card-button'}
       div {key: 'menu', className: 'menu'}, groups
     ]
 

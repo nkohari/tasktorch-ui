@@ -11,14 +11,16 @@ MyStackList = React.createClass {
 
   render: ->
 
-    inbox = @getStack(StackType.Inbox)
-    queue = @getStack(StackType.Queue)
+    queue  = @getStack(StackType.Queue)
+    inbox  = @getStack(StackType.Inbox)
+    drafts = @getStack(StackType.Drafts)
 
     children = []
     if inbox? and queue?
       children = [
-        StackSidebarItem {key: 'inbox', stack: inbox, hotkey: 'i'}
-        StackSidebarItem {key: 'queue', stack: queue, hotkey: 'q'}
+        StackSidebarItem {key: 'queue',  stack: queue, hotkey: 'q'}
+        StackSidebarItem {key: 'inbox',  stack: inbox, hotkey: 'i'} 
+        StackSidebarItem {key: 'drafts', stack: drafts, hotkey: 'd'}
       ]
 
     section {className: 'me group'}, [

@@ -3,28 +3,16 @@ Store = require 'framework/Store'
 
 class StackStore extends Store
 
-  constructor: ->
-    @stacks = {}
-
-  getStack: (id) ->
-    @stacks[id]
-
-  getAllStacks: ->
-    _.values(@stacks)
-
   getStacksByOwner: (userId) ->
-    _.filter @stacks, (stack) -> stack.owner? and stack.owner == userId
+    _.filter @items, (stack) -> stack.owner? and stack.owner == userId
 
   getStacksByTeam: (teamId) ->
-    _.filter @stacks, (stack) -> stack.team? and stack.team == teamId
+    _.filter @items, (stack) -> stack.team? and stack.team == teamId
 
   onStacksLoaded: (event) ->
-    @stacks = _.extend @stacks, _.indexBy(event.stacks, 'id')
-    @announce()
+    @add(event.stacks)
 
-  onCardHandedOff: (event) ->
-    @stacks[event.oldStack.id] = event.oldStack
-    @stacks[event.newStack.id] = event.newStack
-    @announce()
+  onStackChanged: (event) ->
+    @add(event.stack)
 
 module.exports = StackStore

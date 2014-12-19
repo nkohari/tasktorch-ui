@@ -1,6 +1,8 @@
 _     = require 'lodash'
 React = require 'react'
 
+NO_OP = (->)
+
 Observe = (storesToWatch...) -> {
 
   contextTypes:
@@ -41,10 +43,10 @@ Observe = (storesToWatch...) -> {
       organizationId: @props.params.organizationId
     }
 
-  execute: (request) ->
+  execute: (request, callback = NO_OP) ->
     requestContext = @getRequestContext()
     eventBus = @getEventBus()
-    request.execute(requestContext, eventBus)
+    request.execute(requestContext, eventBus, callback)
 
   _updateState: ->
     @setState(@_getUpdatedStateFromStores()) if @isMounted()

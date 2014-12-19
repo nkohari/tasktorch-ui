@@ -26,8 +26,8 @@ StackPanel = React.createClass {
     stackId: React.PropTypes.string.isRequired
 
   getStateFromStores: (stores) ->
-    stack = stores.stacks.getStack(@props.stackId)
-    cards = stores.cards.getCards(stack.cards) if stack?
+    stack = stores.stacks.get(@props.stackId)
+    cards = stores.cards.getMany(stack.cards) if stack?
     {stack, cards}
 
   componentWillReceiveProps: (newProps) ->

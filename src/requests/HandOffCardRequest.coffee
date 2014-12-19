@@ -1,8 +1,7 @@
-_                  = require 'lodash'
-superagent         = require 'superagent'
-Header             = require 'framework/enums/Header'
-Request            = require 'framework/Request'
-CardHandedOffEvent = require 'events/CardHandedOffEvent'
+_          = require 'lodash'
+superagent = require 'superagent'
+Header     = require 'framework/enums/Header'
+Request    = require 'framework/Request'
 
 class HandOffCardRequest extends Request
 
@@ -17,7 +16,7 @@ class HandOffCardRequest extends Request
     .set(Header.Socket, eventBus.getSocketId())
     .send(payload)
     .end (res) =>
-      {card, oldStack, newStack} = res.body
-      eventBus.publish new CardHandedOffEvent(@card.id, card, oldStack, newStack)
+      {card} = res.body
+      eventBus.publish new CardChangedEvent(card)
 
 module.exports = HandOffCardRequest

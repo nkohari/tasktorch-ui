@@ -21,7 +21,7 @@ CardLocation = React.createClass {
 
   getStateFromStores: (stores) ->
     currentUser = stores.users.getCurrentUser()
-    stack = stores.stacks.getStack(@props.stackId)
+    stack = stores.stacks.get(@props.stackId)
     if stack?
       owner = stores.users.getUser(stack.owner) if stack.owner?
       team = stores.teams.getTeam(stack.team) if stack.team?

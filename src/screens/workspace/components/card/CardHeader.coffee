@@ -10,8 +10,9 @@ CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
 {classSet}         = React.addons
 
 CommandBars =
-  Inbox:   React.createFactory(require './commandBars/InboxCommandBar')
   Queue:   React.createFactory(require './commandBars/QueueCommandBar')
+  Inbox:   React.createFactory(require './commandBars/InboxCommandBar')
+  Drafts:  React.createFactory(require './commandBars/DraftsCommandBar')
   Backlog: React.createFactory(require './commandBars/BacklogCommandBar')
 
 CommandPanels =

@@ -16,5 +16,7 @@ exports.stackName = ({stack, owner, team, currentUser}) ->
       return "#{formatPossessive()} Queue"
     when StackType.Inbox
       return "#{formatPossessive()} Inbox"
+    when StackType.Drafts
+      return "#{formatPossessive()} Drafts"
     else
       return stack.name

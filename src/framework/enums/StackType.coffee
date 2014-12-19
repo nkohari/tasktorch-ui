@@ -1,7 +1,8 @@
 arrayEnum = require 'common/util/arrayEnum'
 
 module.exports = StackType = arrayEnum [
-  'Inbox'
   'Queue'
+  'Inbox'
+  'Drafts'
   'Backlog'
 ]
