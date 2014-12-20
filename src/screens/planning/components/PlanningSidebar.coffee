@@ -12,7 +12,7 @@ PlanningSidebar = React.createClass {
 
   mixins: [Observe('goals')]
 
-  getStateFromStores: (stores) ->
+  sync: (stores) ->
     return {
       goals: stores.goals.getAll()
     }

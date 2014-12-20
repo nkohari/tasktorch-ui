@@ -1,6 +1,6 @@
 _                   = require 'lodash'
 React               = require 'react'
-Observe             = require 'mixins/Observe'
+PropTypes           = require 'common/PropTypes'
 Constants           = require 'framework/Constants'
 SetCardTitleRequest = require 'requests/SetCardTitleRequest'
 Text                = React.createFactory(require 'common/Text')
@@ -8,20 +8,37 @@ Text                = React.createFactory(require 'common/Text')
 
 CardTitle = React.createClass {
 
+  # Spec --------------------------------------------------------------------------
+
   displayName: 'CardTitle'
 
-  mixins: [Observe()]
+  propTypes: PropTypes.Card
+
+  # Lifecycle ---------------------------------------------------------------------
 
   componentDidMount: ->
     @refs.text.getDOMNode().focus() unless @props.card.title
 
+  # Rendering ---------------------------------------------------------------------
+
   render: ->
     div {className: 'title'}, [
-      Text {key: 'text', ref: 'text', placeholder: Constants.untitledCard, value: @props.card.title, save: @saveTitle}
+      Text {
+        key: 'text'
+        ref: 'text'
+        placeholder: Constants.untitledCard
+        value: @props.card.title
+        save: @setCardTitle
+      }
     ]
 
-  saveTitle: (title) ->
-    @execute new SetCardTitleRequest(@props.card, title)
+  # Events ------------------------------------------------------------------------
+
+  setCardTitle: (title) ->
+    request = new SetCardTitleRequest(@props.card, title)
+    request.execute()
+
+  #--------------------------------------------------------------------------------
 
 }
 

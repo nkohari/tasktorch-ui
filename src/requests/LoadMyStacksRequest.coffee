@@ -1,6 +1,6 @@
 superagent        = require 'superagent'
 Request           = require 'framework/Request'
-StacksLoadedEvent = require 'events/StacksLoadedEvent'
+StacksLoadedEvent = require 'events/load/StacksLoadedEvent'
 
 class LoadMyStacksRequest extends Request
 

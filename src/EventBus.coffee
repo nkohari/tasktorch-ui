@@ -3,6 +3,8 @@ _ = require 'lodash'
 class EventBus
 
   constructor: (@stores, @listeners) ->
+    @currentEvent = undefined
+    @pendingEvents = []
     @pusher = new Pusher '9bc5b19ceaf8c59adcea',
       authEndpoint: '/api/_auth/presence'
       encrypted: true
@@ -26,9 +28,18 @@ class EventBus
       listener.bind(channel)
 
   publish: (event) ->
-    console.log(event)
-    func = "on#{event.type}"
-    _.each @stores, (store) ->
-      store[func].apply(store, [event]) if store[func]?
+    console.debug('EventBus: queued %O', event)
+    @pendingEvents.push(event)
+    @_flushEvents() unless @currentEvent?
+
+  _flushEvents: ->
+    while @currentEvent = @pendingEvents.shift()
+      console.group('[EVENT] %O', @currentEvent)
+      func = "on#{@currentEvent.type}"
+      _.each @stores, (store) =>
+        if store[func]?
+          console.debug("#{store.constructor.name}: receiving event")
+          store[func].apply(store, [@currentEvent])
+      console.groupEnd()
 
 module.exports = EventBus

@@ -1,39 +1,57 @@
-_                             = require 'lodash'
-React                         = require 'react'
-Observe                       = require 'mixins/Observe'
-LoadParticipantsOnCardRequest = require 'requests/LoadParticipantsOnCardRequest'
-Avatar                        = React.createFactory(require 'common/Avatar')
-{div, span, ul, li}           = React.DOM
+_                                 = require 'lodash'
+React                             = require 'react'
+PropTypes                         = require 'common/PropTypes'
+Observe                           = require 'mixins/Observe'
+CardParticipantListDisplayedEvent = require 'events/display/CardParticipantListDisplayedEvent'
+Avatar                            = React.createFactory(require 'common/Avatar')
+{div, span, ul, li}               = React.DOM
 
 CardParticipants = React.createClass {
 
+  #--------------------------------------------------------------------------------
+
   displayName: 'CardParticipants'
+
+  propTypes:
+    card: PropTypes.Card
 
   mixins: [Observe('users')]
 
-  getStateFromStores: (stores) ->
+  #--------------------------------------------------------------------------------
+
+  componentWillMount: ->
+    @publish new CardParticipantListDisplayedEvent(@props.card.id, @props.card.participants)
+
+  componentWillReceiveProps: (newProps) ->
+    unless _.isEqual(@props.card.participants, newProps.card.participants)
+      @publish new CardParticipantListDisplayedEvent(newProps.card.id, newProps.card.participants)
+
+  #--------------------------------------------------------------------------------
+
+  sync: (stores) ->
     return {
-      currentUser: stores.users.getCurrentUser()
-      owner: stores.users.get(@props.card.owner) if @props.card.owner?
+      currentUser:  stores.users.getCurrentUser()
+      owner:        stores.users.get(@props.card.owner) if @props.card.owner?
       participants: stores.users.getMany(@props.card.participants)
     }
 
-  componentWillMount: ->
-    @execute new LoadParticipantsOnCardRequest(@props.card.id)
-
-  isReady: ->
-    @state.currentUser? and (@state.owner? or not @props.card.owner?) and @state.participants?
+  ready: ->
+    return {
+      currentUser:  @state.currentUser?
+      owner:        (@state.owner? or not @props.card.owner?)
+      participants: @state.participants?
+    }
 
   render: ->
-    children = if @isReady() then @renderChildren() else []
-    ul {className: 'participants'}, children
+    ul {className: 'participants'}, @renderChildrenIfReady()
 
-  renderChildren: ->
+  children: ->
     _.map @state.participants, (user) =>
       li {key: "user-#{user.id}", className: 'participant'}, [
         Avatar {key: 'avatar', user, size: 32}
       ] 
 
+  #--------------------------------------------------------------------------------
 }
 
 module.exports = CardParticipants

@@ -16,7 +16,7 @@ Shell = React.createClass {
     Observe('connectedUsers', 'organizations', 'users')
   ]
 
-  getStateFromStores: (stores) ->
+  sync: (stores) ->
     return {
       connectedUsers:      stores.connectedUsers.getAll()
       currentUser:         stores.users.getCurrentUser()
@@ -25,6 +25,7 @@ Shell = React.createClass {
     }
 
   componentWillMount: ->
+    AppContext.organizationId = @props.params.organizationId
     @execute new JoinPresenceChannelRequest()
     @execute new LoadCurrentUserRequest()
     @execute new LoadMyOrganizationsRequest()

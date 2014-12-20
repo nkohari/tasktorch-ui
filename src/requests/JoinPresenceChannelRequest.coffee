@@ -1,5 +1,4 @@
-Request                = require 'framework/Request'
-CurrentUserLoadedEvent = require 'events/CurrentUserLoadedEvent'
+Request = require 'framework/Request'
 
 class JoinPresenceChannelRequest extends Request
 

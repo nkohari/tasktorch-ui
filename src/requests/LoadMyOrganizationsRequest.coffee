@@ -1,6 +1,6 @@
 superagent               = require 'superagent'
 Request                  = require 'framework/Request'
-OrganizationsLoadedEvent = require 'events/OrganizationsLoadedEvent'
+OrganizationsLoadedEvent = require 'events/load/OrganizationsLoadedEvent'
 
 class LoadMyOrganizationsRequest extends Request
 

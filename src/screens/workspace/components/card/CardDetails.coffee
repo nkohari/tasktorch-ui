@@ -1,4 +1,5 @@
 React       = require 'react'
+PropTypes   = require 'common/PropTypes'
 Observe     = require 'mixins/Observe'
 CardBody    = React.createFactory(require './CardBody')
 CardActions = React.createFactory(require './CardActions')
@@ -6,15 +7,23 @@ CardActions = React.createFactory(require './CardActions')
 
 CardDetails = React.createClass {
 
+  # Spec --------------------------------------------------------------------------
+
   displayName: 'CardDetails'
 
-  mixins: [Observe()]
+  propTypes:
+    card: PropTypes.Card.isRequired
+    kind: PropTypes.Kind.isRequired
+
+  # Rendering ---------------------------------------------------------------------
 
   render: ->
     div {className: 'details'}, [
-      CardBody {key: 'body', card: @props.card}
+      CardBody    {key: 'body',    card: @props.card}
       CardActions {key: 'actions', card: @props.card, kind: @props.kind}
     ]
+
+  #--------------------------------------------------------------------------------
 
 }
 

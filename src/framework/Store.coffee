@@ -4,6 +4,7 @@ _              = require 'lodash'
 class Store extends EventEmitter
 
   constructor: ->
+    @setMaxListeners(100)
     @items = {}
 
   get: (id) ->
@@ -37,8 +38,12 @@ class Store extends EventEmitter
         changed = true
     @announce() if changed
 
+  execute: (request) ->
+    console.debug("#{@constructor.name}: executing %O", request)
+    request.execute(AppContext, EventBus)
+
   announce: ->
-    console.log "Announcing from #{@constructor.name}"
+    console.debug("#{@constructor.name}: announcing changes")
     @emit('change')
     return null
 

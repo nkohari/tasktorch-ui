@@ -1,7 +1,7 @@
 _                = require 'lodash'
 superagent       = require 'superagent'
 Request          = require 'framework/Request'
-QueueLoadedEvent = require 'events/QueueLoadedEvent'
+QueueLoadedEvent = require 'events/load/QueueLoadedEvent'
 
 class LoadMyQueueRequest extends Request
 

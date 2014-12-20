@@ -1,6 +1,6 @@
-superagent        = require 'superagent'
-Request           = require 'framework/Request'
-UsersLoadedEvent = require 'events/UsersLoadedEvent'
+superagent       = require 'superagent'
+Request          = require 'framework/Request'
+UsersLoadedEvent = require 'events/load/UsersLoadedEvent'
 
 class LoadParticipantsOnCardRequest extends Request
 

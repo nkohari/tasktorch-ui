@@ -1,7 +1,7 @@
 _                = require 'lodash'
 superagent       = require 'superagent'
 Request          = require 'framework/Request'
-KindsLoadedEvent = require 'events/KindsLoadedEvent'
+KindsLoadedEvent = require 'events/load/KindsLoadedEvent'
 
 class LoadAllKindsRequest extends Request
 

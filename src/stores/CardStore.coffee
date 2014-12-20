@@ -1,7 +1,21 @@
-_     = require 'lodash'
-Store = require 'framework/Store'
+_                       = require 'lodash'
+Store                   = require 'framework/Store'
+LoadCardRequest         = require 'requests/LoadCardRequest'
+LoadCardsInStackRequest = require 'requests/LoadCardsInStackRequest'
 
 class CardStore extends Store
+
+  onCardDisplayed: (event) ->
+    if @get(event.cardId)?
+      @announce()
+    else
+      @execute new LoadCardRequest(event.cardId)
+
+  onCardListDisplayed: (event) ->
+    if @getMany(event.cardIds)?
+      @announce()
+    else
+      @execute new LoadCardsInStackRequest(event.stackId)
 
   onCardsLoaded: (event) ->
     @add(event.cards)

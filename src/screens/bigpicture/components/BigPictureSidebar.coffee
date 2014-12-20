@@ -14,7 +14,7 @@ BigPictureSidebar = React.createClass {
     Observe('teams')
   ]
 
-  getStateFromStores: (stores) ->
+  sync: (stores) ->
     return {
       teams: stores.teams.getAll()
     }

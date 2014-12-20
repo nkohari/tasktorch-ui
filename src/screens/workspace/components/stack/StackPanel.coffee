@@ -1,11 +1,11 @@
 _                       = require 'lodash'
 React                   = require 'react'
 Router                  = require 'react-router'
+PropTypes               = require 'common/PropTypes'
 ActiveUrl               = require 'mixins/ActiveUrl'
 Observe                 = require 'mixins/Observe'
+StackDisplayedEvent     = require 'events/display/StackDisplayedEvent'
 WorkspaceUrl            = require '../../WorkspaceUrl'
-LoadStackRequest        = require 'requests/LoadStackRequest'
-LoadCardsInStackRequest = require 'requests/LoadCardsInStackRequest'
 Icon                    = React.createFactory(require 'common/Icon')
 StackHeader             = React.createFactory(require './StackHeader')
 StackCardList           = React.createFactory(require './StackCardList')
@@ -15,50 +15,53 @@ Link                    = React.createFactory(Router.Link)
 
 StackPanel = React.createClass {
 
+  # Spec --------------------------------------------------------------------------
+
   displayName: 'StackPanel'
+
+  propTypes:
+    stackId:  PropTypes.id.isRequired
+    position: PropTypes.number.isRequired
 
   mixins: [
     Observe('cards', 'stacks')
     ActiveUrl(WorkspaceUrl)
   ]
 
-  propTypes:
-    stackId: React.PropTypes.string.isRequired
-
-  getStateFromStores: (stores) ->
-    stack = stores.stacks.get(@props.stackId)
-    cards = stores.cards.getMany(stack.cards) if stack?
-    {stack, cards}
-
-  componentWillReceiveProps: (newProps) ->
-    @loadStack(newProps.stackId) if @props.stackId != newProps.stackId
+  # Lifecycle ---------------------------------------------------------------------
 
   componentWillMount: ->
-    @loadStack(@props.stackId)
+    @publish new StackDisplayedEvent(@props.stackId)
 
-  loadStack: (stackId) ->
-    @execute new LoadStackRequest(stackId)
-    @execute new LoadCardsInStackRequest(stackId)
+  componentWillReceiveProps: (newProps) ->
+    if newProps.stackId != @props.stackId
+      @publish new StackDisplayedEvent(@props.stackId)
 
-  isReady: ->
-    @state.stack? and @state.cards?
+  # State -------------------------------------------------------------------------
 
-  getChildren: ->
-    if @isReady() then @renderChildren() else []
+  sync: (stores) ->
+    {stack: stores.stacks.get(@props.stackId)}
+
+  ready: ->
+    {stack: @state.stack?}
+
+  # Rendering ---------------------------------------------------------------------
 
   render: ->
     div {
       className: 'stack panel'
       style:     {zIndex: 99 - @props.position}
-    }, @getChildren()
+    }, @renderChildrenIfReady()
 
-  renderChildren: ->
+  children: ->
     return [
       @makeCloseLink()
       StackHeader {key: 'header', stack: @state.stack}
-      StackCardList {key: 'cards', stack: @state.stack, cards: @state.cards}
+      StackCardList {key: 'cards', stack: @state.stack}
       StackFooter {key: 'footer', stack: @state.stack}
     ]
+
+  # Utility -----------------------------------------------------------------------
 
   makeCloseLink: ->
     url = @getActiveUrl()
@@ -67,6 +70,8 @@ StackPanel = React.createClass {
     Link props, [
       Icon {key: 'close', name: 'close'}
     ]
+
+  #--------------------------------------------------------------------------------
 
 }
 

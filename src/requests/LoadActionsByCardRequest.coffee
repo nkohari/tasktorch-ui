@@ -1,7 +1,7 @@
 _                  = require 'lodash'
 superagent         = require 'superagent'
 Request            = require 'framework/Request'
-ActionsLoadedEvent = require 'events/ActionsLoadedEvent'
+ActionsLoadedEvent = require 'events/load/ActionsLoadedEvent'
 
 class LoadActionsByCardRequest extends Request
 

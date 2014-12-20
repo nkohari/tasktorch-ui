@@ -19,6 +19,7 @@ CreateCardButton = React.createClass {
   render: ->
     Button {text: 'Create Card', onClick: @handleClick}
 
+  # TODO: Support different card kinds
   handleClick: ->
     url     = @getActiveUrl()
     request = new CreateCardRequest(url.organizationId, '1')

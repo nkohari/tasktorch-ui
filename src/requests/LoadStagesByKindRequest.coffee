@@ -1,7 +1,7 @@
 _                 = require 'lodash'
 superagent        = require 'superagent'
 Request           = require 'framework/Request'
-StagesLoadedEvent = require 'events/StagesLoadedEvent'
+StagesLoadedEvent = require 'events/load/StagesLoadedEvent'
 
 class LoadStagesByKindRequest extends Request
 

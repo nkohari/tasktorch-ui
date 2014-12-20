@@ -9,6 +9,8 @@ Icon                            = React.createFactory(require 'common/Icon')
 
 RecipientSelector = React.createClass {
 
+  # Spec --------------------------------------------------------------------------
+
   displayName: 'RecipientSelector'
 
   mixins: [Observe('suggestions')]
@@ -16,10 +18,16 @@ RecipientSelector = React.createClass {
   getInitialState: ->
     {expanded: false, phrase: undefined, selection: undefined}
 
-  getStateFromStores: (stores) ->
+  # Lifecycle ---------------------------------------------------------------------
+  # State -------------------------------------------------------------------------
+
+  sync: (stores) ->
     if @state?.phrase?
       options = stores.suggestions.get(@state.phrase)
+      console.log "Phrase = #{@state.phrase}, new options: %O", options
     {options}
+
+  # Rendering ---------------------------------------------------------------------
 
   render: ->
 
@@ -50,7 +58,7 @@ RecipientSelector = React.createClass {
       expanded:  @state.expanded
       empty:     not @state.selection?
 
-    div {className: classSet(classes), tabIndex: -1, onBlur: @onBlur}, _.compact [
+    div {className: classSet(classes), tabIndex: -1, onBlur: @onBlur}, [
       a {key: 'trigger', onClick: @onTriggerClicked}, [
         value
         span {key: 'indicator', className: 'indicator'}, [
@@ -60,23 +68,7 @@ RecipientSelector = React.createClass {
       drop if drop?
     ]
 
-  onBlur: ->
-    # TODO
-    console.log('blur')
-
-  renderUserOptionsGroup: ->
-    _.map @state.options.users, (user) =>
-      li {key: "user-#{user.id}", className: 'user option', 'data-type': 'user', 'data-id': user.id, onClick: @onUserClicked}, [
-        Avatar {key: 'icon', size: 16, user}
-        user.name
-      ]
-
-  renderTeamOptionsGroup: (teams) ->
-    _.map @state.options.teams, (team) =>
-      li {key: "team-#{team.id}", className: 'team option', 'data-type': 'team', 'data-id': team.id, onClick: @onTeamClicked}, [
-        Icon {key: 'icon', name: 'users'}
-        team.name
-      ]
+  # Events ------------------------------------------------------------------------
 
   onTriggerClicked: (event) ->
     expanded = !@state.expanded
@@ -85,24 +77,35 @@ RecipientSelector = React.createClass {
 
   onInputChanged: (event) ->
     phrase = event.target.value
-    @execute new LoadRecipientSuggestionsRequest(phrase) if phrase.length > 0
-    @setState {phrase}
+    @setState {phrase}, =>
+      @execute new LoadRecipientSuggestionsRequest(phrase) if phrase.length > 0
 
-  onUserClicked: (event) ->
-    selection = {
-      kind: 'user'
-      item: _.find(@state.options.users, (user) -> user.id == event.target.dataset.id)
-    }
+  onOptionClicked: (kind, item, event) ->
+    selection = {kind, item}
     @setState {expanded: false, phrase: undefined, options: undefined, selection}
     @props.onChange(selection) if @props.onChange?
 
-  onTeamClicked: (event) ->
-    selection = {
-      kind: 'team'
-      item: _.find(@state.options.teams, (team) -> team.id == event.target.dataset.id)
-    }
-    @setState {expanded: false, phrase: undefined, options: undefined, selection}
-    @props.onChange(selection) if @props.onChange?
+  onBlur: ->
+    # TODO
+    console.log('blur')
+
+  # Utility -----------------------------------------------------------------------
+
+  renderUserOptionsGroup: ->
+    _.map @state.options.users, (user) =>
+      li {key: "user-#{user.id}", className: 'user option', onClick: @onOptionClicked.bind(null, 'user', user)}, [
+        Avatar {key: 'icon', size: 16, user}
+        user.name
+      ]
+
+  renderTeamOptionsGroup: (teams) ->
+    _.map @state.options.teams, (team) =>
+      li {key: "team-#{team.id}", className: 'team option', onClick: @onOptionClicked.bind(null, 'team', team)}, [
+        Icon {key: 'icon', name: 'users'}
+        team.name
+      ]
+
+  #--------------------------------------------------------------------------------
 
 }
 

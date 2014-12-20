@@ -1,6 +1,6 @@
 Listener          = require 'framework/Listener'
-CardChangedEvent  = require 'events/CardChangedEvent'
-StackChangedEvent = require 'events/StackChangedEvent'
+CardChangedEvent  = require 'events/change/CardChangedEvent'
+StackChangedEvent = require 'events/change/StackChangedEvent'
 
 class DocumentChangedListener extends Listener
 

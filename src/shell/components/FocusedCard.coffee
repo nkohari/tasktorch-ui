@@ -17,7 +17,7 @@ FocusedCard = React.createClass {
     ActiveUrl(WorkspaceUrl)
   ]
 
-  getStateFromStores: (stores) ->
+  sync: (stores) ->
     return {
       focusedCard: stores.queue.getFocusedCard()
     }

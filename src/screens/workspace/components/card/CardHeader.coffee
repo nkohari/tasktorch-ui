@@ -1,13 +1,17 @@
-_                  = require 'lodash'
-React              = require 'react/addons'
-Observe            = require 'mixins/Observe'
-CardCommandContext = require './CardCommandContext'
-CardTitle          = React.createFactory(require './CardTitle')
-CardWidgets        = React.createFactory(require './CardWidgets')
-Avatar             = React.createFactory(require 'common/Avatar')
-CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
-{div}              = React.DOM
-{classSet}         = React.addons
+_                   = require 'lodash'
+React               = require 'react/addons'
+PropTypes           = require 'common/PropTypes'
+KindDisplayedEvent  = require 'events/display/KindDisplayedEvent'
+StackDisplayedEvent = require 'events/display/StackDisplayedEvent'
+UserDisplayedEvent  = require 'events/display/UserDisplayedEvent'
+Observe             = require 'mixins/Observe'
+CardCommandContext  = require './CardCommandContext'
+CardTitle           = React.createFactory(require './CardTitle')
+CardWidgets         = React.createFactory(require './CardWidgets')
+Avatar              = React.createFactory(require 'common/Avatar')
+CSSTransitionGroup  = React.createFactory(React.addons.CSSTransitionGroup)
+{div}               = React.DOM
+{classSet}          = React.addons
 
 CommandBars =
   Queue:   React.createFactory(require './commandBars/QueueCommandBar')
@@ -21,16 +25,47 @@ CommandPanels =
 
 CardHeader = React.createClass {
 
+  # Spec --------------------------------------------------------------------------
+
   displayName: 'CardHeader'
 
-  mixins: [Observe(), CardCommandContext]
-
   propTypes:
-    card: React.PropTypes.object.isRequired
-    stack: React.PropTypes.object.isRequired
+    card: PropTypes.Card.isRequired
+    kind: PropTypes.Kind.isRequired
+
+  mixins: [
+    Observe('stacks', 'users')
+    CardCommandContext
+  ]
 
   getInitialState: ->
     {command: undefined}
+
+  # Lifecycle ---------------------------------------------------------------------
+
+  componentWillMount: ->
+    @publish new StackDisplayedEvent(@props.card.stack)
+    @publish new UserDisplayedEvent(@props.card.owner) if @props.card.owner?
+
+  componentWillReceiveProps: (newProps) ->
+    @publish new StackDisplayedEvent(newProps.card.stack) if newProps.card.stack != @props.card.stack
+    @publish new UserDisplayedEvent(newProps.card.owner)  if newProps.card.owner != @props.card.owner
+
+  # State -------------------------------------------------------------------------
+
+  sync: (stores) ->
+    return {
+      stack: stores.stacks.get(@props.card.stack)
+      owner: stores.users.get(@props.card.owner) if @props.card.owner?
+    }
+
+  ready: ->
+    return {
+      stack: @state.stack?
+      owner: (@state.owner? or not @props.card.owner)
+    }
+
+  # Rendering ---------------------------------------------------------------------
 
   render: ->
 
@@ -38,31 +73,39 @@ CardHeader = React.createClass {
       header:   true
       expanded: @state.command?
 
-    if @state.command?
-      command = CommandPanels[@state.command] {key: 'command', card: @props.card, stack: @props.stack}
-
     div {
       className: classSet(classes)
       style:     {borderColor: @props.kind.color}
-    }, [
+    }, @renderChildrenIfReady()
+
+  children: ->
+
+    if @state.command?
+      command = CommandPanels[@state.command] {key: 'command', card: @props.card, stack: @state.stack}
+
+    return [
       div {key: 'fixed', className: 'fixed'}, [
-        Avatar {key: 'owner', className: 'owner', user: @props.owner}
+        Avatar {key: 'owner', className: 'owner', user: @state.owner}
         div {key: 'info', className: 'info'}, [
           CardTitle {key: 'title', card: @props.card}
-          CardWidgets {key: 'location', card: @props.card, stack: @props.stack}
+          CardWidgets {key: 'location', card: @props.card, stack: @state.stack}
         ]
-        CommandBars[@props.stack.type] {key: 'commands', card: @props.card}
+        CommandBars[@state.stack.type] {key: 'commands', card: @props.card}
       ]
       CSSTransitionGroup {key: 'flexible', className: 'flexible', component: 'div', transitionName: 'slide'}, [
         command if command?
       ]
     ]
 
+  # Utility -----------------------------------------------------------------------
+
   showCommand: (command) ->
     @setState {command: command}
 
   hideCommand: ->
     @setState {command: undefined}
+
+  #--------------------------------------------------------------------------------
 
 }
 

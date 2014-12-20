@@ -1,8 +1,8 @@
 _                 = require 'lodash'
 superagent        = require 'superagent'
 Request           = require 'framework/Request'
-StacksLoadedEvent = require 'events/StacksLoadedEvent'
-TeamsLoadedEvent  = require 'events/TeamsLoadedEvent'
+StacksLoadedEvent = require 'events/load/StacksLoadedEvent'
+TeamsLoadedEvent  = require 'events/load/TeamsLoadedEvent'
 
 class LoadMyTeamsRequest extends Request
 

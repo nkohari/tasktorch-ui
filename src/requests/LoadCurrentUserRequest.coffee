@@ -1,6 +1,6 @@
-superagent = require 'superagent'
-Request = require 'framework/Request'
-CurrentUserLoadedEvent = require 'events/CurrentUserLoadedEvent'
+superagent             = require 'superagent'
+Request                = require 'framework/Request'
+CurrentUserLoadedEvent = require 'events/load/CurrentUserLoadedEvent'
 
 class LoadCurrentUserRequest extends Request
 

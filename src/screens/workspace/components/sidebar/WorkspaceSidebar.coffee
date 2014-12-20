@@ -1,39 +1,49 @@
-_                   = require 'lodash'
-React               = require 'react'
-Observe             = require 'mixins/Observe'
-LoadMyStacksRequest = require 'requests/LoadMyStacksRequest'
-LoadMyTeamsRequest  = require 'requests/LoadMyTeamsRequest'
-NavigationMenu      = React.createFactory(require 'common/NavigationMenu')
-CreateCardButton    = React.createFactory(require './CreateCardButton')
-MyStackList         = React.createFactory(require './MyStackList')
-TeamStackList       = React.createFactory(require './TeamStackList')
-{div, ul}           = React.DOM
+_                      = require 'lodash'
+React                  = require 'react'
+Observe                = require 'mixins/Observe'
+MyStacksDisplayedEvent = require 'events/display/MyStacksDisplayedEvent'
+MyTeamsDisplayedEvent  = require 'events/display/MyTeamsDisplayedEvent'
+NavigationMenu         = React.createFactory(require 'common/NavigationMenu')
+CreateCardButton       = React.createFactory(require './CreateCardButton')
+MyStackList            = React.createFactory(require './MyStackList')
+TeamStackList          = React.createFactory(require './TeamStackList')
+{div, ul}              = React.DOM
 
 WorkspaceSidebar = React.createClass {
+
+  # Spec --------------------------------------------------------------------------
 
   displayName: 'WorkspaceSidebar'
 
   mixins: [Observe('teams', 'stacks', 'users')]
 
-  getStateFromStores: (stores) ->
+  # Lifecycle ---------------------------------------------------------------------
+
+  componentWillMount: ->
+    @publish new MyStacksDisplayedEvent()
+    @publish new MyTeamsDisplayedEvent()
+
+  # State -------------------------------------------------------------------------
+
+  sync: (stores) ->
     currentUser = stores.users.getCurrentUser()
     if currentUser?
       teams = stores.teams.getAllByMember(currentUser.id)
       stacks = stores.stacks.getAllByOwner(currentUser.id)
     {currentUser, teams, stacks}
 
-  componentWillMount: ->
-    @execute new LoadMyStacksRequest()
-    @execute new LoadMyTeamsRequest()
+  ready: ->
+    return {
+      teams:  @state.teams?
+      stacks: @state.stacks?
+    }
 
-  isReady: ->
-    @state.teams? and @state.stacks?
+  # Rendering ---------------------------------------------------------------------
 
   render: ->
-    children = if @isReady() then @renderChildren() else []
-    div {className: 'workspace sidebar'}, children
+    div {className: 'workspace sidebar'}, @renderChildrenIfReady()
 
-  renderChildren: ->
+  children: ->
 
     groups = [
       MyStackList {key: 'me', stacks: @state.stacks}
@@ -46,6 +56,7 @@ WorkspaceSidebar = React.createClass {
       div {key: 'menu', className: 'menu'}, groups
     ]
 
+  #--------------------------------------------------------------------------------
 }
 
 module.exports = WorkspaceSidebar

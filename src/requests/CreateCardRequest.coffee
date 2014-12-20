@@ -2,7 +2,7 @@ _                = require 'lodash'
 superagent       = require 'superagent'
 Header           = require 'framework/enums/Header'
 Request          = require 'framework/Request'
-CardCreatedEvent = require 'events/CardCreatedEvent'
+CardCreatedEvent = require 'events/create/CardCreatedEvent'
 
 class CreateCardRequest extends Request
 

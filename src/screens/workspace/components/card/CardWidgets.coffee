@@ -1,21 +1,24 @@
 _            = require 'lodash'
 React        = require 'react'
-Observe      = require 'mixins/Observe'
 CardGoal     = React.createFactory(require './CardGoal')
 CardLocation = React.createFactory(require './CardLocation')
 {ul}         = React.DOM
 
 CardWidgets = React.createClass {
 
+  # Spec --------------------------------------------------------------------------
+
   displayName: 'CardWidgets'
 
-  mixins: [Observe()]
+  # Rendering ---------------------------------------------------------------------
 
   render: ->
-    ul {className: 'widgets'}, _.compact [
-      CardLocation {key: 'location', stackId: @props.stack.id}
-      CardGoal {key: 'goal', goalId: @props.card.goal} if @props.card.goal?
+    ul {className: 'widgets'}, [
+      CardLocation {key: 'location', stack: @props.stack}
+      CardGoal     {key: 'goal', goalId: @props.card.goal} if @props.card.goal?
     ]
+
+  #--------------------------------------------------------------------------------
 
 }
 

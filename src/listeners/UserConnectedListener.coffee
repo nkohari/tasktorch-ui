@@ -1,5 +1,5 @@
-Listener = require 'framework/Listener'
-UserConnectedEvent = require 'events/UserConnectedEvent'
+Listener           = require 'framework/Listener'
+UserConnectedEvent = require 'events/presence/UserConnectedEvent'
 
 class UserConnectedListener extends Listener
 

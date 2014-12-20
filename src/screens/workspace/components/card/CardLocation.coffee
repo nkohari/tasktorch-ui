@@ -1,61 +1,43 @@
-_                = require 'lodash'
-React            = require 'react'
-Router           = require 'react-router'
-Format           = require 'framework/Format'
-Observe          = require 'mixins/Observe'
-ActiveUrl        = require 'mixins/ActiveUrl'
-WorkspaceUrl     = require '../../WorkspaceUrl'
-LoadStackRequest = require 'requests/LoadStackRequest'
-Icon             = React.createFactory(require 'common/Icon')
-Link             = React.createFactory(Router.Link)
-{li}             = React.DOM
+_            = require 'lodash'
+React        = require 'react'
+Router       = require 'react-router'
+PropTypes    = require 'common/PropTypes'
+ActiveUrl    = require 'mixins/ActiveUrl'
+WorkspaceUrl = require '../../WorkspaceUrl'
+Icon         = React.createFactory(require 'common/Icon')
+StackName    = React.createFactory(require 'common/StackName')
+Link         = React.createFactory(Router.Link)
+{li}         = React.DOM
 
 CardLocation = React.createClass {
 
+  # Spec --------------------------------------------------------------------------
+
   displayName: 'CardLocation'
 
-  mixins: [
-    Observe('stacks', 'teams', 'users')
-    ActiveUrl(WorkspaceUrl)
-  ]
+  propTypes:
+    stack: PropTypes.Stack.isRequired
 
-  getStateFromStores: (stores) ->
-    currentUser = stores.users.getCurrentUser()
-    stack = stores.stacks.get(@props.stackId)
-    if stack?
-      owner = stores.users.get(stack.owner) if stack.owner?
-      team = stores.teams.get(stack.team) if stack.team?
-    {currentUser, stack, owner, team}
+  mixins: [ActiveUrl(WorkspaceUrl)]
 
-  componentWillMount: ->
-    @execute new LoadStackRequest(@props.stackId)
-
-  isReady: ->
-    @state.stack? and @state.currentUser? and (@state.owner? or not @state.stack.owner?) and (@state.team? or not @state.stack.team?)
+  # Rendering ---------------------------------------------------------------------
 
   render: ->
-    children = if @isReady() then @renderChildren() else []
-    li {className: 'location'}, children
-
-  renderChildren: ->
-    name = Format.stackName {
-      stack: @state.stack
-      owner: @state.owner
-      team:  @state.team
-      currentUser: @state.currentUser
-    }
-    props = _.extend {key: 'link'}, @makeStackLinkProps()
-    return [
-      Link props, [
-        Icon {key: 'icon', name: "stack-#{@state.stack.type.toLowerCase()}"}
-        name
+    li {className: 'location'}, [
+      Link @makeStackLinkProps(), [
+        Icon      {key: 'icon', name: "stack-#{@props.stack.type.toLowerCase()}"}
+        StackName {key: 'name', stack: @props.stack}
       ]
     ]
 
+  # Utility -----------------------------------------------------------------------
+
   makeStackLinkProps: ->
     url = @getActiveUrl()
-    url.addStack(@props.stackId)
-    return url.makeLinkProps()
+    url.addStack(@props.stack.id)
+    return _.extend {key: 'link'}, url.makeLinkProps()
+
+  #--------------------------------------------------------------------------------
 
 }
 

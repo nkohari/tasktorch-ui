@@ -1,12 +1,12 @@
 superagent       = require 'superagent'
 Request          = require 'framework/Request'
-CardChangedEvent = require 'events/CardChangedEvent'
+CardChangedEvent = require 'events/change/CardChangedEvent'
 
 class SetCardBodyRequest extends Request
 
   constructor: (@card, @body) ->
 
-  execute: (context, eventBus) ->
+  execute: ->
     superagent.put("/api/#{@card.organization}/cards/#{@card.id}/body")
     .send {@body}
     .end (res) =>

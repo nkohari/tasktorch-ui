@@ -1,6 +1,6 @@
-_ = require 'lodash'
-Listener = require 'framework/Listener'
-JoinedPresenceChannelEvent = require 'events/JoinedPresenceChannelEvent'
+_                          = require 'lodash'
+Listener                   = require 'framework/Listener'
+JoinedPresenceChannelEvent = require 'events/presence/JoinedPresenceChannelEvent'
 
 class JoinedPresenceChannelListener extends Listener
 

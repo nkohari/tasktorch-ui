@@ -1,36 +1,50 @@
-React           = require 'react'
-Router          = require 'react-router'
-ActiveUrl       = require 'mixins/ActiveUrl'
-Observe         = require 'mixins/Observe'
-WorkspaceUrl    = require '../../WorkspaceUrl'
-LoadGoalRequest = require 'requests/LoadGoalRequest'
-Icon            = React.createFactory(require 'common/Icon')
-Link            = React.createFactory(Router.Link)
-{li, a}         = React.DOM
+React              = require 'react'
+Router             = require 'react-router'
+PropTypes          = require 'common/PropTypes'
+ActiveUrl          = require 'mixins/ActiveUrl'
+Observe            = require 'mixins/Observe'
+WorkspaceUrl       = require '../../WorkspaceUrl'
+GoalDisplayedEvent = require 'events/display/GoalDisplayedEvent'
+Icon               = React.createFactory(require 'common/Icon')
+Link               = React.createFactory(Router.Link)
+{li, a}            = React.DOM
 
 CardGoal = React.createClass {
 
+  # Spec --------------------------------------------------------------------------
+
   displayName: 'CardGoal'
+
+  propTypes:
+    goalId: PropTypes.id
 
   mixins: [
     Observe('goals')
     ActiveUrl(WorkspaceUrl)
   ]
 
-  getStateFromStores: (stores) ->
-    {goal: stores.goals.get(@props.goalId)}
+  # Lifecycle ---------------------------------------------------------------------
 
   componentWillMount: ->
-    @execute new LoadGoalRequest(@props.goalId)
+    @publish new GoalDisplayedEvent(@props.goalId)
 
-  isReady: ->
-    @state.goal?
+  componentWillReceiveProps: (newProps) ->
+    @publish new GoalDisplayedEvent(newProps.goalId) if newProps.goalId != @props.goalId
+
+  # State -------------------------------------------------------------------------
+
+  sync: (stores) ->
+    {goal: stores.goals.get(@props.goalId)}
+
+  ready: ->
+    {goal: @state.goal?}
+
+  # Rendering ---------------------------------------------------------------------
 
   render: ->
-    children = if @isReady() then @renderChildren() else []
-    li {className: 'goal'}, children
+    li {className: 'goal'}, @renderChildrenIfReady()
 
-  renderChildren: ->
+  children: ->
     return [
       Link @makeLinkProps(), [
         Icon {key: 'icon', name: 'goal'}
@@ -38,11 +52,15 @@ CardGoal = React.createClass {
       ]
     ]
 
-  # TODO: Should link to the specific goal
+  # Utility -----------------------------------------------------------------------
+
   makeLinkProps: ->
+    # TODO: Should link to the specific goal
     url = @getActiveUrl()
     params = {organizationId: url.organizationId}
     {key: 'icon', to: 'planning', params}
+
+  #--------------------------------------------------------------------------------
 
 }
 

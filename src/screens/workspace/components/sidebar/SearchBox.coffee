@@ -1,12 +1,9 @@
 React        = require 'react'
-Observe      = require 'mixins/Observe'
 {div, input} = React.DOM
 
 SearchBox = React.createClass {
 
   displayName: 'SearchBox'
-
-  mixins: [Observe()]
 
   getInitialState: ->
     {value: @props.value}

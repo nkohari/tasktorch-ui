@@ -1,64 +1,73 @@
-_               = require 'lodash'
-React           = require 'react'
-Router          = require 'react-router'
-Constants       = require 'framework/Constants'
-Observe         = require 'mixins/Observe'
-ActiveUrl       = require 'mixins/ActiveUrl'
-WorkspaceUrl    = require '../../WorkspaceUrl'
-LoadCardRequest = require 'requests/LoadCardRequest'
-Icon            = React.createFactory(require 'common/Icon')
-CardHeader      = React.createFactory(require './CardHeader')
-CardDetails     = React.createFactory(require './CardDetails')
-CardFooter      = React.createFactory(require './CardFooter')
-Link            = React.createFactory(Router.Link)
-{div}           = React.DOM
+_                  = require 'lodash'
+React              = require 'react'
+Router             = require 'react-router'
+PropTypes          = require 'common/PropTypes'
+Constants          = require 'framework/Constants'
+Observe            = require 'mixins/Observe'
+ActiveUrl          = require 'mixins/ActiveUrl'
+WorkspaceUrl       = require '../../WorkspaceUrl'
+CardDisplayedEvent = require 'events/display/CardDisplayedEvent'
+KindDisplayedEvent = require 'events/display/KindDisplayedEvent'
+Icon               = React.createFactory(require 'common/Icon')
+CardHeader         = React.createFactory(require './CardHeader')
+CardDetails        = React.createFactory(require './CardDetails')
+CardFooter         = React.createFactory(require './CardFooter')
+Link               = React.createFactory(Router.Link)
+{div}              = React.DOM
 
 CardPanel = React.createClass {
 
+  # Spec --------------------------------------------------------------------------
+
   displayName: 'CardPanel'
 
+  propTypes:
+    cardId:   PropTypes.id.isRequired
+    position: PropTypes.number.isRequired
+
   mixins: [
-    Observe('cards', 'kinds', 'stacks', 'users')
+    Observe('cards', 'kinds')
     ActiveUrl(WorkspaceUrl)
   ]
 
-  propTypes:
-    cardId: React.PropTypes.string.isRequired
-
-  getStateFromStores: (stores) ->
-    card = stores.cards.get(@props.cardId)
-    if card?
-      kind = stores.kinds.get(card.kind)
-      stack = stores.stacks.get(card.stack)
-      owner = stores.users.get(card.owner) if card.owner?
-    {card, kind, stack, owner}
-
-  componentWillReceiveProps: (newProps) ->
-    @loadCard(newProps.cardId) if @props.cardId != newProps.cardId
+  # Lifecycle ---------------------------------------------------------------------
 
   componentWillMount: ->
-    @loadCard(@props.cardId)
+    @publish new CardDisplayedEvent(@props.cardId)
 
-  loadCard: (cardId) ->
-    @execute new LoadCardRequest(cardId)
+  componentWillReceiveProps: (newProps) ->
+    @publish new CardDisplayedEvent(newProps.cardId) if @props.cardId != newProps.cardId
 
-  isReady: ->
-    @state.card? and @state.stack? and @state.kind? and (@state.owner? or not @state.card.owner?)
+  # State -------------------------------------------------------------------------
+
+  sync: (stores) ->
+    card = stores.cards.get(@props.cardId)
+    kind = stores.kinds.get(card.kind) if card?
+    {card, kind}
+
+  ready: ->
+    return {
+      card: @state.card?
+      kind: @state.kind?
+    }
+
+  # Rendering ---------------------------------------------------------------------
 
   render: ->
-    children = if @isReady() then @renderChildren() else []
     div {
       style: {zIndex: 99 - @props.position}
       className: 'card panel'
-    }, children
+    }, @renderChildrenIfReady()
 
-  renderChildren: ->
+  children: ->
     return [
       @makeCloseLink()
-      CardHeader {key: 'header', card: @state.card, stack: @state.stack, kind: @state.kind, owner: @state.owner}
+      CardHeader  {key: 'header',  card: @state.card, kind: @state.kind}
       CardDetails {key: 'details', card: @state.card, kind: @state.kind}
-      CardFooter {key: 'footer', card: @state.card}
+      CardFooter  {key: 'footer',  card: @state.card}
     ]
+
+  # Utility -----------------------------------------------------------------------
 
   makeCloseLink: ->
     url = @getActiveUrl()
@@ -67,6 +76,8 @@ CardPanel = React.createClass {
     Link props, [
       Icon {key: 'close', name: 'close'}
     ]
+
+  #--------------------------------------------------------------------------------
 
 }
 

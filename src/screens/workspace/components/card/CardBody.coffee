@@ -1,4 +1,5 @@
 React              = require 'react'
+PropTypes          = require 'common/PropTypes'
 Observe            = require 'mixins/Observe'
 Constants          = require 'framework/Constants'
 SetCardBodyRequest = require 'requests/SetCardBodyRequest'
@@ -7,9 +8,14 @@ MultilineText      = React.createFactory(require 'common/MultilineText')
 
 CardBody = React.createClass {
 
+  # Spec --------------------------------------------------------------------------
+
   displayName: 'CardBody'
 
-  mixins: [Observe()]
+  propTypes:
+    card: PropTypes.Card.isRequired
+
+  # Rendering ---------------------------------------------------------------------
 
   render: ->
     div {className: 'body'}, [
@@ -18,13 +24,17 @@ CardBody = React.createClass {
         className:   'editable'
         placeholder: Constants.cardBody
         value:       @props.card.body
-        save:        @saveBody
+        save:        @setCardBody
       }
     ]
 
-  saveBody: (value) ->
-    @execute new SetCardBodyRequest(@props.card, value)
+  # Events ------------------------------------------------------------------------
 
+  setCardBody: (value) ->
+    request = new SetCardBodyRequest(@props.card, value)
+    request.execute()
+
+  #--------------------------------------------------------------------------------
 }
 
 module.exports = CardBody

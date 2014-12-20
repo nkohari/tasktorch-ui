@@ -1,5 +1,7 @@
-_     = require 'lodash'
-Store = require 'framework/Store'
+_                   = require 'lodash'
+Store               = require 'framework/Store'
+LoadStackRequest    = require 'requests/LoadStackRequest'
+LoadMyStacksRequest = require 'requests/LoadMyStacksRequest'
 
 class StackStore extends Store
 
@@ -8,6 +10,19 @@ class StackStore extends Store
 
   getAllByTeam: (teamId) ->
     _.filter @items, (stack) -> stack.team? and stack.team == teamId
+
+  onStackDisplayed: (event) ->
+    if @items[event.stackId]
+      @announce()
+    else
+      @execute new LoadStackRequest(event.stackId)
+
+  onMyStacksDisplayed: (event) ->
+    @execute new LoadMyStacksRequest()
+
+  onTeamStackListDisplayed: (event) ->
+    # TODO: This does nothing at the moment because stacks are expanded
+    # in LoadMyTeamsRequest.
 
   onStacksLoaded: (event) ->
     @add(event.stacks)

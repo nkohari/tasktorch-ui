@@ -5,29 +5,13 @@ NO_OP = (->)
 
 Observe = (storesToWatch...) -> {
 
-  contextTypes:
-    eventBus: React.PropTypes.object
-    requestContext: React.PropTypes.object
-
-  childContextTypes:
-    eventBus: React.PropTypes.object
-    requestContext: React.PropTypes.object
-
-  getChildContext: ->
-    return {
-      eventBus: @getEventBus()
-      requestContext: @getRequestContext()
-    }
-
   componentWillMount: ->
-    eventBus = @getEventBus()
     _.each storesToWatch, (name) =>
-      eventBus.getStore(name).on('change', @_updateState)
+      EventBus.getStore(name).on('change', @_updateState)
 
   componentWillUnmount: ->
-    eventBus = @getEventBus()
     _.each storesToWatch, (name) =>
-      eventBus.getStore(name).removeListener('change', @_updateState)
+      EventBus.getStore(name).removeListener('change', @_updateState)
 
   getInitialState: ->
     if storesToWatch.length == 0
@@ -35,25 +19,29 @@ Observe = (storesToWatch...) -> {
     else
       return @_getUpdatedStateFromStores()
 
-  getEventBus: ->
-    @props.eventBus ? @context?.eventBus
-
-  getRequestContext: ->
-    return @context?.requestContext ? {
-      organizationId: @props.params.organizationId
-    }
+  publish: (event) ->
+    EventBus.publish(event)
 
   execute: (request, callback = NO_OP) ->
-    requestContext = @getRequestContext()
-    eventBus = @getEventBus()
-    request.execute(requestContext, eventBus, callback)
+    console.warn "WARNING: #{@constructor.displayName} still calling execute() like a doofus"
+    request.execute(AppContext, EventBus, callback)
+
+  renderChildrenIfReady: -> # TODO: Rename
+    ready = @ready()
+    missing = _.filter _.keys(ready), (key) -> !ready[key]
+    if missing.length == 0
+      return @children()
+    else
+      if @warnOnMissingState
+        console.debug "[#{@constructor.displayName}] Can't render due to missing state: #{missing.join(', ')}"
+      return []
 
   _updateState: ->
     @setState(@_getUpdatedStateFromStores()) if @isMounted()
 
   _getUpdatedStateFromStores: ->
-    stores = @getEventBus().getStores(storesToWatch)
-    return @getStateFromStores(stores)
+    stores = EventBus.getStores(storesToWatch)
+    return @sync(stores)
 
 }
 
