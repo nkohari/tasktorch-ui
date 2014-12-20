@@ -11,7 +11,7 @@ TeamStackList = React.createClass {
   mixins: [Observe('stacks')]
 
   getStateFromStores: (stores) ->
-    {stacks: stores.stacks.getStacksByTeam(@props.team.id)}
+    {stacks: stores.stacks.getAllByTeam(@props.team.id)}
 
   isReady: ->
     @state.stacks?

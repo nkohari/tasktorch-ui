@@ -16,7 +16,7 @@ BigPictureSidebar = React.createClass {
 
   getStateFromStores: (stores) ->
     return {
-      teams: stores.teams.getAllTeams()
+      teams: stores.teams.getAll()
     }
 
   componentWillMount: ->

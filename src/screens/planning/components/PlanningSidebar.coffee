@@ -14,7 +14,7 @@ PlanningSidebar = React.createClass {
 
   getStateFromStores: (stores) ->
     return {
-      goals: stores.goals.getAllGoals()
+      goals: stores.goals.getAll()
     }
 
   componentWillMount: ->

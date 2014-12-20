@@ -18,7 +18,7 @@ RecipientSelector = React.createClass {
 
   getStateFromStores: (stores) ->
     if @state?.phrase?
-      options = stores.suggestions.getSuggestions(@state.phrase)
+      options = stores.suggestions.get(@state.phrase)
     {options}
 
   render: ->

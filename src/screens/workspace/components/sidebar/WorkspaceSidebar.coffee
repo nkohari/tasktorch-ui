@@ -18,8 +18,8 @@ WorkspaceSidebar = React.createClass {
   getStateFromStores: (stores) ->
     currentUser = stores.users.getCurrentUser()
     if currentUser?
-      teams = stores.teams.getTeamsByMember(currentUser.id)
-      stacks = stores.stacks.getStacksByOwner(currentUser.id)
+      teams = stores.teams.getAllByMember(currentUser.id)
+      stacks = stores.stacks.getAllByOwner(currentUser.id)
     {currentUser, teams, stacks}
 
   componentWillMount: ->

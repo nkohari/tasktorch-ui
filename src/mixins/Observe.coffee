@@ -52,12 +52,8 @@ Observe = (storesToWatch...) -> {
     @setState(@_getUpdatedStateFromStores()) if @isMounted()
 
   _getUpdatedStateFromStores: ->
-    try
-      stores = @getEventBus().getStores(storesToWatch)
-      return @getStateFromStores(stores)
-    catch err
-      console.error(err)
-      throw err
+    stores = @getEventBus().getStores(storesToWatch)
+    return @getStateFromStores(stores)
 
 }
 

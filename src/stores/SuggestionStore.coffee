@@ -6,7 +6,7 @@ class SuggestionStore extends Store
   constructor: ->
     @suggestions = {}
 
-  getSuggestions: (phrase) ->
+  get: (phrase) ->
     @suggestions[phrase]
 
   onSuggestionsLoaded: (event) ->

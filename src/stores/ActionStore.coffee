@@ -3,18 +3,11 @@ Store = require 'framework/Store'
 
 class ActionStore extends Store
 
-  constructor: ->
-    @actions = {}
-
-  getAction: (id) ->
-    @actions[id]
-
-  getActionsByCard: (cardId) ->
-    actions = _.filter(@actions, (action) -> action.card == cardId)
+  getAllByCard: (cardId) ->
+    actions = _.filter(@items, (action) -> action.card == cardId)
     _.sortBy(actions, 'rank')
 
   onActionsLoaded: (event) ->
-    @actions = _.extend @actions, _.indexBy(event.actions, 'id')
-    @announce()
+    @add(event.actions)
 
 module.exports = ActionStore

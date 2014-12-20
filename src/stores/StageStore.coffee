@@ -3,18 +3,11 @@ Store = require 'framework/Store'
 
 class StageStore extends Store
 
-  constructor: ->
-    @stages = {}
-
-  getStage: (id) ->
-    @stages[id]
-
-  getStagesByKind: (kindId) ->
-    stages = _.filter(@stages, (stage) -> stage.kind == kindId)
+  getAllByKind: (kindId) ->
+    stages = _.filter(@items, (stage) -> stage.kind == kindId)
     _.sortBy(stages, 'rank')
 
   onStagesLoaded: (event) ->
-    @stages = _.extend @stages, _.indexBy(event.stages, 'id')
-    @announce()
+    @add(event.stages)
 
 module.exports = StageStore

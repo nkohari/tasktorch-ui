@@ -3,10 +3,10 @@ Store = require 'framework/Store'
 
 class StackStore extends Store
 
-  getStacksByOwner: (userId) ->
+  getAllByOwner: (userId) ->
     _.filter @items, (stack) -> stack.owner? and stack.owner == userId
 
-  getStacksByTeam: (teamId) ->
+  getAllByTeam: (teamId) ->
     _.filter @items, (stack) -> stack.team? and stack.team == teamId
 
   onStacksLoaded: (event) ->

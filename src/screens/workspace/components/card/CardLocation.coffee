@@ -23,8 +23,8 @@ CardLocation = React.createClass {
     currentUser = stores.users.getCurrentUser()
     stack = stores.stacks.get(@props.stackId)
     if stack?
-      owner = stores.users.getUser(stack.owner) if stack.owner?
-      team = stores.teams.getTeam(stack.team) if stack.team?
+      owner = stores.users.get(stack.owner) if stack.owner?
+      team = stores.teams.get(stack.team) if stack.team?
     {currentUser, stack, owner, team}
 
   componentWillMount: ->

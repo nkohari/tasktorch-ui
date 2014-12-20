@@ -18,7 +18,7 @@ CardGoal = React.createClass {
   ]
 
   getStateFromStores: (stores) ->
-    {goal: stores.goals.getGoal(@props.goalId)}
+    {goal: stores.goals.get(@props.goalId)}
 
   componentWillMount: ->
     @execute new LoadGoalRequest(@props.goalId)

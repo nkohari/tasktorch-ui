@@ -14,8 +14,8 @@ CardParticipants = React.createClass {
   getStateFromStores: (stores) ->
     return {
       currentUser: stores.users.getCurrentUser()
-      owner: stores.users.getUser(@props.card.owner) if @props.card.owner?
-      participants: stores.users.getUsers(@props.card.participants)
+      owner: stores.users.get(@props.card.owner) if @props.card.owner?
+      participants: stores.users.getMany(@props.card.participants)
     }
 
   componentWillMount: ->

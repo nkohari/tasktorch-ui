@@ -14,8 +14,8 @@ CardActions = React.createClass {
 
   getStateFromStores: (stores) ->
     return {
-      stages: stores.stages.getStagesByKind(@props.kind.id)
-      actions: stores.actions.getActionsByCard(@props.card.id)
+      stages: stores.stages.getAllByKind(@props.kind.id)
+      actions: stores.actions.getAllByCard(@props.card.id)
     }
 
   componentWillMount: ->

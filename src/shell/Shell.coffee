@@ -13,15 +13,15 @@ Shell = React.createClass {
   displayName: 'Shell'
 
   mixins: [
-    Observe('organizations', 'presence')
+    Observe('connectedUsers', 'organizations', 'users')
   ]
 
   getStateFromStores: (stores) ->
     return {
-      currentUser:         stores.presence.currentUser
-      currentOrganization: stores.organizations.getOrganization(@props.params.organizationId)
-      organizations:       stores.organizations.getAllOrganizations()
-      connectedUsers:      stores.presence.getConnectedUsers()
+      connectedUsers:      stores.connectedUsers.getAll()
+      currentUser:         stores.users.getCurrentUser()
+      currentOrganization: stores.organizations.get(@props.params.organizationId)
+      organizations:       stores.organizations.getAll()
     }
 
   componentWillMount: ->
