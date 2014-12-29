@@ -2,12 +2,13 @@ _            = require 'lodash'
 React        = require 'react'
 Router       = require 'react-router'
 PropTypes    = require 'common/PropTypes'
+CardStatus   = require 'framework/enums/CardStatus'
 ActiveUrl    = require 'mixins/ActiveUrl'
 WorkspaceUrl = require '../../WorkspaceUrl'
 Icon         = React.createFactory(require 'common/Icon')
 StackName    = React.createFactory(require 'common/StackName')
 Link         = React.createFactory(Router.Link)
-{li}         = React.DOM
+{li, span}   = React.DOM
 
 CardLocation = React.createClass {
 
@@ -16,18 +17,40 @@ CardLocation = React.createClass {
   displayName: 'CardLocation'
 
   propTypes:
-    stack: PropTypes.Stack.isRequired
+    card:  PropTypes.Card
+    stack: PropTypes.Stack
 
   mixins: [ActiveUrl(WorkspaceUrl)]
 
   # Rendering ---------------------------------------------------------------------
 
   render: ->
-    li {className: 'location'}, [
-      Link @makeStackLinkProps(), [
-        Icon      {key: 'icon', name: "stack-#{@props.stack.type.toLowerCase()}"}
-        StackName {key: 'name', stack: @props.stack}
-      ]
+
+    if @props.card.status == CardStatus.Archived
+      child = @renderArchive()
+    else if @props.card.status == CardStatus.Deleted
+      child = @renderTrash()
+    else
+      child = @renderStackLink()
+
+    li {className: 'location'}, [child]
+
+  renderArchive: ->
+    span {key: 'status'}, [
+      Icon {key: 'icon', name: 'archive'}
+      'Archive'
+    ]
+
+  renderTrash: ->
+    span {key: 'status'}, [
+      Icon {key: 'icon', name: 'trash'}
+      'Trash'
+    ]
+
+  renderStackLink: ->
+    Link @makeStackLinkProps(), [
+      Icon      {key: 'icon', name: "stack-#{@props.stack.type.toLowerCase()}"}
+      StackName {key: 'name', stack: @props.stack}
     ]
 
   # Utility -----------------------------------------------------------------------

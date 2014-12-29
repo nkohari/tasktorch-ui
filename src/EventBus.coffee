@@ -39,7 +39,10 @@ class EventBus
       _.each @stores, (store) =>
         if store[func]?
           console.debug("#{store.constructor.name}: receiving event")
-          store[func].apply(store, [@currentEvent])
+          try
+            store[func].apply(store, [@currentEvent])
+          catch err
+            console.err(err)
       console.groupEnd()
 
 module.exports = EventBus

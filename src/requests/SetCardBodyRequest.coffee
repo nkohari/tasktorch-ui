@@ -7,7 +7,7 @@ class SetCardBodyRequest extends Request
   constructor: (@card, @body) ->
 
   execute: ->
-    superagent.put("/api/#{@card.organization}/cards/#{@card.id}/body")
+    superagent.post("/api/#{@card.organization}/cards/#{@card.id}/body")
     .send {@body}
     .end (res) =>
       {card} = res.body

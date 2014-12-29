@@ -2,15 +2,14 @@ superagent       = require 'superagent'
 Request          = require 'framework/Request'
 CardChangedEvent = require 'events/change/CardChangedEvent'
 
-class SetCardTitleRequest extends Request
+class MoveCardToArchiveRequest extends Request
 
-  constructor: (@card, @title) ->
+  constructor: (@card) ->
 
   execute: ->
-    superagent.post("/api/#{@card.organization}/cards/#{@card.id}/title")
-    .send {@title}
+    superagent.post("/api/#{@card.organization}/cards/#{@card.id}/archive")
     .end (res) =>
       {card} = res.body
       eventBus.publish new CardChangedEvent(card)
 
-module.exports = SetCardTitleRequest
+module.exports = MoveCardToArchiveRequest

@@ -56,9 +56,9 @@ StackPanel = React.createClass {
   children: ->
     return [
       @makeCloseLink()
-      StackHeader {key: 'header', stack: @state.stack}
-      StackCardList {key: 'cards', stack: @state.stack}
-      StackFooter {key: 'footer', stack: @state.stack}
+      StackHeader   {key: 'header', stack: @state.stack}
+      StackCardList {key: 'cards',  stack: @state.stack}
+      StackFooter   {key: 'footer', stack: @state.stack}
     ]
 
   # Utility -----------------------------------------------------------------------

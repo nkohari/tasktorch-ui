@@ -29,7 +29,7 @@ HandOffCommandPanel = React.createClass {
         MultilineText {key: 'message', className: 'message', onChange: @onMessageChanged}
       ]
       div {key: 'buttons', className: 'buttons'}, [
-        Button {key: 'ok', text: 'OK', onClick: @onOkButtonClicked}
+        Button {key: 'ok',     text: 'OK',     onClick: @onOkButtonClicked}
         Button {key: 'cancel', text: 'Cancel', onClick: @context.hideCommand}
       ]
     ]

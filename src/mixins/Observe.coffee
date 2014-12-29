@@ -13,6 +13,9 @@ Observe = (storesToWatch...) -> {
     _.each storesToWatch, (name) =>
       EventBus.getStore(name).removeListener('change', @_updateState)
 
+  componentWillReceiveProps: (newProps) ->
+    @_updateState() if storesToWatch.length > 0
+
   getInitialState: ->
     if storesToWatch.length == 0
       return null
@@ -21,7 +24,9 @@ Observe = (storesToWatch...) -> {
 
   publish: (event) ->
     EventBus.publish(event)
-
+    
+  # TODO: This depends on two globals (AppContext and EventBus).
+  # We need to find a better way to glue things together.
   execute: (request, callback = NO_OP) ->
     console.warn "WARNING: #{@constructor.displayName} still calling execute() like a doofus"
     request.execute(AppContext, EventBus, callback)
@@ -32,8 +37,7 @@ Observe = (storesToWatch...) -> {
     if missing.length == 0
       return @children()
     else
-      if @warnOnMissingState
-        console.debug "[#{@constructor.displayName}] Can't render due to missing state: #{missing.join(', ')}"
+      console.debug "[#{@constructor.displayName}] Can't render due to missing state: #{missing.join(', ')}"
       return []
 
   _updateState: ->

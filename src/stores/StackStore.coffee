@@ -12,7 +12,7 @@ class StackStore extends Store
     _.filter @items, (stack) -> stack.team? and stack.team == teamId
 
   onStackDisplayed: (event) ->
-    if @items[event.stackId]
+    if @get(event.stackId)?
       @announce()
     else
       @execute new LoadStackRequest(event.stackId)

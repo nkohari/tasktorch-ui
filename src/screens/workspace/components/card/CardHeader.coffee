@@ -6,6 +6,7 @@ StackDisplayedEvent = require 'events/display/StackDisplayedEvent'
 UserDisplayedEvent  = require 'events/display/UserDisplayedEvent'
 Observe             = require 'mixins/Observe'
 CardCommandContext  = require './CardCommandContext'
+CardCommandBar      = React.createFactory(require './CardCommandBar')
 CardTitle           = React.createFactory(require './CardTitle')
 CardWidgets         = React.createFactory(require './CardWidgets')
 Avatar              = React.createFactory(require 'common/Avatar')
@@ -13,15 +14,11 @@ CSSTransitionGroup  = React.createFactory(React.addons.CSSTransitionGroup)
 {div}               = React.DOM
 {classSet}          = React.addons
 
-CommandBars =
-  Queue:   React.createFactory(require './commandBars/QueueCommandBar')
-  Inbox:   React.createFactory(require './commandBars/InboxCommandBar')
-  Drafts:  React.createFactory(require './commandBars/DraftsCommandBar')
-  Backlog: React.createFactory(require './commandBars/BacklogCommandBar')
-
 CommandPanels =
+  Archive: React.createFactory(require './commandPanels/ArchiveCommandPanel')
   Defer:   React.createFactory(require './commandPanels/DeferCommandPanel')
   HandOff: React.createFactory(require './commandPanels/HandOffCommandPanel')
+  Trash:   React.createFactory(require './commandPanels/TrashCommandPanel')
 
 CardHeader = React.createClass {
 
@@ -30,8 +27,8 @@ CardHeader = React.createClass {
   displayName: 'CardHeader'
 
   propTypes:
-    card: PropTypes.Card.isRequired
-    kind: PropTypes.Kind.isRequired
+    card: PropTypes.Card
+    kind: PropTypes.Kind
 
   mixins: [
     Observe('stacks', 'users')
@@ -44,8 +41,8 @@ CardHeader = React.createClass {
   # Lifecycle ---------------------------------------------------------------------
 
   componentWillMount: ->
-    @publish new StackDisplayedEvent(@props.card.stack)
-    @publish new UserDisplayedEvent(@props.card.owner) if @props.card.owner?
+    @publish new StackDisplayedEvent(@props.card.stack) if @props.card.stack?
+    @publish new UserDisplayedEvent(@props.card.owner)  if @props.card.owner?
 
   componentWillReceiveProps: (newProps) ->
     @publish new StackDisplayedEvent(newProps.card.stack) if newProps.card.stack != @props.card.stack
@@ -55,14 +52,14 @@ CardHeader = React.createClass {
 
   sync: (stores) ->
     return {
-      stack: stores.stacks.get(@props.card.stack)
-      owner: stores.users.get(@props.card.owner) if @props.card.owner?
+      stack: stores.stacks.get(@props.card.stack) if @props.card.stack?
+      owner: stores.users.get(@props.card.owner)  if @props.card.owner?
     }
 
   ready: ->
     return {
-      stack: @state.stack?
-      owner: (@state.owner? or not @props.card.owner)
+      stack: (@state.stack? or not @props.card.stack?)
+      owner: (@state.owner? or not @props.card.owner?)
     }
 
   # Rendering ---------------------------------------------------------------------
@@ -87,10 +84,10 @@ CardHeader = React.createClass {
       div {key: 'fixed', className: 'fixed'}, [
         Avatar {key: 'owner', className: 'owner', user: @state.owner}
         div {key: 'info', className: 'info'}, [
-          CardTitle {key: 'title', card: @props.card}
+          CardTitle   {key: 'title',    card: @props.card}
           CardWidgets {key: 'location', card: @props.card, stack: @state.stack}
         ]
-        CommandBars[@state.stack.type] {key: 'commands', card: @props.card}
+        CardCommandBar {key: 'commands', card: @props.card, stack: @state.stack}
       ]
       CSSTransitionGroup {key: 'flexible', className: 'flexible', component: 'div', transitionName: 'slide'}, [
         command if command?

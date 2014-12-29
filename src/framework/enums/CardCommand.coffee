@@ -7,4 +7,5 @@ module.exports = CardCommand = arrayEnum [
   'HandOff'
   'Archive'
   'Trash'
+  'Restore'
 ]

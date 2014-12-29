@@ -1,4 +1,5 @@
 React              = require 'react'
+Observe            = require 'mixins/Observe'
 CardCommandContext = require '../CardCommandContext'
 Button             = React.createFactory(require 'common/Button')
 {div}              = React.DOM
@@ -7,7 +8,7 @@ DeferCommandPanel = React.createClass {
 
   displayName: 'DeferCommandPanel'
 
-  mixins: [CardCommandContext]
+  mixins: [CardCommandContext, Observe()]
 
   propTypes:
     hideCommand: React.PropTypes.func.isRequired
