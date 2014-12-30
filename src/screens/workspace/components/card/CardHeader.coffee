@@ -10,6 +10,7 @@ CardCommandBar      = React.createFactory(require './CardCommandBar')
 CardTitle           = React.createFactory(require './CardTitle')
 CardWidgets         = React.createFactory(require './CardWidgets')
 Avatar              = React.createFactory(require 'common/Avatar')
+Icon                = React.createFactory(require 'common/Icon')
 CSSTransitionGroup  = React.createFactory(React.addons.CSSTransitionGroup)
 {div}               = React.DOM
 {classSet}          = React.addons
@@ -45,8 +46,10 @@ CardHeader = React.createClass {
     @publish new UserDisplayedEvent(@props.card.owner)  if @props.card.owner?
 
   componentWillReceiveProps: (newProps) ->
-    @publish new StackDisplayedEvent(newProps.card.stack) if newProps.card.stack != @props.card.stack
-    @publish new UserDisplayedEvent(newProps.card.owner)  if newProps.card.owner != @props.card.owner
+    prev = @props.card
+    curr = newProps.card
+    @publish new StackDisplayedEvent(curr.stack) if curr.stack? and curr.stack != prev.stack
+    @publish new UserDisplayedEvent(curr.owner)  if curr.owner? and curr.owner != prev.owner
 
   # State -------------------------------------------------------------------------
 
@@ -82,7 +85,7 @@ CardHeader = React.createClass {
 
     return [
       div {key: 'fixed', className: 'fixed'}, [
-        Avatar {key: 'owner', className: 'owner', user: @state.owner}
+        @renderOwner()
         div {key: 'info', className: 'info'}, [
           CardTitle   {key: 'title',    card: @props.card}
           CardWidgets {key: 'location', card: @props.card, stack: @state.stack}
@@ -93,6 +96,14 @@ CardHeader = React.createClass {
         command if command?
       ]
     ]
+
+  renderOwner: ->
+    if @state.owner?
+      Avatar {key: 'owner', className: 'owner', user: @state.owner}
+    else
+      div {key: 'owner', className: 'team owner'}, [
+        Icon {key: 'icon', name: 'team'}
+      ]
 
   # Utility -----------------------------------------------------------------------
 

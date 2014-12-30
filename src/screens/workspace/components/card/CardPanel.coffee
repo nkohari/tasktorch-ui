@@ -54,9 +54,13 @@ CardPanel = React.createClass {
   # Rendering ---------------------------------------------------------------------
 
   render: ->
+
+    classes = ['card', 'panel']
+    classes.push(@state.card.status.toLowerCase()) if @state.card?
+
     div {
       style:     {zIndex: 99 - @props.position}
-      className: "card panel #{@state.card.status.toLowerCase()}"
+      className: classes.join(' ')
     }, @renderChildrenIfReady()
 
   children: ->

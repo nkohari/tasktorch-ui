@@ -16,7 +16,7 @@
     z-index: 1000
     overflow: hidden
   
-  .owner.avatar
+  .owner
     position: absolute
     top: 8px
     left: 8px
@@ -26,6 +26,14 @@
     border: 1px solid $steel-light-border-color
     border-radius: 50%
     background: $bright-white
+    &.team
+      background: $steel-highlight-color
+    .icon
+      color: $steel-light-border-color;
+      font-size: 72px;
+      line-height: 44px;
+      margin-top: 0;
+      width: 48px;
   
   .info
     width: 100%
