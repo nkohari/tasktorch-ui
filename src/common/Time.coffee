@@ -1,13 +1,15 @@
-moment = require 'moment'
-React  = require 'react'
-{span} = React.DOM
+moment     = require 'moment'
+React      = require 'react'
+mergeProps = require 'common/util/mergeProps'
+{span}     = React.DOM
 
 Time = React.createClass {
 
   displayName: 'Time'
 
   render: ->
-    span {className: 'time'}, [moment(@props.time).calendar()]
+    props = mergeProps @props, {className: 'time'}
+    span props, [moment(@props.time).calendar()]
 
 }
 

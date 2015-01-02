@@ -5,8 +5,8 @@ LoadMyStacksRequest = require 'requests/LoadMyStacksRequest'
 
 class StackStore extends Store
 
-  getAllByOwner: (userId) ->
-    _.filter @items, (stack) -> stack.owner? and stack.owner == userId
+  getAllByUser: (userId) ->
+    _.filter @items, (stack) -> stack.user? and stack.user == userId
 
   getAllByTeam: (teamId) ->
     _.filter @items, (stack) -> stack.team? and stack.team == teamId

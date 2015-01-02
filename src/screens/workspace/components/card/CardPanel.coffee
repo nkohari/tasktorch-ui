@@ -5,6 +5,7 @@ PropTypes          = require 'common/PropTypes'
 Constants          = require 'framework/Constants'
 Observe            = require 'mixins/Observe'
 ActiveUrl          = require 'mixins/ActiveUrl'
+CardContext        = require './CardContext'
 WorkspaceUrl       = require '../../WorkspaceUrl'
 CardDisplayedEvent = require 'events/display/CardDisplayedEvent'
 KindDisplayedEvent = require 'events/display/KindDisplayedEvent'
@@ -26,6 +27,7 @@ CardPanel = React.createClass {
     position: PropTypes.number.isRequired
 
   mixins: [
+    CardContext
     Observe('cards', 'kinds')
     ActiveUrl(WorkspaceUrl)
   ]
@@ -61,7 +63,7 @@ CardPanel = React.createClass {
     div {
       style:     {zIndex: 99 - @props.position}
       className: classes.join(' ')
-    }, @renderChildrenIfReady()
+    }, @contents()
 
   children: ->
     return [

@@ -4,7 +4,7 @@ PropTypes                    = require 'common/PropTypes'
 Observe                      = require 'mixins/Observe'
 KindStageListDisplayedEvent  = require 'events/display/KindStageListDisplayedEvent'
 CardActionListDisplayedEvent = require 'events/display/CardActionListDisplayedEvent'
-CardActionGroup              = React.createFactory(require './CardActionGroup')
+CardActionList               = React.createFactory(require './CardActionList')
 {div, ul, li}                = React.DOM
 
 CardActions = React.createClass {
@@ -48,13 +48,20 @@ CardActions = React.createClass {
   # Rendering ---------------------------------------------------------------------
 
   render: ->
-    div {className: 'actions'}, @renderChildrenIfReady()
+    div {className: 'actions'}, @contents()
 
   children: ->
+
     _.map @state.stages, (stage) =>
+
       # TODO: This should use groupBy
       actions = _.filter @state.actions, (action) -> action.stage == stage.id
-      CardActionGroup {key: "stage-#{stage.id}", card: @props.card, kind: @props.kind, stage, actions}
+      ids = _.pluck(actions, 'id')
+
+      div {key: "stage-#{stage.id}", className: 'stage'}, [
+        div {className: 'title'}, [stage.name]
+        CardActionList {card: @props.card, kind: @props.kind, stage, ids}
+      ]
 
   #--------------------------------------------------------------------------------
 

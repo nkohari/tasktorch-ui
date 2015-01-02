@@ -5,6 +5,7 @@ ConnectedUserStore            = require './stores/ConnectedUserStore'
 GoalStore                     = require './stores/GoalStore'
 KindStore                     = require './stores/KindStore'
 MilestoneStore                = require './stores/MilestoneStore'
+NoteStore                     = require './stores/NoteStore'
 OrganizationStore             = require './stores/OrganizationStore'
 QueueStore                    = require './stores/QueueStore'
 StackStore                    = require './stores/StackStore'
@@ -27,6 +28,7 @@ EventBusFactory.create = ->
     goals:          new GoalStore()
     kinds:          new KindStore()
     milestones:     new MilestoneStore()
+    notes:          new NoteStore()
     organizations:  new OrganizationStore()
     connectedUsers: new ConnectedUserStore()
     queue:          new QueueStore()

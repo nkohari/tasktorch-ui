@@ -1,18 +1,18 @@
 React                      = require 'react'
 Observe                    = require 'mixins/Observe'
-HandOffCardRequest         = require 'requests/HandOffCardRequest'
-CardCommandContext         = require '../CardCommandContext'
+PassCardRequest            = require 'requests/PassCardRequest'
+CardContext                = require '../CardContext'
 Button                     = React.createFactory(require 'common/Button')
 MultilineText              = React.createFactory(require 'common/MultilineText')
 CommandArgument            = React.createFactory(require './CommandArgument')
 RecipientSelector          = React.createFactory(require '../RecipientSelector')
 {div, em, label, textarea} = React.DOM
 
-HandOffCommandPanel = React.createClass {
+PassCommandPanel = React.createClass {
 
-  displayName: 'HandOffCommandPanel'
+  displayName: 'PassCommandPanel'
 
-  mixins: [CardCommandContext, Observe()]
+  mixins: [CardContext, Observe()]
 
   getInitialState: ->
     {recipient: undefined, message: undefined}
@@ -22,7 +22,7 @@ HandOffCommandPanel = React.createClass {
 
   render: ->
     div {className: 'handoff command'}, [
-      CommandArgument {key: 'recipient', label: 'Recipient'}, [
+      CommandArgument {key: 'recipient', label: 'Pass card to'}, [
         RecipientSelector {key: 'selector', ref: 'selector', placeholder: 'Choose a user or team', onChange: @onRecipientChanged}
       ]
       CommandArgument {key: 'message', label: 'Message', hint: '(optional)'}, [
@@ -30,7 +30,7 @@ HandOffCommandPanel = React.createClass {
       ]
       div {key: 'buttons', className: 'buttons'}, [
         Button {key: 'ok',     text: 'OK',     onClick: @onOkButtonClicked}
-        Button {key: 'cancel', text: 'Cancel', onClick: @context.hideCommand}
+        Button {key: 'cancel', text: 'Cancel', onClick: @context.hideCommandPanel}
       ]
     ]
 
@@ -41,9 +41,9 @@ HandOffCommandPanel = React.createClass {
     @setState {message}
 
   onOkButtonClicked: ->
-    @execute new HandOffCardRequest(@props.card, @state.recipient, @state.message)
-    @context.hideCommand()
+    @execute new PassCardRequest(@props.card, @state.recipient, @state.message)
+    @context.hideCommandPanel()
 
 }
 
-module.exports = HandOffCommandPanel
+module.exports = PassCommandPanel

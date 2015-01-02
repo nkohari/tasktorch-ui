@@ -3,8 +3,9 @@ React = require 'react'
 
 PropTypes = _.extend {}, React.PropTypes
 
-PropTypes.id = PropTypes.string
+PropTypes.id      = PropTypes.string
 PropTypes.idArray = PropTypes.arrayOf(PropTypes.id)
+PropTypes.enum    = (hash) -> PropTypes.oneOf _.values(hash)
 
 PropTypes.model = (spec) ->
   PropTypes.shape _.extend {

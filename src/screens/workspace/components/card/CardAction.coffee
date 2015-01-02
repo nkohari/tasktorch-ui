@@ -15,13 +15,17 @@ CardAction = React.createClass {
   mixins: [Observe()]
 
   render: ->
+    
     tooltip = Tooltip {text: @props.action.status}
     trigger = OverlayTrigger {placement: 'right', trigger: 'click', overlay: tooltip},
       div {key: 'status', className: 'status'}, [
         Icon {key: 'icon', name: "action-#{@props.action.status.toLowerCase()}"}
       ]
 
-    li {className: "action #{@props.action.status.toLowerCase()}"}, [
+    li {
+      className:     "action #{@props.action.status.toLowerCase()}"
+      'data-itemid': @props.action.id
+    }, [
       trigger
       div {key: 'owner', className: 'owner unassigned'}, [
         Icon {key: 'icon', name: 'assign'}

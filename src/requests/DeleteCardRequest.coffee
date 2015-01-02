@@ -2,7 +2,7 @@ superagent       = require 'superagent'
 Request          = require 'framework/Request'
 CardChangedEvent = require 'events/change/CardChangedEvent'
 
-class MoveCardToTrashRequest extends Request
+class DeleteCardRequest extends Request
 
   constructor: (@card) ->
 
@@ -10,4 +10,4 @@ class MoveCardToTrashRequest extends Request
     superagent.del("/api/#{@card.organization}/cards/#{@card.id}")
     .end()
 
-module.exports = MoveCardToTrashRequest
+module.exports = DeleteCardRequest

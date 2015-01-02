@@ -19,7 +19,7 @@ CardCommandBar = React.createClass {
 
   render: ->
 
-    if @props.card.status == CardStatus.Archived
+    if @props.card.status == CardStatus.Complete
       CommandBar = ArchiveCommandBar
     else if @props.card.status == CardStatus.Deleted
       CommandBar = TrashCommandBar

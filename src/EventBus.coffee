@@ -1,5 +1,7 @@
 _ = require 'lodash'
 
+MAX_QUEUE_SIZE = 100
+
 class EventBus
 
   constructor: (@stores, @listeners) ->
@@ -29,6 +31,8 @@ class EventBus
 
   publish: (event) ->
     console.debug('EventBus: queued %O', event)
+    if @pendingEvents.length > MAX_QUEUE_SIZE
+      console.error("EventBus: HALTED! Too many events queued (max = #{MAX_QUEUE_SIZE})")
     @pendingEvents.push(event)
     @_flushEvents() unless @currentEvent?
 
@@ -42,7 +46,7 @@ class EventBus
           try
             store[func].apply(store, [@currentEvent])
           catch err
-            console.err(err)
+            console.error(err.stack)
       console.groupEnd()
 
 module.exports = EventBus

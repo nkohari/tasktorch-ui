@@ -39,7 +39,7 @@ TeamStackList = React.createClass {
   # Rendering ---------------------------------------------------------------------
 
   render: ->
-    section {className: 'team group'}, @renderChildrenIfReady()
+    section {className: 'team group'}, @contents()
 
   children: ->
 

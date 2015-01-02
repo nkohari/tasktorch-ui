@@ -29,7 +29,7 @@ WorkspaceSidebar = React.createClass {
     currentUser = stores.users.getCurrentUser()
     if currentUser?
       teams = stores.teams.getAllByMember(currentUser.id)
-      stacks = stores.stacks.getAllByOwner(currentUser.id)
+      stacks = stores.stacks.getAllByUser(currentUser.id)
     {currentUser, teams, stacks}
 
   ready: ->
@@ -41,7 +41,7 @@ WorkspaceSidebar = React.createClass {
   # Rendering ---------------------------------------------------------------------
 
   render: ->
-    div {className: 'workspace sidebar'}, @renderChildrenIfReady()
+    div {className: 'workspace sidebar'}, @contents()
 
   children: ->
 

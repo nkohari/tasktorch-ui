@@ -1,7 +1,7 @@
-_                 = require 'lodash'
-superagent        = require 'superagent'
-Request           = require 'framework/Request'
-CardsLoadedEvent  = require 'events/load/CardsLoadedEvent'
+_                = require 'lodash'
+superagent       = require 'superagent'
+Request          = require 'framework/Request'
+CardsLoadedEvent = require 'events/load/CardsLoadedEvent'
 
 class LoadCardsInStackRequest extends Request
 

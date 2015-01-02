@@ -50,8 +50,7 @@ StackPanel = React.createClass {
   render: ->
     div {
       className: 'stack panel'
-      style:     {zIndex: 99 - @props.position}
-    }, @renderChildrenIfReady()
+    }, @contents()
 
   children: ->
     return [

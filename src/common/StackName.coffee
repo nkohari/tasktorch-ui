@@ -21,35 +21,35 @@ StackName = React.createClass {
   # Lifecycle ---------------------------------------------------------------------
 
   componentWillMount: ->
-    @publish new UserDisplayedEvent(@props.stack.owner) if @props.stack.owner?
-    @publish new TeamDisplayedEvent(@props.stack.team)  if @props.stack.team?
+    @publish new UserDisplayedEvent(@props.stack.user) if @props.stack.user?
+    @publish new TeamDisplayedEvent(@props.stack.team) if @props.stack.team?
 
   componentWillReceiveProps: (newProps) ->
     prev = @props.stack
     curr = newProps.stack
-    @publish new UserDisplayedEvent(curr.owner) if curr.owner? and curr.owner != prev.owner
-    @publish new TeamDisplayedEvent(curr.team)  if curr.team?  and curr.team  != prev.team
+    @publish new UserDisplayedEvent(curr.user) if curr.user? and curr.user != prev.user
+    @publish new TeamDisplayedEvent(curr.team) if curr.team? and curr.team  != prev.team
 
   # State -------------------------------------------------------------------------
 
   sync: (stores) ->
     return {
       currentUser: stores.users.getCurrentUser()
-      owner:       stores.users.get(@props.stack.owner) if @props.stack.owner?
+      user:        stores.users.get(@props.stack.user) if @props.stack.user?
       team:        stores.teams.get(@props.stack.team)  if @props.stack.team?
     }
 
   ready: ->
     return {
       currentUser: @state.currentUser?
-      owner:       (@state.owner? or not @props.stack.owner?)
+      user:        (@state.user? or not @props.stack.user?)
       team:        (@state.team? or not @props.stack.team?)
     }
 
   # Rendering ---------------------------------------------------------------------
 
   render: ->
-    span @props, @renderChildrenIfReady()
+    span @props, @contents()
 
   children: ->
 
@@ -59,10 +59,10 @@ StackName = React.createClass {
     if @state.team?
       possessive = @state.team.name
     else
-      if @state.owner.id == @state.currentUser.id
+      if @state.user.id == @state.currentUser.id
         possessive = 'My'
       else
-        possessive = "#{@state.owner.name}'s"
+        possessive = "#{@state.user.name}'s"
 
     return "#{possessive} #{@props.stack.type}"
 

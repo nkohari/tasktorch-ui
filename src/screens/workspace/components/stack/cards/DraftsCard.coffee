@@ -1,7 +1,8 @@
+_         = require 'lodash'
 React     = require 'react'
+PropTypes = require 'common/PropTypes'
 Constants = require 'framework/Constants'
 Observe   = require 'mixins/Observe'
-StackCard = React.createFactory(require '../StackCard')
 Time      = React.createFactory(require 'common/Time')
 {div}     = React.DOM
 
@@ -9,14 +10,24 @@ DraftsCard = React.createClass {
 
   displayName: 'DraftsCard'
 
+  propTypes:
+    card: PropTypes.Card
+
   render: ->
-    StackCard {card: @props.card}, [
-      div {className: 'top'}, [
-        div {className: 'title'},   [@props.card.title or Constants.untitledCard]
-        div {className: 'handoff'}, ['handoff']
+    move = @getLastMove(@props.card)
+
+    div {
+      className: 'summary'
+      style: {borderLeftColor: @props.kind.color}
+    }, [
+      div {className: 'title'}, [@props.card.title or Constants.untitledCard]
+      div {className: 'subtitle'}, [
+        Time {key: 'time', time: move.time}
       ]
-      div {className: 'bottom'}, [@props.card.body]
     ]
+
+  getLastMove: (card) ->
+    return _.max card.moves, (move) -> moment(move.time).valueOf()
 
 }
 

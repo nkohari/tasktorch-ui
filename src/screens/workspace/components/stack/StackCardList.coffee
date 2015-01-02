@@ -1,13 +1,13 @@
 _                      = require 'lodash'
 React                  = require 'react'
 PropTypes              = require 'common/PropTypes'
+classSet               = require 'common/util/classSet'
 CardListDisplayedEvent = require 'events/display/CardListDisplayedEvent'
 StackType              = require 'framework/enums/StackType'
 Observe                = require 'mixins/Observe'
-QueueCard              = React.createFactory(require './cards/QueueCard')
-InboxCard              = React.createFactory(require './cards/InboxCard')
-DraftsCard             = React.createFactory(require './cards/DraftsCard')
-BacklogCard            = React.createFactory(require './cards/BacklogCard')
+SortableList           = require 'mixins/SortableList'
+MoveCardRequest        = require 'requests/MoveCardRequest'
+StackCardListItem      = React.createFactory(require './StackCardListItem')
 {ul}                   = React.DOM
 
 StackCardList = React.createClass {
@@ -16,8 +16,18 @@ StackCardList = React.createClass {
 
   propTypes:
     stack: PropTypes.Stack
+    ids:   PropTypes.idArray
 
-  mixins: [Observe('cards')]
+  mixins: [
+    Observe('cards', 'notes', 'users')
+    SortableList {
+      connectWith: '.cards'
+      idAttribute: 'data-itemid'
+    }
+  ]
+
+  getInitialState: ->
+    {ids: @props.stack.cards, dragActive: false, dropAllowed: undefined}
 
   componentWillMount: ->
     @publish new CardListDisplayedEvent(@props.stack.id, @props.stack.cards)
@@ -25,26 +35,58 @@ StackCardList = React.createClass {
   componentWillReceiveProps: (newProps) ->
     unless _.isEqual(@props.stack.cards, newProps.stack.cards)
       @publish new CardListDisplayedEvent(newProps.stack.id, newProps.stack.cards)
+      @setState {ids: newProps.stack.cards}
 
   sync: (stores) ->
-    {cards: stores.cards.getMany(@props.stack.cards)}
+    console.log "SYNC #{@props.stack.id}: #{@state?.ids?.join(',')}"
+    cards = stores.cards.getMany(@state.ids) if @state?.ids?
+    {cards}
 
   ready: ->
     {cards: @state.cards?}
 
   render: ->
-    ul {className: 'cards'}, @renderChildrenIfReady()
+
+    classes = ['cards']
+    if @state.dragActive
+      classes.push('dragging')
+      classes.push("drop-#{if @state.dropAllowed then 'allowed' else 'disallowed'}")
+
+    ul {
+      className: classes.join(' ')
+    }, @contents()
 
   children: ->
-    _.map @state.cards, @renderCard
+    _.map @state.cards, (card) =>
+      StackCardListItem {
+        key:   "card-#{card.id}"
+        stack: @props.stack
+        card:  card
+      }
 
-  renderCard: (card) ->
-    props = {key: "card-#{card.id}", stack: @props.stack, card}
-    switch @props.stack.type
-      when StackType.Queue   then QueueCard(props)   
-      when StackType.Inbox   then InboxCard(props)
-      when StackType.Drafts  then DraftsCard(props)
-      when StackType.Backlog then BacklogCard(props)
+  getSortableList: ->
+    @props.stack
+
+  getSortableListItem: (id) ->
+    _.find @state.cards, (card) -> card.id == id
+
+  onDragStarted: (dragContext) ->
+    @setState {dragActive: true, dropAllowed: @isDropAllowed(dragContext.item, dragContext.list)}
+
+  onDragStopped: (dragContext) ->
+    @setState {dragActive: false, dropAllowed: undefined}
+
+  onReorder: (card, toPosition) ->
+    @execute new MoveCardRequest(card, @props.stack.id, toPosition)
+
+  onMove: (card, toStack, toPosition) ->
+    @execute new MoveCardRequest(card, toStack.id, toPosition)
+
+  onListOrderChanged: (ids) ->
+    @setState {ids}, => @forceSync()
+
+  isDropAllowed: (card, fromStack) ->
+    return true
 
 }
 

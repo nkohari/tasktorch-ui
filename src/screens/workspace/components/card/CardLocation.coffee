@@ -26,7 +26,7 @@ CardLocation = React.createClass {
 
   render: ->
 
-    if @props.card.status == CardStatus.Archived
+    if @props.card.status == CardStatus.Complete
       child = @renderArchive()
     else if @props.card.status == CardStatus.Deleted
       child = @renderTrash()

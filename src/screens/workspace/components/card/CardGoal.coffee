@@ -42,7 +42,7 @@ CardGoal = React.createClass {
   # Rendering ---------------------------------------------------------------------
 
   render: ->
-    li {className: 'goal'}, @renderChildrenIfReady()
+    li {className: 'goal'}, @contents()
 
   children: ->
     return [

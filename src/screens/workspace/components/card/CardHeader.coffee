@@ -5,7 +5,7 @@ KindDisplayedEvent  = require 'events/display/KindDisplayedEvent'
 StackDisplayedEvent = require 'events/display/StackDisplayedEvent'
 UserDisplayedEvent  = require 'events/display/UserDisplayedEvent'
 Observe             = require 'mixins/Observe'
-CardCommandContext  = require './CardCommandContext'
+CardContext         = require './CardContext'
 CardCommandBar      = React.createFactory(require './CardCommandBar')
 CardTitle           = React.createFactory(require './CardTitle')
 CardWidgets         = React.createFactory(require './CardWidgets')
@@ -16,10 +16,10 @@ CSSTransitionGroup  = React.createFactory(React.addons.CSSTransitionGroup)
 {classSet}          = React.addons
 
 CommandPanels =
-  Archive: React.createFactory(require './commandPanels/ArchiveCommandPanel')
-  Defer:   React.createFactory(require './commandPanels/DeferCommandPanel')
-  HandOff: React.createFactory(require './commandPanels/HandOffCommandPanel')
-  Trash:   React.createFactory(require './commandPanels/TrashCommandPanel')
+  Delay:    React.createFactory(require './commandPanels/DelayCommandPanel')
+  Pass:     React.createFactory(require './commandPanels/PassCommandPanel')
+  Complete: React.createFactory(require './commandPanels/CompleteCommandPanel')
+  Delete:   React.createFactory(require './commandPanels/DeleteCommandPanel')
 
 CardHeader = React.createClass {
 
@@ -33,7 +33,7 @@ CardHeader = React.createClass {
 
   mixins: [
     Observe('stacks', 'users')
-    CardCommandContext
+    CardContext
   ]
 
   getInitialState: ->
@@ -76,7 +76,7 @@ CardHeader = React.createClass {
     div {
       className: classSet(classes)
       style:     {borderColor: @props.kind.color}
-    }, @renderChildrenIfReady()
+    }, @contents()
 
   children: ->
 
@@ -107,10 +107,10 @@ CardHeader = React.createClass {
 
   # Utility -----------------------------------------------------------------------
 
-  showCommand: (command) ->
+  showCommandPanel: (command) ->
     @setState {command: command}
 
-  hideCommand: ->
+  hideCommandPanel: ->
     @setState {command: undefined}
 
   #--------------------------------------------------------------------------------

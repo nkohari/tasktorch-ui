@@ -1,22 +1,59 @@
-React     = require 'react'
-Constants = require 'framework/Constants'
-Observe   = require 'mixins/Observe'
-StackCard = React.createFactory(require '../StackCard')
-Time      = React.createFactory(require 'common/Time')
-{div}     = React.DOM
+_                  = require 'lodash'
+moment             = require 'moment'
+React              = require 'react'
+PropTypes          = require 'common/PropTypes'
+UserDisplayedEvent = require 'events/display/UserDisplayedEvent'
+Constants          = require 'framework/Constants'
+MoveType           = require 'framework/enums/MoveType'
+Observe            = require 'mixins/Observe'
+Avatar             = React.createFactory(require 'common/Avatar')
+Time               = React.createFactory(require 'common/Time')
+{div, span}        = React.DOM
 
 InboxCard = React.createClass {
 
   displayName: 'InboxCard'
 
+  propTypes:
+    card: PropTypes.Card
+
+  mixins: [Observe('users')]
+
+  sync: (stores) ->
+    pass = @getLastPass(@props.card)
+    {sender: stores.users.get(pass.user)}
+
+  ready: ->
+    {sender: @state.sender?}
+
+  componentWillMount: ->
+    pass = @getLastPass(@props.card)
+    @publish new UserDisplayedEvent(pass.user)
+
+  componentWillReceiveProps: (newProps) ->
+    prev = @getLastPass(@props.card)
+    curr = @getLastPass(newProps.card)
+    @publish new UserDisplayedEvent(curr.user) if prev.user != curr.user
+
   render: ->
-    StackCard {card: @props.card}, [
-      div {className: 'top'}, [
-        div {className: 'title'},   [@props.card.title or Constants.untitledCard]
-        div {className: 'handoff'}, ['handoff']
+    div {
+      className: 'summary'
+      style: {borderLeftColor: @props.kind.color}
+    }, @contents()
+
+  children: ->
+    pass = @getLastPass(@props.card)
+    return [
+      Avatar {key: 'avatar', user: @state.sender}
+      div {className: 'title'}, [@props.card.title or Constants.untitledCard]
+      div {className: 'subtitle'}, [
+        Time {key: 'time', time: pass.time}
       ]
-      div {className: 'bottom'}, [@props.card.body]
     ]
+
+  getLastPass: (card) ->
+    passes = _.filter card.moves, (move) -> move.type == MoveType.Pass
+    return _.max passes, (pass) -> moment(pass.time).valueOf()
 
 }
 

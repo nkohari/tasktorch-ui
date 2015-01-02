@@ -1,26 +1,32 @@
-_                  = require 'lodash'
-React              = require 'react'
-CardCommand        = require 'framework/enums/CardCommand'
-CardCommandContext = require '../CardCommandContext'
-CommandButton      = React.createFactory(require './CommandButton')
-{div}              = React.DOM
+_                     = require 'lodash'
+React                 = require 'react'
+PropTypes             = require 'common/PropTypes'
+CardContext           = require '../CardContext'
+AcceptCommandButton   = React.createFactory(require '../commandButtons/AcceptCommandButton')
+PassCommandButton     = React.createFactory(require '../commandButtons/PassCommandButton')
+CompleteCommandButton = React.createFactory(require '../commandButtons/CompleteCommandButton')
+DeleteCommandButton   = React.createFactory(require '../commandButtons/DeleteCommandButton')
+{div}                 = React.DOM
 
 BacklogCommandBar = React.createClass {
 
   displayName: 'BacklogCommandBar'
 
-  mixins: [CardCommandContext]
+  propTypes:
+    card: PropTypes.Card
+
+  mixins: [CardContext]
 
   render: ->
 
     div {className: 'backlog commands'}, [
       div {key: 'left', className: 'button-group'}, [
-        CommandButton {key: 'do',       icon: 'do',       text: 'Do',       command: CardCommand.Do}
-        CommandButton {key: 'hand-off', icon: 'hand-off', text: 'Hand Off', command: CardCommand.HandOff}
+        AcceptCommandButton {key: 'accept'}
+        PassCommandButton   {key: 'pass'}
       ]
       div {key: 'right', className: 'button-group right'}, [
-        CommandButton {key: 'archive',  icon: 'archive',  command: CardCommand.Archive}
-        CommandButton {key: 'trash',    icon: 'trash',    command: CardCommand.Trash}
+        CompleteCommandButton {key: 'complete'}
+        DeleteCommandButton   {key: 'delete'}
       ]
     ]
 

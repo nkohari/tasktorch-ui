@@ -1,27 +1,29 @@
-React              = require 'react'
-CardCommand        = require 'framework/enums/CardCommand'
-CardCommandContext = require '../CardCommandContext'
-CommandButton      = React.createFactory(require './CommandButton')
-{div}              = React.DOM
+React                 = require 'react'
+CardContext           = require '../CardContext'
+AcceptCommandButton   = React.createFactory(require '../commandButtons/AcceptCommandButton')
+PassCommandButton     = React.createFactory(require '../commandButtons/PassCommandButton')
+DelayCommandButton    = React.createFactory(require '../commandButtons/DelayCommandButton')
+CompleteCommandButton = React.createFactory(require '../commandButtons/CompleteCommandButton')
+DeleteCommandButton   = React.createFactory(require '../commandButtons/DeleteCommandButton')
+{div}                 = React.DOM
 
 InboxCommandBar = React.createClass {
 
   displayName: 'InboxCommandBar'
 
-  mixins: [CardCommandContext]
+  mixins: [CardContext]
 
   render: ->
 
     div {className: 'inbox commands'}, [
       div {key: 'left', className: 'button-group'}, [
-        CommandButton {key: 'do',        icon: 'do',        text: 'Do',        command: CardCommand.Do}
-        CommandButton {key: 'defer',     icon: 'defer',     text: 'Defer',     command: CardCommand.Defer}
-        CommandButton {key: 'hand-back', icon: 'hand-back', text: 'Hand Back', command: CardCommand.HandBack}
-        CommandButton {key: 'hand-off',  icon: 'hand-off',  text: 'Hand Off',  command: CardCommand.HandOff}
+        AcceptCommandButton {key: 'accept'}
+        PassCommandButton   {key: 'pass'}
+        DelayCommandButton  {key: 'delay'}
       ]
       div {key: 'right', className: 'button-group right'}, [
-        CommandButton {key: 'archive',   icon: 'archive', command: CardCommand.Archive}
-        CommandButton {key: 'trash',     icon: 'trash',   command: CardCommand.Trash}
+        CompleteCommandButton {key: 'complete'}
+        DeleteCommandButton   {key: 'delete'}
       ]
     ]
 

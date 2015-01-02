@@ -31,7 +31,7 @@ Observe = (storesToWatch...) -> {
     console.warn "WARNING: #{@constructor.displayName} still calling execute() like a doofus"
     request.execute(AppContext, EventBus, callback)
 
-  renderChildrenIfReady: -> # TODO: Rename
+  contents: -> # TODO: Rename
     ready = @ready()
     missing = _.filter _.keys(ready), (key) -> !ready[key]
     if missing.length == 0
@@ -39,6 +39,9 @@ Observe = (storesToWatch...) -> {
     else
       console.debug "[#{@constructor.displayName}] Can't render due to missing state: #{missing.join(', ')}"
       return []
+
+  forceSync: ->
+    @_updateState()
 
   _updateState: ->
     @setState(@_getUpdatedStateFromStores()) if @isMounted()

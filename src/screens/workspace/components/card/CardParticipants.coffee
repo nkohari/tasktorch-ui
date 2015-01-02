@@ -43,7 +43,7 @@ CardParticipants = React.createClass {
     }
 
   render: ->
-    ul {className: 'participants'}, @renderChildrenIfReady()
+    ul {className: 'participants'}, @contents()
 
   children: ->
     _.map @state.participants, (user) =>

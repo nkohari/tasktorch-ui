@@ -1,0 +1,61 @@
+.action
+  padding: 2px 0
+  background: #fff
+  
+  &.ui-sortable-helper
+    list-style-type: none
+    padding: 2px
+    cursor: move
+    border: 1px solid #aaa
+    box-shadow: 0 0 5px $shadow-color
+
+  .handle
+    cursor: move
+    float: right
+    opacity: 0
+    color: #999
+    margin-left: 6px
+    transition: opacity $hover-animation-delay ease-in-out
+    
+  .owner
+    display: inline-block
+    vertical-align: middle
+    color: #999
+    margin-right: 6px
+    
+  .status
+    display: inline-block
+    vertical-align: middle
+    margin-right: 6px
+    border: 1px solid #999
+    border-radius: 4px
+    height: 26px
+    line-height: 26px
+    background: $bright-white
+    text-align: center
+    
+  .text
+    display: inline-block
+    vertical-align: middle
+    font-size: 18px
+    width: $card-panel-width - 128px
+    
+  &.complete
+    .status
+      color: #666
+      background: #ddd
+    .text
+      text-decoration: line-through
+      color: #666
+      &:focus { text-decoration: none }
+        
+  &.warning
+    .status { color: #900 }
+    .text { color: #900 }
+      
+  &.inprogress
+    .status { color: #090 }
+    .text { color: #090 }
+      
+  &:hover
+    .handle { opacity: 1 }
