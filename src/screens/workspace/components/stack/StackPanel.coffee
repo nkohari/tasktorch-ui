@@ -2,6 +2,7 @@ _                       = require 'lodash'
 React                   = require 'react'
 Router                  = require 'react-router'
 PropTypes               = require 'common/PropTypes'
+mergeProps              = require 'common/util/mergeProps'
 ActiveUrl               = require 'mixins/ActiveUrl'
 Observe                 = require 'mixins/Observe'
 StackDisplayedEvent     = require 'events/display/StackDisplayedEvent'
@@ -48,9 +49,10 @@ StackPanel = React.createClass {
   # Rendering ---------------------------------------------------------------------
 
   render: ->
-    div {
+    props = mergeProps @props, {
       className: 'stack panel'
-    }, @contents()
+    }
+    div props, @contents()
 
   children: ->
     return [

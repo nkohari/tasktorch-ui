@@ -57,7 +57,7 @@ CardLocation = React.createClass {
 
   makeStackLinkProps: ->
     url = @getActiveUrl()
-    url.addStack(@props.stack.id)
+    url.addStackBefore(@props.stack.id, @props.card.id)
     return _.extend {key: 'link'}, url.makeLinkProps()
 
   #--------------------------------------------------------------------------------

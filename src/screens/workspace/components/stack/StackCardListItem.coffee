@@ -52,7 +52,7 @@ StackCardListItem = React.createClass {
 
   handleClick: ->
     url = @getActiveUrl()
-    url.addCard(@props.card.id)
+    url.addCardAfter(@props.card.id, @props.stack.id)
     props = url.makeLinkProps()
     @transitionTo(props.to, props.params, props.query)
 

@@ -14,7 +14,7 @@ DRAG_STATE_KEY = 'drag-state'
 SortableList = (mixinConfig) -> {
 
   componentDidMount: ->
-    @_jQuery().sortable _.extend(mixinConfig, {
+    @_jQuery().sortable _.extend({
       appendTo: 'body'
       containment: 'body'
       distance: 5
@@ -31,7 +31,7 @@ SortableList = (mixinConfig) -> {
       start: @_onSortableStart
       stop: @_onSortableStop
       receive: @_onSortableReceive
-    })
+    }, mixinConfig)
 
   componentWillUnmount: ->
     @_jQuery().sortable('destroy')

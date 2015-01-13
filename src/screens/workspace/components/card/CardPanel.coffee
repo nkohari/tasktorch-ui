@@ -2,6 +2,7 @@ _                  = require 'lodash'
 React              = require 'react'
 Router             = require 'react-router'
 PropTypes          = require 'common/PropTypes'
+mergeProps         = require 'common/util/mergeProps'
 Constants          = require 'framework/Constants'
 Observe            = require 'mixins/Observe'
 ActiveUrl          = require 'mixins/ActiveUrl'
@@ -60,10 +61,11 @@ CardPanel = React.createClass {
     classes = ['card', 'panel']
     classes.push(@state.card.status.toLowerCase()) if @state.card?
 
-    div {
-      style:     {zIndex: 99 - @props.position}
+    props = mergeProps @props, {
       className: classes.join(' ')
-    }, @contents()
+    }
+
+    div props, @contents()
 
   children: ->
     return [
