@@ -1,28 +1,40 @@
 .actions
   margin: 10px
   border: 1px solid #ccc
-  border-radius: 4px
   background: $bright-white
   
   .stage
     border-bottom: 1px solid #ccc
-    padding: 10px
-    transition: all 1s ease-in-out
     &:last-child { border-bottom: none }
     
     .title
+      padding: 10px
+      background: $steel-highlight-color
       font-size: 16px
       font-weight: $bold-font-weight
-      margin-bottom: 4px
+      border-bottom: 1px solid #ccc
+    
+    .name
+      font-size: 16px
+    
+    .stage-controls
+      float: right
+      opacity: 0
+      transition: opacity $hover-animation-delay ease-in-out
+    
+    &:hover
+      .stage-controls
+        opacity: 1
       
   ul
-    margin: 0
+    margin: 10px
     padding: 0
+    min-height: 20px
     
     li
       list-style-type: none
     
-    .placeholder
+    .drag-placeholder
       height: 30px
       visibility: normal
       background: $drop-indicator-background-color

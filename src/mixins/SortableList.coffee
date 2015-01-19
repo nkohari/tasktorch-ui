@@ -18,9 +18,10 @@ SortableList = (mixinConfig) -> {
       appendTo: 'body'
       containment: 'body'
       distance: 5
+      forceHelperSize: true
       forcePlaceholderSize: true
       helper: 'clone'
-      placeholder: 'placeholder'
+      placeholder: 'drag-placeholder'
       revert: 100
       tolerance: 'pointer'
       zIndex: 99999
@@ -60,6 +61,10 @@ SortableList = (mixinConfig) -> {
     }
 
   _onSortableStart: (event, context) ->
+    context.placeholder.css {
+      width:  context.helper.outerWidth()
+      height: context.helper.outerHeight()
+    }
     item = @getSortableListItem(context.item.attr(mixinConfig.idAttribute))
     list = @getSortableList()
     position = context.item.index()
@@ -75,7 +80,7 @@ SortableList = (mixinConfig) -> {
     dragState = @_getDragState(context)
     ids = @_getCurrentOrder()
     @_jQuery().sortable('cancel')
-    if dragState.fromList.id == dragState.toList.id and dragState.fromPosition != dragState.toPosition
+    if not context.sender? and dragState.fromList.id == dragState.toList.id and dragState.fromPosition != dragState.toPosition
       @onReorder(dragState.item, dragState.toPosition)
     @onListOrderChanged(ids)
 

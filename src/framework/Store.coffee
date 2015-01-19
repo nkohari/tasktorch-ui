@@ -28,7 +28,10 @@ class Store extends EventEmitter
       if not existing? or item.version > existing.version
         @items[item.id] = item
         changed = true
-    @announce() if changed
+    if changed
+      @announce()
+    else
+      console.debug("#{@constructor.name}: ignoring add()")
 
   remove: (items...) ->
     changed = false
@@ -36,7 +39,10 @@ class Store extends EventEmitter
       if @items[item.id]?
         delete @items[item.id]
         changed = true
-    @announce() if changed
+    if changed
+      @announce()
+    else
+      console.debug("#{@constructor.name}: ignoring remove()")
 
   execute: (request) ->
     console.debug("#{@constructor.name}: executing %O", request)

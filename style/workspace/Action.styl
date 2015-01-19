@@ -1,27 +1,43 @@
 .action
-  padding: 2px 0
+  padding: 2px
   background: #fff
-  
+      
+  &:hover
+    .action-controls { opacity: 1 }
+
   &.ui-sortable-helper
     list-style-type: none
     padding: 2px
     cursor: move
     border: 1px solid #aaa
     box-shadow: 0 0 5px $shadow-color
+    .action-controls { opacity: 1 }
 
-  .handle
-    cursor: move
+  .action-controls
     float: right
     opacity: 0
     color: #999
     margin-left: 6px
     transition: opacity $hover-animation-delay ease-in-out
+    .icon
+      text-align: right
+      transition: color $hover-animation-delay ease-in-out
+      &:hover { color: $black }
+    .icon-handle { cursor: move }
+    .icon-trash  { cursor: pointer }
     
   .owner
     display: inline-block
     vertical-align: middle
     color: #999
     margin-right: 6px
+    .avatar
+      height: 28px
+      width: 28px
+      padding: 2px
+      border: 1px solid $steel-light-border-color
+      border-radius: 50%
+      background: $bright-white
     
   .status
     display: inline-block
@@ -38,7 +54,7 @@
     display: inline-block
     vertical-align: middle
     font-size: 18px
-    width: $card-panel-width - 128px
+    width: $card-panel-width - 180px
     
   &.complete
     .status
@@ -56,6 +72,3 @@
   &.inprogress
     .status { color: #090 }
     .text { color: #090 }
-      
-  &:hover
-    .handle { opacity: 1 }

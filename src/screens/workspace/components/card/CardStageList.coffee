@@ -4,20 +4,21 @@ PropTypes                    = require 'common/PropTypes'
 Observe                      = require 'mixins/Observe'
 KindStageListDisplayedEvent  = require 'events/display/KindStageListDisplayedEvent'
 CardActionListDisplayedEvent = require 'events/display/CardActionListDisplayedEvent'
-CardActionList               = React.createFactory(require './CardActionList')
-{div, ul, li}                = React.DOM
+ActionList                   = React.createFactory(require '../action/ActionList')
+CreateActionButton           = React.createFactory(require './CreateActionButton')
+{div, span, ul, li}          = React.DOM
 
-CardActions = React.createClass {
+CardStageList = React.createClass {
 
   # Spec --------------------------------------------------------------------------
 
-  displayName: 'CardActions'
+  displayName: 'CardStageList'
 
   propTypes:
     card: PropTypes.Card.isRequired
     kind: PropTypes.Kind.isRequired
 
-  mixins: [Observe('actions', 'stages')]
+  mixins: [Observe('stages')]
 
   # Lifecycle ---------------------------------------------------------------------
 
@@ -34,16 +35,10 @@ CardActions = React.createClass {
   # State -------------------------------------------------------------------------
   
   sync: (stores) ->
-    return {
-      stages:  stores.stages.getAllByKind(@props.kind.id)
-      actions: stores.actions.getAllByCard(@props.card.id)
-    }
+    {stages: stores.stages.getMany(@props.kind.stages)}
 
   ready: ->
-    return {
-      stages:  @state.stages?
-      actions: @state.actions?
-    }
+    {stages: @state.stages?}
 
   # Rendering ---------------------------------------------------------------------
 
@@ -53,18 +48,24 @@ CardActions = React.createClass {
   children: ->
 
     _.map @state.stages, (stage) =>
-
-      # TODO: This should use groupBy
-      actions = _.filter @state.actions, (action) -> action.stage == stage.id
-      ids = _.pluck(actions, 'id')
-
       div {key: "stage-#{stage.id}", className: 'stage'}, [
-        div {className: 'title'}, [stage.name]
-        CardActionList {card: @props.card, kind: @props.kind, stage, ids}
+        div {key: 'title', className: 'title'}, [
+          span {key: 'name', className: 'name'}, [stage.name]
+          div {key: 'controls', className: 'stage-controls'}, [
+            CreateActionButton {key: 'create', card: @props.card, stage}
+          ]
+        ]
+        ActionList {
+          key:  'actions'
+          card:  @props.card
+          kind:  @props.kind
+          stage: stage
+          ids:   @props.card.actions[stage.id]
+        }
       ]
 
   #--------------------------------------------------------------------------------
 
 }
 
-module.exports = CardActions
+module.exports = CardStageList

@@ -24,8 +24,7 @@ CardPanel = React.createClass {
   displayName: 'CardPanel'
 
   propTypes:
-    cardId:   PropTypes.id.isRequired
-    position: PropTypes.number.isRequired
+    cardId: PropTypes.id
 
   mixins: [
     CardContext

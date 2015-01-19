@@ -15,6 +15,8 @@ CardBody = React.createClass {
   propTypes:
     card: PropTypes.Card.isRequired
 
+  mixins: [Observe()]
+
   # Rendering ---------------------------------------------------------------------
 
   render: ->
@@ -31,8 +33,7 @@ CardBody = React.createClass {
   # Events ------------------------------------------------------------------------
 
   setCardBody: (value) ->
-    request = new SetCardBodyRequest(@props.card, value)
-    request.execute()
+    @execute new SetCardBodyRequest(@props.card, value)
 
   #--------------------------------------------------------------------------------
 }

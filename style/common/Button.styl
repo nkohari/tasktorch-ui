@@ -10,12 +10,20 @@ button
   background: linear-gradient(to bottom, $button-highlight-color, $button-lowlight-color)
   outline: none !important
   box-shadow: 0 1px 0 shadow(10%)
+  
+  &.small
+    height: 24px
+    font-size: 12px
+    padding: 2px 4px
+  
   &:active, &.active
     color: $dark-black
     background: linear-gradient(to bottom, $button-lowlight-color, $button-highlight-color)
     box-shadow: inset 0px 0px $shadow-blur $shadow-color
+    
   &:hover
     color: $dark-black
+    
   &:disabled
     color: $disabled-text-color;
     background: $button-lowlight-color

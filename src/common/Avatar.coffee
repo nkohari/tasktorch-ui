@@ -1,22 +1,23 @@
-React          = require 'react'
-{div, img}     = React.DOM
-Tooltip        = React.createFactory(require './Tooltip')
-OverlayTrigger = React.createFactory(require './OverlayTrigger')
+React      = require 'react'
+PropTypes  = require 'common/PropTypes'
+mergeProps = require 'common/util/mergeProps'
+{img}      = React.DOM
 
 Avatar = React.createClass {
 
   displayName: 'Avatar'
 
+  propTypes:
+    user: PropTypes.User
+
   render: ->
 
-    if @props.className?
-      classes = @props.className.split(/\s+/).concat('avatar').join(' ')
-    else
-      classes = 'avatar'
+    props = mergeProps @props, {
+      className: 'avatar'
+      src:       @props.user.avatarUrl
+    }
 
-    overlay = Tooltip {text: @props.user.name}
-    OverlayTrigger {placement: 'top', trigger: 'click', transition: 'slide', overlay},
-      img {className: classes, src: @props.user.avatarUrl}
+    img props
 
 }
 

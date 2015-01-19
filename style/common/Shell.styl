@@ -35,30 +35,28 @@ body
   overflow: hidden
   padding: 10px
   
-  .content
-    position: relative
-    z-index: 10001
-    display: flex
-    height: 100%
-    padding: $content-margin
-    margin-left: $sidebar-width
-    overflow-x: auto
-    overflow-y: hidden
-    background: $bright-white $background-texture
-    border-radius: 6px
-    &::-webkit-scrollbar
-      height: 20px
-    &::-webkit-scrollbar-track
-      background: transparent
-    &::-webkit-scrollbar-thumb
-      background: rgba(0, 0, 0, 0.3)
-      background-clip: content-box
-      border: 5px solid transparent
-      border-radius: 20px
-    .placeholder
-      width: $stack-panel-width
-      margin-right: $panel-margin
-      background: $steel-lowlight-color
+.screen > .content
+  position: relative
+  z-index: 10001
+  display: flex
+  height: 100%
+  padding: $content-margin
+  margin-left: $sidebar-width
+  overflow-x: auto
+  overflow-y: hidden
+  background: $bright-white $background-texture
+  border-radius: 6px
+  &::-webkit-scrollbar
+    height: 20px
+  &::-webkit-scrollbar-track
+    background: transparent
+  &::-webkit-scrollbar-thumb
+    background: rgba(0, 0, 0, 0.3)
+    background-clip: content-box
+    border: 5px solid transparent
+    border-radius: 20px
+  .drag-placeholder
+    background: $steel-lowlight-color
 
 .corner
   z-index: 10000

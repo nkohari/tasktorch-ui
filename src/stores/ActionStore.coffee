@@ -17,4 +17,10 @@ class ActionStore extends Store
   onActionsLoaded: (event) ->
     @add(event.actions)
 
+  onActionCreated: (event) ->
+    @add(event.action)
+
+  onActionChanged: (event) ->
+    @add(event.action)
+
 module.exports = ActionStore

@@ -1,12 +1,14 @@
-React  = require 'react'
-{span} = React.DOM
+React      = require 'react'
+mergeProps = require 'common/util/mergeProps'
+{span}     = React.DOM
 
 Icon = React.createClass {
 
   displayName: 'Icon'
 
   render: ->
-    span {className: "icon icon-#{@props.name}"}, @props.children
+    props = mergeProps @props, {className: "icon icon-#{@props.name}"}
+    span props, @props.children
 
 }
 

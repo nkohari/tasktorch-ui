@@ -1,5 +1,6 @@
-_     = require 'lodash'
-React = require 'react'
+_            = require 'lodash'
+React        = require 'react'
+ActionStatus = require 'framework/enums/ActionStatus'
 
 PropTypes = _.extend {}, React.PropTypes
 
@@ -12,6 +13,12 @@ PropTypes.model = (spec) ->
     id:      PropTypes.id
     version: PropTypes.number
   }, spec
+
+PropTypes.Action = PropTypes.model {
+  text:   PropTypes.text
+  status: PropTypes.enum(ActionStatus)
+  owner:  PropTypes.id
+}
 
 PropTypes.Card = PropTypes.model {
   title: PropTypes.string
@@ -31,10 +38,19 @@ PropTypes.Stack = PropTypes.model {
   cards: PropTypes.idArray
 }
 
+PropTypes.Stage = PropTypes.model {
+  name: PropTypes.string
+}
+
 PropTypes.Team = PropTypes.model {
   name:    PropTypes.string
   members: PropTypes.idArray
   stacks:  PropTypes.idArray
+}
+
+PropTypes.User = PropTypes.model {
+  name:      PropTypes.string
+  avatarUrl: PropTypes.string
 }
 
 module.exports = PropTypes

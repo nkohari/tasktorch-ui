@@ -31,7 +31,9 @@ OverlayTrigger = React.createClass {
     window.removeEventListener('resize', @_updateOverlayPosition)
 
   render: ->
-    props = {}
+
+    props =
+      hide: @hideOverlay
 
     if @props.trigger == 'click'
       props.onClick = @toggleOverlay

@@ -1,21 +1,21 @@
 $arrow-width = 5px
-$tooltip-text-color = $white
-$tooltip-arrow-color = $black
-$tooltip-background-color = $black
-$tooltip-border-color = $black
+$overlay-text-color = $white
+$overlay-arrow-color = $black
+$overlay-background-color = $black
+$overlay-border-color = $black
 
-.tooltip
+.overlay
   position: absolute
   z-index: $overlay-zindex
   display: block
-  background: $tooltip-background-color
-  border: 1px solid $tooltip-border-color
+  background: $overlay-background-color
+  border: 1px solid $overlay-border-color
   border-radius: 4px
 
-  .text
+  .content
     padding: 4px 8px
     font-size: 14px
-    color: $tooltip-text-color
+    color: $overlay-text-color
 
   .arrow, .arrow:after
     position: absolute
@@ -33,12 +33,12 @@ $tooltip-border-color = $black
       left: 50%
       margin-left: -($arrow-width)
       border-bottom-width: 0
-      border-top-color: $tooltip-border-color
+      border-top-color: $overlay-border-color
       &:after
         bottom: 1px
         margin-left: -($arrow-width)
         border-bottom-width: 0
-        border-top-color: $tooltip-arrow-color
+        border-top-color: $overlay-arrow-color
 
   &.right
     margin-left: $arrow-width
@@ -47,12 +47,12 @@ $tooltip-border-color = $black
       left: -($arrow-width)
       margin-top: -($arrow-width)
       border-left-width: 0
-      border-right-color: $tooltip-border-color
+      border-right-color: $overlay-border-color
       &:after
         left: 1px
         bottom: -($arrow-width)
         border-left-width: 0
-        border-right-color: $tooltip-arrow-color
+        border-right-color: $overlay-arrow-color
 
   &.bottom
     margin-top: $arrow-width
@@ -61,12 +61,12 @@ $tooltip-border-color = $black
       left: 50%
       margin-left: -($arrow-width)
       border-top-width: 0
-      border-bottom-color: $tooltip-border-color
+      border-bottom-color: $overlay-border-color
       &:after
         top: 1px
         margin-left: -($arrow-width)
         border-top-width: 0
-        border-bottom-color: $tooltip-arrow-color
+        border-bottom-color: $overlay-arrow-color
 
   &.left
     margin-left: -($arrow-width)
@@ -75,23 +75,23 @@ $tooltip-border-color = $black
       right: -($arrow-width)
       margin-top: -($arrow-width)
       border-right-width: 0
-      border-left-color: $tooltip-border-color
+      border-left-color: $overlay-border-color
       &:after
         right: 1px
         bottom: -($arrow-width)
         border-right-width: 0
-        border-left-color: $tooltip-arrow-color
+        border-left-color: $overlay-arrow-color
  
-@keyframes tooltip-enter
+@keyframes overlay-enter
   from { opacity: 0; transform: translateY(10px) }
   to   { opacity: 1; transform: translateY(0) }
 
-.tooltip.slide-enter
-  animation: tooltip-enter 50ms ease-out
+.overlay.slide-enter
+  animation: overlay-enter 50ms ease-out
 
-@keyframes tooltip-leave
+@keyframes overlay-leave
   from { opacity: 1; transform: translateY(0) }
   to   { opacity: 0; transform: translateY(10px) }
 
-.tooltip.slide-leave
-  animation: tooltip-leave 50ms linear
+.overlay.slide-leave
+  animation: overlay-leave 50ms linear
