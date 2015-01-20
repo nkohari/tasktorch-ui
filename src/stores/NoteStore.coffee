@@ -1,7 +1,8 @@
-_        = require 'lodash'
-moment   = require 'moment'
-Store    = require 'framework/Store'
-NoteType = require 'framework/enums/NoteType'
+_                      = require 'lodash'
+moment                 = require 'moment'
+Store                  = require 'framework/Store'
+NoteType               = require 'framework/enums/NoteType'
+LoadNotesByCardRequest = require 'requests/LoadNotesByCardRequest'
 
 class NoteStore extends Store
 
@@ -15,6 +16,13 @@ class NoteStore extends Store
       return null
     else
       _.max notes, (note) -> moment(note).valueOf()
+
+  onCardNoteListDisplayed: (event) ->
+    # TODO: Detect if we've already loaded the notes
+    @execute new LoadNotesByCardRequest(event.cardId)
+
+  onNoteCreated: (event) ->
+    @add(event.note)
 
   onNotesLoaded: (event) ->
     @add(event.notes)

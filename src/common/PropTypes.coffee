@@ -33,6 +33,13 @@ PropTypes.Kind = PropTypes.model {
   stages: PropTypes.idArray
 }
 
+PropTypes.Note = PropTypes.model {
+  type:         PropTypes.string
+  organization: PropTypes.id
+  user:         PropTypes.id
+  card:         PropTypes.id
+}
+
 PropTypes.Stack = PropTypes.model {
   name:  PropTypes.string
   cards: PropTypes.idArray

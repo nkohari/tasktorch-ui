@@ -13,6 +13,7 @@ StageStore                    = require './stores/StageStore'
 SuggestionStore               = require './stores/SuggestionStore'
 TeamStore                     = require './stores/TeamStore'
 UserStore                     = require './stores/UserStore'
+DocumentCreatedListener       = require './listeners/DocumentCreatedListener'
 DocumentChangedListener       = require './listeners/DocumentChangedListener'
 JoinedPresenceChannelListener = require './listeners/JoinedPresenceChannelListener'
 UserConnectedListener         = require './listeners/UserConnectedListener'
@@ -39,6 +40,7 @@ EventBusFactory.create = ->
     users:          new UserStore()
 
   listeners = [
+    new DocumentCreatedListener()
     new DocumentChangedListener()
     new JoinedPresenceChannelListener()
     new UserConnectedListener()

@@ -3,6 +3,7 @@ PropTypes     = require 'common/PropTypes'
 Observe       = require 'mixins/Observe'
 CardBody      = React.createFactory(require './CardBody')
 CardStageList = React.createFactory(require './CardStageList')
+CardNoteList  = React.createFactory(require './CardNoteList')
 {div}         = React.DOM
 
 CardDetails = React.createClass {
@@ -21,6 +22,7 @@ CardDetails = React.createClass {
     div {className: 'details'}, [
       CardBody      {key: 'body',   card: @props.card}
       CardStageList {key: 'stages', card: @props.card, kind: @props.kind}
+      CardNoteList  {key: 'notes',  card: @props.card}
     ]
 
   #--------------------------------------------------------------------------------
