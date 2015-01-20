@@ -4,8 +4,9 @@ PassCardRequest            = require 'requests/PassCardRequest'
 CardContext                = require '../CardContext'
 Button                     = React.createFactory(require 'common/Button')
 MultilineText              = React.createFactory(require 'common/MultilineText')
+SuggestingSelector         = React.createFactory(require 'common/SuggestingSelector')
+UserOrTeamSelectorOption   = React.createFactory(require 'common/UserOrTeamSelectorOption')
 CommandArgument            = React.createFactory(require './CommandArgument')
-RecipientSelector          = React.createFactory(require '../RecipientSelector')
 {div, em, label, textarea} = React.DOM
 
 PassCommandPanel = React.createClass {
@@ -23,7 +24,14 @@ PassCommandPanel = React.createClass {
   render: ->
     div {className: 'handoff command'}, [
       CommandArgument {key: 'recipient', label: 'Pass card to'}, [
-        RecipientSelector {key: 'selector', ref: 'selector', placeholder: 'Choose a user or team', onChange: @onRecipientChanged}
+        SuggestingSelector {
+          key:         'selector'
+          ref:         'selector'
+          option:      UserOrTeamSelectorOption
+          placeholder: 'Choose a user or team',
+          suggest:     ['user', 'team']
+          onChange:    @onRecipientChanged
+        }
       ]
       CommandArgument {key: 'message', label: 'Message', hint: '(optional)'}, [
         MultilineText {key: 'message', className: 'message', onChange: @onMessageChanged}
@@ -34,8 +42,8 @@ PassCommandPanel = React.createClass {
       ]
     ]
 
-  onRecipientChanged: (recipient) ->
-    @setState {recipient}
+  onRecipientChanged: (item, type) ->
+    @setState {recipient: {item, type}}
 
   onMessageChanged: (message) ->
     @setState {message}

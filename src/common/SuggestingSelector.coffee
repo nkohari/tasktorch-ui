@@ -1,0 +1,105 @@
+_                             = require 'lodash'
+React                         = require 'react/addons'
+classSet                      = require 'common/util/classSet'
+Observe                       = require 'mixins/Observe'
+LoadSuggestionsRequest        = require 'requests/LoadSuggestionsRequest'
+{a, div, ul, li, span, input} = React.DOM
+
+SuggestingSelector = React.createClass {
+
+  displayName: 'SuggestingSelector'
+
+  mixins: [Observe('suggestions')]
+
+  getInitialState: -> {
+    expanded:      false
+    phrase:        undefined
+    selectionType: @props.selectionType
+    selection:     @props.selection
+  }
+
+  componentWillMount: ->
+    @types = _.flatten [@props.suggest]
+
+  componentWillReceiveProps: (newProps) ->
+    if newProps.selection?
+      @setState {selectionType: newProps.selectionType, selection: newProps.selection}
+
+  sync: (stores) ->
+    suggestions = stores.suggestions.get(@types, @state.phrase) if @state?.phrase?
+    {suggestions}
+
+  render: ->
+
+    div {
+      className: classSet {selector: true, expanded: @state.expanded}
+    }, [
+      @renderTrigger()
+      @renderDropDown() if @state.expanded
+    ]
+
+  renderTrigger: ->
+
+    if @state.selection?
+      value = @props.option {type: @state.selectionType, value: @state.selection}
+    else
+      value = span {className: 'placeholder'}, [@props.placeholder ? 'Click to select']
+
+    a {
+      className: 'trigger'
+      onClick:   @onTriggerClicked
+    }, [
+      value
+      span {key: 'indicator', className: 'indicator'}, [
+        if @state.expanded then '\u25B4' else '\u25BE'
+      ]
+    ]
+
+  renderDropDown: ->
+
+    if @state.suggestions?
+      options = ul {key: 'options', className: 'options'}, _.map(@types, @renderOptionGroup)
+
+    div {key: 'drop', className: 'drop'}, [
+      div {key: 'suggest', className: 'suggest'}, [
+        input {key: 'input', ref: 'input', type: 'text', value: @state.phrase, onChange: @onInputChanged}
+        span {key: 'indicator', className: 'indicator'}, ['\uD83D\uDD0D']
+      ]
+      options
+    ]
+
+  renderOptionGroup: (type) ->
+
+    console.log "rendering option group for #{type}"
+
+    suggestions = @state.suggestions?[type]
+    return [] unless suggestions?
+
+    _.map suggestions, (item) =>
+      li {
+        key:       "option-#{item.id}"
+        className: classSet {option: true, selected: @state.selection?.id == item.id}
+        onClick:   @onOptionSelected.bind(this, item, type)
+      }, [
+        @props.option {type: type, value: item}
+      ]
+
+  onTriggerClicked: (event) ->
+    @setState {suggestions: undefined, expanded: !@state.expanded}, =>
+      @refs.input.getDOMNode().focus() if @state.expanded
+
+  onInputChanged: (event) ->
+    phrase = event.target.value
+    @setState {phrase}, =>
+      @execute new LoadSuggestionsRequest(@types, phrase) if phrase.length > 0
+
+  onTriggerClicked: ->
+    @setState {expanded: !@state.expanded}
+
+  onOptionSelected: (item, type) ->
+    @setState {expanded: false, selectionType: type, selection: item}
+    @props.onChange(item, type) if @props.onChange?
+
+}
+
+module.exports = SuggestingSelector

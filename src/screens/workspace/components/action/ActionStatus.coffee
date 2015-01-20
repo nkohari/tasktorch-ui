@@ -1,28 +1,27 @@
-React          = require 'react'
-PropTypes      = require 'common/PropTypes'
-Observe        = require 'mixins/Observe'
-Icon           = React.createFactory(require 'common/Icon')
-OverlayTrigger = React.createFactory(require 'common/OverlayTrigger')
-TooltipOverlay = React.createFactory(require 'common/TooltipOverlay')
-{div}          = React.DOM
+React         = require 'react'
+PropTypes     = require 'common/PropTypes'
+Observe       = require 'mixins/Observe'
+ActionCommand = require 'framework/enums/ActionCommand'
+Icon          = React.createFactory(require 'common/Icon')
+{a}           = React.DOM
 
 ActionStatus = React.createClass {
 
   displayName: 'ActionStatus'
 
   propTypes:
-    action: PropTypes.Action
+    action:      PropTypes.Action
+    showCommand: PropTypes.func
 
   mixins: [Observe()]
 
   render: ->
-    
-    overlay = TooltipOverlay {text: @props.action.status}
+    a {className: 'status', @onClick}, [
+      Icon {key: 'icon', name: "action-#{@props.action.status.toLowerCase()}"}
+    ]
 
-    OverlayTrigger {placement: 'right', trigger: 'click', overlay},
-      div {key: 'status', className: 'status'}, [
-        Icon {key: 'icon', name: "action-#{@props.action.status.toLowerCase()}"}
-      ]
+  onClick: ->
+    @props.showCommand(ActionCommand.ChangeStatus)
 
 }
 
