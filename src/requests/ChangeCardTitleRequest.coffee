@@ -2,7 +2,7 @@ superagent       = require 'superagent'
 Request          = require 'framework/Request'
 CardChangedEvent = require 'events/change/CardChangedEvent'
 
-class SetCardTitleRequest extends Request
+class ChangeCardTitleRequest extends Request
 
   constructor: (@card, @title) ->
 
@@ -13,4 +13,4 @@ class SetCardTitleRequest extends Request
       {card} = res.body
       eventBus.publish new CardChangedEvent(card)
 
-module.exports = SetCardTitleRequest
+module.exports = ChangeCardTitleRequest

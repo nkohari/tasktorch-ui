@@ -3,7 +3,6 @@ moment             = require 'moment'
 React              = require 'react'
 PropTypes          = require 'common/PropTypes'
 UserDisplayedEvent = require 'events/display/UserDisplayedEvent'
-Constants          = require 'framework/Constants'
 MoveType           = require 'framework/enums/MoveType'
 Observe            = require 'mixins/Observe'
 Avatar             = React.createFactory(require 'common/Avatar')
@@ -45,7 +44,7 @@ InboxCard = React.createClass {
     pass = @getLastPass(@props.card)
     return [
       Avatar {key: 'avatar', user: @state.sender}
-      div {className: 'title'}, [@props.card.title or Constants.untitledCard]
+      div {className: 'title'}, [@props.card.title or 'Untitled Card']
       div {className: 'subtitle'}, [
         Time {key: 'time', time: pass.time}
       ]

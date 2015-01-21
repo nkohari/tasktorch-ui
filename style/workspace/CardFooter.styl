@@ -1,27 +1,51 @@
 .card > .footer
   flex: none
   z-index: 1000
-  padding: 8px 10px
+  padding: 8px
   background: linear-gradient(to bottom, $steel-highlight-color, $steel-lowlight-color)
   border-top: 1px solid $steel-light-border-color
   line-height: 0
       
-  .participants
-    display: inline-block
-    vertical-align: middle
+  .followers
     padding: 0
     margin: 0
-    list-style-type: none
-    line-height: 0
     
-    .participant
+    li
       display: inline-block
-      padding: 2px
+      list-style-type: none
+      margin-right: 2px
+      &:last-child
+        margin-right: 0
       
       .avatar
-        height: 28px
-        width: 28px
+        height: 22px
+        width: 22px
         padding: 2px
         border: 1px solid $steel-light-border-color
         border-radius: 50%
         background: $bright-white
+
+  .comment-box
+    margin-bottom: 4px
+    
+    input
+      display: inline-block
+      vertical-align: top
+      width: $card-panel-width - 73px
+      padding: 6px
+      border: 1px solid $steel-light-border-color
+      border-right: 0
+      outline: none !important
+      resize: none
+      
+    .button-group
+      display: inline-block
+      vertical-align: top
+      button
+        height: 33px
+        .icon
+          font-size: 28px
+          width: 18px
+        &:first-child
+          border-top-left-radius: 0
+          border-bottom-left-radius: 0

@@ -21,10 +21,10 @@ PropTypes.Action = PropTypes.model {
 }
 
 PropTypes.Card = PropTypes.model {
-  title: PropTypes.string
-  body:  PropTypes.string
-  stack: PropTypes.id
-  owner: PropTypes.id
+  title:   PropTypes.string
+  summary: PropTypes.string
+  stack:   PropTypes.id
+  owner:   PropTypes.id
 }
 
 PropTypes.Kind = PropTypes.model {

@@ -3,9 +3,9 @@ React      = require 'react'
 PropTypes  = require 'common/PropTypes'
 {li, span} = React.DOM
 
-CardTitleChangedNote = React.createClass {
+CardSummaryChangedNote = React.createClass {
 
-  displayName: 'CardTitleChangedNote'
+  displayName: 'CardSummaryChangedNote'
 
   propTypes:
     card: PropTypes.Card
@@ -17,15 +17,15 @@ CardTitleChangedNote = React.createClass {
       children = @renderChange()
     else
       children = @renderSet()
-    li {className: 'note-body activity title-changed'}, children
+    li {className: 'note-body activity summary-changed'}, children
 
   renderSet: -> [
-    "Set the card's title to "
+    "Set the card's summary to "
     span {className: 'value'}, [@props.note.content.to]
   ]
 
   renderChange: -> [
-    "Changed the card's title from "
+    "Changed the card's summary from "
     span {className: 'value'}, [@props.note.content.from]
     " to "
     span {className: 'value'}, [@props.note.content.to]
@@ -33,4 +33,4 @@ CardTitleChangedNote = React.createClass {
 
 }
 
-module.exports = CardTitleChangedNote
+module.exports = CardSummaryChangedNote

@@ -1,10 +1,11 @@
-React            = require 'react'
-PropTypes        = require 'common/PropTypes'
-Observe          = require 'mixins/Observe'
-Icon             = React.createFactory(require 'common/Icon')
-Button           = React.createFactory(require 'common/Button')
-CardParticipants = React.createFactory(require './CardParticipants')
-{div, textarea}  = React.DOM
+React             = require 'react'
+PropTypes         = require 'common/PropTypes'
+Observe           = require 'mixins/Observe'
+Icon              = React.createFactory(require 'common/Icon')
+Button            = React.createFactory(require 'common/Button')
+CardFollowersList = React.createFactory(require './CardFollowersList')
+CardCommentBox    = React.createFactory(require './CardCommentBox')
+{div}             = React.DOM
 
 CardFooter = React.createClass {
 
@@ -19,11 +20,8 @@ CardFooter = React.createClass {
 
   render: ->
     div {className: 'footer'}, [
-      CardParticipants {key: 'participants', card: @props.card}
-      div {key: 'buttons', className: 'button-group right'}, [
-        Button {key: 'add-comment', icon: 'add-comment'}
-        Button {key: 'add-file', icon: 'add-file'}
-      ]
+      CardCommentBox    {key: 'comment',   card: @props.card}
+      CardFollowersList {key: 'followers', card: @props.card}
     ]
 
   #--------------------------------------------------------------------------------

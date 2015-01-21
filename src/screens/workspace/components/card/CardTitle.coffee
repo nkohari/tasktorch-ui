@@ -1,11 +1,10 @@
-_                   = require 'lodash'
-React               = require 'react'
-PropTypes           = require 'common/PropTypes'
-Constants           = require 'framework/Constants'
-Observe             = require 'mixins/Observe'
-SetCardTitleRequest = require 'requests/SetCardTitleRequest'
-Text                = React.createFactory(require 'common/Text')
-{div}               = React.DOM
+_                      = require 'lodash'
+React                  = require 'react'
+PropTypes              = require 'common/PropTypes'
+Observe                = require 'mixins/Observe'
+ChangeCardTitleRequest = require 'requests/ChangeCardTitleRequest'
+Text                   = React.createFactory(require 'common/Text')
+{div}                  = React.DOM
 
 CardTitle = React.createClass {
 
@@ -29,16 +28,16 @@ CardTitle = React.createClass {
       Text {
         key: 'text'
         ref: 'text'
-        placeholder: Constants.untitledCard
+        placeholder: 'Untitled Card'
         value: @props.card.title
-        save: @setCardTitle
+        save: @onTitleChanged
       }
     ]
 
   # Events ------------------------------------------------------------------------
 
-  setCardTitle: (title) ->
-    @execute new SetCardTitleRequest(@props.card, title)
+  onTitleChanged: (title) ->
+    @execute new ChangeCardTitleRequest(@props.card, title)
 
   #--------------------------------------------------------------------------------
 

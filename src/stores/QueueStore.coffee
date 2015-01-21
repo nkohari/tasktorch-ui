@@ -18,10 +18,10 @@ class QueueStore extends Store
     @cards = _.indexBy(event.cards, 'id')
     @announce()
 
-  onCardBodyChanged: (event) ->
+  onCardSummaryChanged: (event) ->
     card = @cards[event.id]
     if card?
-      card.body = event.body
+      card.summary = event.summary
       card.version = event.version
       @announce()
 

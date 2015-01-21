@@ -3,14 +3,14 @@ React                      = require 'react'
 PropTypes                  = require 'common/PropTypes'
 Observe                    = require 'mixins/Observe'
 CardNoteListDisplayedEvent = require 'events/display/CardNoteListDisplayedEvent'
-CardNoteListItem           = React.createFactory(require './CardNoteListItem')
+CardNoteGroup              = React.createFactory(require './CardNoteGroup')
 {ul}                       = React.DOM
 
-CardNoteList = React.createClass {
+CardNotesBlock = React.createClass {
 
   # Spec --------------------------------------------------------------------------
 
-  displayName: 'CardNoteList'
+  displayName: 'CardNotesBlock'
 
   propTypes:
     card: PropTypes.Card.isRequired
@@ -41,11 +41,24 @@ CardNoteList = React.createClass {
     ul {className: 'notes'}, @contents()
 
   children: ->
-    _.map @state.notes, (note) =>
-      CardNoteListItem {key: "note-#{note.id}", card: @props.card, note: note}
+    groups = @createGroups(@state.notes)
+    _.map groups, (group) =>
+      CardNoteGroup {card: @props.card, userId: group.user, notes: group.notes}
+
+  createGroups: (notes) ->
+    groups = []
+    currentGroup = undefined
+    for note in notes
+      if not currentGroup? or note.user != currentGroup.user
+        group = {user: note.user, notes: [note]}
+        groups.push(group)
+        currentGroup = group
+      else
+        currentGroup.notes.push(note)
+    return groups
 
   #--------------------------------------------------------------------------------
 
 }
 
-module.exports = CardNoteList
+module.exports = CardNotesBlock

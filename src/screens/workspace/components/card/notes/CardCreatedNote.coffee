@@ -1,7 +1,7 @@
-_         = require 'lodash'
-React     = require 'react'
-PropTypes = require 'common/PropTypes'
-{div}     = React.DOM
+_          = require 'lodash'
+React      = require 'react'
+PropTypes  = require 'common/PropTypes'
+{li, span} = React.DOM
 
 CardCreatedNote = React.createClass {
 
@@ -13,8 +13,8 @@ CardCreatedNote = React.createClass {
     user: PropTypes.User
 
   render: ->
-    div {}, [
-      "Card created by #{@props.user.name}"
+    li {className: 'note-body activity card-created'}, [
+      'Created the card'
     ]
 
 }

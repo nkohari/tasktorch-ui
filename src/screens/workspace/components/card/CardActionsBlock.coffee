@@ -4,21 +4,23 @@ PropTypes                    = require 'common/PropTypes'
 Observe                      = require 'mixins/Observe'
 KindStageListDisplayedEvent  = require 'events/display/KindStageListDisplayedEvent'
 CardActionListDisplayedEvent = require 'events/display/CardActionListDisplayedEvent'
-ActionList                   = React.createFactory(require '../action/ActionList')
-CreateActionButton           = React.createFactory(require './CreateActionButton')
+CardActionsStage             = React.createFactory(require './CardActionsStage')
 {div, span, ul, li}          = React.DOM
 
-CardStageList = React.createClass {
+CardActionsBlock = React.createClass {
 
   # Spec --------------------------------------------------------------------------
 
-  displayName: 'CardStageList'
+  displayName: 'CardActionsBlock'
 
   propTypes:
     card: PropTypes.Card.isRequired
     kind: PropTypes.Kind.isRequired
 
   mixins: [Observe('stages')]
+
+  getInitialState: ->
+    {expanded: true}
 
   # Lifecycle ---------------------------------------------------------------------
 
@@ -46,26 +48,20 @@ CardStageList = React.createClass {
     div {className: 'actions'}, @contents()
 
   children: ->
+    if @state.expanded
+      @renderExpanded()
+    else
+      @renderCompact()
 
+  renderExpanded: ->
     _.map @state.stages, (stage) =>
-      div {key: "stage-#{stage.id}", className: 'stage'}, [
-        div {key: 'title', className: 'title'}, [
-          span {key: 'name', className: 'name'}, [stage.name]
-          div {key: 'controls', className: 'stage-controls'}, [
-            CreateActionButton {key: 'create', card: @props.card, stage}
-          ]
-        ]
-        ActionList {
-          key:  'actions'
-          card:  @props.card
-          kind:  @props.kind
-          stage: stage
-          ids:   @props.card.actions[stage.id]
-        }
-      ]
+      CardActionsStage {key: "stage-#{stage.id}", card: @props.card, kind: @props.kind, stage: stage}
+
+  renderCompact: ->
+    # TODO
 
   #--------------------------------------------------------------------------------
 
 }
 
-module.exports = CardStageList
+module.exports = CardActionsBlock

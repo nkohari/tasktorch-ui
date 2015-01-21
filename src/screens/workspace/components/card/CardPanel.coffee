@@ -3,7 +3,6 @@ React              = require 'react'
 Router             = require 'react-router'
 PropTypes          = require 'common/PropTypes'
 mergeProps         = require 'common/util/mergeProps'
-Constants          = require 'framework/Constants'
 Observe            = require 'mixins/Observe'
 ActiveUrl          = require 'mixins/ActiveUrl'
 CardContext        = require './CardContext'
@@ -12,7 +11,7 @@ CardDisplayedEvent = require 'events/display/CardDisplayedEvent'
 KindDisplayedEvent = require 'events/display/KindDisplayedEvent'
 Icon               = React.createFactory(require 'common/Icon')
 CardHeader         = React.createFactory(require './CardHeader')
-CardDetails        = React.createFactory(require './CardDetails')
+CardBody           = React.createFactory(require './CardBody')
 CardFooter         = React.createFactory(require './CardFooter')
 Link               = React.createFactory(Router.Link)
 {div}              = React.DOM
@@ -69,9 +68,9 @@ CardPanel = React.createClass {
   children: ->
     return [
       @makeCloseLink()
-      CardHeader  {key: 'header',  card: @state.card, kind: @state.kind}
-      CardDetails {key: 'details', card: @state.card, kind: @state.kind}
-      CardFooter  {key: 'footer',  card: @state.card}
+      CardHeader {key: 'header', card: @state.card, kind: @state.kind}
+      CardBody   {key: 'body',   card: @state.card, kind: @state.kind}
+      CardFooter {key: 'footer', card: @state.card}
     ]
 
   # Utility -----------------------------------------------------------------------

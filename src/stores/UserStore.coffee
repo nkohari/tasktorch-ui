@@ -1,7 +1,7 @@
-_                             = require 'lodash'
-Store                         = require 'framework/Store'
-LoadUserRequest               = require 'requests/LoadUserRequest'
-LoadParticipantsByCardRequest = require 'requests/LoadParticipantsByCardRequest'
+_                          = require 'lodash'
+Store                      = require 'framework/Store'
+LoadUserRequest            = require 'requests/LoadUserRequest'
+LoadFollowersByCardRequest = require 'requests/LoadFollowersByCardRequest'
 
 class UserStore extends Store
 
@@ -18,11 +18,11 @@ class UserStore extends Store
     else
       @execute new LoadUserRequest(event.userId)
 
-  onCardParticipantListDisplayed: (event) ->
+  onCardFollowersListDisplayed: (event) ->
     if @getMany(event.userIds)?
       @announce()
     else
-      @execute new LoadParticipantsByCardRequest(event.cardId)
+      @execute new LoadFollowersByCardRequest(event.cardId)
 
   onUsersLoaded: (event) ->
     @add(event.users)

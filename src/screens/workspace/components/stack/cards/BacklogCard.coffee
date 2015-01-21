@@ -2,7 +2,6 @@ _         = require 'lodash'
 moment    = require 'moment'
 React     = require 'react'
 PropTypes = require 'common/PropTypes'
-Constants = require 'framework/Constants'
 Observe   = require 'mixins/Observe'
 Time      = React.createFactory(require 'common/Time')
 {div}     = React.DOM
@@ -21,7 +20,7 @@ BacklogCard = React.createClass {
       className: 'summary'
       style: {borderLeftColor: @props.kind.color}
     }, [
-      div {className: 'title'}, [@props.card.title or Constants.untitledCard]
+      div {className: 'title'}, [@props.card.title or 'Untitled Card']
       div {className: 'subtitle'}, [
         Time {key: 'time', time: move.time}
       ]
