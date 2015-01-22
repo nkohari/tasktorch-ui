@@ -9,7 +9,6 @@ class LoadNotesByCardRequest extends Request
 
   execute: (context, eventBus) ->
     superagent.get "/api/#{context.organizationId}/cards/#{@cardId}/notes", (res) =>
-      {notes} = res.body
-      eventBus.publish new NotesLoadedEvent(notes)
+      eventBus.publish new NotesLoadedEvent(res.body.notes)
 
 module.exports = LoadNotesByCardRequest

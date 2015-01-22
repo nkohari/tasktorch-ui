@@ -1,8 +1,10 @@
 Event = require 'framework/Event'
+Note  = require 'models/Note'
 
 class NotesLoadedEvent extends Event
 
-  constructor: (@notes) ->
+  constructor: (docs) ->
     super()
+    @notes = @createModels(Note, docs)
 
 module.exports = NotesLoadedEvent

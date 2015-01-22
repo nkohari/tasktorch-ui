@@ -3,26 +3,43 @@
   padding: 10px
   
   li
-    list-item-type: none
+    list-style-type: none
 
-.note
+.note-group
+  margin-bottom: 10px
   
-  .avatar
-    display: inline-block
-    vertical-align: top
-    height: 24px
-    width: 24px
-    padding: 2px
-    border: 1px solid $steel-light-border-color
-    border-radius: 50%
-    background: $bright-white
-  
-  .note-body
-    display: inline-block
-    vertical-align: top
-
-    &.comment
-      color: $text-color
-      
-    &.activity
+  .header
+    .avatar
+      float: left
+      height: 32px
+      width: 32px
+      padding: 2px
+      border: 1px solid $steel-light-border-color
+      border-radius: 50%
+      background: $bright-white
+      margin-right: 10px
+    .meta
       color: $subtle-text-color
+      font-size: 14px
+      font-weight: $bold-font-weight
+      .time
+        margin-left: 6px
+  
+  ul
+    margin: 0 0 0 42px
+    padding: 6px 0 0 0
+    
+    li
+      list-style-type: none
+      line-height: 22px
+    
+    .note
+
+      &.comment
+        font-size: 16px
+        color: $text-color
+        
+      &.activity
+        font-size: 14px
+        font-style: italic
+        color: $subtle-text-color

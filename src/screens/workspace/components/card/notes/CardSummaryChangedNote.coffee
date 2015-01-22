@@ -17,7 +17,7 @@ CardSummaryChangedNote = React.createClass {
       children = @renderChange()
     else
       children = @renderSet()
-    li {className: 'note-body activity summary-changed'}, children
+    li {className: 'note activity summary-changed'}, children
 
   renderSet: -> [
     "Set the card's summary to "

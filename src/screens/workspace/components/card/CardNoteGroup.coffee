@@ -1,18 +1,11 @@
-_                  = require 'lodash'
-React              = require 'react'
-PropTypes          = require 'common/PropTypes'
-Observe            = require 'mixins/Observe'
-UserDisplayedEvent = require 'events/display/UserDisplayedEvent'
-Avatar             = React.createFactory(require 'common/Avatar')
-{li, ul}           = React.DOM
-
-NoteBody = _.memoize (type) ->
-  switch type
-    when 'CardCreated'        then React.createFactory(require './notes/CardCreatedNote')
-    when 'CardSummaryChanged' then React.createFactory(require './notes/CardSummaryChangedNote')
-    when 'CardTitleChanged'   then React.createFactory(require './notes/CardTitleChangedNote')
-    else
-      throw new Error("Don't know how to render a note of type #{type}")
+_                   = require 'lodash'
+React               = require 'react'
+PropTypes           = require 'common/PropTypes'
+Observe             = require 'mixins/Observe'
+UserDisplayedEvent  = require 'events/display/UserDisplayedEvent'
+NoteFactory         = require './notes/NoteFactory'
+CardNoteGroupHeader = React.createFactory(require './CardNoteGroupHeader')
+{li, ul}            = React.DOM
 
 CardNoteGroup = React.createClass {
 
@@ -44,10 +37,10 @@ CardNoteGroup = React.createClass {
   children: ->
 
     notes = _.map @props.notes, (note) =>
-      NoteBody(note.type) {key: "note-#{note.id}", card: @props.card, note: note, user: @state.user}
+      NoteFactory(note.type) {key: "note-#{note.id}", card: @props.card, note: note, user: @state.user}
 
     return [
-      Avatar {key: 'avatar', user: @state.user}
+      CardNoteGroupHeader {key: 'header', card: @props.card, notes: @props.notes, user: @state.user}
       ul {}, notes
     ]
 

@@ -12,7 +12,8 @@ CardTitle = React.createClass {
 
   displayName: 'CardTitle'
 
-  propTypes: PropTypes.Card
+  propTypes:
+    card: PropTypes.Card
 
   mixins: [Observe()]
 
@@ -26,11 +27,11 @@ CardTitle = React.createClass {
   render: ->
     div {className: 'title'}, [
       Text {
-        key: 'text'
-        ref: 'text'
+        key:         'text'
+        ref:         'text'
         placeholder: 'Untitled Card'
-        value: @props.card.title
-        save: @onTitleChanged
+        value:       @props.card.title
+        save:        @onTitleChanged
       }
     ]
 

@@ -1,4 +1,5 @@
 _                          = require 'lodash'
+moment                     = require 'moment'
 React                      = require 'react'
 PropTypes                  = require 'common/PropTypes'
 Observe                    = require 'mixins/Observe'
@@ -48,13 +49,19 @@ CardNotesBlock = React.createClass {
   createGroups: (notes) ->
     groups = []
     currentGroup = undefined
+    currentNote  = undefined
+    shouldStartNewGroup = (note) ->
+      return true unless currentGroup? and currentNote?
+      return true if note.user != currentNote.user
+      return true if note.getTimeDifference(currentNote) > 60*5*1000 # 5 minutes
     for note in notes
-      if not currentGroup? or note.user != currentGroup.user
-        group = {user: note.user, notes: [note]}
+      if shouldStartNewGroup(note)
+        group = {user: note.user, notes: [note], time: note.time}
         groups.push(group)
         currentGroup = group
       else
         currentGroup.notes.push(note)
+      currentNote = note
     return groups
 
   #--------------------------------------------------------------------------------

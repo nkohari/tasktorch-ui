@@ -3,9 +3,9 @@ React      = require 'react'
 PropTypes  = require 'common/PropTypes'
 {li, span} = React.DOM
 
-CardCreatedNote = React.createClass {
+CommentNote = React.createClass {
 
-  displayName: 'CardCreatedNote'
+  displayName: 'CommentNote'
 
   propTypes:
     card: PropTypes.Card
@@ -13,10 +13,10 @@ CardCreatedNote = React.createClass {
     user: PropTypes.User
 
   render: ->
-    li {className: 'note activity card-created'}, [
-      'Created the card'
+    li {className: 'note comment'}, [
+      @props.note.content
     ]
 
 }
 
-module.exports = CardCreatedNote
+module.exports = CommentNote

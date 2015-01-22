@@ -27,6 +27,7 @@ module.exports = (grunt) ->
               expose('events')
               expose('framework')
               expose('mixins')
+              expose('models')
               expose('requests')
             ])
         files:

@@ -17,7 +17,7 @@ CardTitleChangedNote = React.createClass {
       children = @renderChange()
     else
       children = @renderSet()
-    li {className: 'note-body activity title-changed'}, children
+    li {className: 'note activity title-changed'}, children
 
   renderSet: -> [
     "Set the card's title to "
