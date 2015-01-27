@@ -20,6 +20,9 @@ class ActionStore extends Store
   onActionCreated: (event) ->
     @add(event.action)
 
+  onActionDeleted: (event) ->
+    @remove(event.action)
+
   onActionChanged: (event) ->
     @add(event.action)
 

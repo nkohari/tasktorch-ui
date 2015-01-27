@@ -1,24 +1,23 @@
 .actions
-  margin: 10px
-  border: 1px solid #ccc
-  background: $bright-white
   
   .stage
     border-bottom: 1px solid #ccc
     &:last-child { border-bottom: none }
     
     .title
-      padding: 10px
+      position: relative
+      padding: 8px 1px 8px 8px
       background: $steel-highlight-color
-      font-size: 16px
-      font-weight: $bold-font-weight
       border-bottom: 1px solid #ccc
     
     .name
-      font-size: 16px
+      font-size: 14px
+      font-weight: $bold-font-weight
+      text-transform: uppercase
     
     .stage-controls
       float: right
+      margin-top: -3px
       opacity: 0
       transition: opacity $hover-animation-delay ease-in-out
     
@@ -27,12 +26,14 @@
         opacity: 1
       
   ul
-    margin: 10px
+    margin: 0
     padding: 0
     min-height: 20px
     
     li
       list-style-type: none
+      padding: 8px 8px 0 8px
+      &:last-child { padding-bottom: 8px }
     
     .drag-placeholder
       height: 30px

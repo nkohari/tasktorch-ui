@@ -5,27 +5,37 @@ PropTypes                  = require 'common/PropTypes'
 Observe                    = require 'mixins/Observe'
 CardNoteListDisplayedEvent = require 'events/display/CardNoteListDisplayedEvent'
 CardNoteGroup              = React.createFactory(require './CardNoteGroup')
-{ul}                       = React.DOM
+CardBlockHeader            = React.createFactory(require './CardBlockHeader')
+{div, ul}                  = React.DOM
 
-CardNotesBlock = React.createClass {
+CardConversationBlock = React.createClass {
 
   # Spec --------------------------------------------------------------------------
 
-  displayName: 'CardNotesBlock'
+  displayName: 'CardConversationBlock'
 
   propTypes:
     card: PropTypes.Card.isRequired
 
   mixins: [Observe('notes')]
 
+  getInitialState: ->
+    {expanded: true}
+
   # Lifecycle ---------------------------------------------------------------------
 
   componentWillMount: ->
     @publish new CardNoteListDisplayedEvent(@props.card.id)
 
+  componentDidMount: ->
+    @scrollToBottom()
+
   componentWillReceiveProps: (newProps) ->
     unless @props.card.id == newProps.card.id
       @publish new CardNoteListDisplayedEvent(newProps.card.id)
+
+  componentDidUpdate: ->
+    @scrollToBottom()
 
   # State -------------------------------------------------------------------------
   
@@ -39,12 +49,15 @@ CardNotesBlock = React.createClass {
   # Rendering ---------------------------------------------------------------------
 
   render: ->
-    ul {className: 'notes'}, @contents()
+    div {className: 'conversation block'}, [
+      CardBlockHeader {key: 'header'}, ['Conversation']
+      div {ref: 'contents', className: 'contents'}, @contents()
+    ]
 
   children: ->
-    groups = @createGroups(@state.notes)
-    _.map groups, (group) =>
+    groups = _.map @createGroups(@state.notes), (group) =>
       CardNoteGroup {card: @props.card, userId: group.user, notes: group.notes}
+    ul {key: 'notes', className: 'notes'}, groups
 
   createGroups: (notes) ->
     groups = []
@@ -64,8 +77,12 @@ CardNotesBlock = React.createClass {
       currentNote = note
     return groups
 
+  scrollToBottom: ->
+    node = @refs.contents.getDOMNode()
+    node.scrollTop = node.scrollHeight
+
   #--------------------------------------------------------------------------------
 
 }
 
-module.exports = CardNotesBlock
+module.exports = CardConversationBlock

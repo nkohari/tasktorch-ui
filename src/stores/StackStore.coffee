@@ -27,6 +27,12 @@ class StackStore extends Store
   onStacksLoaded: (event) ->
     @add(event.stacks)
 
+  onStackCreated: (event) ->
+    @add(event.stack)
+
+  onStackDeleted: (event) ->
+    @remove(event.stack)
+
   onStackChanged: (event) ->
     @add(event.stack)
 

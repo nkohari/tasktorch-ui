@@ -11,25 +11,26 @@ MyStackList = React.createClass {
 
   render: ->
 
-    queue  = @getStack(StackType.Queue)
-    inbox  = @getStack(StackType.Inbox)
-    drafts = @getStack(StackType.Drafts)
+    specialStacks = [
+      StackSidebarItem {key: 'queue',  stack: @getSpecialStack(StackType.Queue),  hotkey: 'q'}
+      StackSidebarItem {key: 'inbox',  stack: @getSpecialStack(StackType.Inbox),  hotkey: 'i'} 
+      StackSidebarItem {key: 'drafts', stack: @getSpecialStack(StackType.Drafts), hotkey: 'd'}
+    ]
 
-    children = []
-    if inbox? and queue?
-      children = [
-        StackSidebarItem {key: 'queue',  stack: queue, hotkey: 'q'}
-        StackSidebarItem {key: 'inbox',  stack: inbox, hotkey: 'i'} 
-        StackSidebarItem {key: 'drafts', stack: drafts, hotkey: 'd'}
-      ]
+    backlogStacks = _.map @getBacklogStacks(), (stack) =>
+      StackSidebarItem {key: "stack-#{stack.id}", stack}
 
     section {className: 'me group'}, [
       header {key: 'header'}, ['My Work']
-      ul {key: 'items'}, children
+      ul {key: 'items'}, specialStacks.concat(backlogStacks)
     ]
 
-  getStack: (type) ->
+  getSpecialStack: (type) ->
     _.find @props.stacks, (stack) -> stack.type == type
+
+  getBacklogStacks: ->
+    stacks = _.filter @props.stacks, (stack) -> stack.type == StackType.Backlog
+    _.sortBy stacks, (stack) -> stack.name
 
 }
 

@@ -1,10 +1,10 @@
-React            = require 'react'
-PropTypes        = require 'common/PropTypes'
-Observe          = require 'mixins/Observe'
-CardSummary      = React.createFactory(require './CardSummary')
-CardActionsBlock = React.createFactory(require './CardActionsBlock')
-CardNotesBlock   = React.createFactory(require './CardNotesBlock')
-{div}            = React.DOM
+React                 = require 'react'
+PropTypes             = require 'common/PropTypes'
+Observe               = require 'mixins/Observe'
+CardSummaryBlock      = React.createFactory(require './CardSummaryBlock')
+CardActionsBlock      = React.createFactory(require './CardActionsBlock')
+CardConversationBlock = React.createFactory(require './CardConversationBlock')
+{div}                 = React.DOM
 
 CardBody = React.createClass {
 
@@ -20,9 +20,9 @@ CardBody = React.createClass {
 
   render: ->
     div {className: 'body'}, [
-      CardSummary      {key: 'summary', card: @props.card}
-      CardActionsBlock {key: 'actions', card: @props.card, kind: @props.kind}
-      CardNotesBlock   {key: 'notes',   card: @props.card}
+      CardSummaryBlock      {key: 'summary', card: @props.card}
+      CardActionsBlock      {key: 'actions', card: @props.card, kind: @props.kind}
+      CardConversationBlock {key: 'notes',   card: @props.card}
     ]
 
   #--------------------------------------------------------------------------------

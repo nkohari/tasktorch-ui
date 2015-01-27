@@ -37,8 +37,8 @@ Action = React.createClass {
 
     div {className: classes.join(' ')}, [
       div {key: 'content'}, [
-        ActionStatus {key: 'status', action: @props.action, @showCommand}
         ActionOwner  {key: 'owner',  action: @props.action, @showCommand}
+        ActionStatus {key: 'status', action: @props.action, @showCommand}
         ActionText   {key: 'text',   action: @props.action}
         div {key: 'controls', className: 'action-controls'}, [
           Icon {key: 'handle', name: 'handle'}

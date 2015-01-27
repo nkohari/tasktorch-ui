@@ -35,7 +35,7 @@ WorkspaceSidebar = React.createClass {
   ready: ->
     return {
       teams:  @state.teams?
-      stacks: @state.stacks?
+      stacks: @state.stacks?.length > 0
     }
 
   # Rendering ---------------------------------------------------------------------

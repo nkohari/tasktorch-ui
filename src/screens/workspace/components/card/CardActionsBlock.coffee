@@ -5,6 +5,7 @@ Observe                      = require 'mixins/Observe'
 KindStageListDisplayedEvent  = require 'events/display/KindStageListDisplayedEvent'
 CardActionListDisplayedEvent = require 'events/display/CardActionListDisplayedEvent'
 CardActionsStage             = React.createFactory(require './CardActionsStage')
+CardBlockHeader              = React.createFactory(require './CardBlockHeader')
 {div, span, ul, li}          = React.DOM
 
 CardActionsBlock = React.createClass {
@@ -45,23 +46,32 @@ CardActionsBlock = React.createClass {
   # Rendering ---------------------------------------------------------------------
 
   render: ->
-    div {className: 'actions'}, @contents()
+
+    classes = ['actions', 'block']
+    classes.push('expanded') if @state.expanded
+
+    div {className: classes.join(' ')}, [
+      @renderHeader()
+      @renderContents() if @state.expanded
+    ]
+
+  renderHeader: ->
+    CardBlockHeader {key: 'header', expanded: @state.expanded, @onToggleClicked}, ['Actions']
+
+  renderContents: ->
+    div {className: 'contents'}, @contents()
 
   children: ->
-    if @state.expanded
-      @renderExpanded()
-    else
-      @renderCompact()
-
-  renderExpanded: ->
     _.map @state.stages, (stage) =>
       CardActionsStage {key: "stage-#{stage.id}", card: @props.card, kind: @props.kind, stage: stage}
 
-  renderCompact: ->
-    # TODO
-
   #--------------------------------------------------------------------------------
 
+  onToggleClicked: ->
+    @setState {expanded: !@state.expanded}
+
+  #--------------------------------------------------------------------------------
+  
 }
 
 module.exports = CardActionsBlock

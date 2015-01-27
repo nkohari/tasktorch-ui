@@ -1,6 +1,7 @@
 _            = require 'lodash'
 React        = require 'react'
 PropTypes    = require 'common/PropTypes'
+StackType    = require 'framework/enums/StackType'
 ActiveUrl    = require 'mixins/ActiveUrl'
 WorkspaceUrl = require '../../WorkspaceUrl'
 Icon         = React.createFactory(require 'common/Icon')
@@ -24,12 +25,18 @@ StackSidebarItem = React.createClass {
     li {className: 'sidebar-item'}, [
       Hotlink @makeLinkProps(), [
         Icon {key: 'icon', name: "stack-#{@props.stack.type.toLowerCase()}"}
-        span {key: 'name', className: 'name'}, [@props.stack.name]
+        span {key: 'name', className: 'name'}, [@getStackName()]
         span {key: 'count', className: 'count'}, [@props.stack.cards.length]
       ]
     ]
 
   # Utility -----------------------------------------------------------------------
+
+  getStackName: ->
+    if @props.stack.type == StackType.Backlog
+      @props.stack.name
+    else
+      @props.stack.type
 
   makeLinkProps: ->
     url = @getActiveUrl()

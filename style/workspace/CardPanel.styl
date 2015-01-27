@@ -8,13 +8,33 @@
     position: relative
     flex: 1
     overflow-x: hidden
-    overflow-y: auto
+    overlow-y: auto
+    
+    .block
+      
+      &.expanded
+        border-bottom: 1px solid $panel-block-border-color
+      &:last-child
+        border-bottom: 0
+      
+      & > .header
+        background: linear-gradient(to bottom, $steel-highlight-color, $steel-lowlight-color)
+        color: $panel-block-header-text-color
+        font-size: 14px
+        font-weight: $bold-font-weight
+        line-height: 24px
+        text-transform: uppercase
+        padding: 2px 8px
+        border-bottom: 1px solid $panel-block-border-color
+        .toggle
+          float: right
     
     .summary
-      font-size: 18px
-      font-weight: $normal-font-weight
-      line-height: 24px
-      margin: 10px 10px 0px 10px
+      .contents
+        padding: 8px
+        font-size: 18px
+        font-weight: $normal-font-weight
+        line-height: 24px
 
 @keyframes card-enter
   0%

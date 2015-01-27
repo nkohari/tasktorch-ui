@@ -20,4 +20,13 @@ class TeamStore extends Store
   onTeamsLoaded: (event) ->
     @add(event.teams)
 
+  onTeamCreated: (event) ->
+    @add(event.team)
+
+  onTeamDeleted: (event) ->
+    @remove(event.team)
+
+  onTeamChanged: (event) ->
+    @add(event.team)
+
 module.exports = TeamStore

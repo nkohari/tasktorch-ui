@@ -15,6 +15,7 @@ TeamStore                     = require './stores/TeamStore'
 UserStore                     = require './stores/UserStore'
 DocumentCreatedListener       = require './listeners/DocumentCreatedListener'
 DocumentChangedListener       = require './listeners/DocumentChangedListener'
+DocumentDeletedListener       = require './listeners/DocumentDeletedListener'
 JoinedPresenceChannelListener = require './listeners/JoinedPresenceChannelListener'
 UserConnectedListener         = require './listeners/UserConnectedListener'
 UserDisconnectedListener      = require './listeners/UserDisconnectedListener'
@@ -42,6 +43,7 @@ EventBusFactory.create = ->
   listeners = [
     new DocumentCreatedListener()
     new DocumentChangedListener()
+    new DocumentDeletedListener()
     new JoinedPresenceChannelListener()
     new UserConnectedListener()
     new UserDisconnectedListener()
