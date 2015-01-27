@@ -7,7 +7,7 @@ class LoadUserRequest extends Request
   constructor: (@userId) ->
 
   execute: (context, eventBus) ->
-    superagent.get "/api/#{context.organizationId}/members/#{@userId}", (res) =>
+    superagent.get "/api/#{context.orgId}/members/#{@userId}", (res) =>
       {user} = res.body
       eventBus.publish new UsersLoadedEvent([user])
 

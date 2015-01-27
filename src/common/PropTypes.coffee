@@ -15,12 +15,14 @@ PropTypes.model = (spec) ->
   }, spec
 
 PropTypes.Action = PropTypes.model {
+  org:    PropTypes.id
   text:   PropTypes.text
   status: PropTypes.enum(ActionStatus)
   owner:  PropTypes.id
 }
 
 PropTypes.Card = PropTypes.model {
+  org:     PropTypes.id
   title:   PropTypes.string
   summary: PropTypes.string
   stack:   PropTypes.id
@@ -28,19 +30,21 @@ PropTypes.Card = PropTypes.model {
 }
 
 PropTypes.Kind = PropTypes.model {
+  org:    PropTypes.id
   name:   PropTypes.string
   color:  PropTypes.string
   stages: PropTypes.idArray
 }
 
 PropTypes.Note = PropTypes.model {
-  type:         PropTypes.string
-  organization: PropTypes.id
-  user:         PropTypes.id
-  card:         PropTypes.id
+  org:  PropTypes.id
+  type: PropTypes.string
+  user: PropTypes.id
+  card: PropTypes.id
 }
 
 PropTypes.Stack = PropTypes.model {
+  org:   PropTypes.id
   name:  PropTypes.string
   cards: PropTypes.idArray
 }
@@ -50,6 +54,7 @@ PropTypes.Stage = PropTypes.model {
 }
 
 PropTypes.Team = PropTypes.model {
+  org:     PropTypes.id
   name:    PropTypes.string
   members: PropTypes.idArray
   stacks:  PropTypes.idArray

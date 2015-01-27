@@ -3,7 +3,7 @@ _ = require 'lodash'
 class WorkspaceUrl
 
   constructor: (routes, params, query) ->
-    @organizationId = params.organizationId
+    @orgId = params.orgId
     @panels = if query.p? then query.p.split(',') else []
 
   addStack: (stackId) ->
@@ -39,7 +39,7 @@ class WorkspaceUrl
     @panels.splice(toPosition, 0, key)
 
   makeLinkProps: ->
-    params = {@organizationId}
+    params = {@orgId}
     query = {}
     query.p = @panels.join(',') if @panels.length > 0
     return {to: 'workspace', params, query}

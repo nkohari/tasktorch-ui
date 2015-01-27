@@ -8,22 +8,22 @@ class Api
   createSession: (login, password, callback) ->
     request.post('/api/sessions').send({login, password}).end(callback)
 
-  getMyOrganizations: (callback) ->
-    request.get "/api/my/organizations", callback
+  getMyOrgs: (callback) ->
+    request.get "/api/my/orgs", callback
 
-  getMyWorkspace: (organizationId, callback) ->
-    request.get "/api/#{organizationId}/my/workspace", callback
+  getMyWorkspace: (orgId, callback) ->
+    request.get "/api/#{orgId}/my/workspace", callback
 
-  getMyStacks: (organizationId, callback) ->
-    request.get "/api/#{organizationId}/my/stacks", (res) =>
+  getMyStacks: (orgId, callback) ->
+    request.get "/api/#{orgId}/my/stacks", (res) =>
       callback(null, res.body)
 
-  getStack: (organizationId, stackId, callback) ->
-    request.get "/api/#{organizationId}/stacks/#{stackId}?expand=cards", (res) =>
+  getStack: (orgId, stackId, callback) ->
+    request.get "/api/#{orgId}/stacks/#{stackId}?expand=cards", (res) =>
       callback(null, res.body)
 
-  getCard: (organizationId, cardId, callback) ->
-    request.get "/api/#{organizationId}/cards/#{cardId}?expand=type", (res) =>
+  getCard: (orgId, cardId, callback) ->
+    request.get "/api/#{orgId}/cards/#{cardId}?expand=type", (res) =>
       callback(null, res.body)
 
 module.exports = new Api()

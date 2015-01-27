@@ -7,7 +7,7 @@ class MoveActionRequest extends Request
   constructor: (@action, @cardId, @stageId, @position) ->
 
   execute: ->
-    superagent.post("/api/#{@action.organization}/actions/#{@action.id}/move")
+    superagent.post("/api/#{@action.org}/actions/#{@action.id}/move")
     .send {card: @cardId, stage: @stageId, @position}
     .end (res) =>
       {action} = res.body

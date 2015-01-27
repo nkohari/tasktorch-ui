@@ -7,7 +7,7 @@ class DeleteCardRequest extends Request
   constructor: (@card) ->
 
   execute: ->
-    superagent.del("/api/#{@card.organization}/cards/#{@card.id}")
+    superagent.del("/api/#{@card.org}/cards/#{@card.id}")
     .end()
 
 module.exports = DeleteCardRequest

@@ -12,7 +12,7 @@ class PassCardRequest extends Request
     payload = {@message}
     payload[@recipient.type] = @recipient.item.id
 
-    superagent.put("/api/#{@card.organization}/cards/#{@card.id}/pass")
+    superagent.put("/api/#{@card.org}/cards/#{@card.id}/pass")
     .set(Header.Socket, eventBus.getSocketId())
     .send(payload)
     .end (res) =>

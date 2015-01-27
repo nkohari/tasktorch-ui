@@ -7,7 +7,7 @@ class CompleteCardRequest extends Request
   constructor: (@card) ->
 
   execute: ->
-    superagent.post("/api/#{@card.organization}/cards/#{@card.id}/complete")
+    superagent.post("/api/#{@card.org}/cards/#{@card.id}/complete")
     .end (res) =>
       {card} = res.body
       eventBus.publish new CardChangedEvent(card)

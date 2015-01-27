@@ -8,7 +8,7 @@ class LoadNotesByCardRequest extends Request
   constructor: (@cardId) ->
 
   execute: (context, eventBus) ->
-    superagent.get "/api/#{context.organizationId}/cards/#{@cardId}/notes", (res) =>
+    superagent.get "/api/#{context.orgId}/cards/#{@cardId}/notes", (res) =>
       eventBus.publish new NotesLoadedEvent(res.body.notes)
 
 module.exports = LoadNotesByCardRequest

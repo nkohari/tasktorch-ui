@@ -7,7 +7,7 @@ class LoadTeamRequest extends Request
   constructor: (@teamId) ->
 
   execute: (context, eventBus) ->
-    superagent.get "/api/#{context.organizationId}/teams/#{@teamId}", (res) =>
+    superagent.get "/api/#{context.orgId}/teams/#{@teamId}", (res) =>
       {team} = res.body
       eventBus.publish new TeamsLoadedEvent([team])
 

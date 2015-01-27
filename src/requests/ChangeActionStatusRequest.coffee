@@ -7,7 +7,7 @@ class ChangeActionStatusRequest extends Request
   constructor: (@action, @status) ->
 
   execute: ->
-    superagent.post("/api/#{@action.organization}/actions/#{@action.id}/status")
+    superagent.post("/api/#{@action.org}/actions/#{@action.id}/status")
     .send {@status}
     .end (res) =>
       {action} = res.body

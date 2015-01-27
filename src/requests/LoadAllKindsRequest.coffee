@@ -6,7 +6,7 @@ KindsLoadedEvent = require 'events/load/KindsLoadedEvent'
 class LoadAllKindsRequest extends Request
 
   execute: (context, eventBus) ->
-    superagent.get "/api/#{context.organizationId}/kinds", (res) =>
+    superagent.get "/api/#{context.orgId}/kinds", (res) =>
       {kinds} = res.body
       eventBus.publish new KindsLoadedEvent(kinds)
 

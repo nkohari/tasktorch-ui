@@ -16,13 +16,13 @@ class LoadSuggestionsRequest extends Request
         else throw new Error("Don't know how to retrieve suggestions of type #{type}")
 
   getUserSuggestions: (context, eventBus) ->
-    superagent.get "/api/#{context.organizationId}/members?suggest=#{@phrase}", (res) =>
+    superagent.get "/api/#{context.orgId}/members?suggest=#{@phrase}", (res) =>
       {users} = res.body
       if users.length > 0
         eventBus.publish new SuggestionsLoadedEvent(@phrase, 'user', users)
 
   getTeamSuggestions: (context, eventBus) ->
-    superagent.get "/api/#{context.organizationId}/teams?suggest=#{@phrase}", (res) =>
+    superagent.get "/api/#{context.orgId}/teams?suggest=#{@phrase}", (res) =>
       {teams} = res.body
       if teams.length > 0
         eventBus.publish new SuggestionsLoadedEvent(@phrase, 'team', teams)

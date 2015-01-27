@@ -8,7 +8,7 @@ class LoadStagesByKindRequest extends Request
   constructor: (@kindId) ->
 
   execute: (context, eventBus) ->
-    superagent.get "/api/#{context.organizationId}/kinds/#{@kindId}/stages", (res) =>
+    superagent.get "/api/#{context.orgId}/kinds/#{@kindId}/stages", (res) =>
       {stages} = res.body
       eventBus.publish new StagesLoadedEvent(stages)
 

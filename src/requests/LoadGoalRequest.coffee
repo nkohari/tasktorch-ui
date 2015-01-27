@@ -8,7 +8,7 @@ class LoadGoalRequest extends Request
   constructor: (@goalId) ->
 
   execute: (context, eventBus) ->
-    superagent.get "/api/#{context.organizationId}/goals/#{@goalId}", (res) =>
+    superagent.get "/api/#{context.orgId}/goals/#{@goalId}", (res) =>
       {goal} = res.body
       eventBus.publish new GoalsLoadedEvent([goal])
 

@@ -7,7 +7,7 @@ class ChangeCardTitleRequest extends Request
   constructor: (@card, @title) ->
 
   execute: ->
-    superagent.post("/api/#{@card.organization}/cards/#{@card.id}/title")
+    superagent.post("/api/#{@card.org}/cards/#{@card.id}/title")
     .send {@title}
     .end (res) =>
       {card} = res.body

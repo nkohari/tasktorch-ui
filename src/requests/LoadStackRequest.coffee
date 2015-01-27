@@ -7,7 +7,7 @@ class LoadStackRequest extends Request
   constructor: (@stackId) ->
 
   execute: (context, eventBus) ->
-    superagent.get "/api/#{context.organizationId}/stacks/#{@stackId}", (res) =>
+    superagent.get "/api/#{context.orgId}/stacks/#{@stackId}", (res) =>
       {stack} = res.body
       eventBus.publish new StacksLoadedEvent([stack])
 

@@ -6,10 +6,10 @@ CardCreatedEvent = require 'events/create/CardCreatedEvent'
 
 class CreateCardRequest extends Request
 
-  constructor: (@organization, @kind) ->
+  constructor: (@org, @kind) ->
 
   execute: (context, eventBus, callback) ->
-    superagent.post("/api/#{@organization}/cards")
+    superagent.post("/api/#{@org}/cards")
     .set(Header.Socket, eventBus.getSocketId())
     .send({@kind})
     .end (res) =>

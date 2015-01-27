@@ -7,7 +7,7 @@ class ChangeCardSummaryRequest extends Request
   constructor: (@card, @summary) ->
 
   execute: ->
-    superagent.post("/api/#{@card.organization}/cards/#{@card.id}/summary")
+    superagent.post("/api/#{@card.org}/cards/#{@card.id}/summary")
     .send {@summary}
     .end (res) =>
       {card} = res.body

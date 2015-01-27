@@ -10,7 +10,7 @@ class CreateNoteRequest extends Request
   constructor: (@card, @type, @content) ->
 
   execute: (context, eventBus) ->
-    superagent.post("/api/#{@card.organization}/cards/#{@card.id}/notes")
+    superagent.post("/api/#{@card.org}/cards/#{@card.id}/notes")
     .set(Header.Socket, eventBus.getSocketId())
     .send {@type, @content}
     .end (res) =>

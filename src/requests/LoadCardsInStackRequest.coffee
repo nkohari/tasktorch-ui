@@ -8,7 +8,7 @@ class LoadCardsInStackRequest extends Request
   constructor: (@stackId) ->
 
   execute: (context, eventBus) ->
-    superagent.get "/api/#{context.organizationId}/stacks/#{@stackId}/cards", (res) =>
+    superagent.get "/api/#{context.orgId}/stacks/#{@stackId}/cards", (res) =>
       {cards} = res.body
       eventBus.publish new CardsLoadedEvent(cards)
 

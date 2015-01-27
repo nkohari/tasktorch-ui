@@ -11,7 +11,7 @@ TopCorner = React.createClass {
       Avatar {key: 'avatar', user: @props.currentUser}
       div {key: 'context', className: 'context'}, [
         div {key: 'user', className: 'user'}, [@props.currentUser.name]
-        div {key: 'organization', className: 'organization'}, [@props.currentOrganization.name]
+        div {key: 'org',  className: 'org'},  [@props.currentOrg.name]
       ]
     ]
 

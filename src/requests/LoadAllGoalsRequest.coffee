@@ -6,7 +6,7 @@ GoalsLoadedEvent = require 'events/load/GoalsLoadedEvent'
 class LoadAllGoalsRequest extends Request
 
   execute: (context, eventBus) ->
-    superagent.get "/api/#{context.organizationId}/goals", (res) =>
+    superagent.get "/api/#{context.orgId}/goals", (res) =>
       {goals} = res.body
       eventBus.publish new GoalsLoadedEvent(goals)
 

@@ -57,7 +57,7 @@ CardGoal = React.createClass {
   makeLinkProps: ->
     # TODO: Should link to the specific goal
     url = @getActiveUrl()
-    params = {organizationId: url.organizationId}
+    params = {orgId: url.orgId}
     {key: 'icon', to: 'planning', params}
 
   #--------------------------------------------------------------------------------

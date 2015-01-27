@@ -7,7 +7,7 @@ class DeleteActionRequest extends Request
   constructor: (@action) ->
 
   execute: ->
-    superagent.del("/api/#{@action.organization}/actions/#{@action.id}")
+    superagent.del("/api/#{@action.org}/actions/#{@action.id}")
     .end()
 
 module.exports = DeleteActionRequest

@@ -2,7 +2,7 @@ React                      = require 'react/addons'
 Observe                    = require 'mixins/Observe'
 JoinPresenceChannelRequest = require 'requests/JoinPresenceChannelRequest'
 LoadCurrentUserRequest     = require 'requests/LoadCurrentUserRequest'
-LoadMyOrganizationsRequest = require 'requests/LoadMyOrganizationsRequest'
+LoadMyOrgsRequest          = require 'requests/LoadMyOrgsRequest'
 TopCorner                  = React.createFactory(require './components/TopCorner')
 BottomCorner               = React.createFactory(require './components/BottomCorner')
 CSSTransitionGroup         = React.createFactory(React.addons.CSSTransitionGroup)
@@ -13,25 +13,25 @@ Shell = React.createClass {
   displayName: 'Shell'
 
   mixins: [
-    Observe('connectedUsers', 'organizations', 'users')
+    Observe('connectedUsers', 'orgs', 'users')
   ]
 
   sync: (stores) ->
     return {
-      connectedUsers:      stores.connectedUsers.getAll()
-      currentUser:         stores.users.getCurrentUser()
-      currentOrganization: stores.organizations.get(@props.params.organizationId)
-      organizations:       stores.organizations.getAll()
+      connectedUsers: stores.connectedUsers.getAll()
+      currentUser:    stores.users.getCurrentUser()
+      currentOrg:     stores.orgs.get(@props.params.orgId)
+      orgs:           stores.orgs.getAll()
     }
 
   componentWillMount: ->
-    AppContext.organizationId = @props.params.organizationId
+    AppContext.orgId = @props.params.orgId
     @execute new JoinPresenceChannelRequest()
     @execute new LoadCurrentUserRequest()
-    @execute new LoadMyOrganizationsRequest()
+    @execute new LoadMyOrgsRequest()
 
   isReady: ->
-    @state.currentUser? and @state.currentOrganization?
+    @state.currentUser? and @state.currentOrg?
 
   render: ->
 
@@ -40,7 +40,7 @@ Shell = React.createClass {
 
     Screen = @props.activeRouteHandler
     div {className: 'shell'}, [
-      TopCorner {key: 'top-corner', currentOrganization: @state.currentOrganization, currentUser: @state.currentUser, organizations: @state.organizations, connectedUsers: @state.connectedUsers}
+      TopCorner {key: 'top-corner', currentOrg: @state.currentOrg, currentUser: @state.currentUser, orgs: @state.orgs, connectedUsers: @state.connectedUsers}
       Screen {key: 'screen'}
       BottomCorner {key: 'bottom-corner'}
     ]

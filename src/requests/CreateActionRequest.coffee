@@ -9,7 +9,7 @@ class CreateActionRequest extends Request
   constructor: (@card, @stage) ->
 
   execute: (context, eventBus, callback) ->
-    superagent.post("/api/#{@card.organization}/cards/#{@card.id}/actions")
+    superagent.post("/api/#{@card.org}/cards/#{@card.id}/actions")
     .set(Header.Socket, eventBus.getSocketId())
     .send({stage: @stage.id})
     .end (res) =>

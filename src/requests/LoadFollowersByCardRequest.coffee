@@ -8,7 +8,7 @@ class LoadFollowersByCardRequest extends Request
   constructor: (@cardId) ->
 
   execute: (context, eventBus) ->
-    superagent.get "/api/#{context.organizationId}/cards/#{@cardId}/followers", (res) =>
+    superagent.get "/api/#{context.orgId}/cards/#{@cardId}/followers", (res) =>
       {users} = res.body
       eventBus.publish new UsersLoadedEvent(users)
 

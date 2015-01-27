@@ -16,7 +16,7 @@ window.EventBus = EventBusFactory.create()
 # TODO: DefaultRoute to redirect to last workspace
 routes = Routes {location: 'history'}, [
   Route {name: 'login', key: 'login', path: 'login', handler: LoginScreen}
-  Route {name: 'shell', key: 'shell', path: ':organizationId', handler: Shell}, [
+  Route {name: 'shell', key: 'shell', path: ':orgId', handler: Shell}, [
     Route {name: 'workspace',  key: 'workspace',  handler: WorkspaceScreen}
     Route {name: 'bigpicture', key: 'bigpicture', handler: BigPictureScreen}
     Route {name: 'planning',   key: 'planning',   handler: PlanningScreen}

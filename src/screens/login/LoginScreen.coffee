@@ -31,11 +31,11 @@ LoginScreen = React.createClass {
     Api.createSession @state.login, @state.password, (res) =>
       # TODO: Proper validation
       return alert('nope') if res.forbidden
-      Api.getMyOrganizations (res) =>
-        # TODO: Present the user with a choice of organizations, or go to the most-recent,
+      Api.getMyOrgs (res) =>
+        # TODO: Present the user with a choice of orgs, or go to the most-recent,
         # instead of always going to the first.
-        organizations = res.body
-        @transitionTo('workspace', {organizationId: organizations[0].id})
+        orgs = res.body
+        @transitionTo('workspace', {orgId: orgs[0].id})
 
 }
 
