@@ -27,6 +27,9 @@ class UserStore extends Store
   onUsersLoaded: (event) ->
     @add(event.users)
 
+  onUserChanged: (event) ->
+    @add(event.user)
+
   onCurrentUserLoaded: (event) ->
     if not @currentUser? or event.user.version > @currentUser.version
       @currentUser = event.user

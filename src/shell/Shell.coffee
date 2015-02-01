@@ -1,6 +1,7 @@
 React                      = require 'react/addons'
 Observe                    = require 'mixins/Observe'
 JoinPresenceChannelRequest = require 'requests/JoinPresenceChannelRequest'
+JoinUserChannelRequest     = require 'requests/JoinUserChannelRequest'
 LoadCurrentUserRequest     = require 'requests/LoadCurrentUserRequest'
 LoadMyOrgsRequest          = require 'requests/LoadMyOrgsRequest'
 TopCorner                  = React.createFactory(require './components/TopCorner')
@@ -27,6 +28,7 @@ Shell = React.createClass {
   componentWillMount: ->
     AppContext.orgId = @props.params.orgId
     @execute new JoinPresenceChannelRequest()
+    @execute new JoinUserChannelRequest()
     @execute new LoadCurrentUserRequest()
     @execute new LoadMyOrgsRequest()
 

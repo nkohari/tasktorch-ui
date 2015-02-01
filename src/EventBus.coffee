@@ -8,7 +8,7 @@ class EventBus
     @currentEvent = undefined
     @pendingEvents = []
     @pusher = new Pusher '9bc5b19ceaf8c59adcea',
-      authEndpoint: '/api/_auth/presence'
+      authEndpoint: '/api/_wsauth'
       encrypted: true
     _.each @listeners, (listener) =>
       listener.on 'event', @publish.bind(this)
@@ -27,6 +27,7 @@ class EventBus
   subscribe: (name) ->
     channel = @pusher.subscribe(name)
     _.each @listeners, (listener) =>
+      # TODO: Should bind only the correct listeners to each channel
       listener.bind(channel)
 
   publish: (event) ->
