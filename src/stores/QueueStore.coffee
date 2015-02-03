@@ -3,6 +3,8 @@ Store = require 'framework/Store'
 
 class QueueStore extends Store
 
+  displayName: 'QueueStore'
+
   constructor: ->
     @queue = undefined
     @cards = {}

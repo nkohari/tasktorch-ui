@@ -5,6 +5,8 @@ LoadMyTeamsRequest = require 'requests/LoadMyTeamsRequest'
 
 class TeamStore extends Store
 
+  displayName: 'TeamStore'
+
   getAllByMember: (userId) ->
     _.filter @items, (team) -> _.contains(team.members, userId)
 

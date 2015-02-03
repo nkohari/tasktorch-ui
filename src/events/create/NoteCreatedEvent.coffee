@@ -3,6 +3,8 @@ Note  = require 'models/Note'
 
 class NoteCreatedEvent extends Event
 
+  type: 'NoteCreated'
+
   constructor: (doc) ->
     super()
     @note = new Note(doc)

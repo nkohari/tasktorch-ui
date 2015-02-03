@@ -5,6 +5,8 @@ LoadFollowersByCardRequest = require 'requests/LoadFollowersByCardRequest'
 
 class UserStore extends Store
 
+  displayName: 'UserStore'
+
   constructor: ->
     super()
     @currentUser = undefined

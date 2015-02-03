@@ -43,7 +43,7 @@ class EventBus
       func = "on#{@currentEvent.type}"
       _.each @stores, (store) =>
         if store[func]?
-          console.debug("#{store.constructor.name}: receiving event")
+          console.debug("#{store.displayName}: receiving event")
           try
             store[func].apply(store, [@currentEvent])
           catch err

@@ -4,6 +4,8 @@ LoadStagesByKindRequest = require 'requests/LoadStagesByKindRequest'
 
 class StageStore extends Store
 
+  displayName: 'StageStore'
+
   onKindStageListDisplayed: (event) ->
     if @getMany(event.stageIds)?
       @announce()

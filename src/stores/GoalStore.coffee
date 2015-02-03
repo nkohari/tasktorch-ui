@@ -4,6 +4,8 @@ LoadGoalRequest = require 'requests/LoadGoalRequest'
 
 class GoalStore extends Store
 
+  displayName: 'GoalStore'
+
   onGoalDisplayed: (event) ->
     if @get(event.goalId)?
       @announce()

@@ -31,7 +31,7 @@ class Store extends EventEmitter
     if changed
       @announce()
     else
-      console.debug("#{@constructor.name}: ignoring add()")
+      console.debug("#{@displayName}: ignoring add()")
 
   remove: (items...) ->
     changed = false
@@ -42,14 +42,14 @@ class Store extends EventEmitter
     if changed
       @announce()
     else
-      console.debug("#{@constructor.name}: ignoring remove()")
+      console.debug("#{@displayName}: ignoring remove()")
 
   execute: (request) ->
-    console.debug("#{@constructor.name}: executing %O", request)
+    console.debug("#{@displayName}: executing %O", request)
     request.execute(AppContext, EventBus)
 
   announce: ->
-    console.debug("#{@constructor.name}: announcing changes")
+    console.debug("#{@displayName}: announcing changes")
     @emit('change')
     return null
 

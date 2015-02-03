@@ -5,6 +5,8 @@ Store = require 'framework/Store'
 # @items/@add/@remove stuff.
 class SuggestionStore extends Store
 
+  displayName: 'SuggestionStore'
+
   constructor: ->
     @items = {}
 

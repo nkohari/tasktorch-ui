@@ -5,6 +5,8 @@ LoadMyStacksRequest = require 'requests/LoadMyStacksRequest'
 
 class StackStore extends Store
 
+  displayName: 'StackStore'
+
   getAllByUser: (userId) ->
     _.filter @items, (stack) -> stack.user? and stack.user == userId
 

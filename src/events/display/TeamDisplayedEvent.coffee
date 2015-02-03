@@ -2,6 +2,8 @@ Event = require 'framework/Event'
 
 class TeamDisplayedEvent extends Event
 
+  type: 'TeamDisplayed'
+
   constructor: (@teamId) ->
     super()
 

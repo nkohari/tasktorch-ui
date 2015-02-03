@@ -3,6 +3,8 @@ Store = require 'framework/Store'
 
 class KindStore extends Store
 
+  displayName: 'KindStore'
+
   onKindsLoaded: (event) ->
     @add(event.kinds)
 

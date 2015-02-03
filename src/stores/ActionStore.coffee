@@ -4,6 +4,8 @@ LoadActionsByCardRequest = require 'requests/LoadActionsByCardRequest'
 
 class ActionStore extends Store
 
+  displayName: 'ActionStore'
+
   getAllByCard: (cardId) ->
     actions = _.filter(@items, (action) -> action.card == cardId)
     _.sortBy(actions, 'rank')

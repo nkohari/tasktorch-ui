@@ -6,6 +6,8 @@ LoadNotesByCardRequest = require 'requests/LoadNotesByCardRequest'
 
 class NoteStore extends Store
 
+  displayName: 'NoteStore'
+
   getAllByCard: (cardId) ->
     notes = _.filter(@items, (note) -> note.card == cardId)
     _.sortBy notes, (note) -> moment(note).valueOf()

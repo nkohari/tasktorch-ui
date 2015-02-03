@@ -3,6 +3,8 @@ Store = require 'framework/Store'
 
 class ConnectedUserStore extends Store
 
+  displayName: 'ConnectedUserStore'
+
   onJoinedPresenceChannel: (event) ->
     @add(event.connectedUsers)
 

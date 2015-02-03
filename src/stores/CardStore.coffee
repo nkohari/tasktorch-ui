@@ -5,6 +5,8 @@ LoadCardsInStackRequest = require 'requests/LoadCardsInStackRequest'
 
 class CardStore extends Store
 
+  displayName: 'CardStore'
+
   onCardDisplayed: (event) ->
     if @get(event.cardId)?
       @announce()
