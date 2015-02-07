@@ -1,4 +1,5 @@
 _         = require 'lodash'
+moment    = require 'moment'
 React     = require 'react'
 PropTypes = require 'common/PropTypes'
 Observe   = require 'mixins/Observe'

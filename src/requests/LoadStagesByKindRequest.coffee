@@ -5,10 +5,10 @@ StagesLoadedEvent = require 'events/load/StagesLoadedEvent'
 
 class LoadStagesByKindRequest extends Request
 
-  constructor: (@kindId) ->
+  constructor: (@kindid) ->
 
   execute: (context, eventBus) ->
-    superagent.get "/api/#{context.orgId}/kinds/#{@kindId}/stages", (res) =>
+    superagent.get "/api/#{context.orgid}/kinds/#{@kindid}/stages", (res) =>
       {stages} = res.body
       eventBus.publish new StagesLoadedEvent(stages)
 

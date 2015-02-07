@@ -23,7 +23,7 @@ CardPanel = React.createClass {
   displayName: 'CardPanel'
 
   propTypes:
-    cardId: PropTypes.id
+    cardid: PropTypes.id
 
   mixins: [
     CardContext
@@ -34,15 +34,15 @@ CardPanel = React.createClass {
   # Lifecycle ---------------------------------------------------------------------
 
   componentWillMount: ->
-    @publish new CardDisplayedEvent(@props.cardId)
+    @publish new CardDisplayedEvent(@props.cardid)
 
   componentWillReceiveProps: (newProps) ->
-    @publish new CardDisplayedEvent(newProps.cardId) if @props.cardId != newProps.cardId
+    @publish new CardDisplayedEvent(newProps.cardid) if @props.cardid != newProps.cardid
 
   # State -------------------------------------------------------------------------
 
   sync: (stores) ->
-    card = stores.cards.get(@props.cardId)
+    card = stores.cards.get(@props.cardid)
     kind = stores.kinds.get(card.kind) if card?
     {card, kind}
 
@@ -77,7 +77,7 @@ CardPanel = React.createClass {
 
   makeCloseLink: ->
     url = @getActiveUrl()
-    url.removeCard(@props.cardId)
+    url.removeCard(@props.cardid)
     props = _.extend {key: 'close', className: 'close'}, url.makeLinkProps()
     Link props, [
       Icon {key: 'close', name: 'close'}

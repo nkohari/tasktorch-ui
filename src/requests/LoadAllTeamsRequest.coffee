@@ -6,7 +6,7 @@ TeamsLoadedEvent = require 'events/load/TeamsLoadedEvent'
 class LoadAllTeamsRequest extends Request
 
   execute: (context, eventBus) ->
-    superagent.get "/api/#{context.orgId}/teams", (res) =>
+    superagent.get "/api/#{context.orgid}/teams", (res) =>
       {teams} = res.body
       eventBus.publish new TeamsLoadedEvent(teams)
 

@@ -11,19 +11,19 @@ class Api
   getMyOrgs: (callback) ->
     request.get "/api/my/orgs", callback
 
-  getMyWorkspace: (orgId, callback) ->
-    request.get "/api/#{orgId}/my/workspace", callback
+  getMyWorkspace: (orgid, callback) ->
+    request.get "/api/#{orgid}/my/workspace", callback
 
-  getMyStacks: (orgId, callback) ->
-    request.get "/api/#{orgId}/my/stacks", (res) =>
+  getMyStacks: (orgid, callback) ->
+    request.get "/api/#{orgid}/my/stacks", (res) =>
       callback(null, res.body)
 
-  getStack: (orgId, stackId, callback) ->
-    request.get "/api/#{orgId}/stacks/#{stackId}?expand=cards", (res) =>
+  getStack: (orgid, stackid, callback) ->
+    request.get "/api/#{orgid}/stacks/#{stackid}?expand=cards", (res) =>
       callback(null, res.body)
 
-  getCard: (orgId, cardId, callback) ->
-    request.get "/api/#{orgId}/cards/#{cardId}?expand=type", (res) =>
+  getCard: (orgid, cardid, callback) ->
+    request.get "/api/#{orgid}/cards/#{cardid}?expand=type", (res) =>
       callback(null, res.body)
 
 module.exports = new Api()

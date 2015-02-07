@@ -15,16 +15,16 @@ class UserStore extends Store
     @currentUser
 
   onUserDisplayed: (event) ->
-    if @get(event.userId)?
+    if @get(event.userid)?
       @announce()
     else
-      @execute new LoadUserRequest(event.userId)
+      @execute new LoadUserRequest(event.userid)
 
   onCardFollowersListDisplayed: (event) ->
-    if @getMany(event.userIds)?
+    if @getMany(event.userids)?
       @announce()
     else
-      @execute new LoadFollowersByCardRequest(event.cardId)
+      @execute new LoadFollowersByCardRequest(event.cardid)
 
   onUsersLoaded: (event) ->
     @add(event.users)

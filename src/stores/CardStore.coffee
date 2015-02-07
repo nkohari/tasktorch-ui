@@ -8,16 +8,16 @@ class CardStore extends Store
   displayName: 'CardStore'
 
   onCardDisplayed: (event) ->
-    if @get(event.cardId)?
+    if @get(event.cardid)?
       @announce()
     else
-      @execute new LoadCardRequest(event.cardId)
+      @execute new LoadCardRequest(event.cardid)
 
   onCardListDisplayed: (event) ->
-    if @getMany(event.cardIds)?
+    if @getMany(event.cardids)?
       @announce()
     else
-      @execute new LoadCardsInStackRequest(event.stackId)
+      @execute new LoadCardsInStackRequest(event.stackid)
 
   onCardsLoaded: (event) ->
     @add(event.cards)

@@ -4,7 +4,7 @@ class UserDisplayedEvent extends Event
 
   type: 'UserDisplayed'
 
-  constructor: (@userId) ->
+  constructor: (@userid) ->
     super()
 
 module.exports = UserDisplayedEvent

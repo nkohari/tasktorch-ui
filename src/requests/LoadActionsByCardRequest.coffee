@@ -5,10 +5,10 @@ ActionsLoadedEvent = require 'events/load/ActionsLoadedEvent'
 
 class LoadActionsByCardRequest extends Request
 
-  constructor: (@cardId) ->
+  constructor: (@cardid) ->
 
   execute: (context, eventBus) ->
-    superagent.get "/api/#{context.orgId}/cards/#{@cardId}/actions", (res) =>
+    superagent.get "/api/#{context.orgid}/cards/#{@cardid}/actions", (res) =>
       {actions} = res.body
       eventBus.publish new ActionsLoadedEvent(actions)
 

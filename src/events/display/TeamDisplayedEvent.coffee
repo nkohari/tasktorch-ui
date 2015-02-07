@@ -4,7 +4,7 @@ class TeamDisplayedEvent extends Event
 
   type: 'TeamDisplayed'
 
-  constructor: (@teamId) ->
+  constructor: (@teamid) ->
     super()
 
 module.exports = TeamDisplayedEvent

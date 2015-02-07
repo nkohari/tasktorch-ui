@@ -6,7 +6,7 @@ RedirectToLastWorkspace = React.createClass {
 
     willTransitionTo: (transition, params, query) ->
       # TODO: Read last org ID from cookie/session
-      transition.redirect('workspace', {orgId: '1'}, {})
+      transition.redirect('workspace', {orgid: '1'}, {})
 
   displayName: 'RedirectToLastWorkspace'
 

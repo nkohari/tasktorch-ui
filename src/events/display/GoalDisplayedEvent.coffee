@@ -4,7 +4,7 @@ class GoalDisplayedEvent extends Event
 
   type: 'GoalDisplayed'
 
-  constructor: (@goalId) ->
+  constructor: (@goalid) ->
     super()
 
 module.exports = GoalDisplayedEvent

@@ -7,17 +7,17 @@ class StackStore extends Store
 
   displayName: 'StackStore'
 
-  getAllByUser: (userId) ->
-    _.filter @items, (stack) -> stack.user? and stack.user == userId
+  getAllByUser: (userid) ->
+    _.filter @items, (stack) -> stack.user? and stack.user == userid
 
-  getAllByTeam: (teamId) ->
-    _.filter @items, (stack) -> stack.team? and stack.team == teamId
+  getAllByTeam: (teamid) ->
+    _.filter @items, (stack) -> stack.team? and stack.team == teamid
 
   onStackDisplayed: (event) ->
-    if @get(event.stackId)?
+    if @get(event.stackid)?
       @announce()
     else
-      @execute new LoadStackRequest(event.stackId)
+      @execute new LoadStackRequest(event.stackid)
 
   onMyStacksDisplayed: (event) ->
     @execute new LoadMyStacksRequest()

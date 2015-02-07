@@ -6,10 +6,10 @@ KindsLoadedEvent = require 'events/load/KindsLoadedEvent'
 
 class LoadCardRequest extends Request
 
-  constructor: (@cardId) ->
+  constructor: (@cardid) ->
 
   execute: (context, eventBus) ->
-    superagent.get "/api/#{context.orgId}/cards/#{@cardId}?expand=kind", (res) =>
+    superagent.get "/api/#{context.orgid}/cards/#{@cardid}?expand=kind", (res) =>
       {card} = res.body
       kinds  = _.values(res.body.related.kinds)
       eventBus.publish new CardsLoadedEvent([card])

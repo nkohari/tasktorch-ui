@@ -81,11 +81,11 @@ module.exports = (grunt) ->
     watch:
       code:
         files: ['src/**/*.coffee']
-        tasks: ['browserify:dev', 'notify:browserify']
+        tasks: ['browserify', 'notify:browserify']
         options: {spawn: false}
       style:
         files: ['style/**/*.styl']
-        tasks: ['stylus:dev', 'notify:stylus']
+        tasks: ['stylus', 'notify:stylus']
         options: {spawn: false}
 
   grunt.registerTask 'build',   ['browserify', 'stylus', 'uglify', 'copy:prod', 'compress:prod', 'clean:temp']

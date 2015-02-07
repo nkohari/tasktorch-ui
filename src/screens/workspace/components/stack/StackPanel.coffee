@@ -21,7 +21,7 @@ StackPanel = React.createClass {
   displayName: 'StackPanel'
 
   propTypes:
-    stackId:  PropTypes.id.isRequired
+    stackid:  PropTypes.id.isRequired
     position: PropTypes.number.isRequired
 
   mixins: [
@@ -32,16 +32,16 @@ StackPanel = React.createClass {
   # Lifecycle ---------------------------------------------------------------------
 
   componentWillMount: ->
-    @publish new StackDisplayedEvent(@props.stackId)
+    @publish new StackDisplayedEvent(@props.stackid)
 
   componentWillReceiveProps: (newProps) ->
-    if newProps.stackId != @props.stackId
-      @publish new StackDisplayedEvent(@props.stackId)
+    if newProps.stackid != @props.stackid
+      @publish new StackDisplayedEvent(@props.stackid)
 
   # State -------------------------------------------------------------------------
 
   sync: (stores) ->
-    {stack: stores.stacks.get(@props.stackId)}
+    {stack: stores.stacks.get(@props.stackid)}
 
   ready: ->
     {stack: @state.stack?}
@@ -66,7 +66,7 @@ StackPanel = React.createClass {
 
   makeCloseLink: ->
     url = @getActiveUrl()
-    url.removeStack(@props.stackId)
+    url.removeStack(@props.stackid)
     props = _.extend {key: 'close', className: 'close'}, url.makeLinkProps()
     Link props, [
       Icon {key: 'close', name: 'close'}

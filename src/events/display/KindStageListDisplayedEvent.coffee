@@ -4,7 +4,7 @@ class KindStageListDisplayedEvent extends Event
 
   type: 'KindStageListDisplayed'
 
-  constructor: (@kindId, @stageIds) ->
+  constructor: (@kindid, @stageids) ->
     super()
 
 module.exports = KindStageListDisplayedEvent

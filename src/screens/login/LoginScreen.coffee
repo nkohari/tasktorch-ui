@@ -1,10 +1,11 @@
-_       = require 'lodash'
-Api     = require 'framework/Api'
-React   = require 'react/addons'
-Router  = require 'react-router'
-request = require 'superagent'
+_          = require 'lodash'
+superagent = require 'superagent'
+React      = require 'react/addons'
+Router     = require 'react-router'
+request    = require 'superagent'
 {div, input, button} = React.DOM
 
+# TODO: This needs to be replaced by a real solution.
 LoginScreen = React.createClass {
 
   displayName: 'LoginScreen'
@@ -16,8 +17,8 @@ LoginScreen = React.createClass {
 
   render: ->
     div {className: 'login screen'}, [
-      input {type: 'text',     name: 'login',    onChange: @handleLoginChange}
-      input {type: 'password', name: 'password', onChange: @handlePasswordChange}
+      input {type: 'text', name: 'login', placeholder: 'Login', onChange: @handleLoginChange}
+      input {type: 'password', name: 'password', placeholder: 'Password', onChange: @handlePasswordChange}
       button {onClick: @handleSubmitClicked}, ['Log In']
     ]
 
@@ -28,14 +29,14 @@ LoginScreen = React.createClass {
     @setState {password: event.target.value}
 
   handleSubmitClicked: ->
-    Api.createSession @state.login, @state.password, (res) =>
-      # TODO: Proper validation
-      return alert('nope') if res.forbidden
-      Api.getMyOrgs (res) =>
-        # TODO: Present the user with a choice of orgs, or go to the most-recent,
-        # instead of always going to the first.
-        orgs = res.body
-        @transitionTo('workspace', {orgId: orgs[0].id})
+    payload = {login: @state.login, password: @state.password}
+    superagent.post('/api/sessions').send(payload).end (res) =>
+      if res.forbidden
+        alert("Username or password incorrect")
+        return
+      superagent.get('/api/me/orgs').end (res) =>
+        {orgs} = res.body
+        @transitionTo('workspace', {orgid: orgs[0].id})
 
 }
 

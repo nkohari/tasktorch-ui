@@ -21,12 +21,12 @@ Shell = React.createClass {
     return {
       connectedUsers: stores.connectedUsers.getAll()
       currentUser:    stores.users.getCurrentUser()
-      currentOrg:     stores.orgs.get(@props.params.orgId)
+      currentOrg:     stores.orgs.get(@props.params.orgid)
       orgs:           stores.orgs.getAll()
     }
 
   componentWillMount: ->
-    AppContext.orgId = @props.params.orgId
+    AppContext.orgid = @props.params.orgid
     @execute new JoinPresenceChannelRequest()
     @execute new JoinUserChannelRequest()
     @execute new LoadCurrentUserRequest()

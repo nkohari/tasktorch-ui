@@ -3,10 +3,10 @@ _ = require 'lodash'
 class ShellUrl
 
   constructor: (routes, params, query) ->
-    @orgId = params.orgId
+    @orgid = params.orgid
 
   makeLinkProps: (route) ->
-    params = {@orgId}
+    params = {@orgid}
     query  = {}
     return {to: route, params, query}
 

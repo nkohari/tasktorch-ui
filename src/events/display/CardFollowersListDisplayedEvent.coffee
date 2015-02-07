@@ -4,7 +4,7 @@ class CardFollowersListDisplayedEvent extends Event
 
   type: 'CardFollowersListDisplayed'
 
-  constructor: (@cardId, @userIds) ->
+  constructor: (@cardid, @userids) ->
     super()
 
 module.exports = CardFollowersListDisplayedEvent

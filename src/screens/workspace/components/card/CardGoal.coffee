@@ -16,7 +16,7 @@ CardGoal = React.createClass {
   displayName: 'CardGoal'
 
   propTypes:
-    goalId: PropTypes.id
+    goalid: PropTypes.id
 
   mixins: [
     Observe('goals')
@@ -26,15 +26,15 @@ CardGoal = React.createClass {
   # Lifecycle ---------------------------------------------------------------------
 
   componentWillMount: ->
-    @publish new GoalDisplayedEvent(@props.goalId)
+    @publish new GoalDisplayedEvent(@props.goalid)
 
   componentWillReceiveProps: (newProps) ->
-    @publish new GoalDisplayedEvent(newProps.goalId) if newProps.goalId != @props.goalId
+    @publish new GoalDisplayedEvent(newProps.goalid) if newProps.goalid != @props.goalid
 
   # State -------------------------------------------------------------------------
 
   sync: (stores) ->
-    {goal: stores.goals.get(@props.goalId)}
+    {goal: stores.goals.get(@props.goalid)}
 
   ready: ->
     {goal: @state.goal?}
@@ -57,7 +57,7 @@ CardGoal = React.createClass {
   makeLinkProps: ->
     # TODO: Should link to the specific goal
     url = @getActiveUrl()
-    params = {orgId: url.orgId}
+    params = {orgid: url.orgid}
     {key: 'icon', to: 'planning', params}
 
   #--------------------------------------------------------------------------------

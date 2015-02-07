@@ -7,14 +7,14 @@ class TeamStore extends Store
 
   displayName: 'TeamStore'
 
-  getAllByMember: (userId) ->
-    _.filter @items, (team) -> _.contains(team.members, userId)
+  getAllByMember: (userid) ->
+    _.filter @items, (team) -> _.contains(team.members, userid)
 
   onTeamDisplayed: (event) ->
-    if @get(event.teamId)?
+    if @get(event.teamid)?
       @announce()
     else
-      @execute new LoadTeamRequest(event.teamId)
+      @execute new LoadTeamRequest(event.teamid)
 
   onMyTeamsDisplayed: (event) ->
     @execute new LoadMyTeamsRequest()

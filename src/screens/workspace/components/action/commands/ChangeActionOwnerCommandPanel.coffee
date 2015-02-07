@@ -19,7 +19,7 @@ ChangeActionOwnerCommandPanel = React.createClass {
   mixins: [Observe('users')]
 
   getInitialState: ->
-    {userId: @props.action.owner, user: undefined}
+    {userid: @props.action.owner, user: undefined}
 
   componentWillMount: ->
     @publish new UserDisplayedEvent(@props.action.owner) if @props.action.owner?
@@ -30,7 +30,7 @@ ChangeActionOwnerCommandPanel = React.createClass {
     @publish new UserDisplayedEvent(curr.owner) if curr.owner? and curr.owner != prev.owner
 
   sync: (stores) ->
-    user = stores.users.get(@state.userId) if @state?.userId?
+    user = stores.users.get(@state.userid) if @state?.userid?
     {user}
 
   render: ->
@@ -49,10 +49,10 @@ ChangeActionOwnerCommandPanel = React.createClass {
     ]
 
   onUserSelected: (user) ->
-    @setState {userId: user.id, user: user}
+    @setState {userid: user.id, user: user}
 
   onOkClicked: ->
-    @execute new ChangeActionOwnerRequest(@props.action, @state.userId)
+    @execute new ChangeActionOwnerRequest(@props.action, @state.userid)
     @props.hideCommand()
 
   onCancelClicked: ->

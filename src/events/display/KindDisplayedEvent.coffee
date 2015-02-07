@@ -4,7 +4,7 @@ class KindDisplayedEvent extends Event
 
   type: 'KindDisplayed'
 
-  constructor: (@kindId) ->
+  constructor: (@kindid) ->
     super()
 
 module.exports = KindDisplayedEvent

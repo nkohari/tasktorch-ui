@@ -1,5 +1,4 @@
 _                          = require 'lodash'
-moment                     = require 'moment'
 React                      = require 'react'
 PropTypes                  = require 'common/PropTypes'
 Observe                    = require 'mixins/Observe'
@@ -56,7 +55,7 @@ CardConversationBlock = React.createClass {
 
   children: ->
     groups = _.map @createGroups(@state.notes), (group) =>
-      CardNoteGroup {card: @props.card, userId: group.user, notes: group.notes}
+      CardNoteGroup {card: @props.card, userid: group.user, notes: group.notes}
     ul {key: 'notes', className: 'notes'}, groups
 
   createGroups: (notes) ->

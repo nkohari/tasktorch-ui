@@ -1,45 +1,49 @@
 _ = require 'lodash'
 
+keyFor =
+  card:  (id) -> "c:#{id}"
+  stack: (id) -> "s:#{id}"
+
 class WorkspaceUrl
 
   constructor: (routes, params, query) ->
-    @orgId = params.orgId
+    @orgid = params.orgid
     @panels = if query.p? then query.p.split(',') else []
 
-  addStack: (stackId) ->
-    @panels.unshift("s:#{stackId}") unless @isStackActive(stackId)
+  addStack: (stackid) ->
+    @panels.unshift(keyFor.stack(stackid)) unless @isStackActive(stackid)
 
-  addStackBefore: (stackId, cardId) ->
-    return if @isStackActive(stackId)
-    index = _.indexOf(@panels, "c:#{cardId}")
-    @panels.splice(index, 0, "s:#{stackId}")
+  addStackBefore: (stackid, cardid) ->
+    return if @isStackActive(stackid)
+    index = _.indexOf(@panels, keyFor.card(cardid))
+    @panels.splice(index, 0, keyFor.stack(stackid))
 
-  removeStack: (stackId) ->
-    @panels = _.without(@panels, "s:#{stackId}")
+  removeStack: (stackid) ->
+    @panels = _.without(@panels, keyFor.stack(stackid))
 
-  isStackActive: (stackId) ->
-    _.contains(@panels, "s:#{stackId}")
+  isStackActive: (stackid) ->
+    _.contains(@panels, keyFor.stack(stackid))
 
-  addCard: (cardId) ->
-    @panels.unshift("c:#{cardId}") unless @isCardActive(cardId)
+  addCard: (cardid) ->
+    @panels.unshift(keyFor.card(cardid)) unless @isCardActive(cardid)
 
-  addCardAfter: (cardId, stackId) ->
-    return if @isCardActive(cardId)
-    index = _.indexOf(@panels, "s:#{stackId}")
-    @panels.splice(index + 1, 0, "c:#{cardId}")
+  addCardAfter: (cardid, stackid) ->
+    return if @isCardActive(cardid)
+    index = _.indexOf(@panels, keyFor.stack(stackid))
+    @panels.splice(index + 1, 0, keyFor.card(cardid))
 
-  removeCard: (cardId) ->
-    @panels = _.without(@panels, "c:#{cardId}")
+  removeCard: (cardid) ->
+    @panels = _.without(@panels, keyFor.card(cardid))
 
-  isCardActive: (cardId) ->
-    _.contains(@panels, "c:#{cardId}")
+  isCardActive: (cardid) ->
+    _.contains(@panels, keyFor.card(cardid))
 
   movePanelToPosition: (key, toPosition) ->
     @panels = _.without(@panels, key)
     @panels.splice(toPosition, 0, key)
 
   makeLinkProps: ->
-    params = {@orgId}
+    params = {@orgid}
     query = {}
     query.p = @panels.join(',') if @panels.length > 0
     return {to: 'workspace', params, query}

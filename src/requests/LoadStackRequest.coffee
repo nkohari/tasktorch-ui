@@ -4,10 +4,10 @@ StacksLoadedEvent = require 'events/load/StacksLoadedEvent'
 
 class LoadStackRequest extends Request
 
-  constructor: (@stackId) ->
+  constructor: (@stackid) ->
 
   execute: (context, eventBus) ->
-    superagent.get "/api/#{context.orgId}/stacks/#{@stackId}", (res) =>
+    superagent.get "/api/#{context.orgid}/stacks/#{@stackid}", (res) =>
       {stack} = res.body
       eventBus.publish new StacksLoadedEvent([stack])
 

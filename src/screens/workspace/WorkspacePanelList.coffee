@@ -36,8 +36,8 @@ WorkspacePanelList = React.createClass {
   createPanel: (key) ->
     [type, id] = key.split(':')
     switch type
-      when 's' then StackPanel {key: "stack-#{id}", stackId: id, 'data-itemid': "s:#{id}"}
-      when 'c' then CardPanel  {key: "stack-#{id}", cardId: id, 'data-itemid': "c:#{id}"}
+      when 's' then StackPanel {key: "stack-#{id}", stackid: id, 'data-itemid': "s:#{id}"}
+      when 'c' then CardPanel  {key: "stack-#{id}", cardid: id, 'data-itemid': "c:#{id}"}
       else null
 
   getSortableList: ->

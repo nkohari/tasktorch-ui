@@ -4,7 +4,7 @@ class StackDisplayedEvent extends Event
 
   type: 'StackDisplayed'
 
-  constructor: (@stackId) ->
+  constructor: (@stackid) ->
     super()
 
 module.exports = StackDisplayedEvent

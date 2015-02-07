@@ -4,7 +4,7 @@ class TeamStackListDisplayedEvent extends Event
 
   type: 'TeamStackListDisplayed'
 
-  constructor: (@teamId, @stackIds) ->
+  constructor: (@teamid, @stackids) ->
     super()
 
 module.exports = TeamStackListDisplayedEvent

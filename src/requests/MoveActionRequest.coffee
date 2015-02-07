@@ -4,11 +4,11 @@ ActionChangedEvent = require 'events/change/ActionChangedEvent'
 
 class MoveActionRequest extends Request
 
-  constructor: (@action, @cardId, @stageId, @position) ->
+  constructor: (@action, @cardid, @stageid, @position) ->
 
   execute: ->
     superagent.post("/api/#{@action.org}/actions/#{@action.id}/move")
-    .send {card: @cardId, stage: @stageId, @position}
+    .send {card: @cardid, stage: @stageid, @position}
     .end (res) =>
       {action} = res.body
       eventBus.publish new ActionChangedEvent(action)

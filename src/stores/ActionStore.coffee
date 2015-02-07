@@ -6,15 +6,15 @@ class ActionStore extends Store
 
   displayName: 'ActionStore'
 
-  getAllByCard: (cardId) ->
-    actions = _.filter(@items, (action) -> action.card == cardId)
+  getAllByCard: (cardid) ->
+    actions = _.filter(@items, (action) -> action.card == cardid)
     _.sortBy(actions, 'rank')
 
   onCardActionListDisplayed: (event) ->
-    if @getMany(event.actionIds)?
+    if @getMany(event.actionids)?
       @announce()
     else
-      @execute new LoadActionsByCardRequest(event.cardId)
+      @execute new LoadActionsByCardRequest(event.cardid)
 
   onActionsLoaded: (event) ->
     @add(event.actions)

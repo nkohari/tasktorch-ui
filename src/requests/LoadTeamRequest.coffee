@@ -4,10 +4,10 @@ TeamsLoadedEvent = require 'events/load/TeamsLoadedEvent'
 
 class LoadTeamRequest extends Request
 
-  constructor: (@teamId) ->
+  constructor: (@teamid) ->
 
   execute: (context, eventBus) ->
-    superagent.get "/api/#{context.orgId}/teams/#{@teamId}", (res) =>
+    superagent.get "/api/#{context.orgid}/teams/#{@teamid}", (res) =>
       {team} = res.body
       eventBus.publish new TeamsLoadedEvent([team])
 

@@ -4,10 +4,10 @@ UsersLoadedEvent = require 'events/load/UsersLoadedEvent'
 
 class LoadUserRequest extends Request
 
-  constructor: (@userId) ->
+  constructor: (@userid) ->
 
   execute: (context, eventBus) ->
-    superagent.get "/api/#{context.orgId}/members/#{@userId}", (res) =>
+    superagent.get "/api/#{context.orgid}/members/#{@userid}", (res) =>
       {user} = res.body
       eventBus.publish new UsersLoadedEvent([user])
 

@@ -3,14 +3,14 @@ _ = require 'lodash'
 class BigPictureUrl
 
   constructor: (routes, params, query) ->
-    @orgId = params.orgId
+    @orgid = params.orgid
     @users = if query.users? then query.users.split(',') else []
 
-  setUsers: (userIds) ->
-    @users = _.clone(userIds)
+  setUsers: (userids) ->
+    @users = _.clone(userids)
 
   makeLinkProps: ->
-    params = {@orgId}
+    params = {@orgid}
     query  = {}
     query.users = @users.join(',') if @users.length > 0
     return {to: 'bigpicture', params, query}

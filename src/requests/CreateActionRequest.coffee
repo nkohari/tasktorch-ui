@@ -11,7 +11,7 @@ class CreateActionRequest extends Request
   execute: (context, eventBus, callback) ->
     superagent.post("/api/#{@card.org}/cards/#{@card.id}/actions")
     .set(Header.Socket, eventBus.getSocketId())
-    .send({stage: @stage.id})
+    .send({stage: @stage.id, text: null})
     .end (res) =>
       {action} = res.body
       eventBus.publish new ActionCreatedEvent(action)

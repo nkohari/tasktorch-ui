@@ -22,7 +22,7 @@ CreateCardButton = React.createClass {
   # TODO: Support different card kinds
   handleClick: ->
     url     = @getActiveUrl()
-    request = new CreateCardRequest(url.orgId, '1')
+    request = new CreateCardRequest(url.orgid, '1')
     @execute request, (err, card) =>
       url.addCard(card.id)
       props = url.makeLinkProps()

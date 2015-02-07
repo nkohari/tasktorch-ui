@@ -5,10 +5,10 @@ NotesLoadedEvent = require 'events/load/NotesLoadedEvent'
 
 class LoadNotesByCardRequest extends Request
 
-  constructor: (@cardId) ->
+  constructor: (@cardid) ->
 
   execute: (context, eventBus) ->
-    superagent.get "/api/#{context.orgId}/cards/#{@cardId}/notes", (res) =>
+    superagent.get "/api/#{context.orgid}/cards/#{@cardid}/notes", (res) =>
       eventBus.publish new NotesLoadedEvent(res.body.notes)
 
 module.exports = LoadNotesByCardRequest

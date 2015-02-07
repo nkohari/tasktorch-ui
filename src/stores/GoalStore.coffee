@@ -7,10 +7,10 @@ class GoalStore extends Store
   displayName: 'GoalStore'
 
   onGoalDisplayed: (event) ->
-    if @get(event.goalId)?
+    if @get(event.goalid)?
       @announce()
     else
-      @execute new LoadGoalRequest(event.goalId)
+      @execute new LoadGoalRequest(event.goalid)
 
   onGoalsLoaded: (event) ->
     @add(event.goals)

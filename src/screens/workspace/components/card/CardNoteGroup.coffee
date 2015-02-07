@@ -13,20 +13,20 @@ CardNoteGroup = React.createClass {
 
   propTypes:
     card:   PropTypes.Card
-    userId: PropTypes.id
+    userid: PropTypes.id
     notes:  PropTypes.arrayOf(PropTypes.Note)
 
   mixins: [Observe('users')]
 
   componentWillMount: ->
-    @publish new UserDisplayedEvent(@props.userId)
+    @publish new UserDisplayedEvent(@props.userid)
 
   componentWillReceiveProps: (newProps) ->
-    if @props.userId != newProps.userId
-      @publish new UserDisplayedEvent(newProps.userId)
+    if @props.userid != newProps.userid
+      @publish new UserDisplayedEvent(newProps.userid)
 
   sync: (stores) ->
-    {user: stores.users.get(@props.userId)}
+    {user: stores.users.get(@props.userid)}
 
   ready: ->
     {user: @state.user?}

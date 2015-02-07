@@ -4,7 +4,7 @@ class CardListDisplayedEvent extends Event
 
   type: 'CardListDisplayed'
 
-  constructor: (@stackId, @cardIds) ->
+  constructor: (@stackid, @cardids) ->
     super()
 
 module.exports = CardListDisplayedEvent

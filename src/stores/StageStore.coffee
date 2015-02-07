@@ -7,10 +7,10 @@ class StageStore extends Store
   displayName: 'StageStore'
 
   onKindStageListDisplayed: (event) ->
-    if @getMany(event.stageIds)?
+    if @getMany(event.stageids)?
       @announce()
     else
-      @execute new LoadStagesByKindRequest(event.kindId)
+      @execute new LoadStagesByKindRequest(event.kindid)
 
   onStagesLoaded: (event) ->
     @add(event.stages)

@@ -8,12 +8,12 @@ class NoteStore extends Store
 
   displayName: 'NoteStore'
 
-  getAllByCard: (cardId) ->
-    notes = _.filter(@items, (note) -> note.card == cardId)
+  getAllByCard: (cardid) ->
+    notes = _.filter(@items, (note) -> note.card == cardid)
     _.sortBy notes, (note) -> moment(note).valueOf()
 
-  getMostRecentPassByCard: (cardId) ->
-    notes = _.filter @items, (note) -> note.card == cardId and note.type == NoteType.Passed
+  getMostRecentPassByCard: (cardid) ->
+    notes = _.filter @items, (note) -> note.card == cardid and note.type == NoteType.Passed
     if notes.length == 0
       return null
     else
@@ -21,7 +21,7 @@ class NoteStore extends Store
 
   onCardNoteListDisplayed: (event) ->
     # TODO: Detect if we've already loaded the notes
-    @execute new LoadNotesByCardRequest(event.cardId)
+    @execute new LoadNotesByCardRequest(event.cardid)
 
   onNoteCreated: (event) ->
     @add(event.note)

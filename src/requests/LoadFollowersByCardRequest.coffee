@@ -5,10 +5,10 @@ UsersLoadedEvent = require 'events/load/UsersLoadedEvent'
 
 class LoadFollowersByCardRequest extends Request
 
-  constructor: (@cardId) ->
+  constructor: (@cardid) ->
 
   execute: (context, eventBus) ->
-    superagent.get "/api/#{context.orgId}/cards/#{@cardId}/followers", (res) =>
+    superagent.get "/api/#{context.orgid}/cards/#{@cardid}/followers", (res) =>
       {users} = res.body
       eventBus.publish new UsersLoadedEvent(users)
 

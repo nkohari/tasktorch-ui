@@ -5,7 +5,7 @@ StacksLoadedEvent = require 'events/load/StacksLoadedEvent'
 class LoadMyStacksRequest extends Request
 
   execute: (context, eventBus) ->
-    superagent.get "/api/#{context.orgId}/me/stacks", (res) =>
+    superagent.get "/api/#{context.orgid}/me/stacks", (res) =>
       {stacks} = res.body
       eventBus.publish new StacksLoadedEvent(stacks)
 
