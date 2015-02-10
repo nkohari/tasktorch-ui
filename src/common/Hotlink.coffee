@@ -8,7 +8,10 @@ Hotlink = React.createClass {
 
   displayName: 'Hotlink'
 
-  mixins: [Router.Navigation]
+  mixins: [
+    Router.Navigation
+    Router.State
+  ]
 
   componentWillMount: ->
     Keymaster(@props.hotkey, @onHotkeyPressed) if @props.hotkey?

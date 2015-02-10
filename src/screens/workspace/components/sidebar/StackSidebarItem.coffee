@@ -1,9 +1,9 @@
 _            = require 'lodash'
 React        = require 'react'
+Router       = require 'react-router'
 PropTypes    = require 'common/PropTypes'
 StackType    = require 'framework/enums/StackType'
-ActiveUrl    = require 'mixins/ActiveUrl'
-WorkspaceUrl = require '../../WorkspaceUrl'
+WorkspaceUrl = require 'framework/urls/WorkspaceUrl'
 Icon         = React.createFactory(require 'common/Icon')
 Hotlink      = React.createFactory(require 'common/Hotlink')
 {li, span}   = React.DOM
@@ -17,7 +17,7 @@ StackSidebarItem = React.createClass {
   propTypes:
     stack: PropTypes.Stack
 
-  mixins: [ActiveUrl(WorkspaceUrl)]
+  mixins: [Router.State]
 
   # Rendering ---------------------------------------------------------------------
 
@@ -39,7 +39,7 @@ StackSidebarItem = React.createClass {
       @props.stack.type
 
   makeLinkProps: ->
-    url = @getActiveUrl()
+    url = new WorkspaceUrl(this)
     url.addStack(@props.stack.id)
     return _.extend {key: 'open-link', hotkey: @props.hotkey}, url.makeLinkProps()
 

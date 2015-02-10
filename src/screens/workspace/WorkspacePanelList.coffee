@@ -1,9 +1,8 @@
 _                  = require 'lodash'
 React              = require 'react/addons'
 Router             = require 'react-router'
-ActiveUrl          = require 'mixins/ActiveUrl'
 SortableList       = require 'mixins/SortableList'
-WorkspaceUrl       = require './WorkspaceUrl'
+WorkspaceUrl       = require 'framework/urls/WorkspaceUrl'
 StackPanel         = React.createFactory(require './components/stack/StackPanel')
 CardPanel          = React.createFactory(require './components/card/CardPanel')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
@@ -13,8 +12,8 @@ WorkspacePanelList = React.createClass {
   displayName: 'WorkspacePanelList'
 
   mixins: [
-    ActiveUrl(WorkspaceUrl)
     Router.Navigation
+    Router.State
     SortableList {
       handle: '.header'
       idAttribute: 'data-itemid'
@@ -23,7 +22,7 @@ WorkspacePanelList = React.createClass {
 
   render: ->
 
-    url = @getActiveUrl()
+    url = new WorkspaceUrl(this)
     panels = _.map url.panels, (key) => @createPanel(key)
 
     CSSTransitionGroup {
@@ -49,7 +48,7 @@ WorkspacePanelList = React.createClass {
     {id}
 
   onReorder: (panel, toPosition) ->
-    url = @getActiveUrl()
+    url = new WorkspaceUrl(this)
     url.movePanelToPosition(panel.id, toPosition)
     props = url.makeLinkProps()
     @transitionTo(props.to, props.params, props.query)

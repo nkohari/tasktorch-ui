@@ -6,6 +6,7 @@ UserDisplayedEvent = require 'events/display/UserDisplayedEvent'
 MoveType           = require 'framework/enums/MoveType'
 Observe            = require 'mixins/Observe'
 Avatar             = React.createFactory(require 'common/Avatar')
+Frame              = React.createFactory(require 'common/Frame')
 Time               = React.createFactory(require 'common/Time')
 {div, span}        = React.DOM
 
@@ -18,13 +19,6 @@ InboxCard = React.createClass {
 
   mixins: [Observe('users')]
 
-  sync: (stores) ->
-    pass = @getLastPass(@props.card)
-    {sender: stores.users.get(pass.user)}
-
-  ready: ->
-    {sender: @state.sender?}
-
   componentWillMount: ->
     pass = @getLastPass(@props.card)
     @publish new UserDisplayedEvent(pass.user)
@@ -34,15 +28,22 @@ InboxCard = React.createClass {
     curr = @getLastPass(newProps.card)
     @publish new UserDisplayedEvent(curr.user) if prev.user != curr.user
 
+  sync: (stores) ->
+    pass = @getLastPass(@props.card)
+    {sender: stores.users.get(pass.user)}
+
+  isReady: ->
+    @state.sender?
+
   render: ->
-    div {
+
+    pass = @getLastPass(@props.card)
+
+    Frame {
+      @isReady
       className: 'summary'
       style: {borderLeftColor: @props.kind.color}
-    }, @contents()
-
-  children: ->
-    pass = @getLastPass(@props.card)
-    return [
+    }, [
       Avatar {key: 'avatar', user: @state.sender}
       div {className: 'title'}, [@props.card.title or 'Untitled Card']
       div {className: 'subtitle'}, [

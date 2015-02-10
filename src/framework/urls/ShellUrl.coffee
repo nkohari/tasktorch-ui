@@ -2,7 +2,8 @@ _ = require 'lodash'
 
 class ShellUrl
 
-  constructor: (routes, params, query) ->
+  constructor: (component) ->
+    params = component.getParams()
     @orgid = params.orgid
 
   makeLinkProps: (route) ->

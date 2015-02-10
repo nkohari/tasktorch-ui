@@ -1,10 +1,10 @@
 React              = require 'react'
 Router             = require 'react-router'
 PropTypes          = require 'common/PropTypes'
-ActiveUrl          = require 'mixins/ActiveUrl'
 Observe            = require 'mixins/Observe'
-WorkspaceUrl       = require '../../WorkspaceUrl'
+WorkspaceUrl       = require 'framework/urls/WorkspaceUrl'
 GoalDisplayedEvent = require 'events/display/GoalDisplayedEvent'
+Frame              = React.createFactory(require 'common/Frame')
 Icon               = React.createFactory(require 'common/Icon')
 Link               = React.createFactory(Router.Link)
 {li, a}            = React.DOM
@@ -20,7 +20,7 @@ CardGoal = React.createClass {
 
   mixins: [
     Observe('goals')
-    ActiveUrl(WorkspaceUrl)
+    Router.State
   ]
 
   # Lifecycle ---------------------------------------------------------------------
@@ -36,16 +36,13 @@ CardGoal = React.createClass {
   sync: (stores) ->
     {goal: stores.goals.get(@props.goalid)}
 
-  ready: ->
-    {goal: @state.goal?}
+  isReady: ->
+    @state.goal?
 
   # Rendering ---------------------------------------------------------------------
 
   render: ->
-    li {className: 'goal'}, @contents()
-
-  children: ->
-    return [
+    Frame {@isReady, component: 'li', className: 'goal'}, [
       Link @makeLinkProps(), [
         Icon {key: 'icon', name: 'goal'}
         @state.goal.name
@@ -56,7 +53,7 @@ CardGoal = React.createClass {
 
   makeLinkProps: ->
     # TODO: Should link to the specific goal
-    url = @getActiveUrl()
+    url = new WorkspaceUrl(this)
     params = {orgid: url.orgid}
     {key: 'icon', to: 'planning', params}
 

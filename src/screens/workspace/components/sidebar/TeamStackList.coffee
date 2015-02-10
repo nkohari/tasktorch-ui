@@ -4,8 +4,9 @@ PropTypes                   = require 'common/PropTypes'
 TeamStackListDisplayedEvent = require 'events/display/TeamStackListDisplayedEvent'
 StackType                   = require 'framework/enums/StackType'
 Observe                     = require 'mixins/Observe'
+Frame                       = React.createFactory(require 'common/Frame')
 StackSidebarItem            = React.createFactory(require './StackSidebarItem')
-{section, header, ul}       = React.DOM
+{header, ul}                = React.DOM
 
 TeamStackList = React.createClass {
 
@@ -30,33 +31,27 @@ TeamStackList = React.createClass {
   # State -------------------------------------------------------------------------
 
   sync: (stores) ->
-    {stacks: stores.stacks.getAllByTeam(@props.team.id)}
+    stacks = stores.stacks.getAllByTeam(@props.team.id)
+    if stacks?
+      inboxStack = _.find stacks, (stack) -> stack.type == StackType.Inbox
+      backlogStacks = _.sortBy _.filter(stacks, (stack) -> stack.type == StackType.Backlog), (stack) -> stack.name
+    {inboxStack, backlogStacks}
 
-  ready: ->
-    {stacks: @state.stacks?}
+  isReady: ->
+    @state.inboxStack? and @state.backlogStacks?
 
   # Rendering ---------------------------------------------------------------------
 
   render: ->
-    section {className: 'team group'}, @contents()
 
-  children: ->
-
-    inboxStack = StackSidebarItem {key: 'inbox', stack: @getInboxStack()}
-    backlogStacks = _.map @getBacklogStacks(), (stack) =>
+    inboxStack = StackSidebarItem {key: 'inbox', stack: @state.inboxStack}
+    backlogStacks = _.map @state.backlogStacks, (stack) =>
       StackSidebarItem {key: "stack-#{stack.id}", stack}
 
-    return [
+    Frame {@isReady, component: 'section', className: 'team group'}, [
       header {key: 'header'}, [@props.team.name]
       ul {key: 'items'}, [inboxStack].concat(backlogStacks)
     ]
-
-  getInboxStack: ->
-    _.find @state.stacks, (stack) -> stack.type == StackType.Inbox
-
-  getBacklogStacks: ->
-    stacks = _.filter @state.stacks, (stack) -> stack.type == StackType.Backlog
-    _.sortBy stacks, (stack) -> stack.name
 
   #--------------------------------------------------------------------------------
 

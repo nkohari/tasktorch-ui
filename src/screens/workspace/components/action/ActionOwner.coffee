@@ -4,6 +4,7 @@ Observe            = require 'mixins/Observe'
 UserDisplayedEvent = require 'events/display/UserDisplayedEvent'
 ActionCommand      = require 'framework/enums/ActionCommand'
 Avatar             = React.createFactory(require 'common/Avatar')
+Frame              = React.createFactory(require 'common/Frame')
 Icon               = React.createFactory(require 'common/Icon')
 {a}                = React.DOM
 
@@ -32,17 +33,17 @@ ActionOwner = React.createClass {
       user = null
     {user}
 
-  ready: ->
-    {user: @state.user? or not @props.action.owner?}
+  isReady: ->
+    @state.user? or not @props.action.owner?
 
   render: ->
-    a {className: 'owner', @onClick}, @contents()
 
-  children: ->
     if @state.user?
-      Avatar {key: 'avatar', user: @state.user}
+      contents = Avatar {key: 'avatar', user: @state.user}
     else
-      Icon {key: 'icon', name: 'assign'}
+      contents = Icon {key: 'icon', name: 'assign'}
+
+    Frame {@isReady, component: 'a', className: 'owner', @onClick}, [contents]
 
   onClick: ->
     @props.showCommand(ActionCommand.ChangeOwner)

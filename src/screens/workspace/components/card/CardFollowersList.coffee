@@ -4,6 +4,7 @@ PropTypes                       = require 'common/PropTypes'
 Observe                         = require 'mixins/Observe'
 CardFollowersListDisplayedEvent = require 'events/display/CardFollowersListDisplayedEvent'
 Avatar                          = React.createFactory(require 'common/Avatar')
+Frame                           = React.createFactory(require 'common/Frame')
 {div, span, ul, li}             = React.DOM
 
 CardFollowersList = React.createClass {
@@ -35,21 +36,17 @@ CardFollowersList = React.createClass {
       users:       stores.users.getMany(@props.card.followers)
     }
 
-  ready: ->
-    return {
-      currentUser: @state.currentUser?
-      owner:       (@state.owner? or not @props.card.owner?)
-      users:       @state.users?
-    }
+  isReady: ->
+    @state.currentUser? and (@state.owner? or not @props.card.owner?) and @state.users?
 
   render: ->
-    ul {className: 'followers'}, @contents()
 
-  children: ->
-    _.map @state.users, (user) =>
+    items = _.map @state.users, (user) =>
       li {key: "user-#{user.id}", className: 'follower'}, [
         Avatar {key: 'avatar', user, size: 32}
       ] 
+
+    Frame {@isReady, component: 'ul', className: 'followers'}, items
 
   #--------------------------------------------------------------------------------
 }

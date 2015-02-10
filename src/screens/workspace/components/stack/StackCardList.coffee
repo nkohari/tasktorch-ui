@@ -7,6 +7,7 @@ StackType              = require 'framework/enums/StackType'
 Observe                = require 'mixins/Observe'
 SortableList           = require 'mixins/SortableList'
 MoveCardRequest        = require 'requests/MoveCardRequest'
+Frame                  = React.createFactory(require 'common/Frame')
 StackCardListItem      = React.createFactory(require './StackCardListItem')
 {ul}                   = React.DOM
 
@@ -38,12 +39,11 @@ StackCardList = React.createClass {
       @setState {ids: newProps.stack.cards}
 
   sync: (stores) ->
-    console.log "SYNC #{@props.stack.id}: #{@state?.ids?.join(',')}"
     cards = stores.cards.getMany(@state.ids) if @state?.ids?
     {cards}
 
-  ready: ->
-    {cards: @state.cards?}
+  isReady: ->
+    @state.cards?
 
   render: ->
 
@@ -52,17 +52,14 @@ StackCardList = React.createClass {
       classes.push('dragging')
       classes.push("drop-#{if @state.dropAllowed then 'allowed' else 'disallowed'}")
 
-    ul {
-      className: classes.join(' ')
-    }, @contents()
-
-  children: ->
-    _.map @state.cards, (card) =>
+    items = _.map @state.cards, (card) =>
       StackCardListItem {
         key:   "card-#{card.id}"
         stack: @props.stack
         card:  card
       }
+
+    Frame {@isReady, component: 'ul', className: classes.join(' ')}, items
 
   getSortableList: ->
     @props.stack

@@ -1,12 +1,13 @@
-React                      = require 'react/addons'
+React                      = require 'react'
+Router                     = require 'react-router'
 Observe                    = require 'mixins/Observe'
 JoinPresenceChannelRequest = require 'requests/JoinPresenceChannelRequest'
 JoinUserChannelRequest     = require 'requests/JoinUserChannelRequest'
 LoadCurrentUserRequest     = require 'requests/LoadCurrentUserRequest'
 LoadMyOrgsRequest          = require 'requests/LoadMyOrgsRequest'
-TopCorner                  = React.createFactory(require './components/TopCorner')
-BottomCorner               = React.createFactory(require './components/BottomCorner')
-CSSTransitionGroup         = React.createFactory(React.addons.CSSTransitionGroup)
+Frame                      = React.createFactory(require 'common/Frame')
+ShellHeader                = React.createFactory(require './components/ShellHeader')
+RouteHandler               = React.createFactory(Router.RouteHandler)
 {div}                      = React.DOM
 
 Shell = React.createClass {
@@ -14,19 +15,23 @@ Shell = React.createClass {
   displayName: 'Shell'
 
   mixins: [
+    Router.State
     Observe('connectedUsers', 'orgs', 'users')
   ]
+
+  getInitialState: ->
+    {sidebarVisible: true}
 
   sync: (stores) ->
     return {
       connectedUsers: stores.connectedUsers.getAll()
       currentUser:    stores.users.getCurrentUser()
-      currentOrg:     stores.orgs.get(@props.params.orgid)
+      currentOrg:     stores.orgs.get(@getParams().orgid)
       orgs:           stores.orgs.getAll()
     }
 
   componentWillMount: ->
-    AppContext.orgid = @props.params.orgid
+    AppContext.orgid = @getParams().orgid
     @execute new JoinPresenceChannelRequest()
     @execute new JoinUserChannelRequest()
     @execute new LoadCurrentUserRequest()
@@ -36,16 +41,13 @@ Shell = React.createClass {
     @state.currentUser? and @state.currentOrg?
 
   render: ->
-
-    unless @isReady()
-      return div {className: 'loading'}, []
-
-    Screen = @props.activeRouteHandler
-    div {className: 'shell'}, [
-      TopCorner {key: 'top-corner', currentOrg: @state.currentOrg, currentUser: @state.currentUser, orgs: @state.orgs, connectedUsers: @state.connectedUsers}
-      Screen {key: 'screen'}
-      BottomCorner {key: 'bottom-corner'}
+    Frame {@isReady, className: 'shell'}, [
+      ShellHeader  {key: 'header', currentOrg: @state.currentOrg, currentUser: @state.currentUser, @toggleSidebar}
+      RouteHandler {key: 'screen', sidebarVisible: @state.sidebarVisible}
     ]
+
+  toggleSidebar: ->
+    @setState {sidebarVisible: !@state.sidebarVisible}
     
 }
 

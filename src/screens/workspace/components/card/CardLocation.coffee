@@ -3,8 +3,7 @@ React        = require 'react'
 Router       = require 'react-router'
 PropTypes    = require 'common/PropTypes'
 CardStatus   = require 'framework/enums/CardStatus'
-ActiveUrl    = require 'mixins/ActiveUrl'
-WorkspaceUrl = require '../../WorkspaceUrl'
+WorkspaceUrl = require 'framework/urls/WorkspaceUrl'
 Icon         = React.createFactory(require 'common/Icon')
 StackName    = React.createFactory(require 'common/StackName')
 Link         = React.createFactory(Router.Link)
@@ -20,7 +19,7 @@ CardLocation = React.createClass {
     card:  PropTypes.Card
     stack: PropTypes.Stack
 
-  mixins: [ActiveUrl(WorkspaceUrl)]
+  mixins: [Router.State]
 
   # Rendering ---------------------------------------------------------------------
 
@@ -56,7 +55,7 @@ CardLocation = React.createClass {
   # Utility -----------------------------------------------------------------------
 
   makeStackLinkProps: ->
-    url = @getActiveUrl()
+    url = new WorkspaceUrl(this)
     url.addStackBefore(@props.stack.id, @props.card.id)
     return _.extend {key: 'link'}, url.makeLinkProps()
 

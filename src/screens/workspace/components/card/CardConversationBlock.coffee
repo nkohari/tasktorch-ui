@@ -3,6 +3,7 @@ React                      = require 'react'
 PropTypes                  = require 'common/PropTypes'
 Observe                    = require 'mixins/Observe'
 CardNoteListDisplayedEvent = require 'events/display/CardNoteListDisplayedEvent'
+Frame                      = React.createFactory(require 'common/Frame')
 CardNoteGroup              = React.createFactory(require './CardNoteGroup')
 CardBlockHeader            = React.createFactory(require './CardBlockHeader')
 {div, ul}                  = React.DOM
@@ -39,24 +40,24 @@ CardConversationBlock = React.createClass {
   # State -------------------------------------------------------------------------
   
   sync: (stores) ->
-    console.log {notes: stores.notes.getAllByCard(@props.card.id)}
     {notes: stores.notes.getAllByCard(@props.card.id)}
 
-  ready: ->
-    {notes: @state.notes?}
+  isReady: ->
+    @state.notes?
 
   # Rendering ---------------------------------------------------------------------
 
   render: ->
-    div {className: 'conversation block'}, [
-      CardBlockHeader {key: 'header'}, ['Conversation']
-      div {ref: 'contents', className: 'contents'}, @contents()
-    ]
 
-  children: ->
     groups = _.map @createGroups(@state.notes), (group) =>
       CardNoteGroup {card: @props.card, userid: group.user, notes: group.notes}
-    ul {key: 'notes', className: 'notes'}, groups
+
+    div {className: 'conversation block'}, [
+      CardBlockHeader {key: 'header'}, ['Conversation']
+      Frame {@isReady, ref: 'contents', className: 'contents'}, [
+        ul {key: 'notes', className: 'notes'}, groups
+      ]
+    ]
 
   createGroups: (notes) ->
     groups = []

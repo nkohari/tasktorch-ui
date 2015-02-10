@@ -3,18 +3,18 @@ React   = require 'react'
 Observe = require 'mixins/Observe'
 {div}   = React.DOM
 
-BigPictureScreen = React.createClass {
+StrategyScreen = React.createClass {
 
-  displayName: 'BigPictureScreen'
+  displayName: 'StrategyScreen'
 
   mixins: [
     Observe()
   ]
 
   render: ->
-    div {className: 'bigpicture screen'}, [
+    div {className: 'strategy screen'}, [
     ]
 
 }
 
-module.exports = BigPictureScreen
+module.exports = StrategyScreen

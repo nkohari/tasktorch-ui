@@ -31,15 +31,6 @@ Observe = (storesToWatch...) -> {
     console.warn "WARNING: #{@constructor.displayName} still calling execute() like a doofus"
     request.execute(AppContext, EventBus, callback)
 
-  contents: -> # TODO: Rename
-    ready = @ready()
-    missing = _.filter _.keys(ready), (key) -> !ready[key]
-    if missing.length == 0
-      return @children()
-    else
-      console.debug "[#{@constructor.displayName}] Can't render due to missing state: #{missing.join(', ')}"
-      return []
-
   forceSync: ->
     @_updateState()
 

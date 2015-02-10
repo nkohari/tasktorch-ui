@@ -4,6 +4,7 @@ PropTypes           = require 'common/PropTypes'
 Observe             = require 'mixins/Observe'
 UserDisplayedEvent  = require 'events/display/UserDisplayedEvent'
 NoteFactory         = require './notes/NoteFactory'
+Frame               = React.createFactory(require 'common/Frame')
 CardNoteGroupHeader = React.createFactory(require './CardNoteGroupHeader')
 {li, ul}            = React.DOM
 
@@ -28,18 +29,15 @@ CardNoteGroup = React.createClass {
   sync: (stores) ->
     {user: stores.users.get(@props.userid)}
 
-  ready: ->
-    {user: @state.user?}
+  isReady: ->
+    @state.user?
 
   render: ->
-    li {className: 'note-group'}, @contents()
-
-  children: ->
 
     notes = _.map @props.notes, (note) =>
       NoteFactory(note.type) {key: "note-#{note.id}", card: @props.card, note: note, user: @state.user}
 
-    return [
+    Frame {@isReady, component: 'li', className: 'note-group'}, [
       CardNoteGroupHeader {key: 'header', card: @props.card, notes: @props.notes, user: @state.user}
       ul {}, notes
     ]

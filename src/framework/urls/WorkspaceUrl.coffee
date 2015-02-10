@@ -6,7 +6,9 @@ keyFor =
 
 class WorkspaceUrl
 
-  constructor: (routes, params, query) ->
+  constructor: (component) ->
+    params = component.getParams()
+    query  = component.getQuery()
     @orgid = params.orgid
     @panels = if query.p? then query.p.split(',') else []
 

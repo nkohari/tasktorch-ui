@@ -1,9 +1,9 @@
 React        = require 'react/addons'
 Router       = require 'react-router'
 StackType    = require 'framework/enums/StackType'
-ActiveUrl    = require 'mixins/ActiveUrl'
+WorkspaceUrl = require 'framework/urls/WorkspaceUrl'
 Observe      = require 'mixins/Observe'
-WorkspaceUrl = require '../../WorkspaceUrl'
+Frame        = React.createFactory(require 'common/Frame')
 QueueCard    = React.createFactory(require './cards/QueueCard')
 InboxCard    = React.createFactory(require './cards/InboxCard')
 DraftsCard   = React.createFactory(require './cards/DraftsCard')
@@ -16,30 +16,32 @@ StackCardListItem = React.createClass {
   displayName: 'StackCardListItem'
 
   mixins: [
-    ActiveUrl(WorkspaceUrl)
     Observe('kinds')
     Router.Navigation
+    Router.State
   ]
 
   sync: (stores) ->
     {kind: stores.kinds.get(@props.card.kind)}
 
-  ready: ->
-    {kind: @state.kind?}
+  isReady: ->
+    @state.kind?
 
   render: ->
 
     classes = 
       'stack-card': true
-      active:       @getActiveUrl().isCardActive(@props.card.id)
+      active:       new WorkspaceUrl(this).isCardActive(@props.card.id)
 
-    li {
+    Frame {
+      @isReady
+      component:     'li'
       className:     classSet(classes)
       onClick:       @handleClick
       'data-itemid': @props.card.id
-    }, @contents()
+    }, [@renderContents()]
 
-  children: ->
+  renderContents: ->
     switch @props.stack.type
       when StackType.Queue
         return QueueCard {stack: @props.stack, card: @props.card, kind: @state.kind}
@@ -51,7 +53,7 @@ StackCardListItem = React.createClass {
         return BacklogCard {stack: @props.stack, card: @props.card, kind: @state.kind}
 
   handleClick: ->
-    url = @getActiveUrl()
+    url = new WorkspaceUrl(this)
     url.addCardAfter(@props.card.id, @props.stack.id)
     props = url.makeLinkProps()
     @transitionTo(props.to, props.params, props.query)

@@ -5,6 +5,7 @@ Observe           = require 'mixins/Observe'
 SortableList      = require 'mixins/SortableList'
 MoveActionRequest = require 'requests/MoveActionRequest'
 Action            = React.createFactory(require './Action')
+Frame             = React.createFactory(require 'common/Frame')
 Icon              = React.createFactory(require 'common/Icon')
 {ul, li}          = React.DOM
 
@@ -38,17 +39,15 @@ ActionList = React.createClass {
     actions = stores.actions.getMany(@state.ids) if @state?.ids?
     {actions}
 
-  ready: ->
-    {actions: @state.actions?}
+  isReady: ->
+    @state.actions?
 
   render: ->
-    ul {className: 'action-list'}, @contents()
-
-  children: ->
-    _.map @state.actions, (action) =>
+    items = _.map @state.actions, (action) =>
       li {key: "action-#{action.id}", 'data-itemid': action.id}, [
         Action {action}
       ]
+    Frame {@isReady, component: 'ul', className: 'action-list'}, items
 
   getSortableList: ->
     @props.stage

@@ -3,10 +3,10 @@ React                   = require 'react'
 Router                  = require 'react-router'
 PropTypes               = require 'common/PropTypes'
 mergeProps              = require 'common/util/mergeProps'
-ActiveUrl               = require 'mixins/ActiveUrl'
 Observe                 = require 'mixins/Observe'
 StackDisplayedEvent     = require 'events/display/StackDisplayedEvent'
-WorkspaceUrl            = require '../../WorkspaceUrl'
+WorkspaceUrl            = require 'framework/urls/WorkspaceUrl'
+Frame                   = React.createFactory(require 'common/Frame')
 Icon                    = React.createFactory(require 'common/Icon')
 StackHeader             = React.createFactory(require './StackHeader')
 StackCardList           = React.createFactory(require './StackCardList')
@@ -26,7 +26,7 @@ StackPanel = React.createClass {
 
   mixins: [
     Observe('cards', 'stacks')
-    ActiveUrl(WorkspaceUrl)
+    Router.State
   ]
 
   # Lifecycle ---------------------------------------------------------------------
@@ -43,19 +43,19 @@ StackPanel = React.createClass {
   sync: (stores) ->
     {stack: stores.stacks.get(@props.stackid)}
 
-  ready: ->
-    {stack: @state.stack?}
+  isReady: ->
+    @state.stack?
 
   # Rendering ---------------------------------------------------------------------
 
   render: ->
+
     props = mergeProps @props, {
+      @isReady
       className: 'stack panel'
     }
-    div props, @contents()
-
-  children: ->
-    return [
+    
+    Frame props, [
       @makeCloseLink()
       StackHeader   {key: 'header', stack: @state.stack}
       StackCardList {key: 'cards',  stack: @state.stack}
@@ -65,7 +65,7 @@ StackPanel = React.createClass {
   # Utility -----------------------------------------------------------------------
 
   makeCloseLink: ->
-    url = @getActiveUrl()
+    url = new WorkspaceUrl(this)
     url.removeStack(@props.stackid)
     props = _.extend {key: 'close', className: 'close'}, url.makeLinkProps()
     Link props, [

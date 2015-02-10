@@ -18,13 +18,13 @@ ActionTextChangedNote = React.createClass {
   sync: (stores) ->
     {action: stores.actions.get(@props.note.content.action)}
 
-  ready: ->
-    {action: @state.action?}
+  isReady: ->
+    @state.action?
 
   render: ->
-    li {className: 'note activity action-text-changed'}, @children()
+    Frame {@isReady, component: 'li', className: 'note activity action-text-changed'}, @renderContents()
 
-  children: ->
+  renderContents: ->
     if @props.note.content.from?
       @renderAsChange()
     else

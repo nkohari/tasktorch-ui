@@ -1,10 +1,12 @@
 _                  = require 'lodash'
 React              = require 'react'
 PropTypes          = require 'common/PropTypes'
+mergeProps         = require 'common/util/mergeProps'
 TeamDisplayedEvent = require 'events/display/TeamDisplayedEvent'
 UserDisplayedEvent = require 'events/display/UserDisplayedEvent'
 StackType          = require 'framework/enums/StackType'
 Observe            = require 'mixins/Observe'
+Frame              = React.createFactory(require 'common/Frame')
 {span}             = React.DOM
 
 StackName = React.createClass {
@@ -36,22 +38,20 @@ StackName = React.createClass {
     return {
       currentUser: stores.users.getCurrentUser()
       user:        stores.users.get(@props.stack.user) if @props.stack.user?
-      team:        stores.teams.get(@props.stack.team)  if @props.stack.team?
+      team:        stores.teams.get(@props.stack.team) if @props.stack.team?
     }
 
-  ready: ->
-    return {
-      currentUser: @state.currentUser?
-      user:        (@state.user? or not @props.stack.user?)
-      team:        (@state.team? or not @props.stack.team?)
-    }
+  isReady: ->
+    @state.currentUser? and (@state.user? or @state.team?)
 
   # Rendering ---------------------------------------------------------------------
 
   render: ->
-    span @props, @contents()
+    props = mergeProps @props, {@isReady, component: 'span'}
+    Frame props, [@formatStackName()]
 
-  children: ->
+  formatStackName: ->
+    return unless @isReady()
 
     if @props.stack.type == StackType.Backlog
       return @props.stack.name

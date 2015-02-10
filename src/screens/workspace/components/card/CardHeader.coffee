@@ -10,6 +10,7 @@ CardCommandBar      = React.createFactory(require './CardCommandBar')
 CardTitle           = React.createFactory(require './CardTitle')
 CardWidgets         = React.createFactory(require './CardWidgets')
 Avatar              = React.createFactory(require 'common/Avatar')
+Frame               = React.createFactory(require 'common/Frame')
 Icon                = React.createFactory(require 'common/Icon')
 CSSTransitionGroup  = React.createFactory(React.addons.CSSTransitionGroup)
 {div}               = React.DOM
@@ -59,11 +60,8 @@ CardHeader = React.createClass {
       owner: stores.users.get(@props.card.owner)  if @props.card.owner?
     }
 
-  ready: ->
-    return {
-      stack: (@state.stack? or not @props.card.stack?)
-      owner: (@state.owner? or not @props.card.owner?)
-    }
+  isReady: ->
+    (@state.stack? or not @props.card.stack?) and (@state.owner? or not @props.card.owner?)
 
   # Rendering ---------------------------------------------------------------------
 
@@ -73,17 +71,11 @@ CardHeader = React.createClass {
       header:   true
       expanded: @state.command?
 
-    div {
+    Frame {
+      @isReady
       className: classSet(classes)
       style:     {borderColor: @props.kind.color}
-    }, @contents()
-
-  children: ->
-
-    if @state.command?
-      command = CommandPanels[@state.command] {key: 'command', card: @props.card, stack: @state.stack}
-
-    return [
+    }, [
       div {key: 'fixed', className: 'fixed'}, [
         @renderOwner()
         div {key: 'info', className: 'info'}, [
@@ -92,18 +84,26 @@ CardHeader = React.createClass {
         ]
         CardCommandBar {key: 'commands', card: @props.card, stack: @state.stack}
       ]
-      CSSTransitionGroup {key: 'flexible', className: 'flexible', component: 'div', transitionName: 'slide'}, [
-        command if command?
-      ]
+      @renderCommand()
     ]
 
   renderOwner: ->
+
     if @state.owner?
       Avatar {key: 'owner', className: 'owner', user: @state.owner}
     else
       div {key: 'owner', className: 'team owner'}, [
         Icon {key: 'icon', name: 'team'}
       ]
+
+  renderCommand: ->
+
+    if @state.command?
+      command = CommandPanels[@state.command] {key: 'command', card: @props.card, stack: @state.stack}
+
+    CSSTransitionGroup {key: 'flexible', className: 'flexible', component: 'div', transitionName: 'slide'}, [
+      command if command?
+    ]
 
   # Utility -----------------------------------------------------------------------
 

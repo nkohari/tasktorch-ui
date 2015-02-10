@@ -3,7 +3,7 @@ React                  = require 'react'
 Observe                = require 'mixins/Observe'
 MyStacksDisplayedEvent = require 'events/display/MyStacksDisplayedEvent'
 MyTeamsDisplayedEvent  = require 'events/display/MyTeamsDisplayedEvent'
-NavigationMenu         = React.createFactory(require 'common/NavigationMenu')
+Frame                  = React.createFactory(require 'common/Frame')
 CreateCardButton       = React.createFactory(require './CreateCardButton')
 MyStackList            = React.createFactory(require './MyStackList')
 TeamStackList          = React.createFactory(require './TeamStackList')
@@ -32,26 +32,19 @@ WorkspaceSidebar = React.createClass {
       stacks = stores.stacks.getAllByUser(currentUser.id)
     {currentUser, teams, stacks}
 
-  ready: ->
-    return {
-      teams:  @state.teams?
-      stacks: @state.stacks?.length > 0
-    }
+  isReady: ->
+    @state.teams? and @state.stacks?.length > 0
 
   # Rendering ---------------------------------------------------------------------
 
   render: ->
-    div {className: 'workspace sidebar'}, @contents()
-
-  children: ->
-
+    
     groups = [
       MyStackList {key: 'me', stacks: @state.stacks}
     ].concat _.map @state.teams, (team) =>
       TeamStackList {key: "team-#{team.id}", team}
 
-    return [
-      NavigationMenu {key: 'navigation'}
+    Frame {@isReady, className: 'workspace sidebar'}, [
       CreateCardButton {key: 'create-card-button'}
       div {key: 'menu', className: 'menu'}, groups
     ]

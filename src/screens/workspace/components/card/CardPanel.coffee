@@ -4,11 +4,11 @@ Router             = require 'react-router'
 PropTypes          = require 'common/PropTypes'
 mergeProps         = require 'common/util/mergeProps'
 Observe            = require 'mixins/Observe'
-ActiveUrl          = require 'mixins/ActiveUrl'
 CardContext        = require './CardContext'
-WorkspaceUrl       = require '../../WorkspaceUrl'
+WorkspaceUrl       = require 'framework/urls/WorkspaceUrl'
 CardDisplayedEvent = require 'events/display/CardDisplayedEvent'
 KindDisplayedEvent = require 'events/display/KindDisplayedEvent'
+Frame              = React.createFactory(require 'common/Frame')
 Icon               = React.createFactory(require 'common/Icon')
 CardHeader         = React.createFactory(require './CardHeader')
 CardBody           = React.createFactory(require './CardBody')
@@ -28,7 +28,7 @@ CardPanel = React.createClass {
   mixins: [
     CardContext
     Observe('cards', 'kinds')
-    ActiveUrl(WorkspaceUrl)
+    Router.State
   ]
 
   # Lifecycle ---------------------------------------------------------------------
@@ -46,11 +46,8 @@ CardPanel = React.createClass {
     kind = stores.kinds.get(card.kind) if card?
     {card, kind}
 
-  ready: ->
-    return {
-      card: @state.card?
-      kind: @state.kind?
-    }
+  isReady: ->
+    @state.card? and @state.kind?
 
   # Rendering ---------------------------------------------------------------------
 
@@ -61,12 +58,10 @@ CardPanel = React.createClass {
 
     props = mergeProps @props, {
       className: classes.join(' ')
+      isReady:   @isReady
     }
 
-    div props, @contents()
-
-  children: ->
-    return [
+    Frame props, [
       @makeCloseLink()
       CardHeader {key: 'header', card: @state.card, kind: @state.kind}
       CardBody   {key: 'body',   card: @state.card, kind: @state.kind}
@@ -76,7 +71,7 @@ CardPanel = React.createClass {
   # Utility -----------------------------------------------------------------------
 
   makeCloseLink: ->
-    url = @getActiveUrl()
+    url = new WorkspaceUrl(this)
     url.removeCard(@props.cardid)
     props = _.extend {key: 'close', className: 'close'}, url.makeLinkProps()
     Link props, [
