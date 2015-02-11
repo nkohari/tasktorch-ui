@@ -2,10 +2,10 @@ _                  = require 'lodash'
 React              = require 'react'
 Router             = require 'react-router'
 PropTypes          = require 'framework/PropTypes'
-mergeProps         = require 'util/mergeProps'
+mergeProps         = require 'framework/util/mergeProps'
 Observe            = require 'framework/mixins/Observe'
 CardContext        = require './CardContext'
-WorkspaceUrl       = require 'framework/urls/WorkspaceUrl'
+Url                = require 'framework/Url'
 CardDisplayedEvent = require 'events/display/CardDisplayedEvent'
 KindDisplayedEvent = require 'events/display/KindDisplayedEvent'
 Frame              = React.createFactory(require 'ui/common/Frame')
@@ -71,7 +71,7 @@ CardPanel = React.createClass {
   # Utility -----------------------------------------------------------------------
 
   makeCloseLink: ->
-    url = new WorkspaceUrl(this)
+    url = new Url(this)
     url.removeCard(@props.cardid)
     props = _.extend {key: 'close', className: 'close'}, url.makeLinkProps()
     Link props, [

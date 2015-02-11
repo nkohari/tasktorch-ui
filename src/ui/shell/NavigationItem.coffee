@@ -1,9 +1,10 @@
 _         = require 'lodash'
 React     = require 'react'
 Router    = require 'react-router'
-ShellUrl  = require 'framework/urls/ShellUrl'
+PropTypes = require 'framework/PropTypes'
+Url       = require 'framework/Url'
 Link      = React.createFactory(require 'ui/common/Link')
-{li}      = React.DOM
+ListItem  = React.createFactory(require 'ui/common/ListItem')
 
 NavigationItem = React.createClass {
 
@@ -11,15 +12,17 @@ NavigationItem = React.createClass {
 
   mixins: [Router.State]
 
-  render: ->
-    li {}, [
-      Link @makeLinkProps(), [@props.title]
-    ]
+  propTypes:
+    screen: PropTypes.string
+    title:  PropTypes.string
 
-  makeLinkProps: ->
-    url   = new ShellUrl(this)
-    props = url.makeLinkProps(@props.route)
-    _.extend props, {key: 'link', className: @props.route}
+  render: ->
+
+    url = new Url(this)
+    url.screen = @props.screen
+
+    ListItem {},
+      Link url.makeLinkProps(), @props.title
 
 }
 

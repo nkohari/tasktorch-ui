@@ -5,8 +5,9 @@ TeamStackListDisplayedEvent = require 'events/display/TeamStackListDisplayedEven
 StackType                   = require 'framework/enums/StackType'
 Observe                     = require 'framework/mixins/Observe'
 Frame                       = React.createFactory(require 'ui/common/Frame')
+List                        = React.createFactory(require 'ui/common/List')
 StackSidebarItem            = React.createFactory(require 'ui/screens/workspace/sidebar/StackSidebarItem')
-{header, ul}                = React.DOM
+{div}                       = React.DOM
 
 TeamStackList = React.createClass {
 
@@ -48,10 +49,9 @@ TeamStackList = React.createClass {
     backlogStacks = _.map @state.backlogStacks, (stack) =>
       StackSidebarItem {key: "stack-#{stack.id}", stack}
 
-    Frame {@isReady, component: 'section', className: 'team group'}, [
-      header {key: 'header'}, [@props.team.name]
-      ul {key: 'items'}, [inboxStack].concat(backlogStacks)
-    ]
+    Frame {@isReady, className: 'team group'},
+      div {className: 'header'}, @props.team.name
+      List {}, [inboxStack].concat(backlogStacks)
 
   #--------------------------------------------------------------------------------
 

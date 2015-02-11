@@ -1,6 +1,7 @@
 React                      = require 'react'
 Router                     = require 'react-router'
 Observe                    = require 'framework/mixins/Observe'
+Url                        = require 'framework/Url'
 JoinPresenceChannelRequest = require 'requests/JoinPresenceChannelRequest'
 JoinUserChannelRequest     = require 'requests/JoinUserChannelRequest'
 LoadCurrentUserRequest     = require 'requests/LoadCurrentUserRequest'
@@ -8,7 +9,6 @@ LoadMyOrgsRequest          = require 'requests/LoadMyOrgsRequest'
 Frame                      = React.createFactory(require 'ui/common/Frame')
 ShellHeader                = React.createFactory(require 'ui/shell/ShellHeader')
 RouteHandler               = React.createFactory(Router.RouteHandler)
-{div}                      = React.DOM
 
 Shell = React.createClass {
 
@@ -18,9 +18,6 @@ Shell = React.createClass {
     Router.State
     Observe('connectedUsers', 'orgs', 'users')
   ]
-
-  getInitialState: ->
-    {sidebarVisible: true}
 
   componentDidMount: ->
     AppContext.orgid = @getParams().orgid
@@ -41,13 +38,11 @@ Shell = React.createClass {
     @state.currentUser? and @state.currentOrg?
 
   render: ->
-    Frame {@isReady, className: 'shell'}, [
-      ShellHeader  {key: 'header', currentOrg: @state.currentOrg, currentUser: @state.currentUser, @toggleSidebar}
-      RouteHandler {key: 'screen', sidebarVisible: @state.sidebarVisible}
-    ]
-
-  toggleSidebar: ->
-    @setState {sidebarVisible: !@state.sidebarVisible}
+    
+    url = new Url(this)
+    Frame {@isReady, className: 'shell'},
+      ShellHeader  {currentOrg: @state.currentOrg, currentUser: @state.currentUser}
+      RouteHandler {sidebar: url.sidebar}
     
 }
 

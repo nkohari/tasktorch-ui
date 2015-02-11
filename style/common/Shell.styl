@@ -29,115 +29,14 @@ body
   padding: 0
   overflow: hidden
 
-.screen
-  height: 100%
-  width: 100%
-  overflow: hidden
-  padding: 10px
-  
-.screen > .content
-  position: relative
-  z-index: 10001
-  display: flex
-  height: 100%
-  padding: $content-margin
-  margin-left: $sidebar-width
-  overflow-x: auto
-  overflow-y: hidden
-  background: $bright-white
-  border-radius: 6px
-  &::-webkit-scrollbar
-    height: 20px
-  &::-webkit-scrollbar-track
-    background: transparent
-  &::-webkit-scrollbar-thumb
-    background: rgba(0, 0, 0, 0.3)
-    background-clip: content-box
-    border: 5px solid transparent
-    border-radius: 20px
-  .drag-placeholder
-    background: $steel-lowlight-color
-
-.corner
-  z-index: 10000
+.shell-header
   position: absolute
+  top: 0
+  left: 0
+  height: $shell-header-height
   width: 100%
-  height: $corner-height
-  background: shadow(30%)
-
-  &.top
+  
+  .sidebar-toggle
+    position: absolute
     top: 0
     left: 0
-    
-    .avatar
-      display: inline-block
-      vertical-align: middle
-      height: 44px
-      width: 44px
-      padding: 2px
-      margin: 10px 0 0 10px
-      border-radius: 50%
-      background: $steel-blue
-      
-    .context
-      display: inline-block
-      vertical-align: middle
-      margin: 14px 0 0 10px
-      .user
-        font-size: 16px
-        color: #eee
-        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8)
-      .org
-        font-size: 14px
-        color: #bbb
-        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8)
-      
-  &.bottom
-    bottom: 0
-    left: 0
-    
-    .links
-      position: absolute
-      left: 60px
-      top: 34px
-      a
-        display: inline-block
-        color: #999
-        font-size: 13px
-        text-decoration: none
-        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8)
-        transition: color $hover-animation-delay linear
-        padding-right: 8px
-        &:visited { color: #999 }
-        &:hover { color: #fff }
-        &:active { color: #fff }
-
-    .logo
-      height: 100%
-      background: 10px 10px url('/img/logo.png') no-repeat
-      font-family: 'Gotham'
-      text-transform: uppercase
-      font-size: 17px
-      font-weight: 400
-      letter-spacing: 0.5px
-      padding-left: 60px
-      padding-top: 18px
-      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8)
-      .first
-        color: $purple
-      .second
-        color: $orange
-    
-@keyframes screen-navigate-enter
-  from { opacity: 0 }
-  to   { opacity: 1 }
-
-.screen.navigate-enter
-  animation: screen-navigate-enter 1000ms ease-out
-
-@keyframes screen-navigate-leave
-  from { opacity: 1 }
-  to   { opacity: 0 }
-
-.screen.navigate-leave
-  animation: screen-navigate-leave 200ms linear

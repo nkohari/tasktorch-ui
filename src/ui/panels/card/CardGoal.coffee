@@ -2,7 +2,7 @@ React              = require 'react'
 Router             = require 'react-router'
 PropTypes          = require 'framework/PropTypes'
 Observe            = require 'framework/mixins/Observe'
-WorkspaceUrl       = require 'framework/urls/WorkspaceUrl'
+Url                = require 'framework/Url'
 GoalDisplayedEvent = require 'events/display/GoalDisplayedEvent'
 Icon               = React.createFactory(require 'ui/common/Icon')
 Link               = React.createFactory(require 'ui/common/Link')
@@ -53,7 +53,7 @@ CardGoal = React.createClass {
 
   makeLinkProps: ->
     # TODO: Should link to the specific goal
-    url = new WorkspaceUrl(this)
+    url = new Url(this)
     params = {orgid: url.orgid}
     {key: 'icon', to: 'strategy', params}
 

@@ -3,7 +3,7 @@ React        = require 'react'
 Router       = require 'react-router'
 PropTypes    = require 'framework/PropTypes'
 CardStatus   = require 'framework/enums/CardStatus'
-WorkspaceUrl = require 'framework/urls/WorkspaceUrl'
+Url          = require 'framework/Url'
 Icon         = React.createFactory(require 'ui/common/Icon')
 Link         = React.createFactory(require 'ui/common/Link')
 StackName    = React.createFactory(require 'ui/common/StackName')
@@ -55,7 +55,7 @@ CardLocation = React.createClass {
   # Utility -----------------------------------------------------------------------
 
   makeStackLinkProps: ->
-    url = new WorkspaceUrl(this)
+    url = new Url(this)
     url.addStackBefore(@props.stack.id, @props.card.id)
     return _.extend {key: 'link'}, url.makeLinkProps()
 

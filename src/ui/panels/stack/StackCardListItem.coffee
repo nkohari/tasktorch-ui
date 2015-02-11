@@ -1,7 +1,7 @@
 React        = require 'react/addons'
 Router       = require 'react-router'
 StackType    = require 'framework/enums/StackType'
-WorkspaceUrl = require 'framework/urls/WorkspaceUrl'
+Url          = require 'framework/Url'
 Observe      = require 'framework/mixins/Observe'
 ListItem     = React.createFactory(require 'ui/common/ListItem')
 QueueCard    = React.createFactory(require 'ui/panels/stack/cards/QueueCard')
@@ -31,7 +31,7 @@ StackCardListItem = React.createClass {
 
     classes = 
       'stack-card': true
-      active:       new WorkspaceUrl(this).isCardActive(@props.card.id)
+      active:       new Url(this).isCardActive(@props.card.id)
 
     ListItem {
       @isReady
@@ -52,7 +52,7 @@ StackCardListItem = React.createClass {
         return BacklogCard {stack: @props.stack, card: @props.card, kind: @state.kind}
 
   handleClick: ->
-    url = new WorkspaceUrl(this)
+    url = new Url(this)
     url.addCardAfter(@props.card.id, @props.stack.id)
     props = url.makeLinkProps()
     @transitionTo(props.to, props.params, props.query)

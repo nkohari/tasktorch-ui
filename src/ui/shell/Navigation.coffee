@@ -1,9 +1,9 @@
 _              = require 'lodash'
 React          = require 'react'
 Router         = require 'react-router'
-ShellUrl       = require 'framework/urls/ShellUrl'
+Url            = require 'framework/Url'
+List           = React.createFactory(require 'ui/common/List')
 NavigationItem = React.createFactory(require 'ui/shell/NavigationItem')
-{a, div, ul}   = React.DOM
 
 NavigationMenu = React.createClass {
 
@@ -13,10 +13,10 @@ NavigationMenu = React.createClass {
   
   render: ->
     activeScreen = @getActiveScreen()
-    ul {className: 'navigation'}, [
-      NavigationItem {key: 'workspace',  route: 'workspace',  title: 'Workspace'}
-      NavigationItem {key: 'bigpicture', route: 'bigpicture', title: 'Big Picture'}
-      NavigationItem {key: 'strategy',   route: 'strategy',   title: 'Strategy'}
+    List {className: 'navigation'}, [
+      NavigationItem {key: 'workspace',  screen: 'workspace',  title: 'Workspace'}
+      NavigationItem {key: 'bigpicture', screen: 'bigpicture', title: 'Big Picture'}
+      NavigationItem {key: 'strategy',   screen: 'strategy',   title: 'Strategy'}
     ]
 
   getActiveScreen: ->

@@ -1,6 +1,6 @@
 _                             = require 'lodash'
 React                         = require 'react/addons'
-classSet                      = require 'util/classSet'
+classSet                      = require 'framework/util/classSet'
 Observe                       = require 'framework/mixins/Observe'
 LoadSuggestionsRequest        = require 'requests/LoadSuggestionsRequest'
 {a, div, ul, li, span, input} = React.DOM

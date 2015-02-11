@@ -1,6 +1,6 @@
 _            = require 'lodash'
 React        = require 'react'
-classSet     = require 'util/classSet'
+classSet     = require 'framework/util/classSet'
 {a, div, ul, li} = React.DOM
 
 Selector = React.createClass {

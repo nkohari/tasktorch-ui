@@ -3,16 +3,17 @@ React               = require 'react'
 PropTypes           = require 'framework/PropTypes'
 Observe             = require 'framework/mixins/Observe'
 LoadAllKindsRequest = require 'requests/LoadAllKindsRequest'
-WorkspacePanelList  = React.createFactory(require './WorkspacePanelList')
+Frame               = React.createFactory(require 'ui/common/Frame')
+WorkspacePanelList  = React.createFactory(require 'ui/screens/workspace/WorkspacePanelList')
 WorkspaceSidebar    = React.createFactory(require 'ui/screens/workspace/sidebar/WorkspaceSidebar')
-{div}               = React.DOM
+CSSTransitionGroup  = React.createFactory(React.addons.CSSTransitionGroup)
 
 WorkspaceScreen = React.createClass {
 
   displayName: 'WorkspaceScreen'
 
   propTypes:
-    sidebarVisible: PropTypes.bool
+    sidebar: PropTypes.bool
 
   mixins: [Observe()]
 
@@ -20,10 +21,11 @@ WorkspaceScreen = React.createClass {
     @execute new LoadAllKindsRequest()
 
   render: ->
-    div {className: 'workspace screen'}, [
-      WorkspaceSidebar {key: 'sidebar'} if @props.sidebarVisible
-      WorkspacePanelList {key: 'panels'}
-    ]
+
+    Frame {className: 'workspace screen'},
+      CSSTransitionGroup {component: 'div', transitionName: 'slide'},
+        WorkspaceSidebar {} if @props.sidebar
+      WorkspacePanelList {}
 
 }
 

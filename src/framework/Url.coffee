@@ -4,13 +4,18 @@ keyFor =
   card:  (id) -> "c:#{id}"
   stack: (id) -> "s:#{id}"
 
-class WorkspaceUrl
+class Url
 
-  constructor: (component) ->
-    params = component.getParams()
-    query  = component.getQuery()
-    @orgid = params.orgid
-    @panels = if query.p? then query.p.split(',') else []
+  constructor: (@component) ->
+
+    routes = @component.getRoutes()
+    params = @component.getParams()
+    query  = @component.getQuery()
+
+    @screen  = routes[1].name
+    @orgid   = params.orgid
+    @sidebar = query.s != 'n'
+    @panels  = if query.p? then query.p.split(',') else []
 
   addStack: (stackid) ->
     @panels.unshift(keyFor.stack(stackid)) unless @isStackActive(stackid)
@@ -44,10 +49,18 @@ class WorkspaceUrl
     @panels = _.without(@panels, key)
     @panels.splice(toPosition, 0, key)
 
-  makeLinkProps: ->
-    params = {@orgid}
-    query = {}
-    query.p = @panels.join(',') if @panels.length > 0
-    return {to: 'workspace', params, query}
+  makeLinkProps: (props = {}) ->
 
-module.exports = WorkspaceUrl
+    params = {@orgid}
+
+    query = {}
+    query.s = if not @sidebar then 'n' else undefined
+    query.p = if @panels.length > 0 then @panels.join(',') else undefined
+
+    return _.extend props, {
+      to:     @screen
+      params: _.extend(@component.getParams(), params)
+      query:  _.extend(@component.getQuery(),  query)
+    }
+
+module.exports = Url

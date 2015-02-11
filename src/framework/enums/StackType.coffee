@@ -1,4 +1,4 @@
-arrayEnum = require 'util/arrayEnum'
+arrayEnum = require 'framework/util/arrayEnum'
 
 module.exports = StackType = arrayEnum [
   'Queue'

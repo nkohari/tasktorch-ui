@@ -1,20 +1,16 @@
 .sidebar
-  position: absolute
-  top: 0
-  left: 0
-  z-index: 1000
+  flex: none
   height: 100%
-  width: $sidebar-width + $content-margin
+  width: $sidebar-width
   margin: 0
-  padding: $corner-height 0
+  margin-left: -($content-margin)
+  padding: 0
   overflow-x: hidden
   overflow-y: auto
 
-.sidebar > .menu
-  
-  section
+  .group
     
-    header
+    .header
       font-size: 13px
       padding: 8px 10px 4px
       font-weight: $bold-font-weight
@@ -63,3 +59,21 @@
           text-align: center
           line-height: 1em
           border-radius: 8px
+
+@keyframes sidebar-enter
+  0%
+    margin-left: -($sidebar-width + $content-margin)
+  100%
+    margin-left: -($content-margin)
+
+.sidebar.slide-enter
+  animation: sidebar-enter 300ms ease-out
+
+@keyframes sidebar-leave
+  from
+    margin-left: -($content-margin)
+  to
+    margin-left: -($sidebar-width + $content-margin)
+
+.sidebar.slide-leave
+  animation: sidebar-leave 150ms ease-in

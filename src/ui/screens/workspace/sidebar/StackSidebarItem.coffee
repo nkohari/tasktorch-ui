@@ -3,7 +3,7 @@ React        = require 'react'
 Router       = require 'react-router'
 PropTypes    = require 'framework/PropTypes'
 StackType    = require 'framework/enums/StackType'
-WorkspaceUrl = require 'framework/urls/WorkspaceUrl'
+Url          = require 'framework/Url'
 Icon         = React.createFactory(require 'ui/common/Icon')
 Link         = React.createFactory(require 'ui/common/Link')
 {li, span}   = React.DOM
@@ -39,7 +39,7 @@ StackSidebarItem = React.createClass {
       @props.stack.type
 
   makeLinkProps: ->
-    url = new WorkspaceUrl(this)
+    url = new Url(this)
     url.addStack(@props.stack.id)
     return _.extend {key: 'open-link', hotkey: @props.hotkey}, url.makeLinkProps()
 

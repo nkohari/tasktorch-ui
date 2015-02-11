@@ -2,7 +2,7 @@ React             = require 'react'
 Router            = require 'react-router'
 Observe           = require 'framework/mixins/Observe'
 CreateCardRequest = require 'requests/CreateCardRequest'
-WorkspaceUrl      = require 'framework/urls/WorkspaceUrl'
+Url               = require 'framework/Url'
 Button            = React.createFactory(require 'ui/common/Button')
 
 CreateCardButton = React.createClass {
@@ -20,7 +20,7 @@ CreateCardButton = React.createClass {
 
   # TODO: Support different card kinds
   handleClick: ->
-    url     = new WorkspaceUrl(this)
+    url     = new Url(this)
     request = new CreateCardRequest(url.orgid, '1')
     @execute request, (err, card) =>
       url.addCard(card.id)

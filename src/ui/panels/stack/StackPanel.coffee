@@ -2,10 +2,10 @@ _                       = require 'lodash'
 React                   = require 'react'
 Router                  = require 'react-router'
 PropTypes               = require 'framework/PropTypes'
-mergeProps              = require 'util/mergeProps'
+mergeProps              = require 'framework/util/mergeProps'
 Observe                 = require 'framework/mixins/Observe'
 StackDisplayedEvent     = require 'events/display/StackDisplayedEvent'
-WorkspaceUrl            = require 'framework/urls/WorkspaceUrl'
+Url                     = require 'framework/Url'
 Frame                   = React.createFactory(require 'ui/common/Frame')
 Icon                    = React.createFactory(require 'ui/common/Icon')
 Link                    = React.createFactory(require 'ui/common/Link')
@@ -65,7 +65,7 @@ StackPanel = React.createClass {
   # Utility -----------------------------------------------------------------------
 
   makeCloseLink: ->
-    url = new WorkspaceUrl(this)
+    url = new Url(this)
     url.removeStack(@props.stackid)
     props = _.extend {key: 'close', className: 'close'}, url.makeLinkProps()
     Link props, [

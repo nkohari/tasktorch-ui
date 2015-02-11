@@ -19,17 +19,17 @@ module.exports = (grunt) ->
           browserifyOptions: {extensions: ['.coffee']}
           transform: ['coffeeify']
         files:
-          'build/js/torch.js': ['src/**/*.coffee']
+          '.build/js/torch.js': ['src/**/*.coffee']
 
     compress:
       prod:
         options:
           mode: 'tgz'
           archive: 'dist/package.tar.gz'
-        files: [{expand: true, cwd: 'out', src: ['**']}]
+        files: [{expand: true, cwd: '.out', src: ['**']}]
 
     clean:
-      temp: ['out']
+      temp: ['.out']
       dist: ['dist']
 
     stylus:
@@ -38,15 +38,15 @@ module.exports = (grunt) ->
           paths: ['style/imports']
           import: ['nib', 'functions', 'variables']
         files:
-          'build/css/torch.css': ['style/**/!(imports)/*.styl']
+          '.build/css/torch.css': ['style/**/!(imports)/*.styl']
 
     copy:
       dev:
-        files: [{expand: true, cwd: 'assets', src: ['**'], dest: 'build'}]
+        files: [{expand: true, cwd: 'assets', src: ['**'], dest: '.build'}]
       prod:
         files: [
-          {expand: true, cwd: 'assets', src: ['**'], dest: 'out'}
-          {src: 'build/css/torch.css', dest: 'out/css/torch.css'}
+          {expand: true, cwd: 'assets', src: ['**'], dest: '.out'}
+          {src: '.build/css/torch.css', dest: '.out/css/torch.css'}
         ]
 
     notify:
@@ -62,7 +62,7 @@ module.exports = (grunt) ->
     uglify:
       prod:
         files:
-          'out/js/torch.js': ['build/js/torch.js']
+          '.out/js/torch.js': ['.build/js/torch.js']
 
     watch:
       code:

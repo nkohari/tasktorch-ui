@@ -2,8 +2,10 @@ _                = require 'lodash'
 React            = require 'react'
 Observe          = require 'framework/mixins/Observe'
 StackType        = require 'framework/enums/StackType'
+Frame            = React.createFactory(require 'ui/common/Frame')
+List             = React.createFactory(require 'ui/common/List')
 StackSidebarItem = React.createFactory(require 'ui/screens/workspace/sidebar/StackSidebarItem')
-{section, header, ul} = React.DOM
+{div}            = React.DOM
 
 MyStackList = React.createClass {
 
@@ -20,10 +22,9 @@ MyStackList = React.createClass {
     backlogStacks = _.map @getBacklogStacks(), (stack) =>
       StackSidebarItem {key: "stack-#{stack.id}", stack}
 
-    section {className: 'me group'}, [
-      header {key: 'header'}, ['My Work']
-      ul {key: 'items'}, specialStacks.concat(backlogStacks)
-    ]
+    Frame {className: 'me group'},
+      div {className: 'header'}, 'My Work'
+      List {}, specialStacks.concat(backlogStacks)
 
   getSpecialStack: (type) ->
     _.find @props.stacks, (stack) -> stack.type == type

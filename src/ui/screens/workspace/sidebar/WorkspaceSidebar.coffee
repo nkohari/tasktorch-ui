@@ -38,16 +38,12 @@ WorkspaceSidebar = React.createClass {
   # Rendering ---------------------------------------------------------------------
 
   render: ->
-    
-    groups = [
-      MyStackList {key: 'me', stacks: @state.stacks}
-    ].concat _.map @state.teams, (team) =>
+
+    myStacks = MyStackList {key: 'me', stacks: @state.stacks}
+    teamStacks = _.map @state.teams, (team) =>
       TeamStackList {key: "team-#{team.id}", team}
 
-    Frame {@isReady, className: 'workspace sidebar'}, [
-      CreateCardButton {key: 'create-card-button'}
-      div {key: 'menu', className: 'menu'}, groups
-    ]
+    Frame {@isReady, className: 'workspace sidebar'}, [myStacks].concat(teamStacks)
 
   #--------------------------------------------------------------------------------
 }

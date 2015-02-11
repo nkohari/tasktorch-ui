@@ -1,9 +1,9 @@
 _                  = require 'lodash'
-dom                = require 'util/dom'
+dom                = require 'framework/util/dom'
 React              = require 'react/addons'
 Router             = require 'react-router'
 SortableList       = require 'framework/mixins/SortableList'
-WorkspaceUrl       = require 'framework/urls/WorkspaceUrl'
+Url                = require 'framework/Url'
 StackPanel         = React.createFactory(require 'ui/panels/stack/StackPanel')
 CardPanel          = React.createFactory(require 'ui/panels/card/CardPanel')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
@@ -23,7 +23,7 @@ WorkspacePanelList = React.createClass {
 
   render: ->
 
-    url = new WorkspaceUrl(this)
+    url = new Url(this)
     panels = _.map url.panels, (key) => @createPanel(key)
 
     CSSTransitionGroup {
@@ -50,7 +50,7 @@ WorkspacePanelList = React.createClass {
     {id}
 
   onReorder: (panel, toPosition) ->
-    url = new WorkspaceUrl(this)
+    url = new Url(this)
     url.movePanelToPosition(panel.id, toPosition)
     props = url.makeLinkProps()
     @transitionTo(props.to, props.params, props.query)

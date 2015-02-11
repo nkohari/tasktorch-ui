@@ -1,6 +1,6 @@
 _           = require 'lodash'
 React       = require 'react/addons'
-dom         = require 'util/dom'
+dom         = require 'framework/util/dom'
 {div, span} = React.DOM
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
 

@@ -1,6 +1,6 @@
 moment     = require 'moment'
 React      = require 'react'
-mergeProps = require 'util/mergeProps'
+mergeProps = require 'framework/util/mergeProps'
 {span}     = React.DOM
 
 Time = React.createClass {
