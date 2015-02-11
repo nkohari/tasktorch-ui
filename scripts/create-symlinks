@@ -1,0 +1,10 @@
+#!/bin/bash
+
+ROOT=`pwd`
+
+ln -snf $ROOT/src/data      ./node_modules/data
+ln -snf $ROOT/src/events    ./node_modules/events
+ln -snf $ROOT/src/framework ./node_modules/framework
+ln -snf $ROOT/src/requests  ./node_modules/requests
+ln -snf $ROOT/src/ui        ./node_modules/ui
+ln -snf $ROOT/src/util      ./node_modules/util

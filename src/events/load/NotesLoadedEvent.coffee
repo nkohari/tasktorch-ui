@@ -1,5 +1,5 @@
 Event = require 'framework/Event'
-Note  = require 'models/Note'
+Note  = require 'data/models/Note'
 
 class NotesLoadedEvent extends Event
 

@@ -2,7 +2,7 @@ _                = require 'lodash'
 superagent       = require 'superagent'
 Header           = require 'framework/enums/Header'
 Request          = require 'framework/Request'
-Note             = require 'models/Note'
+Note             = require 'data/models/Note'
 NoteCreatedEvent = require 'events/create/NoteCreatedEvent'
 
 class CreateNoteRequest extends Request

@@ -9,10 +9,8 @@ class LoadCardRequest extends Request
   constructor: (@cardid) ->
 
   execute: (context, eventBus) ->
-    superagent.get "/api/#{context.orgid}/cards/#{@cardid}?expand=kind", (res) =>
+    superagent.get "/api/#{context.orgid}/cards/#{@cardid}", (res) =>
       {card} = res.body
-      kinds  = _.values(res.body.related.kinds)
       eventBus.publish new CardsLoadedEvent([card])
-      eventBus.publish new KindsLoadedEvent(kinds)
 
 module.exports = LoadCardRequest

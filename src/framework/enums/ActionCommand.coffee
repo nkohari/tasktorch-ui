@@ -1,4 +1,4 @@
-arrayEnum = require 'common/util/arrayEnum'
+arrayEnum = require 'util/arrayEnum'
 
 module.exports = ActionCommand = arrayEnum [
   'ChangeStatus'

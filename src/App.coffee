@@ -1,12 +1,12 @@
 React            = require 'react'
 Router           = require 'react-router'
 EventBusFactory  = require './EventBusFactory'
-Shell            = require './shell/Shell'
-LoginScreen      = require './screens/login/LoginScreen'
-CreateUserScreen = require './screens/login/CreateUserScreen'
-WorkspaceScreen  = require './screens/workspace/WorkspaceScreen'
-BigPictureScreen = require './screens/bigpicture/BigPictureScreen'
-StrategyScreen   = require './screens/strategy/StrategyScreen'
+Shell            = require './ui/shell/Shell'
+LoginScreen      = require './ui/screens/login/LoginScreen'
+CreateUserScreen = require './ui/screens/createUser/CreateUserScreen'
+WorkspaceScreen  = require './ui/screens/workspace/WorkspaceScreen'
+BigPictureScreen = require './ui/screens/bigPicture/BigPictureScreen'
+StrategyScreen   = require './ui/screens/strategy/StrategyScreen'
 Route            = React.createFactory(Router.Route)
 
 window.AppContext = {}
