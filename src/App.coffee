@@ -12,6 +12,10 @@ Route            = React.createFactory(Router.Route)
 window.AppContext = {}
 window.EventBus = EventBusFactory.create()
 
+unless process.env.NODE_ENV == 'production'
+  window.onerror = (message, file, line, col, error) ->
+    console.error(message, "from", error.stack)
+
 routes = [
   Route {name: 'login', key: 'login', path: 'login', handler: LoginScreen}
   Route {name: 'createuser', key: 'createuser', path: 'createuser', handler: CreateUserScreen}

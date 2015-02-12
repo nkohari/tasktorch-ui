@@ -1,4 +1,5 @@
-React                      = require 'react'
+_ = require 'lodash'
+React                      = require 'react/addons'
 Router                     = require 'react-router'
 Observe                    = require 'framework/mixins/Observe'
 Url                        = require 'framework/Url'
@@ -7,8 +8,10 @@ JoinUserChannelRequest     = require 'requests/JoinUserChannelRequest'
 LoadCurrentUserRequest     = require 'requests/LoadCurrentUserRequest'
 LoadMyOrgsRequest          = require 'requests/LoadMyOrgsRequest'
 Frame                      = React.createFactory(require 'ui/common/Frame')
-ShellHeader                = React.createFactory(require 'ui/shell/ShellHeader')
+ShellHeader                = React.createFactory(require 'ui/shell/header/ShellHeader')
+ShellFooter                = React.createFactory(require 'ui/shell/footer/ShellFooter')
 RouteHandler               = React.createFactory(Router.RouteHandler)
+CSSTransitionGroup         = React.createFactory(React.addons.CSSTransitionGroup)
 
 Shell = React.createClass {
 
@@ -40,9 +43,14 @@ Shell = React.createClass {
   render: ->
     
     url = new Url(this)
+    console.log _.last(@getRoutes()).name
+    console.log url.screen
+
     Frame {@isReady, className: 'shell'},
       ShellHeader  {currentOrg: @state.currentOrg, currentUser: @state.currentUser}
-      RouteHandler {sidebar: url.sidebar}
+      CSSTransitionGroup {component: 'div', className: 'shell-main', transitionName: 'navigate'},
+        RouteHandler {key: url.screen, currentOrg: @state.currentOrg, currentUser: @state.currentUser, sidebar: url.sidebar}
+      ShellFooter  {currentOrg: @state.currentOrg, currentUser: @state.currentUser}
     
 }
 

@@ -1,5 +1,6 @@
-button
+button, a.button
   display: inline-block
+  vertical-align: top
   height: 32px
   font-size: 14px
   padding: 6px 10px
@@ -10,18 +11,19 @@ button
   background: linear-gradient(to bottom, $button-highlight-color, $button-lowlight-color)
   outline: none !important
   box-shadow: 0 1px 0 shadow(10%)
+  text-decoration: none
   
   &.small
     height: 24px
     font-size: 12px
     padding: 2px 4px
-    .icon
+    .iconc
       font-size: 24px
       width: 18px
   
   &:active, &.active
     color: $dark-black
-    background: linear-gradient(to bottom, $button-lowlight-color, $button-highlight-color)
+    background: $button-normal-color
     box-shadow: inset 0px 0px $shadow-blur $shadow-color
     
   &:hover

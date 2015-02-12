@@ -1,13 +1,14 @@
 React             = require 'react'
 Router            = require 'react-router'
 Observe           = require 'framework/mixins/Observe'
+PropTypes         = require 'framework/PropTypes'
 CreateCardRequest = require 'requests/CreateCardRequest'
 Url               = require 'framework/Url'
 Button            = React.createFactory(require 'ui/common/Button')
 
-CreateCardButton = React.createClass {
+ComposeButton = React.createClass {
 
-  displayName: 'CreateCardButton'
+  displayName: 'ComposeButton'
 
   mixins: [
     Observe()
@@ -15,8 +16,11 @@ CreateCardButton = React.createClass {
     Router.Navigation
   ]
 
+  propTypes:
+    currentOrg: PropTypes.Org
+
   render: ->
-    Button {text: 'Create Card', onClick: @handleClick}
+    Button {text: 'Compose', onClick: @handleClick}
 
   # TODO: Support different card kinds
   handleClick: ->
@@ -29,4 +33,4 @@ CreateCardButton = React.createClass {
 
 }
 
-module.exports = CreateCardButton
+module.exports = ComposeButton

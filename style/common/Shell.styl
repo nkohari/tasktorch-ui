@@ -17,10 +17,10 @@ body
   width: 100%
   margin: 0
   padding: 0
-  background: $steel-blue
   overflow: hidden
   text-rendering: optimizeLegibility
   -webkit-font-smoothing: subpixel-antialiased
+  user-select: none
   
 .shell
   height: 100%
@@ -29,14 +29,66 @@ body
   padding: 0
   overflow: hidden
 
+.shell-main
+  overflow: hidden
+  margin: 0
+  padding: 0
+  padding-top: $shell-header-height
+  padding-bottom: $shell-footer-height
+  height: 100%
+
 .shell-header
   position: absolute
   top: 0
   left: 0
   height: $shell-header-height
   width: 100%
+  background: linear-gradient(to bottom, $steel-normal-color, $steel-lowlight-color)
+  border-bottom: 1px solid $panel-border-color
   
-  .sidebar-toggle
+  .left-corner
     position: absolute
-    top: 0
-    left: 0
+    top: 4px
+    left: 10px
+ 
+  .right-corner
+    position: absolute
+    top: 4px
+    right: 10px
+    .icon
+      display: inline-block
+      vertical-align: top
+      line-height: 37px
+      margin-right: 4px
+      color: $subtle-text-color
+    .avatar
+      display: inline-block
+      vertical-align: top
+      width: 32px
+      height: 32px
+      padding: 2px
+      background: $white
+      border: 1px solid $steel-border-color
+      border-radius: 50%
+  
+  button, a.button
+    font-weight: $bold-font-weight
+
+  .sidebar-toggle
+    padding: 6px
+    .icon
+      font-size: 40px
+      
+  .search
+    padding: 6px
+    .icon
+      font-size: 40px
+
+.shell-footer
+  position: absolute
+  bottom: 0
+  left: 0
+  height: $shell-footer-height
+  width: 100%
+  background: linear-gradient(to bottom, $steel-normal-color, $steel-lowlight-color)
+  border-top: 1px solid $panel-border-color

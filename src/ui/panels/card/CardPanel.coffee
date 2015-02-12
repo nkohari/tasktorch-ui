@@ -10,15 +10,13 @@ CardDisplayedEvent = require 'events/display/CardDisplayedEvent'
 KindDisplayedEvent = require 'events/display/KindDisplayedEvent'
 Frame              = React.createFactory(require 'ui/common/Frame')
 Icon               = React.createFactory(require 'ui/common/Icon')
-Link               = React.createFactory(require 'ui/common/Link')
+CardCloseLink      = React.createFactory(require 'ui/panels/card/CardCloseLink')
 CardHeader         = React.createFactory(require 'ui/panels/card/CardHeader')
 CardBody           = React.createFactory(require 'ui/panels/card/CardBody')
 CardFooter         = React.createFactory(require 'ui/panels/card/CardFooter')
 {div}              = React.DOM
 
 CardPanel = React.createClass {
-
-  # Spec --------------------------------------------------------------------------
 
   displayName: 'CardPanel'
 
@@ -31,15 +29,11 @@ CardPanel = React.createClass {
     Router.State
   ]
 
-  # Lifecycle ---------------------------------------------------------------------
-
   componentDidMount: ->
     @publish new CardDisplayedEvent(@props.cardid)
 
   componentWillReceiveProps: (newProps) ->
     @publish new CardDisplayedEvent(newProps.cardid) if @props.cardid != newProps.cardid
-
-  # State -------------------------------------------------------------------------
 
   sync: (stores) ->
     card = stores.cards.get(@props.cardid)
@@ -48,8 +42,6 @@ CardPanel = React.createClass {
 
   isReady: ->
     @state.card? and @state.kind?
-
-  # Rendering ---------------------------------------------------------------------
 
   render: ->
 
@@ -61,24 +53,11 @@ CardPanel = React.createClass {
       isReady:   @isReady
     }
 
-    Frame props, [
-      @makeCloseLink()
-      CardHeader {key: 'header', card: @state.card, kind: @state.kind}
-      CardBody   {key: 'body',   card: @state.card, kind: @state.kind}
-      CardFooter {key: 'footer', card: @state.card}
-    ]
-
-  # Utility -----------------------------------------------------------------------
-
-  makeCloseLink: ->
-    url = new Url(this)
-    url.removeCard(@props.cardid)
-    props = _.extend {key: 'close', className: 'close'}, url.makeLinkProps()
-    Link props, [
-      Icon {key: 'close', name: 'close'}
-    ]
-
-  #--------------------------------------------------------------------------------
+    Frame props,
+      CardCloseLink {card: @state.card}
+      CardHeader    {card: @state.card, kind: @state.kind}
+      CardBody      {card: @state.card, kind: @state.kind}
+      CardFooter    {card: @state.card}
 
 }
 

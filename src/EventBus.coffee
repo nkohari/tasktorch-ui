@@ -44,10 +44,7 @@ class EventBus
       _.each @stores, (store) =>
         if store[func]?
           console.debug("#{store.displayName}: receiving event")
-          try
-            store[func].apply(store, [@currentEvent])
-          catch err
-            console.error(err.stack)
+          store[func].apply(store, [@currentEvent])
       console.groupEnd()
 
 module.exports = EventBus

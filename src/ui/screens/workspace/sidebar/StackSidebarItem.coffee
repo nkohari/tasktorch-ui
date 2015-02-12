@@ -1,12 +1,13 @@
-_            = require 'lodash'
-React        = require 'react'
-Router       = require 'react-router'
-PropTypes    = require 'framework/PropTypes'
-StackType    = require 'framework/enums/StackType'
-Url          = require 'framework/Url'
-Icon         = React.createFactory(require 'ui/common/Icon')
-Link         = React.createFactory(require 'ui/common/Link')
-{li, span}   = React.DOM
+_         = require 'lodash'
+React     = require 'react'
+Router    = require 'react-router'
+PropTypes = require 'framework/PropTypes'
+StackType = require 'framework/enums/StackType'
+Url       = require 'framework/Url'
+Icon      = React.createFactory(require 'ui/common/Icon')
+Link      = React.createFactory(require 'ui/common/Link')
+ListItem  = React.createFactory(require 'ui/common/ListItem')
+Text      = React.createFactory(require 'ui/common/Text')
 
 StackSidebarItem = React.createClass {
 
@@ -22,13 +23,11 @@ StackSidebarItem = React.createClass {
   # Rendering ---------------------------------------------------------------------
 
   render: ->
-    li {className: 'sidebar-item'}, [
-      Link @makeLinkProps(), [
-        Icon {key: 'icon', name: "stack-#{@props.stack.type.toLowerCase()}"}
-        span {key: 'name', className: 'name'}, [@getStackName()]
-        span {key: 'count', className: 'count'}, [@props.stack.cards.length]
-      ]
-    ]
+    ListItem {className: 'sidebar-item'},
+      Link @makeLinkProps(),
+        Icon {name: "stack-#{@props.stack.type.toLowerCase()}"}
+        Text {className: 'name'}, @getStackName()
+        Text {className: 'count'}, @props.stack.cards.length if @props.stack.cards.length > 0
 
   # Utility -----------------------------------------------------------------------
 

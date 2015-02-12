@@ -1,7 +1,7 @@
 _       = require 'lodash'
 React   = require 'react'
 Observe = require 'framework/mixins/Observe'
-{div}   = React.DOM
+Frame   = React.createFactory(require 'ui/common/Frame')
 
 BigPictureScreen = React.createClass {
 
@@ -12,8 +12,8 @@ BigPictureScreen = React.createClass {
   ]
 
   render: ->
-    div {className: 'bigpicture screen'}, [
-    ]
+
+    Frame {className: 'screen'}
 
 }
 

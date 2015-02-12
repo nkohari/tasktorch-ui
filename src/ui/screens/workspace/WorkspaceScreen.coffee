@@ -13,18 +13,23 @@ WorkspaceScreen = React.createClass {
   displayName: 'WorkspaceScreen'
 
   propTypes:
-    sidebar: PropTypes.bool
+    currentOrg:  PropTypes.Org
+    currentUser: PropTypes.User
+    sidebar:     PropTypes.bool
 
   mixins: [Observe()]
 
   componentDidMount: ->
     @execute new LoadAllKindsRequest()
 
+  isReady: ->
+    @props.currentUser? and @props.currentOrg?
+
   render: ->
 
-    Frame {className: 'workspace screen'},
-      CSSTransitionGroup {component: 'div', transitionName: 'slide'},
-        WorkspaceSidebar {} if @props.sidebar
+    Frame {@isReady, className: 'screen'},
+      CSSTransitionGroup {component: 'div', className: 'sidebar-container', transitionName: 'slide'},
+        WorkspaceSidebar {currentOrg: @props.currentOrg, currentUser: @props.currentUser} if @props.sidebar
       WorkspacePanelList {}
 
 }

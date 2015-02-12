@@ -43,6 +43,12 @@ PropTypes.Note = PropTypes.model {
   card: PropTypes.id
 }
 
+PropTypes.Org = PropTypes.model {
+  name:    PropTypes.string
+  leaders: PropTypes.idArray
+  members: PropTypes.idArray
+}
+
 PropTypes.Stack = PropTypes.model {
   org:   PropTypes.id
   name:  PropTypes.string
