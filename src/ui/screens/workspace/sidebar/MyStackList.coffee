@@ -14,7 +14,7 @@ MyStackList = React.createClass {
   render: ->
 
     Frame {className: 'me group'},
-      div {className: 'header'}, 'My Work'
+      div {className: 'header'}, 'My Stacks'
       List {}, @renderItems()
 
   renderItems: ->
@@ -26,9 +26,9 @@ MyStackList = React.createClass {
     return [] unless queue? and inbox? and drafts?
 
     specialStacks = [
-      StackSidebarItem {key: 'queue',  stack: queue,  hotkey: 'q'}
-      StackSidebarItem {key: 'inbox',  stack: inbox,  hotkey: 'i'} 
-      StackSidebarItem {key: 'drafts', stack: drafts, hotkey: 'd'}
+      StackSidebarItem {key: 'inbox',  stack: inbox}
+      StackSidebarItem {key: 'queue',  stack: queue}
+      StackSidebarItem {key: 'drafts', stack: drafts}
     ]
 
     backlogStacks = _.map @getBacklogStacks(), (stack) =>

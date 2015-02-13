@@ -12,7 +12,7 @@ SearchButton = React.createClass {
     currentUser: PropTypes.User
 
   render: ->
-    Button {className: 'search', icon: 'search'}
+    Button {className: 'search icon-only', icon: 'search'}
 
 }
 

@@ -3,14 +3,20 @@ dom                = require 'framework/util/dom'
 React              = require 'react/addons'
 Router             = require 'react-router'
 SortableList       = require 'framework/mixins/SortableList'
+PropTypes          = require 'framework/PropTypes'
 Url                = require 'framework/Url'
 StackPanel         = React.createFactory(require 'ui/panels/stack/StackPanel')
 CardPanel          = React.createFactory(require 'ui/panels/card/CardPanel')
+FollowingPanel     = React.createFactory(require 'ui/panels/following/FollowingPanel')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
 
 WorkspacePanelList = React.createClass {
 
   displayName: 'WorkspacePanelList'
+
+  propTypes:
+    currentOrg:  PropTypes.Org
+    currentUser: PropTypes.User
 
   mixins: [
     Router.Navigation
@@ -32,8 +38,9 @@ WorkspacePanelList = React.createClass {
   createPanel: (key) ->
     [type, id] = key.split(':')
     switch type
-      when 's' then StackPanel {key: "stack-#{id}", stackid: id, 'data-itemid': "s:#{id}"}
-      when 'c' then CardPanel  {key: "stack-#{id}", cardid: id, 'data-itemid': "c:#{id}"}
+      when 's' then StackPanel     {key: "stack-#{id}", stackid: id, 'data-itemid': "s:#{id}"}
+      when 'c' then CardPanel      {key: "card-#{id}",  cardid: id,  'data-itemid': "c:#{id}"}
+      when 'f' then FollowingPanel {key: 'following', currentUser: @props.currentUser, 'data-itemid': 'f'}
       else null
 
   getSortableList: ->

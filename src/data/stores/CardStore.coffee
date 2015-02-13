@@ -1,11 +1,15 @@
-_                       = require 'lodash'
-Store                   = require 'framework/Store'
-LoadCardRequest         = require 'requests/LoadCardRequest'
-LoadCardsInStackRequest = require 'requests/LoadCardsInStackRequest'
+_                          = require 'lodash'
+Store                      = require 'framework/Store'
+LoadCardRequest            = require 'requests/LoadCardRequest'
+LoadCardsInStackRequest    = require 'requests/LoadCardsInStackRequest'
+LoadMyFollowedCardsRequest = require 'requests/LoadMyFollowedCardsRequest'
 
 class CardStore extends Store
 
   displayName: 'CardStore'
+
+  getMyFollowedCards: (userid) ->
+    _.filter @items, (card) -> _.contains(card.followers, userid)
 
   onCardDisplayed: (event) ->
     if @get(event.cardid)?
@@ -18,6 +22,9 @@ class CardStore extends Store
       @announce()
     else
       @execute new LoadCardsInStackRequest(event.stackid)
+
+  onMyFollowedCardsDisplayed: (event) ->
+    @execute new LoadMyFollowedCardsRequest()
 
   onCardsLoaded: (event) ->
     @add(event.cards)

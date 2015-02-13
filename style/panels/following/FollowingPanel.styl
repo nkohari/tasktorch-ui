@@ -1,0 +1,43 @@
+.following
+  width: $following-panel-width
+  min-width: $following-panel-width
+  border: 1px solid $panel-border-color
+  background: $panel-background-color
+  z-index: 100
+      
+  .cards
+    overflow-x: hidden
+    overflow-y: auto
+    height: 100%
+    margin: 0
+    padding: $following-card-margin
+
+@keyframes following-enter
+  0%
+    opacity: 0
+    margin-left: -($following-panel-width + $panel-margin)
+    margin-right: $panel-margin
+  50%
+    opacity: 0
+    margin-left: -($following-panel-width + $panel-margin)
+    margin-right: $following-panel-width + $panel-margin
+  100%
+    opacity: 1
+    margin-left: 0
+    margin-right: $panel-margin
+
+.following.slide-enter
+  animation: following-enter 300ms ease-out
+  z-index: 99
+
+@keyframes following-leave
+  from
+    opacity: 1
+    margin-left: 0
+  to
+    opacity: 0
+    margin-left: -($following-panel-width + $panel-margin)
+
+.following.slide-leave
+  animation: following-leave 150ms linear
+  z-index: 99

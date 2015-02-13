@@ -3,6 +3,7 @@
   background: $panel-background-color
   width: $card-panel-width
   min-width: $card-panel-width
+  z-index: 100
 
   .body
     position: relative
@@ -52,6 +53,7 @@
 
 .card.slide-enter
   animation: card-enter 500ms ease-out
+  z-index: 99
 
 @keyframes card-leave
   from
@@ -63,3 +65,4 @@
 
 .card.slide-leave
   animation: card-leave 250ms linear
+  z-index: 99

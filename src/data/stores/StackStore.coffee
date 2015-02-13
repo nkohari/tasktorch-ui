@@ -7,6 +7,9 @@ class StackStore extends Store
 
   displayName: 'StackStore'
 
+  getSpecialStackByUser: (userid, type) ->
+    _.find @items, (stack) -> stack.user? and stack.user == userid and stack.type == type
+
   getAllByUser: (userid) ->
     _.filter @items, (stack) -> stack.user? and stack.user == userid
 

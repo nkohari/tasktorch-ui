@@ -1,15 +1,12 @@
-_           = require 'lodash'
-React       = require 'react'
-Router      = require 'react-router'
-PropTypes   = require 'framework/PropTypes'
-Url         = require 'framework/Url'
-Button      = React.createFactory(require 'ui/common/Button')
-Frame       = React.createFactory(require 'ui/common/Frame')
-Icon        = React.createFactory(require 'ui/common/Icon')
-Link        = React.createFactory(require 'ui/common/Link')
-Navigation  = React.createFactory(require 'ui/shell/header/Navigation')
-LeftCorner  = React.createFactory(require 'ui/shell/header/LeftCorner')
-RightCorner = React.createFactory(require 'ui/shell/header/RightCorner')
+_              = require 'lodash'
+React          = require 'react'
+Router         = require 'react-router'
+PropTypes      = require 'framework/PropTypes'
+Url            = require 'framework/Url'
+Frame          = React.createFactory(require 'ui/common/Frame')
+Navigation     = React.createFactory(require 'ui/shell/header/Navigation')
+TopLeftCorner  = React.createFactory(require 'ui/shell/header/TopLeftCorner')
+TopRightCorner = React.createFactory(require 'ui/shell/header/TopRightCorner')
 
 ShellHeader = React.createClass {
 
@@ -24,9 +21,9 @@ ShellHeader = React.createClass {
   render: ->
 
     Frame {className: 'shell-header'},
-      LeftCorner {currentOrg: @props.currentOrg, currentUser: @props.currentUser}
+      TopLeftCorner {currentOrg: @props.currentOrg, currentUser: @props.currentUser}
       Navigation {}
-      RightCorner {currentUser: @props.currentUser}
+      TopRightCorner {currentUser: @props.currentUser}
 
 }
 

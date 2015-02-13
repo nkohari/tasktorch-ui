@@ -15,10 +15,10 @@ SidebarToggleButton = React.createClass {
 
     url = new Url(this)
 
-    classes = ['sidebar-toggle', 'button']
+    classes = ['button', 'icon-only']
     classes.push('active') if url.sidebar
 
-    url.sidebar = !url.sidebar
+    url.toggleSidebar()
     props = _.extend url.makeLinkProps(), {
       className: classes.join(' ')
       hotkey: 's'

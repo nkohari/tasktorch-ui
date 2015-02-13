@@ -34,6 +34,7 @@ body
   margin: 0
   padding: 0
   height: 100%
+  background: transparent url('/img/watermark.png') no-repeat center
 
 .shell-header
   position: absolute
@@ -45,12 +46,12 @@ body
   background: linear-gradient(to bottom, $steel-normal-color, $steel-lowlight-color)
   border-bottom: 1px solid $panel-border-color
   
-  .left-corner
+  .top-left
     position: absolute
     top: 4px
     left: 10px
  
-  .right-corner
+  .top-right
     position: absolute
     top: 4px
     right: 10px
@@ -70,19 +71,6 @@ body
       border: 1px solid $steel-border-color
       border-radius: 50%
   
-  button, a.button
-    font-weight: $bold-font-weight
-
-  .sidebar-toggle
-    padding: 6px
-    .icon
-      font-size: 40px
-      
-  .search
-    padding: 6px
-    .icon
-      font-size: 40px
-
 .shell-footer
   position: absolute
   z-index: 99999
@@ -92,3 +80,29 @@ body
   width: 100%
   background: linear-gradient(to bottom, $steel-normal-color, $steel-lowlight-color)
   border-top: 1px solid $panel-border-color
+  
+  .bottom-left
+    position: absolute
+    bottom: 4px
+    left: 10px
+  
+  .bottom-right
+    position: absolute
+    bottom: 6px
+    right: 10px
+    .brand
+      font: 14px $brand-font
+      color: $subtle-text-color
+      font-weight: 600
+      text-transform: uppercase
+      text-align: right
+      .version
+        font-size: 9px
+        color: $disabled-text-color
+
+.shell-header, .shell-footer
+  button, a.button
+    font-weight: $bold-font-weight
+    &.icon-only
+      padding: 6px
+      .icon { font-size: 40px }

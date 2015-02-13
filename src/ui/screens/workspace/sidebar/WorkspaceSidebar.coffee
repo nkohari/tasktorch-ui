@@ -1,12 +1,14 @@
-_                      = require 'lodash'
-React                  = require 'react'
-Observe                = require 'framework/mixins/Observe'
-PropTypes              = require 'framework/PropTypes'
-MyStacksDisplayedEvent = require 'events/display/MyStacksDisplayedEvent'
-MyTeamsDisplayedEvent  = require 'events/display/MyTeamsDisplayedEvent'
-Frame                  = React.createFactory(require 'ui/common/Frame')
-StackBrowser           = React.createFactory(require 'ui/screens/workspace/sidebar/StackBrowser')
-{div, ul}              = React.DOM
+_                             = require 'lodash'
+React                         = require 'react'
+Observe                       = require 'framework/mixins/Observe'
+PropTypes                     = require 'framework/PropTypes'
+MyStacksDisplayedEvent        = require 'events/display/MyStacksDisplayedEvent'
+MyFollowedCardsDisplayedEvent = require 'events/display/MyFollowedCardsDisplayedEvent'
+MyTeamsDisplayedEvent         = require 'events/display/MyTeamsDisplayedEvent'
+Frame                         = React.createFactory(require 'ui/common/Frame')
+FollowingSidebarItem   = React.createFactory(require 'ui/screens/workspace/sidebar/FollowingSidebarItem')
+StackBrowser                  = React.createFactory(require 'ui/screens/workspace/sidebar/StackBrowser')
+{div, ul}                     = React.DOM
 
 WorkspaceSidebar = React.createClass {
 
@@ -33,7 +35,8 @@ WorkspaceSidebar = React.createClass {
   render: ->
 
     Frame {@isReady, className: 'workspace sidebar'},
-      StackBrowser {currentUser: @props.currentUser, stacks: @state.stacks, teams: @state.teams}
+      FollowingSidebarItem {currentUser: @props.currentUser}
+      StackBrowser         {currentUser: @props.currentUser, stacks: @state.stacks, teams: @state.teams}
 
 }
 

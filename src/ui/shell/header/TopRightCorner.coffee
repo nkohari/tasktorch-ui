@@ -7,9 +7,9 @@ Avatar    = React.createFactory(require 'ui/common/Avatar')
 Frame     = React.createFactory(require 'ui/common/Frame')
 Icon      = React.createFactory(require 'ui/common/Icon')
 
-RightCorner = React.createClass {
+TopRightCorner = React.createClass {
 
-  displayName: 'RightCorner'
+  displayName: 'TopRightCorner'
 
   mixins: [Router.State]
 
@@ -18,11 +18,11 @@ RightCorner = React.createClass {
 
   render: ->
 
-    Frame {className: 'right-corner'},
+    Frame {className: 'top-right'},
       Icon {name: 'settings'}
       Icon {name: 'logout'}
       Avatar {user: @props.currentUser}
 
 }
 
-module.exports = RightCorner
+module.exports = TopRightCorner

@@ -8,9 +8,9 @@ ComposeButton       = React.createFactory(require 'ui/shell/header/ComposeButton
 SidebarToggleButton = React.createFactory(require 'ui/shell/header/SidebarToggleButton')
 SearchButton        = React.createFactory(require 'ui/shell/header/SearchButton')
 
-LeftCorner = React.createClass {
+TopLeftCorner = React.createClass {
 
-  displayName: 'LeftCorner'
+  displayName: 'TopLeftCorner'
 
   mixins: [Router.State]
 
@@ -20,11 +20,11 @@ LeftCorner = React.createClass {
 
   render: ->
 
-    Frame {className: 'left-corner'},
+    Frame {className: 'top-left'},
       SidebarToggleButton {}
       ComposeButton {currentOrg: @props.currentOrg}
       SearchButton {currentOrg: @props.currentOrg, currentUser: @props.currentUser}
 
 }
 
-module.exports = LeftCorner
+module.exports = TopLeftCorner

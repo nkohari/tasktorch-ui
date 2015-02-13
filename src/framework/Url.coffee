@@ -3,6 +3,7 @@ _ = require 'lodash'
 keyFor =
   card:  (id) -> "c:#{id}"
   stack: (id) -> "s:#{id}"
+  following: 'f'
 
 class Url
 
@@ -28,6 +29,12 @@ class Url
   removeStack: (stackid) ->
     @panels = _.without(@panels, keyFor.stack(stackid))
 
+  toggleStack: (stackid) ->
+    if @isStackActive(stackid)
+      @removeStack(stackid)
+    else
+      @addStack(stackid)
+
   isStackActive: (stackid) ->
     _.contains(@panels, keyFor.stack(stackid))
 
@@ -42,12 +49,36 @@ class Url
   removeCard: (cardid) ->
     @panels = _.without(@panels, keyFor.card(cardid))
 
+  toggleCard: (cardid) ->
+    if @isCardActive(cardid)
+      @removeCard(cardid)
+    else
+      @addCard(cardid)
+
   isCardActive: (cardid) ->
     _.contains(@panels, keyFor.card(cardid))
 
   movePanelToPosition: (key, toPosition) ->
     @panels = _.without(@panels, key)
     @panels.splice(toPosition, 0, key)
+
+  toggleSidebar: ->
+    @sidebar = !@sidebar
+
+  showFollowing: ->
+    @panels.push(keyFor.following) unless @isFollowingActive()
+
+  hideFollowing: ->
+    @panels = _.without(@panels, keyFor.following)
+
+  isFollowingActive: ->
+    _.contains(@panels, keyFor.following)
+
+  toggleFollowing: ->
+    if @isFollowingActive()
+      @hideFollowing()
+    else
+      @showFollowing()
 
   makeLinkProps: (props = {}) ->
 

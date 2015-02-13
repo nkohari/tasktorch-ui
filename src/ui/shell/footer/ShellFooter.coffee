@@ -1,12 +1,11 @@
-_         = require 'lodash'
-React     = require 'react'
-Router    = require 'react-router'
-PropTypes = require 'framework/PropTypes'
-Url       = require 'framework/Url'
-Button    = React.createFactory(require 'ui/common/Button')
-Frame     = React.createFactory(require 'ui/common/Frame')
-Icon      = React.createFactory(require 'ui/common/Icon')
-Link      = React.createFactory(require 'ui/common/Link')
+_                 = require 'lodash'
+React             = require 'react'
+Router            = require 'react-router'
+PropTypes         = require 'framework/PropTypes'
+Url               = require 'framework/Url'
+Frame             = React.createFactory(require 'ui/common/Frame')
+BottomLeftCorner  = React.createFactory(require 'ui/shell/footer/BottomLeftCorner')
+BottomRightCorner = React.createFactory(require 'ui/shell/footer/BottomRightCorner')
 
 ShellFooter = React.createClass {
 
@@ -20,7 +19,9 @@ ShellFooter = React.createClass {
 
   render: ->
 
-    Frame {className: 'shell-footer'}
+    Frame {className: 'shell-footer'},
+      BottomLeftCorner  {currentOrg: @props.currentOrg, currentUser: @props.currentUser}
+      BottomRightCorner {currentOrg: @props.currentOrg, currentUser: @props.currentUser}
 
 }
 
