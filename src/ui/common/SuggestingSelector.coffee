@@ -45,28 +45,21 @@ SuggestingSelector = React.createClass {
     else
       value = span {className: 'placeholder'}, [@props.placeholder ? 'Click to select']
 
-    a {
-      className: 'trigger'
-      onClick:   @onTriggerClicked
-    }, [
+    a {className: 'trigger', onClick: @onTriggerClicked},
       value
-      span {key: 'indicator', className: 'indicator'}, [
+      span {key: 'indicator', className: 'indicator'},
         if @state.expanded then '\u25B4' else '\u25BE'
-      ]
-    ]
 
   renderDropDown: ->
 
     if @state.suggestions?
-      options = ul {key: 'options', className: 'options'}, _.map(@types, @renderOptionGroup)
+      options = ul {className: 'options'}, _.map(@types, @renderOptionGroup)
 
-    div {key: 'drop', className: 'drop'}, [
-      div {key: 'suggest', className: 'suggest'}, [
-        input {key: 'input', ref: 'input', type: 'text', value: @state.phrase, onChange: @onInputChanged}
-        span {key: 'indicator', className: 'indicator'}, ['\uD83D\uDD0D']
-      ]
+    div {className: 'drop'},
+      div {className: 'suggest'},
+        input {ref: 'input', type: 'text', value: @state.phrase, onChange: @onInputChanged}
+        span {className: 'indicator'}, '\uD83D\uDD0D'
       options
-    ]
 
   renderOptionGroup: (type) ->
 
@@ -80,9 +73,7 @@ SuggestingSelector = React.createClass {
         key:       "option-#{item.id}"
         className: classSet {option: true, selected: @state.selection?.id == item.id}
         onClick:   @onOptionSelected.bind(this, item, type)
-      }, [
-        @props.option {type: type, value: item}
-      ]
+      }, @props.option {type: type, value: item}
 
   onTriggerClicked: (event) ->
     @setState {suggestions: undefined, expanded: !@state.expanded}, =>

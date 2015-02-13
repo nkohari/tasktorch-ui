@@ -16,10 +16,9 @@ Button = React.createClass {
 
   render: ->
     props = _.omit(@props, 'icon', 'text')
-    button props, _.compact [
-      Icon {key: 'icon', name: @props.icon} if @props.icon?
-      span {key: 'text'}, @props.text
-    ]
+    button props,
+      Icon {name: @props.icon} if @props.icon?
+      span {}, @props.text
 
   onHotkeyPressed: ->
     return unless @isMounted()

@@ -13,10 +13,9 @@ TooltipOverlay = React.createClass {
       style: {left: @props.position.left, top: @props.position.top}
     }
 
-    div props, [
-      div {key: 'arrow',   className: 'arrow'}
-      div {key: 'content', className: 'content'}, [@props.text]
-    ]
+    div props,
+      div {className: 'arrow'}
+      div {className: 'content'}, @props.text
 
 }
 

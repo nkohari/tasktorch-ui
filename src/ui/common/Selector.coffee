@@ -12,12 +12,12 @@ Selector = React.createClass {
 
   render: ->
 
-    div {
-      className: classSet {selector: true, expanded: @state.expanded}
-    }, [
-      a {className: 'trigger', onClick: @onTriggerClicked}, [@getSelectedOption()]
+    classes = classSet {selector: true, expanded: @state.expanded}
+
+    div {className: classes},
+      a {className: 'trigger', onClick: @onTriggerClicked},
+        @getSelectedOption()
       @renderDropDown() if @state.expanded
-    ]
 
   renderDropDown: ->
 
@@ -28,9 +28,8 @@ Selector = React.createClass {
         onClick:   @onOptionSelected.bind(this, child.props.value)
       }, child
 
-    div {key: 'drop', className: 'drop'}, [
-      ul {key: 'options', className: 'options'}, options
-    ]
+    div {className: 'drop'},
+      ul {className: 'options'}, options
 
   getSelectedOption: ->
     _.find @props.children, (child) =>

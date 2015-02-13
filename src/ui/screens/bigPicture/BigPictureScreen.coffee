@@ -1,19 +1,15 @@
-_       = require 'lodash'
-React   = require 'react'
-Observe = require 'framework/mixins/Observe'
-Frame   = React.createFactory(require 'ui/common/Frame')
+_     = require 'lodash'
+React = require 'react'
+Frame = React.createFactory(require 'ui/common/Frame')
 
 BigPictureScreen = React.createClass {
 
   displayName: 'BigPictureScreen'
 
-  mixins: [
-    Observe()
-  ]
-
   render: ->
 
-    Frame {className: 'screen'}
+    Frame {className: 'screen'},
+      "Not yet implemented"
 
 }
 

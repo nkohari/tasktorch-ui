@@ -1,19 +1,15 @@
-_       = require 'lodash'
-React   = require 'react'
-Observe = require 'framework/mixins/Observe'
-{div}   = React.DOM
+_     = require 'lodash'
+React = require 'react'
+Frame = React.createFactory(require 'ui/common/Frame')
 
 StrategyScreen = React.createClass {
 
   displayName: 'StrategyScreen'
 
-  mixins: [
-    Observe()
-  ]
-
   render: ->
-    div {className: 'strategy screen'}, [
-    ]
+
+    Frame {className: 'screen'},
+      "Not yet implemented"
 
 }
 

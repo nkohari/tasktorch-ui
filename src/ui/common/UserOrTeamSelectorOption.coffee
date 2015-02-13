@@ -14,19 +14,18 @@ UserOrTeamSelectorOption = React.createClass {
 
   render: ->
     switch @props.type
-      when 'user' then contents = @renderUser(@props.value)
-      when 'team' then contents = @renderTeam(@props.value)
-    div {}, contents
+      when 'user' then @renderAsUser(@props.value)
+      when 'team' then @renderAsTeam(@props.value)
 
-  renderUser: (user) -> [
-    Avatar {key: 'avatar', user}
-    user.name
-  ]
+  renderAsUser: (user) ->
+    div {},
+      Avatar {user}
+      user.name
 
-  renderTeam: (team) -> [
-    Icon {key: 'icon', name: 'users'}
-    team.name
-  ]
+  renderAsTeam: (team) ->
+    div {},
+      Icon {name: 'users'}
+      team.name
 
 }
 

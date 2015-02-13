@@ -11,10 +11,10 @@ UserSelectorOption = React.createClass {
     value: PropTypes.User
 
   render: ->
-    div {}, [
-      Avatar {key: 'avatar', user: @props.value}
+
+    div {},
+      Avatar {user: @props.value}
       @props.value.name
-    ]
 
 }
 

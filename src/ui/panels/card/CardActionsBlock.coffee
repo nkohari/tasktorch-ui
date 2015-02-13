@@ -51,10 +51,9 @@ CardActionsBlock = React.createClass {
     classes = ['actions', 'block']
     classes.push('expanded') if @state.expanded
 
-    div {className: classes.join(' ')}, [
-      CardBlockHeader {key: 'header', expanded: @state.expanded, @onToggleClicked}, ['Actions']
+    div {className: classes.join(' ')},
+      CardBlockHeader {expanded: @state.expanded, @onToggleClicked}, 'Actions'
       @renderContents() if @state.expanded
-    ]
 
   renderContents: ->
 

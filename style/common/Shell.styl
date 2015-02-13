@@ -18,6 +18,7 @@ body
   margin: 0
   padding: 0
   overflow: hidden
+  background: $bright-white url('/img/bg.png')
   text-rendering: optimizeLegibility
   -webkit-font-smoothing: subpixel-antialiased
   user-select: none
@@ -30,15 +31,13 @@ body
   overflow: hidden
 
 .shell-main
-  overflow: hidden
   margin: 0
   padding: 0
-  padding-top: $shell-header-height
-  padding-bottom: $shell-footer-height
   height: 100%
 
 .shell-header
   position: absolute
+  z-index: 99999
   top: 0
   left: 0
   height: $shell-header-height
@@ -86,6 +85,7 @@ body
 
 .shell-footer
   position: absolute
+  z-index: 99999
   bottom: 0
   left: 0
   height: $shell-footer-height

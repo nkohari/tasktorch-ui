@@ -1,4 +1,3 @@
-_ = require 'lodash'
 React                      = require 'react/addons'
 Router                     = require 'react-router'
 Observe                    = require 'framework/mixins/Observe'
@@ -43,8 +42,6 @@ Shell = React.createClass {
   render: ->
     
     url = new Url(this)
-    console.log _.last(@getRoutes()).name
-    console.log url.screen
 
     Frame {@isReady, className: 'shell'},
       ShellHeader  {currentOrg: @state.currentOrg, currentUser: @state.currentUser}

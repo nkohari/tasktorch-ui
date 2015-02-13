@@ -7,10 +7,10 @@ SidebarItemGroup = React.createClass {
   displayName: 'SidebarItemGroup'
 
   render: ->
-    div {className: 'group'}, [
-      div {key: 'header', className: 'header'}, [@props.header]
-      ul {key: 'items'}, @props.children
-    ]
+
+    div {className: 'group'},
+      div {className: 'header'}, @props.header
+      ul {}, @props.children
 
 }
 
