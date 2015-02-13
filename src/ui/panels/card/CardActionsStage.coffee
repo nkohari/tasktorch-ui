@@ -20,18 +20,17 @@ CardActionsStage = React.createClass {
   mixins: [Observe()]
 
   render: ->
-    div {key: "stage-#{@props.stage.id}", className: 'stage'}, [
-      div {key: 'title', className: 'title'}, [
-        span {key: 'name', className: 'name'}, [@props.stage.name]
-        div {key: 'controls', className: 'stage-controls'}, [
+
+    div {key: "stage-#{@props.stage.id}", className: 'stage'},
+      div {className: 'title'},
+        span {className: 'name'}, @props.stage.name
+        div {className: 'stage-controls'},
           Button {
             className: 'small'
             icon:      'action'
             text:      'Add Action to Stage'
             onClick:   @createAction
           }
-        ]
-      ]
       ActionList {
         key:  'actions'
         card:  @props.card
@@ -39,7 +38,6 @@ CardActionsStage = React.createClass {
         stage: @props.stage
         ids:   @props.card.actions[@props.stage.id]
       }
-    ]
 
   createAction: ->
     @execute new CreateActionRequest(@props.card, @props.stage)

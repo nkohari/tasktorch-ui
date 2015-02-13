@@ -38,11 +38,11 @@ ActionOwner = React.createClass {
   render: ->
 
     if @state.user?
-      contents = Avatar {key: 'avatar', user: @state.user}
+      contents = Avatar {user: @state.user}
     else
-      contents = Icon {key: 'icon', name: 'assign'}
+      contents = Icon {name: 'assign'}
 
-    Link {@isReady, className: 'owner', @onClick}, [contents]
+    Link {@isReady, className: 'owner', @onClick}, contents
 
   onClick: ->
     @props.showCommand(ActionCommand.ChangeOwner)

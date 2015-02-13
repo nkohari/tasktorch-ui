@@ -13,15 +13,12 @@ CompleteCommandPanel = React.createClass {
 
   render: ->
 
-    div {className: 'complete command'}, [
-      div {className: 'confirm'}, [
+    div {className: 'complete command'},
+      div {className: 'confirm'},
         'Are you sure you want to complete this card?'
-      ]
-      div {key: 'buttons', className: 'buttons'}, [
-        Button {key: 'ok',     icon: 'ok',     text: 'OK',     onClick: @onOkButtonClicked}
-        Button {key: 'cancel', icon: 'cancel', text: 'Cancel', onClick: @context.hideCommandPanel}
-      ]
-    ]
+      div {className: 'buttons'},
+        Button {icon: 'ok',     text: 'OK',     onClick: @onOkButtonClicked}
+        Button {icon: 'cancel', text: 'Cancel', onClick: @context.hideCommandPanel}
 
   onOkButtonClicked: ->
     @execute new CompleteCardRequest(@props.card)

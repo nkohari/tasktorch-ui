@@ -27,7 +27,6 @@ CardTitle = React.createClass {
   render: ->
     div {className: 'title'}, [
       EditableText {
-        key:         'text'
         ref:         'text'
         placeholder: 'Untitled Card'
         value:       @props.card.title

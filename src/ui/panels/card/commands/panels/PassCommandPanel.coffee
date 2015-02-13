@@ -22,25 +22,21 @@ PassCommandPanel = React.createClass {
     @refs.selector.getDOMNode().focus()
 
   render: ->
-    div {className: 'handoff command'}, [
-      CommandArgument {key: 'recipient', label: 'Pass card to'}, [
+
+    div {className: 'handoff command'},
+      CommandArgument {label: 'Pass card to'},
         SuggestingSelector {
-          key:         'selector'
           ref:         'selector'
           option:      UserOrTeamSelectorOption
           placeholder: 'Choose a user or team',
           suggest:     ['user', 'team']
           onChange:    @onRecipientChanged
         }
-      ]
-      CommandArgument {key: 'message', label: 'Message', hint: '(optional)'}, [
-        EditableTextBlock {key: 'message', className: 'message', onChange: @onMessageChanged}
-      ]
-      div {key: 'buttons', className: 'buttons'}, [
-        Button {key: 'ok',     text: 'OK',     onClick: @onOkButtonClicked}
-        Button {key: 'cancel', text: 'Cancel', onClick: @context.hideCommandPanel}
-      ]
-    ]
+      CommandArgument {label: 'Message', hint: '(optional)'},
+        EditableTextBlock {className: 'message', onChange: @onMessageChanged}
+      div {className: 'buttons'},
+        Button {text: 'OK',     onClick: @onOkButtonClicked}
+        Button {text: 'Cancel', onClick: @context.hideCommandPanel}
 
   onRecipientChanged: (item, type) ->
     @setState {recipient: {item, type}}

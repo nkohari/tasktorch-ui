@@ -11,8 +11,6 @@ ListItem           = React.createFactory(require 'ui/common/ListItem')
 
 CardGoal = React.createClass {
 
-  # Spec --------------------------------------------------------------------------
-
   displayName: 'CardGoal'
 
   propTypes:
@@ -23,15 +21,11 @@ CardGoal = React.createClass {
     Router.State
   ]
 
-  # Lifecycle ---------------------------------------------------------------------
-
   componentDidMount: ->
     @publish new GoalDisplayedEvent(@props.goalid)
 
   componentWillReceiveProps: (newProps) ->
     @publish new GoalDisplayedEvent(newProps.goalid) if newProps.goalid != @props.goalid
-
-  # State -------------------------------------------------------------------------
 
   sync: (stores) ->
     {goal: stores.goals.get(@props.goalid)}
@@ -39,25 +33,16 @@ CardGoal = React.createClass {
   isReady: ->
     @state.goal?
 
-  # Rendering ---------------------------------------------------------------------
-
   render: ->
-    ListItem {@isReady, className: 'goal'}, [
-      Link @makeLinkProps(), [
-        Icon {key: 'icon', name: 'goal'}
-        @state.goal?.name
-      ]
-    ]
 
-  # Utility -----------------------------------------------------------------------
-
-  makeLinkProps: ->
     # TODO: Should link to the specific goal
     url = new Url(this)
-    params = {orgid: url.orgid}
-    {key: 'icon', to: 'strategy', params}
+    url.screen = 'strategy'
 
-  #--------------------------------------------------------------------------------
+    ListItem {@isReady, className: 'goal'},
+      Link url.makeLinkProps(),
+        Icon {name: 'goal'}
+        @state.goal?.name
 
 }
 

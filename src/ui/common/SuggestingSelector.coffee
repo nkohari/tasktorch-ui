@@ -47,7 +47,7 @@ SuggestingSelector = React.createClass {
 
     a {className: 'trigger', onClick: @onTriggerClicked},
       value
-      span {key: 'indicator', className: 'indicator'},
+      span {className: 'indicator'},
         if @state.expanded then '\u25B4' else '\u25BE'
 
   renderDropDown: ->

@@ -15,16 +15,13 @@ QueueCommandBar = React.createClass {
 
   render: ->
 
-    div {className: 'queue commands'}, [
-      div {key: 'left', className: 'button-group'}, [
-        PassCommandButton  {key: 'pass'}
-        DelayCommandButton {key: 'delay'}
-      ]
-      div {key: 'right', className: 'button-group right'}, [
-        CompleteCommandButton {key: 'complete'}
-        DeleteCommandButton   {key: 'delete'}
-      ]
-    ]
+    div {className: 'queue commands'},
+      div {className: 'button-group'},
+        PassCommandButton {}
+        DelayCommandButton {}
+      div {className: 'button-group right'},
+        CompleteCommandButton {}
+        DeleteCommandButton {}
 
 }
 

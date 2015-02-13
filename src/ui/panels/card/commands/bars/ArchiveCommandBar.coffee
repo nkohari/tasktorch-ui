@@ -17,14 +17,11 @@ ArchiveCommandBar = React.createClass {
 
   render: ->
 
-    div {className: 'archive commands'}, [
-      div {key: 'left', className: 'button-group'}, [
-        RestoreCommandButton {key: 'restore'}
-      ]
-      div {key: 'right', className: 'button-group right'}, [
-        DeleteCommandButton {key: 'delete'}
-      ]
-    ]
+    div {className: 'archive commands'},
+      div {className: 'button-group'},
+        RestoreCommandButton {}
+      div {className: 'button-group right'},
+        DeleteCommandButton {}
 
 }
 

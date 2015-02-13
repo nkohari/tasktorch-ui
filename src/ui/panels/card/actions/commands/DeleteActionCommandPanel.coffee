@@ -16,12 +16,11 @@ DeleteActionCommandPanel = React.createClass {
   mixins: [Observe()]
 
   render: ->
-    div {className: 'action-command'}, [
-      div {className: 'buttons'}, [
-        Button {key: 'confirm', className: 'small', text: 'Delete', onClick: @onDeleteClicked}
-        Button {key: 'cancel',  className: 'small', text: 'Cancel', onClick: @onCancelClicked}
-      ]
-    ]
+    
+    div {className: 'action-command'},
+      div {className: 'buttons'},
+        Button {className: 'small', text: 'Delete', onClick: @onDeleteClicked}
+        Button {className: 'small', text: 'Cancel', onClick: @onCancelClicked}
 
   onDeleteClicked: ->
     @execute new DeleteActionRequest(@props.action)

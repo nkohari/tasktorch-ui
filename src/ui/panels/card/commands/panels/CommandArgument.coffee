@@ -6,6 +6,7 @@ CommandArgument = React.createClass {
   displayName: 'CommandArgument'
 
   render: ->
+    
     div {className: 'argument'}, [
       label {key: 'label'}, [
         @props.label

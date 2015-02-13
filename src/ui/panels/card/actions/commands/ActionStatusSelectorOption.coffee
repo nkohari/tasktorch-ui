@@ -13,10 +13,10 @@ ActionStatusSelectorOption = React.createClass {
     value:  PropTypes.any
 
   render: ->
-    div {}, [
-      Icon {key: 'icon', name: @props.icon}
+
+    div {},
+      Icon {name: @props.icon}
       @props.text
-    ]
 
 }
 

@@ -9,9 +9,9 @@ SearchBox = React.createClass {
     {value: @props.value}
 
   render: ->
-    div {className: 'search'}, [
-      input {key: 'search-input', placeholder: 'Search', value: @state.value}
-    ]
+
+    div {className: 'search'},
+      input {placeholder: 'Search', value: @state.value}
 
 }
 

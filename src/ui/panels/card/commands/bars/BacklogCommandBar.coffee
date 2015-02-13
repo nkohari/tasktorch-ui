@@ -19,16 +19,13 @@ BacklogCommandBar = React.createClass {
 
   render: ->
 
-    div {className: 'backlog commands'}, [
-      div {key: 'left', className: 'button-group'}, [
-        AcceptCommandButton {key: 'accept'}
-        PassCommandButton   {key: 'pass'}
-      ]
-      div {key: 'right', className: 'button-group right'}, [
-        CompleteCommandButton {key: 'complete'}
-        DeleteCommandButton   {key: 'delete'}
-      ]
-    ]
+    div {className: 'backlog commands'},
+      div {className: 'button-group'},
+        AcceptCommandButton {}
+        PassCommandButton {}
+      div {className: 'button-group right'},
+        CompleteCommandButton {}
+        DeleteCommandButton {}
 
 }
 

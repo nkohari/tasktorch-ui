@@ -7,22 +7,16 @@ Icon      = React.createFactory(require 'ui/common/Icon')
 
 StackHeader = React.createClass {
 
-  #--------------------------------------------------------------------------------
-
   displayName: 'StackHeader'
 
   propTypes:
     stack: PropTypes.Stack
 
-  #--------------------------------------------------------------------------------
-
   render: ->
-    div {className: 'header'}, [
-      Icon {key: 'icon', name: "stack-#{@props.stack.type.toLowerCase()}"}
-      StackName {key: 'title', className: 'title', stack: @props.stack}
-    ]
 
-  #--------------------------------------------------------------------------------
+    div {className: 'header'},
+      Icon {name: "stack-#{@props.stack.type.toLowerCase()}"}
+      StackName {className: 'title', stack: @props.stack}
 
 }
 

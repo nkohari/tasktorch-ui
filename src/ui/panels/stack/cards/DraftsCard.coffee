@@ -14,17 +14,15 @@ DraftsCard = React.createClass {
     card: PropTypes.Card
 
   render: ->
-    move = @getLastMove(@props.card)
 
-    div {
-      className: 'summary'
-      style: {borderLeftColor: @props.kind.color}
-    }, [
-      div {className: 'title'}, [@props.card.title or 'Untitled Card']
-      div {className: 'subtitle'}, [
-        Time {key: 'time', time: move.time}
-      ]
-    ]
+    move = @getLastMove(@props.card)
+    style = {borderLeftColor: @props.kind.color}
+
+    div {className: 'summary', style},
+      div {className: 'title'},
+        @props.card.title or 'Untitled Card'
+      div {className: 'subtitle'},
+        Time {time: move.time}
 
   getLastMove: (card) ->
     return _.max card.moves, (move) -> moment(move.time).valueOf()

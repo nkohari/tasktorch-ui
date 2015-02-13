@@ -11,8 +11,6 @@ StackName    = React.createFactory(require 'ui/common/StackName')
 
 CardLocation = React.createClass {
 
-  # Spec --------------------------------------------------------------------------
-
   displayName: 'CardLocation'
 
   propTypes:
@@ -21,45 +19,35 @@ CardLocation = React.createClass {
 
   mixins: [Router.State]
 
-  # Rendering ---------------------------------------------------------------------
-
   render: ->
 
     if @props.card.status == CardStatus.Complete
-      child = @renderArchive()
+      contents = @renderArchive()
     else if @props.card.status == CardStatus.Deleted
-      child = @renderTrash()
+      contents = @renderTrash()
     else
-      child = @renderStackLink()
+      contents = @renderStackLink()
 
-    li {className: 'location'}, [child]
+    li {className: 'location'}, contents
 
   renderArchive: ->
-    span {key: 'status'}, [
-      Icon {key: 'icon', name: 'archive'}
+    span {},
+      Icon {name: 'archive'}
       'Archive'
-    ]
 
   renderTrash: ->
-    span {key: 'status'}, [
-      Icon {key: 'icon', name: 'trash'}
+    span {},
+      Icon {name: 'trash'}
       'Trash'
-    ]
 
   renderStackLink: ->
-    Link @makeStackLinkProps(), [
-      Icon      {key: 'icon', name: "stack-#{@props.stack.type.toLowerCase()}"}
-      StackName {key: 'name', stack: @props.stack}
-    ]
-
-  # Utility -----------------------------------------------------------------------
-
-  makeStackLinkProps: ->
+    
     url = new Url(this)
     url.addStackBefore(@props.stack.id, @props.card.id)
-    return _.extend {key: 'link'}, url.makeLinkProps()
 
-  #--------------------------------------------------------------------------------
+    Link url.makeLinkProps(), 
+      Icon      {name: "stack-#{@props.stack.type.toLowerCase()}"}
+      StackName {stack: @props.stack}
 
 }
 

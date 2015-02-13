@@ -9,8 +9,6 @@ CardCommentBox    = React.createFactory(require 'ui/panels/card/CardCommentBox')
 
 CardCommentBox = React.createClass {
 
-  #--------------------------------------------------------------------------------
-
   displayName: 'CardCommentBox'
 
   propTypes:
@@ -21,35 +19,27 @@ CardCommentBox = React.createClass {
   getInitialState: ->
     {text: undefined}
 
-  #--------------------------------------------------------------------------------
-
   render: ->
-    div {className: 'comment-box'}, [
+
+    div {className: 'comment-box'},
       input {
-        key:         'editor'
         className:   'comment'
         placeholder: 'Add a comment'
         value:       @state.text
         onKeyUp:     @onTextKeyUp
         onChange:    @onTextChanged
       }
-      div {key: 'buttons', className: 'button-group'}, [
+      div {className: 'button-group'},
         Button {
-          key:       'add-comment'
           className: 'small'
           icon:      'add-comment'
           disabled:  not(@state.text?.length > 0)
           onClick:   @createComment
         }
         Button {
-          key:       'add-file'
           className: 'small'
           icon:      'add-file'
         }
-      ]
-    ]
-
-  #--------------------------------------------------------------------------------
 
   onTextKeyUp: (event) ->
     switch event.which
@@ -61,8 +51,6 @@ CardCommentBox = React.createClass {
   createComment: ->
     @execute new CreateNoteRequest(@props.card, 'Comment', @state.text)
     @setState {text: undefined}
-
-  #--------------------------------------------------------------------------------
 
 }
 

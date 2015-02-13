@@ -34,7 +34,8 @@ ChangeActionOwnerCommandPanel = React.createClass {
     {user}
 
   render: ->
-    div {className: 'action-command'}, [
+    
+    div {className: 'action-command'},
       SuggestingSelector {
         option:        UserSelectorOption
         suggest:       'user'
@@ -42,11 +43,9 @@ ChangeActionOwnerCommandPanel = React.createClass {
         selectionType: 'user'
         onChange:      @onUserSelected
       }
-      div {className: 'buttons'}, [
-        Button {key: 'ok',     className: 'small', text: 'OK',     onClick: @onOkClicked}
-        Button {key: 'cancel', className: 'small', text: 'Cancel', onClick: @onCancelClicked}
-      ]
-    ]
+      div {className: 'buttons'},
+        Button {className: 'small', text: 'OK',     onClick: @onOkClicked}
+        Button {className: 'small', text: 'Cancel', onClick: @onCancelClicked}
 
   onUserSelected: (user) ->
     @setState {userid: user.id, user: user}

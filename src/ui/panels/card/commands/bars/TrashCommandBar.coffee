@@ -12,11 +12,9 @@ TrashCommandBar = React.createClass {
 
   render: ->
 
-    div {className: 'archive commands'}, [
-      div {key: 'left', className: 'button-group'}, [
-        RestoreCommandButton {key: 'restore'}
-      ]
-    ]
+    div {className: 'archive commands'},
+      div {className: 'button-group'},
+        RestoreCommandButton {}
 
 }
 

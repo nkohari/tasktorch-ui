@@ -11,8 +11,6 @@ Text      = React.createFactory(require 'ui/common/Text')
 
 StackSidebarItem = React.createClass {
 
-  # Spec --------------------------------------------------------------------------
-
   displayName: 'StackSidebarItem'
 
   propTypes:
@@ -20,29 +18,22 @@ StackSidebarItem = React.createClass {
 
   mixins: [Router.State]
 
-  # Rendering ---------------------------------------------------------------------
-
   render: ->
+
+    url = new Url(this)
+    url.addStack(@props.stack.id)
+
     ListItem {className: 'sidebar-item'},
-      Link @makeLinkProps(),
+      Link url.makeLinkProps(hotkey: @props.hotkey),
         Icon {name: "stack-#{@props.stack.type.toLowerCase()}"}
         Text {className: 'name'}, @getStackName()
         Text {className: 'count'}, @props.stack.cards.length if @props.stack.cards.length > 0
-
-  # Utility -----------------------------------------------------------------------
 
   getStackName: ->
     if @props.stack.type == StackType.Backlog
       @props.stack.name
     else
       @props.stack.type
-
-  makeLinkProps: ->
-    url = new Url(this)
-    url.addStack(@props.stack.id)
-    return _.extend {key: 'open-link', hotkey: @props.hotkey}, url.makeLinkProps()
-
-  #--------------------------------------------------------------------------------
 
 }
 

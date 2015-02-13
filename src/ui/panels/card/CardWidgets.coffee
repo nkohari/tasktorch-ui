@@ -6,19 +6,13 @@ CardLocation = React.createFactory(require 'ui/panels/card/CardLocation')
 
 CardWidgets = React.createClass {
 
-  # Spec --------------------------------------------------------------------------
-
   displayName: 'CardWidgets'
 
-  # Rendering ---------------------------------------------------------------------
-
   render: ->
-    ul {className: 'widgets'}, [
-      CardLocation {key: 'location', card: @props.card, stack: @props.stack}
-      CardGoal     {key: 'goal', goalid: @props.card.goal} if @props.card.goal?
-    ]
 
-  #--------------------------------------------------------------------------------
+    ul {className: 'widgets'},
+      CardLocation {card: @props.card, stack: @props.stack}
+      CardGoal     {goalid: @props.card.goal} if @props.card.goal?
 
 }
 

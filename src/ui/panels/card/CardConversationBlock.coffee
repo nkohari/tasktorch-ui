@@ -52,12 +52,10 @@ CardConversationBlock = React.createClass {
     groups = _.map @createGroups(@state.notes), (group) =>
       CardNoteGroup {card: @props.card, userid: group.user, notes: group.notes}
 
-    div {className: 'conversation block'}, [
-      CardBlockHeader {key: 'header'}, ['Conversation']
-      Frame {@isReady, ref: 'contents', className: 'contents'}, [
-        ul {key: 'notes', className: 'notes'}, groups
-      ]
-    ]
+    div {className: 'conversation block'},
+      CardBlockHeader {}, 'Conversation'
+      Frame {@isReady, ref: 'contents', className: 'contents'},
+        ul {className: 'notes'}, groups
 
   createGroups: (notes) ->
     groups = []

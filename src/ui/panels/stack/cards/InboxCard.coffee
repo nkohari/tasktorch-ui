@@ -38,18 +38,14 @@ InboxCard = React.createClass {
   render: ->
 
     pass = @getLastPass(@props.card)
+    style = {borderLeftColor: @props.kind.color}
 
-    Frame {
-      @isReady
-      className: 'summary'
-      style: {borderLeftColor: @props.kind.color}
-    }, [
-      Avatar {key: 'avatar', user: @state.sender}
-      div {className: 'title'}, [@props.card.title or 'Untitled Card']
-      div {className: 'subtitle'}, [
-        Time {key: 'time', time: pass.time}
-      ]
-    ]
+    Frame {@isReady, className: 'summary', style},
+      Avatar {user: @state.sender}
+      div {className: 'title'},
+        @props.card.title or 'Untitled Card'
+      div {className: 'subtitle'},
+        Time {time: pass.time}
 
   getLastPass: (card) ->
     passes = _.filter card.moves, (move) -> move.type == MoveType.Pass

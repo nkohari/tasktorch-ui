@@ -37,10 +37,9 @@ CardNoteGroup = React.createClass {
     notes = _.map @props.notes, (note) =>
       NoteFactory(note.type) {key: "note-#{note.id}", card: @props.card, note: note, user: @state.user}
 
-    ListItem {@isReady, className: 'note-group'}, [
-      CardNoteGroupHeader {key: 'header', card: @props.card, notes: @props.notes, user: @state.user}
+    ListItem {@isReady, className: 'note-group'},
+      CardNoteGroupHeader {card: @props.card, notes: @props.notes, user: @state.user}
       ul {}, notes
-    ]
 
 }
 

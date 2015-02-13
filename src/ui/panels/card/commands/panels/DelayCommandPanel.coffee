@@ -12,13 +12,11 @@ DelayCommandPanel = React.createClass {
 
   render: ->
 
-    div {className: 'defer command'}, [
-      'Delay'
-      div {key: 'buttons', className: 'buttons'}, [
-        Button {key: 'ok', icon: 'ok', text: 'OK'}
-        Button {key: 'cancel', icon: 'cancel', text: 'Cancel', onClick: @context.hideCommandPanel}
-      ]
-    ]
+    div {className: 'defer command'},
+      'Dulé'
+      div {className: 'buttons'},
+        Button {icon: 'ok',     text: 'OK'}
+        Button {icon: 'cancel', text: 'Cancel', onClick: @context.hideCommandPanel}
 
 }
 

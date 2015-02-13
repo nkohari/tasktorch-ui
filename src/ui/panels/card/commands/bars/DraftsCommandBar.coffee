@@ -18,15 +18,12 @@ DraftsCommandBar = React.createClass {
 
   render: ->
 
-    div {className: 'queue commands'}, [
-      div {key: 'left', className: 'button-group'}, [
-        AcceptCommandButton {key: 'accept'}
-        PassCommandButton   {key: 'pass'}
-      ]
-      div {key: 'right', className: 'button-group right'}, [
-        DeleteCommandButton {key: 'delete'}
-      ]
-    ]
+    div {className: 'queue commands'},
+      div {className: 'button-group'},
+        AcceptCommandButton {}
+        PassCommandButton {}
+      div {className: 'button-group right'},
+        DeleteCommandButton {}
 
 }
 

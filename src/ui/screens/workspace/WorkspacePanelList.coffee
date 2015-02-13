@@ -26,13 +26,8 @@ WorkspacePanelList = React.createClass {
     url = new Url(this)
     panels = _.map url.panels, (key) => @createPanel(key)
 
-    CSSTransitionGroup {
-      key: 'content'
-      component: 'div'
-      className: 'content'
-      transitionName: 'slide'
-      @onWheel
-    }, panels
+    CSSTransitionGroup {component: 'div', className: 'content', transitionName: 'slide', @onWheel},
+      panels
 
   createPanel: (key) ->
     [type, id] = key.split(':')

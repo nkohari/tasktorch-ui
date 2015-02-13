@@ -1,7 +1,6 @@
 React         = require 'react'
 PropTypes     = require 'framework/PropTypes'
 ActionCommand = require 'framework/enums/ActionCommand'
-Observe       = require 'framework/mixins/Observe'
 Icon          = React.createFactory(require 'ui/common/Icon')
 {a}           = React.DOM
 
@@ -13,12 +12,9 @@ ActionDeleteTrigger = React.createClass {
     action:      PropTypes.Action
     showCommand: PropTypes.func
 
-  mixins: [Observe()]
-
   render: ->
-    a {@onClick}, [
-      Icon {key: 'delete', name: 'trash'}
-    ]
+    a {@onClick},
+      Icon {name: 'trash'}
 
   onClick: ->
     @props.showCommand(ActionCommand.Delete)

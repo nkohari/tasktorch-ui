@@ -28,25 +28,21 @@ Action = React.createClass {
     if @state.command?
       classes.push(@state.command.toLowerCase())
       commandFrame = ActionCommandFrame {
-        key:         'command-frame'
         action:      @props.action
         command:     @state.command
         showCommand: @showCommand
         hideCommand: @hideCommand
       }
 
-    div {className: classes.join(' ')}, [
-      div {key: 'content'}, [
-        ActionOwner  {key: 'owner',  action: @props.action, @showCommand}
-        ActionStatus {key: 'status', action: @props.action, @showCommand}
-        ActionText   {key: 'text',   action: @props.action}
-        div {key: 'controls', className: 'action-controls'}, [
-          Icon {key: 'handle', name: 'handle'}
-          ActionDeleteTrigger {key: 'delete', action: @props.action, @showCommand}
-        ]
-      ]
+    div {className: classes.join(' ')},
+      div {},
+        ActionOwner  {action: @props.action, @showCommand}
+        ActionStatus {action: @props.action, @showCommand}
+        ActionText   {action: @props.action}
+        div {className: 'action-controls'},
+          Icon {name: 'handle'}
+          ActionDeleteTrigger {action: @props.action, @showCommand}
       commandFrame
-    ]
 
   showCommand: (command) ->
     @setState {command}

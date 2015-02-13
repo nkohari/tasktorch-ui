@@ -16,9 +16,8 @@ ActionStatus = React.createClass {
   mixins: [Observe()]
 
   render: ->
-    a {className: 'status', @onClick}, [
-      Icon {key: 'icon', name: "action-#{@props.action.status.toLowerCase()}"}
-    ]
+    a {className: 'status', @onClick},
+      Icon {name: "action-#{@props.action.status.toLowerCase()}"}
 
   onClick: ->
     @props.showCommand(ActionCommand.ChangeStatus)

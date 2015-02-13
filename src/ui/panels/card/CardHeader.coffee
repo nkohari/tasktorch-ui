@@ -23,8 +23,6 @@ CommandPanels =
 
 CardHeader = React.createClass {
 
-  # Spec --------------------------------------------------------------------------
-
   displayName: 'CardHeader'
 
   propTypes:
@@ -39,8 +37,6 @@ CardHeader = React.createClass {
   getInitialState: ->
     {command: undefined}
 
-  # Lifecycle ---------------------------------------------------------------------
-
   componentDidMount: ->
     @publish new StackDisplayedEvent(@props.card.stack) if @props.card.stack?
     @publish new UserDisplayedEvent(@props.card.owner)  if @props.card.owner?
@@ -51,8 +47,6 @@ CardHeader = React.createClass {
     @publish new StackDisplayedEvent(curr.stack) if curr.stack? and curr.stack != prev.stack
     @publish new UserDisplayedEvent(curr.owner)  if curr.owner? and curr.owner != prev.owner
 
-  # State -------------------------------------------------------------------------
-
   sync: (stores) ->
     return {
       stack: stores.stacks.get(@props.card.stack) if @props.card.stack?
@@ -62,56 +56,40 @@ CardHeader = React.createClass {
   isReady: ->
     (@state.stack? or not @props.card.stack?) and (@state.owner? or not @props.card.owner?)
 
-  # Rendering ---------------------------------------------------------------------
-
   render: ->
 
     classes = ['header']
     classes.push('expanded') if @state.command?
 
-    Frame {
-      @isReady
-      className: classes.join(' ')
-      style:     {borderColor: @props.kind.color}
-    }, [
-      div {key: 'fixed', className: 'fixed'}, [
+    style = {borderColor: @props.kind.color}
+
+    Frame {@isReady, className: classes.join(' '), style},
+      div {className: 'fixed'},
         @renderOwner()
-        div {key: 'info', className: 'info'}, [
-          CardTitle   {key: 'title',    card: @props.card}
-          CardWidgets {key: 'location', card: @props.card, stack: @state.stack}
-        ]
-        CardCommandBar {key: 'commands', card: @props.card, stack: @state.stack}
-      ]
+        div {className: 'info'},
+          CardTitle   {card: @props.card}
+          CardWidgets {card: @props.card, stack: @state.stack}
+        CardCommandBar {card: @props.card, stack: @state.stack}
       @renderCommand()
-    ]
 
   renderOwner: ->
 
     if @state.owner?
-      Avatar {key: 'owner', className: 'owner', user: @state.owner}
+      Avatar {className: 'owner', user: @state.owner}
     else
-      div {key: 'owner', className: 'team owner'}, [
-        Icon {key: 'icon', name: 'team'}
-      ]
+      div {className: 'team owner'},
+        Icon {name: 'team'}
 
   renderCommand: ->
 
-    if @state.command?
-      command = CommandPanels[@state.command] {key: 'command', card: @props.card, stack: @state.stack}
-
-    CSSTransitionGroup {key: 'flexible', className: 'flexible', component: 'div', transitionName: 'slide'}, [
-      command if command?
-    ]
-
-  # Utility -----------------------------------------------------------------------
+    CSSTransitionGroup {className: 'flexible', component: 'div', transitionName: 'slide'},
+      CommandPanels[@state.command] {card: @props.card, stack: @state.stack} if @state.command?
 
   showCommandPanel: (command) ->
     @setState {command: command}
 
   hideCommandPanel: ->
     @setState {command: undefined}
-
-  #--------------------------------------------------------------------------------
 
 }
 

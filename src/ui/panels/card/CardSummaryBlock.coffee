@@ -8,8 +8,6 @@ CardBlockHeader          = React.createFactory(require 'ui/panels/card/CardBlock
 
 CardSummaryBlock = React.createClass {
 
-  # Spec --------------------------------------------------------------------------
-
   displayName: 'CardSummaryBlock'
 
   propTypes:
@@ -20,33 +18,23 @@ CardSummaryBlock = React.createClass {
   getInitialState: ->
     {expanded: true}
 
-  # Rendering ---------------------------------------------------------------------
-
   render: ->
     
     classes = ['summary', 'block']
     classes.push('expanded') if @state.expanded
 
-    div {className: classes.join(' ')}, [
-      @renderHeader()
+    div {className: classes.join(' ')},
+      CardBlockHeader {expanded: @state.expanded, @onToggleClicked}, 'Summary'
       @renderContents() if @state.expanded
-    ]
-
-  renderHeader: ->
-    CardBlockHeader {key: 'header', expanded: @state.expanded, @onToggleClicked}, ['Summary']
 
   renderContents: ->
-    div {className: 'contents'}, [
+    div {className: 'contents'},
       EditableTextBlock {
-        key:         'text'
         className:   'editable'
         placeholder: 'Card Summary'
         value:       @props.card.summary
         save:        @onSummaryChanged
       }
-    ]
-
-  # Events ------------------------------------------------------------------------
 
   onSummaryChanged: (value) ->
     @execute new ChangeCardSummaryRequest(@props.card, value)
@@ -54,7 +42,6 @@ CardSummaryBlock = React.createClass {
   onToggleClicked: ->
     @setState {expanded: !@state.expanded}
 
-  #--------------------------------------------------------------------------------
 }
 
 module.exports = CardSummaryBlock

@@ -42,9 +42,8 @@ CardFollowersList = React.createClass {
   render: ->
 
     items = _.map @state.users, (user) =>
-      li {key: "user-#{user.id}", className: 'follower'}, [
-        Avatar {key: 'avatar', user, size: 32}
-      ] 
+      li {key: "user-#{user.id}", className: 'follower'},
+        Avatar {user, size: 32}
 
     List {@isReady, className: 'followers'}, items
 

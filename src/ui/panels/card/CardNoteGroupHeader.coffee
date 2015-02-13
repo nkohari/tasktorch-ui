@@ -15,13 +15,12 @@ CardNoteGroupHeader = React.createClass {
     notes: PropTypes.arrayOf(PropTypes.Note)
 
   render: ->
-    div {className: 'header'}, [
-      Avatar {key: 'avatar', user: @props.user}
-      div {className: 'meta'}, [
-        span {className: 'user'}, [@props.user.name]
+    
+    div {className: 'header'},
+      Avatar {user: @props.user}
+      div {className: 'meta'},
+        span {className: 'user'}, @props.user.name
         Time {time: _.first(@props.notes).time}
-      ]
-    ]
 
 }
 

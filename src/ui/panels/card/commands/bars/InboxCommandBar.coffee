@@ -15,18 +15,14 @@ InboxCommandBar = React.createClass {
 
   render: ->
 
-    div {className: 'inbox commands'}, [
-      div {key: 'left', className: 'button-group'}, [
-        AcceptCommandButton {key: 'accept'}
-        PassCommandButton   {key: 'pass'}
-        DelayCommandButton  {key: 'delay'}
-      ]
-      div {key: 'right', className: 'button-group right'}, [
-        CompleteCommandButton {key: 'complete'}
-        DeleteCommandButton   {key: 'delete'}
-      ]
-    ]
-
+    div {className: 'inbox commands'},
+      div {className: 'button-group'},
+        AcceptCommandButton {}
+        PassCommandButton {}
+        DelayCommandButton {}
+      div {className: 'button-group right'},
+        CompleteCommandButton {}
+        DeleteCommandButton {}
 
 }
 
