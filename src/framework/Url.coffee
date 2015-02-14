@@ -41,9 +41,14 @@ class Url
   addCard: (cardid) ->
     @panels.unshift(keyFor.card(cardid)) unless @isCardActive(cardid)
 
-  addCardAfter: (cardid, stackid) ->
+  addCardAfterStack: (cardid, stackid) ->
     return if @isCardActive(cardid)
     index = _.indexOf(@panels, keyFor.stack(stackid))
+    @panels.splice(index + 1, 0, keyFor.card(cardid))
+
+  addCardAfterPanel: (cardid, panel) ->
+    return if @isCardActive(cardid)
+    index = _.indexOf(@panels, panel)
     @panels.splice(index + 1, 0, keyFor.card(cardid))
 
   removeCard: (cardid) ->

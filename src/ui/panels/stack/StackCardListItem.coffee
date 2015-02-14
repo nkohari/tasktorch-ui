@@ -35,8 +35,8 @@ StackCardListItem = React.createClass {
 
     ListItem {
       @isReady
+      @onClick
       className:     classSet(classes)
-      onClick:       @handleClick
       'data-itemid': @props.card.id
     }, [@renderContents()]
 
@@ -51,9 +51,9 @@ StackCardListItem = React.createClass {
       when StackType.Backlog
         return BacklogCard {stack: @props.stack, card: @props.card, kind: @state.kind}
 
-  handleClick: ->
+  onClick: ->
     url = new Url(this)
-    url.addCardAfter(@props.card.id, @props.stack.id)
+    url.addCardAfterStack(@props.card.id, @props.stack.id)
     props = url.makeLinkProps()
     @transitionTo(props.to, props.params, props.query)
 

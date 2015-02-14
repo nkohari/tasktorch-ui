@@ -9,6 +9,7 @@ CardContext         = require './CardContext'
 Avatar              = React.createFactory(require 'ui/common/Avatar')
 Frame               = React.createFactory(require 'ui/common/Frame')
 Icon                = React.createFactory(require 'ui/common/Icon')
+CardOwner           = React.createFactory(require 'ui/common/CardOwner')
 CardCommandBar      = React.createFactory(require 'ui/panels/card/CardCommandBar')
 CardTitle           = React.createFactory(require 'ui/panels/card/CardTitle')
 CardWidgets         = React.createFactory(require 'ui/panels/card/CardWidgets')
@@ -65,20 +66,12 @@ CardHeader = React.createClass {
 
     Frame {@isReady, className: classes.join(' '), style},
       div {className: 'fixed'},
-        @renderOwner()
+        CardOwner {user: @state.owner}
         div {className: 'info'},
           CardTitle   {card: @props.card}
           CardWidgets {card: @props.card, stack: @state.stack}
         CardCommandBar {card: @props.card, stack: @state.stack}
       @renderCommand()
-
-  renderOwner: ->
-
-    if @state.owner?
-      Avatar {className: 'owner', user: @state.owner}
-    else
-      div {className: 'team owner'},
-        Icon {name: 'team'}
 
   renderCommand: ->
 

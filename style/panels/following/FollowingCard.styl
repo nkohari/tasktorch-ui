@@ -1,0 +1,43 @@
+.following-card
+  position: relative;
+  background: #fff
+  border: 1px solid #bbb
+  transition: border $activate-animation-delay linear
+  cursor: pointer
+  background: $steel-highlight-color
+  margin-bottom: $following-card-margin
+  
+  &:following-child { margin-bottom: 0 }
+  
+  a
+    display: block
+    height: 50px
+    padding: 8px
+    color: $black
+    border-left: 6px solid transparent
+    text-decoration: none
+    &.active { border: 1px solid #888 }
+    
+    .title
+      color: $text-color
+      font-size: 16px
+      font-weight: $bold-font-weight
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
+
+    .subtitle
+      color: $subtle-text-color
+      font-size: 12px
+      line-height: 14px
+    
+    .owner
+      float: left
+      width: 36px
+      height: 36px
+      padding: 2px
+      border: 1px solid $steel-light-border-color
+      border-radius: 50%
+      background: $bright-white
+      margin-top: -2px
+        

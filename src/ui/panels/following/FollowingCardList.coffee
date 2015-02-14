@@ -1,7 +1,8 @@
-_         = require 'lodash'
-React     = require 'react'
-PropTypes = require 'framework/PropTypes'
-List      = React.createFactory(require 'ui/common/List')
+_             = require 'lodash'
+React         = require 'react'
+PropTypes     = require 'framework/PropTypes'
+List          = React.createFactory(require 'ui/common/List')
+FollowingCard = React.createFactory(require 'ui/panels/following/FollowingCard')
 
 FollowingCardList = React.createClass {
 
@@ -12,7 +13,10 @@ FollowingCardList = React.createClass {
 
   render: ->
 
-    List {className: 'cards'}
+    cards = _.map @props.cards, (card) ->
+      FollowingCard {key: card.id, card}
+
+    List {className: 'cards'}, cards
 
 }
 
