@@ -35,7 +35,7 @@ PassCommandPanel = React.createClass {
       CommandArgument {label: 'Message', hint: '(optional)'},
         EditableTextBlock {className: 'message', onChange: @onMessageChanged}
       div {className: 'buttons'},
-        Button {text: 'OK',     onClick: @onOkButtonClicked}
+        Button {text: 'Pass', className: 'default', onClick: @onOkButtonClicked}
         Button {text: 'Cancel', onClick: @context.hideCommandPanel}
 
   onRecipientChanged: (item, type) ->

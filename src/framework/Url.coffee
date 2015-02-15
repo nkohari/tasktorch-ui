@@ -71,7 +71,7 @@ class Url
     @sidebar = !@sidebar
 
   showFollowing: ->
-    @panels.push(keyFor.following) unless @isFollowingActive()
+    @panels.unshift(keyFor.following) unless @isFollowingActive()
 
   hideFollowing: ->
     @panels = _.without(@panels, keyFor.following)

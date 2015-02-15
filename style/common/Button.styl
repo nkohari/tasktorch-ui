@@ -12,14 +12,22 @@ button, a.button
   outline: none !important
   box-shadow: 0 1px 0 shadow(10%)
   text-decoration: none
+  font-weight: $bold-font-weight
+  
+  &.default
+    color: $dark-black
   
   &.small
     height: 24px
     font-size: 12px
     padding: 2px 4px
-    .iconc
+    .icon
       font-size: 24px
       width: 18px
+  
+  &.warning
+    border-color: $warning-border-color
+    background: linear-gradient(to bottom, $warning-highlight-color, $warning-lowlight-color)
   
   &:active, &.active
     color: $dark-black
@@ -53,3 +61,11 @@ button, a.button
       border-right: 1px solid $steel-border-color
       border-top-right-radius: $button-border-radius
       border-bottom-right-radius: $button-border-radius
+
+.menu-button
+  display: inline-block
+  vertical-align: top
+  margin-right: 4px
+
+  &.expanded
+    margin-right: 0

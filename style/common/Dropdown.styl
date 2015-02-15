@@ -1,0 +1,31 @@
+.caret
+  display: inline-block
+  vertical-align: middle
+  padding-left: 4px
+  &:after
+    font-family: $icon-font
+    font-size: 24px
+    line-height: 16px
+    content: "\25BE"
+    &.flip
+      content: "\25B4"
+
+.dropdown
+  position: absolute
+  z-index: 1001
+  width: 100%
+  border: 1px solid #999
+  margin: 2px 0 0 0
+  padding: 0
+  background: $button-normal-color
+  box-shadow: 0px 1px 3px shadow(30%)
+
+  li
+    list-style-type: none
+    font-size: 14px
+    font-weight: $bold-font-weight
+    cursor: pointer
+    padding: 6px 10px 6px 10px
+    &:hover
+      background: $button-lowlight-color
+    

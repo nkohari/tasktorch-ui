@@ -20,8 +20,8 @@ DeleteCommandPanel = React.createClass {
       div {className: 'confirm'},
         'Are you sure you want to send this card to the trash?'
       div {className: 'buttons'},
-        Button {icon: 'ok',     text: 'OK',     onClick: @onOkButtonClicked}
-        Button {icon: 'cancel', text: 'Cancel', onClick: @context.hideCommandPanel}
+        Button {text: 'Send to Trash', className: 'default warning', onClick: @onOkButtonClicked}
+        Button {text: 'Cancel', onClick: @context.hideCommandPanel}
 
   onOkButtonClicked: ->
     @execute new DeleteCardRequest(@props.card)
