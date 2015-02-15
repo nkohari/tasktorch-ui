@@ -3,7 +3,7 @@
   min-width: $following-panel-width
   border: 1px solid $panel-border-color
   background: $panel-background-color
-  z-index: 100
+  z-index: $panel-layer
       
   .cards
     overflow-x: hidden
@@ -28,7 +28,7 @@
 
 .following.slide-enter
   animation: following-enter 300ms ease-out
-  z-index: 99
+  z-index: $panel-animation-layer
 
 @keyframes following-leave
   from
@@ -40,4 +40,4 @@
 
 .following.slide-leave
   animation: following-leave 150ms linear
-  z-index: 99
+  z-index: $panel-animation-layer

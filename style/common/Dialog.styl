@@ -1,14 +1,57 @@
+a.trigger
+  cursor: pointer
+
 .dialog-container
   position: absolute
   top: 0
   left: 0
   width: 100%
   height: 100%
-  background: shadow(50%)
-  z-index: 10000
+  z-index: $floating-layer
+
+.dialog-shadow
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  background: shadow(70%)
 
 .dialog
-  max-width: 400px
+  position: relative
   top: 50%
-  left: 50%
   margin: 0px auto
+  background: $dialog-background-color
+  border: 1px solid $dialog-border-color
+  box-shadow: 0px 1px 3px shadow(30%)
+  border-radius: 4px
+
+.dialog-header
+  padding: 6px 10px
+  background: $dialog-header-background-color
+  font-weight: $bold-font-weight
+  border-bottom: 1px solid $dialog-border-color
+
+.dialog-content
+  padding: 10px
+
+.dialog-buttons
+  padding-top: 10px
+
+@keyframes dialog-enter
+  from
+    opacity: 0
+  to
+    opacity: 1
+
+.dialog-container.fade-enter
+  animation: dialog-enter 150ms ease-out
+
+@keyframes dialog-leave
+  from
+    opacity: 1
+  to
+    opacity: 0
+
+.dialog-container.fade-leave
+  animation: dialog-leave 150ms linear

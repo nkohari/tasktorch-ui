@@ -8,10 +8,15 @@ UserPrefsDialog = React.createClass {
 
   displayName: 'UserPrefsDialog'
 
+  propTypes:
+    close: PropTypes.func
+
   render: ->
 
-    Dialog {},
-      'User preferences'
+    Dialog {icon: 'settings', title: 'Preferences', close: @props.close},
+      'Nothing to configure yet',
+      div {className: 'dialog-buttons'},
+        Button {text: 'Close', onClick: @props.close}
 
 }
 

@@ -1,9 +1,11 @@
 React              = require 'react/addons'
 Keymaster          = require 'keymaster'
 PropTypes          = require 'framework/PropTypes'
+mergeProps         = require 'framework/util/mergeProps'
 Link               = React.createFactory(require 'ui/common/Link')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
 {div}              = React.DOM
+{cloneWithProps}   = React.addons
 
 DialogTrigger = React.createClass {
 
@@ -19,11 +21,11 @@ DialogTrigger = React.createClass {
   componentDidMount: ->
     @_container = document.createElement('div')
     document.body.appendChild(@_container)
-    React.render(@_renderDialog(), @_container)
+    React.render(@renderDialog(), @_container)
     Keymaster('esc', @onEscapePressed)
 
   componentDidUpdate: ->
-    React.render(@_renderDialog(), @_container)
+    React.render(@renderDialog(), @_container)
 
   componentWillUnmount: ->
     React.unmountComponentAtNote(@_container)
@@ -31,19 +33,36 @@ DialogTrigger = React.createClass {
     Keymaster.unbind('esc', @onEscapePressed)
 
   render: ->
-    Link {@isReady, @onClick}, @props.children
 
-  onClick: ->
+    props = mergeProps @props, {
+      className: 'trigger'
+      @isReady
+      @onClick
+    }
+
+    Link props, @props.children
+
+  renderDialog: ->
+    
+    if @state.open
+      content = cloneWithProps @props.dialog, {
+        @close
+      }
+
+    CSSTransitionGroup {component: 'div', transitionName: 'fade'},
+      content
+
+  open: ->
     @setState {open: true}
 
-  onEscapePressed: ->
+  close: ->
     @setState {open: false}
 
-  _renderDialog: ->
-    if @state.open
-      @props.dialog
-    else
-      div {}
+  onClick: ->
+    @open()
+
+  onEscapePressed: ->
+    @close()
 
 }
 

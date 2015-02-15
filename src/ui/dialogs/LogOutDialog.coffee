@@ -8,10 +8,16 @@ LogOutDialog = React.createClass {
 
   displayName: 'LogOutDialog'
 
+  propTypes:
+    close: PropTypes.func
+
   render: ->
 
-    Dialog {},
-      'Log out'
+    Dialog {icon: 'logout', title: 'Log Out', width: 400, close: @props.close},
+      'Are you sure you want to log out?'
+      div {className: 'dialog-buttons'},
+        Button {text: 'Log Out', onClick: @props.close}
+        Button {text: 'Cancel',  onClick: @props.close}
 
 }
 

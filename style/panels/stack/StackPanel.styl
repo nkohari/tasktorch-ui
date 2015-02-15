@@ -3,7 +3,7 @@
   min-width: $stack-panel-width
   border: 1px solid $panel-border-color
   background: $panel-background-color
-  z-index: 100
+  z-index: $panel-layer
       
   .cards
     overflow-x: hidden
@@ -46,7 +46,7 @@
 
 .stack.slide-enter
   animation: stack-enter 300ms ease-out
-  z-index: 99
+  z-index: $panel-animation-layer
 
 @keyframes stack-leave
   from
@@ -58,4 +58,4 @@
 
 .stack.slide-leave
   animation: stack-leave 150ms linear
-  z-index: 99
+  z-index: $panel-animation-layer
