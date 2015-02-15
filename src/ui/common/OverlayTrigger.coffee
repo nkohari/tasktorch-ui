@@ -4,9 +4,9 @@ dom         = require 'framework/util/dom'
 {div, span} = React.DOM
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
 
-OverlayTrigger = React.createClass {
+Trigger = React.createClass {
 
-  displayName: 'OverlayTrigger'
+  displayName: 'Trigger'
 
   getDefaultProps: ->
     return {
@@ -35,10 +35,10 @@ OverlayTrigger = React.createClass {
     props =
       hide: @hideOverlay
 
-    if @props.trigger == 'click'
+    if @props.event == 'click'
       props.onClick = @toggleOverlay
 
-    if @props.trigger == 'hover'
+    if @props.event == 'hover'
       props.onMouseOver = @handleMouseOver
       props.onMouseOut = @handleMouseOut
 
@@ -159,8 +159,8 @@ OverlayTrigger = React.createClass {
           left: offset.left + offset.width
         }
       else
-        throw new Error("Unknown placement #{@props.placement} for OverlayTrigger")
+        throw new Error("Unknown placement #{@props.placement} for Trigger")
 
 }
 
-module.exports = OverlayTrigger
+module.exports = Trigger

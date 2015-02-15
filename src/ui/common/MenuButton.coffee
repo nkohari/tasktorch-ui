@@ -22,6 +22,9 @@ MenuButton = React.createClass {
   getInitialState: ->
     {expanded: false}
 
+  componentDidUpdate: ->
+    @refs.dropdown.getDOMNode().focus() if @state.expanded
+
   render: ->
 
     if @state.expanded
@@ -30,7 +33,7 @@ MenuButton = React.createClass {
           key:     element.key
           onClick: @onItemClicked.bind(this, element.props.value)
         }
-      menu = List {className: 'dropdown'}, items
+      menu = List {ref: 'dropdown', className: 'dropdown', tabIndex: -1, @onBlur}, items
 
     classes = mergeClasses @props.className, classSet {
       'menu-button': true
@@ -41,7 +44,7 @@ MenuButton = React.createClass {
       onClick: @onButtonClicked
       className: 'active' if @state.expanded
     }
-        
+
     Frame {@isReady, className: classes},
       button buttonProps,
         Icon {name: @props.icon} if @props.icon?
@@ -49,13 +52,16 @@ MenuButton = React.createClass {
         Caret {}
       menu
 
+  onBlur: ->
+    @setState {expanded: false}
+
   onButtonClicked: ->
     @setState {expanded: !@state.expanded}
 
   onItemClicked: (value, event) ->
     event.value = value
-    @setState {expanded: false}, =>
-      @props.onItemClicked(event) if @props.onItemClicked?
+    @props.onItemClicked(event) if @props.onItemClicked?
+    @setState {expanded: false}
 
 }
 
