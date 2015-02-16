@@ -45,9 +45,7 @@ DialogTrigger = React.createClass {
   renderDialog: ->
     
     if @state.open
-      content = cloneWithProps @props.dialog, {
-        @close
-      }
+      content = cloneWithProps @props.dialog, {@close}
 
     CSSTransitionGroup {component: 'div', transitionName: 'fade'},
       content

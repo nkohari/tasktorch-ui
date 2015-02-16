@@ -5,9 +5,8 @@ Observe            = require 'framework/mixins/Observe'
 Url                = require 'framework/Url'
 GoalDisplayedEvent = require 'events/display/GoalDisplayedEvent'
 Icon               = React.createFactory(require 'ui/common/Icon')
+Frame              = React.createFactory(require 'ui/common/Frame')
 Link               = React.createFactory(require 'ui/common/Link')
-ListItem           = React.createFactory(require 'ui/common/ListItem')
-{li, a}            = React.DOM
 
 CardGoal = React.createClass {
 
@@ -20,6 +19,9 @@ CardGoal = React.createClass {
     Observe('goals')
     Router.State
   ]
+
+  getDefaultProps: ->
+    {link: false}
 
   componentDidMount: ->
     @publish new GoalDisplayedEvent(@props.goalid)
@@ -35,14 +37,11 @@ CardGoal = React.createClass {
 
   render: ->
 
-    # TODO: Should link to the specific goal
-    url = new Url(this)
-    url.screen = 'strategy'
+    # TODO: Link to the goal on the strategy screen
 
-    ListItem {@isReady, className: 'goal'},
-      Link url.makeLinkProps(),
-        Icon {name: 'goal'}
-        @state.goal?.name
+    Frame {@isReady, className: 'goal'},
+      Icon {name: 'goal'}
+      @state.goal?.name
 
 }
 

@@ -1,36 +1,23 @@
 .following-card
   position: relative;
-  background: #fff
-  border: 1px solid #bbb
-  transition: border $activate-animation-delay linear
+  background: $white
   cursor: pointer
   background: $steel-highlight-color
-  margin-bottom: $following-card-margin
+  border-bottom: 1px solid #bbb
   
-  &:following-child { margin-bottom: 0 }
+  &:last-child { border-bottom: none }
   
   a
     display: block
-    height: 50px
-    padding: 8px
+    height: 80px
+    padding: 6px
     color: $black
-    border-left: 6px solid transparent
+    border-left: 4px solid transparent
     text-decoration: none
-    &.active { border: 1px solid #888 }
-    
-    .title
-      color: $text-color
-      font-size: 16px
-      font-weight: $bold-font-weight
-      overflow: hidden
-      text-overflow: ellipsis
-      white-space: nowrap
+    background: $white
+    transition: background $activate-animation-delay linear
+    &.active { background: $bright-white }
 
-    .subtitle
-      color: $subtle-text-color
-      font-size: 12px
-      line-height: 14px
-    
     .owner
       float: left
       width: 36px
@@ -40,4 +27,38 @@
       border-radius: 50%
       background: $bright-white
       margin-top: -2px
-        
+    
+    .summary
+      padding-left: 42px
+            
+      .title
+        color: $text-color
+        font-size: 16px
+        font-weight: $bold-font-weight
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+
+      .location
+        color: $subtle-text-color
+        font-size: 12px
+        line-height: 18px
+        .icon
+          font-size: 24px
+          width: auto
+          padding-right: 4px
+      
+      .progress
+        display: inline-block
+        font-size: 12px
+        font-weight: $heavy-font-weight
+        background: #ddd
+        padding: 2px 6px
+        margin-top: 2px
+        border: 1px solid #bbb
+        color: #666
+        border-radius: 10px
+        .icon
+          font-size: 24px
+          width: auto
+          padding-right: 4px

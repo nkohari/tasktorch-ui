@@ -7,7 +7,7 @@ Url          = require 'framework/Url'
 Icon         = React.createFactory(require 'ui/common/Icon')
 Link         = React.createFactory(require 'ui/common/Link')
 StackName    = React.createFactory(require 'ui/common/StackName')
-{li, span}   = React.DOM
+{div, span}  = React.DOM
 
 CardLocation = React.createClass {
 
@@ -16,8 +16,12 @@ CardLocation = React.createClass {
   propTypes:
     card:  PropTypes.Card
     stack: PropTypes.Stack
+    link:  PropTypes.bool
 
   mixins: [Router.State]
+
+  getDefaultProps: ->
+    {link: false}
 
   render: ->
 
@@ -25,10 +29,12 @@ CardLocation = React.createClass {
       contents = @renderArchive()
     else if @props.card.status == CardStatus.Deleted
       contents = @renderTrash()
-    else
+    else if @props.link
       contents = @renderStackLink()
+    else
+      contents = @renderStackName()
 
-    li {className: 'location'}, contents
+    div {className: 'location'}, contents
 
   renderArchive: ->
     span {},
@@ -40,8 +46,12 @@ CardLocation = React.createClass {
       Icon {name: 'trash'}
       'Trash'
 
+  renderStackName: ->
+    span {},
+      Icon      {name: "stack-#{@props.stack.type.toLowerCase()}"}
+      StackName {stack: @props.stack}
+
   renderStackLink: ->
-    
     url = new Url(this)
     url.addStackBefore(@props.stack.id, @props.card.id)
 

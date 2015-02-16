@@ -1,8 +1,9 @@
 _            = require 'lodash'
 React        = require 'react'
-CardGoal     = React.createFactory(require 'ui/panels/card/CardGoal')
-CardLocation = React.createFactory(require 'ui/panels/card/CardLocation')
-{ul}         = React.DOM
+Frame        = React.createFactory(require 'ui/common/Frame')
+CardLocation = React.createFactory(require 'ui/common/CardLocation')
+GoalName     = React.createFactory(require 'ui/common/GoalName')
+{div}        = React.DOM
 
 CardWidgets = React.createClass {
 
@@ -10,9 +11,9 @@ CardWidgets = React.createClass {
 
   render: ->
 
-    ul {className: 'widgets'},
-      CardLocation {card: @props.card, stack: @props.stack}
-      CardGoal     {goalid: @props.card.goal} if @props.card.goal?
+    Frame {className: 'widgets'},
+      CardLocation {card: @props.card, stack: @props.stack, link: true}
+      GoalName     {goalid: @props.card.goal} if @props.card.goal?
 
 }
 

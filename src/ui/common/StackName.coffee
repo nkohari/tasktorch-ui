@@ -11,16 +11,12 @@ Text               = React.createFactory(require 'ui/common/Text')
 
 StackName = React.createClass {
 
-  # Spec --------------------------------------------------------------------------
-
   displayName: 'StackName'
 
   propTypes:
     stack: PropTypes.Stack
 
   mixins: [Observe('teams', 'users')]
-
-  # Lifecycle ---------------------------------------------------------------------
 
   componentDidMount: ->
     @publish new UserDisplayedEvent(@props.stack.user) if @props.stack.user?
@@ -30,9 +26,7 @@ StackName = React.createClass {
     prev = @props.stack
     curr = newProps.stack
     @publish new UserDisplayedEvent(curr.user) if curr.user? and curr.user != prev.user
-    @publish new TeamDisplayedEvent(curr.team) if curr.team? and curr.team  != prev.team
-
-  # State -------------------------------------------------------------------------
+    @publish new TeamDisplayedEvent(curr.team) if curr.team? and curr.team != prev.team
 
   sync: (stores) ->
     return {
@@ -43,8 +37,6 @@ StackName = React.createClass {
 
   isReady: ->
     @state.currentUser? and (@state.user? or @state.team?)
-
-  # Rendering ---------------------------------------------------------------------
 
   render: ->
     props = mergeProps @props, {@isReady}
@@ -65,8 +57,6 @@ StackName = React.createClass {
         possessive = "#{@state.user.name}'s"
 
     return "#{possessive} #{@props.stack.type}"
-
-  #--------------------------------------------------------------------------------
 
 }
 
