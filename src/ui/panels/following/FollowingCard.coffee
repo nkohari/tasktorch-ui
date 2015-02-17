@@ -59,8 +59,9 @@ FollowingCard = React.createClass {
     ListItem {@isReady, @onClick, className: 'following-card'},
       Link props,
         CardOwner {user: @state.user}
-        Frame {className: 'summary'},
-          Frame {className: 'title'}, @props.card.title or 'Untitled Card'
+        Frame {className: 'title'},
+          @props.card.title or 'Untitled Card'
+        Frame {className: 'widgets'},
           CardLocation {card: @props.card, stack: @state.stack}
           CardProgressBar {card: @props.card}
 

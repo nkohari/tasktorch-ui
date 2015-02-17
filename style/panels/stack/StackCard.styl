@@ -2,12 +2,12 @@
   position: relative;
   background: #fff
   border: 1px solid #bbb
-  transition: border $activate-animation-delay linear
+  transition: background $activate-animation-delay linear
   cursor: pointer
-  background: linear-gradient(to bottom, #fff, #eee)
+  background: $bright-white
   
   &:last-child { margin-bottom: 0 }
-  &.active { border: 1px solid #888 }
+  &.active { background: #ececec }
   
   &.ui-sortable-helper
     list-style-type: none
@@ -17,7 +17,7 @@
   
   .summary
     padding: 8px
-    border-left: 6px solid transparent
+    border-left: 4px solid transparent
     
     .title
       color: $text-color
@@ -29,7 +29,7 @@
 
     .subtitle
       color: $subtle-text-color
-      font-size: 12px
+      font-size: 11px
       line-height: 14px
     
     .avatar

@@ -1,45 +1,43 @@
 .following-card
+  list-style-type: none
   position: relative;
-  background: $white
-  cursor: pointer
-  background: $steel-highlight-color
   border-bottom: 1px solid #bbb
-  
-  &:last-child { border-bottom: none }
   
   a
     display: block
-    height: 80px
-    padding: 6px
+    width: 100%
+    padding: 4px 6px
     color: $black
-    border-left: 4px solid transparent
     text-decoration: none
-    background: $white
+    background: $bright-white
+    border-left: 4px solid transparent
     transition: background $activate-animation-delay linear
-    &.active { background: $bright-white }
+    &.active { background: #ececec }
 
     .owner
       float: left
-      width: 36px
-      height: 36px
+      width: 28px
+      height: 28px
       padding: 2px
       border: 1px solid $steel-light-border-color
       border-radius: 50%
       background: $bright-white
-      margin-top: -2px
     
-    .summary
-      padding-left: 42px
-            
-      .title
-        color: $text-color
-        font-size: 16px
-        font-weight: $bold-font-weight
-        overflow: hidden
-        text-overflow: ellipsis
-        white-space: nowrap
+    .title
+      padding-left: 6px
+      color: $text-color
+      font-size: 16px
+      font-weight: $bold-font-weight
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
 
+    .widgets
+      padding-left: 34px
+      
       .location
+        display: inline-block
+        width: 120px
         color: $subtle-text-color
         font-size: 12px
         line-height: 18px
@@ -47,18 +45,17 @@
           font-size: 24px
           width: auto
           padding-right: 4px
-      
+
       .progress
         display: inline-block
-        font-size: 12px
-        font-weight: $heavy-font-weight
-        background: #ddd
-        padding: 2px 6px
-        margin-top: 2px
-        border: 1px solid #bbb
         color: #666
+        font-size: 10px
+        font-weight: $heavy-font-weight
+        width: 100px
+        background: #ddd
+        border: 1px solid #bbb
+        padding: 1px 0
+        text-align: center
         border-radius: 10px
-        .icon
-          font-size: 24px
-          width: auto
-          padding-right: 4px
+        .count
+          padding: 0 2px
