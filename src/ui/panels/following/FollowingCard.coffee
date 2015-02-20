@@ -14,6 +14,7 @@ ListItem            = React.createFactory(require 'ui/common/ListItem')
 StackName           = React.createFactory(require 'ui/common/StackName')
 Time                = React.createFactory(require 'ui/common/Time')
 CardProgressBar     = React.createFactory(require 'ui/panels/following/CardProgressBar')
+{div}               = React.DOM
 
 FollowingCard = React.createClass {
 
@@ -59,9 +60,9 @@ FollowingCard = React.createClass {
     ListItem {@isReady, @onClick, className: 'following-card'},
       Link props,
         CardOwner {user: @state.user}
-        Frame {className: 'title'},
+        div {className: 'title'},
           @props.card.title or 'Untitled Card'
-        Frame {className: 'widgets'},
+        div {className: 'widgets'},
           CardLocation {card: @props.card, stack: @state.stack}
           CardProgressBar {card: @props.card}
 

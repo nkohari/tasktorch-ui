@@ -14,22 +14,11 @@ EditableTextArea = React.createClass {
   componentWillReceiveProps: (newProps) ->
     @setState {dirty: false, previous: newProps.value, value: newProps.value}
 
-  componentWillUpdate: ->
-    console.log "componentWillUpdate: height = #{@getDOMNode()?.scrollHeight}"
-
-  componentDidUpdate: ->
-    console.log "componentDidUpdate: height = #{@getDOMNode()?.scrollHeight}"
+  componentDidMount: ->
+    node = @getDOMNode()
+    node.style.height = "#{@getHeight()}px"
 
   render: ->
-
-    style = {}
-
-    if @isMounted()
-      node = @getDOMNode()
-      if node.scrollHeight == node.clientHeight
-        node.style.height = 'auto'
-      style.height = node.scrollHeight
-      console.log "height = #{style.height}"
 
     classes = classSet [
       'dirty' if @state.dirty
@@ -37,7 +26,7 @@ EditableTextArea = React.createClass {
 
     props = mergeProps @props, {
       className: classes
-      style: style
+      style: {height: @getHeight()} if @isMounted()
       value: @state.value
       @onChange
       @onFocus
@@ -66,6 +55,12 @@ EditableTextArea = React.createClass {
   onBlur: ->
     @props.save(@state.value) if @props.save? and @state.dirty
     @setState {dirty: false}
+
+  getHeight: ->
+    node = @getDOMNode()
+    if node.scrollHeight == node.clientHeight
+      node.style.height = 'auto'
+    return node.scrollHeight
 
 }
 

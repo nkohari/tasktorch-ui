@@ -1,9 +1,9 @@
-_                = require 'lodash'
-React            = require 'react/addons'
-PropTypes        = require 'framework/PropTypes'
-mergeProps       = require 'framework/util/mergeProps'
-{div}            = React.DOM
-{cloneWithProps} = React.addons
+_          = require 'lodash'
+React      = require 'react/addons'
+PropTypes  = require 'framework/PropTypes'
+classSet   = require 'framework/util/classSet'
+mergeProps = require 'framework/util/mergeProps'
+{div}      = React.DOM
 
 Block = React.createClass {
 
@@ -28,12 +28,14 @@ Block = React.createClass {
 
   render: ->
 
-    classes = ['block']
-    classes.push('collapsible') if @props.collapsible
-    classes.push('expanded')    if @props.collapsible and @state.expanded
+    classes = classSet [
+      'block'
+      'collapsible' if @props.collapsible
+      'expanded'    if @props.collapsible and @state.expanded
+    ]
 
     props = mergeProps _.omit(@props, 'title'), {
-      className: classes.join(' ')
+      className: classes
     }
 
     if @shouldShowContents()
@@ -45,9 +47,7 @@ Block = React.createClass {
 
   onHeaderClicked: ->
     return unless @props.collapsible
-    @setState {expanded: !@state.expanded}, =>
-      @forceUpdate() if @state.expanded
-
+    @setState {expanded: !@state.expanded}
 }
 
 module.exports = Block
