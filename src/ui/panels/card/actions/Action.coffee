@@ -1,6 +1,7 @@
 React               = require 'react'
 PropTypes           = require 'framework/PropTypes'
 Observe             = require 'framework/mixins/Observe'
+classSet            = require 'framework/util/classSet'
 Icon                = React.createFactory(require 'ui/common/Icon')
 ActionStatus        = React.createFactory(require 'ui/panels/card/actions/ActionStatus')
 ActionOwner         = React.createFactory(require 'ui/panels/card/actions/ActionOwner')
@@ -23,10 +24,13 @@ Action = React.createClass {
 
   render: ->
 
-    classes = ['action', @props.action.status.toLowerCase()]
+    classes = classSet [
+      'action'
+      @props.action.status.toLowerCase()
+      @state.command.toLowerCase() if @state.command?
+    ]
 
     if @state.command?
-      classes.push(@state.command.toLowerCase())
       commandFrame = ActionCommandFrame {
         action:      @props.action
         command:     @state.command
@@ -34,13 +38,14 @@ Action = React.createClass {
         hideCommand: @hideCommand
       }
 
-    div {className: classes.join(' ')},
-      div {},
+    div {className: 'action-container'},
+      div {className: classes},
+        div {className: 'left-controls'},
+          Icon {name: 'handle'}
         ActionStatus {action: @props.action, @showCommand}
         ActionOwner  {action: @props.action, @showCommand}
         ActionText   {action: @props.action}
-        div {className: 'action-controls'},
-          Icon {name: 'handle'}
+        div {className: 'right-controls'},
           ActionDeleteTrigger {action: @props.action, @showCommand}
       commandFrame
 

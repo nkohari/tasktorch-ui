@@ -34,8 +34,7 @@ CardActionsStage = React.createClass {
         div {className: 'stage-controls'},
           Button {
             className: 'small'
-            icon:      'action'
-            text:      'Add Action to Stage'
+            text:      'Add Action'
             onClick:   @createAction
           }
 

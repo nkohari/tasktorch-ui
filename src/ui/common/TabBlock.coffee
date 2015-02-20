@@ -22,11 +22,11 @@ TabBlock = React.createClass {
     }
 
     if not @props.isReady? or @props.isReady()
-      selectedPanel = _.find @props.children, (child) => child.key == @state.selected
+      content = _.find @props.children, (child) => child.key == @state.selected
 
     div props,
       ul {className: 'header'}, @renderHeaders()
-      div {className: 'content'}, selectedPanel
+      div {className: 'content'}, content
 
   renderHeaders: ->
     _.map @props.children, (child) =>

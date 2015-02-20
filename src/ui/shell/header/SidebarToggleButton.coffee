@@ -15,11 +15,12 @@ SidebarToggleButton = React.createClass {
   render: ->
 
     url = new Url(this)
+    isActive = url.sidebar
 
     classes = classSet [
       'button'
       'icon-only'
-      'active' if url.sidebar
+      'active' if isActive
     ]
 
     url.toggleSidebar()
@@ -28,8 +29,10 @@ SidebarToggleButton = React.createClass {
       hotkey: 's'
     }
 
+    icon = if isActive then 'chevron-left' else 'chevron-right'
+
     Link props,
-      Icon {name: 'handle'}
+      Icon {name: icon}
 
 }
 
