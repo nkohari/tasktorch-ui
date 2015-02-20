@@ -17,14 +17,19 @@ CommandToggleButton = React.createClass {
   mixins: [CardContext]
 
   render: ->
+
+    classes = classSet [
+      'active' if @isActiveCommand(@props.command)
+    ]
+
     Button {
-      className: classSet {active: @isActiveCommand(@props.command)}
-      icon:      @props.icon
-      text:      @props.text
-      onClick:   @onButtonClicked
+      className: classes
+      icon: @props.icon
+      text: @props.text
+      @onClick
     }
 
-  onButtonClicked: ->
+  onClick: ->
     if @isActiveCommand(@props.command)
       @context.hideCommandPanel(@props.command)
     else

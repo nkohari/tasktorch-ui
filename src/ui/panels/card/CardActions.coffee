@@ -6,14 +6,10 @@ KindStageListDisplayedEvent  = require 'events/display/KindStageListDisplayedEve
 CardActionListDisplayedEvent = require 'events/display/CardActionListDisplayedEvent'
 Frame                        = React.createFactory(require 'ui/common/Frame')
 CardActionsStage             = React.createFactory(require 'ui/panels/card/CardActionsStage')
-CardBlockHeader              = React.createFactory(require 'ui/panels/card/CardBlockHeader')
-{div, span, ul, li}          = React.DOM
 
-CardActionsBlock = React.createClass {
+CardActions = React.createClass {
 
-  # Spec --------------------------------------------------------------------------
-
-  displayName: 'CardActionsBlock'
+  displayName: 'CardActions'
 
   propTypes:
     card: PropTypes.Card.isRequired
@@ -23,8 +19,6 @@ CardActionsBlock = React.createClass {
 
   getInitialState: ->
     {expanded: true}
-
-  # Lifecycle ---------------------------------------------------------------------
 
   componentDidMount: ->
     @publish new KindStageListDisplayedEvent(@props.kind.id, @props.kind.stages)
@@ -36,39 +30,19 @@ CardActionsBlock = React.createClass {
     unless _.isEqual(newProps.card.actions, @props.card.actions)
       @publish new CardActionListDisplayedEvent(newProps.card.id, newProps.card.actions)
 
-  # State -------------------------------------------------------------------------
-  
   sync: (stores) ->
     {stages: stores.stages.getMany(@props.kind.stages)}
 
   isReady: ->
     @state.stages?
 
-  # Rendering ---------------------------------------------------------------------
-
   render: ->
-
-    classes = ['actions', 'block']
-    classes.push('expanded') if @state.expanded
-
-    div {className: classes.join(' ')},
-      CardBlockHeader {expanded: @state.expanded, @onToggleClicked}, 'Actions'
-      @renderContents() if @state.expanded
-
-  renderContents: ->
 
     stages = _.map @state.stages, (stage) =>
       CardActionsStage {key: "stage-#{stage.id}", card: @props.card, kind: @props.kind, stage: stage}
       
-    Frame {@isReady, className: 'contents'}, stages
+    Frame {@isReady, className: 'actions'}, stages
 
-  #--------------------------------------------------------------------------------
-
-  onToggleClicked: ->
-    @setState {expanded: !@state.expanded}
-
-  #--------------------------------------------------------------------------------
-  
 }
 
-module.exports = CardActionsBlock
+module.exports = CardActions

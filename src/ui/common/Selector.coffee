@@ -1,6 +1,6 @@
-_            = require 'lodash'
-React        = require 'react'
-classSet     = require 'framework/util/classSet'
+_                = require 'lodash'
+React            = require 'react'
+classSet         = require 'framework/util/classSet'
 {a, div, ul, li} = React.DOM
 
 Selector = React.createClass {
@@ -12,7 +12,10 @@ Selector = React.createClass {
 
   render: ->
 
-    classes = classSet {selector: true, expanded: @state.expanded}
+    classes = classSet [
+      'selector'
+      'expanded' if @state.expanded
+    ]
 
     div {className: classes},
       a {className: 'trigger', onClick: @onTriggerClicked},

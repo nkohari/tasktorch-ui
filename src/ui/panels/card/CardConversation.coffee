@@ -3,59 +3,40 @@ React                      = require 'react'
 PropTypes                  = require 'framework/PropTypes'
 Observe                    = require 'framework/mixins/Observe'
 CardNoteListDisplayedEvent = require 'events/display/CardNoteListDisplayedEvent'
+Block                      = React.createFactory(require 'ui/common/Block')
 Frame                      = React.createFactory(require 'ui/common/Frame')
+List                       = React.createFactory(require 'ui/common/List')
 CardNoteGroup              = React.createFactory(require 'ui/panels/card/CardNoteGroup')
-CardBlockHeader            = React.createFactory(require 'ui/panels/card/CardBlockHeader')
-{div, ul}                  = React.DOM
 
-CardConversationBlock = React.createClass {
+CardConversation = React.createClass {
 
-  # Spec --------------------------------------------------------------------------
-
-  displayName: 'CardConversationBlock'
+  displayName: 'CardConversation'
 
   propTypes:
     card: PropTypes.Card.isRequired
 
   mixins: [Observe('notes')]
 
-  getInitialState: ->
-    {expanded: true}
-
-  # Lifecycle ---------------------------------------------------------------------
-
   componentDidMount: ->
     @publish new CardNoteListDisplayedEvent(@props.card.id)
-
-  componentDidMount: ->
-    @scrollToBottom()
 
   componentWillReceiveProps: (newProps) ->
     unless @props.card.id == newProps.card.id
       @publish new CardNoteListDisplayedEvent(newProps.card.id)
 
-  componentDidUpdate: ->
-    @scrollToBottom()
-
-  # State -------------------------------------------------------------------------
-  
   sync: (stores) ->
     {notes: stores.notes.getAllByCard(@props.card.id)}
 
   isReady: ->
     @state.notes?
 
-  # Rendering ---------------------------------------------------------------------
-
   render: ->
 
     groups = _.map @createGroups(@state.notes), (group) =>
-      CardNoteGroup {card: @props.card, userid: group.user, notes: group.notes}
+      CardNoteGroup {id: _.first(group.notes).id, card: @props.card, userid: group.user, notes: group.notes}
 
-    div {className: 'conversation block'},
-      CardBlockHeader {}, 'Conversation'
-      Frame {@isReady, ref: 'contents', className: 'contents'},
-        ul {className: 'notes'}, groups
+    Frame {@isReady, className: 'conversation'},
+      List {className: 'notes'}, groups
 
   createGroups: (notes) ->
     groups = []
@@ -75,12 +56,8 @@ CardConversationBlock = React.createClass {
       currentNote = note
     return groups
 
-  scrollToBottom: ->
-    node = @refs.contents.getDOMNode()
-    node.scrollTop = node.scrollHeight
-
   #--------------------------------------------------------------------------------
 
 }
 
-module.exports = CardConversationBlock
+module.exports = CardConversation

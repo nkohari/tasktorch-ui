@@ -35,10 +35,10 @@ MenuButton = React.createClass {
         }
       menu = List {ref: 'dropdown', className: 'dropdown', tabIndex: -1, @onBlur}, items
 
-    classes = mergeClasses @props.className, classSet {
-      'menu-button': true
-      'expanded':    @state.expanded
-    }
+    classes = mergeClasses @props.className, classSet [
+      'menu-button'
+      'expanded' if @state.expanded
+    ]
 
     buttonProps = {
       onClick: @onButtonClicked

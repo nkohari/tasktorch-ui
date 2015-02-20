@@ -47,11 +47,6 @@ StackCardList = React.createClass {
 
   render: ->
 
-    classes = ['cards']
-    if @state.dragActive
-      classes.push('dragging')
-      classes.push("drop-#{if @state.dropAllowed then 'allowed' else 'disallowed'}")
-
     items = _.map @state.cards, (card) =>
       StackCardListItem {
         key:   "card-#{card.id}"
@@ -59,7 +54,14 @@ StackCardList = React.createClass {
         card:  card
       }
 
-    List {@isReady, className: classes.join(' ')}, items
+    classes = classSet [
+      'cards'
+      'dragging'        if @state.dragActive
+      'drop-allowed'    if @state.dragActive and @state.dropAllowed
+      'drop-disallowed' if @state.dragActive and not @state.dropAllowed
+    ]
+
+    List {@isReady, className: classes}, items
 
   getSortableList: ->
     @props.stack

@@ -1,6 +1,7 @@
-React      = require 'react/addons'
+React      = require 'react'
 KeyCode    = require 'framework/enums/KeyCode'
-{classSet} = React.addons
+mergeProps = require 'framework/util/mergeProps'
+classSet   = require 'framework/util/classSet'
 {input}    = React.DOM
 
 EditableText = React.createClass {
@@ -15,20 +16,22 @@ EditableText = React.createClass {
 
   render: ->
 
-    classes = classSet {editable: true, dirty: @state.dirty}
-    classes += ' ' + @props.className if @props.className?
+    classes = classSet [
+      'editable'
+      'dirty' if @state.dirty
+    ]
 
-    input {
-      className:   classes
-      placeholder: @props.placeholder
-      value:       @state.value
-      onChange:    @handleChange
-      onFocus:     @handleFocus
-      onBlur:      @handleBlur
-      onKeyUp:     @handleKeyUp
+    props = mergeProps @props, {
+      className: classes
+      @onChange
+      @onFocus
+      @onBlur
+      @onKeyUp
     }
 
-  handleKeyUp: (event) ->
+    input props
+
+  onKeyUp: (event) ->
     switch event.which
       when KeyCode.ESCAPE
         @setState {dirty: false, value: @state.previous}, =>
@@ -36,13 +39,13 @@ EditableText = React.createClass {
       when KeyCode.RETURN
         @getDOMNode().blur()
 
-  handleChange: (event) ->
+  onChange: (event) ->
     @setState {dirty: true, value: event.target.value}
 
-  handleFocus: ->
+  onFocus: ->
     @setState {previous: @state.value}
 
-  handleBlur: ->
+  onBlur: ->
     @props.save(@state.value) if @state.dirty
     @setState {dirty: false}
 

@@ -21,7 +21,8 @@ CardPanel = React.createClass {
   displayName: 'CardPanel'
 
   propTypes:
-    cardid: PropTypes.id
+    cardid:      PropTypes.id
+    currentUser: PropTypes.User
 
   mixins: [
     CardContext
@@ -50,14 +51,14 @@ CardPanel = React.createClass {
 
     props = mergeProps @props, {
       className: classes.join(' ')
-      isReady:   @isReady
+      @isReady
     }
 
     Frame props,
       CardCloseLink {card: @state.card}
       CardHeader    {card: @state.card, kind: @state.kind}
       CardBody      {card: @state.card, kind: @state.kind}
-      CardFooter    {card: @state.card}
+      CardFooter    {card: @state.card, currentUser: @props.currentUser}
 
 }
 

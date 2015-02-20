@@ -31,12 +31,14 @@ SuggestingSelector = React.createClass {
 
   render: ->
 
-    div {
-      className: classSet {selector: true, expanded: @state.expanded}
-    }, [
+    classes = classSet [
+      'selector'
+      'expanded' if @state.expanded
+    ]
+
+    div {className: classes},
       @renderTrigger()
       @renderDropDown() if @state.expanded
-    ]
 
   renderTrigger: ->
 

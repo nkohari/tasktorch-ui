@@ -3,7 +3,7 @@ Observe                    = require 'framework/mixins/Observe'
 PassCardRequest            = require 'requests/PassCardRequest'
 CardContext                = require 'ui/panels/card/CardContext'
 Button                     = React.createFactory(require 'ui/common/Button')
-EditableTextBlock          = React.createFactory(require 'ui/common/EditableTextBlock')
+EditableTextArea           = React.createFactory(require 'ui/common/EditableTextArea')
 SuggestingSelector         = React.createFactory(require 'ui/common/SuggestingSelector')
 UserOrTeamSelectorOption   = React.createFactory(require 'ui/common/UserOrTeamSelectorOption')
 CommandArgument            = React.createFactory(require 'ui/panels/card/commands/panels/CommandArgument')
@@ -33,7 +33,7 @@ PassCommandPanel = React.createClass {
           onChange:    @onRecipientChanged
         }
       CommandArgument {label: 'Message', hint: '(optional)'},
-        EditableTextBlock {className: 'message', onChange: @onMessageChanged}
+        EditableTextArea {className: 'message', onChange: @onMessageChanged}
       div {className: 'buttons'},
         Button {text: 'Pass', className: 'default', onClick: @onOkButtonClicked}
         Button {text: 'Cancel', onClick: @context.hideCommandPanel}

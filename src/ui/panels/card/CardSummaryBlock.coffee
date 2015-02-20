@@ -2,9 +2,8 @@ React                    = require 'react'
 PropTypes                = require 'framework/PropTypes'
 Observe                  = require 'framework/mixins/Observe'
 ChangeCardSummaryRequest = require 'requests/ChangeCardSummaryRequest'
-EditableTextBlock        = React.createFactory(require 'ui/common/EditableTextBlock')
-CardBlockHeader          = React.createFactory(require 'ui/panels/card/CardBlockHeader')
-{div}                    = React.DOM
+Block                    = React.createFactory(require 'ui/common/Block')
+EditableTextArea         = React.createFactory(require 'ui/common/EditableTextArea')
 
 CardSummaryBlock = React.createClass {
 
@@ -15,21 +14,10 @@ CardSummaryBlock = React.createClass {
 
   mixins: [Observe()]
 
-  getInitialState: ->
-    {expanded: true}
-
   render: ->
-    
-    classes = ['summary', 'block']
-    classes.push('expanded') if @state.expanded
 
-    div {className: classes.join(' ')},
-      CardBlockHeader {expanded: @state.expanded, @onToggleClicked}, 'Summary'
-      @renderContents() if @state.expanded
-
-  renderContents: ->
-    div {className: 'contents'},
-      EditableTextBlock {
+    Block {className: 'summary', title: 'Summary', collapsible: true},
+      EditableTextArea {
         className:   'editable'
         placeholder: 'Card Summary'
         value:       @props.card.summary
@@ -38,9 +26,6 @@ CardSummaryBlock = React.createClass {
 
   onSummaryChanged: (value) ->
     @execute new ChangeCardSummaryRequest(@props.card, value)
-
-  onToggleClicked: ->
-    @setState {expanded: !@state.expanded}
 
 }
 

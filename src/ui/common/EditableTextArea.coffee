@@ -1,16 +1,24 @@
 React      = require 'react'
 KeyCode    = require 'framework/enums/KeyCode'
+classSet   = require 'framework/util/classSet'
+mergeProps = require 'framework/util/mergeProps'
 {textarea} = React.DOM
 
-EditableTextBlock = React.createClass {
+EditableTextArea = React.createClass {
 
-  displayName: 'EditableTextBlock'
+  displayName: 'EditableTextArea'
 
   getInitialState: ->
     {dirty: false, previous: undefined, value: @props.value}
 
   componentWillReceiveProps: (newProps) ->
     @setState {dirty: false, previous: newProps.value, value: newProps.value}
+
+  componentWillUpdate: ->
+    console.log "componentWillUpdate: height = #{@getDOMNode()?.scrollHeight}"
+
+  componentDidUpdate: ->
+    console.log "componentDidUpdate: height = #{@getDOMNode()?.scrollHeight}"
 
   render: ->
 
@@ -21,22 +29,25 @@ EditableTextBlock = React.createClass {
       if node.scrollHeight == node.clientHeight
         node.style.height = 'auto'
       style.height = node.scrollHeight
+      console.log "height = #{style.height}"
 
-    classes = @props.className ? ''
-    classes += ' dirty' if @state.dirty
+    classes = classSet [
+      'dirty' if @state.dirty
+    ]
 
-    textarea {
-      className:   classes
-      style:       style
-      placeholder: @props.placeholder
-      value:       @state.value
-      onChange:    @handleChange
-      onFocus:     @handleFocus
-      onBlur:      @handleBlur
-      onKeyUp:     @handleKeyUp
+    props = mergeProps @props, {
+      className: classes
+      style: style
+      value: @state.value
+      @onChange
+      @onFocus
+      @onBlur
+      @onKeyUp
     }
 
-  handleKeyUp: (event) ->
+    textarea props
+
+  onKeyUp: (event) ->
     switch event.which
       when KeyCode.ESCAPE
         @setState {dirty: false, value: @state.previous}, =>
@@ -45,17 +56,17 @@ EditableTextBlock = React.createClass {
         if event.shiftKey
           @getDOMNode().blur()
 
-  handleChange: (event) ->
+  onChange: (event) ->
     @setState {dirty: true, value: event.target.value}
     @props.onChange(event) if @props.onChange?
 
-  handleFocus: ->
+  onFocus: ->
     @setState {previous: @state.value}
 
-  handleBlur: ->
+  onBlur: ->
     @props.save(@state.value) if @props.save? and @state.dirty
     @setState {dirty: false}
 
 }
 
-module.exports = EditableTextBlock
+module.exports = EditableTextArea

@@ -36,8 +36,8 @@ Action = React.createClass {
 
     div {className: classes.join(' ')},
       div {},
-        ActionOwner  {action: @props.action, @showCommand}
         ActionStatus {action: @props.action, @showCommand}
+        ActionOwner  {action: @props.action, @showCommand}
         ActionText   {action: @props.action}
         div {className: 'action-controls'},
           Icon {name: 'handle'}

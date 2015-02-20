@@ -1,22 +1,23 @@
-React             = require 'react'
-PropTypes         = require 'framework/PropTypes'
-Observe           = require 'framework/mixins/Observe'
-Frame             = React.createFactory(require 'ui/common/Frame')
-CardFollowersList = React.createFactory(require 'ui/panels/card/CardFollowersList')
-CardCommentBox    = React.createFactory(require 'ui/panels/card/CardCommentBox')
+React                  = require 'react'
+PropTypes              = require 'framework/PropTypes'
+Observe                = require 'framework/mixins/Observe'
+Frame                  = React.createFactory(require 'ui/common/Frame')
+CardFollowersList      = React.createFactory(require 'ui/panels/card/CardFollowersList')
+FollowCardToggleButton = React.createFactory(require 'ui/panels/card/FollowCardToggleButton')
 
 CardFooter = React.createClass {
 
   displayName: 'CardFooter'
 
   propTypes:
-    card: PropTypes.Card
+    card:        PropTypes.Card
+    currentUser: PropTypes.User
 
   render: ->
 
     Frame {className: 'footer'},
-      CardCommentBox    {card: @props.card}
-      CardFollowersList {card: @props.card}
+      FollowCardToggleButton {card: @props.card, currentUser: @props.currentUser}
+      CardFollowersList      {card: @props.card}
 
 }
 

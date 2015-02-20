@@ -13,10 +13,10 @@ Caret = React.createClass {
 
   render: ->
 
-    classes = classSet {
-      caret: true
-      flip:  @props.flip
-    }
+    classes = classSet [
+      'caret'
+      'flip' if @props.flip
+    ]
 
     span {className: classes}
 

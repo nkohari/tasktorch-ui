@@ -34,8 +34,8 @@ FollowingPanel = React.createClass {
   render: ->
 
     props = mergeProps @props, {
-      @isReady
       className: 'following panel'
+      @isReady
     }
     
     Frame props,

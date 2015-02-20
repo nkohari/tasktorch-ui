@@ -1,23 +1,25 @@
 .actions
+  display: flex
+  flex-direction: column
   
   .stage
+    flex: none
+    display: flex
+    flex-direction: row
     border-bottom: 1px solid #ccc
-    &:last-child { border-bottom: none }
+    &:last-child { flex: 1 }
     
     .title
-      position: relative
-      padding: 8px 1px 8px 8px
-      background: $steel-highlight-color
-      border-bottom: 1px solid #ccc
-    
-    .name
-      font-size: 14px
-      font-weight: $bold-font-weight
+      flex: none
+      width: 80px
+      padding: 10px
+      font-size: 12px
+      font-weight: $heavy-font-weight
       text-transform: uppercase
+      background: $steel-highlight-color
+      border-left: 1px solid #ccc
     
     .stage-controls
-      float: right
-      margin-top: -3px
       opacity: 0
       transition: opacity $hover-animation-delay ease-in-out
     
@@ -28,7 +30,6 @@
   ul
     margin: 0
     padding: 0
-    min-height: 20px
     
     li
       list-style-type: none

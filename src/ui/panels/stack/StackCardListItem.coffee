@@ -3,13 +3,13 @@ Router       = require 'react-router'
 StackType    = require 'framework/enums/StackType'
 Url          = require 'framework/Url'
 Observe      = require 'framework/mixins/Observe'
+classSet     = require 'framework/util/classSet'
 ListItem     = React.createFactory(require 'ui/common/ListItem')
 QueueCard    = React.createFactory(require 'ui/panels/stack/cards/QueueCard')
 InboxCard    = React.createFactory(require 'ui/panels/stack/cards/InboxCard')
 DraftsCard   = React.createFactory(require 'ui/panels/stack/cards/DraftsCard')
 BacklogCard  = React.createFactory(require 'ui/panels/stack/cards/BacklogCard')
 {li}         = React.DOM
-{classSet}   = React.addons
 
 StackCardListItem = React.createClass {
 
@@ -29,16 +29,17 @@ StackCardListItem = React.createClass {
 
   render: ->
 
-    classes = 
-      'stack-card': true
-      active:       new Url(this).isCardActive(@props.card.id)
+    classes = classSet [
+      'stack-card'
+      'active' if new Url(this).isCardActive(@props.card.id)
+    ]
 
     ListItem {
+      className: classes
+      'data-itemid': @props.card.id
       @isReady
       @onClick
-      className:     classSet(classes)
-      'data-itemid': @props.card.id
-    }, [@renderContents()]
+    }, @renderContents()
 
   renderContents: ->
     switch @props.stack.type

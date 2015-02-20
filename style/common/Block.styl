@@ -1,0 +1,14 @@
+.block
+  
+  & > .header
+    font-size: 12px
+    padding: 4px 10px
+    font-weight: $heavy-font-weight
+    text-transform: uppercase
+    color: $panel-block-header-text-color
+    background: linear-gradient(to bottom, $steel-highlight-color, $steel-lowlight-color)
+    border-bottom: 1px solid $panel-block-border-color
+
+  &.collapsible
+    & > .header { cursor: pointer }
+    &.expanded { border-bottom: 1px solid $panel-block-border-color }

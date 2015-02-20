@@ -1,0 +1,39 @@
+.tab-block
+  
+  & > .header
+    padding: 0
+    margin: 0
+    color: $panel-block-header-text-color
+    background: linear-gradient(to bottom, $steel-highlight-color, $steel-lowlight-color)
+    border-bottom: 1px solid $panel-block-border-color
+      
+    .tab
+      display: inline-block
+      cursor: pointer
+      list-style-type: none
+      font-size: 12px
+      padding: 4px 10px
+      font-weight: $heavy-font-weight
+      text-transform: uppercase
+      border-right: 1px solid $panel-block-border-color
+      
+      &.active
+        background: $steel-lowlight-color
+
+@keyframes tab-pane-enter
+  from
+    opacity: 0
+  to
+    opacity: 1
+
+.tab-block .content .fade-enter
+  animation: tab-pane-enter 250ms ease-out
+
+@keyframes tab-pane-leave
+  from
+    opacity: 1
+  to
+    opacity: 0
+
+.tab-block .content .fade-leave
+  animation: tab-pane-leave 250ms ease-in

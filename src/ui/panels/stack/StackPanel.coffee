@@ -19,7 +19,7 @@ StackPanel = React.createClass {
   displayName: 'StackPanel'
 
   propTypes:
-    stackid: PropTypes.id.isRequired
+    stackid: PropTypes.id
 
   mixins: [Observe('cards', 'stacks')]
 
@@ -38,8 +38,8 @@ StackPanel = React.createClass {
   render: ->
 
     props = mergeProps @props, {
-      @isReady
       className: 'stack panel'
+      @isReady
     }
     
     Frame props,
