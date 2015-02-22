@@ -4,20 +4,20 @@ CardContext = require 'ui/panels/card/CardContext'
 Button      = React.createFactory(require 'ui/common/Button')
 {div}       = React.DOM
 
-DelayCommandPanel = React.createClass {
+DeferCommandPanel = React.createClass {
 
-  displayName: 'DelayCommandPanel'
+  displayName: 'DeferCommandPanel'
 
   mixins: [CardContext, Observe()]
 
   render: ->
 
     div {className: 'defer command'},
-      'Dulé'
+      'Not yet implemented'
       div {className: 'buttons'},
-        Button {icon: 'ok',     text: 'OK'}
-        Button {icon: 'cancel', text: 'Cancel', onClick: @context.hideCommandPanel}
+        Button {text: 'Defer'}
+        Button {text: 'Cancel', onClick: @context.hideCommandPanel}
 
 }
 
-module.exports = DelayCommandPanel
+module.exports = DeferCommandPanel

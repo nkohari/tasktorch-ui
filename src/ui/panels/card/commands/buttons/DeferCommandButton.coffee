@@ -5,19 +5,19 @@ CardCommand         = require 'framework/enums/CardCommand'
 CardContext         = require 'ui/panels/card/CardContext'
 CommandToggleButton = React.createFactory(require 'ui/panels/card/commands/buttons/CommandToggleButton')
 
-DelayCommandButton = React.createClass {
+DeferCommandButton = React.createClass {
 
-  displayName: 'DelayCommandButton'
+  displayName: 'DeferCommandButton'
 
   mixins: [CardContext]
 
   render: ->
     CommandToggleButton {
-      icon:    'delay'
-      text:    'Delay'
-      command: CardCommand.Delay
+      icon:    'defer'
+      text:    'Defer'
+      command: CardCommand.Defer
     }
 
 }
 
-module.exports = DelayCommandButton
+module.exports = DeferCommandButton

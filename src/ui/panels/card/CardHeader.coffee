@@ -17,7 +17,7 @@ CSSTransitionGroup  = React.createFactory(React.addons.CSSTransitionGroup)
 {div}               = React.DOM
 
 CommandPanels =
-  Delay:    React.createFactory(require 'ui/panels/card/commands/panels/DelayCommandPanel')
+  Defer:    React.createFactory(require 'ui/panels/card/commands/panels/DeferCommandPanel')
   Pass:     React.createFactory(require 'ui/panels/card/commands/panels/PassCommandPanel')
   Complete: React.createFactory(require 'ui/panels/card/commands/panels/CompleteCommandPanel')
   Delete:   React.createFactory(require 'ui/panels/card/commands/panels/DeleteCommandPanel')

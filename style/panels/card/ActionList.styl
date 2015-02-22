@@ -7,8 +7,6 @@
   
   .stage
     flex: none
-    display: flex
-    flex-direction: row
     border-bottom: 1px solid #ccc
     
     &:last-child
@@ -16,35 +14,32 @@
       flex: 1
     
     .title
-      flex: none
-      width: 100px
-      padding: 10px
-      text-align: right
+      padding: 4px 10px
+      color: #999
       font-size: 12px
       font-weight: $heavy-font-weight
       text-transform: uppercase
       background: $steel-highlight-color
-      border-left: 1px solid #ccc
+      border-bottom: 1px solid #ccc
     
       .stage-controls
+        float: right
         opacity: 0
-        padding-top: 10px
         transition: opacity $hover-animation-delay ease-in-out
       
       &:hover
         .stage-controls { opacity: 1 }
       
-  ul
-    margin: 0
-    padding: 0
-    flex: 1
-    
-    li
-      list-style-type: none
-      padding: 4px
-      border-bottom: 1px dotted #ccc
-      &:last-child
-        border-bottom: none
+    ul
+      margin: 0
+      padding: 0
+      
+      li
+        list-style-type: none
+        padding: 4px
+        border-bottom: 1px dotted #ccc
+        &:last-child
+          border-bottom: none
     
     .drag-placeholder
       height: 30px
