@@ -1,4 +1,4 @@
-React     = require 'react/addons'
+React     = require 'react'
 PropTypes = require 'framework/PropTypes'
 {div}     = React.DOM
 

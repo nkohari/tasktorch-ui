@@ -1,21 +1,17 @@
-$arrow-width = 5px
-$overlay-text-color = $white
-$overlay-arrow-color = $black
-$overlay-background-color = $black
-$overlay-border-color = $black
-
 .overlay
   position: absolute
   z-index: $floating-layer
-  display: block
-  background: $overlay-background-color
+  margin: 2px 0 0 0
+  padding: 6px
+  color: $black
+  font-size: 14px
   border: 1px solid $overlay-border-color
-  border-radius: 4px
-
-  .content
-    padding: 4px 8px
-    font-size: 14px
-    color: $overlay-text-color
+  background: $overlay-background-color
+  box-shadow: 0px 1px 3px shadow(30%)
+  outline: none !important
+  
+  &.right
+    right: 0
 
   .arrow, .arrow:after
     position: absolute
@@ -25,62 +21,32 @@ $overlay-border-color = $black
   
   .arrow:after
     content: " "
-    
-  &.top
-    margin-top: -($arrow-width)
-    .arrow
-      bottom: -($arrow-width)
-      left: 50%
-      margin-left: -($arrow-width)
-      border-bottom-width: 0
-      border-top-color: $overlay-border-color
-      &:after
-        bottom: 1px
-        margin-left: -($arrow-width)
-        border-bottom-width: 0
-        border-top-color: $overlay-arrow-color
 
-  &.right
-    margin-left: $arrow-width
-    .arrow
-      top: 50%
-      left: -($arrow-width)
-      margin-top: -($arrow-width)
-      border-left-width: 0
-      border-right-color: $overlay-border-color
-      &:after
-        left: 1px
-        bottom: -($arrow-width)
-        border-left-width: 0
-        border-right-color: $overlay-arrow-color
-
-  &.bottom
-    margin-top: $arrow-width
+  &.left
+    margin-top: ($arrow-width + 2)
     .arrow
       top: -($arrow-width)
-      left: 50%
-      margin-left: -($arrow-width)
+      left: $arrow-width
       border-top-width: 0
       border-bottom-color: $overlay-border-color
       &:after
         top: 1px
         margin-left: -($arrow-width)
         border-top-width: 0
-        border-bottom-color: $overlay-arrow-color
-
-  &.left
-    margin-left: -($arrow-width)
+        border-bottom-color: $overlay-background-color
+        
+  &.right
+    margin-top: ($arrow-width + 2)
     .arrow
-      top: 50%
-      right: -($arrow-width)
-      margin-top: -($arrow-width)
-      border-right-width: 0
-      border-left-color: $overlay-border-color
+      top: -($arrow-width)
+      right: $arrow-width
+      border-top-width: 0
+      border-bottom-color: $overlay-border-color
       &:after
-        right: 1px
-        bottom: -($arrow-width)
-        border-right-width: 0
-        border-left-color: $overlay-arrow-color
+        top: 1px
+        margin-left: -($arrow-width)
+        border-top-width: 0
+        border-bottom-color: $overlay-background-color
  
 @keyframes overlay-enter
   from { opacity: 0; transform: translateY(10px) }

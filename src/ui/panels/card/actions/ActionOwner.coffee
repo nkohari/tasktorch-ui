@@ -1,11 +1,12 @@
-React              = require 'react'
-PropTypes          = require 'framework/PropTypes'
-Observe            = require 'framework/mixins/Observe'
-UserDisplayedEvent = require 'events/display/UserDisplayedEvent'
-ActionCommand      = require 'framework/enums/ActionCommand'
-Avatar             = React.createFactory(require 'ui/common/Avatar')
-Icon               = React.createFactory(require 'ui/common/Icon')
-Link               = React.createFactory(require 'ui/common/Link')
+React                    = require 'react'
+PropTypes                = require 'framework/PropTypes'
+Observe                  = require 'framework/mixins/Observe'
+UserDisplayedEvent       = require 'events/display/UserDisplayedEvent'
+Avatar                   = React.createFactory(require 'ui/common/Avatar')
+Icon                     = React.createFactory(require 'ui/common/Icon')
+Link                     = React.createFactory(require 'ui/common/Link')
+OverlayTrigger           = React.createFactory(require 'ui/common/OverlayTrigger')
+ChangeActionOwnerOverlay = React.createFactory(require 'ui/panels/card/actions/overlays/ChangeActionOwnerOverlay')
 
 ActionOwner = React.createClass {
 
@@ -42,10 +43,10 @@ ActionOwner = React.createClass {
     else
       contents = Icon {name: 'assign'}
 
-    Link {@isReady, className: 'owner', @onClick}, contents
+    overlay = ChangeActionOwnerOverlay {action: @props.action}
 
-  onClick: ->
-    @props.showCommand(ActionCommand.ChangeOwner)
+    OverlayTrigger {@isReady, className: 'owner', overlay},
+      contents
 
 }
 

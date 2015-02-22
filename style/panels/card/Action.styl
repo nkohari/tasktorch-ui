@@ -1,6 +1,7 @@
 .action
   display: flex
   flex-direction: row
+  position: relative
 
   .left-controls
     flex: none
@@ -80,3 +81,14 @@
     border: 1px solid #aaa
     box-shadow: 0 0 5px $shadow-color
     .right-controls { opacity: 1 }
+
+.overlay
+  text-align: left
+  .buttons
+    padding-top: 4px
+
+.status .overlay
+  width: 200px
+
+.owner .overlay
+  width: 200px

@@ -4,17 +4,18 @@ UserDisplayedEvent        = require 'events/display/UserDisplayedEvent'
 Observe                   = require 'framework/mixins/Observe'
 ChangeActionOwnerRequest  = require 'requests/ChangeActionOwnerRequest'
 Button                    = React.createFactory(require 'ui/common/Button')
+Overlay                   = React.createFactory(require 'ui/common/Overlay')
 SuggestingSelector        = React.createFactory(require 'ui/common/SuggestingSelector')
 UserSelectorOption        = React.createFactory(require 'ui/common/UserSelectorOption')
 {div}                     = React.DOM
 
-ChangeActionOwnerCommandPanel = React.createClass {
+ChangeActionOwnerOverlay = React.createClass {
 
-  displayName: 'ChangeActionOwnerCommandPanel'
+  displayName: 'ChangeActionOwnerOverlay'
 
   propTypes:
-    action:      PropTypes.Action
-    hideCommand: PropTypes.func
+    action: PropTypes.Action
+    hide:   PropTypes.func
 
   mixins: [Observe('users')]
 
@@ -35,7 +36,7 @@ ChangeActionOwnerCommandPanel = React.createClass {
 
   render: ->
     
-    div {className: 'action-command'},
+    Overlay {},
       SuggestingSelector {
         option:        UserSelectorOption
         suggest:       'user'
@@ -52,11 +53,11 @@ ChangeActionOwnerCommandPanel = React.createClass {
 
   onOkClicked: ->
     @execute new ChangeActionOwnerRequest(@props.action, @state.userid)
-    @props.hideCommand()
+    @props.hide()
 
   onCancelClicked: ->
-    @props.hideCommand()
+    @props.hide()
 
 }
 
-module.exports = ChangeActionOwnerCommandPanel
+module.exports = ChangeActionOwnerOverlay
