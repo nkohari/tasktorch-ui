@@ -49,15 +49,15 @@
         border-bottom-color: $overlay-background-color
  
 @keyframes overlay-enter
-  from { opacity: 0; transform: translateY(10px) }
+  from { opacity: 0; transform: translateY(-5px) }
   to   { opacity: 1; transform: translateY(0) }
 
 .overlay.slide-enter
-  animation: overlay-enter 50ms ease-out
+  animation: overlay-enter 100ms ease-out
 
 @keyframes overlay-leave
   from { opacity: 1; transform: translateY(0) }
-  to   { opacity: 0; transform: translateY(10px) }
+  to   { opacity: 0; transform: translateY(-5px) }
 
 .overlay.slide-leave
-  animation: overlay-leave 50ms linear
+  animation: overlay-leave 100ms linear

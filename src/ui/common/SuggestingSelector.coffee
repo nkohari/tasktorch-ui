@@ -3,6 +3,7 @@ React                         = require 'react/addons'
 classSet                      = require 'framework/util/classSet'
 Observe                       = require 'framework/mixins/Observe'
 LoadSuggestionsRequest        = require 'requests/LoadSuggestionsRequest'
+Caret                         = React.createFactory(require 'ui/common/Caret')
 {a, div, ul, li, span, input} = React.DOM
 
 SuggestingSelector = React.createClass {
@@ -49,8 +50,7 @@ SuggestingSelector = React.createClass {
 
     a {className: 'trigger', onClick: @onTriggerClicked},
       value
-      span {className: 'indicator'},
-        if @state.expanded then '\u25B4' else '\u25BE'
+      Caret {flip: @state.expanded}
 
   renderDropDown: ->
 

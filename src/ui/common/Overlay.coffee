@@ -19,14 +19,16 @@ Overlay = React.createClass {
 
   render: ->
 
-    props = mergeProps _.omit(@props, 'isReady', 'position'), {
+    props = mergeProps _.omit(@props, 'arrow', 'isReady', 'position'), {
       className: classSet [
         'overlay'
         @props.position
       ]
     }
 
-    children = [div {className: 'arrow'}]
+    children = [
+      div {className: 'arrow'} if @props.arrow
+    ]
 
     if not @props.isReady? or @props.isReady()
       children = children.concat(@props.children)

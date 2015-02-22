@@ -18,7 +18,7 @@ DeleteActionOverlay = React.createClass {
 
   render: ->
     
-    Overlay {position: 'right'},
+    Overlay {arrow: true, position: 'right'},
       "Are you sure you want to delete this action?"
       div {className: 'buttons'},
         Button {className: 'small', text: 'Delete', onClick: @onDeleteClicked}

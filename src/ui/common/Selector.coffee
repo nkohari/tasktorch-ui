@@ -1,6 +1,7 @@
 _                = require 'lodash'
 React            = require 'react'
 classSet         = require 'framework/util/classSet'
+Caret            = React.createFactory(require 'ui/common/Caret') 
 {a, div, ul, li} = React.DOM
 
 Selector = React.createClass {
@@ -19,7 +20,8 @@ Selector = React.createClass {
 
     div {className: classes},
       a {className: 'trigger', onClick: @onTriggerClicked},
-        @getSelectedOption()
+        div {className: 'value'}, @getSelectedOption()
+        Caret {}
       @renderDropDown() if @state.expanded
 
   renderDropDown: ->

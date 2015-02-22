@@ -5,8 +5,9 @@
           
   &.expanded
     a
-      background: linear-gradient(to bottom, #ddd, #eee 50%, #fff)
+      background: $button-lowlight-color
       border-radius: 4px 4px 0 0
+      border-bottom: 1px solid #999
 
   a
     position: relative
@@ -41,9 +42,7 @@
     width: 100%
     border: 1px solid #999
     border-top: 0px
-    margin-top: -1px
     border-radius: 0 0 4px 4px
-    padding: 4px
     background: #fff
     
     .suggest
@@ -62,22 +61,27 @@
         color: #999
         
     ul
-      list-style-type: none
       padding: 0
       margin: 0
+      
       li
+        list-style-type: none
         cursor: pointer
-        font-size: 14px
+        font-size: 13px
         padding: 4px
         background: #fff
+        
         &:hover
-          background: #ccc
-        &:first-child
-          margin-top: 4px
+          background: #eee
+          
+        &:last-child
+          border-radius: 0 0 4px 4px
+          
         .icon
           display: inline-block
           vertical-align: middle
           margin-right: 4px
+          
         .avatar
           display: inline-block
           vertical-align: middle
@@ -85,6 +89,7 @@
           height: 18px
           width: 18px
           border-radius: 50%
+          
         span
           display: inline-block
           vertical-align: middle

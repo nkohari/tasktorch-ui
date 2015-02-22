@@ -21,15 +21,8 @@ CardActionsStage = React.createClass {
 
   render: ->
 
-    div {key: "stage-#{@props.stage.id}", className: 'stage'},
-      div {className: 'title'},
-        span {className: 'name'}, @props.stage.name
-        div {className: 'stage-controls'},
-          Button {
-            className: 'small'
-            text:      'Add Action'
-            onClick:   @createAction
-          }
+    div {className: 'stage'},
+      div {className: 'title'}, @props.stage.name
       ActionList {
         key:  'actions'
         card:  @props.card

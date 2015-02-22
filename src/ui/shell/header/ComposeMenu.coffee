@@ -5,8 +5,11 @@ Observe           = require 'framework/mixins/Observe'
 PropTypes         = require 'framework/PropTypes'
 CreateCardRequest = require 'requests/CreateCardRequest'
 Url               = require 'framework/Url'
-MenuButton        = React.createFactory(require 'ui/common/MenuButton')
-MenuItem          = React.createFactory(require 'ui/common/MenuItem')
+Button            = React.createFactory(require 'ui/common/Button')
+List              = React.createFactory(require 'ui/common/List')
+ListItem          = React.createFactory(require 'ui/common/ListItem')
+Overlay           = React.createFactory(require 'ui/common/Overlay')
+OverlayTrigger    = React.createFactory(require 'ui/common/OverlayTrigger')
 {span}            = React.DOM
 
 ComposeMenu = React.createClass {
@@ -31,14 +34,17 @@ ComposeMenu = React.createClass {
   render: ->
 
     items = _.map @state.kinds, (kind) =>
-      MenuItem {key: kind.id, value: kind},
+      ListItem {key: kind.id, onClick: @onItemClicked.bind(this, kind)},
         span {className: 'color-marker', style: {backgroundColor: kind.color}}
         kind.name
 
-    MenuButton {@isReady, text: 'Compose', className: 'compose', @onItemClicked}, items
+    overlay = List {className: 'overlay menu'}, items
 
-  onItemClicked: (event) ->
-    kind    = event.value
+    OverlayTrigger {@isReady, ref: 'trigger', className: 'compose menu-button', overlay},
+      Button {text: 'Compose', caret: true}
+
+  onItemClicked: (kind, event) ->
+    @refs.trigger.hideOverlay()
     url     = new Url(this)
     request = new CreateCardRequest(url.orgid, kind.id)
     @execute request, (err, card) =>

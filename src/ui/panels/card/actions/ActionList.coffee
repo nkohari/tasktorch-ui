@@ -45,7 +45,7 @@ ActionList = React.createClass {
   render: ->
 
     items = _.map @state.actions, (action) =>
-      li {key: "action-#{action.id}", 'data-itemid': action.id}, [
+      li {key: "action-#{action.id}", className: 'action-list-item', 'data-itemid': action.id}, [
         Action {action}
       ]
 

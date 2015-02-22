@@ -3,6 +3,7 @@ Keymaster      = require 'keymaster'
 React          = require 'react'
 PropTypes      = require 'framework/PropTypes'
 mergeProps     = require 'framework/util/mergeProps'
+Caret          = React.createFactory(require 'ui/common/Caret')
 Icon           = React.createFactory(require 'ui/common/Icon')
 {span, button} = React.DOM
 
@@ -11,8 +12,9 @@ Button = React.createClass {
   displayName: 'Button'
 
   propTypes:
-    icon: PropTypes.string
-    text: PropTypes.string
+    caret: PropTypes.bool
+    icon:  PropTypes.string
+    text:  PropTypes.string
 
   componentDidMount: ->
     Keymaster(@props.hotkey, @onHotkeyPressed) if @props.hotkey?
@@ -32,6 +34,7 @@ Button = React.createClass {
     button props,
       Icon {name: @props.icon} if @props.icon?
       span {}, @props.text
+      Caret {} if @props.caret
 
   onHotkeyPressed: ->
     return unless @isMounted()

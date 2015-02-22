@@ -41,7 +41,7 @@ CardActions = React.createClass {
     stages = _.map @state.stages, (stage) =>
       CardActionsStage {key: "stage-#{stage.id}", card: @props.card, kind: @props.kind, stage: stage}
       
-    Frame {@isReady, className: 'actions'}, stages
+    Frame {@isReady, className: 'stage-list'}, stages
 
 }
 
