@@ -3,6 +3,7 @@ React     = require 'react'
 Router    = require 'react-router'
 PropTypes = require 'framework/PropTypes'
 StackType = require 'framework/enums/StackType'
+classSet  = require 'framework/util/classSet'
 Url       = require 'framework/Url'
 Icon      = React.createFactory(require 'ui/common/Icon')
 Link      = React.createFactory(require 'ui/common/Link')
@@ -21,10 +22,18 @@ StackSidebarItem = React.createClass {
   render: ->
 
     url = new Url(this)
-    url.addStack(@props.stack.id)
+    isActive = url.isStackActive(@props.stack.id)
+    url.toggleStack(@props.stack.id)
+
+    props = url.makeLinkProps({
+      className: classSet [
+        'active' if isActive
+      ]
+      hotkey: @props.hotkey
+    })
 
     ListItem {className: 'sidebar-item'},
-      Link url.makeLinkProps(hotkey: @props.hotkey),
+      Link props,
         Icon {name: "stack-#{@props.stack.type.toLowerCase()}"}
         Text {className: 'name'}, @getStackName()
         Text {className: 'count'}, @props.stack.cards.length if @props.stack.cards.length > 0

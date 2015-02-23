@@ -1,4 +1,6 @@
+_          = require 'lodash'
 React      = require 'react'
+PropTypes  = require 'framework/PropTypes'
 KeyCode    = require 'framework/enums/KeyCode'
 classSet   = require 'framework/util/classSet'
 mergeProps = require 'framework/util/mergeProps'
@@ -7,6 +9,9 @@ mergeProps = require 'framework/util/mergeProps'
 EditableTextArea = React.createClass {
 
   displayName: 'EditableTextArea'
+
+  propTypes:
+    value: PropTypes.any
 
   getInitialState: ->
     {dirty: false, previous: undefined, value: @props.value}
@@ -24,7 +29,7 @@ EditableTextArea = React.createClass {
       'dirty' if @state.dirty
     ]
 
-    props = mergeProps @props, {
+    props = mergeProps _.omit(@props, 'value'), {
       className: classes
       style: {height: @getHeight()} if @isMounted()
       value: @state.value

@@ -1,4 +1,6 @@
+_          = require 'lodash'
 React      = require 'react'
+PropTypes  = require 'framework/PropTypes'
 KeyCode    = require 'framework/enums/KeyCode'
 mergeProps = require 'framework/util/mergeProps'
 classSet   = require 'framework/util/classSet'
@@ -7,6 +9,9 @@ classSet   = require 'framework/util/classSet'
 EditableText = React.createClass {
 
   displayName: 'EditableText'
+
+  propTypes:
+    value: PropTypes.any
 
   getInitialState: ->
     {dirty: false, previous: @props.value, value: @props.value}
@@ -21,8 +26,9 @@ EditableText = React.createClass {
       'dirty' if @state.dirty
     ]
 
-    props = mergeProps @props, {
+    props = mergeProps _.omit(@props, 'value'), {
       className: classes
+      value: @state.value
       @onChange
       @onFocus
       @onBlur

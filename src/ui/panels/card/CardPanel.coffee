@@ -2,8 +2,9 @@ _                  = require 'lodash'
 React              = require 'react'
 Router             = require 'react-router'
 PropTypes          = require 'framework/PropTypes'
-mergeProps         = require 'framework/util/mergeProps'
 Observe            = require 'framework/mixins/Observe'
+mergeProps         = require 'framework/util/mergeProps'
+classSet           = require 'framework/util/classSet'
 CardContext        = require './CardContext'
 Url                = require 'framework/Url'
 CardDisplayedEvent = require 'events/display/CardDisplayedEvent'
@@ -46,11 +47,12 @@ CardPanel = React.createClass {
 
   render: ->
 
-    classes = ['card', 'panel']
-    classes.push(@state.card.status.toLowerCase()) if @state.card?
-
     props = mergeProps @props, {
-      className: classes.join(' ')
+      className: classSet [
+        'card'
+        'panel'
+        @state.card.status.toLowerCase() if @state.card?
+      ]
       @isReady
     }
 

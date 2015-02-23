@@ -4,6 +4,7 @@ Router                        = require 'react-router'
 PropTypes                     = require 'framework/PropTypes'
 Url                           = require 'framework/Url'
 Observe                       = require 'framework/mixins/Observe'
+classSet                      = require 'framework/util/classSet'
 MyFollowedCardsDisplayedEvent = require 'events/display/MyFollowedCardsDisplayedEvent'
 Frame                         = React.createFactory(require 'ui/common/Frame')
 Icon                          = React.createFactory(require 'ui/common/Icon')
@@ -36,12 +37,19 @@ FollowingSidebarItem = React.createClass {
   render: ->
 
     url = new Url(this)
-    url.showFollowing()
+    isActive = url.isFollowingActive()
+    url.toggleFollowing()
+
+    props = url.makeLinkProps({
+      className: classSet [
+        'active' if isActive
+      ]
+    })
 
     Frame {@isReady, className: 'group'},
       List {},
         ListItem {className: 'sidebar-item'},
-          Link url.makeLinkProps(),
+          Link props,
             Icon {name: 'follow'}
             Text {className: 'name'}, 'Following'
             Text {className: 'count'}, @state.cards.length if @state.cards.length > 0
