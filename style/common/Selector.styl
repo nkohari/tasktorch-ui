@@ -28,22 +28,22 @@
       margin-right: 28px
       text-overflow: ellipsis
       &.placeholder { color: #666 }
-        
-    .indicator
-      position: absolute
-      top: 0
-      right: 8px
-      font: 28px $icon-font
-      color: #000
+      .avatar
+        float: left
+        height: 18px
+        width: 18px
+        border-radius: 50%
+        margin-right: 4px
       
   .drop
     position: absolute
     z-index: $floating-layer
     width: 100%
-    border: 1px solid #999
+    border: 1px solid $overlay-border-color
     border-top: 0px
     border-radius: 0 0 4px 4px
-    background: #fff
+    padding: 4px
+    background: $overlay-background-color
     
     .suggest
       position: relative
@@ -53,11 +53,12 @@
         width: 100%
         border: none !important
         outline: none !important
-      .indicator
+      .icon
         position: absolute
         top: 0
-        right: 8px
-        font: 28px $icon-font
+        right: 0
+        font-size: 28px
+        line-height: 28px
         color: #999
         
     ul

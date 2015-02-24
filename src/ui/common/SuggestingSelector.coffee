@@ -4,6 +4,7 @@ classSet                      = require 'framework/util/classSet'
 Observe                       = require 'framework/mixins/Observe'
 LoadSuggestionsRequest        = require 'requests/LoadSuggestionsRequest'
 Caret                         = React.createFactory(require 'ui/common/Caret')
+Icon                          = React.createFactory(require 'ui/common/Icon')
 {a, div, ul, li, span, input} = React.DOM
 
 SuggestingSelector = React.createClass {
@@ -49,7 +50,7 @@ SuggestingSelector = React.createClass {
       value = span {className: 'placeholder'}, [@props.placeholder ? 'Click to select']
 
     a {className: 'trigger', onClick: @onTriggerClicked},
-      value
+      div {className: 'value'}, value
       Caret {flip: @state.expanded}
 
   renderDropDown: ->
@@ -60,7 +61,7 @@ SuggestingSelector = React.createClass {
     div {className: 'drop'},
       div {className: 'suggest'},
         input {ref: 'input', type: 'text', value: @state.phrase, onChange: @onInputChanged}
-        span {className: 'indicator'}, '\uD83D\uDD0D'
+        Icon {name: 'search'}
       options
 
   renderOptionGroup: (type) ->
@@ -78,16 +79,16 @@ SuggestingSelector = React.createClass {
       }, @props.option {type: type, value: item}
 
   onTriggerClicked: (event) ->
-    @setState {suggestions: undefined, expanded: !@state.expanded}, =>
-      @refs.input.getDOMNode().focus() if @state.expanded
+    @setState {expanded: !@state.expanded}, =>
+      if @state.expanded
+        node = @refs.input.getDOMNode()
+        node.focus()
+        node.select()
 
   onInputChanged: (event) ->
     phrase = event.target.value
     @setState {phrase}, =>
       @execute new LoadSuggestionsRequest(@types, phrase) if phrase.length > 0
-
-  onTriggerClicked: ->
-    @setState {expanded: !@state.expanded}
 
   onOptionSelected: (item, type) ->
     @setState {expanded: false, selectionType: type, selection: item}
