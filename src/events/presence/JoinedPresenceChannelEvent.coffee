@@ -1,4 +1,4 @@
-Event = require 'framework/Event'
+Event = require 'events/framework/Event'
 
 class JoinedPresenceChannelEvent extends Event
   

@@ -1,8 +1,6 @@
 _                   = require 'lodash'
 React               = require 'react'
-Router              = require 'react-router'
-PropTypes           = require 'framework/PropTypes'
-Url                 = require 'framework/Url'
+PropTypes           = require 'ui/framework/PropTypes'
 Frame               = React.createFactory(require 'ui/common/Frame')
 ComposeMenu         = React.createFactory(require 'ui/shell/header/ComposeMenu')
 SidebarToggleButton = React.createFactory(require 'ui/shell/header/SidebarToggleButton')
@@ -11,8 +9,6 @@ SearchButton        = React.createFactory(require 'ui/shell/header/SearchButton'
 TopLeftCorner = React.createClass {
 
   displayName: 'TopLeftCorner'
-
-  mixins: [Router.State]
 
   propTypes:
     currentOrg:  PropTypes.Org

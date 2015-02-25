@@ -1,8 +1,7 @@
 _         = require 'lodash'
 React     = require 'react'
-Router    = require 'react-router'
-PropTypes = require 'framework/PropTypes'
-Url       = require 'framework/Url'
+PanelKey  = require 'ui/framework/PanelKey'
+PropTypes = require 'ui/framework/PropTypes'
 Icon      = React.createFactory(require 'ui/common/Icon')
 Link      = React.createFactory(require 'ui/common/Link')
 
@@ -10,15 +9,12 @@ FollowingCloseLink = React.createClass {
 
   displayName: 'FollowingCloseLink'
 
-  mixins: [Router.State]
-
   render: ->
-
-    url = new Url(this)
-    url.hideFollowing()
-
-    Link url.makeLinkProps(className: 'close'),
+    Link {className: 'close', @getLinkUrl},
       Icon {name: 'close'}
+
+  getLinkUrl: (currentUrl) ->
+    currentUrl.removePanel(PanelKey.forFollowing())
 
 }
 

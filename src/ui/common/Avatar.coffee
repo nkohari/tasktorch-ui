@@ -1,6 +1,6 @@
 React      = require 'react'
-PropTypes  = require 'framework/PropTypes'
-mergeProps = require 'framework/util/mergeProps'
+PropTypes  = require 'ui/framework/PropTypes'
+mergeProps = require 'common/util/mergeProps'
 {img}      = React.DOM
 
 Avatar = React.createClass {

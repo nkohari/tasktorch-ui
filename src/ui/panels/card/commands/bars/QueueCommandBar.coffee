@@ -1,6 +1,6 @@
 _                     = require 'lodash'
 React                 = require 'react'
-CardContext           = require 'ui/panels/card/CardContext'
+PropTypes             = require 'ui/framework/PropTypes'
 PassCommandButton     = React.createFactory(require 'ui/panels/card/commands/buttons/PassCommandButton')
 DeferCommandButton    = React.createFactory(require 'ui/panels/card/commands/buttons/DeferCommandButton')
 CompleteCommandButton = React.createFactory(require 'ui/panels/card/commands/buttons/CompleteCommandButton')
@@ -11,17 +11,18 @@ QueueCommandBar = React.createClass {
 
   displayName: 'QueueCommandBar'
 
-  mixins: [CardContext]
-
+  propTypes:
+    card: PropTypes.Card
+    
   render: ->
 
     div {className: 'queue commands'},
       div {className: 'button-group'},
-        PassCommandButton {}
-        DeferCommandButton {}
+        PassCommandButton {card: @props.card}
+        DeferCommandButton {card: @props.card}
       div {className: 'button-group right'},
-        CompleteCommandButton {}
-        DeleteCommandButton {}
+        CompleteCommandButton {card: @props.card}
+        DeleteCommandButton {card: @props.card}
 
 }
 

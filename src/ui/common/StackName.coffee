@@ -1,13 +1,12 @@
-_                  = require 'lodash'
-React              = require 'react'
-PropTypes          = require 'framework/PropTypes'
-mergeProps         = require 'framework/util/mergeProps'
-TeamDisplayedEvent = require 'events/display/TeamDisplayedEvent'
-UserDisplayedEvent = require 'events/display/UserDisplayedEvent'
-StackType          = require 'framework/enums/StackType'
-Observe            = require 'framework/mixins/Observe'
-Text               = React.createFactory(require 'ui/common/Text')
-{span}             = React.DOM
+_           = require 'lodash'
+React       = require 'react'
+PropTypes   = require 'ui/framework/PropTypes'
+mergeProps  = require 'common/util/mergeProps'
+StackType   = require 'data/enums/StackType'
+CachedState = require 'ui/framework/mixins/CachedState'
+Pure        = require 'ui/framework/mixins/Pure'
+Text        = React.createFactory(require 'ui/common/Text')
+{span}      = React.DOM
 
 StackName = React.createClass {
 
@@ -16,34 +15,19 @@ StackName = React.createClass {
   propTypes:
     stack: PropTypes.Stack
 
-  mixins: [Observe('teams', 'users')]
+  mixins: [CachedState, Pure]
 
-  componentDidMount: ->
-    @publish new UserDisplayedEvent(@props.stack.user) if @props.stack.user?
-    @publish new TeamDisplayedEvent(@props.stack.team) if @props.stack.team?
-
-  componentWillReceiveProps: (newProps) ->
-    prev = @props.stack
-    curr = newProps.stack
-    @publish new UserDisplayedEvent(curr.user) if curr.user? and curr.user != prev.user
-    @publish new TeamDisplayedEvent(curr.team) if curr.team? and curr.team != prev.team
-
-  sync: (stores) ->
-    return {
-      currentUser: stores.users.getCurrentUser()
-      user:        stores.users.get(@props.stack.user) if @props.stack.user?
-      team:        stores.teams.get(@props.stack.team) if @props.stack.team?
-    }
-
-  isReady: ->
-    @state.currentUser? and (@state.user? or @state.team?)
+  getCachedState: (cache) -> {
+    user: cache('users').get(@props.stack.user) if @props.stack.user?
+    team: cache('teams').get(@props.stack.team) if @props.stack.team?
+  }
 
   render: ->
-    props = mergeProps @props, {@isReady}
-    Text props, [@formatStackName()]
+
+    span @props,
+      @formatStackName() if @state.user? or @state.team?
 
   formatStackName: ->
-    return unless @isReady()
 
     if @props.stack.type == StackType.Backlog
       return @props.stack.name
@@ -51,7 +35,7 @@ StackName = React.createClass {
     if @state.team?
       possessive = @state.team.name
     else
-      if @state.user.id == @state.currentUser.id
+      if @state.user.id == Environment.userid
         possessive = 'My'
       else
         possessive = "#{@state.user.name}'s"

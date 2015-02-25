@@ -1,14 +1,10 @@
-_                  = require 'lodash'
-moment             = require 'moment'
-React              = require 'react'
-PropTypes          = require 'framework/PropTypes'
-UserDisplayedEvent = require 'events/display/UserDisplayedEvent'
-MoveType           = require 'framework/enums/MoveType'
-Observe            = require 'framework/mixins/Observe'
-Avatar             = React.createFactory(require 'ui/common/Avatar')
-Frame              = React.createFactory(require 'ui/common/Frame')
-Time               = React.createFactory(require 'ui/common/Time')
-{div, span}        = React.DOM
+_         = require 'lodash'
+moment    = require 'moment'
+React     = require 'react'
+PropTypes = require 'ui/framework/PropTypes'
+Pure      = require 'ui/framework/mixins/Pure'
+Time      = React.createFactory(require 'ui/common/Time')
+{div}     = React.DOM
 
 InboxCard = React.createClass {
 
@@ -17,39 +13,21 @@ InboxCard = React.createClass {
   propTypes:
     card: PropTypes.Card
 
-  mixins: [Observe('users')]
-
-  componentDidMount: ->
-    pass = @getLastPass(@props.card)
-    @publish new UserDisplayedEvent(pass.user)
-
-  componentWillReceiveProps: (newProps) ->
-    prev = @getLastPass(@props.card)
-    curr = @getLastPass(newProps.card)
-    @publish new UserDisplayedEvent(curr.user) if prev.user != curr.user
-
-  sync: (stores) ->
-    pass = @getLastPass(@props.card)
-    {sender: stores.users.get(pass.user)}
-
-  isReady: ->
-    @state.sender?
+  mixins: [Pure]
 
   render: ->
-
-    pass = @getLastPass(@props.card)
+    
+    move = @getLastMove(@props.card)
     style = {borderLeftColor: @props.kind.color}
 
-    Frame {@isReady, className: 'summary', style},
-      Avatar {user: @state.sender}
+    div {className: 'summary', style},
       div {className: 'title'},
         @props.card.title or 'Untitled Card'
       div {className: 'subtitle'},
-        Time {time: pass.time}
+        Time {time: move.time}
 
-  getLastPass: (card) ->
-    passes = _.filter card.moves, (move) -> move.type == MoveType.Pass
-    return _.max passes, (pass) -> moment(pass.time).valueOf()
+  getLastMove: (card) ->
+    return _.max card.moves, (move) -> moment(move.time).valueOf()
 
 }
 

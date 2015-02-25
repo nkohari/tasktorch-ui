@@ -1,31 +1,47 @@
-_                        = require 'lodash'
-Store                    = require 'framework/Store'
-LoadActionsByCardRequest = require 'requests/LoadActionsByCardRequest'
+Action                    = require 'data/models/Action'
+ModelStore                = require 'data/framework/ModelStore'
+ChangeActionOwnerRequest  = require 'data/requests/ChangeActionOwnerRequest'
+ChangeActionTextRequest   = require 'data/requests/ChangeActionTextRequest'
+ChangeActionStatusRequest = require 'data/requests/ChangeActionStatusRequest'
 
-class ActionStore extends Store
+class ActionStore extends ModelStore
 
   displayName: 'ActionStore'
+  name:        'actions'
+  modelType:    Action
 
-  getAllByCard: (cardid) ->
-    actions = _.filter(@items, (action) -> action.card == cardid)
-    _.sortBy(actions, 'rank')
+  listensFor: [
+    'ActionsLoaded'
+    'ActionChanged'
+    'ActionCreated'
+    'ActionDeleted'
+    'UserChangedActionOwner'
+    'UserChangedActionText'
+    'UserChangedActionStatus'
+  ]
 
-  onCardActionListDisplayed: (event) ->
-    if @getMany(event.actionids)?
-      @announce()
-    else
-      @execute new LoadActionsByCardRequest(event.cardid)
+  load: (id) ->
+    console.warn('ActionStore.load() was called')
 
   onActionsLoaded: (event) ->
     @add(event.actions)
+
+  onActionChanged: (event) ->
+    @add(event.action)
 
   onActionCreated: (event) ->
     @add(event.action)
 
   onActionDeleted: (event) ->
-    @remove(event.action)
-
-  onActionChanged: (event) ->
     @add(event.action)
+
+  onUserChangedActionOwner: (event) ->
+    @execute new ChangeActionOwnerRequest(event.actionid, event.userid)
+
+  onUserChangedActionText: (event) ->
+    @execute new ChangeActionTextRequest(event.actionid, event.text)
+
+  onUserChangedActionStatus: (event) ->
+    @execute new ChangeActionStatusRequest(event.actionid, event.status)
 
 module.exports = ActionStore

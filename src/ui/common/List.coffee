@@ -1,5 +1,5 @@
 React     = require 'react/addons'
-PropTypes = require 'framework/PropTypes'
+PropTypes = require 'ui/framework/PropTypes'
 {ul}      = React.DOM
 
 List = React.createClass {

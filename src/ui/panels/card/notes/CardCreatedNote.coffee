@@ -1,7 +1,9 @@
-_          = require 'lodash'
-React      = require 'react'
-PropTypes  = require 'framework/PropTypes'
-{li, span} = React.DOM
+_           = require 'lodash'
+React       = require 'react'
+PropTypes   = require 'ui/framework/PropTypes'
+Avatar      = React.createFactory(require 'ui/common/Avatar')
+Icon        = React.createFactory(require 'ui/common/Icon')
+{div, span} = React.DOM
 
 CardCreatedNote = React.createClass {
 
@@ -13,9 +15,14 @@ CardCreatedNote = React.createClass {
     user: PropTypes.User
 
   render: ->
-    li {className: 'note activity card-created'}, [
-      'Created the card'
-    ]
+
+    div {className: 'activity'},
+      Icon {name: 'create-card'}
+      div {className: 'activity-body'},
+        span {className: 'activity-user'},
+          Avatar {user: @props.user}
+          @props.user.name
+        'created the card'
 
 }
 

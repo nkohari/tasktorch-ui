@@ -1,7 +1,8 @@
 _             = require 'lodash'
 React         = require 'react'
-PropTypes     = require 'framework/PropTypes'
-mergeProps    = require 'framework/util/mergeProps'
+classSet      = require 'common/util/classSet'
+mergeProps    = require 'common/util/mergeProps'
+PropTypes     = require 'ui/framework/PropTypes'
 {div, li, ul} = React.DOM
 
 TabBlock = React.createClass {
@@ -26,13 +27,15 @@ TabBlock = React.createClass {
 
     div props,
       ul {className: 'header'}, @renderHeaders()
-      div {className: 'content'}, content
+      content
 
   renderHeaders: ->
     _.map @props.children, (child) =>
-      classes = ['tab']
-      classes.push('active') if @state.selected == child.key
-      li {key: child.key, className: classes.join(' '), onClick: @onTabClicked.bind(this, child.key)},
+      classes = classSet [
+        'tab'
+        'active' if @state.selected == child.key
+      ]
+      li {key: child.key, className: classes, onClick: @onTabClicked.bind(this, child.key)},
         child.props.title
 
   onTabClicked: (key, event) ->

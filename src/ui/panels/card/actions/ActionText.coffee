@@ -1,8 +1,9 @@
-React                   = require 'react'
-PropTypes               = require 'framework/PropTypes'
-Observe                 = require 'framework/mixins/Observe'
-ChangeActionTextRequest = require 'requests/ChangeActionTextRequest'
-EditableText            = React.createFactory(require 'ui/common/EditableText')
+React                      = require 'react'
+PropTypes                  = require 'ui/framework/PropTypes'
+Actor                      = require 'ui/framework/mixins/Actor'
+Pure                       = require 'ui/framework/mixins/Pure'
+UserChangedActionTextEvent = require 'events/ui/UserChangedActionTextEvent'
+EditableText               = React.createFactory(require 'ui/common/EditableText')
 
 ActionText = React.createClass {
 
@@ -11,7 +12,7 @@ ActionText = React.createClass {
   propTypes:
     action: PropTypes.Action
 
-  mixins: [Observe()]
+  mixins: [Actor, Pure]
 
   render: ->
     EditableText {
@@ -22,7 +23,7 @@ ActionText = React.createClass {
     }
 
   setActionText: (value) ->
-    @execute new ChangeActionTextRequest(@props.action, value)
+    @publish new UserChangedActionTextEvent(@props.action.id, value)
 
 }
 

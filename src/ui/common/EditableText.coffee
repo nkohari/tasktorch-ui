@@ -1,9 +1,9 @@
 _          = require 'lodash'
 React      = require 'react'
-PropTypes  = require 'framework/PropTypes'
-KeyCode    = require 'framework/enums/KeyCode'
-mergeProps = require 'framework/util/mergeProps'
-classSet   = require 'framework/util/classSet'
+PropTypes  = require 'ui/framework/PropTypes'
+KeyCode    = require 'data/enums/KeyCode'
+mergeProps = require 'common/util/mergeProps'
+classSet   = require 'common/util/classSet'
 {input}    = React.DOM
 
 EditableText = React.createClass {

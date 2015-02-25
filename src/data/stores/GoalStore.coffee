@@ -1,16 +1,19 @@
-_               = require 'lodash'
-Store           = require 'framework/Store'
-LoadGoalRequest = require 'requests/LoadGoalRequest'
+Goal            = require 'data/models/Goal'
+ModelStore      = require 'data/framework/ModelStore'
+LoadGoalRequest = require 'data/requests/LoadGoalRequest'
 
-class GoalStore extends Store
+class GoalStore extends ModelStore
 
   displayName: 'GoalStore'
+  name:        'goals'
+  modelType:   Goal
 
-  onGoalDisplayed: (event) ->
-    if @get(event.goalid)?
-      @announce()
-    else
-      @execute new LoadGoalRequest(event.goalid)
+  listensFor: [
+    'GoalsLoaded'
+  ]
+
+  load: (id) ->
+    @execute new LoadGoalRequest(id)
 
   onGoalsLoaded: (event) ->
     @add(event.goals)

@@ -1,8 +1,7 @@
 _                             = require 'lodash'
 React                         = require 'react/addons'
-classSet                      = require 'framework/util/classSet'
-Observe                       = require 'framework/mixins/Observe'
-LoadSuggestionsRequest        = require 'requests/LoadSuggestionsRequest'
+classSet                      = require 'common/util/classSet'
+CachedState                   = require 'ui/framework/mixins/CachedState'
 Caret                         = React.createFactory(require 'ui/common/Caret')
 Icon                          = React.createFactory(require 'ui/common/Icon')
 {a, div, ul, li, span, input} = React.DOM
@@ -11,7 +10,7 @@ SuggestingSelector = React.createClass {
 
   displayName: 'SuggestingSelector'
 
-  mixins: [Observe('suggestions')]
+  mixins: [CachedState]
 
   getInitialState: -> {
     expanded:      false
@@ -27,8 +26,13 @@ SuggestingSelector = React.createClass {
     if newProps.selection?
       @setState {selectionType: newProps.selectionType, selection: newProps.selection}
 
-  sync: (stores) ->
-    suggestions = stores.suggestions.get(@types, @state.phrase) if @state?.phrase?
+  getCachedState: (cache) ->
+    if @state?.phrase?
+      suggestions = {}
+      for type in @types
+        switch type
+          when 'user' then suggestions.user = cache('suggestedUsers').get(@state.phrase)
+          when 'team' then suggestions.team = cache('suggestedTeams').get(@state.phrase)
     {suggestions}
 
   render: ->
@@ -56,27 +60,26 @@ SuggestingSelector = React.createClass {
   renderDropDown: ->
 
     if @state.suggestions?
-      options = ul {className: 'options'}, _.map(@types, @renderOptionGroup)
+      options = _.flatten _.map @types, (type) =>
+        items = @state.suggestions[type]
+        if items?
+          return _.map items, (item) => @renderOption(type, item)
 
     div {className: 'drop'},
       div {className: 'suggest'},
         input {ref: 'input', type: 'text', value: @state.phrase, onChange: @onInputChanged}
         Icon {name: 'search'}
-      options
+      ul {className: 'options'}, options
 
-  renderOptionGroup: (type) ->
+  renderOption: (type, item) ->
 
-    console.log "rendering option group for #{type}"
+    classes = classSet [
+      'option'
+      'selected' if @state.selection?.id == item.id and @state.selectionType?.type == type
+    ]
 
-    suggestions = @state.suggestions?[type]
-    return [] unless suggestions?
-
-    _.map suggestions, (item) =>
-      li {
-        key:       "option-#{item.id}"
-        className: classSet {option: true, selected: @state.selection?.id == item.id}
-        onClick:   @onOptionSelected.bind(this, item, type)
-      }, @props.option {type: type, value: item}
+    li {key: item.id, className: classes, onClick: @onOptionSelected.bind(this, item, type)},
+      @props.option {type: type, value: item}
 
   onTriggerClicked: (event) ->
     @setState {expanded: !@state.expanded}, =>
@@ -86,9 +89,8 @@ SuggestingSelector = React.createClass {
         node.select()
 
   onInputChanged: (event) ->
-    phrase = event.target.value
-    @setState {phrase}, =>
-      @execute new LoadSuggestionsRequest(@types, phrase) if phrase.length > 0
+    @setState {phrase: event.target.value}, =>
+      @forceCacheSync()
 
   onOptionSelected: (item, type) ->
     @setState {expanded: false, selectionType: type, selection: item}

@@ -1,12 +1,12 @@
-_                            = require 'lodash'
-React                        = require 'react'
-PropTypes                    = require 'framework/PropTypes'
-ActionStatus                 = require 'framework/enums/ActionStatus'
-Observe                      = require 'framework/mixins/Observe'
-CardActionListDisplayedEvent = require 'events/display/StackDisplayedEvent'
-Frame                        = React.createFactory(require 'ui/common/Frame')
-Icon                         = React.createFactory(require 'ui/common/Icon')
-{span}                       = React.DOM
+_            = require 'lodash'
+React        = require 'react'
+PropTypes    = require 'ui/framework/PropTypes'
+ActionStatus = require 'data/enums/ActionStatus'
+CachedState  = require 'ui/framework/mixins/CachedState'
+Pure         = require 'ui/framework/mixins/Pure'
+Frame        = React.createFactory(require 'ui/common/Frame')
+Icon         = React.createFactory(require 'ui/common/Icon')
+{span}       = React.DOM
 
 CardProgressBar = React.createClass {
 
@@ -15,17 +15,11 @@ CardProgressBar = React.createClass {
   propTypes:
     card: PropTypes.Card
 
-  mixins: [Observe('actions')]
+  mixins: [CachedState, Pure]
 
-  componentDidMount: ->
-    @publish new CardActionListDisplayedEvent(@props.card.id, @props.card.actions)
-
-  componentWillReceiveProps: (newProps) ->
-    if @props.card.id != newProps.card.id
-      @publish new CardActionListDisplayedEvent(@props.card.id, @props.card.actions)
-
-  sync: (stores) ->
-    {actions: stores.actions.getAllByCard(@props.card.id)}
+  getCachedState: (cache) -> {
+    actions: cache('actionsByCard').get(@props.card.id)
+  }
 
   isReady: ->
     @state.actions?
@@ -44,12 +38,14 @@ CardProgressBar = React.createClass {
 
   getCounts: ->
 
-    if @state.actions?
-      counts = _.countBy(@state.actions, 'status')
-      total = @state.actions.length
+    actions = @state.actions
+
+    if actions?.length > 0
+      counts = _.countBy(actions, 'status')
+      total  = actions.length
     else
       counts = {}
-      total = 0
+      total  = 0
 
     for status in _.keys(ActionStatus)
       counts[status] = 0 unless counts[status]?

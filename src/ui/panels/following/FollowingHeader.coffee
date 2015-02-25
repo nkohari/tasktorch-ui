@@ -1,12 +1,15 @@
 _         = require 'lodash'
 React     = require 'react'
-PropTypes = require 'framework/PropTypes'
+PropTypes = require 'ui/framework/PropTypes'
+Pure      = require 'ui/framework/mixins/Pure'
 Icon      = React.createFactory(require 'ui/common/Icon')
 {div}     = React.DOM
 
 FollowingHeader = React.createClass {
 
   displayName: 'FollowingHeader'
+
+  mixins: [Pure]
 
   render: ->
 

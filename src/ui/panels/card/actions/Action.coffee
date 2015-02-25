@@ -1,13 +1,12 @@
 React               = require 'react'
-PropTypes           = require 'framework/PropTypes'
-Observe             = require 'framework/mixins/Observe'
-classSet            = require 'framework/util/classSet'
+classSet            = require 'common/util/classSet'
+PropTypes           = require 'ui/framework/PropTypes'
 Icon                = React.createFactory(require 'ui/common/Icon')
 ActionStatus        = React.createFactory(require 'ui/panels/card/actions/ActionStatus')
 ActionOwner         = React.createFactory(require 'ui/panels/card/actions/ActionOwner')
 ActionText          = React.createFactory(require 'ui/panels/card/actions/ActionText')
 ActionDeleteTrigger = React.createFactory(require 'ui/panels/card/actions/ActionDeleteTrigger')
-{div, li, input}    = React.DOM
+{div}               = React.DOM
 
 Action = React.createClass {
 
@@ -15,8 +14,6 @@ Action = React.createClass {
 
   propTypes:
     action: PropTypes.Action
-
-  mixins: [Observe()]
 
   render: ->
 

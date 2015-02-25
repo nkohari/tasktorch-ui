@@ -1,6 +1,5 @@
 React                  = require 'react'
-PropTypes              = require 'framework/PropTypes'
-Observe                = require 'framework/mixins/Observe'
+PropTypes              = require 'ui/framework/PropTypes'
 Button                 = React.createFactory(require 'ui/common/Button')
 Frame                  = React.createFactory(require 'ui/common/Frame')
 CardFollowersList      = React.createFactory(require 'ui/panels/card/CardFollowersList')
@@ -19,9 +18,8 @@ CardFooter = React.createClass {
     Frame {className: 'footer'},
       Frame {className: 'left-buttons'},
         FollowCardToggleButton {card: @props.card, currentUser: @props.currentUser}
-      CardFollowersList {card: @props.card}
-      Frame {className: 'right-buttons'},
-        Button {icon: 'add-comment'}
+      CardFollowersList {card: @props.card, currentUser: @props.currentUser}
+      Frame {className: 'right-buttons'}
 
 }
 

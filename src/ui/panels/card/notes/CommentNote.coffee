@@ -1,7 +1,9 @@
-_          = require 'lodash'
-React      = require 'react'
-PropTypes  = require 'framework/PropTypes'
-{li, span} = React.DOM
+_           = require 'lodash'
+React       = require 'react'
+PropTypes   = require 'ui/framework/PropTypes'
+Avatar      = React.createFactory(require 'ui/common/Avatar')
+Time        = React.createFactory(require 'ui/common/Time')
+{div, span} = React.DOM
 
 CommentNote = React.createClass {
 
@@ -13,9 +15,15 @@ CommentNote = React.createClass {
     user: PropTypes.User
 
   render: ->
-    li {className: 'note comment'}, [
-      @props.note.content
-    ]
+
+    div {className: 'comment'},
+      Avatar {className: 'comment-user', user: @props.user}
+      div {className: 'comment-body'},
+        div {className: 'comment-header'},
+          span {className: 'user'}, @props.user.name
+          Time {relative: true, time: @props.note.time}
+        div {className: 'comment-content'},
+          @props.note.content 
 
 }
 

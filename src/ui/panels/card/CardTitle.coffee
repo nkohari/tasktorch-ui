@@ -1,45 +1,35 @@
-_                      = require 'lodash'
-React                  = require 'react'
-PropTypes              = require 'framework/PropTypes'
-Observe                = require 'framework/mixins/Observe'
-ChangeCardTitleRequest = require 'requests/ChangeCardTitleRequest'
-EditableText           = React.createFactory(require 'ui/common/EditableText')
-{div}                  = React.DOM
+_                         = require 'lodash'
+React                     = require 'react'
+PropTypes                 = require 'ui/framework/PropTypes'
+Actor                     = require 'ui/framework/mixins/Actor'
+Pure                      = require 'ui/framework/mixins/Pure'
+UserChangedCardTitleEvent = require 'events/ui/UserChangedCardTitleEvent'
+Frame                     = React.createFactory(require 'ui/common/Frame')
+EditableText              = React.createFactory(require 'ui/common/EditableText')
 
 CardTitle = React.createClass {
-
-  # Spec --------------------------------------------------------------------------
 
   displayName: 'CardTitle'
 
   propTypes:
     card: PropTypes.Card
 
-  mixins: [Observe()]
-
-  # Lifecycle ---------------------------------------------------------------------
+  mixins: [Actor, Pure]
 
   componentDidMount: ->
     @refs.text.getDOMNode().focus() unless @props.card.title
 
-  # Rendering ---------------------------------------------------------------------
-
   render: ->
-    div {className: 'title'}, [
+    Frame {className: 'title'},
       EditableText {
         ref:         'text'
         placeholder: 'Untitled Card'
         value:       @props.card.title
         save:        @onTitleChanged
       }
-    ]
-
-  # Events ------------------------------------------------------------------------
 
   onTitleChanged: (title) ->
-    @execute new ChangeCardTitleRequest(@props.card, title)
-
-  #--------------------------------------------------------------------------------
+    @publish new UserChangedCardTitleEvent(@props.card.id, title)
 
 }
 

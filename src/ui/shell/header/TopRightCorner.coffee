@@ -1,8 +1,6 @@
 _               = require 'lodash'
 React           = require 'react'
-Router          = require 'react-router'
-PropTypes       = require 'framework/PropTypes'
-Url             = require 'framework/Url'
+PropTypes       = require 'ui/framework/PropTypes'
 Avatar          = React.createFactory(require 'ui/common/Avatar')
 DialogTrigger   = React.createFactory(require 'ui/common/DialogTrigger')
 Frame           = React.createFactory(require 'ui/common/Frame')
@@ -13,8 +11,6 @@ LogOutDialog    = React.createFactory(require 'ui/dialogs/LogOutDialog')
 TopRightCorner = React.createClass {
 
   displayName: 'TopRightCorner'
-
-  mixins: [Router.State]
 
   propTypes:
     currentUser: PropTypes.User

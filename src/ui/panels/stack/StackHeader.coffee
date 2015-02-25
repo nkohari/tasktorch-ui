@@ -1,6 +1,7 @@
 _         = require 'lodash'
 React     = require 'react'
-PropTypes = require 'framework/PropTypes'
+PropTypes = require 'ui/framework/PropTypes'
+Pure      = require 'ui/framework/mixins/Pure'
 StackName = React.createFactory(require 'ui/common/StackName')
 Icon      = React.createFactory(require 'ui/common/Icon')
 {div}     = React.DOM
@@ -11,6 +12,8 @@ StackHeader = React.createClass {
 
   propTypes:
     stack: PropTypes.Stack
+
+  mixins: [Pure]
 
   render: ->
 

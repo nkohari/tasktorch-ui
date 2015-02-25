@@ -1,35 +1,36 @@
-_                 = require 'lodash'
-React             = require 'react'
-Router            = require 'react-router'
-Observe           = require 'framework/mixins/Observe'
-PropTypes         = require 'framework/PropTypes'
-CreateCardRequest = require 'requests/CreateCardRequest'
-Url               = require 'framework/Url'
-Button            = React.createFactory(require 'ui/common/Button')
-List              = React.createFactory(require 'ui/common/List')
-ListItem          = React.createFactory(require 'ui/common/ListItem')
-Overlay           = React.createFactory(require 'ui/common/Overlay')
-OverlayTrigger    = React.createFactory(require 'ui/common/OverlayTrigger')
-{span}            = React.DOM
+_                    = require 'lodash'
+React                = require 'react'
+Router               = require 'react-router'
+EventOrigin          = require 'data/enums/EventOrigin'
+UserCreatedCardEvent = require 'events/ui/UserCreatedCardEvent'
+Actor                = require 'ui/framework/mixins/Actor'
+CachedState          = require 'ui/framework/mixins/CachedState'
+UrlAware             = require 'ui/framework/mixins/UrlAware'
+PanelKey             = require 'ui/framework/PanelKey'
+PropTypes            = require 'ui/framework/PropTypes'
+Button               = React.createFactory(require 'ui/common/Button')
+List                 = React.createFactory(require 'ui/common/List')
+ListItem             = React.createFactory(require 'ui/common/ListItem')
+Overlay              = React.createFactory(require 'ui/common/Overlay')
+OverlayTrigger       = React.createFactory(require 'ui/common/OverlayTrigger')
+{span}               = React.DOM
 
 ComposeMenu = React.createClass {
 
   displayName: 'ComposeMenu'
 
-  mixins: [
-    Observe('kinds')
-    Router.State
-    Router.Navigation
-  ]
-
   propTypes:
     currentOrg: PropTypes.Org
 
-  sync: (stores) ->
-    {kinds: stores.kinds.getAll()}
+  mixins: [Actor, CachedState, Router.Navigation, UrlAware]
+
+  listensFor: ['CardCreated']
+
+  getCachedState: (cache) ->
+    {kinds: cache('kindsByOrg').get(@props.currentOrg.id)}
 
   isReady: ->
-    @state.kinds?
+    @state.kinds
 
   render: ->
 
@@ -44,13 +45,14 @@ ComposeMenu = React.createClass {
       Button {text: 'Compose', caret: true}
 
   onItemClicked: (kind, event) ->
+    @publish new UserCreatedCardEvent(@props.currentOrg.id, kind.id)
     @refs.trigger.hideOverlay()
-    url     = new Url(this)
-    request = new CreateCardRequest(url.orgid, kind.id)
-    @execute request, (err, card) =>
-      url.addCard(card.id)
-      props = url.makeLinkProps()
-      @transitionTo(props.to, props.params, props.query)
+
+  onCardCreated: (event) ->
+    return unless event.origin is EventOrigin.Local
+    url   = @getCurrentUrl().addPanel(PanelKey.forCard(event.card.id))
+    props = url.makeLinkProps()
+    @transitionTo('workspace', props.params, props.query)
 
 }
 

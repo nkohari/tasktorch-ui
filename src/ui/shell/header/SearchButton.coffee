@@ -1,6 +1,6 @@
 _         = require 'lodash'
 React     = require 'react'
-PropTypes = require 'framework/PropTypes'
+PropTypes = require 'ui/framework/PropTypes'
 Button    = React.createFactory(require 'ui/common/Button')
 
 SearchButton = React.createClass {

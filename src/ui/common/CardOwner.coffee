@@ -1,6 +1,6 @@
 _         = require 'lodash'
 React     = require 'react/addons'
-PropTypes = require 'framework/PropTypes'
+PropTypes = require 'ui/framework/PropTypes'
 Avatar    = React.createFactory(require 'ui/common/Avatar')
 Icon      = React.createFactory(require 'ui/common/Icon')
 {div}     = React.DOM

@@ -1,5 +1,6 @@
 _            = require 'lodash'
 React        = require 'react'
+PropTypes    = require 'ui/framework/PropTypes'
 Frame        = React.createFactory(require 'ui/common/Frame')
 CardLocation = React.createFactory(require 'ui/common/CardLocation')
 GoalName     = React.createFactory(require 'ui/common/GoalName')
@@ -8,6 +9,10 @@ GoalName     = React.createFactory(require 'ui/common/GoalName')
 CardWidgets = React.createClass {
 
   displayName: 'CardWidgets'
+
+  propTypes:
+    card:  PropTypes.Card
+    stack: PropTypes.Stack
 
   render: ->
 

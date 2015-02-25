@@ -1,6 +1,6 @@
 _             = require 'lodash'
 React         = require 'react'
-PropTypes     = require 'framework/PropTypes'
+PropTypes     = require 'ui/framework/PropTypes'
 Block         = React.createFactory(require 'ui/common/Block')
 Frame         = React.createFactory(require 'ui/common/Frame')
 List          = React.createFactory(require 'ui/common/List')

@@ -1,5 +1,6 @@
 React               = require 'react'
-PropTypes           = require 'framework/PropTypes'
+PropTypes           = require 'ui/framework/PropTypes'
+Pure                = require 'ui/framework/mixins/Pure'
 Icon                = React.createFactory(require 'ui/common/Icon')
 OverlayTrigger      = React.createFactory(require 'ui/common/OverlayTrigger')
 DeleteActionOverlay = React.createFactory(require 'ui/panels/card/actions/overlays/DeleteActionOverlay')
@@ -10,6 +11,8 @@ ActionDeleteTrigger = React.createClass {
 
   propTypes:
     action: PropTypes.Action
+
+  mixins: [Pure]
 
   render: ->
 

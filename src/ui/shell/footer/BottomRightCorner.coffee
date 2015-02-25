@@ -1,16 +1,11 @@
 _         = require 'lodash'
 React     = require 'react'
-Router    = require 'react-router'
-PropTypes = require 'framework/PropTypes'
-Url       = require 'framework/Url'
-Frame     = React.createFactory(require 'ui/common/Frame')
+PropTypes = require 'ui/framework/PropTypes'
 {div}     = React.DOM
 
 BottomRightCorner = React.createClass {
 
   displayName: 'BottomRightCorner'
-
-  mixins: [Router.State]
 
   propTypes:
     currentOrg:  PropTypes.Org
@@ -18,7 +13,7 @@ BottomRightCorner = React.createClass {
 
   render: ->
 
-    Frame {className: 'bottom-right'},
+    div {className: 'bottom-right'},
       div {className: 'brand'},
         'TaskTorch'
         div {className: 'version'}, 'Alpha Version'

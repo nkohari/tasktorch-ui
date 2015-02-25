@@ -1,8 +1,7 @@
 _        = require 'lodash'
 React    = require 'react'
-Router   = require 'react-router'
-Url      = require 'framework/Url'
-classSet = require 'framework/util/classSet'
+classSet = require 'common/util/classSet'
+UrlAware = require 'ui/framework/mixins/UrlAware'
 Icon     = React.createFactory(require 'ui/common/Icon')
 Link     = React.createFactory(require 'ui/common/Link')
 
@@ -10,12 +9,11 @@ SidebarToggleButton = React.createClass {
 
   displayName: 'SidebarToggleButton'
 
-  mixins: [Router.State]
+  mixins: [UrlAware]
 
   render: ->
 
-    url = new Url(this)
-    isActive = url.sidebar
+    isActive = @getCurrentUrl().getSidebar()
 
     classes = classSet [
       'button'
@@ -23,16 +21,11 @@ SidebarToggleButton = React.createClass {
       'active' if isActive
     ]
 
-    url.toggleSidebar()
-    props = _.extend url.makeLinkProps(), {
-      className: classes
-      hotkey: 's'
-    }
+    Link {className: classes, hotkey: 's', @getLinkUrl},
+      Icon {name: if isActive then 'chevron-left' else 'chevron-right'}
 
-    icon = if isActive then 'chevron-left' else 'chevron-right'
-
-    Link props,
-      Icon {name: icon}
+  getLinkUrl: (currentUrl) ->
+    currentUrl.toggleSidebar()
 
 }
 

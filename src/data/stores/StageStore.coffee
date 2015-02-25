@@ -1,16 +1,18 @@
-_                       = require 'lodash'
-Store                   = require 'framework/Store'
-LoadStagesByKindRequest = require 'requests/LoadStagesByKindRequest'
+Stage      = require 'data/models/Stage'
+ModelStore = require 'data/framework/ModelStore'
 
-class StageStore extends Store
+class StageStore extends ModelStore
 
   displayName: 'StageStore'
+  name:        'stages'
+  modelType:   Stage
 
-  onKindStageListDisplayed: (event) ->
-    if @getMany(event.stageids)?
-      @announce()
-    else
-      @execute new LoadStagesByKindRequest(event.kindid)
+  listensFor: [
+    'StagesLoaded'
+  ]
+
+  load: (id) ->
+    console.warn('StageStore.load() was called')
 
   onStagesLoaded: (event) ->
     @add(event.stages)

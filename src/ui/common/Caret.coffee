@@ -1,7 +1,7 @@
 _         = require 'lodash'
 React     = require 'react'
-PropTypes = require 'framework/PropTypes'
-classSet  = require 'framework/util/classSet'
+PropTypes = require 'ui/framework/PropTypes'
+classSet  = require 'common/util/classSet'
 {span}    = React.DOM
 
 Caret = React.createClass {

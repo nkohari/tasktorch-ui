@@ -1,11 +1,11 @@
-React             = require 'react'
-PropTypes         = require 'framework/PropTypes'
-KeyCode           = require 'framework/enums/KeyCode'
-Observe           = require 'framework/mixins/Observe'
-CreateNoteRequest = require 'requests/CreateNoteRequest'
-Button            = React.createFactory(require 'ui/common/Button')
-CardCommentBox    = React.createFactory(require 'ui/panels/card/CardCommentBox')
-{div, input}      = React.DOM
+React                   = require 'react'
+PropTypes               = require 'ui/framework/PropTypes'
+KeyCode                 = require 'data/enums/KeyCode'
+Actor                   = require 'ui/framework/mixins/Actor'
+UserCreatedCommentEvent = require 'events/ui/UserCreatedCommentEvent'
+Button                  = React.createFactory(require 'ui/common/Button')
+CardCommentBox          = React.createFactory(require 'ui/panels/card/CardCommentBox')
+{div, input}            = React.DOM
 
 CardCommentBox = React.createClass {
 
@@ -14,7 +14,7 @@ CardCommentBox = React.createClass {
   propTypes:
     card: PropTypes.Card
 
-  mixins: [Observe()]
+  mixins: [Actor]
 
   getInitialState: ->
     {text: undefined}
@@ -49,7 +49,7 @@ CardCommentBox = React.createClass {
     @setState {text: event.target.value}
 
   createComment: ->
-    @execute new CreateNoteRequest(@props.card, 'Comment', @state.text)
+    @publish new UserCreatedCommentEvent(@props.card.id, @state.text)
     @setState {text: undefined}
 
 }

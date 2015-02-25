@@ -1,10 +1,9 @@
-Event = require 'framework/Event'
+Event = require 'events/framework/Event'
 
 class KindsLoadedEvent extends Event
 
   type: 'KindsLoaded'
 
   constructor: (@kinds) ->
-    super()
 
 module.exports = KindsLoadedEvent

@@ -1,12 +1,10 @@
-_                   = require 'lodash'
-React               = require 'react'
-PropTypes           = require 'framework/PropTypes'
-Observe             = require 'framework/mixins/Observe'
-LoadAllKindsRequest = require 'requests/LoadAllKindsRequest'
-Frame               = React.createFactory(require 'ui/common/Frame')
-WorkspacePanelList  = React.createFactory(require 'ui/screens/workspace/WorkspacePanelList')
-WorkspaceSidebar    = React.createFactory(require 'ui/screens/workspace/sidebar/WorkspaceSidebar')
-CSSTransitionGroup  = React.createFactory(React.addons.CSSTransitionGroup)
+_                  = require 'lodash'
+React              = require 'react'
+PropTypes          = require 'ui/framework/PropTypes'
+Frame              = React.createFactory(require 'ui/common/Frame')
+WorkspacePanelList = React.createFactory(require 'ui/screens/workspace/WorkspacePanelList')
+WorkspaceSidebar   = React.createFactory(require 'ui/screens/workspace/sidebar/WorkspaceSidebar')
+CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
 
 WorkspaceScreen = React.createClass {
 
@@ -16,14 +14,6 @@ WorkspaceScreen = React.createClass {
     currentOrg:  PropTypes.Org
     currentUser: PropTypes.User
     sidebar:     PropTypes.bool
-
-  mixins: [Observe()]
-
-  componentDidMount: ->
-    @execute new LoadAllKindsRequest()
-
-  isReady: ->
-    @props.currentUser? and @props.currentOrg?
 
   render: ->
 

@@ -1,12 +1,13 @@
-_                   = require 'lodash'
-React               = require 'react'
-PropTypes           = require 'framework/PropTypes'
-Observe             = require 'framework/mixins/Observe'
-classSet            = require 'framework/util/classSet'
-FollowCardRequest   = require 'requests/FollowCardRequest'
-UnfollowCardRequest = require 'requests/UnfollowCardRequest'
-Button              = React.createFactory(require 'ui/common/Button')
-Frame               = React.createFactory(require 'ui/common/Frame')
+_                       = require 'lodash'
+React                   = require 'react'
+PropTypes               = require 'ui/framework/PropTypes'
+Actor                   = require 'ui/framework/mixins/Actor'
+Pure                    = require 'ui/framework/mixins/Pure'
+classSet                = require 'common/util/classSet'
+UserFollowedCardEvent   = require 'events/ui/UserFollowedCardEvent'
+UserUnfollowedCardEvent = require 'events/ui/UserUnfollowedCardEvent'
+Button                  = React.createFactory(require 'ui/common/Button')
+Frame                   = React.createFactory(require 'ui/common/Frame')
 
 FollowCardToggleButton = React.createClass {
 
@@ -16,16 +17,13 @@ FollowCardToggleButton = React.createClass {
     card:        PropTypes.Card
     currentUser: PropTypes.User
 
-  mixins: [Observe()]
+  mixins: [Actor, Pure]
 
   getInitialState: ->
-    {active: @isActive()}
+    {active: _.contains(@props.card.followers, @props.currentUser.id)}
 
-  componentWillReceiveProps: ->
-    @setState {active: @isActive()}
-
-  isActive: ->
-    _.contains(@props.card.followers, @props.currentUser.id)
+  componentWillReceiveProps: (newProps) ->
+    @setState {active: _.contains(newProps.card.followers, newProps.currentUser.id)}
 
   render: ->
 
@@ -42,9 +40,9 @@ FollowCardToggleButton = React.createClass {
     active = !@state.active
     @setState {active}, =>
       if active
-        @execute new FollowCardRequest(@props.card, @props.currentUser.id)
+        @publish new UserFollowedCardEvent(@props.card.id, @props.currentUser.id)
       else
-        @execute new UnfollowCardRequest(@props.card, @props.currentUser.id)
+        @publish new UserUnfollowedCardEvent(@props.card.id, @props.currentUser.id)
 
 }
 

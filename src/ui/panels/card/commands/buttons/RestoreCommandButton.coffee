@@ -1,15 +1,17 @@
-_           = require 'lodash'
-React       = require 'react/addons'
-PropTypes   = require 'framework/PropTypes'
-Observe     = require 'framework/mixins/Observe'
-CardContext = require 'ui/panels/card/CardContext'
-Button      = React.createFactory(require 'ui/common/Button')
+_         = require 'lodash'
+React     = require 'react/addons'
+PropTypes = require 'ui/framework/PropTypes'
+Actor     = require 'ui/framework/mixins/Actor'
+Button    = React.createFactory(require 'ui/common/Button')
 
 RestoreCommandButton = React.createClass {
 
   displayName: 'RestoreCommandButton'
 
-  mixins: [Observe()]
+  propTypes:
+    card: PropTypes.Card
+
+  mixins: [Actor]
 
   render: ->
     Button {

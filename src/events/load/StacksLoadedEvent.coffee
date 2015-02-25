@@ -1,10 +1,9 @@
-Event = require 'framework/Event'
+Event = require 'events/framework/Event'
 
 class StacksLoadedEvent extends Event
 
   type: 'StacksLoaded'
 
   constructor: (@stacks) ->
-    super()
 
 module.exports = StacksLoadedEvent

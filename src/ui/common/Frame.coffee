@@ -1,5 +1,5 @@
 React     = require 'react'
-PropTypes = require 'framework/PropTypes'
+PropTypes = require 'ui/framework/PropTypes'
 {div}     = React.DOM
 
 Frame = React.createClass {

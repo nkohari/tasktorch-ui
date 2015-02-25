@@ -1,12 +1,10 @@
-Event = require 'framework/Event'
-Note  = require 'data/models/Note'
+DocumentCreatedEvent = require 'events/framework/DocumentCreatedEvent'
 
-class NoteCreatedEvent extends Event
+class NoteCreatedEvent extends DocumentCreatedEvent
 
   type: 'NoteCreated'
 
-  constructor: (doc) ->
-    super()
-    @note = new Note(doc)
+  constructor: (@note, origin) ->
+    super(origin)
 
 module.exports = NoteCreatedEvent

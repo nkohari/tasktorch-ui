@@ -1,5 +1,5 @@
 React     = require 'react/addons'
-PropTypes = require 'framework/PropTypes'
+PropTypes = require 'ui/framework/PropTypes'
 {span}    = React.DOM
 
 Text = React.createClass {

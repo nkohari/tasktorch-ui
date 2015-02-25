@@ -1,19 +1,23 @@
-React                      = require 'react'
-Observe                    = require 'framework/mixins/Observe'
-PassCardRequest            = require 'requests/PassCardRequest'
-CardContext                = require 'ui/panels/card/CardContext'
-Button                     = React.createFactory(require 'ui/common/Button')
-EditableTextArea           = React.createFactory(require 'ui/common/EditableTextArea')
-SuggestingSelector         = React.createFactory(require 'ui/common/SuggestingSelector')
-UserOrTeamSelectorOption   = React.createFactory(require 'ui/common/UserOrTeamSelectorOption')
-CommandArgument            = React.createFactory(require 'ui/panels/card/commands/panels/CommandArgument')
-{div, em, label, textarea} = React.DOM
+React                    = require 'react'
+UserPassedCardEvent      = require 'events/ui/UserPassedCardEvent'
+PropTypes                = require 'ui/framework/PropTypes'
+Actor                    = require 'ui/framework/mixins/Actor'
+CommandContext           = require 'ui/framework/mixins/CommandContext'
+Button                   = React.createFactory(require 'ui/common/Button')
+EditableTextArea         = React.createFactory(require 'ui/common/EditableTextArea')
+SuggestingSelector       = React.createFactory(require 'ui/common/SuggestingSelector')
+UserOrTeamSelectorOption = React.createFactory(require 'ui/common/UserOrTeamSelectorOption')
+CommandArgument          = React.createFactory(require 'ui/panels/card/commands/panels/CommandArgument')
+{div}                    = React.DOM
 
 PassCommandPanel = React.createClass {
 
   displayName: 'PassCommandPanel'
 
-  mixins: [CardContext, Observe()]
+  propTypes:
+    card: PropTypes.Card
+
+  mixins: [Actor, CommandContext]
 
   getInitialState: ->
     {recipient: undefined, message: undefined}
@@ -36,7 +40,7 @@ PassCommandPanel = React.createClass {
         EditableTextArea {className: 'message', onChange: @onMessageChanged}
       div {className: 'buttons'},
         Button {text: 'Pass', className: 'default', onClick: @onOkButtonClicked}
-        Button {text: 'Cancel', onClick: @context.hideCommandPanel}
+        Button {text: 'Cancel', onClick: @hideCommand}
 
   onRecipientChanged: (item, type) ->
     @setState {recipient: {item, type}}
@@ -45,8 +49,8 @@ PassCommandPanel = React.createClass {
     @setState {message}
 
   onOkButtonClicked: ->
-    @execute new PassCardRequest(@props.card, @state.recipient, @state.message)
-    @context.hideCommandPanel()
+    @publish new UserPassedCardEvent(@props.card.id, @state.recipient, @state.message)
+    @hideCommand()
 
 }
 

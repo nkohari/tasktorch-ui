@@ -1,20 +1,19 @@
-React            = require 'react'
+_                = require 'lodash'
+cookies          = require 'cookies-js'
+React            = require 'react/addons'
 Router           = require 'react-router'
-EventBusFactory  = require './EventBusFactory'
-Shell            = require './ui/shell/Shell'
-LoginScreen      = require './ui/screens/login/LoginScreen'
-CreateUserScreen = require './ui/screens/createUser/CreateUserScreen'
-WorkspaceScreen  = require './ui/screens/workspace/WorkspaceScreen'
-BigPictureScreen = require './ui/screens/bigPicture/BigPictureScreen'
-StrategyScreen   = require './ui/screens/strategy/StrategyScreen'
+Environment      = require './Environment'
+UrlModel         = require 'ui/framework/UrlModel'
+Shell            = require 'ui/shell/Shell'
+LoginScreen      = require 'ui/screens/login/LoginScreen'
+CreateUserScreen = require 'ui/screens/createUser/CreateUserScreen'
+WorkspaceScreen  = require 'ui/screens/workspace/WorkspaceScreen'
+BigPictureScreen = require 'ui/screens/bigPicture/BigPictureScreen'
+StrategyScreen   = require 'ui/screens/strategy/StrategyScreen'
 Route            = React.createFactory(Router.Route)
 
-window.AppContext = {}
-window.EventBus = EventBusFactory.create()
-
-unless process.env.NODE_ENV == 'production'
-  window.onerror = (message, file, line, col, error) ->
-    console.error(message, "from", error.stack)
+window.Environment = environment = new Environment()
+window.Perf = React.addons.Perf
 
 routes = [
   Route {name: 'login', key: 'login', path: 'login', handler: LoginScreen}
@@ -26,5 +25,18 @@ routes = [
   ]
 ]
 
-Router.run routes, Router.HistoryLocation, (handler) ->
-  React.render(React.createElement(handler), document.body)
+Router.run routes, Router.HistoryLocation, (handler, state) ->
+
+  environment.orgid  = state.params.orgid
+  environment.userid = cookies.get('tt-userid')
+
+  environment.currentUrl = new UrlModel _.extend(state, {
+    screen: state.routes[1]?.name
+  })
+
+  element = React.createElement(handler, {
+    orgid: environment.orgid
+    userid: environment.userid
+  })
+
+  React.render(element, document.body)

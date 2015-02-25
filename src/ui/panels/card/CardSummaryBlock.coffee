@@ -1,18 +1,19 @@
-React                    = require 'react'
-PropTypes                = require 'framework/PropTypes'
-Observe                  = require 'framework/mixins/Observe'
-ChangeCardSummaryRequest = require 'requests/ChangeCardSummaryRequest'
-Block                    = React.createFactory(require 'ui/common/Block')
-EditableTextArea         = React.createFactory(require 'ui/common/EditableTextArea')
+React                       = require 'react'
+PropTypes                   = require 'ui/framework/PropTypes'
+Actor                       = require 'ui/framework/mixins/Actor'
+Pure                        = require 'ui/framework/mixins/Pure'
+UserChangedCardSummaryEvent = require 'events/ui/UserChangedCardSummaryEvent'
+Block                       = React.createFactory(require 'ui/common/Block')
+EditableTextArea            = React.createFactory(require 'ui/common/EditableTextArea')
 
 CardSummaryBlock = React.createClass {
 
   displayName: 'CardSummaryBlock'
 
   propTypes:
-    card: PropTypes.Card.isRequired
+    card: PropTypes.Card
 
-  mixins: [Observe()]
+  mixins: [Actor, Pure]
 
   render: ->
 
@@ -25,7 +26,7 @@ CardSummaryBlock = React.createClass {
       }
 
   onSummaryChanged: (value) ->
-    @execute new ChangeCardSummaryRequest(@props.card, value)
+    @publish new UserChangedCardSummaryEvent(@props.card.id, value)
 
 }
 

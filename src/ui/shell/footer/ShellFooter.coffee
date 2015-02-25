@@ -1,8 +1,6 @@
 _                 = require 'lodash'
 React             = require 'react'
-Router            = require 'react-router'
-PropTypes         = require 'framework/PropTypes'
-Url               = require 'framework/Url'
+PropTypes         = require 'ui/framework/PropTypes'
 Frame             = React.createFactory(require 'ui/common/Frame')
 BottomLeftCorner  = React.createFactory(require 'ui/shell/footer/BottomLeftCorner')
 BottomRightCorner = React.createFactory(require 'ui/shell/footer/BottomRightCorner')
@@ -10,8 +8,6 @@ BottomRightCorner = React.createFactory(require 'ui/shell/footer/BottomRightCorn
 ShellFooter = React.createClass {
 
   displayName: 'ShellFooter'
-
-  mixins: [Router.State]
 
   propTypes:
     currentOrg:  PropTypes.Org

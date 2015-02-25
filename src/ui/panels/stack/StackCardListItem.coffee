@@ -1,9 +1,10 @@
 React        = require 'react/addons'
-Router       = require 'react-router'
-StackType    = require 'framework/enums/StackType'
-Url          = require 'framework/Url'
-Observe      = require 'framework/mixins/Observe'
-classSet     = require 'framework/util/classSet'
+classSet     = require 'common/util/classSet'
+StackType    = require 'data/enums/StackType'
+PanelKey     = require 'ui/framework/PanelKey'
+CachedState  = require 'ui/framework/mixins/CachedState'
+UrlAware     = require 'ui/framework/mixins/UrlAware'
+Link         = React.createFactory(require 'ui/common/Link')
 ListItem     = React.createFactory(require 'ui/common/ListItem')
 QueueCard    = React.createFactory(require 'ui/panels/stack/cards/QueueCard')
 InboxCard    = React.createFactory(require 'ui/panels/stack/cards/InboxCard')
@@ -15,31 +16,26 @@ StackCardListItem = React.createClass {
 
   displayName: 'StackCardListItem'
 
-  mixins: [
-    Observe('kinds')
-    Router.Navigation
-    Router.State
-  ]
+  mixins: [CachedState, UrlAware]
 
-  sync: (stores) ->
-    {kind: stores.kinds.get(@props.card.kind)}
+  getCachedState: (cache) -> {
+    kind: cache('kinds').get(@props.card.kind)
+  }
 
   isReady: ->
     @state.kind?
 
   render: ->
 
+    # TODO: The active class should really be on the link
     classes = classSet [
       'stack-card'
-      'active' if new Url(this).isCardActive(@props.card.id)
+      'active' if @getCurrentUrl().isPanelActive(PanelKey.forCard(@props.card.id))
     ]
 
-    ListItem {
-      className: classes
-      'data-itemid': @props.card.id
-      @isReady
-      @onClick
-    }, @renderContents()
+    ListItem {@isReady, className: classes, 'data-itemid': @props.card.id},
+      Link {@getLinkUrl},
+        @renderContents()
 
   renderContents: ->
     switch @props.stack.type
@@ -52,11 +48,10 @@ StackCardListItem = React.createClass {
       when StackType.Backlog
         return BacklogCard {stack: @props.stack, card: @props.card, kind: @state.kind}
 
-  onClick: ->
-    url = new Url(this)
-    url.addCardAfterStack(@props.card.id, @props.stack.id)
-    props = url.makeLinkProps()
-    @transitionTo(props.to, props.params, props.query)
+  getLinkUrl: (currentUrl) ->
+    cardPanelKey  = PanelKey.forCard(@props.card.id)
+    stackPanelKey = PanelKey.forStack(@props.stack.id)
+    currentUrl.addPanelAfter(cardPanelKey, stackPanelKey)
 
 }
 

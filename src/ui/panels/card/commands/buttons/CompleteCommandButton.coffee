@@ -1,17 +1,18 @@
 _                   = require 'lodash'
 React               = require 'react'
-PropTypes           = require 'framework/PropTypes'
-CardCommand         = require 'framework/enums/CardCommand'
-CardContext         = require 'ui/panels/card/CardContext'
+PropTypes           = require 'ui/framework/PropTypes'
+CardCommand         = require 'data/enums/CardCommand'
 CommandToggleButton = React.createFactory(require 'ui/panels/card/commands/buttons/CommandToggleButton')
 
 CompleteCommandButton = React.createClass {
 
   displayName: 'CompleteCommandButton'
 
-  mixins: [CardContext]
+  propTypes:
+    card: PropTypes.Card
 
   render: ->
+
     CommandToggleButton {
       icon:    'complete'
       text:    'Complete'

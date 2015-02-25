@@ -1,7 +1,6 @@
 _                   = require 'lodash'
 React               = require 'react'
-PropTypes           = require 'framework/PropTypes'
-CardContext         = require 'ui/panels/card/CardContext'
+PropTypes           = require 'ui/framework/PropTypes'
 AcceptCommandButton = React.createFactory(require 'ui/panels/card/commands/buttons/AcceptCommandButton')
 PassCommandButton   = React.createFactory(require 'ui/panels/card/commands/buttons/PassCommandButton')
 DeleteCommandButton = React.createFactory(require 'ui/panels/card/commands/buttons/DeleteCommandButton')
@@ -14,16 +13,14 @@ DraftsCommandBar = React.createClass {
   propTypes:
     card: PropTypes.Card
 
-  mixins: [CardContext]
-
   render: ->
 
     div {className: 'queue commands'},
       div {className: 'button-group'},
-        AcceptCommandButton {}
-        PassCommandButton {}
+        AcceptCommandButton {card: @props.card}
+        PassCommandButton {card: @props.card}
       div {className: 'button-group right'},
-        DeleteCommandButton {}
+        DeleteCommandButton {card: @props.card}
 
 }
 

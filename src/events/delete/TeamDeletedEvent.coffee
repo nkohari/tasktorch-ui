@@ -1,10 +1,10 @@
-Event = require 'framework/Event'
+DocumentDeletedEvent = require 'events/framework/DocumentDeletedEvent'
 
-class TeamDeletedEvent extends Event
+class TeamDeletedEvent extends DocumentDeletedEvent
 
   type: 'TeamDeleted'
 
-  constructor: (@team) ->
-    super()
+  constructor: (@team, origin) ->
+    super(origin)
 
 module.exports = TeamDeletedEvent

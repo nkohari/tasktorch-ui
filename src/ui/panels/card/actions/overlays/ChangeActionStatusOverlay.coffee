@@ -1,13 +1,13 @@
-React                      = require 'react'
-PropTypes                  = require 'framework/PropTypes'
-ActionStatus               = require 'framework/enums/ActionStatus'
-Observe                    = require 'framework/mixins/Observe'
-ChangeActionStatusRequest  = require 'requests/ChangeActionStatusRequest'
-Button                     = React.createFactory(require 'ui/common/Button')
-Overlay                    = React.createFactory(require 'ui/common/Overlay')
-Selector                   = React.createFactory(require 'ui/common/Selector')
-ActionStatusSelectorOption = React.createFactory(require 'ui/panels/card/actions/overlays/ActionStatusSelectorOption')
-{div}                      = React.DOM
+React                        = require 'react'
+PropTypes                    = require 'ui/framework/PropTypes'
+ActionStatus                 = require 'data/enums/ActionStatus'
+Actor                        = require 'ui/framework/mixins/Actor'
+UserChangedActionStatusEvent = require 'events/ui/UserChangedActionStatusEvent'
+Button                       = React.createFactory(require 'ui/common/Button')
+Overlay                      = React.createFactory(require 'ui/common/Overlay')
+Selector                     = React.createFactory(require 'ui/common/Selector')
+ActionStatusSelectorOption   = React.createFactory(require 'ui/panels/card/actions/overlays/ActionStatusSelectorOption')
+{div}                        = React.DOM
 
 ChangeActionStatusOverlay = React.createClass {
 
@@ -17,7 +17,7 @@ ChangeActionStatusOverlay = React.createClass {
     action: PropTypes.Action
     hide:   PropTypes.func
 
-  mixins: [Observe()]
+  mixins: [Actor]
 
   getInitialState: ->
     {status: @props.action.status}
@@ -38,7 +38,7 @@ ChangeActionStatusOverlay = React.createClass {
     @setState {status}
 
   onOkClicked: ->
-    @execute new ChangeActionStatusRequest(@props.action, @state.status)
+    @publish new UserChangedActionStatusEvent(@props.action.id, @state.status)
     @props.hide()
 
   onCancelClicked: ->

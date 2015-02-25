@@ -1,5 +1,5 @@
 React                     = require 'react'
-PropTypes                 = require 'framework/PropTypes'
+PropTypes                 = require 'ui/framework/PropTypes'
 Icon                      = React.createFactory(require 'ui/common/Icon')
 OverlayTrigger            = React.createFactory(require 'ui/common/OverlayTrigger')
 ChangeActionStatusOverlay = React.createFactory(require 'ui/panels/card/actions/overlays/ChangeActionStatusOverlay')

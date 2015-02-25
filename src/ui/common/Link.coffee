@@ -2,33 +2,25 @@ _          = require 'lodash'
 Keymaster  = require 'keymaster'
 React      = require 'react'
 Router     = require 'react-router'
-PropTypes  = require 'framework/PropTypes'
-RouterLink = React.createFactory(Router.Link)
+PropTypes  = require 'ui/framework/PropTypes'
+mergeProps = require 'common/util/mergeProps'
 {a}        = React.DOM
 
 Link = React.createClass {
 
   displayName: 'Link'
 
-  mixins: [
-    Router.Navigation
-    Router.State
-  ]
+  mixins: [Router.Navigation]
 
   propTypes:
-    to:      PropTypes.string
-    params:  PropTypes.object
-    query:   PropTypes.object
-    isReady: PropTypes.func
+    getLinkUrl: PropTypes.func
+    isReady:    PropTypes.func
 
   componentDidMount: ->
-    Keymaster(@props.hotkey, @onHotkeyPressed) if @props.hotkey? and @props.to?
+    Keymaster(@props.hotkey, @navigate) if @props.hotkey?
 
   componentWillUnmount: ->
-    Keymaster.unbind(@props.hotkey) if @props.hotkey? and @props.to?
-
-  onHotkeyPressed: ->
-    @transitionTo(@props.to, @props.params, @props.query)
+    Keymaster.unbind(@props.hotkey) if @props.hotkey?
 
   render: ->
 
@@ -37,10 +29,16 @@ Link = React.createClass {
     else
       children = []
 
-    if @props.to?
-      RouterLink @props, children
-    else
-      a @props, children
+    props = mergeProps _.omit(@props, 'getLinkUrl', 'isReady'), {
+      onClick: @navigate
+    }
+
+    a props, children
+
+  navigate: ->
+    url   = @props.getLinkUrl(Environment.currentUrl)
+    props = url.makeLinkProps()
+    @transitionTo(props.to, props.params, props.query)
 
 }
 

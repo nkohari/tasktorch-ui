@@ -1,36 +1,27 @@
-_                             = require 'lodash'
-React                         = require 'react'
-Observe                       = require 'framework/mixins/Observe'
-PropTypes                     = require 'framework/PropTypes'
-MyStacksDisplayedEvent        = require 'events/display/MyStacksDisplayedEvent'
-MyFollowedCardsDisplayedEvent = require 'events/display/MyFollowedCardsDisplayedEvent'
-MyTeamsDisplayedEvent         = require 'events/display/MyTeamsDisplayedEvent'
-Frame                         = React.createFactory(require 'ui/common/Frame')
-FollowingSidebarItem   = React.createFactory(require 'ui/screens/workspace/sidebar/FollowingSidebarItem')
-StackBrowser                  = React.createFactory(require 'ui/screens/workspace/sidebar/StackBrowser')
-{div, ul}                     = React.DOM
+React                = require 'react'
+CachedState          = require 'ui/framework/mixins/CachedState'
+PropTypes            = require 'ui/framework/PropTypes'
+Frame                = React.createFactory(require 'ui/common/Frame')
+FollowingSidebarItem = React.createFactory(require 'ui/screens/workspace/sidebar/FollowingSidebarItem')
+StackBrowser         = React.createFactory(require 'ui/screens/workspace/sidebar/StackBrowser')
 
 WorkspaceSidebar = React.createClass {
 
   displayName: 'WorkspaceSidebar'
 
-  mixins: [Observe('teams', 'stacks')]
-
   propTypes:
     currentOrg:  PropTypes.Org
     currentUser: PropTypes.User
 
-  componentDidMount: ->
-    @publish new MyStacksDisplayedEvent()
-    @publish new MyTeamsDisplayedEvent()
+  mixins: [CachedState]
 
-  sync: (stores) ->
-    teams = stores.teams.getAllByMember(@props.currentUser.id)
-    stacks = stores.stacks.getAllByUser(@props.currentUser.id)
-    {teams, stacks}
+  getCachedState: (cache) -> {
+    teams:  cache('myTeams').get()
+    stacks: cache('myStacks').get()
+  }
 
   isReady: ->
-    @state.teams? and @state.stacks?.length > 0
+    @state.teams? and @state.stacks?
 
   render: ->
 

@@ -1,10 +1,9 @@
 React              = require 'react/addons'
 Keymaster          = require 'keymaster'
-PropTypes          = require 'framework/PropTypes'
-mergeProps         = require 'framework/util/mergeProps'
-Link               = React.createFactory(require 'ui/common/Link')
+PropTypes          = require 'ui/framework/PropTypes'
+mergeProps         = require 'common/util/mergeProps'
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
-{div}              = React.DOM
+{a, div}           = React.DOM
 {cloneWithProps}   = React.addons
 
 DialogTrigger = React.createClass {
@@ -40,7 +39,7 @@ DialogTrigger = React.createClass {
       @onClick
     }
 
-    Link props, @props.children
+    a props, @props.children
 
   renderDialog: ->
     

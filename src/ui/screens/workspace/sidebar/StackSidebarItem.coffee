@@ -1,10 +1,10 @@
 _         = require 'lodash'
 React     = require 'react'
-Router    = require 'react-router'
-PropTypes = require 'framework/PropTypes'
-StackType = require 'framework/enums/StackType'
-classSet  = require 'framework/util/classSet'
-Url       = require 'framework/Url'
+classSet  = require 'common/util/classSet'
+StackType = require 'data/enums/StackType'
+PanelKey  = require 'ui/framework/PanelKey'
+PropTypes = require 'ui/framework/PropTypes'
+UrlAware  = require 'ui/framework/mixins/UrlAware'
 Icon      = React.createFactory(require 'ui/common/Icon')
 Link      = React.createFactory(require 'ui/common/Link')
 ListItem  = React.createFactory(require 'ui/common/ListItem')
@@ -17,23 +17,16 @@ StackSidebarItem = React.createClass {
   propTypes:
     stack: PropTypes.Stack
 
-  mixins: [Router.State]
+  mixins: [UrlAware]
 
   render: ->
 
-    url = new Url(this)
-    isActive = url.isStackActive(@props.stack.id)
-    url.toggleStack(@props.stack.id)
-
-    props = url.makeLinkProps({
-      className: classSet [
-        'active' if isActive
-      ]
-      hotkey: @props.hotkey
-    })
+    classes = classSet [
+      'active' if @getCurrentUrl().isPanelActive(PanelKey.forStack(@props.stack.id))
+    ]
 
     ListItem {className: 'sidebar-item'},
-      Link props,
+      Link {className: classes, hotkey: @props.hotkey, @getLinkUrl},
         Icon {name: "stack-#{@props.stack.type.toLowerCase()}"}
         Text {className: 'name'}, @getStackName()
         Text {className: 'count'}, @props.stack.cards.length if @props.stack.cards.length > 0
@@ -43,6 +36,9 @@ StackSidebarItem = React.createClass {
       @props.stack.name
     else
       @props.stack.type
+
+  getLinkUrl: (currentUrl) ->
+    currentUrl.togglePanel(PanelKey.forStack(@props.stack.id))
 
 }
 

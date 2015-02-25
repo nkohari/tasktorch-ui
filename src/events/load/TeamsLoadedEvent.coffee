@@ -1,10 +1,9 @@
-Event = require 'framework/Event'
+Event = require 'events/framework/Event'
 
 class TeamsLoadedEvent extends Event
 
   type: 'TeamsLoaded'
 
   constructor: (@teams) ->
-    super()
 
 module.exports = TeamsLoadedEvent

@@ -1,6 +1,6 @@
 _                    = require 'lodash'
 React                = require 'react'
-CardContext          = require 'ui/panels/card/CardContext'
+PropTypes            = require 'ui/framework/PropTypes'
 RestoreCommandButton = React.createFactory(require 'ui/panels/card/commands/buttons/RestoreCommandButton')
 {div}                = React.DOM
 
@@ -8,13 +8,14 @@ TrashCommandBar = React.createClass {
 
   displayName: 'TrashCommandBar'
 
-  mixins: [CardContext]
+  propTypes:
+    card: PropTypes.Card
 
   render: ->
 
     div {className: 'archive commands'},
       div {className: 'button-group'},
-        RestoreCommandButton {}
+        RestoreCommandButton {card: @props.card}
 
 }
 

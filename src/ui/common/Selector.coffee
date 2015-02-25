@@ -1,6 +1,6 @@
 _                = require 'lodash'
 React            = require 'react'
-classSet         = require 'framework/util/classSet'
+classSet         = require 'common/util/classSet'
 Caret            = React.createFactory(require 'ui/common/Caret') 
 {a, div, ul, li} = React.DOM
 

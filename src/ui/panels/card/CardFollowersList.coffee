@@ -1,40 +1,26 @@
-_                               = require 'lodash'
-React                           = require 'react'
-PropTypes                       = require 'framework/PropTypes'
-Observe                         = require 'framework/mixins/Observe'
-CardFollowersListDisplayedEvent = require 'events/display/CardFollowersListDisplayedEvent'
-Avatar                          = React.createFactory(require 'ui/common/Avatar')
-List                            = React.createFactory(require 'ui/common/List')
-{li}                            = React.DOM
+_           = require 'lodash'
+React       = require 'react'
+PropTypes   = require 'ui/framework/PropTypes'
+CachedState = require 'ui/framework/mixins/CachedState'
+Avatar      = React.createFactory(require 'ui/common/Avatar')
+List        = React.createFactory(require 'ui/common/List')
+{li}        = React.DOM
 
 CardFollowersList = React.createClass {
-
-  #--------------------------------------------------------------------------------
 
   displayName: 'CardFollowersList'
 
   propTypes:
-    card: PropTypes.Card
+    card:        PropTypes.Card
+    currentUser: PropTypes.User
 
-  mixins: [Observe('users')]
+  mixins: [CachedState]
 
-  #--------------------------------------------------------------------------------
-
-  componentDidMount: ->
-    @publish new CardFollowersListDisplayedEvent(@props.card.id, @props.card.followers)
-
-  componentWillReceiveProps: (newProps) ->
-    unless _.isEqual(@props.card.followers, newProps.card.followers)
-      @publish new CardFollowersListDisplayedEvent(newProps.card.id, newProps.card.followers)
-
-  #--------------------------------------------------------------------------------
-
-  sync: (stores) ->
-    return {
-      currentUser: stores.users.getCurrentUser()
-      owner:       stores.users.get(@props.card.owner) if @props.card.owner?
-      users:       stores.users.getMany(@props.card.followers)
-    }
+  getCachedState: (cache) -> {
+    currentUser: cache('users').get(@props.currentUser.id)
+    owner:       cache('users').get(@props.card.owner) if @props.card.owner?
+    users:       cache('followersByCard').get(@props.card.id)
+  }
 
   isReady: ->
     @state.currentUser? and (@state.owner? or not @props.card.owner?) and @state.users?
@@ -47,7 +33,6 @@ CardFollowersList = React.createClass {
 
     List {@isReady, className: 'followers'}, items
 
-  #--------------------------------------------------------------------------------
 }
 
 module.exports = CardFollowersList

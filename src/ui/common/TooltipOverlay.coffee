@@ -1,5 +1,5 @@
 React      = require 'react'
-mergeProps = require 'framework/util/mergeProps'
+mergeProps = require 'common/util/mergeProps'
 {div}      = React.DOM
 
 TooltipOverlay = React.createClass {

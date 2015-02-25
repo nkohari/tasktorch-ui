@@ -1,34 +1,21 @@
-_                  = require 'lodash'
-Store              = require 'framework/Store'
-LoadTeamRequest    = require 'requests/LoadTeamRequest'
-LoadMyTeamsRequest = require 'requests/LoadMyTeamsRequest'
+Team            = require 'data/models/Team'
+ModelStore      = require 'data/framework/ModelStore'
+LoadTeamRequest = require 'data/requests/LoadTeamRequest'
 
-class TeamStore extends Store
+class TeamStore extends ModelStore
 
   displayName: 'TeamStore'
+  name:        'teams'
+  modelType:   Team
 
-  getAllByMember: (userid) ->
-    _.filter @items, (team) -> _.contains(team.members, userid)
+  listensFor: [
+    'TeamsLoaded'
+  ]
 
-  onTeamDisplayed: (event) ->
-    if @get(event.teamid)?
-      @announce()
-    else
-      @execute new LoadTeamRequest(event.teamid)
-
-  onMyTeamsDisplayed: (event) ->
-    @execute new LoadMyTeamsRequest()
+  load: (id) ->
+    @execute new LoadTeamRequest(id)
 
   onTeamsLoaded: (event) ->
     @add(event.teams)
-
-  onTeamCreated: (event) ->
-    @add(event.team)
-
-  onTeamDeleted: (event) ->
-    @remove(event.team)
-
-  onTeamChanged: (event) ->
-    @add(event.team)
 
 module.exports = TeamStore

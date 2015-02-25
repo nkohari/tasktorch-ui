@@ -1,10 +1,10 @@
-Event = require 'framework/Event'
+DocumentCreatedEvent = require 'events/framework/DocumentCreatedEvent'
 
-class StackCreatedEvent extends Event
+class StackCreatedEvent extends DocumentCreatedEvent
 
   type: 'StackCreated'
 
-  constructor: (@stack) ->
-    super()
+  constructor: (@stack, origin) ->
+    super(origin)
 
 module.exports = StackCreatedEvent

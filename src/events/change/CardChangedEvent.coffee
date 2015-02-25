@@ -1,10 +1,10 @@
-Event = require 'framework/Event'
+DocumentChangedEvent = require 'events/framework/DocumentChangedEvent'
 
-class CardChangedEvent extends Event
+class CardChangedEvent extends DocumentChangedEvent
 
   type: 'CardChanged'
 
-  constructor: (@card) ->
-    super()
+  constructor: (@card, origin) ->
+    super(origin)
 
 module.exports = CardChangedEvent

@@ -1,6 +1,7 @@
 _         = require 'lodash'
 React     = require 'react'
-PropTypes = require 'framework/PropTypes'
+PropTypes = require 'ui/framework/PropTypes'
+Pure      = require 'ui/framework/mixins/Pure'
 Frame     = React.createFactory(require 'ui/common/Frame')
 Icon      = React.createFactory(require 'ui/common/Icon')
 
@@ -10,6 +11,8 @@ CardFollowerCount = React.createClass {
 
   propTypes:
     card: PropTypes.Card
+
+  mixins: [Pure]
 
   render: ->
 

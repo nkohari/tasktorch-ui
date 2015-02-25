@@ -1,18 +1,13 @@
-_                   = require 'lodash'
-React               = require 'react'
-Router              = require 'react-router'
-PropTypes           = require 'framework/PropTypes'
-mergeProps          = require 'framework/util/mergeProps'
-Observe             = require 'framework/mixins/Observe'
-StackDisplayedEvent = require 'events/display/StackDisplayedEvent'
-Url                 = require 'framework/Url'
-Frame               = React.createFactory(require 'ui/common/Frame')
-Icon                = React.createFactory(require 'ui/common/Icon')
-Link                = React.createFactory(require 'ui/common/Link')
-StackCloseLink      = React.createFactory(require 'ui/panels/stack/StackCloseLink')
-StackHeader         = React.createFactory(require 'ui/panels/stack/StackHeader')
-StackCardList       = React.createFactory(require 'ui/panels/stack/StackCardList')
-StackFooter         = React.createFactory(require 'ui/panels/stack/StackFooter')
+_              = require 'lodash'
+React          = require 'react'
+mergeProps     = require 'common/util/mergeProps'
+PropTypes      = require 'ui/framework/PropTypes'
+CachedState    = require 'ui/framework/mixins/CachedState'
+Frame          = React.createFactory(require 'ui/common/Frame')
+StackCloseLink = React.createFactory(require 'ui/panels/stack/StackCloseLink')
+StackHeader    = React.createFactory(require 'ui/panels/stack/StackHeader')
+StackCardList  = React.createFactory(require 'ui/panels/stack/StackCardList')
+StackFooter    = React.createFactory(require 'ui/panels/stack/StackFooter')
 
 StackPanel = React.createClass {
 
@@ -21,16 +16,11 @@ StackPanel = React.createClass {
   propTypes:
     stackid: PropTypes.id
 
-  mixins: [Observe('cards', 'stacks')]
+  mixins: [CachedState]
 
-  componentDidMount: ->
-    @publish new StackDisplayedEvent(@props.stackid)
-
-  componentWillReceiveProps: (newProps) ->
-    @publish new StackDisplayedEvent(@props.stackid) if newProps.stackid != @props.stackid
-
-  sync: (stores) ->
-    {stack: stores.stacks.get(@props.stackid)}
+  getCachedState: (cache) -> {
+    stack: cache('stacks').get(@props.stackid)
+  }
 
   isReady: ->
     @state.stack?

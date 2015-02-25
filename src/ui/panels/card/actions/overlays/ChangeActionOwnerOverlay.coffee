@@ -1,13 +1,13 @@
-React                     = require 'react'
-PropTypes                 = require 'framework/PropTypes'
-UserDisplayedEvent        = require 'events/display/UserDisplayedEvent'
-Observe                   = require 'framework/mixins/Observe'
-ChangeActionOwnerRequest  = require 'requests/ChangeActionOwnerRequest'
-Button                    = React.createFactory(require 'ui/common/Button')
-Overlay                   = React.createFactory(require 'ui/common/Overlay')
-SuggestingSelector        = React.createFactory(require 'ui/common/SuggestingSelector')
-UserSelectorOption        = React.createFactory(require 'ui/common/UserSelectorOption')
-{div}                     = React.DOM
+React                       = require 'react'
+PropTypes                   = require 'ui/framework/PropTypes'
+CachedState                 = require 'ui/framework/mixins/CachedState'
+Actor                       = require 'ui/framework/mixins/Actor'
+UserChangedActionOwnerEvent = require 'events/ui/UserChangedActionOwnerEvent'
+Button                      = React.createFactory(require 'ui/common/Button')
+Overlay                     = React.createFactory(require 'ui/common/Overlay')
+SuggestingSelector          = React.createFactory(require 'ui/common/SuggestingSelector')
+UserSelectorOption          = React.createFactory(require 'ui/common/UserSelectorOption')
+{div}                       = React.DOM
 
 ChangeActionOwnerOverlay = React.createClass {
 
@@ -17,28 +17,21 @@ ChangeActionOwnerOverlay = React.createClass {
     action: PropTypes.Action
     hide:   PropTypes.func
 
-  mixins: [Observe('users')]
+  mixins: [Actor, CachedState]
 
   getInitialState: ->
-    {userid: @props.action.owner, user: undefined}
+    {userid: @props.action.owner}
 
-  componentDidMount: ->
-    @publish new UserDisplayedEvent(@props.action.owner) if @props.action.owner?
-
-  componentWillReceiveProps: (newProps) ->
-    prev = @props.action
-    curr = newProps.action
-    @publish new UserDisplayedEvent(curr.owner) if curr.owner? and curr.owner != prev.owner
-
-  sync: (stores) ->
-    user = stores.users.get(@state.userid) if @state?.userid?
-    {user}
+  getCachedState: (cache) -> {
+    user: cache('users').get(@state.userid) if @state?.userid?
+  }
 
   render: ->
     
     Overlay {arrow: true},
       SuggestingSelector {
         option:        UserSelectorOption
+        placeholder:   'Select an owner'
         suggest:       'user'
         selection:     @state.user
         selectionType: 'user'
@@ -52,7 +45,7 @@ ChangeActionOwnerOverlay = React.createClass {
     @setState {userid: user.id, user: user}
 
   onOkClicked: ->
-    @execute new ChangeActionOwnerRequest(@props.action, @state.userid)
+    @publish new UserChangedActionOwnerEvent(@props.action.id, @state.userid)
     @props.hide()
 
   onCancelClicked: ->

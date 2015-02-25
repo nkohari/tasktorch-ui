@@ -1,10 +1,8 @@
 React                    = require 'react'
-PropTypes                = require 'framework/PropTypes'
-Observe                  = require 'framework/mixins/Observe'
-UserDisplayedEvent       = require 'events/display/UserDisplayedEvent'
+PropTypes                = require 'ui/framework/PropTypes'
+CachedState              = require 'ui/framework/mixins/CachedState'
 Avatar                   = React.createFactory(require 'ui/common/Avatar')
 Icon                     = React.createFactory(require 'ui/common/Icon')
-Link                     = React.createFactory(require 'ui/common/Link')
 OverlayTrigger           = React.createFactory(require 'ui/common/OverlayTrigger')
 ChangeActionOwnerOverlay = React.createFactory(require 'ui/panels/card/actions/overlays/ChangeActionOwnerOverlay')
 
@@ -13,25 +11,13 @@ ActionOwner = React.createClass {
   displayName: 'ActionOwner'
 
   propTypes:
-    action:      PropTypes.Action
-    showCommand: PropTypes.func
+    action: PropTypes.Action
 
-  mixins: [Observe('actions', 'users')]
+  mixins: [CachedState]
 
-  componentDidMount: ->
-    @publish new UserDisplayedEvent(@props.action.owner) if @props.action.owner?
-
-  componentWillReceiveProps: (newProps) ->
-    prev = @props.action
-    curr = newProps.action
-    @publish new UserDisplayedEvent(curr.owner) if curr.owner? and curr.owner != prev.owner
-
-  sync: (stores) ->
-    if @props.action.owner?
-      user = stores.users.get(@props.action.owner)
-    else
-      user = null
-    {user}
+  getCachedState: (cache) -> {
+    user: if @props.action.owner? then cache('users').get(@props.action.owner) else null
+  }
 
   isReady: ->
     @state.user? or not @props.action.owner?

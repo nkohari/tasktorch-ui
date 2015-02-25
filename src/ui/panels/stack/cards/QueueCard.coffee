@@ -1,8 +1,8 @@
 _         = require 'lodash'
 moment    = require 'moment'
 React     = require 'react'
-PropTypes = require 'framework/PropTypes'
-Observe   = require 'framework/mixins/Observe'
+PropTypes = require 'ui/framework/PropTypes'
+Pure      = require 'ui/framework/mixins/Pure'
 Time      = React.createFactory(require 'ui/common/Time')
 {div}     = React.DOM
 
@@ -12,6 +12,8 @@ QueueCard = React.createClass {
 
   propTypes:
     card: PropTypes.Card
+
+  mixins: [Pure]
 
   render: ->
 

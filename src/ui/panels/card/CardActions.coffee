@@ -1,47 +1,37 @@
-_                            = require 'lodash'
-React                        = require 'react'
-PropTypes                    = require 'framework/PropTypes'
-Observe                      = require 'framework/mixins/Observe'
-KindStageListDisplayedEvent  = require 'events/display/KindStageListDisplayedEvent'
-CardActionListDisplayedEvent = require 'events/display/CardActionListDisplayedEvent'
-Frame                        = React.createFactory(require 'ui/common/Frame')
-CardActionsStage             = React.createFactory(require 'ui/panels/card/CardActionsStage')
+_                = require 'lodash'
+React            = require 'react'
+PropTypes        = require 'ui/framework/PropTypes'
+CachedState      = require 'ui/framework/mixins/CachedState'
+Frame            = React.createFactory(require 'ui/common/Frame')
+CardActionsStage = React.createFactory(require 'ui/panels/card/CardActionsStage')
 
 CardActions = React.createClass {
 
   displayName: 'CardActions'
 
   propTypes:
-    card: PropTypes.Card.isRequired
-    kind: PropTypes.Kind.isRequired
+    card: PropTypes.Card
+    kind: PropTypes.Kind
 
-  mixins: [Observe('stages')]
+  mixins: [CachedState]
 
   getInitialState: ->
     {expanded: true}
 
-  componentDidMount: ->
-    @publish new KindStageListDisplayedEvent(@props.kind.id, @props.kind.stages)
-    @publish new CardActionListDisplayedEvent(@props.card.id, @props.card.actions)
-
-  componentWillReceiveProps: (newProps) ->
-    unless _.isEqual(newProps.kind.stages, @props.kind.stages)
-      @publish new KindStageListDisplayedEvent(newProps.kind.id, newProps.kind.stages)
-    unless _.isEqual(newProps.card.actions, @props.card.actions)
-      @publish new CardActionListDisplayedEvent(newProps.card.id, newProps.card.actions)
-
-  sync: (stores) ->
-    {stages: stores.stages.getMany(@props.kind.stages)}
-
-  isReady: ->
-    @state.stages?
+  getCachedState: (cache) -> {
+    actions: cache('actionsByCard').get(@props.card.id)
+    stages:  cache('stagesByKind').get(@props.kind.id)
+  }
 
   render: ->
 
-    stages = _.map @state.stages, (stage) =>
-      CardActionsStage {key: "stage-#{stage.id}", card: @props.card, kind: @props.kind, stage: stage}
+    if @state.actions? and @state.stages?
+      lookup = _.object _.map @state.actions, (action) -> [action.id, action]
+      stages = _.map @state.stages, (stage) =>
+        actions = _.map @props.card.actions[stage.id], (id) -> lookup[id]
+        CardActionsStage {key: "stage-#{stage.id}", card: @props.card, kind: @props.kind, stage: stage, actions}
       
-    Frame {@isReady, className: 'stage-list'}, stages
+    Frame {className: 'content stage-list'}, stages
 
 }
 

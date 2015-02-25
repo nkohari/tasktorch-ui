@@ -1,19 +1,22 @@
-_                 = require 'lodash'
-React             = require 'react/addons'
-PropTypes         = require 'framework/PropTypes'
-Observe           = require 'framework/mixins/Observe'
-AcceptCardRequest = require 'requests/AcceptCardRequest'
-CardContext       = require 'ui/panels/card/CardContext'
-Button            = React.createFactory(require 'ui/common/Button')
-{div}             = React.DOM
+_                     = require 'lodash'
+React                 = require 'react/addons'
+PropTypes             = require 'ui/framework/PropTypes'
+Actor                 = require 'ui/framework/mixins/Actor'
+UserAcceptedCardEvent = require 'events/ui/UserAcceptedCardEvent'
+Button                = React.createFactory(require 'ui/common/Button')
+{div}                 = React.DOM
 
 AcceptCommandButton = React.createClass {
 
   displayName: 'AcceptCommandButton'
 
-  mixins: [CardContext, Observe()]
+  propTypes:
+    card: PropTypes.Card
+
+  mixins: [Actor]
 
   render: ->
+    
     Button {
       icon:    'accept'
       text:    'Accept'
@@ -21,7 +24,7 @@ AcceptCommandButton = React.createClass {
     }
 
   onButtonClicked: ->
-    @execute new AcceptCardRequest(@context.card)
+    @publish new UserAcceptedCardEvent(@props.card.id)
 
 }
 

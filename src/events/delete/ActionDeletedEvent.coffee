@@ -1,10 +1,10 @@
-Event = require 'framework/Event'
+DocumentDeletedEvent = require 'events/framework/DocumentDeletedEvent'
 
-class ActionDeletedEvent extends Event
+class ActionDeletedEvent extends DocumentDeletedEvent
 
   type: 'ActionDeleted'
 
-  constructor: (@action) ->
-    super()
+  constructor: (@action, origin) ->
+    super(origin)
 
 module.exports = ActionDeletedEvent

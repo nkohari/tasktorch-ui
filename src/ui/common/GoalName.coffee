@@ -1,12 +1,9 @@
-React              = require 'react'
-Router             = require 'react-router'
-PropTypes          = require 'framework/PropTypes'
-Observe            = require 'framework/mixins/Observe'
-Url                = require 'framework/Url'
-GoalDisplayedEvent = require 'events/display/GoalDisplayedEvent'
-Icon               = React.createFactory(require 'ui/common/Icon')
-Frame              = React.createFactory(require 'ui/common/Frame')
-Link               = React.createFactory(require 'ui/common/Link')
+React       = require 'react'
+PropTypes   = require 'ui/framework/PropTypes'
+CachedState = require 'ui/framework/mixins/CachedState'
+Pure        = require 'ui/framework/mixins/Pure'
+Icon        = React.createFactory(require 'ui/common/Icon')
+Frame       = React.createFactory(require 'ui/common/Frame')
 
 CardGoal = React.createClass {
 
@@ -15,22 +12,11 @@ CardGoal = React.createClass {
   propTypes:
     goalid: PropTypes.id
 
-  mixins: [
-    Observe('goals')
-    Router.State
-  ]
+  mixins: [CachedState, Pure]
 
-  getDefaultProps: ->
-    {link: false}
-
-  componentDidMount: ->
-    @publish new GoalDisplayedEvent(@props.goalid)
-
-  componentWillReceiveProps: (newProps) ->
-    @publish new GoalDisplayedEvent(newProps.goalid) if newProps.goalid != @props.goalid
-
-  sync: (stores) ->
-    {goal: stores.goals.get(@props.goalid)}
+  getCachedState: (cache) -> {
+    goal: cache('goals').get(@props.goalid)
+  }
 
   isReady: ->
     @state.goal?

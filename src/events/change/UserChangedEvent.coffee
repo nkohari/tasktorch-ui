@@ -1,10 +1,10 @@
-Event = require 'framework/Event'
+DocumentChangedEvent = require 'events/framework/DocumentChangedEvent'
 
-class UserChangedEvent extends Event
+class UserChangedEvent extends DocumentChangedEvent
 
-  team: 'UserChanged'
+  type: 'UserChanged'
 
-  constructor: (@user) ->
-    super()
+  constructor: (@user, origin) ->
+    super(origin)
 
 module.exports = UserChangedEvent

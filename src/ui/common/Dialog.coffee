@@ -1,6 +1,6 @@
 React      = require 'react'
-PropTypes  = require 'framework/PropTypes'
-mergeProps = require 'framework/util/mergeProps'
+PropTypes  = require 'ui/framework/PropTypes'
+mergeProps = require 'common/util/mergeProps'
 Icon       = React.createFactory(require 'ui/common/Icon')
 {div}      = React.DOM
 

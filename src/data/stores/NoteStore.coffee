@@ -1,32 +1,29 @@
-_                      = require 'lodash'
-moment                 = require 'moment'
-Store                  = require 'framework/Store'
-NoteType               = require 'framework/enums/NoteType'
-LoadNotesByCardRequest = require 'requests/LoadNotesByCardRequest'
+Note              = require 'data/models/Note'
+ModelStore        = require 'data/framework/ModelStore'
+CreateNoteRequest = require 'data/requests/CreateNoteRequest'
 
-class NoteStore extends Store
+class NoteStore extends ModelStore
 
   displayName: 'NoteStore'
+  name:        'notes'
+  modelType:   Note
 
-  getAllByCard: (cardid) ->
-    notes = _.filter(@items, (note) -> note.card == cardid)
-    _.sortBy notes, (note) -> moment(note).valueOf()
+  listensFor: [
+    'NotesLoaded'
+    'NoteCreated'
+    'UserCreatedComment'
+  ]
 
-  getMostRecentPassByCard: (cardid) ->
-    notes = _.filter @items, (note) -> note.card == cardid and note.type == NoteType.Passed
-    if notes.length == 0
-      return null
-    else
-      _.max notes, (note) -> moment(note).valueOf()
+  load: (id) ->
+    console.warn('NoteStore.load() was called')
 
-  onCardNoteListDisplayed: (event) ->
-    # TODO: Detect if we've already loaded the notes
-    @execute new LoadNotesByCardRequest(event.cardid)
+  onNotesLoaded: (event) ->
+    @add(event.notes)
 
   onNoteCreated: (event) ->
     @add(event.note)
 
-  onNotesLoaded: (event) ->
-    @add(event.notes)
+  onUserCreatedComment: (event) ->
+    @execute new CreateNoteRequest(event.cardid, 'Comment', event.content)
 
 module.exports = NoteStore

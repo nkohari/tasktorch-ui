@@ -1,9 +1,14 @@
 React            = require 'react'
+PropTypes        = require 'ui/framework/PropTypes'
 {div, em, label} = React.DOM
 
 CommandArgument = React.createClass {
 
   displayName: 'CommandArgument'
+
+  propTypes:
+    hint:  PropTypes.string
+    label: PropTypes.string
 
   render: ->
     

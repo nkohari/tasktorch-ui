@@ -1,10 +1,10 @@
-React               = require 'react'
-PropTypes           = require 'framework/PropTypes'
-Observe             = require 'framework/mixins/Observe'
-DeleteActionRequest = require 'requests/DeleteActionRequest'
-Button              = React.createFactory(require 'ui/common/Button')
-Overlay             = React.createFactory(require 'ui/common/Overlay')
-{div}               = React.DOM
+React                  = require 'react'
+PropTypes              = require 'ui/framework/PropTypes'
+Actor                  = require 'ui/framework/mixins/Actor'
+UserDeletedActionEvent = require 'events/ui/UserDeletedActionEvent'
+Button                 = React.createFactory(require 'ui/common/Button')
+Overlay                = React.createFactory(require 'ui/common/Overlay')
+{div}                  = React.DOM
 
 DeleteActionOverlay = React.createClass {
 
@@ -14,7 +14,7 @@ DeleteActionOverlay = React.createClass {
     action: PropTypes.Action
     hide:   PropTypes.func
 
-  mixins: [Observe()]
+  mixins: [Actor]
 
   render: ->
     
@@ -25,7 +25,7 @@ DeleteActionOverlay = React.createClass {
         Button {className: 'small', text: 'Cancel', onClick: @onCancelClicked}
 
   onDeleteClicked: ->
-    @execute new DeleteActionRequest(@props.action)
+    @publish new UserDeletedActionEvent(@props.action.id)
     @props.hide()
 
   onCancelClicked: ->

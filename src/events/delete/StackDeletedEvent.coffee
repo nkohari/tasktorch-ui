@@ -1,10 +1,10 @@
-Event = require 'framework/Event'
+DocumentDeletedEvent = require 'events/framework/DocumentDeletedEvent'
 
-class StackDeletedEvent extends Event
+class StackDeletedEvent extends DocumentDeletedEvent
 
   type: 'StackDeleted'
 
-  constructor: (@stack) ->
-    super()
+  constructor: (@stack, origin) ->
+    super(origin)
 
 module.exports = StackDeletedEvent
