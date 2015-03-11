@@ -23,11 +23,7 @@ CachedState = {
   _syncWithCache: ->
     if @isMounted()
       newState = @getCachedState(@_getStore)
-      if compare.hashes(@state, newState)
-        console.debug("#{@constructor.displayName}: Ignoring state change")
-        console.debug {@state, newState}
-      else
-        @setState(newState)
+      @setState(newState) unless compare.hashes(@state, newState)
     return
 
 }

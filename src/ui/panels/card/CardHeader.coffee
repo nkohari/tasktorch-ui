@@ -21,18 +21,20 @@ CardHeader = React.createClass {
   displayName: 'CardHeader'
 
   propTypes:
-    card: PropTypes.Card
-    kind: PropTypes.Kind
+    card:        PropTypes.Card
+    kind:        PropTypes.Kind
+    currentUser: PropTypes.User
 
   mixins: [CachedState, CommandContextMaster]
 
   getCachedState: (cache) -> {
     stack: cache('stacks').get(@props.card.stack) if @props.card.stack?
-    owner: cache('users').get(@props.card.owner)  if @props.card.owner?
+    user:  cache('users').get(@props.card.user)   if @props.card.user?
+    team:  cache('teams').get(@props.card.team)   if @props.card.team?
   }
 
   isReady: ->
-    (@state.stack? or not @props.card.stack?) and (@state.owner? or not @props.card.owner?)
+    (@state.stack? or not @props.card.stack?) and (@state.user? or not @props.card.user?) and (@state.team? or not @props.card.team?)
 
   render: ->
 
@@ -45,7 +47,7 @@ CardHeader = React.createClass {
 
     Frame {@isReady, className: classes, style},
       div {className: 'fixed'},
-        CardOwner {user: @state.owner}
+        CardOwner {user: @state.user, team: @state.team}
         div {className: 'info'},
           CardTitle   {card: @props.card}
           CardWidgets {card: @props.card, stack: @state.stack}

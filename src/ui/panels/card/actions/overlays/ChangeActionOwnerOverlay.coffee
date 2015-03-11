@@ -20,7 +20,7 @@ ChangeActionOwnerOverlay = React.createClass {
   mixins: [Actor, CachedState]
 
   getInitialState: ->
-    {userid: @props.action.owner}
+    {userid: @props.action.user}
 
   getCachedState: (cache) -> {
     user: cache('users').get(@state.userid) if @state?.userid?
@@ -31,7 +31,7 @@ ChangeActionOwnerOverlay = React.createClass {
     Overlay {arrow: true},
       SuggestingSelector {
         option:        UserSelectorOption
-        placeholder:   'Select an owner'
+        placeholder:   'Select a user'
         suggest:       'user'
         selection:     @state.user
         selectionType: 'user'

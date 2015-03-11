@@ -4,9 +4,16 @@ CachedState = require 'ui/framework/mixins/CachedState'
 {div}       = React.DOM
 
 NoteComponents =
-  CardCreated:      React.createFactory(require 'ui/panels/card/notes/CardCreatedNote')
-  CardTitleChanged: React.createFactory(require 'ui/panels/card/notes/CardTitleChangedNote')
-  Comment:          React.createFactory(require 'ui/panels/card/notes/CommentNote')
+  ActionCreated:      React.createFactory(require 'ui/panels/card/timeline/notes/ActionCreatedNote')
+  ActionOwnerChanged: React.createFactory(require 'ui/panels/card/timeline/notes/ActionOwnerChangedNote')
+  ActionTextChanged:  React.createFactory(require 'ui/panels/card/timeline/notes/ActionTextChangedNote')
+  CardAccepted:       React.createFactory(require 'ui/panels/card/timeline/notes/CardAcceptedNote')
+  CardCreated:        React.createFactory(require 'ui/panels/card/timeline/notes/CardCreatedNote')
+  CardMoved:          React.createFactory(require 'ui/panels/card/timeline/notes/CardMovedNote')
+  CardPassed:         React.createFactory(require 'ui/panels/card/timeline/notes/CardPassedNote')
+  CardTitleChanged:   React.createFactory(require 'ui/panels/card/timeline/notes/CardTitleChangedNote')
+  CardSummaryChanged: React.createFactory(require 'ui/panels/card/timeline/notes/CardSummaryChangedNote')
+  Comment:            React.createFactory(require 'ui/panels/card/timeline/notes/CommentNote')
 
 CardTimelineItem = React.createClass {
 

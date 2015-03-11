@@ -17,7 +17,7 @@ class LoadMyFollowedCardsRequest extends Request
 
   execute: (eventQueue) ->
     
-    superagent.get "/api/#{Environment.orgid}/me/following?expand=notes,owner,stack,stack.user,stack.team", (res) =>
+    superagent.get "/api/#{Environment.orgid}/me/following?expand=notes,user,team,stack", (res) =>
 
       cards  = _.map res.body.cards,          (doc) -> new Card(doc)
       notes  = _.map res.body.related.notes,  (doc) -> new Note(doc)

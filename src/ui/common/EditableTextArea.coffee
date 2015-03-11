@@ -26,6 +26,7 @@ EditableTextArea = React.createClass {
   render: ->
 
     classes = classSet [
+      'editable'
       'dirty' if @state.dirty
     ]
 

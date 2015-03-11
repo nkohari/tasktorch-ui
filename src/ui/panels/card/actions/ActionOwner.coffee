@@ -16,11 +16,11 @@ ActionOwner = React.createClass {
   mixins: [CachedState]
 
   getCachedState: (cache) -> {
-    user: if @props.action.owner? then cache('users').get(@props.action.owner) else null
+    user: cache('users').get(@props.action.user) if @props.action.user?
   }
 
   isReady: ->
-    @state.user? or not @props.action.owner?
+    @state.user? or not @props.action.user?
 
   render: ->
 

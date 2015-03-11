@@ -18,16 +18,15 @@ CardFollowersList = React.createClass {
 
   getCachedState: (cache) -> {
     currentUser: cache('users').get(@props.currentUser.id)
-    owner:       cache('users').get(@props.card.owner) if @props.card.owner?
-    users:       cache('followersByCard').get(@props.card.id)
+    followers:   cache('followersByCard').get(@props.card.id)
   }
 
   isReady: ->
-    @state.currentUser? and (@state.owner? or not @props.card.owner?) and @state.users?
+    @state.currentUser? and @state.followers?
 
   render: ->
 
-    items = _.map @state.users, (user) =>
+    items = _.map @state.followers, (user) =>
       li {key: "user-#{user.id}", className: 'follower'},
         Avatar {user, size: 32}
 

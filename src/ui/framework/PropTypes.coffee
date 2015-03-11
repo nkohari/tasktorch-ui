@@ -18,7 +18,7 @@ PropTypes.Action = PropTypes.model {
   org:    PropTypes.id
   text:   PropTypes.text
   status: PropTypes.enum(ActionStatus)
-  owner:  PropTypes.id
+  user:   PropTypes.id
 }
 
 PropTypes.Card = PropTypes.model {
@@ -26,7 +26,8 @@ PropTypes.Card = PropTypes.model {
   title:   PropTypes.string
   summary: PropTypes.string
   stack:   PropTypes.id
-  owner:   PropTypes.id
+  user:    PropTypes.id
+  team:    PropTypes.id
 }
 
 PropTypes.Kind = PropTypes.model {

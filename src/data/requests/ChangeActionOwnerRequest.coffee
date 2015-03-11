@@ -8,7 +8,7 @@ class ChangeActionOwnerRequest extends Request
   constructor: (@actionid, @userid) ->
 
   execute: (eventQueue) ->
-    superagent.post("/api/#{Environment.orgid}/actions/#{@actionid}/owner")
+    superagent.post("/api/#{Environment.orgid}/actions/#{@actionid}/user")
     .send {user: @userid}
     .end (res) =>
       action = new Action(res.body.action)

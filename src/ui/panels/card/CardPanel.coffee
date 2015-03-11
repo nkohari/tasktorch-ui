@@ -42,8 +42,8 @@ CardPanel = React.createClass {
 
     Frame props,
       CardCloseLink {card: @state.card}
-      CardHeader    {card: @state.card, kind: @state.kind}
-      CardBody      {card: @state.card, kind: @state.kind}
+      CardHeader    {card: @state.card, kind: @state.kind, currentUser: @props.currentUser}
+      CardBody      {card: @state.card, kind: @state.kind, currentUser: @props.currentUser}
       CardFooter    {card: @state.card, currentUser: @props.currentUser}
 
 }

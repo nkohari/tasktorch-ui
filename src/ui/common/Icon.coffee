@@ -2,7 +2,7 @@ _          = require 'lodash'
 React      = require 'react'
 PropTypes  = require 'ui/framework/PropTypes'
 mergeProps = require 'common/util/mergeProps'
-{span}     = React.DOM
+{i}        = React.DOM
 
 Icon = React.createClass {
 
@@ -17,7 +17,7 @@ Icon = React.createClass {
       className: "icon icon-#{@props.name}"
     }
 
-    span props, @props.children
+    i props, @props.children
 
 }
 

@@ -11,6 +11,7 @@ CardOwner = React.createClass {
 
   propTypes:
     user: PropTypes.User
+    team: PropTypes.Team
 
   render: ->
 

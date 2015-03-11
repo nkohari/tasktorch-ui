@@ -11,8 +11,9 @@ CardBody = React.createClass {
   displayName: 'CardBody'
 
   propTypes:
-    card: PropTypes.Card
-    kind: PropTypes.Kind
+    card:        PropTypes.Card
+    kind:        PropTypes.Kind
+    currentUser: PropTypes.User
 
   render: ->
 
@@ -20,7 +21,7 @@ CardBody = React.createClass {
       CardSummaryBlock {card: @props.card}
       TabBlock {className: 'details', selected: 'actions'},
         CardActions  {key: 'actions',  title: 'Actions',  card: @props.card, kind: @props.kind}
-        CardTimeline {key: 'timeline', title: 'Timeline', card: @props.card}
+        CardTimeline {key: 'timeline', title: 'Timeline', card: @props.card, currentUser: @props.currentUser}
 
 }
 
