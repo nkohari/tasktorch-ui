@@ -35,7 +35,7 @@ ActionOwnerChangedNote = React.createClass {
   render: ->
 
     Frame {@isReady, className: 'activity'},
-      Icon {className: 'activity-icon', name: 'edit'}
+      Icon {className: 'activity-icon', name: 'action'}
       div {className: 'activity-body'},
         UserWidget {user: @props.user}
         'changed the owner of action'

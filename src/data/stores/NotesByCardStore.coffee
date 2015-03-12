@@ -23,6 +23,6 @@ class NotesByCardStore extends ListStore
     list = @lists[event.note.card]
     if list?
       newList = list.concat [event.note.id]
-      @set(event.cardid, newList)
+      @set(event.note.card, newList)
 
 module.exports = NotesByCardStore

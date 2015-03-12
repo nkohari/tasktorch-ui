@@ -10,7 +10,7 @@ ActionWidget = React.createClass {
     action: PropTypes.Action
 
   render: ->
-    em {}, @props.action.name
+    em {className: 'action-widget'}, @props.action.text
 
 }
 

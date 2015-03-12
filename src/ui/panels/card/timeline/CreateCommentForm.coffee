@@ -41,7 +41,7 @@ CreateCommentForm = React.createClass {
           Button {
             className: 'small'
             icon:      'add-comment'
-            text:      'Add Comment'
+            text:      'Add comment'
             onClick:   @createComment
           }
 

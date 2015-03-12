@@ -14,7 +14,8 @@ class ListStore extends Store
   get: (id) ->
     list = @lists[id]
     if list?
-      return _.map list, (id) => @modelStore.get(id)
+      # TODO: Is this the right behavior for missing items in the list?
+      return _.compact _.map list, (id) => @modelStore.get(id)
     else
       if @states[id] != ReadyState.Loading
         console.debug("#{@constructor.name}: Cache miss on #{id}")

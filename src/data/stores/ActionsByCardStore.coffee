@@ -20,6 +20,7 @@ class ActionsByCardStore extends ListStore
     @set(event.cardid, _.pluck(event.actions, 'id'))
 
   onCardChanged: (event) ->
-    @set(event.card.id, _.values(event.card.actions))
+    actionids = _.flatten _.values(event.card.actions)
+    @set(event.card.id, actionids)
 
 module.exports = ActionsByCardStore

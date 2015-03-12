@@ -1,6 +1,6 @@
 React     = require 'react'
 PropTypes = require 'ui/framework/PropTypes'
-Avatar    = React.createFactory(require 'ui/common/Avatar')
+Icon      = React.createFactory(require 'ui/common/Icon')
 {em}      = React.DOM
 
 TeamWidget = React.createClass {
@@ -11,7 +11,9 @@ TeamWidget = React.createClass {
     team: PropTypes.Team
 
   render: ->
-    em {}, @props.team.name
+    em {className: 'team-widget'},
+      Icon {name: 'team'}
+      @props.team.name
 
 }
 

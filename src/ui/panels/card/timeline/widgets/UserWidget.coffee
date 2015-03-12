@@ -13,11 +13,11 @@ UserWidget = React.createClass {
   render: ->
 
     if @props.user?
-      em {},
+      em {className: 'user-widget'},
         Avatar {user: @props.user}
         @props.user.name
     else
-      em {}, 'no one'
+      em {className: 'user-widget'}, 'no one'
 
 }
 

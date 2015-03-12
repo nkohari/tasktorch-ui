@@ -18,9 +18,13 @@ CardTimeline = React.createClass {
 
   mixins: [CachedState]
 
-  getCachedState: (cache) -> {
-    notes: cache('notesByCard').get(@props.card.id)
-  }
+  getCachedState: (cache) ->
+    notes = cache('notesByCard').get(@props.card.id)
+    if notes?
+      console.log "Got #{notes.length} notes for #{@props.card.id}"
+    else
+      console.log "No notes for #{@props.card.id}"
+    {notes}
 
   componentDidMount: ->
     @scrollToBottom()

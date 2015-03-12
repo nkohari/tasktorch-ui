@@ -3,6 +3,7 @@ ModelStore                = require 'data/framework/ModelStore'
 ChangeActionOwnerRequest  = require 'data/requests/ChangeActionOwnerRequest'
 ChangeActionTextRequest   = require 'data/requests/ChangeActionTextRequest'
 ChangeActionStatusRequest = require 'data/requests/ChangeActionStatusRequest'
+CreateActionRequest       = require 'data/requests/CreateActionRequest'
 
 class ActionStore extends ModelStore
 
@@ -18,6 +19,7 @@ class ActionStore extends ModelStore
     'UserChangedActionOwner'
     'UserChangedActionText'
     'UserChangedActionStatus'
+    'UserCreatedAction'
   ]
 
   load: (id) ->
@@ -34,6 +36,9 @@ class ActionStore extends ModelStore
 
   onActionDeleted: (event) ->
     @add(event.action)
+
+  onUserCreatedAction: (event) ->
+    @execute new CreateActionRequest(event.cardid, event.stageid, event.text)
 
   onUserChangedActionOwner: (event) ->
     @execute new ChangeActionOwnerRequest(event.actionid, event.userid)

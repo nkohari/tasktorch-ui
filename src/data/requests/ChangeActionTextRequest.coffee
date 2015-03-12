@@ -8,7 +8,7 @@ class ChangeActionTextRequest extends Request
   constructor: (@actionid, @text) ->
 
   execute: (eventQueue) ->
-    superagent.post("/api/#{Environment.orgid}/actions/#{@action.id}/text")
+    superagent.post("/api/#{Environment.orgid}/actions/#{@actionid}/text")
     .send {@text}
     .end (res) =>
       action = new Action(res.body.action)
