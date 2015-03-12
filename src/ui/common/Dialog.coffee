@@ -17,6 +17,10 @@ Dialog = React.createClass {
   getDefaultProps: ->
     {width: 600}
 
+  componentDidMount: ->
+    node = @refs.dialog.getDOMNode()
+    node.style.marginTop = "#{@getMarginAdjustment()}px"
+
   render: ->
 
     props = mergeProps @props, {
@@ -28,11 +32,18 @@ Dialog = React.createClass {
         Icon {name: @props.icon} if @props.icon?
         @props.title
 
+    style = {width: @props.width}
+    style.marginTop = @getMarginAdjustment() if @isMounted()
+
     div {className: 'dialog-container'},
       div {className: 'dialog-shadow', onClick: @props.close}
-      div {className: 'dialog', style: {width: @props.width}},
+      div {ref: 'dialog', className: 'dialog', style},
         header
         div props, @props.children
+
+  getMarginAdjustment: ->
+    node = @refs.dialog.getDOMNode()
+    return -(node.clientHeight / 2)
 
 }
 

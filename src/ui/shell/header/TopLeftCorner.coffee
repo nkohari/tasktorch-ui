@@ -4,7 +4,6 @@ PropTypes           = require 'ui/framework/PropTypes'
 Frame               = React.createFactory(require 'ui/common/Frame')
 ComposeMenu         = React.createFactory(require 'ui/shell/header/ComposeMenu')
 SidebarToggleButton = React.createFactory(require 'ui/shell/header/SidebarToggleButton')
-OrgMenu             = React.createFactory(require 'ui/shell/header/OrgMenu')
 
 TopLeftCorner = React.createClass {
 
@@ -18,7 +17,7 @@ TopLeftCorner = React.createClass {
 
     Frame {className: 'top-left'},
       SidebarToggleButton {}
-      OrgMenu {currentOrg: @props.currentOrg}
+      ComposeMenu {currentOrg: @props.currentOrg}
 
 }
 
