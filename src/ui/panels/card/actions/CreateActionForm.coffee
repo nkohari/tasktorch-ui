@@ -26,12 +26,7 @@ CreateActionForm = React.createClass {
 
     unless @state.editing
       return div {className: 'create-action'},
-        Button {
-          className: 'small'
-          icon: 'action'
-          text: 'Add action'
-          onClick: @startEditing
-        }
+        a {onClick: @startEditing}, 'Add an action...'
 
     div {className: 'create-action'},
       input {

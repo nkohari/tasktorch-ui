@@ -1,7 +1,12 @@
-_         = require 'lodash'
-React     = require 'react'
-PropTypes = require 'ui/framework/PropTypes'
-{div}     = React.DOM
+_               = require 'lodash'
+React           = require 'react'
+PropTypes       = require 'ui/framework/PropTypes'
+Avatar          = React.createFactory(require 'ui/common/Avatar')
+DialogTrigger   = React.createFactory(require 'ui/common/DialogTrigger')
+Frame           = React.createFactory(require 'ui/common/Frame')
+Icon            = React.createFactory(require 'ui/common/Icon')
+UserPrefsDialog = React.createFactory(require 'ui/dialogs/UserPrefsDialog')
+LogOutDialog    = React.createFactory(require 'ui/dialogs/LogOutDialog')
 
 BottomRightCorner = React.createClass {
 
@@ -13,10 +18,15 @@ BottomRightCorner = React.createClass {
 
   render: ->
 
-    div {className: 'bottom-right'},
-      div {className: 'brand'},
-        'TaskTorch'
-        div {className: 'version'}, 'Alpha Version'
+    prefsDialog = UserPrefsDialog {}
+    logoutDialog = LogOutDialog {}
+
+    Frame {className: 'bottom-right'},
+      DialogTrigger {dialog: prefsDialog},
+        Icon {name: 'settings'}
+      DialogTrigger {dialog: logoutDialog},
+        Icon {name: 'logout'}
+      Avatar {user: @props.currentUser}
 
 }
 

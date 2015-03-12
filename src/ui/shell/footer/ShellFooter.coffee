@@ -4,6 +4,7 @@ PropTypes         = require 'ui/framework/PropTypes'
 Frame             = React.createFactory(require 'ui/common/Frame')
 BottomLeftCorner  = React.createFactory(require 'ui/shell/footer/BottomLeftCorner')
 BottomRightCorner = React.createFactory(require 'ui/shell/footer/BottomRightCorner')
+BottomCenter      = React.createFactory(require 'ui/shell/footer/BottomCenter')
 
 ShellFooter = React.createClass {
 
@@ -17,6 +18,7 @@ ShellFooter = React.createClass {
 
     Frame {className: 'shell-footer'},
       BottomLeftCorner  {currentOrg: @props.currentOrg, currentUser: @props.currentUser}
+      BottomCenter {}
       BottomRightCorner {currentOrg: @props.currentOrg, currentUser: @props.currentUser}
 
 }

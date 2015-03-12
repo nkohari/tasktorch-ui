@@ -37,19 +37,31 @@
         list-style-type: none
         padding: 4px
         border-bottom: 1px dotted #ccc
-        &:last-child
-          border-bottom: none
     
     .create-action
-      padding: 4px
-      background: #f6f6f6
-      border-top: 1px solid #eee
+      padding: 4px 4px 4px 30px
+      height: 35px
+      
+      a
+        display: block
+        font-size: 14px
+        font-style: italic
+        line-height: 28px
+        color: #666
+        &:hover, &:active
+          color: $black
       
       input
-        width: 100%
+        display: inline-block
+        width: $card-panel-width - 125px
         padding: 2px
         outline: none !important
         margin-bottom: 2px
+      
+      .buttons
+        display: inline-block
+        vertical-align: top
+        padding: 1px 0 0 4px
     
     .drag-placeholder
       height: 30px
