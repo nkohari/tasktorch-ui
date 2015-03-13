@@ -29,6 +29,7 @@ class ListStore extends Store
       @lists[id] = list
       @states[id] = ReadyState.Loaded
       @announce()
+    return
 
   has: (id) ->
     @lists[id]?

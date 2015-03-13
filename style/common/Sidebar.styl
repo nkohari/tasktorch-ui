@@ -10,6 +10,16 @@
   overflow-y: auto
   background: $sidebar-background-color
 
+  .tab-block
+    
+    & > .header
+      font-size: 13px
+      display: flex
+      flex-direction: row
+      .tab
+        flex: 1
+        text-align: center
+
   .group
     
     .header
@@ -35,6 +45,7 @@
         text-decoration: none
         transition-property: color, background
         transition-duration: $hover-animation-delay
+        
         &:hover, &:active
           color: $sidebar-active-text-color
           .icon { color: $sidebar-active-text-color }
@@ -48,6 +59,14 @@
 
         .icon
           margin-right: 4px
+        
+        .color-marker
+          display: inline-block
+          vertical-align: baseline
+          height: 10px
+          width: 10px
+          margin-right: 6px
+          border-radius: 50%
 
         .count
           min-width: 30px

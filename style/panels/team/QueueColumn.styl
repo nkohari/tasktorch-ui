@@ -1,0 +1,40 @@
+.queue-column
+  flex: 1
+  min-width: 400px
+  background: $panel-background-color
+  border-right: 1px solid $steel-light-border-color
+  display: flex
+  flex-direction: column
+  &:last-child
+    border-right: none
+  
+  & > .header
+    width: 100%
+    flex: none
+    background: #eee
+    padding: 4px
+    border-bottom: 1px solid $steel-light-border-color
+    .avatar
+      display: inline-block
+      vertical-align: middle
+      height: 32px
+      width: 32px
+      border-radius: 2px
+    .name
+      display: inline-block
+      vertical-align: middle
+      color: $black
+      font-size: 14px
+      font-weight: $bold-font-weight
+      padding-left: 4px
+
+  .cards
+    flex: 1
+    min-height: 100%
+    margin: 0
+    padding: 0
+    overflow-y: auto
+    
+    li
+      list-style-type: none
+      border-bottom: 1px solid #ccc

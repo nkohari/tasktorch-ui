@@ -10,6 +10,7 @@ class StackStore extends ModelStore
 
   listensFor: [
     'StacksLoaded'
+    'StackChanged'
   ]
 
   load: (id) ->
@@ -17,5 +18,8 @@ class StackStore extends ModelStore
 
   onStacksLoaded: (event) ->
     @add(event.stacks)
+
+  onStackChanged: (event) ->
+    @add(event.stack)
 
 module.exports = StackStore

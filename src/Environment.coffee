@@ -8,12 +8,14 @@ GoalStore            = require 'data/stores/GoalStore'
 KindStore            = require 'data/stores/KindStore'
 KindsByOrgStore      = require 'data/stores/KindsByOrgStore'
 NoteStore            = require 'data/stores/NoteStore'
+MembersByTeamStore   = require 'data/stores/MembersByTeamStore'
 MyFollowedCardsStore = require 'data/stores/MyFollowedCardsStore'
 MyOrgsStore          = require 'data/stores/MyOrgsStore'
 MyStacksStore        = require 'data/stores/MyStacksStore'
 MyTeamsStore         = require 'data/stores/MyTeamsStore'
 NotesByCardStore     = require 'data/stores/NotesByCardStore'
 OrgStore             = require 'data/stores/OrgStore'
+QueueByUserStore     = require 'data/stores/QueueByUserStore'
 StackStore           = require 'data/stores/StackStore'
 StacksByTeamStore    = require 'data/stores/StacksByTeamStore'
 StageStore           = require 'data/stores/StageStore'
@@ -21,6 +23,7 @@ StagesByKindStore    = require 'data/stores/StagesByKindStore'
 SuggestedTeamsStore  = require 'data/stores/SuggestedTeamsStore'
 SuggestedUsersStore  = require 'data/stores/SuggestedUsersStore'
 TeamStore            = require 'data/stores/TeamStore'
+TeamsByOrgStore      = require 'data/stores/TeamsByOrgStore'
 UserStore            = require 'data/stores/UserStore'
 EventQueue           = require 'events/EventQueue'
 MessageBus           = require 'messaging/MessageBus'
@@ -53,15 +56,18 @@ class Environment
       new CardsByStackStore(@eventQueue, @cache)
       new FollowersByCardStore(@eventQueue, @cache)
       new KindsByOrgStore(@eventQueue, @cache)
+      new MembersByTeamStore(@eventQueue, @cache)
       new MyFollowedCardsStore(@eventQueue, @cache)
       new MyOrgsStore(@eventQueue, @cache)
       new MyStacksStore(@eventQueue, @cache)
       new MyTeamsStore(@eventQueue, @cache)
+      new QueueByUserStore(@eventQueue, @cache)
       new NotesByCardStore(@eventQueue, @cache)
       new StacksByTeamStore(@eventQueue, @cache)
       new StagesByKindStore(@eventQueue, @cache)
       new SuggestedTeamsStore(@eventQueue, @cache)
       new SuggestedUsersStore(@eventQueue, @cache)
+      new TeamsByOrgStore(@eventQueue, @cache)
     ]
 
     @messageBus.addChannels {

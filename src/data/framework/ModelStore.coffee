@@ -22,6 +22,15 @@ class ModelStore extends Store
         @load(id)
       return undefined
 
+  set: (id, model) ->
+    if compare.values(model, @models[id])
+      console.debug("#{@displayName}: Ignoring set() for %O", model)
+    else
+      @models[id] = model
+      @states[id] = ReadyState.Loaded
+      @announce()
+    return
+
   add: (models...) ->
     changed = false
     for model in _.flatten(models)
@@ -33,5 +42,6 @@ class ModelStore extends Store
         @states[id] = ReadyState.Loaded
         changed = true
     @announce() if changed
+    return
 
 module.exports = ModelStore

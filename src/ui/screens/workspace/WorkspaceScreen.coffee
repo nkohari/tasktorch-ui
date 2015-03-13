@@ -17,7 +17,7 @@ WorkspaceScreen = React.createClass {
 
   render: ->
 
-    Frame {@isReady, className: 'screen'},
+    Frame {className: 'workspace screen'},
       CSSTransitionGroup {component: 'div', className: 'sidebar-container', transitionName: 'slide'},
         WorkspaceSidebar {currentOrg: @props.currentOrg, currentUser: @props.currentUser} if @props.sidebar
       WorkspacePanelList {currentOrg: @props.currentOrg, currentUser: @props.currentUser}
