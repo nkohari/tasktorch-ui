@@ -12,21 +12,22 @@
     width: 100%
     flex: none
     background: #eee
-    padding: 4px
+    padding: 8px
     border-bottom: 1px solid $steel-light-border-color
     .avatar
-      display: inline-block
-      vertical-align: middle
+      float: left
       height: 32px
       width: 32px
       border-radius: 2px
+      margin-right: 4px
     .name
-      display: inline-block
-      vertical-align: middle
       color: $black
-      font-size: 14px
+      font-size: 15px
       font-weight: $bold-font-weight
-      padding-left: 4px
+    .count
+      color: #999
+      font-size: 13px
+      font-weight: $bold-font-weight
 
   .cards
     flex: 1
@@ -35,6 +36,7 @@
     padding: 0
     overflow-y: auto
     
-    li
+    & > li
       list-style-type: none
-      border-bottom: 1px solid #ccc
+      border: 1px solid #bbb
+      margin: 8px

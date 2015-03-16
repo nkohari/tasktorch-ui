@@ -17,7 +17,7 @@ BigPictureSidebar = React.createClass {
 
   render: ->
 
-    Frame {className: 'bigPicture sidebar'},
+    Frame {className: 'big-picture sidebar'},
       TabBlock {selected: 'people'},
         PeopleSidebarPanel   {key: 'people',   title: 'People',   currentOrg: @props.currentOrg, currentUser: @props.currentUser}
         ProgressSidebarPanel {key: 'progress', title: 'Progress', currentOrg: @props.currentOrg, currentUser: @props.currentUser}

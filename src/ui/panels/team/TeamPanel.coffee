@@ -4,7 +4,7 @@ PropTypes          = require 'ui/framework/PropTypes'
 CachedState        = require 'ui/framework/mixins/CachedState'
 Frame              = React.createFactory(require 'ui/common/Frame')
 Icon               = React.createFactory(require 'ui/common/Icon')
-QueueColumn        = React.createFactory(require 'ui/screens/bigPicture/QueueColumn')
+QueueColumn        = React.createFactory(require 'ui/panels/team/QueueColumn')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
 {div}              = React.DOM
 

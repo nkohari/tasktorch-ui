@@ -3,7 +3,7 @@ React       = require 'react'
 PropTypes   = require 'ui/framework/PropTypes'
 CachedState = require 'ui/framework/mixins/CachedState'
 List        = React.createFactory(require 'ui/common/List')
-QueueCard   = React.createFactory(require 'ui/screens/bigPicture/QueueCard')
+QueueCard   = React.createFactory(require 'ui/panels/team/QueueCard')
 
 QueueCardList = React.createClass {
 

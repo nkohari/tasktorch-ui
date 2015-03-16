@@ -14,7 +14,7 @@ Avatar = React.createClass {
 
     props = mergeProps @props, {
       className: 'avatar'
-      src:       @props.user.avatarUrl
+      src:       @props.user?.avatarUrl
     }
 
     img props
