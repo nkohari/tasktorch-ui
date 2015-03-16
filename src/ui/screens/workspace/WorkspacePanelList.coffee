@@ -7,9 +7,9 @@ UrlAware           = require 'ui/framework/mixins/UrlAware'
 PanelKey           = require 'ui/framework/PanelKey'
 PropTypes          = require 'ui/framework/PropTypes'
 UrlModel           = require 'ui/framework/UrlModel'
-StackPanel         = React.createFactory(require 'ui/panels/stack/StackPanel')
-CardPanel          = React.createFactory(require 'ui/panels/card/CardPanel')
-FollowingPanel     = React.createFactory(require 'ui/panels/following/FollowingPanel')
+StackPanel         = React.createFactory(require 'ui/screens/workspace/panels/stack/StackPanel')
+CardPanel          = React.createFactory(require 'ui/screens/workspace/panels/card/CardPanel')
+FollowingPanel     = React.createFactory(require 'ui/screens/workspace/panels/following/FollowingPanel')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
 
 WorkspacePanelList = React.createClass {

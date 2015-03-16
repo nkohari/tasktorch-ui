@@ -9,6 +9,7 @@ UrlAware             = require 'ui/framework/mixins/UrlAware'
 PanelKey             = require 'ui/framework/PanelKey'
 PropTypes            = require 'ui/framework/PropTypes'
 Button               = React.createFactory(require 'ui/common/Button')
+KindColorMarker      = React.createFactory(require 'ui/common/KindColorMarker')
 List                 = React.createFactory(require 'ui/common/List')
 ListItem             = React.createFactory(require 'ui/common/ListItem')
 Overlay              = React.createFactory(require 'ui/common/Overlay')
@@ -36,7 +37,7 @@ ComposeMenu = React.createClass {
 
     items = _.map @state.kinds, (kind) =>
       ListItem {key: kind.id, onClick: @onItemClicked.bind(this, kind)},
-        span {className: 'color-marker', style: {backgroundColor: kind.color}}
+        KindColorMarker {kind}
         kind.name
 
     overlay = List {className: 'overlay menu'}, items
