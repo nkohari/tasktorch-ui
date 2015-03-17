@@ -26,7 +26,7 @@ FollowingToggleButton = React.createClass {
 
     Link {className: classes, hotkey: 'f', @getLinkUrl},
       Icon {name: 'follow'}
-      span {className: 'count'}, @props.cards.length
+      span {className: 'count'}, @props.cards?.length or 0
 
   getLinkUrl: (currentUrl) ->
     currentUrl.setScreen('workspace').togglePanel(PanelKey.forFollowing())

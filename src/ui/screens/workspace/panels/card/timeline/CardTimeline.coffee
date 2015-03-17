@@ -4,7 +4,7 @@ PropTypes         = require 'ui/framework/PropTypes'
 CachedState       = require 'ui/framework/mixins/CachedState'
 Frame             = React.createFactory(require 'ui/common/Frame')
 List              = React.createFactory(require 'ui/common/List')
-CardTimelineItem  = React.createFactory(require 'ui/screens/workspace/panels/card/CardTimelineItem')
+CardTimelineItem  = React.createFactory(require 'ui/screens/workspace/panels/card/timeline/CardTimelineItem')
 CreateCommentForm = React.createFactory(require 'ui/screens/workspace/panels/card/timeline/CreateCommentForm')
 {div}             = React.DOM
 
@@ -18,13 +18,9 @@ CardTimeline = React.createClass {
 
   mixins: [CachedState]
 
-  getCachedState: (cache) ->
-    notes = cache('notesByCard').get(@props.card.id)
-    if notes?
-      console.log "Got #{notes.length} notes for #{@props.card.id}"
-    else
-      console.log "No notes for #{@props.card.id}"
-    {notes}
+  getCachedState: (cache) -> {
+    notes: cache('notesByCard').get(@props.card.id)
+  }
 
   componentDidMount: ->
     @scrollToBottom()
@@ -34,9 +30,8 @@ CardTimeline = React.createClass {
 
   render: ->
 
-    if @state.notes?
-      items = _.map @state.notes, (note) =>
-        CardTimelineItem {key: note.id, card: @props.card, note}
+    items = _.map @state.notes, (note) =>
+      CardTimelineItem {key: note.id, card: @props.card, note}
 
     Frame {className: 'timeline', @onScroll},
       div {className: 'notes'}, items

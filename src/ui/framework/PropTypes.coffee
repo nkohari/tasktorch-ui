@@ -30,6 +30,12 @@ PropTypes.Card = PropTypes.model {
   team:    PropTypes.id
 }
 
+PropTypes.Checklist = PropTypes.model {
+  card:  PropTypes.id
+  org:   PropTypes.id
+  stage: PropTypes.id
+}
+
 PropTypes.Kind = PropTypes.model {
   org:    PropTypes.id
   name:   PropTypes.string

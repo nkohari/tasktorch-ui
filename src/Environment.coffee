@@ -1,34 +1,36 @@
-Cache                = require 'data/Cache'
-ActionsByCardStore   = require 'data/stores/ActionsByCardStore'
-ActionStore          = require 'data/stores/ActionStore'
-CardStore            = require 'data/stores/CardStore'
-CardsByStackStore    = require 'data/stores/CardsByStackStore'
-FollowersByCardStore = require 'data/stores/FollowersByCardStore'
-GoalStore            = require 'data/stores/GoalStore'
-KindStore            = require 'data/stores/KindStore'
-KindsByOrgStore      = require 'data/stores/KindsByOrgStore'
-NoteStore            = require 'data/stores/NoteStore'
-MembersByTeamStore   = require 'data/stores/MembersByTeamStore'
-MyFollowedCardsStore = require 'data/stores/MyFollowedCardsStore'
-MyOrgsStore          = require 'data/stores/MyOrgsStore'
-MyStacksStore        = require 'data/stores/MyStacksStore'
-MyTeamsStore         = require 'data/stores/MyTeamsStore'
-NotesByCardStore     = require 'data/stores/NotesByCardStore'
-OrgStore             = require 'data/stores/OrgStore'
-QueueByUserStore     = require 'data/stores/QueueByUserStore'
-StackStore           = require 'data/stores/StackStore'
-StacksByTeamStore    = require 'data/stores/StacksByTeamStore'
-StageStore           = require 'data/stores/StageStore'
-StagesByKindStore    = require 'data/stores/StagesByKindStore'
-SuggestedTeamsStore  = require 'data/stores/SuggestedTeamsStore'
-SuggestedUsersStore  = require 'data/stores/SuggestedUsersStore'
-TeamStore            = require 'data/stores/TeamStore'
-TeamsByOrgStore      = require 'data/stores/TeamsByOrgStore'
-UserStore            = require 'data/stores/UserStore'
-EventQueue           = require 'events/EventQueue'
-MessageBus           = require 'messaging/MessageBus'
-PresenceChannel      = require 'messaging/channels/PresenceChannel'
-RemoteChangesChannel = require 'messaging/channels/RemoteChangesChannel'
+Cache                   = require 'data/Cache'
+ActionsByChecklistStore = require 'data/stores/ActionsByChecklistStore'
+ActionStore             = require 'data/stores/ActionStore'
+CardStore               = require 'data/stores/CardStore'
+CardsByStackStore       = require 'data/stores/CardsByStackStore'
+ChecklistStore          = require 'data/stores/ChecklistStore'
+ChecklistsByCardStore   = require 'data/stores/ChecklistsByCardStore'
+FollowersByCardStore    = require 'data/stores/FollowersByCardStore'
+GoalStore               = require 'data/stores/GoalStore'
+KindStore               = require 'data/stores/KindStore'
+KindsByOrgStore         = require 'data/stores/KindsByOrgStore'
+NoteStore               = require 'data/stores/NoteStore'
+MembersByTeamStore      = require 'data/stores/MembersByTeamStore'
+MyFollowedCardsStore    = require 'data/stores/MyFollowedCardsStore'
+MyOrgsStore             = require 'data/stores/MyOrgsStore'
+MyStacksStore           = require 'data/stores/MyStacksStore'
+MyTeamsStore            = require 'data/stores/MyTeamsStore'
+NotesByCardStore        = require 'data/stores/NotesByCardStore'
+OrgStore                = require 'data/stores/OrgStore'
+QueueByUserStore        = require 'data/stores/QueueByUserStore'
+StackStore              = require 'data/stores/StackStore'
+StacksByTeamStore       = require 'data/stores/StacksByTeamStore'
+StageStore              = require 'data/stores/StageStore'
+StagesByKindStore       = require 'data/stores/StagesByKindStore'
+SuggestedTeamsStore     = require 'data/stores/SuggestedTeamsStore'
+SuggestedUsersStore     = require 'data/stores/SuggestedUsersStore'
+TeamStore               = require 'data/stores/TeamStore'
+TeamsByOrgStore         = require 'data/stores/TeamsByOrgStore'
+UserStore               = require 'data/stores/UserStore'
+EventQueue              = require 'events/EventQueue'
+MessageBus              = require 'messaging/MessageBus'
+PresenceChannel         = require 'messaging/channels/PresenceChannel'
+RemoteChangesChannel    = require 'messaging/channels/RemoteChangesChannel'
 
 class Environment
 
@@ -41,6 +43,7 @@ class Environment
     @cache.addStores [
       new ActionStore(@eventQueue, @cache)
       new CardStore(@eventQueue, @cache)
+      new ChecklistStore(@eventQueue, @cache)
       new GoalStore(@eventQueue, @cache)
       new KindStore(@eventQueue, @cache)
       new NoteStore(@eventQueue, @cache)
@@ -52,8 +55,9 @@ class Environment
     ]
 
     @cache.addStores [
-      new ActionsByCardStore(@eventQueue, @cache)
+      new ActionsByChecklistStore(@eventQueue, @cache)
       new CardsByStackStore(@eventQueue, @cache)
+      new ChecklistsByCardStore(@eventQueue, @cache)
       new FollowersByCardStore(@eventQueue, @cache)
       new KindsByOrgStore(@eventQueue, @cache)
       new MembersByTeamStore(@eventQueue, @cache)

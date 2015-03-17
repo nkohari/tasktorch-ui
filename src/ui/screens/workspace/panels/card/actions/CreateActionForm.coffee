@@ -11,8 +11,7 @@ CreateActionForm = React.createClass {
   displayName: 'CreateActionForm'
 
   props:
-    card: PropTypes.Card
-    stage: PropTypes.Stage
+    checklist: PropTypes.Checklist
 
   mixins: [Actor]
 
@@ -68,7 +67,7 @@ CreateActionForm = React.createClass {
 
   createAction: ->
     return unless @state.text?.length > 0
-    @publish new UserCreatedActionEvent(@props.card.id, @props.stage.id, @state.text)
+    @publish new UserCreatedActionEvent(@props.checklist.id, @state.text)
     @setState {text: ''}
 
 }

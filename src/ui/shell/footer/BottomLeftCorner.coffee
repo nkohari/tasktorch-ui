@@ -26,7 +26,7 @@ BottomLeftCorner = React.createClass {
     {inbox, queue, followedCards}
 
   isReady: ->
-    @state.inbox? and @state.queue? and @state.followedCards?
+    @state.inbox? and @state.queue?
 
   render: ->
 

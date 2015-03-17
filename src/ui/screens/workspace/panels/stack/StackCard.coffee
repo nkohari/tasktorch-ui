@@ -6,9 +6,9 @@ Pure      = require 'ui/framework/mixins/Pure'
 Time      = React.createFactory(require 'ui/common/Time')
 {div}     = React.DOM
 
-QueueCard = React.createClass {
+StackCard = React.createClass {
 
-  displayName: 'QueueCard'
+  displayName: 'StackCard'
 
   propTypes:
     card: PropTypes.Card
@@ -31,4 +31,4 @@ QueueCard = React.createClass {
 
 }
 
-module.exports = QueueCard
+module.exports = StackCard

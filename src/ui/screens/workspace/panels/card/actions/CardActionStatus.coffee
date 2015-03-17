@@ -4,9 +4,9 @@ Icon                      = React.createFactory(require 'ui/common/Icon')
 OverlayTrigger            = React.createFactory(require 'ui/common/OverlayTrigger')
 ChangeActionStatusOverlay = React.createFactory(require 'ui/screens/workspace/panels/card/actions/overlays/ChangeActionStatusOverlay')
 
-ActionStatus = React.createClass {
+CardActionStatus = React.createClass {
 
-  displayName: 'ActionStatus'
+  displayName: 'CardActionStatus'
 
   propTypes:
     action: PropTypes.Action
@@ -20,4 +20,4 @@ ActionStatus = React.createClass {
 
 }
 
-module.exports = ActionStatus
+module.exports = CardActionStatus

@@ -5,9 +5,9 @@ Icon                = React.createFactory(require 'ui/common/Icon')
 OverlayTrigger      = React.createFactory(require 'ui/common/OverlayTrigger')
 DeleteActionOverlay = React.createFactory(require 'ui/screens/workspace/panels/card/actions/overlays/DeleteActionOverlay')
 
-ActionDeleteTrigger = React.createClass {
+CardActionDeleteTrigger = React.createClass {
 
-  displayName: 'ActionDeleteTrigger'
+  displayName: 'CardActionDeleteTrigger'
 
   propTypes:
     action: PropTypes.Action
@@ -23,4 +23,4 @@ ActionDeleteTrigger = React.createClass {
 
 }
 
-module.exports = ActionDeleteTrigger
+module.exports = CardActionDeleteTrigger

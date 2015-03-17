@@ -5,11 +5,11 @@ Request            = require 'data/framework/Request'
 
 class MoveActionRequest extends Request
 
-  constructor: (@action, @cardid, @stageid, @position) ->
+  constructor: (@actionid, @checklistid, @position) ->
 
   execute: (eventQueue) ->
-    superagent.post("/api/#{@action.org}/actions/#{@action.id}/move")
-    .send {card: @cardid, stage: @stageid, @position}
+    superagent.post("/api/#{Environment.id}/actions/#{@actionid}/move")
+    .send {checklist: @checklistid, @position}
     .end (res) =>
       action = new Action(res.body.action)
       eventQueue.publish new ActionChangedEvent(action)

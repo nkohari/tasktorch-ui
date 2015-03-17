@@ -4,6 +4,6 @@ class UserMovedActionEvent extends Event
 
   type: 'UserMovedAction'
 
-  constructor: (@actionid, @cardid, @stageid, @position) ->
+  constructor: (@actionid, @checklistid, @position) ->
 
 module.exports = UserMovedActionEvent

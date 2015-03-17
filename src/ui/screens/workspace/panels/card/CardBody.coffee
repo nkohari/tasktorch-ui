@@ -3,8 +3,8 @@ PropTypes        = require 'ui/framework/PropTypes'
 Frame            = React.createFactory(require 'ui/common/Frame')
 TabBlock         = React.createFactory(require 'ui/common/TabBlock')
 CardSummaryBlock = React.createFactory(require 'ui/screens/workspace/panels/card/CardSummaryBlock')
-CardActions      = React.createFactory(require 'ui/screens/workspace/panels/card/CardActions')
-CardTimeline     = React.createFactory(require 'ui/screens/workspace/panels/card/CardTimeline')
+CardActions      = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CardActions')
+CardTimeline     = React.createFactory(require 'ui/screens/workspace/panels/card/timeline/CardTimeline')
 
 CardBody = React.createClass {
 

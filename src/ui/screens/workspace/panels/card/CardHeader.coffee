@@ -9,10 +9,10 @@ Avatar               = React.createFactory(require 'ui/common/Avatar')
 Frame                = React.createFactory(require 'ui/common/Frame')
 Icon                 = React.createFactory(require 'ui/common/Icon')
 CardOwner            = React.createFactory(require 'ui/common/CardOwner')
-CardCommandBar       = React.createFactory(require 'ui/screens/workspace/panels/card/CardCommandBar')
-CardCommandPanel     = React.createFactory(require 'ui/screens/workspace/panels/card/CardCommandPanel')
 CardTitle            = React.createFactory(require 'ui/screens/workspace/panels/card/CardTitle')
 CardWidgets          = React.createFactory(require 'ui/screens/workspace/panels/card/CardWidgets')
+CardCommandBar       = React.createFactory(require 'ui/screens/workspace/panels/card/commands/CardCommandBar')
+CardCommandPanel     = React.createFactory(require 'ui/screens/workspace/panels/card/commands/CardCommandPanel')
 CSSTransitionGroup   = React.createFactory(React.addons.CSSTransitionGroup)
 {div}                = React.DOM
 

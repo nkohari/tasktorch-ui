@@ -4,6 +4,6 @@ class UserCreatedActionEvent extends Event
 
   type: 'UserCreatedAction'
 
-  constructor: (@cardid, @stageid, @text) ->
+  constructor: (@checklistid, @text) ->
 
 module.exports = UserCreatedActionEvent

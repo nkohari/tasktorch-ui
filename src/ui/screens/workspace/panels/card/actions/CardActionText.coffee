@@ -5,9 +5,9 @@ Pure                       = require 'ui/framework/mixins/Pure'
 UserChangedActionTextEvent = require 'events/ui/UserChangedActionTextEvent'
 EditableText               = React.createFactory(require 'ui/common/EditableText')
 
-ActionText = React.createClass {
+CardActionText = React.createClass {
 
-  displayName: 'ActionText'
+  displayName: 'CardActionText'
 
   propTypes:
     action: PropTypes.Action
@@ -27,4 +27,4 @@ ActionText = React.createClass {
 
 }
 
-module.exports = ActionText
+module.exports = CardActionText

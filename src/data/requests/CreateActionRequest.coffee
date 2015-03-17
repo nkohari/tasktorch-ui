@@ -5,11 +5,11 @@ Request            = require 'data/framework/Request'
 
 class CreateActionRequest extends Request
 
-  constructor: (@cardid, @stageid, @text) ->
+  constructor: (@checklistid, @text) ->
 
   execute: (eventQueue) ->
-    superagent.post("/api/#{Environment.orgid}/cards/#{@cardid}/actions")
-    .send({stage: @stageid, text: @text})
+    superagent.post("/api/#{Environment.orgid}/checklists/#{@checklistid}/actions")
+    .send({@text})
     .end (res) =>
       action = new Action(res.body.action)
       eventQueue.publish new ActionCreatedEvent(action)

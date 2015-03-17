@@ -6,9 +6,9 @@ Icon                     = React.createFactory(require 'ui/common/Icon')
 OverlayTrigger           = React.createFactory(require 'ui/common/OverlayTrigger')
 ChangeActionOwnerOverlay = React.createFactory(require 'ui/screens/workspace/panels/card/actions/overlays/ChangeActionOwnerOverlay')
 
-ActionOwner = React.createClass {
+CardActionOwner = React.createClass {
 
-  displayName: 'ActionOwner'
+  displayName: 'CardActionOwner'
 
   propTypes:
     action: PropTypes.Action
@@ -36,4 +36,4 @@ ActionOwner = React.createClass {
 
 }
 
-module.exports = ActionOwner
+module.exports = CardActionOwner

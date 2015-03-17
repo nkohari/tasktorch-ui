@@ -1,24 +1,26 @@
-Channel            = require 'messaging/framework/Channel'
-EventOrigin        = require 'data/enums/EventOrigin'
-Action             = require 'data/models/Action'
-Card               = require 'data/models/Card'
-Note               = require 'data/models/Note'
-Stack              = require 'data/models/Stack'
-Team               = require 'data/models/Team'
-User               = require 'data/models/User'
-ActionChangedEvent = require 'events/change/ActionChangedEvent'
-ActionCreatedEvent = require 'events/create/ActionCreatedEvent'
-ActionDeletedEvent = require 'events/delete/ActionDeletedEvent'
-CardChangedEvent   = require 'events/change/CardChangedEvent'
-CardCreatedEvent   = require 'events/create/CardCreatedEvent'
-NoteCreatedEvent   = require 'events/create/NoteCreatedEvent'
-StackChangedEvent  = require 'events/change/StackChangedEvent'
-StackCreatedEvent  = require 'events/create/StackCreatedEvent'
-StackDeletedEvent  = require 'events/delete/StackDeletedEvent'
-TeamChangedEvent   = require 'events/change/TeamChangedEvent'
-TeamCreatedEvent   = require 'events/create/TeamCreatedEvent'
-TeamDeletedEvent   = require 'events/delete/TeamDeletedEvent'
-UserChangedEvent   = require 'events/change/UserChangedEvent'
+Channel               = require 'messaging/framework/Channel'
+EventOrigin           = require 'data/enums/EventOrigin'
+Action                = require 'data/models/Action'
+Card                  = require 'data/models/Card'
+Checklist             = require 'data/models/Checklist'
+Note                  = require 'data/models/Note'
+Stack                 = require 'data/models/Stack'
+Team                  = require 'data/models/Team'
+User                  = require 'data/models/User'
+ActionChangedEvent    = require 'events/change/ActionChangedEvent'
+ActionCreatedEvent    = require 'events/create/ActionCreatedEvent'
+ActionDeletedEvent    = require 'events/delete/ActionDeletedEvent'
+CardChangedEvent      = require 'events/change/CardChangedEvent'
+CardCreatedEvent      = require 'events/create/CardCreatedEvent'
+ChecklistChangedEvent = require 'events/change/ChecklistChangedEvent'
+NoteCreatedEvent      = require 'events/create/NoteCreatedEvent'
+StackChangedEvent     = require 'events/change/StackChangedEvent'
+StackCreatedEvent     = require 'events/create/StackCreatedEvent'
+StackDeletedEvent     = require 'events/delete/StackDeletedEvent'
+TeamChangedEvent      = require 'events/change/TeamChangedEvent'
+TeamCreatedEvent      = require 'events/create/TeamCreatedEvent'
+TeamDeletedEvent      = require 'events/delete/TeamDeletedEvent'
+UserChangedEvent      = require 'events/change/UserChangedEvent'
 
 class RemoteChangesChannel extends Channel
 
@@ -44,11 +46,12 @@ class RemoteChangesChannel extends Channel
 
   onDocumentChanged: (message) ->
     switch message.type
-      when 'Action' then @publish new ActionChangedEvent(new Action(message.document), EventOrigin.Remote)
-      when 'Card'   then @publish new CardChangedEvent(new Card(message.document), EventOrigin.Remote)
-      when 'Stack'  then @publish new StackChangedEvent(new Stack(message.document), EventOrigin.Remote)
-      when 'Team'   then @publish new TeamChangedEvent(new Team(message.document), EventOrigin.Remote)
-      when 'User'   then @publish new UserChangedEvent(new User(message.document), EventOrigin.Remote)
+      when 'Action'    then @publish new ActionChangedEvent(new Action(message.document), EventOrigin.Remote)
+      when 'Card'      then @publish new CardChangedEvent(new Card(message.document), EventOrigin.Remote)
+      when 'Checklist' then @publish new ChecklistChangedEvent(new Checklist(message.document), EventOrigin.Remote)
+      when 'Stack'     then @publish new StackChangedEvent(new Stack(message.document), EventOrigin.Remote)
+      when 'Team'      then @publish new TeamChangedEvent(new Team(message.document), EventOrigin.Remote)
+      when 'User'      then @publish new UserChangedEvent(new User(message.document), EventOrigin.Remote)
 
   onDocumentDeleted: (message) ->
     switch message.type

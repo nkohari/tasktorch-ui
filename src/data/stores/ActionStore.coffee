@@ -49,7 +49,7 @@ class ActionStore extends ModelStore
     @execute new ChangeActionStatusRequest(event.actionid, event.status)
 
   onUserCreatedAction: (event) ->
-    @execute new CreateActionRequest(event.cardid, event.stageid, event.text)
+    @execute new CreateActionRequest(event.checklistid, event.text)
 
   onUserDeletedAction: (event) ->
     @execute new DeleteActionRequest(event.actionid)
