@@ -22,15 +22,12 @@ KindPanel = React.createClass {
     stages = cache('stagesByKind').get(@props.kindid)
     {kind, stages}
 
-  isReady: ->
-    @state.kind? and @state.stages?
-
   render: ->
 
     items = _.map @state.stages, (stage) =>
       StageColumn {key: stage.id, stage}
 
-    Frame {@isReady, className: 'kind panel'},
+    Frame {className: 'kind panel'},
       div {className: 'header'},
         KindColorMarker {kind: @state.kind}
         @state.kind?.name

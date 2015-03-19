@@ -26,11 +26,14 @@ QueueColumn = React.createClass {
 
   render: ->
 
+    count  = @state.stack?.cards.length or 0
+    plural = if count == 1 then '' else 's'
+
     Frame {@isReady, className: 'queue-column'},
       Frame {className: 'header'},
         Avatar {user: @props.user}
         div {className: 'name'}, @props.user.name
-        div {className: 'count'}, "#{@state.stack?.cards.length} cards in queue"
+        div {className: 'count'}, "#{count} card#{plural} in queue"
       QueueCardList {user: @props.user, stack: @state.stack}
 
 }

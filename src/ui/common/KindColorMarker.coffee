@@ -11,9 +11,12 @@ KindColorMarker = React.createClass {
 
   render: ->
 
+    if @props.kind?
+      style = {backgroundColor: @props.kind.color}
+
     span {
       className: 'kind-color-marker'
-      style: {backgroundColor: @props.kind.color}
+      style
     }
 
 }

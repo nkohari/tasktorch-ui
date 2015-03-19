@@ -10,7 +10,6 @@ class ChecklistsByCardStore extends ListStore
 
   listensFor: [
     'ChecklistsByCardLoaded'
-    'CardChanged'
   ]
 
   load: (id) ->
@@ -18,8 +17,5 @@ class ChecklistsByCardStore extends ListStore
 
   onChecklistsByCardLoaded: (event) ->
     @set(event.cardid, _.pluck(event.checklists, 'id'))
-
-  onCardChanged: (event) ->
-    @set(event.card.id, event.card.checklists)
 
 module.exports = ChecklistsByCardStore

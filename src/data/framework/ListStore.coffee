@@ -34,4 +34,12 @@ class ListStore extends Store
   has: (id) ->
     @lists[id]?
 
+  remove: (id) ->
+    @lists[id] = undefined
+    @states[id] = undefined if @states[id] == ReadyState.Loaded
+
+  clear: ->
+    @lists = {}
+    @states = {}
+
 module.exports = ListStore
