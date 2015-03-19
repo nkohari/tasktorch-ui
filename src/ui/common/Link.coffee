@@ -3,7 +3,6 @@ Keymaster  = require 'keymaster'
 React      = require 'react'
 Router     = require 'react-router'
 PropTypes  = require 'ui/framework/PropTypes'
-mergeProps = require 'common/util/mergeProps'
 {a}        = React.DOM
 
 Link = React.createClass {
@@ -13,8 +12,7 @@ Link = React.createClass {
   mixins: [Router.Navigation]
 
   propTypes:
-    getLinkUrl: PropTypes.func
-    isReady:    PropTypes.func
+    isReady: PropTypes.func
 
   componentDidMount: ->
     Keymaster(@props.hotkey, @navigate) if @props.hotkey?
@@ -29,16 +27,8 @@ Link = React.createClass {
     else
       children = []
 
-    props = mergeProps _.omit(@props, 'getLinkUrl', 'isReady'), {
-      onClick: @navigate
-    }
-
+    props = _.omit(@props, 'isReady')
     a props, children
-
-  navigate: ->
-    url   = @props.getLinkUrl(Environment.currentUrl)
-    props = url.makeLinkProps()
-    @transitionTo(props.to, props.params, props.query)
 
 }
 

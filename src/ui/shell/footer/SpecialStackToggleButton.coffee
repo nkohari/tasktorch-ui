@@ -1,9 +1,8 @@
 _         = require 'lodash'
 React     = require 'react'
 classSet  = require 'common/util/classSet'
-PanelKey  = require 'ui/framework/PanelKey'
 PropTypes = require 'ui/framework/PropTypes'
-UrlAware  = require 'ui/framework/mixins/UrlAware'
+Navigator = require 'ui/framework/mixins/Navigator'
 Icon      = React.createFactory(require 'ui/common/Icon')
 Link      = React.createFactory(require 'ui/common/Link')
 {span}    = React.DOM
@@ -12,7 +11,7 @@ SpecialStackToggleButton = React.createClass {
 
   displayName: 'SpecialStackToggleButton'
 
-  mixins: [UrlAware]
+  mixins: [Navigator]
 
   propTypes:
     stack:  PropTypes.Stack
@@ -23,15 +22,18 @@ SpecialStackToggleButton = React.createClass {
 
     classes = classSet [
       'button'
-      'active' if @getCurrentUrl().isPanelActive(PanelKey.forStack(@props.stack.id))
+      'active' if @getScreen('workspace').isPanelVisible(@props.stack.id)
     ]
 
-    Link {className: classes, hotkey: @props.hotkey, @getLinkUrl},
+    Link {className: classes, hotkey: @props.hotkey, onClick: @toggleStack},
       Icon {name: "stack-#{@props.icon}"}
       span {className: 'count'}, @props.stack.cards.length
 
-  getLinkUrl: (currentUrl) ->
-    currentUrl.setScreen('workspace').togglePanel(PanelKey.forStack(@props.stack.id))
+  toggleStack: ->
+    @getScreen('workspace').togglePanel {
+      type: 'stack'
+      id:   @props.stack.id
+    }
 
 }
 

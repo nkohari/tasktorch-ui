@@ -1,15 +1,10 @@
 _                  = require 'lodash'
 dom                = require 'common/util/dom'
 React              = require 'react/addons'
-Router             = require 'react-router'
+Navigator          = require 'ui/framework/mixins/Navigator'
 SortableList       = require 'ui/framework/mixins/SortableList'
-UrlAware           = require 'ui/framework/mixins/UrlAware'
-PanelKey           = require 'ui/framework/PanelKey'
 PropTypes          = require 'ui/framework/PropTypes'
-UrlModel           = require 'ui/framework/UrlModel'
-StackPanel         = React.createFactory(require 'ui/screens/workspace/panels/stack/StackPanel')
-CardPanel          = React.createFactory(require 'ui/screens/workspace/panels/card/CardPanel')
-FollowingPanel     = React.createFactory(require 'ui/screens/workspace/panels/following/FollowingPanel')
+WorkspacePanel     = React.createFactory(require 'ui/screens/workspace/WorkspacePanel')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
 
 WorkspacePanelList = React.createClass {
@@ -17,33 +12,26 @@ WorkspacePanelList = React.createClass {
   displayName: 'WorkspacePanelList'
 
   propTypes:
+    panels:      PropTypes.array
     currentOrg:  PropTypes.Org
     currentUser: PropTypes.User
 
-  contextTypes:
-    currentUrl: PropTypes.object
-
   mixins: [
-    Router.Navigation
+    Navigator
     SortableList {
       handle: '.header'
       idAttribute: 'data-itemid'
     }
-    UrlAware
   ]
 
   render: ->
-    panels = _.map @getCurrentUrl().getPanels(), (key) => @createPanel(key)
+
+    panels = _.map @props.panels, (panel) =>
+      props = _.extend {key: panel.id, currentUser: @props.currentUser, currentOrg: @props.currentOrg}, panel
+      WorkspacePanel(props)
+
     CSSTransitionGroup {component: 'div', className: 'content', transitionName: 'slide', @onWheel},
       panels
-
-  createPanel: (key) ->
-    panel = PanelKey.parse(key)
-    switch panel.type
-      when 'stack'     then StackPanel     {key, "data-itemid": key, currentUser: @props.currentUser, stackid: panel.id}
-      when 'card'      then CardPanel      {key, "data-itemid": key, currentUser: @props.currentUser, cardid: panel.id}
-      when 'following' then FollowingPanel {key, "data-itemid": key, currentUser: @props.currentUser}
-      else null
 
   getSortableList: ->
     # TODO: The SortableList mixin is designed to support connected lists, like StackCardList.
@@ -54,9 +42,7 @@ WorkspacePanelList = React.createClass {
     {id}
 
   onReorder: (panel, toPosition) ->
-    url = @getCurrentUrl().movePanelToPosition(panel.id, toPosition)
-    props = url.makeLinkProps()
-    @transitionTo(props.to, props.params, props.query)
+    # TODO
 
   onListOrderChanged: (ids) ->
 

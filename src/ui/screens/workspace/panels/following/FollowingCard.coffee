@@ -1,10 +1,9 @@
 _            = require 'lodash'
 React        = require 'react'
 classSet     = require 'common/util/classSet'
-PanelKey     = require 'ui/framework/PanelKey'
 PropTypes    = require 'ui/framework/PropTypes'
 CachedState  = require 'ui/framework/mixins/CachedState'
-UrlAware     = require 'ui/framework/mixins/UrlAware'
+Navigator    = require 'ui/framework/mixins/Navigator'
 CardLocation = React.createFactory(require 'ui/common/CardLocation')
 CardOwner    = React.createFactory(require 'ui/common/CardOwner')
 Link         = React.createFactory(require 'ui/common/Link')
@@ -20,7 +19,7 @@ FollowingCard = React.createClass {
   propTypes:
     card: PropTypes.Card
 
-  mixins: [CachedState, UrlAware]
+  mixins: [CachedState, Navigator]
 
   getCachedState: (cache) -> {
     kind:  cache('kinds').get(@props.card.kind)
@@ -38,19 +37,22 @@ FollowingCard = React.createClass {
       style = {borderLeftColor: @state.kind.color}
 
     classes = classSet [
-      'active' if @getCurrentUrl().isPanelActive(PanelKey.forCard(@props.card.id))
+      'active' if @getScreen('workspace').isPanelVisible(@props.card.id)
     ]
 
     ListItem {@isReady, className: 'following-card'},
-      Link {className: classes, style, @getLinkUrl},
+      Link {className: classes, style, onClick: @showCard},
         CardOwner {user: @state.user, team: @state.team}
         Frame {className: 'title'},
           @props.card.title or 'Untitled Card'
         Frame {className: 'widgets'},
           CardLocation {card: @props.card, stack: @state.stack}
 
-  getLinkUrl: (currentUrl) ->
-    currentUrl.addPanelAfter(PanelKey.forCard(@props.card.id), PanelKey.forFollowing())
+  showCard: ->
+    @getScreen('workspace').showPanelAfter 'following', {
+      type: 'card'
+      id:   @props.card.id
+    }
 
 }
 

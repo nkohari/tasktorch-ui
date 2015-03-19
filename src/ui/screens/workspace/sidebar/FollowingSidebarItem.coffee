@@ -1,10 +1,9 @@
 _           = require 'lodash'
 React       = require 'react'
 classSet    = require 'common/util/classSet'
-PanelKey    = require 'ui/framework/PanelKey'
 PropTypes   = require 'ui/framework/PropTypes'
 CachedState = require 'ui/framework/mixins/CachedState'
-UrlAware    = require 'ui/framework/mixins/UrlAware'
+Navigator   = require 'ui/framework/mixins/Navigator'
 Frame       = React.createFactory(require 'ui/common/Frame')
 Icon        = React.createFactory(require 'ui/common/Icon')
 Link        = React.createFactory(require 'ui/common/Link')
@@ -19,7 +18,7 @@ FollowingSidebarItem = React.createClass {
   propTypes:
     currentUser: PropTypes.User
 
-  mixins: [CachedState, UrlAware]
+  mixins: [CachedState, Navigator]
 
   getCachedState: (cache) -> {
     cards: cache('myFollowedCards').get()
@@ -31,19 +30,22 @@ FollowingSidebarItem = React.createClass {
   render: ->
 
     classes = classSet [
-      'active' if @getCurrentUrl().isPanelActive(PanelKey.forFollowing())
+      'active' if @getScreen('workspace').isPanelVisible('following')
     ]
 
     Frame {@isReady, className: 'group'},
       List {},
         ListItem {className: 'sidebar-item'},
-          Link {className: classes, @getLinkUrl},
+          Link {className: classes, onClick: @toggleFollowing},
             Icon {name: 'follow'}
             Text {className: 'name'}, 'Following'
             Text {className: 'count'}, @state.cards.length if @state.cards?.length > 0
 
-  getLinkUrl: (currentUrl) ->
-    currentUrl.togglePanel(PanelKey.forFollowing())
+  toggleFollowing: ->
+    @getScreen('workspace').togglePanel {
+      type: 'following'
+      id:   'following'
+    }
 
 }
 

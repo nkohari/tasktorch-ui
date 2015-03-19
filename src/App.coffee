@@ -3,7 +3,6 @@ cookies          = require 'cookies-js'
 React            = require 'react/addons'
 Router           = require 'react-router'
 Environment      = require './Environment'
-UrlModel         = require 'ui/framework/UrlModel'
 Shell            = require 'ui/shell/Shell'
 LoginScreen      = require 'ui/screens/login/LoginScreen'
 CreateUserScreen = require 'ui/screens/createUser/CreateUserScreen'
@@ -30,13 +29,14 @@ Router.run routes, Router.HistoryLocation, (handler, state) ->
   environment.orgid  = state.params.orgid
   environment.userid = cookies.get('tt-userid')
 
-  environment.currentUrl = new UrlModel _.extend(state, {
+  url = _.extend {}, state, {
     screen: state.routes[1]?.name
-  })
+  }
 
   element = React.createElement(handler, {
-    orgid: environment.orgid
+    orgid:  environment.orgid
     userid: environment.userid
+    url:    url
   })
 
   React.render(element, document.body)

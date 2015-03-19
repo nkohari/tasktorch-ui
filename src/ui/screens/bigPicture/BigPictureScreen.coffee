@@ -1,12 +1,10 @@
-_                  = require 'lodash'
-React              = require 'react'
-PropTypes          = require 'ui/framework/PropTypes'
-Frame              = React.createFactory(require 'ui/common/Frame')
-BigPictureSidebar  = React.createFactory(require 'ui/screens/bigPicture/sidebar/BigPictureSidebar')
-KindPanel          = React.createFactory(require 'ui/screens/bigPicture/panels/kind/KindPanel')
-TeamPanel          = React.createFactory(require 'ui/screens/bigPicture/panels/team/TeamPanel')
-CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
-{div}              = React.DOM
+_                   = require 'lodash'
+React               = require 'react'
+PropTypes           = require 'ui/framework/PropTypes'
+Frame               = React.createFactory(require 'ui/common/Frame')
+BigPicturePanelList = React.createFactory(require 'ui/screens/bigPicture/BigPicturePanelList')
+BigPictureSidebar   = React.createFactory(require 'ui/screens/bigPicture/sidebar/BigPictureSidebar')
+CSSTransitionGroup  = React.createFactory(React.addons.CSSTransitionGroup)
 
 BigPictureScreen = React.createClass {
 
@@ -22,8 +20,7 @@ BigPictureScreen = React.createClass {
     Frame {className: 'big-picture screen'},
       CSSTransitionGroup {component: 'div', className: 'sidebar-container', transitionName: 'slide'},
         BigPictureSidebar {currentOrg: @props.currentOrg, currentUser: @props.currentUser} if @props.sidebar
-      div {className: 'content'},
-        KindPanel {kindid: '1'}
+      BigPicturePanelList {currentOrg: @props.currentOrg, currentUser: @props.currentUser, panels: @props.panels}
 
 }
 

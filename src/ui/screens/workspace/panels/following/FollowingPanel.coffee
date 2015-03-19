@@ -1,15 +1,15 @@
-_                  = require 'lodash'
-React              = require 'react'
-Router             = require 'react-router'
-PropTypes          = require 'ui/framework/PropTypes'
-mergeProps         = require 'common/util/mergeProps'
-CachedState        = require 'ui/framework/mixins/CachedState'
-PropTypes          = require 'ui/framework/PropTypes'
-Frame              = React.createFactory(require 'ui/common/Frame')
-FollowingCloseLink = React.createFactory(require 'ui/screens/workspace/panels/following/FollowingCloseLink')
-FollowingHeader    = React.createFactory(require 'ui/screens/workspace/panels/following/FollowingHeader')
-FollowingCardList  = React.createFactory(require 'ui/screens/workspace/panels/following/FollowingCardList')
-FollowingFooter    = React.createFactory(require 'ui/screens/workspace/panels/following/FollowingFooter')
+_                 = require 'lodash'
+React             = require 'react'
+Router            = require 'react-router'
+PropTypes         = require 'ui/framework/PropTypes'
+mergeProps        = require 'common/util/mergeProps'
+CachedState       = require 'ui/framework/mixins/CachedState'
+PropTypes         = require 'ui/framework/PropTypes'
+Frame             = React.createFactory(require 'ui/common/Frame')
+PanelCloseLink    = React.createFactory(require 'ui/common/PanelCloseLink')
+FollowingHeader   = React.createFactory(require 'ui/screens/workspace/panels/following/FollowingHeader')
+FollowingCardList = React.createFactory(require 'ui/screens/workspace/panels/following/FollowingCardList')
+FollowingFooter   = React.createFactory(require 'ui/screens/workspace/panels/following/FollowingFooter')
 
 FollowingPanel = React.createClass {
 
@@ -34,7 +34,7 @@ FollowingPanel = React.createClass {
     }
     
     Frame props,
-      FollowingCloseLink {}
+      PanelCloseLink {id: 'following'}
       FollowingHeader {}
       FollowingCardList {cards: @state.cards}
       FollowingFooter {}

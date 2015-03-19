@@ -1,14 +1,13 @@
-_            = require 'lodash'
-React        = require 'react'
-Router       = require 'react-router'
-PanelKey     = require 'ui/framework/PanelKey'
-PropTypes    = require 'ui/framework/PropTypes'
-CachedState  = require 'ui/framework/mixins/CachedState'
-CardStatus   = require 'data/enums/CardStatus'
-Icon         = React.createFactory(require 'ui/common/Icon')
-Link         = React.createFactory(require 'ui/common/Link')
-StackName    = React.createFactory(require 'ui/common/StackName')
-{div, span}  = React.DOM
+_           = require 'lodash'
+React       = require 'react'
+Router      = require 'react-router'
+PropTypes   = require 'ui/framework/PropTypes'
+Navigator   = require 'ui/framework/mixins/Navigator'
+CardStatus  = require 'data/enums/CardStatus'
+Icon        = React.createFactory(require 'ui/common/Icon')
+Link        = React.createFactory(require 'ui/common/Link')
+StackName   = React.createFactory(require 'ui/common/StackName')
+{div, span} = React.DOM
 
 CardLocation = React.createClass {
 
@@ -18,6 +17,8 @@ CardLocation = React.createClass {
     card:  PropTypes.Card
     stack: PropTypes.Stack
     link:  PropTypes.bool
+
+  mixins: [Navigator]
 
   getDefaultProps: ->
     {link: false}
@@ -51,14 +52,15 @@ CardLocation = React.createClass {
       StackName {stack: @props.stack}
 
   renderStackLink: ->
-    Link {@getLinkUrl},
+    Link {onClick: @showStack},
       Icon      {name: "stack-#{@props.stack.type.toLowerCase()}"}
       StackName {stack: @props.stack}
 
-  getLinkUrl: (currentUrl) ->
-    stackPanelKey = PanelKey.forStack(@props.stack.id)
-    cardPanelKey  = PanelKey.forCard(@props.card.id)
-    currentUrl.addPanelBefore(stackPanelKey, cardPanelKey)
+  showStack: ->
+    @getScreen('workspace').showPanelBefore @props.card.id, {
+      type: 'stack'
+      id:   @props.stack.id
+    }
 
 }
 

@@ -1,11 +1,11 @@
+_                    = require 'lodash'
 React                = require 'react/addons'
 Router               = require 'react-router'
 UserSelectedOrgEvent = require 'events/ui/UserSelectedOrgEvent'
+PropTypes            = require 'ui/framework/PropTypes'
+ScreenState          = require 'ui/framework/ScreenState'
 Actor                = require 'ui/framework/mixins/Actor'
 CachedState          = require 'ui/framework/mixins/CachedState'
-UrlAware             = require 'ui/framework/mixins/UrlAware'
-PropTypes            = require 'ui/framework/PropTypes'
-UrlModel             = require 'ui/framework/UrlModel'
 Frame                = React.createFactory(require 'ui/common/Frame')
 ShellHeader          = React.createFactory(require 'ui/shell/header/ShellHeader')
 ShellFooter          = React.createFactory(require 'ui/shell/footer/ShellFooter')
@@ -17,17 +17,32 @@ Shell = React.createClass {
   displayName: 'Shell'
 
   propTypes:
-    userid:     PropTypes.id
-    orgid:      PropTypes.id
-    currentUrl: PropTypes.object
+    userid: PropTypes.id
+    orgid:  PropTypes.id
+    url:    PropTypes.object
 
-  mixins: [Actor, CachedState, UrlAware]
+  childContextTypes:
+    currentScreen: PropTypes.string
+    screenState:   PropTypes.object
+
+  mixins: [Actor, CachedState, Router.Navigation]
+
+  getChildContext: -> {
+    currentScreen: @props.url.screen
+    screenState:   @screenState
+  }
 
   getCachedState: (cache) -> {
     orgs:        cache('myOrgs').get()
     currentUser: cache('users').get(@props.userid)
     currentOrg:  cache('orgs').get(@props.orgid)
   }
+
+  componentWillMount: ->
+    @screenState = {
+      workspace:  new ScreenState('workspace',  @props.url, @transitionTo)
+      bigpicture: new ScreenState('bigpicture', @props.url, @transitionTo)
+    }
 
   componentDidMount: ->
     @publish new UserSelectedOrgEvent(@props.userid, @props.orgid)
@@ -40,12 +55,18 @@ Shell = React.createClass {
     @state.currentUser? and @state.currentOrg?
 
   render: ->
-    currentUrl = @getCurrentUrl()
+
+    screenProps = _.extend @screenState[@props.url.screen], {
+      key: @props.url.screen
+      currentOrg: @state.currentOrg
+      currentUser: @state.currentUser
+    }
+
     Frame {@isReady, className: 'shell'},
-      ShellHeader  {currentOrg: @state.currentOrg, currentUser: @state.currentUser}
+      ShellHeader {currentOrg: @state.currentOrg, currentUser: @state.currentUser}
       CSSTransitionGroup {component: 'div', className: 'shell-main', transitionName: 'navigate'},
-        RouteHandler {key: currentUrl.getScreen(), currentOrg: @state.currentOrg, currentUser: @state.currentUser, sidebar: currentUrl.getSidebar()}
-      ShellFooter  {currentOrg: @state.currentOrg, currentUser: @state.currentUser}
+        RouteHandler screenProps
+      ShellFooter {currentOrg: @state.currentOrg, currentUser: @state.currentUser}
 
 }
 

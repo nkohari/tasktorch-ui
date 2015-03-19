@@ -2,7 +2,7 @@ _         = require 'lodash'
 React     = require 'react'
 classSet  = require 'common/util/classSet'
 PropTypes = require 'ui/framework/PropTypes'
-UrlAware  = require 'ui/framework/mixins/UrlAware'
+Navigator = require 'ui/framework/mixins/Navigator'
 Link      = React.createFactory(require 'ui/common/Link')
 ListItem  = React.createFactory(require 'ui/common/ListItem')
 Icon      = React.createFactory(require 'ui/common/Icon')
@@ -11,7 +11,7 @@ NavigationItem = React.createClass {
 
   displayName: 'NavigationItem'
 
-  mixins: [UrlAware]
+  mixins: [Navigator]
 
   propTypes:
     screen: PropTypes.string
@@ -20,16 +20,16 @@ NavigationItem = React.createClass {
   render: ->
 
     classes = classSet [
-      'active' if @getCurrentUrl().getScreen() == @props.screen
+      'active' if @getCurrentScreen() is @getScreen(@props.screen)
     ]
 
     ListItem {},
-      Link {className: classes, @getLinkUrl},
+      Link {className: classes, onClick: @showScreen},
         Icon {name: @props.screen}
         @props.title
 
-  getLinkUrl: (currentUrl) ->
-    currentUrl.setScreen(@props.screen)
+  showScreen: ->
+    @getScreen(@props.screen).navigate()
 
 }
 

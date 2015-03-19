@@ -1,28 +1,28 @@
-_             = require 'lodash'
-React         = require 'react'
-PropTypes     = require 'ui/framework/PropTypes'
-CachedState   = require 'ui/framework/mixins/CachedState'
-mergeProps    = require 'common/util/mergeProps'
-classSet      = require 'common/util/classSet'
-Frame         = React.createFactory(require 'ui/common/Frame')
-Icon          = React.createFactory(require 'ui/common/Icon')
-CardCloseLink = React.createFactory(require 'ui/screens/workspace/panels/card/CardCloseLink')
-CardHeader    = React.createFactory(require 'ui/screens/workspace/panels/card/CardHeader')
-CardBody      = React.createFactory(require 'ui/screens/workspace/panels/card/CardBody')
-CardFooter    = React.createFactory(require 'ui/screens/workspace/panels/card/CardFooter')
+_              = require 'lodash'
+React          = require 'react'
+PropTypes      = require 'ui/framework/PropTypes'
+CachedState    = require 'ui/framework/mixins/CachedState'
+mergeProps     = require 'common/util/mergeProps'
+classSet       = require 'common/util/classSet'
+Frame          = React.createFactory(require 'ui/common/Frame')
+Icon           = React.createFactory(require 'ui/common/Icon')
+PanelCloseLink = React.createFactory(require 'ui/common/PanelCloseLink')
+CardHeader     = React.createFactory(require 'ui/screens/workspace/panels/card/CardHeader')
+CardBody       = React.createFactory(require 'ui/screens/workspace/panels/card/CardBody')
+CardFooter     = React.createFactory(require 'ui/screens/workspace/panels/card/CardFooter')
 
 CardPanel = React.createClass {
 
   displayName: 'CardPanel'
 
   propTypes:
-    cardid:      PropTypes.id
+    id:          PropTypes.id
     currentUser: PropTypes.User
 
   mixins: [CachedState]
 
   getCachedState: (cache) ->
-    card = cache('cards').get(@props.cardid)
+    card = cache('cards').get(@props.id)
     kind = cache('kinds').get(card.kind) if card?
     {card, kind}
 
@@ -41,10 +41,10 @@ CardPanel = React.createClass {
     }
 
     Frame props,
-      CardCloseLink {card: @state.card}
-      CardHeader    {card: @state.card, kind: @state.kind, currentUser: @props.currentUser}
-      CardBody      {card: @state.card, kind: @state.kind, currentUser: @props.currentUser}
-      CardFooter    {card: @state.card, currentUser: @props.currentUser}
+      PanelCloseLink {id: @props.id}
+      CardHeader     {card: @state.card, kind: @state.kind, currentUser: @props.currentUser}
+      CardBody       {card: @state.card, kind: @state.kind, currentUser: @props.currentUser}
+      CardFooter     {card: @state.card, currentUser: @props.currentUser}
 
 }
 

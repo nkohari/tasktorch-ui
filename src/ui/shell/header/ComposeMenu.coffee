@@ -1,12 +1,10 @@
 _                    = require 'lodash'
 React                = require 'react'
-Router               = require 'react-router'
 EventOrigin          = require 'data/enums/EventOrigin'
 UserCreatedCardEvent = require 'events/ui/UserCreatedCardEvent'
 Actor                = require 'ui/framework/mixins/Actor'
 CachedState          = require 'ui/framework/mixins/CachedState'
-UrlAware             = require 'ui/framework/mixins/UrlAware'
-PanelKey             = require 'ui/framework/PanelKey'
+Navigator            = require 'ui/framework/mixins/Navigator'
 PropTypes            = require 'ui/framework/PropTypes'
 Button               = React.createFactory(require 'ui/common/Button')
 KindColorMarker      = React.createFactory(require 'ui/common/KindColorMarker')
@@ -23,7 +21,7 @@ ComposeMenu = React.createClass {
   propTypes:
     currentOrg: PropTypes.Org
 
-  mixins: [Actor, CachedState, Router.Navigation, UrlAware]
+  mixins: [Actor, CachedState, Navigator]
 
   listensFor: ['CardCreated']
 
@@ -51,9 +49,10 @@ ComposeMenu = React.createClass {
 
   onCardCreated: (event) ->
     return unless event.origin is EventOrigin.Local
-    url   = @getCurrentUrl().addPanel(PanelKey.forCard(event.card.id))
-    props = url.makeLinkProps()
-    @transitionTo('workspace', props.params, props.query)
+    @getScreen('workspace').showPanel {
+      type: 'card'
+      id:   event.card.id
+    }
 
 }
 

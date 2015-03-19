@@ -1,19 +1,19 @@
-_        = require 'lodash'
-React    = require 'react'
-classSet = require 'common/util/classSet'
-UrlAware = require 'ui/framework/mixins/UrlAware'
-Icon     = React.createFactory(require 'ui/common/Icon')
-Link     = React.createFactory(require 'ui/common/Link')
+_         = require 'lodash'
+React     = require 'react'
+classSet  = require 'common/util/classSet'
+Navigator = require 'ui/framework/mixins/Navigator'
+Icon      = React.createFactory(require 'ui/common/Icon')
+Link      = React.createFactory(require 'ui/common/Link')
 
 SidebarToggleButton = React.createClass {
 
   displayName: 'SidebarToggleButton'
 
-  mixins: [UrlAware]
+  mixins: [Navigator]
 
   render: ->
 
-    isActive = @getCurrentUrl().getSidebar()
+    isActive = @getCurrentScreen().isSidebarVisible()
 
     classes = classSet [
       'button'
@@ -21,11 +21,11 @@ SidebarToggleButton = React.createClass {
       'active' if isActive
     ]
 
-    Link {className: classes, hotkey: 's', @getLinkUrl},
+    Link {className: classes, hotkey: 's', onClick: @toggleSidebar},
       Icon {name: if isActive then 'chevron-left' else 'chevron-right'}
 
-  getLinkUrl: (currentUrl) ->
-    currentUrl.toggleSidebar()
+  toggleSidebar: ->
+    @getCurrentScreen().toggleSidebar()
 
 }
 

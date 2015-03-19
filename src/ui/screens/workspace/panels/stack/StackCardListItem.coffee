@@ -1,9 +1,9 @@
 React        = require 'react/addons'
 classSet     = require 'common/util/classSet'
 StackType    = require 'data/enums/StackType'
-PanelKey     = require 'ui/framework/PanelKey'
+PropTypes    = require 'ui/framework/PropTypes'
 CachedState  = require 'ui/framework/mixins/CachedState'
-UrlAware     = require 'ui/framework/mixins/UrlAware'
+Navigator    = require 'ui/framework/mixins/Navigator'
 Link         = React.createFactory(require 'ui/common/Link')
 ListItem     = React.createFactory(require 'ui/common/ListItem')
 StackCard    = React.createFactory(require 'ui/screens/workspace/panels/stack/StackCard')
@@ -13,7 +13,12 @@ StackCardListItem = React.createClass {
 
   displayName: 'StackCardListItem'
 
-  mixins: [CachedState, UrlAware]
+  propTypes:
+    card:  PropTypes.Card
+    kind:  PropTypes.Kind
+    stack: PropTypes.Stack
+
+  mixins: [CachedState, Navigator]
 
   getCachedState: (cache) -> {
     kind: cache('kinds').get(@props.card.kind)
@@ -27,17 +32,18 @@ StackCardListItem = React.createClass {
     # TODO: The active class should really be on the link
     classes = classSet [
       'stack-card'
-      'active' if @getCurrentUrl().isPanelActive(PanelKey.forCard(@props.card.id))
+      'active' if @getScreen('workspace').isPanelVisible(@props.card.id)
     ]
 
     ListItem {@isReady, className: classes, 'data-itemid': @props.card.id},
-      Link {@getLinkUrl},
+      Link {onClick: @showCard},
         StackCard {stack: @props.stack, card: @props.card, kind: @state.kind}
 
-  getLinkUrl: (currentUrl) ->
-    cardPanelKey  = PanelKey.forCard(@props.card.id)
-    stackPanelKey = PanelKey.forStack(@props.stack.id)
-    currentUrl.addPanelAfter(cardPanelKey, stackPanelKey)
+  showCard: ->
+    @getScreen('workspace').showPanelAfter @props.stack.id, {
+      type: 'card'
+      id:   @props.card.id
+    }
 
 }
 

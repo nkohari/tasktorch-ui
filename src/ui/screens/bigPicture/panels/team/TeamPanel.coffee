@@ -4,6 +4,7 @@ PropTypes          = require 'ui/framework/PropTypes'
 CachedState        = require 'ui/framework/mixins/CachedState'
 Frame              = React.createFactory(require 'ui/common/Frame')
 Icon               = React.createFactory(require 'ui/common/Icon')
+PanelCloseLink     = React.createFactory(require 'ui/common/PanelCloseLink')
 QueueColumn        = React.createFactory(require 'ui/screens/bigPicture/panels/team/QueueColumn')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
 {div}              = React.DOM
@@ -13,13 +14,13 @@ TeamPanel = React.createClass {
   displayName: 'TeamPanel'
 
   propTypes:
-    teamid: PropTypes.id
+    id: PropTypes.id
 
   mixins: [CachedState]
 
   getCachedState: (cache) ->
-    team  = cache('teams').get(@props.teamid)
-    users = cache('membersByTeam').get(@props.teamid)
+    team  = cache('teams').get(@props.id)
+    users = cache('membersByTeam').get(@props.id)
     {team, users}
 
   isReady: ->
@@ -31,6 +32,7 @@ TeamPanel = React.createClass {
       QueueColumn {key: user.id, user}
 
     Frame {@isReady, className: 'team panel'},
+      PanelCloseLink {id: @props.id}
       div {className: 'header'},
         Icon {name: 'team'}
         @state.team?.name
