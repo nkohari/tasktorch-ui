@@ -1,8 +1,9 @@
-React      = require 'react'
-PropTypes  = require 'ui/framework/PropTypes'
-mergeProps = require 'common/util/mergeProps'
-Icon       = React.createFactory(require 'ui/common/Icon')
-{div}      = React.DOM
+React              = require 'react/addons'
+PropTypes          = require 'ui/framework/PropTypes'
+mergeProps         = require 'common/util/mergeProps'
+Icon               = React.createFactory(require 'ui/common/Icon')
+CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
+{div}              = React.DOM
 
 Dialog = React.createClass {
 
@@ -35,8 +36,7 @@ Dialog = React.createClass {
     style = {width: @props.width}
     style.marginTop = @getMarginAdjustment() if @isMounted()
 
-    div {className: 'dialog-container'},
-      div {className: 'dialog-shadow', onClick: @props.close}
+    CSSTransitionGroup {component: 'div', className: 'dialog-container', transitionName: 'slide', onClick: @onContainerClicked},
       div {ref: 'dialog', className: 'dialog', style},
         header
         div props, @props.children
@@ -44,6 +44,10 @@ Dialog = React.createClass {
   getMarginAdjustment: ->
     node = @refs.dialog.getDOMNode()
     return -(node.clientHeight / 2)
+
+  onContainerClicked: (event) ->
+    if event.target == @getDOMNode()
+      @props.close()
 
 }
 

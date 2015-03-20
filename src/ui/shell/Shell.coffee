@@ -42,6 +42,7 @@ Shell = React.createClass {
     @screenState = {
       workspace:  new ScreenState('workspace',  @props.url, @transitionTo)
       bigpicture: new ScreenState('bigpicture', @props.url, @transitionTo)
+      strategy:   new ScreenState('strategy',   @props.url, @transitionTo)
     }
 
   componentDidMount: ->
