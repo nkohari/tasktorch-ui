@@ -6,6 +6,7 @@ Actor                = require 'ui/framework/mixins/Actor'
 CachedState          = require 'ui/framework/mixins/CachedState'
 Navigator            = require 'ui/framework/mixins/Navigator'
 PropTypes            = require 'ui/framework/PropTypes'
+CardPanelState       = require 'ui/screens/workspace/panels/card/CardPanelState'
 Button               = React.createFactory(require 'ui/common/Button')
 KindColorMarker      = React.createFactory(require 'ui/common/KindColorMarker')
 List                 = React.createFactory(require 'ui/common/List')
@@ -49,10 +50,7 @@ ComposeMenu = React.createClass {
 
   onCardCreated: (event) ->
     return unless event.origin is EventOrigin.Local
-    @getScreen('workspace').showPanel {
-      type: 'card'
-      id:   event.card.id
-    }
+    @getScreen('workspace').addPanel(new CardPanelState(event.card.id))
 
 }
 

@@ -19,7 +19,7 @@ PanelCloseLink = React.createClass {
       Icon {name: 'close'}
 
   closePanel: ->
-    @getCurrentScreen().hidePanel(@props.id)
+    @getCurrentScreen().removePanel(@props.id)
 
 }
 

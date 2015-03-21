@@ -1,12 +1,13 @@
-_         = require 'lodash'
-React     = require 'react'
-classSet  = require 'common/util/classSet'
-PropTypes = require 'ui/framework/PropTypes'
-Navigator = require 'ui/framework/mixins/Navigator'
-Icon      = React.createFactory(require 'ui/common/Icon')
-Link      = React.createFactory(require 'ui/common/Link')
-ListItem  = React.createFactory(require 'ui/common/ListItem')
-{span}    = React.DOM
+_              = require 'lodash'
+React          = require 'react'
+classSet       = require 'common/util/classSet'
+PropTypes      = require 'ui/framework/PropTypes'
+Navigator      = require 'ui/framework/mixins/Navigator'
+TeamPanelState = require 'ui/screens/bigPicture/panels/team/TeamPanelState'
+Icon           = React.createFactory(require 'ui/common/Icon')
+Link           = React.createFactory(require 'ui/common/Link')
+ListItem       = React.createFactory(require 'ui/common/ListItem')
+{span}         = React.DOM
 
 TeamSidebarItem = React.createClass {
 
@@ -29,10 +30,7 @@ TeamSidebarItem = React.createClass {
         span {className: 'name'}, @props.team.name
 
   toggleTeam: ->
-    @getScreen('bigpicture').togglePanel {
-      type: 'team'
-      id:   @props.team.id
-    }
+    @getScreen('bigpicture').togglePanel(new TeamPanelState(@props.team.id))
 
 }
 

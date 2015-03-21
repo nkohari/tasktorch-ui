@@ -3,6 +3,7 @@ React           = require 'react'
 classSet        = require 'common/util/classSet'
 PropTypes       = require 'ui/framework/PropTypes'
 Navigator       = require 'ui/framework/mixins/Navigator'
+KindPanelState  = require 'ui/screens/bigPicture/panels/kind/KindPanelState'
 Icon            = React.createFactory(require 'ui/common/Icon')
 Link            = React.createFactory(require 'ui/common/Link')
 ListItem        = React.createFactory(require 'ui/common/ListItem')
@@ -30,10 +31,7 @@ KindSidebarItem = React.createClass {
         span {className: 'name'}, @props.kind.name
 
   toggleKind: ->
-    @getScreen('bigpicture').togglePanel {
-      type: 'kind'
-      id:   @props.kind.id
-    }
+    @getScreen('bigpicture').togglePanel(new KindPanelState(@props.kind.id))
 
 }
 

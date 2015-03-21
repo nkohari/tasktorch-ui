@@ -1,16 +1,17 @@
-_            = require 'lodash'
-React        = require 'react'
-classSet     = require 'common/util/classSet'
-PropTypes    = require 'ui/framework/PropTypes'
-CachedState  = require 'ui/framework/mixins/CachedState'
-Navigator    = require 'ui/framework/mixins/Navigator'
-CardLocation = React.createFactory(require 'ui/common/CardLocation')
-CardOwner    = React.createFactory(require 'ui/common/CardOwner')
-Link         = React.createFactory(require 'ui/common/Link')
-Frame        = React.createFactory(require 'ui/common/Frame')
-ListItem     = React.createFactory(require 'ui/common/ListItem')
-StackName    = React.createFactory(require 'ui/common/StackName')
-Time         = React.createFactory(require 'ui/common/Time')
+_              = require 'lodash'
+React          = require 'react'
+classSet       = require 'common/util/classSet'
+PropTypes      = require 'ui/framework/PropTypes'
+CachedState    = require 'ui/framework/mixins/CachedState'
+Navigator      = require 'ui/framework/mixins/Navigator'
+CardPanelState = require 'ui/screens/workspace/panels/card/CardPanelState'
+CardLocation   = React.createFactory(require 'ui/common/CardLocation')
+CardOwner      = React.createFactory(require 'ui/common/CardOwner')
+Link           = React.createFactory(require 'ui/common/Link')
+Frame          = React.createFactory(require 'ui/common/Frame')
+ListItem       = React.createFactory(require 'ui/common/ListItem')
+StackName      = React.createFactory(require 'ui/common/StackName')
+Time           = React.createFactory(require 'ui/common/Time')
 
 FollowingCard = React.createClass {
 
@@ -49,10 +50,7 @@ FollowingCard = React.createClass {
           CardLocation {card: @props.card, stack: @state.stack}
 
   showCard: ->
-    @getScreen('workspace').showPanelAfter 'following', {
-      type: 'card'
-      id:   @props.card.id
-    }
+    @getScreen('workspace').addPanelAfter('following', new CardPanelState(@props.card.id))
 
 }
 

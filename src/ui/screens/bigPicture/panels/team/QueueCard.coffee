@@ -4,8 +4,10 @@ React              = require 'react'
 ActionStatus       = require 'data/enums/ActionStatus'
 PropTypes          = require 'ui/framework/PropTypes'
 CachedState        = require 'ui/framework/mixins/CachedState'
+Navigator          = require 'ui/framework/mixins/Navigator'
+CardPanelState     = require 'ui/screens/workspace/panels/card/CardPanelState'
+Link               = React.createFactory(require 'ui/common/Link')
 ListItem           = React.createFactory(require 'ui/common/ListItem')
-Time               = React.createFactory(require 'ui/common/Time')
 QueueCardChecklist = React.createFactory(require 'ui/screens/bigPicture/panels/team/QueueCardChecklist')
 {div}              = React.DOM
 
@@ -16,7 +18,7 @@ QueueCard = React.createClass {
   propTypes:
     card: PropTypes.Card
 
-  mixins: [CachedState]
+  mixins: [CachedState, Navigator]
 
   getCachedState: (cache) -> {
     kind:       cache('kinds').get(@props.card.kind)
@@ -38,9 +40,12 @@ QueueCard = React.createClass {
         QueueCardChecklist {key: checklist.id, card: @props.card, kind: @props.kind, checklist, stage}
 
     ListItem {@isReady},
-      div {className: 'queue-card', style},
+      Link {className: 'queue-card', style, onClick: @showCard},
         div {className: 'title'}, @props.card.title or 'Untitled Card'
         checklists
+
+  showCard: ->
+    @getScreen('workspace').addPanel(new CardPanelState(@props.card.id))
 
 }
 

@@ -1,15 +1,16 @@
-_           = require 'lodash'
-React       = require 'react'
-classSet    = require 'common/util/classSet'
-PropTypes   = require 'ui/framework/PropTypes'
-CachedState = require 'ui/framework/mixins/CachedState'
-Navigator   = require 'ui/framework/mixins/Navigator'
-Frame       = React.createFactory(require 'ui/common/Frame')
-Icon        = React.createFactory(require 'ui/common/Icon')
-Link        = React.createFactory(require 'ui/common/Link')
-List        = React.createFactory(require 'ui/common/List')
-ListItem    = React.createFactory(require 'ui/common/ListItem')
-Text        = React.createFactory(require 'ui/common/Text')
+_                   = require 'lodash'
+React               = require 'react'
+classSet            = require 'common/util/classSet'
+PropTypes           = require 'ui/framework/PropTypes'
+CachedState         = require 'ui/framework/mixins/CachedState'
+Navigator           = require 'ui/framework/mixins/Navigator'
+FollowingPanelState = require 'ui/screens/workspace/panels/following/FollowingPanelState'
+Frame               = React.createFactory(require 'ui/common/Frame')
+Icon                = React.createFactory(require 'ui/common/Icon')
+Link                = React.createFactory(require 'ui/common/Link')
+List                = React.createFactory(require 'ui/common/List')
+ListItem            = React.createFactory(require 'ui/common/ListItem')
+Text                = React.createFactory(require 'ui/common/Text')
 
 FollowingSidebarItem = React.createClass {
 
@@ -42,10 +43,7 @@ FollowingSidebarItem = React.createClass {
             Text {className: 'count'}, @state.cards.length if @state.cards?.length > 0
 
   toggleFollowing: ->
-    @getScreen('workspace').togglePanel {
-      type: 'following'
-      id:   'following'
-    }
+    @getScreen('workspace').togglePanel(new FollowingPanelState())
 
 }
 

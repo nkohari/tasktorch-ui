@@ -3,7 +3,7 @@ PropTypes   = require 'ui/framework/PropTypes'
 CachedState = require 'ui/framework/mixins/CachedState'
 Pure        = require 'ui/framework/mixins/Pure'
 Icon        = React.createFactory(require 'ui/common/Icon')
-Frame       = React.createFactory(require 'ui/common/Frame')
+{div}       = React.DOM
 
 CardGoal = React.createClass {
 
@@ -18,14 +18,11 @@ CardGoal = React.createClass {
     goal: cache('goals').get(@props.goalid)
   }
 
-  isReady: ->
-    @state.goal?
-
   render: ->
 
     # TODO: Link to the goal on the strategy screen
 
-    Frame {@isReady, className: 'goal'},
+    div {className: 'goal'},
       Icon {name: 'goal'}
       @state.goal?.name
 

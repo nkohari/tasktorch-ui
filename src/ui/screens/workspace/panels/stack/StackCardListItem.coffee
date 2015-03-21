@@ -1,13 +1,14 @@
-React        = require 'react/addons'
-classSet     = require 'common/util/classSet'
-StackType    = require 'data/enums/StackType'
-PropTypes    = require 'ui/framework/PropTypes'
-CachedState  = require 'ui/framework/mixins/CachedState'
-Navigator    = require 'ui/framework/mixins/Navigator'
-Link         = React.createFactory(require 'ui/common/Link')
-ListItem     = React.createFactory(require 'ui/common/ListItem')
-StackCard    = React.createFactory(require 'ui/screens/workspace/panels/stack/StackCard')
-{li}         = React.DOM
+React          = require 'react/addons'
+classSet       = require 'common/util/classSet'
+StackType      = require 'data/enums/StackType'
+PropTypes      = require 'ui/framework/PropTypes'
+CachedState    = require 'ui/framework/mixins/CachedState'
+Navigator      = require 'ui/framework/mixins/Navigator'
+CardPanelState = require 'ui/screens/workspace/panels/card/CardPanelState'
+Link           = React.createFactory(require 'ui/common/Link')
+ListItem       = React.createFactory(require 'ui/common/ListItem')
+StackCard      = React.createFactory(require 'ui/screens/workspace/panels/stack/StackCard')
+{li}           = React.DOM
 
 StackCardListItem = React.createClass {
 
@@ -40,10 +41,7 @@ StackCardListItem = React.createClass {
         StackCard {stack: @props.stack, card: @props.card, kind: @state.kind}
 
   showCard: ->
-    @getScreen('workspace').showPanelAfter @props.stack.id, {
-      type: 'card'
-      id:   @props.card.id
-    }
+    @getScreen('workspace').addPanelAfter(@props.stack.id, new CardPanelState(@props.card.id))
 
 }
 

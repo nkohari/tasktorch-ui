@@ -30,7 +30,9 @@ exports.arrays = arrays = (a, b) ->
 
 exports.values = values = (a, b) ->
 
-  if a?.equals? and b?.equals?
+  if a is b
+    return true
+  else if a?.equals? and b?.equals?
     return a.equals(b)
   else
-    return Object.is(a, b)
+    return false

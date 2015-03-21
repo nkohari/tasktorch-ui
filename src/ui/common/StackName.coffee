@@ -25,7 +25,7 @@ StackName = React.createClass {
   render: ->
 
     span @props,
-      @formatStackName() if @state.user? or @state.team?
+      @formatStackName() if @props.stack? and @state.user? or @state.team?
 
   formatStackName: ->
 

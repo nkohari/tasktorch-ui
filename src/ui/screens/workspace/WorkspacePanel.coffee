@@ -1,10 +1,13 @@
-_              = require 'lodash'
-React          = require 'react'
-mergeProps     = require 'common/util/mergeProps'
-PropTypes      = require 'ui/framework/PropTypes'
-StackPanel     = React.createFactory(require 'ui/screens/workspace/panels/stack/StackPanel')
-CardPanel      = React.createFactory(require 'ui/screens/workspace/panels/card/CardPanel')
-FollowingPanel = React.createFactory(require 'ui/screens/workspace/panels/following/FollowingPanel')
+_                   = require 'lodash'
+React               = require 'react'
+mergeProps          = require 'common/util/mergeProps'
+PropTypes           = require 'ui/framework/PropTypes'
+StackPanelState     = require 'ui/screens/workspace/panels/stack/StackPanelState'
+CardPanelState      = require 'ui/screens/workspace/panels/card/CardPanelState'
+FollowingPanelState = require 'ui/screens/workspace/panels/following/FollowingPanelState'
+StackPanel          = React.createFactory(require 'ui/screens/workspace/panels/stack/StackPanel')
+CardPanel           = React.createFactory(require 'ui/screens/workspace/panels/card/CardPanel')
+FollowingPanel      = React.createFactory(require 'ui/screens/workspace/panels/following/FollowingPanel')
 
 WorkspacePanel = React.createClass {
 
@@ -20,9 +23,9 @@ WorkspacePanel = React.createClass {
     }
 
     switch @props.type
-      when 'stack'     then StackPanel(props)
-      when 'card'      then CardPanel(props)
-      when 'following' then FollowingPanel(props)
+      when StackPanelState.type     then StackPanel(props)
+      when CardPanelState.type      then CardPanel(props)
+      when FollowingPanelState.type then FollowingPanel(props)
 
 }
 

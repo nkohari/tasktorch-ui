@@ -4,9 +4,8 @@ classSet    = require 'common/util/classSet'
 PropTypes   = require 'ui/framework/PropTypes'
 CachedState = require 'ui/framework/mixins/CachedState'
 Avatar      = React.createFactory(require 'ui/common/Avatar')
-ListItem    = React.createFactory(require 'ui/common/ListItem')
 Icon        = React.createFactory(require 'ui/common/Icon')
-{div}       = React.DOM
+{div, li}   = React.DOM
 
 StageCardAction = React.createClass {
 
@@ -22,9 +21,6 @@ StageCardAction = React.createClass {
     user: cache('users').get(@props.action.user) if @props.action.user?
   }
 
-  isReady: ->
-    (@state.user? or not @props.action.user?)
-
   render: ->
 
     if @state.user?
@@ -37,11 +33,11 @@ StageCardAction = React.createClass {
       @props.action.status.toLowerCase()
     ]
 
-    ListItem {@isReady, className: classes},
+    li {className: classes},
       div {className: 'status'}, Icon {name: "action-#{@props.action.status.toLowerCase()}"}
       div {className: 'owner'},  owner
       div {className: 'text'},   @props.action.text
-      div {className: 'stage'},  @props.stage.name
+      div {className: 'stage'},  @props.stage?.name
 
 }
 

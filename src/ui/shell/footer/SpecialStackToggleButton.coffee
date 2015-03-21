@@ -1,11 +1,12 @@
-_         = require 'lodash'
-React     = require 'react'
-classSet  = require 'common/util/classSet'
-PropTypes = require 'ui/framework/PropTypes'
-Navigator = require 'ui/framework/mixins/Navigator'
-Icon      = React.createFactory(require 'ui/common/Icon')
-Link      = React.createFactory(require 'ui/common/Link')
-{span}    = React.DOM
+_               = require 'lodash'
+React           = require 'react'
+classSet        = require 'common/util/classSet'
+PropTypes       = require 'ui/framework/PropTypes'
+Navigator       = require 'ui/framework/mixins/Navigator'
+StackPanelState = require 'ui/screens/workspace/panels/stack/StackPanelState'
+Icon            = React.createFactory(require 'ui/common/Icon')
+Link            = React.createFactory(require 'ui/common/Link')
+{span}          = React.DOM
 
 SpecialStackToggleButton = React.createClass {
 
@@ -30,10 +31,7 @@ SpecialStackToggleButton = React.createClass {
       span {className: 'count'}, @props.stack.cards.length
 
   toggleStack: ->
-    @getScreen('workspace').togglePanel {
-      type: 'stack'
-      id:   @props.stack.id
-    }
+    @getScreen('workspace').togglePanel(new StackPanelState(@props.stack.id))
 
 }
 

@@ -1,13 +1,15 @@
 _                  = require 'lodash'
-moment             = require 'moment'
 React              = require 'react'
-ActionStatus       = require 'data/enums/ActionStatus'
 PropTypes          = require 'ui/framework/PropTypes'
 CachedState        = require 'ui/framework/mixins/CachedState'
-ListItem           = React.createFactory(require 'ui/common/ListItem')
-Time               = React.createFactory(require 'ui/common/Time')
+Navigator          = require 'ui/framework/mixins/Navigator'
+CardPanelState     = require 'ui/screens/workspace/panels/card/CardPanelState'
+Avatar             = React.createFactory(require 'ui/common/Avatar')
+Link               = React.createFactory(require 'ui/common/Link')
+Icon               = React.createFactory(require 'ui/common/Icon')
+StackName          = React.createFactory(require 'ui/common/StackName')
 StageCardChecklist = React.createFactory(require 'ui/screens/bigPicture/panels/kind/StageCardChecklist')
-{div}              = React.DOM
+{div, li}          = React.DOM
 
 StageCard = React.createClass {
 
@@ -16,31 +18,40 @@ StageCard = React.createClass {
   propTypes:
     card: PropTypes.Card
 
-  mixins: [CachedState]
+  mixins: [CachedState, Navigator]
 
   getCachedState: (cache) -> {
+    actions:    cache('actionsByCard').get(@props.card.id)
     kind:       cache('kinds').get(@props.card.kind)
     checklists: cache('checklistsByCard').get(@props.card.id)
     stages:     cache('stagesByKind').get(@props.card.kind)
+    user:       cache('users').get(@props.card.user) if @props.card.user?
+    stack:      cache('stacks').get(@props.card.stack) if @props.card.stack?
   }
-
-  isReady: ->
-    @state.kind? and @state.checklists? and @state.stages?
 
   render: ->
 
     style = {borderLeftColor: @state.kind?.color}
 
-    if @state.checklists? and @state.stages?
+    if @state.checklists? and @state.stages? and @state.kind?
       lookup = _.indexBy(@state.stages, 'id')
       checklists = _.map @state.checklists, (checklist) =>
         stage = lookup[checklist.stage]
-        StageCardChecklist {key: checklist.id, card: @props.card, kind: @props.kind, checklist, stage}
+        StageCardChecklist {key: checklist.id, card: @props.card, kind: @state.kind, checklist, stage}
 
-    ListItem {@isReady},
-      div {className: 'stage-card', style},
-        div {className: 'title'}, @props.card.title or 'Untitled Card'
-        checklists
+    li {},
+      Link {className: 'stage-card', style, onClick: @showCard},
+        div {className: 'description'},
+          Avatar {className: 'stage-card-owner', user: @state.user}
+          div {className: 'title'}, @props.card.title or 'Untitled Card'
+          div {className: 'stack'},
+            Icon      {name: "stack-#{@state.stack?.type.toLowerCase()}"}
+            StackName {stack: @state.stack}
+        div {className: 'actions'},
+          checklists
+
+  showCard: ->
+    @getScreen('workspace').addPanel(new CardPanelState(@props.card.id))
 
 }
 

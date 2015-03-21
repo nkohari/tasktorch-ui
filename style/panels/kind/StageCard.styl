@@ -1,11 +1,37 @@
 .stage-card
+  display: block
   background: $bright-white
   border-left: 4px solid transparent
-  padding: 10px
+  
+  .description
+    padding: 10px
     
-  .title
-    color: $text-color
-    font-size: 18px
-    overflow: hidden
-    text-overflow: ellipsis
-    white-space: nowrap
+    .stage-card-owner
+      width: 48px
+      height: 48px
+      float: left
+      padding: 2px
+      margin-right: 8px
+      border: 1px solid $steel-light-border-color
+      border-radius: 50%
+      background: $bright-white
+      
+    .title
+      color: $text-color
+      font-size: 18px
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
+
+    .stack
+      font-size: 14px
+      color: $subtle-text-color
+      padding: 4px 0
+      .icon
+        width: auto
+        margin-right: 4px
+  
+  .actions
+    padding: 4px 10px
+    background: $steel-highlight-color
+    border-top: 1px dotted $steel-light-border-color

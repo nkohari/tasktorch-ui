@@ -1,13 +1,14 @@
-_         = require 'lodash'
-React     = require 'react'
-classSet  = require 'common/util/classSet'
-StackType = require 'data/enums/StackType'
-PropTypes = require 'ui/framework/PropTypes'
-Navigator = require 'ui/framework/mixins/Navigator'
-Icon      = React.createFactory(require 'ui/common/Icon')
-Link      = React.createFactory(require 'ui/common/Link')
-ListItem  = React.createFactory(require 'ui/common/ListItem')
-Text      = React.createFactory(require 'ui/common/Text')
+_               = require 'lodash'
+React           = require 'react'
+classSet        = require 'common/util/classSet'
+StackType       = require 'data/enums/StackType'
+PropTypes       = require 'ui/framework/PropTypes'
+Navigator       = require 'ui/framework/mixins/Navigator'
+StackPanelState = require 'ui/screens/workspace/panels/stack/StackPanelState'
+Icon            = React.createFactory(require 'ui/common/Icon')
+Link            = React.createFactory(require 'ui/common/Link')
+ListItem        = React.createFactory(require 'ui/common/ListItem')
+Text            = React.createFactory(require 'ui/common/Text')
 
 StackSidebarItem = React.createClass {
 
@@ -37,10 +38,7 @@ StackSidebarItem = React.createClass {
       @props.stack.type
 
   toggleStack: ->
-    @getScreen('workspace').togglePanel {
-      type: 'stack'
-      id:   @props.stack.id
-    }
+    @getScreen('workspace').togglePanel(new StackPanelState(@props.stack.id))
 
 }
 
