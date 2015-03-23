@@ -20,7 +20,7 @@ CardTitle = React.createClass {
     @refs.text.getDOMNode().focus() unless @props.card.title
 
   render: ->
-    Frame {className: 'title'},
+    Frame {className: 'card-title'},
       EditableText {
         ref:         'text'
         placeholder: 'Untitled Card'

@@ -1,9 +1,9 @@
 React                  = require 'react'
 PropTypes              = require 'ui/framework/PropTypes'
 Button                 = React.createFactory(require 'ui/common/Button')
-Frame                  = React.createFactory(require 'ui/common/Frame')
 CardFollowersList      = React.createFactory(require 'ui/screens/workspace/panels/card/CardFollowersList')
 FollowCardToggleButton = React.createFactory(require 'ui/screens/workspace/panels/card/FollowCardToggleButton')
+{div}                  = React.DOM
 
 CardFooter = React.createClass {
 
@@ -15,11 +15,11 @@ CardFooter = React.createClass {
 
   render: ->
 
-    Frame {className: 'footer'},
-      Frame {className: 'left-buttons'},
+    div {className: 'card-footer'},
+      div {className: 'left-buttons'},
         FollowCardToggleButton {card: @props.card, currentUser: @props.currentUser}
       CardFollowersList {card: @props.card, currentUser: @props.currentUser}
-      Frame {className: 'right-buttons'}
+      div {className: 'right-buttons'}
 
 }
 

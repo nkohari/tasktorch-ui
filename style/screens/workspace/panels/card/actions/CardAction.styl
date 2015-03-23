@@ -1,0 +1,42 @@
+.card-action
+  display: flex
+  flex-direction: row
+  position: relative
+
+  .left-controls
+    flex: none
+    margin-right: 4px
+    .icon
+      padding-top: 4px
+      color: #999
+      transition: color $hover-animation-delay linear
+      &:hover { color: $black }
+    .icon-handle { cursor: move }
+    
+  .right-controls
+    flex: none
+    margin-left: 4px
+    opacity: 0
+    transition: opacity $hover-animation-delay linear
+    .icon
+      padding-top: 4px
+      color: #999
+      transition: color $hover-animation-delay linear
+      &:hover { color: $black }
+    .icon-trash { cursor: pointer }
+
+  .overlay
+    text-align: left
+    .buttons
+      padding-top: 4px
+
+  &:hover
+    .right-controls { opacity: 1 }
+    
+  &.ui-sortable-helper
+    list-style-type: none
+    padding: 2px
+    cursor: move
+    border: 1px solid #aaa
+    box-shadow: 0 0 5px $shadow-color
+    .right-controls { opacity: 1 }

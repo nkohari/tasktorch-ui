@@ -39,7 +39,7 @@ CardHeader = React.createClass {
   render: ->
 
     classes = classSet [
-      'header'
+      'card-header'
       'expanded' if @state.activeCommand?
     ]
 

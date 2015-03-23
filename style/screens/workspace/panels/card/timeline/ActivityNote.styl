@@ -1,0 +1,63 @@
+.activity
+  padding-top: 10px
+  margin-left: 10px
+  
+  .activity-icon
+    display: block
+    float: left
+    width: 28px
+    height: 28px
+    color: #666
+    background: #ddd
+    border: 2px solid #fff
+    border-radius: 50%
+    font: 24px/24px $icon-font
+    margin-right: 6px
+  
+  .activity-body
+    min-height: 30px
+    line-height: 20px
+    padding-top: 3px
+    
+    em
+      font-style: normal
+      font-weight: $bold-font-weight
+        
+    em::before, span::before, time::before
+      content: " "
+    
+    .user-widget, .action-status-widget, .team-widget
+      white-space: nowrap
+    
+    time
+      font-size: 14px
+      color: #999
+      white-space: nowrap
+    
+    .icon
+      width: auto
+  
+    .avatar
+      display: inline-block
+      vertical-align: top
+      width: 16px
+      height: 16px
+      border-radius: 2px
+    
+    .diff-toggle
+      font-size: 12px
+      font-style: italic
+      color: #bbb
+      white-space: nowrap
+
+    .diff
+      font-size: 14px
+      margin: 4px 10px 0 31px
+      padding: 4px
+      background: #f9f9f9
+      border: 1px solid #ccc
+      .added
+        background: #a6f3a6
+      .removed
+        background: #f8cbcb
+        text-decoration: line-through

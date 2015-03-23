@@ -1,0 +1,32 @@
+@font-face
+  font-family: 'Entypo'
+  src: url('/fonts/entypo.woff')
+  src: url('/fonts/entypo.woff') format('woff')
+  font-weight: normal
+  font-style: normal
+
+html
+  box-sizing: border-box
+  height: 100%
+  width: 100%
+  
+*, *:before, *:after
+  box-sizing: inherit
+
+ul
+  margin: 0
+  padding: 0
+  li { list-style-type: none }
+
+body
+  font-family: $shell-font
+  font-weight: $normal-font-weight
+  height: 100%
+  width: 100%
+  margin: 0
+  padding: 0
+  overflow: hidden
+  background: $bright-white url('/img/bg.png')
+  text-rendering: optimizeLegibility
+  -webkit-font-smoothing: subpixel-antialiased
+  user-select: none

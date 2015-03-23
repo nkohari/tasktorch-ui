@@ -16,7 +16,7 @@ CardWidgets = React.createClass {
 
   render: ->
 
-    Frame {className: 'widgets'},
+    Frame {className: 'card-widgets'},
       CardLocation {card: @props.card, stack: @props.stack, link: true}
       GoalName     {goalid: @props.card.goal} if @props.card.goal?
 

@@ -1,0 +1,36 @@
+.card.panel
+  border: 1px solid $panel-border-color
+  background: $panel-background-color
+  width: $card-panel-width
+  min-width: $card-panel-width
+  z-index: $panel-layer
+  
+  &.slide-enter
+    animation: card-enter 250ms ease-out
+    z-index: $panel-animation-layer
+    
+  &.slide-leave
+    animation: card-leave 200ms linear
+    z-index: $panel-animation-layer  
+
+@keyframes card-enter
+  0%
+    opacity: 0
+    margin-left: -($card-panel-width + $panel-margin)
+    margin-right: $panel-margin
+  50%
+    opacity: 0
+    margin-left: -($card-panel-width + $panel-margin)
+    margin-right: $card-panel-width + $panel-margin
+  100%
+    opacity: 1
+    margin-left: 0
+    margin-right: $panel-margin
+
+@keyframes card-leave
+  from
+    opacity: 1
+    margin-left: 0
+  to
+    opacity: 0
+    margin-left: -($card-panel-width + $panel-margin)

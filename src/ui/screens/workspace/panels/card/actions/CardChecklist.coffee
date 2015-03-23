@@ -23,7 +23,7 @@ CardChecklist = React.createClass {
 
   render: ->
 
-    div {className: 'stage'},
+    div {className: 'card-checklist'},
       div {className: 'title'}, @props.stage.name
       CardChecklistActionList {checklist: @props.checklist, actions: @state.actions}
       CreateActionForm {checklist: @props.checklist}

@@ -30,7 +30,7 @@ CardFollowersList = React.createClass {
       li {key: "user-#{user.id}", className: 'follower'},
         Avatar {user, size: 32}
 
-    List {@isReady, className: 'followers'}, items
+    List {@isReady, className: 'card-followers-list'}, items
 
 }
 

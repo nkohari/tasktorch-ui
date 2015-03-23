@@ -48,7 +48,7 @@ StackCardList = React.createClass {
       }
 
     classes = classSet [
-      'cards'
+      'stack-card-list'
       'dragging'        if @state.dragActive
       'drop-allowed'    if @state.dragActive and @state.dropAllowed
       'drop-disallowed' if @state.dragActive and not @state.dropAllowed

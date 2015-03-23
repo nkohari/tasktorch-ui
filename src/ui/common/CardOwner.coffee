@@ -16,9 +16,9 @@ CardOwner = React.createClass {
   render: ->
 
     if @props.user?
-      Avatar {className: 'owner', user: @props.user}
+      Avatar {className: 'card-owner', user: @props.user}
     else
-      div {className: 'team owner'},
+      div {className: 'team card-owner'},
         Icon {name: 'team'}
 
 }

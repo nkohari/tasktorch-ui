@@ -1,10 +1,10 @@
 React            = require 'react'
 PropTypes        = require 'ui/framework/PropTypes'
-Frame            = React.createFactory(require 'ui/common/Frame')
 TabBlock         = React.createFactory(require 'ui/common/TabBlock')
 CardSummaryBlock = React.createFactory(require 'ui/screens/workspace/panels/card/CardSummaryBlock')
-CardActions      = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CardActions')
-CardTimeline     = React.createFactory(require 'ui/screens/workspace/panels/card/timeline/CardTimeline')
+CardActionsTab   = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CardActionsTab')
+CardTimelineTab  = React.createFactory(require 'ui/screens/workspace/panels/card/timeline/CardTimelineTab')
+{div}            = React.DOM
 
 CardBody = React.createClass {
 
@@ -17,11 +17,11 @@ CardBody = React.createClass {
 
   render: ->
 
-    Frame {className: 'body'},
+    div {className: 'card-body'},
       CardSummaryBlock {card: @props.card}
-      TabBlock {className: 'details', selected: 'actions'},
-        CardActions  {key: 'actions',  title: 'Actions',  card: @props.card, kind: @props.kind}
-        CardTimeline {key: 'timeline', title: 'Timeline', card: @props.card, currentUser: @props.currentUser}
+      TabBlock {className: 'card-details', selected: 'actions'},
+        CardActionsTab  {key: 'actions',  title: 'Actions',  card: @props.card, kind: @props.kind}
+        CardTimelineTab {key: 'timeline', title: 'Timeline', card: @props.card, currentUser: @props.currentUser}
 
 }
 

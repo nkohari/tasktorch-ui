@@ -16,7 +16,7 @@ CardActionText = React.createClass {
 
   render: ->
     EditableText {
-      className:   'text'
+      className:   'card-action-text'
       value:       @props.action.text
       save:        @setActionText
       placeholder: 'Action Text'

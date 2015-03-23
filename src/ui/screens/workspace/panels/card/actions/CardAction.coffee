@@ -18,7 +18,7 @@ CardAction = React.createClass {
   render: ->
 
     classes = classSet [
-      'action'
+      'card-action'
       @props.action.status.toLowerCase()
     ]
 

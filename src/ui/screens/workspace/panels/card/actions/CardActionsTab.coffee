@@ -2,12 +2,12 @@ _             = require 'lodash'
 React         = require 'react'
 PropTypes     = require 'ui/framework/PropTypes'
 CachedState   = require 'ui/framework/mixins/CachedState'
-Frame         = React.createFactory(require 'ui/common/Frame')
 CardChecklist = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CardChecklist')
+{div}         = React.DOM
 
-CardActions = React.createClass {
+CardActionsTab = React.createClass {
 
-  displayName: 'CardActions'
+  displayName: 'CardActionsTab'
 
   propTypes:
     card: PropTypes.Card
@@ -31,8 +31,8 @@ CardActions = React.createClass {
         checklist = lookup[stage.id]
         CardChecklist {key: checklist.id, card: @props.card, kind: @props.kind, stage, checklist}
       
-    Frame {className: 'content stage-list'}, items
+    div {className: 'card-actions-tab'}, items
 
 }
 
-module.exports = CardActions
+module.exports = CardActionsTab

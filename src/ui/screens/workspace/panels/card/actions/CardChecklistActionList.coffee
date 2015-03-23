@@ -30,10 +30,10 @@ CardChecklistActionList = React.createClass {
   render: ->
 
     items = _.map @props.actions, (action) =>
-      ListItem {key: "action-#{action.id}", className: 'action-list-item', 'data-itemid': action.id},
+      ListItem {key: "action-#{action.id}", 'data-itemid': action.id},
         CardAction {action}
 
-    List {className: 'action-list'}, items
+    List {className: 'card-checklist-action-list'}, items
 
   getSortableList: ->
     @props.stage

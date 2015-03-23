@@ -18,6 +18,7 @@ module.exports = (grunt) ->
           alias: ['react:react']
           browserifyOptions: {extensions: ['.coffee']}
           transform: ['coffeeify']
+          watch: true
         files:
           '.build/js/torch.js': ['src/**/*.coffee']
 
@@ -38,7 +39,7 @@ module.exports = (grunt) ->
           paths: ['style/imports']
           import: ['nib', 'functions', 'variables']
         files:
-          '.build/css/torch.css': ['style/**/!(imports)/*.styl']
+          '.build/css/torch.css': ['style/base.styl', 'style/**/!(imports)/*.styl']
 
     copy:
       dev:
@@ -65,10 +66,6 @@ module.exports = (grunt) ->
           '.out/js/torch.js': ['.build/js/torch.js']
 
     watch:
-      code:
-        files: ['src/**/*.coffee']
-        tasks: ['browserify', 'notify:browserify']
-        options: {spawn: false}
       style:
         files: ['style/**/*.styl']
         tasks: ['stylus', 'notify:stylus']

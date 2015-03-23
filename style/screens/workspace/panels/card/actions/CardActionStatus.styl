@@ -1,0 +1,33 @@
+.card-action-status
+  flex: none
+  cursor: pointer
+  border: 1px solid #999
+  border-radius: 50%
+  width: 22px
+  height: 22px
+  line-height: 20px
+  background: $bright-white
+  text-align: center
+  margin-right: 4px
+  
+  .icon
+    vertical-align: middle
+    font-size: 24px
+    width: 20px
+
+  .overlay
+    width: 200px
+  
+.notstarted .card-action-status
+  color: #999
+  background: #fff
+
+.inprogress .card-action-status
+  color: #090
+
+.complete .card-action-status
+  color: #666
+  background: #ddd
+
+.warning .card-action-status
+  color: #900

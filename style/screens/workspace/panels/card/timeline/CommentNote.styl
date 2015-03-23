@@ -1,0 +1,52 @@
+.comment
+  position: relative
+  margin-top: 10px
+  padding: 0 10px 0 50px
+  z-index: 1
+  
+  &::before, &::after
+    display: block
+    position: absolute
+    width: 0px
+    height: 0px
+    content: " "
+    border: 6px solid transparent
+  
+  &::before
+    top: 9px
+    left: 38px
+    border-right-color: #aaa
+  
+  &::after
+    top: 9px
+    left: 45px
+    border-left-width: 0
+    border-right-color: #f3f3f3
+  
+  .comment-user
+    display: block
+    float: left
+    width: 32px
+    height: 32px
+    margin-left: -42px
+    border: 2px solid #fff
+    border-radius: 4px
+
+  .comment-body
+    position: relative
+    border: 1px solid #ccc
+    background: #fff
+  
+  .comment-header
+    background: #f3f3f3
+    padding: 4px 6px
+    border-bottom: 1px solid #ccc
+    font-size: 14px
+    color: #999
+
+    .user
+      color: #333
+      font-weight: $bold-font-weight
+
+  .comment-content
+    padding: 6px

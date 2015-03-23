@@ -17,7 +17,7 @@ CardSummaryBlock = React.createClass {
 
   render: ->
 
-    Block {className: 'summary', title: 'Summary', collapsible: true},
+    Block {className: 'card-summary', title: 'Summary', collapsible: true},
       EditableTextArea {
         className:   'editable'
         placeholder: 'Card Summary'

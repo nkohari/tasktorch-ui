@@ -2,9 +2,8 @@ _             = require 'lodash'
 React         = require 'react'
 PropTypes     = require 'ui/framework/PropTypes'
 Block         = React.createFactory(require 'ui/common/Block')
-Frame         = React.createFactory(require 'ui/common/Frame')
-List          = React.createFactory(require 'ui/common/List')
 FollowingCard = React.createFactory(require 'ui/screens/workspace/panels/following/FollowingCard')
+{div, ul}     = React.DOM
 
 FollowingCardList = React.createClass {
 
@@ -18,11 +17,11 @@ FollowingCardList = React.createClass {
     cards = _.map @props.cards, (card) ->
       FollowingCard {key: card.id, card}
 
-    Frame {className: 'cards'},
+    div {className: 'following-card-list'},
       Block {title: 'Changed'},
-        List {}
+        ul {}
       Block {title: 'Unchanged'},
-        List {}, cards
+        ul {}, cards
 
 }
 

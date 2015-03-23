@@ -31,7 +31,7 @@ CardActionOwner = React.createClass {
 
     overlay = ChangeActionOwnerOverlay {action: @props.action}
 
-    OverlayTrigger {@isReady, className: 'owner', overlay},
+    OverlayTrigger {@isReady, className: 'card-action-owner', overlay},
       contents
 
 }
