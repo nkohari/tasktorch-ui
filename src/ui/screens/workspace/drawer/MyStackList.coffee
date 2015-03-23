@@ -1,10 +1,10 @@
-_                = require 'lodash'
-React            = require 'react'
-StackType        = require 'data/enums/StackType'
-Frame            = React.createFactory(require 'ui/common/Frame')
-List             = React.createFactory(require 'ui/common/List')
-StackSidebarItem = React.createFactory(require 'ui/screens/workspace/sidebar/StackSidebarItem')
-{div}            = React.DOM
+_               = require 'lodash'
+React           = require 'react'
+StackType       = require 'data/enums/StackType'
+Frame           = React.createFactory(require 'ui/common/Frame')
+List            = React.createFactory(require 'ui/common/List')
+StackDrawerItem = React.createFactory(require 'ui/screens/workspace/drawer/StackDrawerItem')
+{div}           = React.DOM
 
 MyStackList = React.createClass {
 
@@ -25,13 +25,13 @@ MyStackList = React.createClass {
     return [] unless queue? and inbox? and drafts?
 
     specialStacks = [
-      StackSidebarItem {key: 'inbox',  stack: inbox}
-      StackSidebarItem {key: 'queue',  stack: queue}
-      StackSidebarItem {key: 'drafts', stack: drafts}
+      StackDrawerItem {key: 'inbox',  stack: inbox}
+      StackDrawerItem {key: 'queue',  stack: queue}
+      StackDrawerItem {key: 'drafts', stack: drafts}
     ]
 
     backlogStacks = _.map @getBacklogStacks(), (stack) =>
-      StackSidebarItem {key: "stack-#{stack.id}", stack}
+      StackDrawerItem {key: "stack-#{stack.id}", stack}
 
     return specialStacks.concat(backlogStacks)
 

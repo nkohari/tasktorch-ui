@@ -11,9 +11,9 @@ TopCenter = React.createClass {
 
     div {className: 'top-center'},
       ul {className: 'navigation'},
-        NavigationItem {screen: 'workspace',  title: 'Workspace'}
-        NavigationItem {screen: 'bigpicture', title: 'Big Picture'}
-        NavigationItem {screen: 'strategy',   title: 'Strategy'}
+        NavigationItem {screen: 'workspace',  hotkey: 'w', title: 'Workspace'}
+        NavigationItem {screen: 'bigpicture', hotkey: 'b', title: 'Big Picture'}
+        NavigationItem {screen: 'strategy',   hotkey: 's', title: 'Strategy'}
 
 }
 

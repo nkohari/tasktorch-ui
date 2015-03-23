@@ -9,9 +9,9 @@ Link           = React.createFactory(require 'ui/common/Link')
 ListItem       = React.createFactory(require 'ui/common/ListItem')
 {span}         = React.DOM
 
-TeamSidebarItem = React.createClass {
+TeamDrawerItem = React.createClass {
 
-  displayName: 'TeamSidebarItem'
+  displayName: 'TeamDrawerItem'
 
   propTypes:
     team: PropTypes.Team
@@ -24,7 +24,7 @@ TeamSidebarItem = React.createClass {
       'active' if @getScreen('bigpicture').isPanelVisible(@props.team.id)
     ]
 
-    ListItem {className: 'sidebar-item'},
+    ListItem {className: 'drawer-item'},
       Link {className: classes, onClick: @toggleTeam},
         Icon {name: 'team'}
         span {className: 'name'}, @props.team.name
@@ -34,4 +34,4 @@ TeamSidebarItem = React.createClass {
 
 }
 
-module.exports = TeamSidebarItem
+module.exports = TeamDrawerItem

@@ -1,9 +1,9 @@
-_                   = require 'lodash'
-React               = require 'react'
-PropTypes           = require 'ui/framework/PropTypes'
-Frame               = React.createFactory(require 'ui/common/Frame')
-ComposeMenu         = React.createFactory(require 'ui/shell/header/ComposeMenu')
-SidebarToggleButton = React.createFactory(require 'ui/shell/header/SidebarToggleButton')
+_                  = require 'lodash'
+React              = require 'react'
+PropTypes          = require 'ui/framework/PropTypes'
+Frame              = React.createFactory(require 'ui/common/Frame')
+ComposeMenu        = React.createFactory(require 'ui/shell/header/ComposeMenu')
+DrawerToggleButton = React.createFactory(require 'ui/shell/header/DrawerToggleButton')
 
 TopLeftCorner = React.createClass {
 
@@ -16,7 +16,7 @@ TopLeftCorner = React.createClass {
   render: ->
 
     Frame {className: 'top-left'},
-      SidebarToggleButton {}
+      DrawerToggleButton {}
       ComposeMenu {currentOrg: @props.currentOrg}
 
 }

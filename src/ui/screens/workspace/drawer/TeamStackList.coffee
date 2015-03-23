@@ -1,11 +1,11 @@
-_                = require 'lodash'
-React            = require 'react'
-PropTypes        = require 'ui/framework/PropTypes'
-StackType        = require 'data/enums/StackType'
-CachedState      = require 'ui/framework/mixins/CachedState'
-Frame            = React.createFactory(require 'ui/common/Frame')
-List             = React.createFactory(require 'ui/common/List')
-StackSidebarItem = React.createFactory(require 'ui/screens/workspace/sidebar/StackSidebarItem')
+_               = require 'lodash'
+React           = require 'react'
+PropTypes       = require 'ui/framework/PropTypes'
+StackType       = require 'data/enums/StackType'
+CachedState     = require 'ui/framework/mixins/CachedState'
+Frame           = React.createFactory(require 'ui/common/Frame')
+List            = React.createFactory(require 'ui/common/List')
+StackDrawerItem = React.createFactory(require 'ui/screens/workspace/drawer/StackDrawerItem')
 
 TeamStackList = React.createClass {
 
@@ -28,9 +28,9 @@ TeamStackList = React.createClass {
 
   render: ->
 
-    inboxStack = StackSidebarItem {key: 'inbox', stack: @state.inboxStack}
+    inboxStack = StackDrawerItem {key: 'inbox', stack: @state.inboxStack}
     backlogStacks = _.map @state.backlogStacks, (stack) =>
-      StackSidebarItem {key: "stack-#{stack.id}", stack}
+      StackDrawerItem {key: "stack-#{stack.id}", stack}
 
     Frame {@isReady, className: 'team group'},
       Frame {className: 'header'}, @props.team.name

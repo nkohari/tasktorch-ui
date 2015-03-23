@@ -12,9 +12,9 @@ List                = React.createFactory(require 'ui/common/List')
 ListItem            = React.createFactory(require 'ui/common/ListItem')
 Text                = React.createFactory(require 'ui/common/Text')
 
-FollowingSidebarItem = React.createClass {
+FollowingDrawerItem = React.createClass {
 
-  displayName: 'FollowingSidebarItem'
+  displayName: 'FollowingDrawerItem'
 
   propTypes:
     currentUser: PropTypes.User
@@ -36,7 +36,7 @@ FollowingSidebarItem = React.createClass {
 
     Frame {@isReady, className: 'group'},
       List {},
-        ListItem {className: 'sidebar-item'},
+        ListItem {className: 'drawer-item'},
           Link {className: classes, onClick: @toggleFollowing},
             Icon {name: 'follow'}
             Text {className: 'name'}, 'Following'
@@ -47,4 +47,4 @@ FollowingSidebarItem = React.createClass {
 
 }
 
-module.exports = FollowingSidebarItem
+module.exports = FollowingDrawerItem

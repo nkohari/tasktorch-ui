@@ -21,7 +21,6 @@ StageCard = React.createClass {
   mixins: [CachedState, Navigator]
 
   getCachedState: (cache) -> {
-    actions:    cache('actionsByCard').get(@props.card.id)
     kind:       cache('kinds').get(@props.card.kind)
     checklists: cache('checklistsByCard').get(@props.card.id)
     stages:     cache('stagesByKind').get(@props.card.kind)

@@ -3,11 +3,11 @@ React       = require 'react'
 CachedState = require 'ui/framework/mixins/CachedState'
 PropTypes   = require 'ui/framework/PropTypes'
 Frame       = React.createFactory(require 'ui/common/Frame')
-TeamList    = React.createFactory(require 'ui/screens/bigPicture/sidebar/TeamList')
+TeamList    = React.createFactory(require 'ui/screens/bigPicture/drawer/TeamList')
 
-PeopleSidebarPanel = React.createClass {
+PeopleDrawerPanel = React.createClass {
 
-  displayName: 'PeopleSidebarPanel'
+  displayName: 'PeopleDrawerPanel'
 
   propTypes:
     currentOrg:  PropTypes.Org
@@ -35,4 +35,4 @@ PeopleSidebarPanel = React.createClass {
 
 }
 
-module.exports = PeopleSidebarPanel
+module.exports = PeopleDrawerPanel

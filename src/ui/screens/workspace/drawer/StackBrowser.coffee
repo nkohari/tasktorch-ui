@@ -2,8 +2,8 @@ _             = require 'lodash'
 React         = require 'react'
 PropTypes     = require 'ui/framework/PropTypes'
 Frame         = React.createFactory(require 'ui/common/Frame')
-MyStackList   = React.createFactory(require 'ui/screens/workspace/sidebar/MyStackList')
-TeamStackList = React.createFactory(require 'ui/screens/workspace/sidebar/TeamStackList')
+MyStackList   = React.createFactory(require 'ui/screens/workspace/drawer/MyStackList')
+TeamStackList = React.createFactory(require 'ui/screens/workspace/drawer/TeamStackList')
 
 StackBrowser = React.createClass {
 

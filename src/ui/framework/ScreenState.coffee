@@ -12,12 +12,12 @@ class ScreenState
 
   constructor: (@name, url, @transitionTo) ->
 
-    @sidebar = false
+    @drawer = false
     @panels  = []
     @orgid   = url.params.orgid
 
     if url.screen == name
-      @sidebar = !!url.query.s if url.query.s?
+      @drawer = !!url.query.d if url.query.d?
       if url.query.p?
         try
           @panels = _.map url.query.p.split(OBJECT_SEPARATOR), (blob) => @deserialize(blob)
@@ -25,16 +25,16 @@ class ScreenState
           console.warn("Error deserializing panel state: #{err}")
       console.log(@panels)
 
-  showSidebar: ->
-    @sidebar = true
+  showDrawer: ->
+    @drawer = true
     @navigate()
 
-  hideSidebar: ->
-    @sidebar = false
+  hideDrawer: ->
+    @drawer = false
     @navigate()
 
-  toggleSidebar: ->
-    @sidebar = !@sidebar
+  toggleDrawer: ->
+    @drawer = !@drawer
     @navigate()
 
   addPanel: (panel, position = undefined) ->
@@ -68,13 +68,13 @@ class ScreenState
   isPanelVisible: (id) ->
     _.any @panels, (p) -> p.id == id
 
-  isSidebarVisible: ->
-    @sidebar
+  isDrawerVisible: ->
+    @drawer
 
   getProps: ->
 
     query = {}
-    query.s = 1 if @sidebar
+    query.d = 1 if @drawer
 
     if @panels.length > 0
       query.p = _.map(@panels, (p) => @serialize(p)).join(OBJECT_SEPARATOR)

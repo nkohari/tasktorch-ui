@@ -14,6 +14,7 @@ NavigationItem = React.createClass {
   mixins: [Navigator]
 
   propTypes:
+    hotkey: PropTypes.string
     screen: PropTypes.string
     title:  PropTypes.string
 
@@ -24,7 +25,7 @@ NavigationItem = React.createClass {
     ]
 
     ListItem {},
-      Link {className: classes, onClick: @showScreen},
+      Link {className: classes, hotkey: @props.hotkey, onClick: @showScreen},
         Icon {name: @props.screen}
         @props.title
 

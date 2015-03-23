@@ -10,9 +10,9 @@ Link            = React.createFactory(require 'ui/common/Link')
 ListItem        = React.createFactory(require 'ui/common/ListItem')
 Text            = React.createFactory(require 'ui/common/Text')
 
-StackSidebarItem = React.createClass {
+StackDrawerItem = React.createClass {
 
-  displayName: 'StackSidebarItem'
+  displayName: 'StackDrawerItem'
 
   propTypes:
     stack: PropTypes.Stack
@@ -25,7 +25,7 @@ StackSidebarItem = React.createClass {
       'active' if @getScreen('workspace').isPanelVisible(@props.stack.id)
     ]
 
-    ListItem {className: 'sidebar-item'},
+    ListItem {className: 'drawer-item'},
       Link {className: classes, hotkey: @props.hotkey, onClick: @toggleStack},
         Icon {name: "stack-#{@props.stack.type.toLowerCase()}"}
         Text {className: 'name'}, @getStackName()
@@ -42,4 +42,4 @@ StackSidebarItem = React.createClass {
 
 }
 
-module.exports = StackSidebarItem
+module.exports = StackDrawerItem

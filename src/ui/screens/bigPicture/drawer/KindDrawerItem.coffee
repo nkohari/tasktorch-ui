@@ -10,9 +10,9 @@ ListItem        = React.createFactory(require 'ui/common/ListItem')
 KindColorMarker = React.createFactory(require 'ui/common/KindColorMarker')
 {span}          = React.DOM
 
-KindSidebarItem = React.createClass {
+KindDrawerItem = React.createClass {
 
-  displayName: 'KindSidebarItem'
+  displayName: 'KindDrawerItem'
 
   propTypes:
     kind: PropTypes.Kind
@@ -25,7 +25,7 @@ KindSidebarItem = React.createClass {
       'active' if @getScreen('bigpicture').isPanelVisible(@props.kind.id)
     ]
 
-    ListItem {className: 'sidebar-item'},
+    ListItem {className: 'drawer-item'},
       Link {className: classes, onClick: @toggleKind},
         KindColorMarker {kind: @props.kind}
         span {className: 'name'}, @props.kind.name
@@ -35,4 +35,4 @@ KindSidebarItem = React.createClass {
 
 }
 
-module.exports = KindSidebarItem
+module.exports = KindDrawerItem

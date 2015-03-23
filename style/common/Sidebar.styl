@@ -1,14 +1,14 @@
-.sidebar-container
+.drawer-container
   height: 100%
 
-.sidebar
+.drawer
   flex: none
   height: 100%
-  width: $sidebar-width
+  width: $drawer-width
   margin: 0
   padding: 6px
   overflow-y: auto
-  background: $sidebar-background-color
+  background: $drawer-background-color
   transform: translateZ(0)
 
   .tab-block
@@ -28,7 +28,7 @@
       padding: 8px 6px
       font-weight: $bold-font-weight
       text-transform: uppercase
-      color: $sidebar-header-text-color
+      color: $drawer-header-text-color
 
     ul
       margin: 0px
@@ -41,22 +41,22 @@
         line-height: 20px
         padding: 4px
         margin-bottom: 6px
-        color: $sidebar-text-color
+        color: $drawer-text-color
         border-radius: 4px
         text-decoration: none
         transition-property: color, background
         transition-duration: $hover-animation-delay
         
         &:hover, &:active
-          color: $sidebar-active-text-color
-          .icon { color: $sidebar-active-text-color }
-          .count { color: $sidebar-active-text-color }
+          color: $drawer-active-text-color
+          .icon { color: $drawer-active-text-color }
+          .count { color: $drawer-active-text-color }
         
         &.active
-          color: $sidebar-active-text-color
-          background: $sidebar-active-background-color
-          .icon { color: $sidebar-active-text-color }
-          .count { color: $sidebar-active-text-color }
+          color: $drawer-active-text-color
+          background: $drawer-active-background-color
+          .icon { color: $drawer-active-text-color }
+          .count { color: $drawer-active-text-color }
 
         .icon
           margin-right: 4px
@@ -68,7 +68,7 @@
           float: right
           padding: 3px 7px
           background: #111
-          color: $sidebar-text-color
+          color: $drawer-text-color
           font-size: 12px
           font-weight: $heavy-font-weight
           text-shadow: none
@@ -76,20 +76,20 @@
           line-height: 1em
           border-radius: 8px
 
-@keyframes sidebar-enter
+@keyframes drawer-enter
   0%
-    margin-left: -($sidebar-width)
+    margin-left: -($drawer-width)
   100%
     margin-left: 0
 
-.sidebar.slide-enter
-  animation: sidebar-enter 200ms ease-out
+.drawer.slide-enter
+  animation: drawer-enter 200ms ease-out
 
-@keyframes sidebar-leave
+@keyframes drawer-leave
   from
     margin-left: 0
   to
-    margin-left: -($sidebar-width)
+    margin-left: -($drawer-width)
 
-.sidebar.slide-leave
-  animation: sidebar-leave 200ms ease-in
+.drawer.slide-leave
+  animation: drawer-leave 200ms ease-in

@@ -5,15 +5,15 @@ Navigator = require 'ui/framework/mixins/Navigator'
 Icon      = React.createFactory(require 'ui/common/Icon')
 Link      = React.createFactory(require 'ui/common/Link')
 
-SidebarToggleButton = React.createClass {
+DrawerToggleButton = React.createClass {
 
-  displayName: 'SidebarToggleButton'
+  displayName: 'DrawerToggleButton'
 
   mixins: [Navigator]
 
   render: ->
 
-    isActive = @getCurrentScreen().isSidebarVisible()
+    isActive = @getCurrentScreen().isDrawerVisible()
 
     classes = classSet [
       'button'
@@ -21,12 +21,12 @@ SidebarToggleButton = React.createClass {
       'active' if isActive
     ]
 
-    Link {className: classes, hotkey: 's', onClick: @toggleSidebar},
+    Link {className: classes, hotkey: 'd', onClick: @toggleDrawer},
       Icon {name: if isActive then 'chevron-left' else 'chevron-right'}
 
-  toggleSidebar: ->
-    @getCurrentScreen().toggleSidebar()
+  toggleDrawer: ->
+    @getCurrentScreen().toggleDrawer()
 
 }
 
-module.exports = SidebarToggleButton
+module.exports = DrawerToggleButton

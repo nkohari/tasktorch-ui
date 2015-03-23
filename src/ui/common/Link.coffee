@@ -15,7 +15,7 @@ Link = React.createClass {
     isReady: PropTypes.func
 
   componentDidMount: ->
-    Keymaster(@props.hotkey, @navigate) if @props.hotkey?
+    Keymaster(@props.hotkey, @props.onClick) if @props.hotkey?
 
   componentWillUnmount: ->
     Keymaster.unbind(@props.hotkey) if @props.hotkey?
