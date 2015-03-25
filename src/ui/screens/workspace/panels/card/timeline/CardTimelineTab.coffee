@@ -33,17 +33,17 @@ CardTimelineTab = React.createClass {
       CardTimelineItem {key: note.id, card: @props.card, note}
 
     div {className: 'card-timeline-tab', @onScroll},
-      div {className: 'card-notes'}, items
+      div {ref: 'notes', className: 'card-notes'}, items
       CreateCommentForm {card: @props.card, currentUser: @props.currentUser}
 
   onScroll: ->
-    node = @getDOMNode()
+    node = @refs.notes.getDOMNode()
     @userIsScrolling = (node.scrollHeight - node.scrollTop == node.clientHeight)
     return
 
   scrollToBottom: ->
     unless @userIsScrolling
-      node = @getDOMNode()
+      node = @refs.notes.getDOMNode()
       node.scrollTop = node.scrollHeight
 
 }
