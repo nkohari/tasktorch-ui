@@ -23,13 +23,16 @@ StackCardList = React.createClass {
     Actor
     CachedState
     SortableList {
-      connectWith: '.cards'
+      connectWith: '.stack-card-list'
       idAttribute: 'data-itemid'
     }
   ]
 
-  getInitialState: ->
-    {dragActive: false, dropAllowed: undefined}
+  getInitialState: -> {
+    ids: _.clone(@props.stack.cards)
+    dragActive: false
+    dropAllowed: undefined
+  }
 
   getCachedState: (cache) -> {
     cards: cache('cardsByStack').get(@props.stack.id)
@@ -38,9 +41,15 @@ StackCardList = React.createClass {
   isReady: ->
     @state.cards?
 
+  componentWillReceiveProps: (newProps) ->
+    @setState {ids: newProps.stack.cards}
+
   render: ->
 
-    items = _.map @state.cards, (card) =>
+    lookup = _.indexBy(@state.cards, 'id')
+    items = _.map @state.ids, (id) =>
+      card = lookup[id]
+      return unless card?
       StackCardListItem {
         key:   "card-#{card.id}"
         stack: @props.stack
@@ -49,7 +58,7 @@ StackCardList = React.createClass {
 
     classes = classSet [
       'stack-card-list'
-      'dragging'        if @state.dragActive
+      'drag-active'     if @state.dragActive
       'drop-allowed'    if @state.dragActive and @state.dropAllowed
       'drop-disallowed' if @state.dragActive and not @state.dropAllowed
     ]
@@ -75,6 +84,7 @@ StackCardList = React.createClass {
     @publish new UserMovedCardEvent(card.id, toStack.id, toPosition)
 
   onListOrderChanged: (ids) ->
+    @setState {ids}
 
   isDropAllowed: (card, fromStack) ->
     return true

@@ -9,6 +9,7 @@ class ChecklistStore extends ModelStore
 
   listensFor: [
     'ChecklistsLoaded'
+    'ChecklistChanged'
   ]
 
   load: (id) ->
@@ -16,5 +17,8 @@ class ChecklistStore extends ModelStore
 
   onChecklistsLoaded: (event) ->
     @add(event.checklists)
+
+  onChecklistChanged: (event) ->
+    @add(event.checklist)
 
 module.exports = ChecklistStore

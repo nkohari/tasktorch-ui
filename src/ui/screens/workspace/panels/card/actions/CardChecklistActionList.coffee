@@ -1,6 +1,7 @@
 _                    = require 'lodash'
-PropTypes            = require 'ui/framework/PropTypes'
 React                = require 'react'
+compare              = require 'common/util/compare'
+PropTypes            = require 'ui/framework/PropTypes'
 Actor                = require 'ui/framework/mixins/Actor'
 SortableList         = require 'ui/framework/mixins/SortableList'
 UserMovedActionEvent = require 'events/ui/UserMovedActionEvent'
@@ -20,34 +21,45 @@ CardChecklistActionList = React.createClass {
   mixins: [
     Actor
     SortableList {
-      connectWith: '.action-list'
+      connectWith: '.card-checklist-action-list'
       handle:      '.icon-handle'
       idAttribute: 'data-itemid'
       tolerance:   'intersect'
     }
   ]
 
+  getInitialState: -> {
+    ids: _.clone(@props.checklist.actions)
+  }
+
+  componentWillReceiveProps: (newProps) ->
+    @setState {ids: newProps.checklist.actions}
+
   render: ->
 
-    items = _.map @props.actions, (action) =>
-      ListItem {key: "action-#{action.id}", 'data-itemid': action.id},
+    lookup = _.indexBy(@props.actions, 'id')
+    items = _.map @state.ids, (id) =>
+      action = lookup[id]
+      return unless action?
+      ListItem {key: action.id, 'data-itemid': action.id},
         CardAction {action}
 
     List {className: 'card-checklist-action-list'}, items
 
   getSortableList: ->
-    @props.stage
+    @props.checklist
 
   getSortableListItem: (id) ->
     _.find @props.actions, (action) -> action.id == id
 
   onReorder: (action, toPosition) ->
-    @publish new UserMovedActionEvent(action.id, @props.card.id, @props.stage.id, toPosition)
+    @publish new UserMovedActionEvent(action.id, @props.checklist.id, toPosition)
 
-  onMove: (action, toStage, toPosition) ->
-    @publish new UserMovedActionEvent(action.id, @props.card.id, toStage.id, toPosition)
+  onMove: (action, toChecklist, toPosition) ->
+    @publish new UserMovedActionEvent(action.id, toChecklist.id, toPosition)
 
   onListOrderChanged: (ids) ->
+    @setState {ids}
 
 }
 

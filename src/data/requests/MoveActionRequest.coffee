@@ -8,7 +8,7 @@ class MoveActionRequest extends Request
   constructor: (@actionid, @checklistid, @position) ->
 
   execute: (eventQueue) ->
-    superagent.post("/api/#{Environment.id}/actions/#{@actionid}/move")
+    superagent.post("/api/#{Environment.orgid}/actions/#{@actionid}/move")
     .send {checklist: @checklistid, @position}
     .end (res) =>
       action = new Action(res.body.action)
