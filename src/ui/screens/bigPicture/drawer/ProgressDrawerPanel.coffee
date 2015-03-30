@@ -1,10 +1,10 @@
-_              = require 'lodash'
-React          = require 'react'
-CachedState    = require 'ui/framework/mixins/CachedState'
-PropTypes      = require 'ui/framework/PropTypes'
-Frame          = React.createFactory(require 'ui/common/Frame')
-List           = React.createFactory(require 'ui/common/List')
-KindDrawerItem = React.createFactory(require 'ui/screens/bigPicture/drawer/KindDrawerItem')
+_               = require 'lodash'
+React           = require 'react'
+CachedState     = require 'ui/framework/mixins/CachedState'
+PropTypes       = require 'ui/framework/PropTypes'
+Frame           = React.createFactory(require 'ui/common/Frame')
+KindDrawerItem  = React.createFactory(require 'ui/screens/bigPicture/drawer/KindDrawerItem')
+{div, span, ul} = React.DOM
 
 ProgressDrawerPanel = React.createClass {
 
@@ -29,8 +29,9 @@ ProgressDrawerPanel = React.createClass {
       KindDrawerItem {key: kind.id, kind}
 
     Frame {@isReady, className: 'kinds group'},
-      Frame {className: 'header'}, 'Kinds'
-      List {}, items
+      div {className: 'header'},
+        span {className: 'title'}, 'Kinds'
+      ul {}, items
 }
 
 module.exports = ProgressDrawerPanel

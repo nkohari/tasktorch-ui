@@ -31,6 +31,7 @@ OverlayTrigger = React.createClass {
 
     props = mergeProps _.omit(@props, 'overlay'), {
       className: classSet [
+        'trigger'
         'expanded' if @state.expanded
       ]
     }

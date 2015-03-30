@@ -1,12 +1,10 @@
-_               = require 'lodash'
-React           = require 'react'
-PropTypes       = require 'ui/framework/PropTypes'
-Avatar          = React.createFactory(require 'ui/common/Avatar')
-DialogTrigger   = React.createFactory(require 'ui/common/DialogTrigger')
-Frame           = React.createFactory(require 'ui/common/Frame')
-Icon            = React.createFactory(require 'ui/common/Icon')
-UserPrefsDialog = React.createFactory(require 'ui/dialogs/UserPrefsDialog')
-LogOutDialog    = React.createFactory(require 'ui/dialogs/LogOutDialog')
+_             = require 'lodash'
+React         = require 'react'
+PropTypes     = require 'ui/framework/PropTypes'
+Avatar        = React.createFactory(require 'ui/common/Avatar')
+DialogTrigger = React.createFactory(require 'ui/common/DialogTrigger')
+Frame         = React.createFactory(require 'ui/common/Frame')
+Icon          = React.createFactory(require 'ui/common/Icon')
 
 BottomRightCorner = React.createClass {
 
@@ -18,13 +16,10 @@ BottomRightCorner = React.createClass {
 
   render: ->
 
-    prefsDialog = UserPrefsDialog {}
-    logoutDialog = LogOutDialog {}
-
     Frame {className: 'bottom-right'},
-      DialogTrigger {dialog: prefsDialog},
+      DialogTrigger {name: 'UserSettings'},
         Icon {name: 'settings'}
-      DialogTrigger {dialog: logoutDialog},
+      DialogTrigger {name: 'LogOut'},
         Icon {name: 'logout'}
       Avatar {user: @props.currentUser}
 

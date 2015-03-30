@@ -4,20 +4,20 @@ Button    = React.createFactory(require 'ui/common/Button')
 Dialog    = React.createFactory(require 'ui/common/Dialog')
 {div}     = React.DOM
 
-UserPrefsDialog = React.createClass {
+UserSettingsDialog = React.createClass {
 
-  displayName: 'UserPrefsDialog'
+  displayName: 'UserSettingsDialog'
 
   propTypes:
-    close: PropTypes.func
+    closeDialog: PropTypes.func
 
   render: ->
 
-    Dialog {icon: 'settings', title: 'Preferences', close: @props.close},
+    Dialog {icon: 'settings', title: 'Preferences', closeDialog: @props.closeDialog},
       'Nothing to configure yet',
       div {className: 'dialog-buttons'},
-        Button {text: 'Close', onClick: @props.close}
+        Button {text: 'Close', onClick: @props.closeDialog}
 
 }
 
-module.exports = UserPrefsDialog
+module.exports = UserSettingsDialog

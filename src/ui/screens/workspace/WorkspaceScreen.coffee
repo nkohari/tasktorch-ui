@@ -13,7 +13,7 @@ WorkspaceScreen = React.createClass {
   propTypes:
     currentOrg:  PropTypes.Org
     currentUser: PropTypes.User
-    drawer:     PropTypes.bool
+    drawer:      PropTypes.bool
     panels:      PropTypes.array
 
   render: ->

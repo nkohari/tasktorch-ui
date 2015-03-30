@@ -2,19 +2,19 @@ _               = require 'lodash'
 React           = require 'react'
 StackType       = require 'data/enums/StackType'
 Frame           = React.createFactory(require 'ui/common/Frame')
-List            = React.createFactory(require 'ui/common/List')
 StackDrawerItem = React.createFactory(require 'ui/screens/workspace/drawer/StackDrawerItem')
-{div}           = React.DOM
+{div, span, ul} = React.DOM
 
-MyStackList = React.createClass {
+MyWorkDrawerSection = React.createClass {
 
-  displayName: 'MyStackList'
+  displayName: 'MyWorkDrawerSection'
 
   render: ->
 
     Frame {className: 'me group'},
-      div {className: 'header'}, 'My Stacks'
-      List {}, @renderItems()
+      div {className: 'header'},
+        span {className: 'title'}, 'My Work'
+      ul {}, @renderItems()
 
   renderItems: ->
 
@@ -44,4 +44,4 @@ MyStackList = React.createClass {
 
 }
 
-module.exports = MyStackList
+module.exports = MyWorkDrawerSection

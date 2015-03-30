@@ -4,12 +4,15 @@ PropTypes       = require 'ui/framework/PropTypes'
 StackType       = require 'data/enums/StackType'
 CachedState     = require 'ui/framework/mixins/CachedState'
 Frame           = React.createFactory(require 'ui/common/Frame')
-List            = React.createFactory(require 'ui/common/List')
+Icon            = React.createFactory(require 'ui/common/Icon')
+OverlayTrigger  = React.createFactory(require 'ui/common/OverlayTrigger')
 StackDrawerItem = React.createFactory(require 'ui/screens/workspace/drawer/StackDrawerItem')
+TeamContextMenu = React.createFactory(require 'ui/screens/workspace/drawer/TeamContextMenu')
+{div, span, ul} = React.DOM
 
-TeamStackList = React.createClass {
+TeamDrawerSection = React.createClass {
 
-  displayName: 'TeamStackList'
+  displayName: 'TeamDrawerSection'
 
   propTypes:
     team: PropTypes.Team
@@ -30,12 +33,17 @@ TeamStackList = React.createClass {
 
     inboxStack = StackDrawerItem {key: 'inbox', stack: @state.inboxStack}
     backlogStacks = _.map @state.backlogStacks, (stack) =>
-      StackDrawerItem {key: "stack-#{stack.id}", stack}
+      StackDrawerItem {key: stack.id, stack}
+
+    menu = TeamContextMenu {team: @props.team}
 
     Frame {@isReady, className: 'team group'},
-      Frame {className: 'header'}, @props.team.name
-      List {}, [inboxStack].concat(backlogStacks)
+      div {className: 'header'},
+        span {className: 'title'}, @props.team.name
+        OverlayTrigger {className: 'settings', overlay: menu},
+          Icon {name: 'settings'}
+      ul {}, [inboxStack].concat(backlogStacks)
 
 }
 
-module.exports = TeamStackList
+module.exports = TeamDrawerSection

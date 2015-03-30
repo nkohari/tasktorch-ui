@@ -1,7 +1,7 @@
 a.trigger
   cursor: pointer
 
-.dialog-container
+.dialog-backdrop
   position: absolute
   top: 0
   left: 0
@@ -9,6 +9,8 @@ a.trigger
   height: 100%
   z-index: $floating-layer
   background: shadow(70%)
+  &.fade-enter { animation: dialog-enter 150ms ease-out }
+  &.fade-leave { animation: dialog-leave 150ms linear }
 
 .dialog
   position: relative
@@ -37,14 +39,8 @@ a.trigger
   to
     opacity: 1
 
-.dialog-container.fade-enter
-  animation: dialog-enter 150ms ease-out
-
 @keyframes dialog-leave
   from
     opacity: 1
   to
     opacity: 0
-
-.dialog-container.fade-leave
-  animation: dialog-leave 150ms linear

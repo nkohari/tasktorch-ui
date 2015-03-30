@@ -1,9 +1,8 @@
-_              = require 'lodash'
-React          = require 'react'
-PropTypes      = require 'ui/framework/PropTypes'
-Frame          = React.createFactory(require 'ui/common/Frame')
-List           = React.createFactory(require 'ui/common/List')
-TeamDrawerItem = React.createFactory(require 'ui/screens/bigPicture/drawer/TeamDrawerItem')
+_               = require 'lodash'
+React           = require 'react'
+PropTypes       = require 'ui/framework/PropTypes'
+TeamDrawerItem  = React.createFactory(require 'ui/screens/bigPicture/drawer/TeamDrawerItem')
+{div, span, ul} = React.DOM
 
 TeamList = React.createClass {
 
@@ -18,9 +17,10 @@ TeamList = React.createClass {
     items = _.map @props.teams, (team) =>
       TeamDrawerItem {key: team.id, team}
 
-    Frame {className: 'teams group'},
-      Frame {className: 'header'}, @props.title
-      List {}, items
+    div {className: 'teams group'},
+      div {className: 'header'},
+        span {className: 'title'}, @props.title
+      ul {}, items
 
 }
 

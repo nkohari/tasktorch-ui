@@ -8,8 +8,8 @@
   margin: 0
   padding: 6px
   overflow-y: auto
+  overflow-x: visible
   background: $drawer-background-color
-  transform: translateZ(0)
 
   .tab-block
     
@@ -24,16 +24,28 @@
   .group
     
     .header
-      font-size: 13px
+      display: flex
+      flex-direction: row
       padding: 8px 6px
-      font-weight: $bold-font-weight
-      text-transform: uppercase
-      color: $drawer-header-text-color
+      
+      .title
+        flex: 1
+        font-size: 13px
+        font-weight: $bold-font-weight
+        color: $drawer-header-text-color
+        text-transform: uppercase
+      
+      .trigger
+        flex: none
+        .icon { width: auto }
+      
+      .menu
+        width: 200px
 
     ul
-      margin: 0px
-      padding: 0px
-      list-style-type: none
+      
+      li
+        list-style-type: none
       
       li a
         display: block
