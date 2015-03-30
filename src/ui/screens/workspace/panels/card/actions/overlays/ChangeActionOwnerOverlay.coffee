@@ -14,8 +14,8 @@ ChangeActionOwnerOverlay = React.createClass {
   displayName: 'ChangeActionOwnerOverlay'
 
   propTypes:
-    action: PropTypes.Action
-    hide:   PropTypes.func
+    action:      PropTypes.Action
+    hideOverlay: PropTypes.func
 
   mixins: [Actor, CachedState]
 
@@ -46,10 +46,10 @@ ChangeActionOwnerOverlay = React.createClass {
 
   onOkClicked: ->
     @publish new UserChangedActionOwnerEvent(@props.action.id, @state.userid)
-    @props.hide()
+    @props.hideOverlay()
 
   onCancelClicked: ->
-    @props.hide()
+    @props.hideOverlay()
 
 }
 

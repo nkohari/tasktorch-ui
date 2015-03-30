@@ -21,7 +21,7 @@
         flex: 1
         text-align: center
 
-  .group
+  .drawer-group
     
     .header
       display: flex
@@ -37,56 +37,57 @@
       
       .trigger
         flex: none
+        cursor: pointer
+        color: #111
+        line-height: 18px
+        transition-property: color
+        transition-duration: $hover-animation-delay
+        &:hover, &.active { color: $drawer-header-text-color }
         .icon { width: auto }
       
       .menu
         width: 200px
+  
+  .drawer-item
+    display: block
+    font-size: 14px
+    line-height: 20px
+    padding: 4px
+    margin-bottom: 6px
+    color: $drawer-text-color
+    border-radius: 4px
+    text-decoration: none
+    transition-property: color, background
+    transition-duration: $hover-animation-delay
+    
+    &:hover, &:active
+      color: $drawer-active-text-color
+      .icon { color: $drawer-active-text-color }
+      .count { color: $drawer-active-text-color }
+    
+    &.active
+      color: $drawer-active-text-color
+      background: $drawer-active-background-color
+      .icon { color: $drawer-active-text-color }
+      .count { color: $drawer-active-text-color }
 
-    ul
-      
-      li
-        list-style-type: none
-      
-      li a
-        display: block
-        font-size: 14px
-        line-height: 20px
-        padding: 4px
-        margin-bottom: 6px
-        color: $drawer-text-color
-        border-radius: 4px
-        text-decoration: none
-        transition-property: color, background
-        transition-duration: $hover-animation-delay
-        
-        &:hover, &:active
-          color: $drawer-active-text-color
-          .icon { color: $drawer-active-text-color }
-          .count { color: $drawer-active-text-color }
-        
-        &.active
-          color: $drawer-active-text-color
-          background: $drawer-active-background-color
-          .icon { color: $drawer-active-text-color }
-          .count { color: $drawer-active-text-color }
+    .icon
+      margin-right: 4px
 
-        .icon
-          margin-right: 4px
-
-        .count
-          min-width: 30px
-          margin-top: 2px
-          margin-left: 10px
-          float: right
-          padding: 3px 7px
-          background: #111
-          color: $drawer-text-color
-          font-size: 12px
-          font-weight: $heavy-font-weight
-          text-shadow: none
-          text-align: center
-          line-height: 1em
-          border-radius: 8px
+    .count
+      min-width: 30px
+      margin-top: 2px
+      margin-left: 10px
+      float: right
+      padding: 3px 7px
+      background: #111
+      color: $drawer-text-color
+      font-size: 12px
+      font-weight: $heavy-font-weight
+      text-shadow: none
+      text-align: center
+      line-height: 1em
+      border-radius: 8px
 
 @keyframes drawer-enter
   0%

@@ -11,8 +11,8 @@ DeleteActionOverlay = React.createClass {
   displayName: 'DeleteActionOverlay'
 
   propTypes:
-    action: PropTypes.Action
-    hide:   PropTypes.func
+    action:      PropTypes.Action
+    hideOverlay: PropTypes.func
 
   mixins: [Actor]
 
@@ -26,10 +26,10 @@ DeleteActionOverlay = React.createClass {
 
   onDeleteClicked: ->
     @publish new UserDeletedActionEvent(@props.action.id)
-    @props.hide()
+    @props.hideOverlay()
 
   onCancelClicked: ->
-    @props.hide()
+    @props.hideOverlay()
 
 }
 

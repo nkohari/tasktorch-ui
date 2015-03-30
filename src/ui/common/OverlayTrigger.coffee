@@ -17,7 +17,7 @@ OverlayTrigger = React.createClass {
     overlay: PropTypes.node
 
   getInitialState: ->
-    {expanded: false}
+    {visible: false}
 
   componentDidMount: ->
     document.addEventListener('mousedown', @onDocumentClicked)
@@ -32,20 +32,19 @@ OverlayTrigger = React.createClass {
     props = mergeProps _.omit(@props, 'overlay'), {
       className: classSet [
         'trigger'
-        'expanded' if @state.expanded
+        'active' if @state.visible
       ]
     }
 
-    child = React.Children.only(@props.children)
-    trigger = cloneWithProps child, {
+    trigger = cloneWithProps React.Children.only(@props.children), {
       className: classSet [
-        'active' if @state.expanded
+        'active' if @state.visible
       ]
       onClick: @toggleOverlay
     }
 
-    if @state.expanded
-      overlay = cloneWithProps @props.overlay, {hide: @hideOverlay}
+    if @state.visible
+      overlay = cloneWithProps @props.overlay, {@hideOverlay}
 
     div props,
       trigger
@@ -53,13 +52,13 @@ OverlayTrigger = React.createClass {
         overlay
 
   showOverlay: ->
-    @setState {expanded: true}
+    @setState {visible: true}
 
   hideOverlay: ->
-    @setState {expanded: false}
+    @setState {visible: false}
 
   toggleOverlay: ->
-    @setState {expanded: !@state.expanded}
+    @setState {visible: !@state.visible}
 
   onEscapePressed: ->
     @hideOverlay() if @isMounted()

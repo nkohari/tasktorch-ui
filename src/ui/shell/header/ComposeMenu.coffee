@@ -13,7 +13,7 @@ List                 = React.createFactory(require 'ui/common/List')
 ListItem             = React.createFactory(require 'ui/common/ListItem')
 Overlay              = React.createFactory(require 'ui/common/Overlay')
 OverlayTrigger       = React.createFactory(require 'ui/common/OverlayTrigger')
-{span}               = React.DOM
+{a, li, ul}          = React.DOM
 
 ComposeMenu = React.createClass {
 
@@ -35,11 +35,12 @@ ComposeMenu = React.createClass {
   render: ->
 
     items = _.map @state.kinds, (kind) =>
-      ListItem {key: kind.id, onClick: @onItemClicked.bind(this, kind)},
-        KindColorMarker {kind}
-        kind.name
+      li {key: kind.id, className: 'menu-item'},
+        a {onClick: @onItemClicked.bind(this, kind)},
+          KindColorMarker {kind}
+          kind.name
 
-    overlay = List {className: 'overlay menu'}, items
+    overlay = ul {className: 'overlay menu'}, items
 
     OverlayTrigger {@isReady, ref: 'trigger', className: 'compose menu-button', overlay},
       Button {text: 'Compose', caret: true}

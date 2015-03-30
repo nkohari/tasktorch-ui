@@ -37,12 +37,13 @@ TeamDrawerSection = React.createClass {
 
     menu = TeamContextMenu {team: @props.team}
 
-    Frame {@isReady, className: 'team group'},
+    Frame {@isReady, className: 'drawer-group'},
       div {className: 'header'},
         span {className: 'title'}, @props.team.name
         OverlayTrigger {className: 'settings', overlay: menu},
           Icon {name: 'settings'}
-      ul {}, [inboxStack].concat(backlogStacks)
+      inboxStack
+      backlogStacks
 
 }
 

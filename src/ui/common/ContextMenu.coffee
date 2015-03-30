@@ -8,7 +8,7 @@ ContextMenu = React.createClass {
   displayName: 'ContextMenu'
 
   propTypes:
-    hide: PropTypes.func
+    hideOverlay: PropTypes.func
 
   render: ->
 
@@ -18,9 +18,9 @@ ContextMenu = React.createClass {
     ul {className: 'overlay menu'}, items
 
   onMenuItemClicked: (event) ->
-    @props.hide()
     event.stopPropagation()
     event.preventDefault()
+    @props.hideOverlay()
 
 }
 

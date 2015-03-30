@@ -22,13 +22,13 @@ KindDrawerItem = React.createClass {
   render: ->
 
     classes = classSet [
+      'drawer-item'
       'active' if @getScreen('bigpicture').isPanelVisible(@props.kind.id)
     ]
 
-    ListItem {className: 'drawer-item'},
-      Link {className: classes, onClick: @toggleKind},
-        KindColorMarker {kind: @props.kind}
-        span {className: 'name'}, @props.kind.name
+    Link {className: classes, onClick: @toggleKind},
+      KindColorMarker {kind: @props.kind}
+      span {className: 'name'}, @props.kind.name
 
   toggleKind: ->
     @getScreen('bigpicture').togglePanel(new KindPanelState(@props.kind.id))

@@ -17,10 +17,10 @@ TeamList = React.createClass {
     items = _.map @props.teams, (team) =>
       TeamDrawerItem {key: team.id, team}
 
-    div {className: 'teams group'},
+    div {className: 'drawer-group'},
       div {className: 'header'},
         span {className: 'title'}, @props.title
-      ul {}, items
+      items
 
 }
 

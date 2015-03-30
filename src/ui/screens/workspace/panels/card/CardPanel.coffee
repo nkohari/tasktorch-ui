@@ -31,7 +31,7 @@ CardPanel = React.createClass {
 
   render: ->
 
-    props = mergeProps @props, {
+    props = mergeProps _.omit(@props, 'id'), {
       className: classSet [
         'card'
         'panel'

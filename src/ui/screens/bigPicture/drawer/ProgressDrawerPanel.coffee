@@ -28,10 +28,10 @@ ProgressDrawerPanel = React.createClass {
     items = _.map @state.kinds, (kind) =>
       KindDrawerItem {key: kind.id, kind}
 
-    Frame {@isReady, className: 'kinds group'},
+    Frame {@isReady, className: 'drawer-group'},
       div {className: 'header'},
         span {className: 'title'}, 'Kinds'
-      ul {}, items
+      items
 }
 
 module.exports = ProgressDrawerPanel

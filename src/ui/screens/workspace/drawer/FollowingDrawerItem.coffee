@@ -8,9 +8,7 @@ FollowingPanelState = require 'ui/screens/workspace/panels/following/FollowingPa
 Frame               = React.createFactory(require 'ui/common/Frame')
 Icon                = React.createFactory(require 'ui/common/Icon')
 Link                = React.createFactory(require 'ui/common/Link')
-List                = React.createFactory(require 'ui/common/List')
-ListItem            = React.createFactory(require 'ui/common/ListItem')
-Text                = React.createFactory(require 'ui/common/Text')
+{span}              = React.DOM
 
 FollowingDrawerItem = React.createClass {
 
@@ -31,16 +29,14 @@ FollowingDrawerItem = React.createClass {
   render: ->
 
     classes = classSet [
+      'drawer-item'
       'active' if @getScreen('workspace').isPanelVisible('following')
     ]
 
-    Frame {@isReady, className: 'group'},
-      List {},
-        ListItem {className: 'drawer-item'},
-          Link {className: classes, onClick: @toggleFollowing},
-            Icon {name: 'follow'}
-            Text {className: 'name'}, 'Following'
-            Text {className: 'count'}, @state.cards.length if @state.cards?.length > 0
+    Link {className: classes, onClick: @toggleFollowing},
+      Icon {name: 'follow'}
+      span {className: 'name'}, 'Following'
+      span {className: 'count'}, @state.cards.length if @state.cards?.length > 0
 
   toggleFollowing: ->
     @getScreen('workspace').togglePanel(new FollowingPanelState())

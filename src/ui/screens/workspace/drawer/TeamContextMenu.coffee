@@ -10,12 +10,12 @@ TeamContextMenu = React.createClass {
   displayName: 'TeamContextMenu'
 
   propTypes:
-    team: PropTypes.Team
-    hide: PropTypes.func
+    team:        PropTypes.Team
+    hideOverlay: PropTypes.func
 
   render: ->
 
-    ContextMenu {hide: @props.hide},
+    ContextMenu {hideOverlay: @props.hideOverlay},
       DialogTrigger {name: 'TeamSettings', team: @props.team},
         'Team settings'
       DialogTrigger {name: 'TeamMembers', team: @props.team},

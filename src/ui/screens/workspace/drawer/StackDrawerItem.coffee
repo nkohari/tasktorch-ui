@@ -7,8 +7,7 @@ Navigator       = require 'ui/framework/mixins/Navigator'
 StackPanelState = require 'ui/screens/workspace/panels/stack/StackPanelState'
 Icon            = React.createFactory(require 'ui/common/Icon')
 Link            = React.createFactory(require 'ui/common/Link')
-ListItem        = React.createFactory(require 'ui/common/ListItem')
-Text            = React.createFactory(require 'ui/common/Text')
+{span}          = React.DOM
 
 StackDrawerItem = React.createClass {
 
@@ -22,14 +21,14 @@ StackDrawerItem = React.createClass {
   render: ->
 
     classes = classSet [
+      'drawer-item'
       'active' if @getScreen('workspace').isPanelVisible(@props.stack.id)
     ]
 
-    ListItem {className: 'drawer-item'},
-      Link {className: classes, hotkey: @props.hotkey, onClick: @toggleStack},
-        Icon {name: "stack-#{@props.stack.type.toLowerCase()}"}
-        Text {className: 'name'}, @getStackName()
-        Text {className: 'count'}, @props.stack.cards.length if @props.stack.cards.length > 0
+    Link {className: classes, hotkey: @props.hotkey, onClick: @toggleStack},
+      Icon {name: "stack-#{@props.stack.type.toLowerCase()}"}
+      span {className: 'name'}, @getStackName()
+      span {className: 'count'}, @props.stack.cards.length if @props.stack.cards.length > 0
 
   getStackName: ->
     if @props.stack.type == StackType.Backlog

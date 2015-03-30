@@ -14,8 +14,8 @@ ChangeActionStatusOverlay = React.createClass {
   displayName: 'ChangeActionStatusOverlay'
 
   propTypes:
-    action: PropTypes.Action
-    hide:   PropTypes.func
+    action:      PropTypes.Action
+    hideOverlay: PropTypes.func
 
   mixins: [Actor]
 
@@ -39,10 +39,10 @@ ChangeActionStatusOverlay = React.createClass {
 
   onOkClicked: ->
     @publish new UserChangedActionStatusEvent(@props.action.id, @state.status)
-    @props.hide()
+    @props.hideOverlay()
 
   onCancelClicked: ->
-    @props.hide()
+    @props.hideOverlay()
 
 }
 

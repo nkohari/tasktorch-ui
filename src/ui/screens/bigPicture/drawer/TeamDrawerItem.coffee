@@ -21,13 +21,13 @@ TeamDrawerItem = React.createClass {
   render: ->
 
     classes = classSet [
+      'drawer-item'
       'active' if @getScreen('bigpicture').isPanelVisible(@props.team.id)
     ]
 
-    ListItem {className: 'drawer-item'},
-      Link {className: classes, onClick: @toggleTeam},
-        Icon {name: 'team'}
-        span {className: 'name'}, @props.team.name
+    Link {className: classes, onClick: @toggleTeam},
+      Icon {name: 'team'}
+      span {className: 'name'}, @props.team.name
 
   toggleTeam: ->
     @getScreen('bigpicture').togglePanel(new TeamPanelState(@props.team.id))

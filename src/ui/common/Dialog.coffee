@@ -10,10 +10,10 @@ Dialog = React.createClass {
   displayName: 'Dialog'
 
   propTypes:
-    close: PropTypes.func
-    icon:  PropTypes.string
-    title: PropTypes.string
-    width: PropTypes.number
+    closeDialog: PropTypes.func
+    icon:        PropTypes.string
+    title:       PropTypes.string
+    width:       PropTypes.number
 
   getDefaultProps: ->
     {width: 600}
@@ -47,7 +47,7 @@ Dialog = React.createClass {
 
   onContainerClicked: (event) ->
     if event.target == @getDOMNode()
-      @props.close()
+      @props.closeDialog()
 
 }
 
