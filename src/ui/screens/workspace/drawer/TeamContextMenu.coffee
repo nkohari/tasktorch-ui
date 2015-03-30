@@ -16,8 +16,8 @@ TeamContextMenu = React.createClass {
   render: ->
 
     ContextMenu {hideOverlay: @props.hideOverlay},
-      DialogTrigger {name: 'TeamSettings', team: @props.team},
-        'Team settings'
+      DialogTrigger {name: 'RenameTeam', team: @props.team},
+        'Rename this team'
       DialogTrigger {name: 'TeamMembers', team: @props.team},
         'Add or manage members'
 

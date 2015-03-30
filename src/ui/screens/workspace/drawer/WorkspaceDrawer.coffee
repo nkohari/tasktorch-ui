@@ -22,15 +22,12 @@ WorkspaceDrawer = React.createClass {
     stacks: cache('myStacks').get()
   }
 
-  isReady: ->
-    @state.teams? and @state.stacks?
-
   render: ->
 
     teamSections = _.map @state.teams, (team) =>
       TeamDrawerSection {key: team.id, team}
 
-    Frame {@isReady, className: 'workspace drawer'},
+    Frame {className: 'workspace drawer'},
       FollowingDrawerItem {currentUser: @props.currentUser}
       MyWorkDrawerSection {currentUser: @props.currentUser, stacks: @state.stacks}
       teamSections

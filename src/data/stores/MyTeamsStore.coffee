@@ -10,12 +10,20 @@ class MyTeamsStore extends SingletonListStore
 
   listensFor: [
     'MyTeamsLoaded'
+    'TeamCreated'
+    'TeamChanged'
   ]
 
   load: ->
     @execute new LoadMyTeamsRequest()
 
   onMyTeamsLoaded: (event) ->
-    @set(_.pluck(event.teams, 'id'))
+    @set(_.pluck(_.sortBy(event.teams, (t) -> t.name), 'id'))
+
+  onTeamChanged: (event) ->
+    @clear()
+
+  onTeamCreated: (event) ->
+    @clear()
 
 module.exports = MyTeamsStore

@@ -1,6 +1,8 @@
-Team            = require 'data/models/Team'
-ModelStore      = require 'data/framework/ModelStore'
-LoadTeamRequest = require 'data/requests/LoadTeamRequest'
+Team              = require 'data/models/Team'
+ModelStore        = require 'data/framework/ModelStore'
+CreateTeamRequest = require 'data/requests/CreateTeamRequest'
+LoadTeamRequest   = require 'data/requests/LoadTeamRequest'
+RenameTeamRequest = require 'data/requests/RenameTeamRequest'
 
 class TeamStore extends ModelStore
 
@@ -10,6 +12,10 @@ class TeamStore extends ModelStore
 
   listensFor: [
     'TeamsLoaded'
+    'TeamCreated'
+    'TeamChanged'
+    'UserCreatedTeam'
+    'UserRenamedTeam'
   ]
 
   load: (id) ->
@@ -17,5 +23,17 @@ class TeamStore extends ModelStore
 
   onTeamsLoaded: (event) ->
     @add(event.teams)
+
+  onTeamCreated: (event) ->
+    @add(event.team)
+
+  onTeamChanged: (event) ->
+    @add(event.team)
+
+  onUserCreatedTeam: (event) ->
+    @execute new CreateTeamRequest(event.name)
+
+  onUserRenamedTeam: (event) ->
+    @execute new RenameTeamRequest(event.teamid, event.name)
 
 module.exports = TeamStore

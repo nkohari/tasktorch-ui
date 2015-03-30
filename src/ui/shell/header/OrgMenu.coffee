@@ -2,8 +2,8 @@ _              = require 'lodash'
 React          = require 'react'
 PropTypes      = require 'ui/framework/PropTypes'
 Button         = React.createFactory(require 'ui/common/Button')
-List           = React.createFactory(require 'ui/common/List')
-ListItem       = React.createFactory(require 'ui/common/ListItem')
+ContextMenu    = React.createFactory(require 'ui/common/ContextMenu')
+DialogTrigger  = React.createFactory(require 'ui/common/DialogTrigger')
 OverlayTrigger = React.createFactory(require 'ui/common/OverlayTrigger')
 
 OrgMenu = React.createClass {
@@ -15,8 +15,9 @@ OrgMenu = React.createClass {
 
   render: ->
 
-    overlay = List {className: 'overlay menu'},
-      ListItem {}, 'Create a team'
+    overlay = ContextMenu {},
+      DialogTrigger {name: 'CreateTeam', team: @props.team},
+        'Create a team'
 
     OverlayTrigger {className: 'org menu-button', overlay},
       Button {text: @props.currentOrg.name, caret: true}

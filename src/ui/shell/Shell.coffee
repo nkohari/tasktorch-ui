@@ -7,10 +7,6 @@ ScreenState          = require 'ui/framework/ScreenState'
 Actor                = require 'ui/framework/mixins/Actor'
 CachedState          = require 'ui/framework/mixins/CachedState'
 Frame                = React.createFactory(require 'ui/common/Frame')
-LogOutDialog         = React.createFactory(require 'ui/dialogs/LogOutDialog')
-TeamMembersDialog    = React.createFactory(require 'ui/dialogs/TeamMembersDialog')
-TeamSettingsDialog   = React.createFactory(require 'ui/dialogs/TeamSettingsDialog')
-UserSettingsDialog   = React.createFactory(require 'ui/dialogs/UserSettingsDialog')
 DialogLayer          = React.createFactory(require 'ui/shell/DialogLayer')
 ShellHeader          = React.createFactory(require 'ui/shell/header/ShellHeader')
 ShellFooter          = React.createFactory(require 'ui/shell/footer/ShellFooter')
@@ -73,11 +69,7 @@ Shell = React.createClass {
       CSSTransitionGroup {component: 'div', className: 'shell-main', transitionName: 'navigate'},
         RouteHandler screenProps
       ShellFooter {currentOrg: @state.currentOrg, currentUser: @state.currentUser}
-      DialogLayer {},
-        LogOutDialog       {name: 'LogOut'}
-        UserSettingsDialog {name: 'UserSettings'}
-        TeamMembersDialog  {name: 'TeamMembers'}
-        TeamSettingsDialog {name: 'TeamSettings'}
+      DialogLayer {}
 
 }
 

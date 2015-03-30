@@ -27,4 +27,9 @@ class SingletonListStore extends Store
       @state = ReadyState.Loaded
       @announce()
 
+  clear: ->
+    @list = undefined
+    @state = undefined
+    @announce()
+
 module.exports = SingletonListStore

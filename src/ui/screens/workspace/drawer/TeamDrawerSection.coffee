@@ -31,16 +31,17 @@ TeamDrawerSection = React.createClass {
 
   render: ->
 
-    inboxStack = StackDrawerItem {key: 'inbox', stack: @state.inboxStack}
-    backlogStacks = _.map @state.backlogStacks, (stack) =>
-      StackDrawerItem {key: stack.id, stack}
+    if @state.inboxStack?
+      inboxStack = StackDrawerItem {key: 'inbox', stack: @state.inboxStack}
 
-    menu = TeamContextMenu {team: @props.team}
+    if @state.backlogStacks?
+      backlogStacks = _.map @state.backlogStacks, (stack) =>
+        StackDrawerItem {key: stack.id, stack}
 
-    Frame {@isReady, className: 'drawer-group'},
+    Frame {className: 'drawer-group'},
       div {className: 'header'},
         span {className: 'title'}, @props.team.name
-        OverlayTrigger {className: 'settings', overlay: menu},
+        OverlayTrigger {className: 'settings', overlay: TeamContextMenu {team: @props.team}},
           Icon {name: 'settings'}
       inboxStack
       backlogStacks

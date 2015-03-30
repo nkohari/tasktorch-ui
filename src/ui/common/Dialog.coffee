@@ -1,3 +1,4 @@
+_                  = require 'lodash'
 React              = require 'react/addons'
 PropTypes          = require 'ui/framework/PropTypes'
 mergeProps         = require 'common/util/mergeProps'
@@ -24,7 +25,7 @@ Dialog = React.createClass {
 
   render: ->
 
-    props = mergeProps @props, {
+    props = mergeProps _.omit(@props, 'icon', 'title', 'width'), {
       className: 'dialog-content'
     }
 
