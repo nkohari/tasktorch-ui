@@ -23,6 +23,7 @@ Overlay = React.createClass {
       className: classSet [
         'overlay'
         @props.position
+        'with-arrow' if @props.arrow
       ]
     }
 

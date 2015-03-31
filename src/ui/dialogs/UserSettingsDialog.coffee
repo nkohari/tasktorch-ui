@@ -1,8 +1,9 @@
-React     = require 'react'
-PropTypes = require 'ui/framework/PropTypes'
-Button    = React.createFactory(require 'ui/common/Button')
-Dialog    = React.createFactory(require 'ui/common/Dialog')
-{div}     = React.DOM
+React         = require 'react'
+PropTypes     = require 'ui/framework/PropTypes'
+Button        = React.createFactory(require 'ui/common/Button')
+Dialog        = React.createFactory(require 'ui/common/Dialog')
+DialogButtons = React.createFactory(require 'ui/common/DialogButtons')
+{div}         = React.DOM
 
 UserSettingsDialog = React.createClass {
 
@@ -15,7 +16,7 @@ UserSettingsDialog = React.createClass {
 
     Dialog {icon: 'settings', title: 'Preferences', closeDialog: @props.closeDialog},
       'Nothing to configure yet',
-      div {className: 'dialog-buttons'},
+      DialogButtons {},
         Button {text: 'Close', onClick: @props.closeDialog}
 
 }

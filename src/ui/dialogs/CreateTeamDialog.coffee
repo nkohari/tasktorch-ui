@@ -4,12 +4,15 @@ PropTypes            = require 'ui/framework/PropTypes'
 Actor                = require 'ui/framework/mixins/Actor'
 Button               = React.createFactory(require 'ui/common/Button')
 Dialog               = React.createFactory(require 'ui/common/Dialog')
-DialogField          = React.createFactory(require 'ui/common/DialogField')
-{div}                = React.DOM
+DialogButtons        = React.createFactory(require 'ui/common/DialogButtons')
+Field                = React.createFactory(require 'ui/common/Field')
+FieldGroup           = React.createFactory(require 'ui/common/FieldGroup')
+MembershipEditor     = React.createFactory(require 'ui/common/MembershipEditor')
+{div, input}         = React.DOM
 
-RenameTeamDialog = React.createClass {
+CreateTeamDialog = React.createClass {
 
-  displayName: 'RenameTeamDialog'
+  displayName: 'CreateTeamDialog'
 
   props:
     team:        PropTypes.Team
@@ -19,27 +22,36 @@ RenameTeamDialog = React.createClass {
 
   getInitialState: -> {
     dirty: false
-    value: ''
+    name:  ''
   }
 
   componentDidMount: ->
-    @refs.name.focus()
+    node = @refs.name.getDOMNode()
+    node.focus()
+    node.select()
 
   render: ->
 
-    Dialog {icon: 'team', title: 'Create Team', closeDialog: @props.closeDialog},
-      DialogField {ref: 'name', name: 'Name', note: 'ex. Engineering, HR, World Peace Initiative, Secret Project Team', @onChange}
-      div {className: 'dialog-buttons'},
-        Button {text: 'Create Team', disabled: !@state.dirty, onClick: @renameTeam}
+    Dialog {icon: 'team', title: 'Create a team', closeDialog: @props.closeDialog},
+      FieldGroup {},
+        Field {label: 'Name', note: 'ex. Engineering, HR, World Peace Initiative, Secret Project Team'},
+          input {ref: 'name', value: @state.name, onChange: @onNameChanged}
+        Field {label: 'Members'},
+          MembershipEditor {}
+      DialogButtons {},
+        Button {text: 'Create Team', disabled: !@isValid(), onClick: @createTeam}
         Button {text: 'Cancel',      onClick: @props.closeDialog}
 
-  onChange: (event) ->
-    @setState {dirty: true, value: event.target.value}
+  isValid: ->
+    @state.name?.length > 0
 
-  renameTeam: ->
-    @publish new UserCreatedTeamEvent(@state.value)
+  onNameChanged: (event) ->
+    @setState {dirty: true, name: event.target.value}
+
+  createTeam: ->
+    @publish new UserCreatedTeamEvent(@state.name)
     @props.closeDialog()
 
 }
 
-module.exports = RenameTeamDialog
+module.exports = CreateTeamDialog

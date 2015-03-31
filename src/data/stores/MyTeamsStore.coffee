@@ -12,6 +12,7 @@ class MyTeamsStore extends SingletonListStore
     'MyTeamsLoaded'
     'TeamCreated'
     'TeamChanged'
+    'TeamDeleted'
   ]
 
   load: ->
@@ -24,6 +25,9 @@ class MyTeamsStore extends SingletonListStore
     @clear()
 
   onTeamCreated: (event) ->
+    @clear()
+
+  onTeamDeleted: (event) ->
     @clear()
 
 module.exports = MyTeamsStore

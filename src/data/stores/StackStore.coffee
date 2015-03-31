@@ -1,6 +1,8 @@
-Stack            = require 'data/models/Stack'
-ModelStore       = require 'data/framework/ModelStore'
-LoadStackRequest = require 'data/requests/LoadStackRequest'
+Stack                  = require 'data/models/Stack'
+ModelStore             = require 'data/framework/ModelStore'
+LoadStackRequest       = require 'data/requests/LoadStackRequest'
+CreateTeamStackRequest = require 'data/requests/CreateTeamStackRequest'
+CreateUserStackRequest = require 'data/requests/CreateUserStackRequest'
 
 class StackStore extends ModelStore
 
@@ -11,6 +13,9 @@ class StackStore extends ModelStore
   listensFor: [
     'StacksLoaded'
     'StackChanged'
+    'StackCreated'
+    'UserCreatedStack'
+    'UserCreatedTeamStack'
   ]
 
   load: (id) ->
@@ -21,5 +26,14 @@ class StackStore extends ModelStore
 
   onStackChanged: (event) ->
     @add(event.stack)
+
+  onStackCreated: (event) ->
+    @add(event.stack)
+
+  onUserCreatedStack: (event) ->
+    @execute new CreateUserStackRequest(event.name)
+
+  onUserCreatedTeamStack: (event) ->
+    @execute new CreateTeamStackRequest(event.teamid, event.name)
 
 module.exports = StackStore

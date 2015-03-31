@@ -1,8 +1,11 @@
-_               = require 'lodash'
-React           = require 'react'
-StackType       = require 'data/enums/StackType'
-StackDrawerItem = React.createFactory(require 'ui/screens/workspace/drawer/StackDrawerItem')
-{div, span, ul} = React.DOM
+_                 = require 'lodash'
+React             = require 'react'
+StackType         = require 'data/enums/StackType'
+Icon              = React.createFactory(require 'ui/common/Icon')
+OverlayTrigger    = React.createFactory(require 'ui/common/OverlayTrigger')
+MyWorkContextMenu = React.createFactory(require 'ui/screens/workspace/drawer/MyWorkContextMenu')
+StackDrawerItem   = React.createFactory(require 'ui/screens/workspace/drawer/StackDrawerItem')
+{div, span, ul}   = React.DOM
 
 MyWorkDrawerSection = React.createClass {
 
@@ -13,6 +16,8 @@ MyWorkDrawerSection = React.createClass {
     div {className: 'drawer-group'},
       div {className: 'header'},
         span {className: 'title'}, 'My Work'
+        OverlayTrigger {className: 'settings', overlay: MyWorkContextMenu {}},
+          Icon {name: 'settings'}
       @renderItems()
 
   renderItems: ->

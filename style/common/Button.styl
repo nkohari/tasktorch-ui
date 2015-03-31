@@ -33,6 +33,7 @@ button, a.button
   &.warning
     border-color: $warning-border-color
     background: linear-gradient(to bottom, $warning-highlight-color, $warning-lowlight-color)
+    &:active, &.active { background: $warning-lowlight-color }
   
   &:active, &.active
     color: $dark-black

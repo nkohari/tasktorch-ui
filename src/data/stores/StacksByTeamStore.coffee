@@ -10,6 +10,7 @@ class StacksByTeamStore extends ListStore
 
   listensFor: [
     'StacksByTeamLoaded'
+    'StackCreated'
   ]
 
   load: (id) ->
@@ -17,5 +18,8 @@ class StacksByTeamStore extends ListStore
 
   onStacksByTeamLoaded: (event) ->
     @set(event.teamid, _.pluck(event.stacks, 'id'))
+
+  onStackCreated: (event) ->
+    @remove(event.stack.team) if event.stack.team?
 
 module.exports = StacksByTeamStore

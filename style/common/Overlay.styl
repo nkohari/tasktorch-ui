@@ -3,7 +3,7 @@
   z-index: $floating-layer
   margin: 2px 0 0 0
   padding: 6px
-  color: $black
+  color: $soft-text-color
   font-size: 14px
   border: 1px solid $overlay-border-color
   background: $overlay-background-color
@@ -11,14 +11,22 @@
   outline: none !important
   
   &.menu
-    width: 100%
+    min-width: 120px
     padding: 0
+    .icon
+      margin-right: 4px
+    .separator
+      height: 1px
+      background: $overlay-separator-color
     .menu-item a
       display: block
       font-size: 14px
       font-weight: $bold-font-weight
-      padding: 6px 10px 6px 10px
-      &:hover { background: $button-lowlight-color }
+      padding: 6px 10px 6px 6px
+      white-space: nowrap
+      &:hover
+        color: $text-color
+        background: $button-lowlight-color
 
   &.right
     right: 0
@@ -32,7 +40,7 @@
   .arrow:after
     content: " "
 
-  &.left
+  &.left.with-arrow
     margin-top: ($arrow-width + 2)
     .arrow
       top: -($arrow-width)
@@ -45,7 +53,7 @@
         border-top-width: 0
         border-bottom-color: $overlay-background-color
         
-  &.right
+  &.right.with-arrow
     margin-top: ($arrow-width + 2)
     .arrow
       top: -($arrow-width)

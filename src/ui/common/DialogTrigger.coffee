@@ -15,7 +15,8 @@ DialogTrigger = React.createClass {
   mixins: [Actor]
 
   render: ->
-    a {@onClick}, @props.children
+
+    a {className: @props.className, @onClick}, @props.children
 
   onClick: ->
     @publish new UserOpenedDialogEvent(@props.name, _.omit(@props, 'name'))

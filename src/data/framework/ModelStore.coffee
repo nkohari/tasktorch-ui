@@ -22,6 +22,11 @@ class ModelStore extends Store
         @load(id)
       return undefined
 
+  # TODO: This is inefficient; it'll make a separate call for each cache miss.
+  # We should roll this up into a bulk-get request.
+  getAll: (ids) ->
+    _.compact _.map ids, (id) => @get(id)
+
   set: (id, model) ->
     if compare.values(model, @models[id])
       console.debug("#{@displayName}: Ignoring set() for %O", model)

@@ -4,19 +4,21 @@ PropTypes      = require 'ui/framework/PropTypes'
 Button         = React.createFactory(require 'ui/common/Button')
 ContextMenu    = React.createFactory(require 'ui/common/ContextMenu')
 DialogTrigger  = React.createFactory(require 'ui/common/DialogTrigger')
+Icon           = React.createFactory(require 'ui/common/Icon')
 OverlayTrigger = React.createFactory(require 'ui/common/OverlayTrigger')
 
-OrgMenu = React.createClass {
+OrgContextMenu = React.createClass {
 
-  displayName: 'OrgMenu'
+  displayName: 'OrgContextMenu'
 
   propTypes:
     currentOrg: PropTypes.Org
 
   render: ->
 
-    overlay = ContextMenu {},
+    overlay = ContextMenu {position: 'right'},
       DialogTrigger {name: 'CreateTeam', team: @props.team},
+        Icon {name: 'team'}
         'Create a team'
 
     OverlayTrigger {className: 'org menu-button', overlay},
@@ -24,4 +26,4 @@ OrgMenu = React.createClass {
 
 }
 
-module.exports = OrgMenu
+module.exports = OrgContextMenu

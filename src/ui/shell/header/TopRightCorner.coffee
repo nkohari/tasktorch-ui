@@ -1,8 +1,8 @@
-_           = require 'lodash'
-React       = require 'react'
-PropTypes   = require 'ui/framework/PropTypes'
-Frame       = React.createFactory(require 'ui/common/Frame')
-OrgMenu     = React.createFactory(require 'ui/shell/header/OrgMenu')
+_              = require 'lodash'
+React          = require 'react'
+PropTypes      = require 'ui/framework/PropTypes'
+Frame          = React.createFactory(require 'ui/common/Frame')
+OrgContextMenu = React.createFactory(require 'ui/shell/header/OrgContextMenu')
 
 TopRightCorner = React.createClass {
 
@@ -15,7 +15,7 @@ TopRightCorner = React.createClass {
   render: ->
 
     Frame {className: 'top-right'},
-      OrgMenu {currentOrg: @props.currentOrg}
+      OrgContextMenu {currentOrg: @props.currentOrg}
 
 }
 

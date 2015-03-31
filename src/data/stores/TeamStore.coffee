@@ -1,6 +1,7 @@
 Team              = require 'data/models/Team'
 ModelStore        = require 'data/framework/ModelStore'
 CreateTeamRequest = require 'data/requests/CreateTeamRequest'
+DeleteTeamRequest = require 'data/requests/DeleteTeamRequest'
 LoadTeamRequest   = require 'data/requests/LoadTeamRequest'
 RenameTeamRequest = require 'data/requests/RenameTeamRequest'
 
@@ -14,7 +15,9 @@ class TeamStore extends ModelStore
     'TeamsLoaded'
     'TeamCreated'
     'TeamChanged'
+    'TeamDeleted'
     'UserCreatedTeam'
+    'UserDeletedTeam'
     'UserRenamedTeam'
   ]
 
@@ -30,8 +33,14 @@ class TeamStore extends ModelStore
   onTeamChanged: (event) ->
     @add(event.team)
 
+  onTeamDeleted: (event) ->
+    @remove(event.team.id)
+
   onUserCreatedTeam: (event) ->
     @execute new CreateTeamRequest(event.name)
+
+  onUserDeletedTeam: (event) ->
+    @execute new DeleteTeamRequest(event.teamid)
 
   onUserRenamedTeam: (event) ->
     @execute new RenameTeamRequest(event.teamid, event.name)

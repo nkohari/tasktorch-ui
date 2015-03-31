@@ -4,8 +4,10 @@ PropTypes            = require 'ui/framework/PropTypes'
 Actor                = require 'ui/framework/mixins/Actor'
 Button               = React.createFactory(require 'ui/common/Button')
 Dialog               = React.createFactory(require 'ui/common/Dialog')
-DialogField          = React.createFactory(require 'ui/common/DialogField')
-{div, label, input}  = React.DOM
+DialogButtons        = React.createFactory(require 'ui/common/DialogButtons')
+Field                = React.createFactory(require 'ui/common/Field')
+FieldGroup           = React.createFactory(require 'ui/common/FieldGroup')
+{div, input}         = React.DOM
 
 RenameTeamDialog = React.createClass {
 
@@ -18,26 +20,38 @@ RenameTeamDialog = React.createClass {
   mixins: [Actor]
 
   getInitialState: -> {
-    value: @props.team.name
-    dirty: false
+    name:     @props.team.name
+    previous: @props.team.name
+    dirty:    false
   }
 
   componentDidMount: ->
-    @refs.name.focus()
+    node = @refs.name.getDOMNode()
+    node.focus()
+    node.select()
 
   render: ->
 
     Dialog {icon: 'team', title: "Rename #{@props.team.name}", closeDialog: @props.closeDialog},
-      DialogField {ref: 'name', name: 'Name', value: @state.value, note: 'ex. Engineering, HR, World Peace Initiative, Secret Project Team', @onChange}
-      div {className: 'dialog-buttons'},
-        Button {text: 'Rename Team', disabled: !@state.dirty, onClick: @renameTeam}
+      FieldGroup {},
+        Field {label: 'Name', note: 'ex. Engineering, HR, World Peace Initiative, Secret Project Team'},
+          input {ref: 'name', value: @state.name, onChange: @onNameChanged}
+      DialogButtons {},
+        Button {text: 'Rename Team', disabled: !@isValid(), onClick: @renameTeam}
         Button {text: 'Cancel',      onClick: @props.closeDialog}
 
-  onChange: (event) ->
-    @setState {dirty: true, value: event.target.value}
+  isValid: ->
+    @state.name?.length > 0
+
+  onNameChanged: (event) ->
+    @setState {
+      name: event.target.value
+      dirty: event.target.value != @state.previous
+    }
 
   renameTeam: ->
-    @publish new UserRenamedTeamEvent(@props.team.id, @state.value)
+    unless @state.name == @state.previous
+      @publish new UserRenamedTeamEvent(@props.team.id, @state.name)
     @props.closeDialog()
 
 }

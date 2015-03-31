@@ -37,7 +37,7 @@ Dialog = React.createClass {
     style = {width: @props.width}
     style.marginTop = @getMarginAdjustment() if @isMounted()
 
-    CSSTransitionGroup {component: 'div', className: 'dialog-backdrop', transitionName: 'fade', onClick: @onContainerClicked},
+    div {className: 'dialog-backdrop', onClick: @onContainerClicked},
       div {ref: 'dialog', className: 'dialog', style},
         header
         div props, @props.children

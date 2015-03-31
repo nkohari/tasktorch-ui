@@ -37,6 +37,7 @@ class ListStore extends Store
   remove: (id) ->
     @lists[id] = undefined
     @states[id] = undefined if @states[id] == ReadyState.Loaded
+    @announce()
 
   clear: ->
     @lists = {}
