@@ -17,7 +17,7 @@ MyWorkDrawerSection = React.createClass {
       div {className: 'header'},
         span {className: 'title'}, 'My Work'
         OverlayTrigger {className: 'settings', overlay: MyWorkContextMenu {}},
-          Icon {name: 'settings'}
+          Icon {name: 'menu'}
       @renderItems()
 
   renderItems: ->
