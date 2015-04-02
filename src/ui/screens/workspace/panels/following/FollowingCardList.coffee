@@ -18,10 +18,7 @@ FollowingCardList = React.createClass {
       FollowingCard {key: card.id, card}
 
     div {className: 'following-card-list'},
-      Block {title: 'Changed'},
-        ul {}
-      Block {title: 'Unchanged'},
-        ul {}, cards
+      ul {}, cards
 
 }
 

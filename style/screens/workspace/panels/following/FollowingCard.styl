@@ -1,10 +1,8 @@
 .following-card
-  list-style-type: none
-  position: relative;
   border-bottom: 1px solid #bbb
   
   a
-    display: block
+    display: flex
     width: 100%
     padding: 4px 6px
     color: $black
@@ -15,46 +13,48 @@
     &.active { background: #ececec }
 
     .card-owner
-      float: left
-      width: 28px
-      height: 28px
+      flex: none
+      width: 36px
+      height: 36px
       padding: 2px
       border: 1px solid $steel-light-border-color
       border-radius: 50%
       background: $bright-white
     
-    .title
-      padding-left: 6px
-      color: $text-color
-      font-size: 16px
-      font-weight: $bold-font-weight
-      line-height: 20px
-      overflow: hidden
-      text-overflow: ellipsis
-      white-space: nowrap
-
-    .widgets
-      padding-left: 34px
+    .card-summary
+      flex: 1
+      margin-left: 6px
       
-      .location
-        display: inline-block
-        width: 120px
-        color: $subtle-text-color
-        font-size: 12px
-        line-height: 18px
-        i
-          font-size: 12px
+      .title
+        color: $text-color
+        font-size: 16px
+        font-weight: $bold-font-weight
+        line-height: 20px
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
 
-      .progress
-        display: inline-block
-        color: #666
-        font-size: 10px
-        font-weight: $heavy-font-weight
-        width: 100px
-        background: #ddd
-        border: 1px solid #bbb
-        padding: 1px 0
-        text-align: center
-        border-radius: 10px
-        .count
-          padding: 0 2px
+      .widgets
+        
+        .location
+          display: inline-block
+          width: 120px
+          color: $subtle-text-color
+          font-size: 12px
+          line-height: 18px
+          i
+            font-size: 12px
+
+        .progress
+          display: inline-block
+          color: #666
+          font-size: 10px
+          font-weight: $heavy-font-weight
+          width: 100px
+          background: #ddd
+          border: 1px solid #bbb
+          padding: 1px 0
+          text-align: center
+          border-radius: 10px
+          .count
+            padding: 0 2px

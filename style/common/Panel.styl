@@ -11,33 +11,3 @@
   &.ui-sortable-helper
     display: block
     cursor: move
-  
-  & > .header
-    flex: none
-    width: 100%
-    height: $stack-header-height
-    font-size: 14px
-    font-weight: $bold-font-weight
-    color: $black
-    background: linear-gradient(to bottom, #eee, #ccc)
-    overflow: hidden
-    padding: 8px 6px
-    border-bottom: 1px solid $panel-border-color
-    display: flex
-    flex-direction: row
-    
-    .panel-icon
-      line-height: 16px
-      margin-right: 0
-    
-    .title
-      flex: 1
-      margin-left: 6px
-      
-    .controls
-      display: flex
-      i
-        margin-right: 0
-        color: $close-link-color
-        transition: color $hover-animation-delay linear
-        &:hover { color: $close-link-hover-color }

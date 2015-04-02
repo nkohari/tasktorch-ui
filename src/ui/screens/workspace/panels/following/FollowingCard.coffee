@@ -8,10 +8,8 @@ CardPanelState = require 'ui/screens/workspace/panels/card/CardPanelState'
 CardLocation   = React.createFactory(require 'ui/common/CardLocation')
 CardOwner      = React.createFactory(require 'ui/common/CardOwner')
 Link           = React.createFactory(require 'ui/common/Link')
-Frame          = React.createFactory(require 'ui/common/Frame')
 ListItem       = React.createFactory(require 'ui/common/ListItem')
-StackName      = React.createFactory(require 'ui/common/StackName')
-Time           = React.createFactory(require 'ui/common/Time')
+{div}          = React.DOM
 
 FollowingCard = React.createClass {
 
@@ -44,10 +42,11 @@ FollowingCard = React.createClass {
     ListItem {@isReady, className: 'following-card'},
       Link {className: classes, style, onClick: @showCard},
         CardOwner {user: @state.user, team: @state.team}
-        Frame {className: 'title'},
-          @props.card.title or 'Untitled Card'
-        Frame {className: 'widgets'},
-          CardLocation {card: @props.card, stack: @state.stack}
+        div {className: 'card-summary'},
+          div {className: 'title'},
+            @props.card.title or 'Untitled Card'
+          div {className: 'widgets'},
+            CardLocation {card: @props.card, stack: @state.stack}
 
   showCard: ->
     @getScreen('workspace').addPanelAfter('following', new CardPanelState(@props.card.id))

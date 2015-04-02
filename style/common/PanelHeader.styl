@@ -1,0 +1,34 @@
+.panel > .header
+  flex: none
+  width: 100%
+  height: $stack-header-height
+  font-size: 14px
+  line-height: 16px
+  font-weight: $bold-font-weight
+  color: $panel-header-text-color
+  background: linear-gradient(to bottom, #eee, #ccc)
+  overflow: hidden
+  padding: 8px 6px
+  border-bottom: 1px solid $panel-border-color
+  display: flex
+  flex-direction: row
+  
+  .panel-icon
+    line-height: 16px
+    margin-right: 0
+  
+  .title
+    flex: 1
+    margin-left: 6px
+    
+  .controls
+    display: flex
+    .trigger
+      cursor: pointer
+      margin-right: 4px
+    .trigger > i, .close > i
+      margin-right: 0
+      color: $panel-header-trigger-color
+      transition: color $hover-animation-delay linear
+      &:hover { color: $panel-header-text-color }
+      &.active { color: $panel-header-text-color }
