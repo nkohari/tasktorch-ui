@@ -8,6 +8,7 @@
     margin: 0
     padding: 0 10px
     height: $shell-header-height
+    line-height: 20px
     
     a
       display: block
@@ -19,6 +20,7 @@
       font-size: 16px
       padding-top: 10px
       transition: color $hover-animation-delay linear
+      & > i { margin-right: 6px }
       
       &:hover
         color: $nav-link-hover-color
@@ -27,7 +29,3 @@
         color: $nav-link-active-color
         font-weight: $bold-font-weight
         border-bottom: 1px solid $nav-highlight-color
-        
-      .icon
-        padding-right: 20px
-      

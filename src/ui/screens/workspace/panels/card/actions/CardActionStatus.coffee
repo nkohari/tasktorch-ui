@@ -16,7 +16,7 @@ CardActionStatus = React.createClass {
     overlay = ChangeActionStatusOverlay {action: @props.action}
 
     OverlayTrigger {className: 'card-action-status', overlay},
-      Icon {name: "action-#{@props.action.status.toLowerCase()}"}
+      Icon {name: @props.action.status.toLowerCase()}
 
 }
 

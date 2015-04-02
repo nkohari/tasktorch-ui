@@ -24,7 +24,7 @@ UserOrTeamSelectorOption = React.createClass {
 
   renderAsTeam: (team) ->
     div {},
-      Icon {name: 'users'}
+      Icon {name: 'team'}
       team.name
 
 }

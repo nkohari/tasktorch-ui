@@ -5,22 +5,25 @@
 
   .left-controls
     flex: none
-    margin-right: 4px
-    .icon
-      padding-top: 4px
-      color: #999
+    background-color: #efefef
+    padding: 4px 2px
+    line-height: 24px
+    i
+      margin: 0
+      line-height: 24px
+      color: #ccc
       transition: color $hover-animation-delay linear
       &:hover { color: $black }
-    .icon-handle { cursor: move }
+    .icon-move { cursor: move }
     
   .right-controls
     flex: none
     margin-left: 4px
+    line-height: 24px
     opacity: 0
     transition: opacity $hover-animation-delay linear
-    .icon
-      padding-top: 4px
-      color: #999
+    i
+      color: #ccc
       transition: color $hover-animation-delay linear
       &:hover { color: $black }
     .icon-trash { cursor: pointer }

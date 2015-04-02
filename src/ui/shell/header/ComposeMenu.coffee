@@ -8,7 +8,7 @@ Navigator            = require 'ui/framework/mixins/Navigator'
 PropTypes            = require 'ui/framework/PropTypes'
 CardPanelState       = require 'ui/screens/workspace/panels/card/CardPanelState'
 Button               = React.createFactory(require 'ui/common/Button')
-KindColorMarker      = React.createFactory(require 'ui/common/KindColorMarker')
+KindIcon             = React.createFactory(require 'ui/common/KindIcon')
 List                 = React.createFactory(require 'ui/common/List')
 ListItem             = React.createFactory(require 'ui/common/ListItem')
 Overlay              = React.createFactory(require 'ui/common/Overlay')
@@ -37,7 +37,7 @@ ComposeMenu = React.createClass {
     items = _.map @state.kinds, (kind) =>
       li {key: kind.id, className: 'menu-item'},
         a {onClick: @onItemClicked.bind(this, kind)},
-          KindColorMarker {kind}
+          KindIcon {kind}
           kind.name
 
     overlay = ul {className: 'overlay menu'}, items

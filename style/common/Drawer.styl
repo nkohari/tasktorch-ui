@@ -26,7 +26,7 @@
     .header
       display: flex
       flex-direction: row
-      padding: 8px 6px
+      padding: 8px 4px
       color: $drawer-header-text-color
       
       .title
@@ -38,11 +38,13 @@
       .trigger
         flex: none
         cursor: pointer
-        line-height: 18px
+        color: #666
         transition-property: color
         transition-duration: $hover-animation-delay
         &:hover, &.active { color: $white }
-        & > .icon { width: auto }
+        & > i
+          margin-right: 0
+          line-height: 16px
   
   .drawer-item
     display: block
@@ -55,29 +57,21 @@
     text-decoration: none
     transition-property: color, background
     transition-duration: $hover-animation-delay
+    & > i { margin-right: 8px }
     
     &:hover, &:active
       color: $drawer-active-text-color
-      .icon { color: $drawer-active-text-color }
-      .count { color: $drawer-active-text-color }
     
     &.active
       color: $drawer-active-text-color
       background: $drawer-active-background-color
-      .icon { color: $drawer-active-text-color }
-      .count { color: $drawer-active-text-color }
-
-    .icon
-      margin-right: 4px
 
     .count
       min-width: 30px
-      margin-top: 2px
       margin-left: 10px
       float: right
-      padding: 3px 7px
+      padding: 4px 7px
       background: #111
-      color: $drawer-text-color
       font-size: 12px
       font-weight: $heavy-font-weight
       text-shadow: none

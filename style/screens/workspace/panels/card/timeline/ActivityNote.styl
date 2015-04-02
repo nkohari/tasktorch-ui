@@ -11,17 +11,19 @@
     background: #ddd
     border: 2px solid #fff
     border-radius: 50%
-    font: 24px/24px $icon-font
+    font-size: 14px
+    padding-top: 4px
     margin-right: 6px
   
   .activity-body
     min-height: 30px
     line-height: 20px
-    padding-top: 3px
+    padding-top: 6px
     
     em
       font-style: normal
       font-weight: $bold-font-weight
+      i { margin-right: 0 }
         
     em::before, span::before, time::before
       content: " "
@@ -33,9 +35,6 @@
       font-size: 14px
       color: #999
       white-space: nowrap
-    
-    .icon
-      width: auto
   
     .avatar
       display: inline-block

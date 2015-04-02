@@ -3,8 +3,7 @@ React              = require 'react'
 PropTypes          = require 'ui/framework/PropTypes'
 CachedState        = require 'ui/framework/mixins/CachedState'
 Frame              = React.createFactory(require 'ui/common/Frame')
-Icon               = React.createFactory(require 'ui/common/Icon')
-PanelCloseLink     = React.createFactory(require 'ui/common/PanelCloseLink')
+PanelHeader        = React.createFactory(require 'ui/common/PanelHeader')
 QueueColumn        = React.createFactory(require 'ui/screens/bigPicture/panels/team/QueueColumn')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
 {div}              = React.DOM
@@ -32,9 +31,7 @@ TeamPanel = React.createClass {
       QueueColumn {key: user.id, user}
 
     Frame {@isReady, className: 'team panel'},
-      PanelCloseLink {id: @props.id}
-      div {className: 'header'},
-        Icon {name: 'team'}
+      PanelHeader {panelid: @props.id, icon: 'team'},
         @state.team?.name
       div {className: 'columns'}, items
       div {className: 'footer'}

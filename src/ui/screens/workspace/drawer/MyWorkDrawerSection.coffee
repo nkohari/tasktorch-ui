@@ -17,7 +17,7 @@ MyWorkDrawerSection = React.createClass {
       div {className: 'header'},
         span {className: 'title'}, 'My Work'
         OverlayTrigger {className: 'settings', overlay: MyWorkContextMenu {}},
-          Icon {name: 'menu'}
+          Icon {name: 'trigger'}
       @renderItems()
 
   renderItems: ->
@@ -35,7 +35,7 @@ MyWorkDrawerSection = React.createClass {
     ]
 
     backlogStacks = _.map @getBacklogStacks(), (stack) =>
-      StackDrawerItem {key: "stack-#{stack.id}", stack}
+      StackDrawerItem {key: stack.id, stack}
 
     return specialStacks.concat(backlogStacks)
 

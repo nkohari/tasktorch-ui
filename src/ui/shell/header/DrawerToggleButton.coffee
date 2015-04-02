@@ -16,13 +16,14 @@ DrawerToggleButton = React.createClass {
     isActive = @getCurrentScreen().isDrawerVisible()
 
     classes = classSet [
+      'drawer-toggle'
       'button'
       'icon-only'
       'active' if isActive
     ]
 
     Link {className: classes, hotkey: 'd', onClick: @toggleDrawer},
-      Icon {name: if isActive then 'chevron-left' else 'chevron-right'}
+      Icon {name: 'drawer'}
 
   toggleDrawer: ->
     @getCurrentScreen().toggleDrawer()

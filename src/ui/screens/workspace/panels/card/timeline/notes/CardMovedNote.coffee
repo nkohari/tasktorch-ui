@@ -30,7 +30,7 @@ CardMovedNote = React.createClass {
   render: ->
 
     Frame {@isReady, className: 'activity'},
-      Icon {className: 'activity-icon', name: 'edit'}
+      Icon {className: 'activity-icon', name: 'move'}
       div {className: 'activity-body'},
         UserWidget {user: @props.user}
         'moved the card to'

@@ -27,7 +27,7 @@ CardActionOwner = React.createClass {
     if @state.user?
       contents = Avatar {user: @state.user}
     else
-      contents = Icon {name: 'assign'}
+      contents = Icon {name: 'user'}
 
     overlay = ChangeActionOwnerOverlay {action: @props.action}
 

@@ -44,7 +44,7 @@ StageCard = React.createClass {
           Avatar {className: 'stage-card-owner', user: @state.user}
           div {className: 'title'}, @props.card.title or 'Untitled Card'
           div {className: 'stack'},
-            Icon      {name: "stack-#{@state.stack?.type.toLowerCase()}"}
+            Icon      {name: @state.stack?.type.toLowerCase()}
             StackName {stack: @state.stack}
         div {className: 'actions'},
           checklists

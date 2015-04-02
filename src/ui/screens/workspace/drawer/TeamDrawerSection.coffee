@@ -42,7 +42,7 @@ TeamDrawerSection = React.createClass {
       div {className: 'header'},
         span {className: 'title'}, @props.team.name
         OverlayTrigger {className: 'settings', overlay: TeamContextMenu {team: @props.team}},
-          Icon {name: 'menu'}
+          Icon {name: 'trigger'}
       inboxStack
       backlogStacks
 

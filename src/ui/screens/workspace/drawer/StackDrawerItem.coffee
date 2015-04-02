@@ -26,7 +26,7 @@ StackDrawerItem = React.createClass {
     ]
 
     Link {className: classes, hotkey: @props.hotkey, onClick: @toggleStack},
-      Icon {name: "stack-#{@props.stack.type.toLowerCase()}"}
+      Icon {name: @props.stack.type.toLowerCase()}
       span {className: 'name'}, @getStackName()
       span {className: 'count'}, @props.stack.cards.length if @props.stack.cards.length > 0
 

@@ -17,8 +17,8 @@ MyWorkContextMenu = React.createClass {
 
     ContextMenu {hideOverlay: @props.hideOverlay},
       DialogTrigger {name: 'CreateStack', team: @props.team},
-        Icon {name: 'stack-backlog'}
-        'Create a new stack'
+        Icon {name: 'stack'}
+        'Create a stack'
 
 }
 

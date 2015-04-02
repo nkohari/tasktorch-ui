@@ -7,30 +7,24 @@ DialogTrigger        = React.createFactory(require 'ui/common/DialogTrigger')
 Icon                 = React.createFactory(require 'ui/common/Icon')
 {div}                = React.DOM
 
-TeamContextMenu = React.createClass {
+StackContextMenu = React.createClass {
 
-  displayName: 'TeamContextMenu'
+  displayName: 'StackContextMenu'
 
   propTypes:
-    team:        PropTypes.Team
+    stack:       PropTypes.Stack
     hideOverlay: PropTypes.func
 
   render: ->
 
     ContextMenu {hideOverlay: @props.hideOverlay},
-      DialogTrigger {name: 'RenameTeam', team: @props.team},
+      DialogTrigger {name: 'RenameStack', stack: @props.stack},
         Icon {name: 'edit'}
-        'Rename this team'
-      DialogTrigger {name: 'TeamMembers', team: @props.team},
-        Icon {name: 'team'}
-        'Manage membership'
-      DialogTrigger {name: 'CreateStack', team: @props.team},
-        Icon {name: 'stack'}
-        'Create a stack'
+        'Rename this stack'
       ContextMenuSeparator {}
-      DialogTrigger {name: 'DeleteTeam', team: @props.team},
+      DialogTrigger {name: 'DeleteStack', stack: @props.stack},
         Icon {name: 'trash'}
-        'Delete this team'
+        'Delete this stack'
 }
 
-module.exports = TeamContextMenu
+module.exports = StackContextMenu

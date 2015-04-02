@@ -24,7 +24,7 @@ StackWidget = React.createClass {
   render: ->
 
     em {className: 'stack-widget'},
-      Icon {name: "stack-#{@props.stack.type.toLowerCase()}"}
+      Icon {name: @props.stack.type.toLowerCase()}
       @formatStackName()
 
   formatStackName: ->

@@ -14,7 +14,7 @@ Icon = React.createClass {
   render: ->
 
     props = mergeProps _.omit(@props, 'name'), {
-      className: "icon icon-#{@props.name}"
+      className: "icon-#{@props.name}"
     }
 
     i props, @props.children

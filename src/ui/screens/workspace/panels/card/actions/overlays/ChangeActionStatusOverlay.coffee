@@ -26,10 +26,10 @@ ChangeActionStatusOverlay = React.createClass {
 
     Overlay {arrow: true},
       Selector {selection: @state.status, onChange: @onStatusSelected},
-        ActionStatusSelectorOption {value: ActionStatus.NotStarted, text: 'Not Started', icon: 'action-notstarted'}
-        ActionStatusSelectorOption {value: ActionStatus.InProgress, text: 'In Progress', icon: 'action-inprogress'}
-        ActionStatusSelectorOption {value: ActionStatus.Complete,   text: 'Complete',    icon: 'action-complete'}
-        ActionStatusSelectorOption {value: ActionStatus.Warning,    text: 'Warning',     icon: 'action-warning'}
+        ActionStatusSelectorOption {value: ActionStatus.NotStarted, text: 'Not Started', icon: 'notstarted'}
+        ActionStatusSelectorOption {value: ActionStatus.InProgress, text: 'In Progress', icon: 'inprogress'}
+        ActionStatusSelectorOption {value: ActionStatus.Complete,   text: 'Complete',    icon: 'complete'}
+        ActionStatusSelectorOption {value: ActionStatus.Warning,    text: 'Warning',     icon: 'warning'}
       div {className: 'buttons'},
         Button {className: 'small', text: 'OK',     onClick: @onOkClicked, disabled: @state.status == @props.action.status}
         Button {className: 'small', text: 'Cancel', onClick: @onCancelClicked}

@@ -24,7 +24,7 @@ CardAction = React.createClass {
 
     div {className: classes},
       div {className: 'left-controls'},
-        Icon {name: 'handle'}
+        Icon {name: 'move-handle'}
       CardActionStatus {action: @props.action}
       CardActionOwner  {action: @props.action}
       CardActionText   {action: @props.action}

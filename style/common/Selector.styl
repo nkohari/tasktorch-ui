@@ -2,6 +2,9 @@
   position: relative
   user-select: none
   outline: none !important
+
+  .caret
+    top: 5px
           
   &.expanded
     a
@@ -53,13 +56,12 @@
         width: 100%
         border: none !important
         outline: none !important
-      .icon
+      & > i
         position: absolute
-        top: 0
-        right: 0
-        font-size: 28px
-        line-height: 28px
+        top: 2px
+        right: 4px
         color: #999
+        margin: 0
         
     ul
       padding: 0
@@ -78,10 +80,9 @@
         &:last-child
           border-radius: 0 0 4px 4px
           
-        .icon
+        i
           display: inline-block
           vertical-align: middle
-          margin-right: 4px
           
         .avatar
           display: inline-block

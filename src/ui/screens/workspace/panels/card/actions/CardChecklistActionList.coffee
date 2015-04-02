@@ -22,7 +22,7 @@ CardChecklistActionList = React.createClass {
     Actor
     SortableList {
       connectWith: '.card-checklist-action-list'
-      handle:      '.icon-handle'
+      handle:      '.icon-move-handle'
       idAttribute: 'data-itemid'
       tolerance:   'intersect'
     }

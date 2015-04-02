@@ -34,7 +34,7 @@ StageCardAction = React.createClass {
     ]
 
     li {className: classes},
-      div {className: 'status'}, Icon {name: "action-#{@props.action.status.toLowerCase()}"}
+      div {className: 'status'}, Icon {name: @props.action.status.toLowerCase()}
       div {className: 'owner'},  owner
       div {className: 'text'},   @props.action.text
       div {className: 'stage'},  @props.stage?.name

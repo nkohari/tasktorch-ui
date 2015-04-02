@@ -4,7 +4,6 @@ mergeProps     = require 'common/util/mergeProps'
 PropTypes      = require 'ui/framework/PropTypes'
 CachedState    = require 'ui/framework/mixins/CachedState'
 Frame          = React.createFactory(require 'ui/common/Frame')
-PanelCloseLink = React.createFactory(require 'ui/common/PanelCloseLink')
 StackHeader    = React.createFactory(require 'ui/screens/workspace/panels/stack/StackHeader')
 StackCardList  = React.createFactory(require 'ui/screens/workspace/panels/stack/StackCardList')
 StackFooter    = React.createFactory(require 'ui/screens/workspace/panels/stack/StackFooter')
@@ -33,10 +32,9 @@ StackPanel = React.createClass {
     }
     
     Frame props,
-      PanelCloseLink {id: @props.id}
-      StackHeader    {stack: @state.stack}
-      StackCardList  {stack: @state.stack}
-      StackFooter    {stack: @state.stack}
+      StackHeader   {panelid: @props.id, stack: @state.stack}
+      StackCardList {stack: @state.stack}
+      StackFooter   {stack: @state.stack}
 
 }
 

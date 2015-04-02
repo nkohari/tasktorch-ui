@@ -32,7 +32,7 @@ CreateStackDialog = React.createClass {
 
   render: ->
 
-    Dialog {icon: 'stack-backlog', title: "Create a stack", closeDialog: @props.closeDialog},
+    Dialog {icon: 'stack', title: "Create a stack", closeDialog: @props.closeDialog},
       FieldGroup {},
         Field {label: 'Name', note: 'ex. Big Ideas, 2015-Q3, Next Week, Beta Version Features'},
           input {ref: 'name', value: @state.name, onChange: @onNameChanged}

@@ -16,7 +16,6 @@ SortableList = (mixinConfig) -> {
   componentDidMount: ->
     @_jQuery().sortable _.extend({
       appendTo: 'body'
-      containment: 'body'
       distance: 5
       forceHelperSize: true
       forcePlaceholderSize: true

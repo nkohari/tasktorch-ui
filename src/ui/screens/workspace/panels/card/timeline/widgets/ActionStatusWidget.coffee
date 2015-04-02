@@ -14,7 +14,7 @@ ActionStatusWidget = React.createClass {
   render: ->
 
     em {className: 'action-status-widget'},
-      Icon {name: "action-#{@props.status.toLowerCase()}"}
+      Icon {name: @props.status.toLowerCase()}
       @getActionStatusText()
 
   getActionStatusText: ->

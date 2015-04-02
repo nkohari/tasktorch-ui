@@ -27,7 +27,7 @@ SpecialStackToggleButton = React.createClass {
     ]
 
     Link {className: classes, hotkey: @props.hotkey, onClick: @toggleStack},
-      Icon {name: "stack-#{@props.icon}"}
+      Icon {name: @props.icon}
       span {className: 'count'}, @props.stack.cards.length
 
   toggleStack: ->

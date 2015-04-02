@@ -1,14 +1,14 @@
-_               = require 'lodash'
-React           = require 'react'
-classSet        = require 'common/util/classSet'
-PropTypes       = require 'ui/framework/PropTypes'
-Navigator       = require 'ui/framework/mixins/Navigator'
-KindPanelState  = require 'ui/screens/bigPicture/panels/kind/KindPanelState'
-Icon            = React.createFactory(require 'ui/common/Icon')
-Link            = React.createFactory(require 'ui/common/Link')
-ListItem        = React.createFactory(require 'ui/common/ListItem')
-KindColorMarker = React.createFactory(require 'ui/common/KindColorMarker')
-{span}          = React.DOM
+_              = require 'lodash'
+React          = require 'react'
+classSet       = require 'common/util/classSet'
+PropTypes      = require 'ui/framework/PropTypes'
+Navigator      = require 'ui/framework/mixins/Navigator'
+KindPanelState = require 'ui/screens/bigPicture/panels/kind/KindPanelState'
+Icon           = React.createFactory(require 'ui/common/Icon')
+Link           = React.createFactory(require 'ui/common/Link')
+ListItem       = React.createFactory(require 'ui/common/ListItem')
+KindIcon       = React.createFactory(require 'ui/common/KindIcon')
+{span}         = React.DOM
 
 KindDrawerItem = React.createClass {
 
@@ -27,7 +27,7 @@ KindDrawerItem = React.createClass {
     ]
 
     Link {className: classes, onClick: @toggleKind},
-      KindColorMarker {kind: @props.kind}
+      KindIcon {kind: @props.kind}
       span {className: 'name'}, @props.kind.name
 
   toggleKind: ->

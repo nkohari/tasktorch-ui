@@ -19,7 +19,7 @@ WorkspacePanelList = React.createClass {
   mixins: [
     Navigator
     SortableList {
-      handle: '.header'
+      handle: '.header, .card-header'
       idAttribute: 'data-itemid'
     }
   ]

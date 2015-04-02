@@ -55,7 +55,7 @@ SuggestingSelector = React.createClass {
 
     a {className: 'trigger', onClick: @onTriggerClicked},
       div {className: 'value'}, value
-      Caret {flip: @state.expanded}
+      Caret {}
 
   renderDropDown: ->
 

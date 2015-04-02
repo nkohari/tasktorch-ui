@@ -6,8 +6,7 @@ mergeProps        = require 'common/util/mergeProps'
 CachedState       = require 'ui/framework/mixins/CachedState'
 PropTypes         = require 'ui/framework/PropTypes'
 Frame             = React.createFactory(require 'ui/common/Frame')
-PanelCloseLink    = React.createFactory(require 'ui/common/PanelCloseLink')
-FollowingHeader   = React.createFactory(require 'ui/screens/workspace/panels/following/FollowingHeader')
+PanelHeader       = React.createFactory(require 'ui/common/PanelHeader')
 FollowingCardList = React.createFactory(require 'ui/screens/workspace/panels/following/FollowingCardList')
 FollowingFooter   = React.createFactory(require 'ui/screens/workspace/panels/following/FollowingFooter')
 
@@ -34,8 +33,8 @@ FollowingPanel = React.createClass {
     }
     
     Frame props,
-      PanelCloseLink {id: 'following'}
-      FollowingHeader {}
+      PanelHeader {panelid: 'following', icon: 'follow'},
+        'Following'
       FollowingCardList {cards: @state.cards}
       FollowingFooter {}
 

@@ -3,7 +3,18 @@
   background: $panel-background-color
   width: $card-panel-width
   min-width: $card-panel-width
-  z-index: $panel-layer
+
+  .close
+    display: block
+    position: absolute
+    z-index: $trigger-layer
+    right: 4px
+    top: 8px
+    font-size: 14px
+    color: $close-link-color
+    transition: color $hover-animation-delay linear
+    &:hover { color: $close-link-hover-color }
+    & > i { margin: 0 }
   
   &.slide-enter
     animation: card-enter 250ms ease-out
