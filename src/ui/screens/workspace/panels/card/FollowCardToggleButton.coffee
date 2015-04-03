@@ -32,7 +32,7 @@ FollowCardToggleButton = React.createClass {
       'active' if @state.active
     ]
 
-    icon = if @state.active then 'follow' else 'follow-empty'
+    icon = if @state.active then 'follow' else 'follow-open'
 
     Button {icon, className: classes, @onClick}
 

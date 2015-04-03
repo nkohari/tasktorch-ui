@@ -3,6 +3,8 @@ ModelStore             = require 'data/framework/ModelStore'
 LoadStackRequest       = require 'data/requests/LoadStackRequest'
 CreateTeamStackRequest = require 'data/requests/CreateTeamStackRequest'
 CreateUserStackRequest = require 'data/requests/CreateUserStackRequest'
+RenameStackRequest     = require 'data/requests/RenameStackRequest'
+DeleteStackRequest     = require 'data/requests/DeleteStackRequest'
 
 class StackStore extends ModelStore
 
@@ -14,8 +16,11 @@ class StackStore extends ModelStore
     'StacksLoaded'
     'StackChanged'
     'StackCreated'
+    'StackDeleted'
     'UserCreatedStack'
     'UserCreatedTeamStack'
+    'UserDeletedStack'
+    'UserRenamedStack'
   ]
 
   load: (id) ->
@@ -30,10 +35,19 @@ class StackStore extends ModelStore
   onStackCreated: (event) ->
     @add(event.stack)
 
+  onStackDeleted: (event) ->
+    @remove(event.stack.id)
+
   onUserCreatedStack: (event) ->
     @execute new CreateUserStackRequest(event.name)
 
   onUserCreatedTeamStack: (event) ->
     @execute new CreateTeamStackRequest(event.teamid, event.name)
+
+  onUserDeletedStack: (event) ->
+    @execute new DeleteStackRequest(event.stackid)
+
+  onUserRenamedStack: (event) ->
+    @execute new RenameStackRequest(event.stackid, event.name)
 
 module.exports = StackStore

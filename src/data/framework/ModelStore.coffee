@@ -49,4 +49,9 @@ class ModelStore extends Store
     @announce() if changed
     return
 
+  remove: (id) ->
+    @models[id] = undefined
+    @states[id] = undefined
+    @announce()
+
 module.exports = ModelStore

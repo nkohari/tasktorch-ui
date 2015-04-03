@@ -11,6 +11,7 @@ class MyStacksStore extends SingletonListStore
   listensFor: [
     'MyStacksLoaded'
     'StackCreated'
+    'StackDeleted'
   ]
 
   load: ->
@@ -20,6 +21,9 @@ class MyStacksStore extends SingletonListStore
     @set(_.pluck(event.stacks, 'id'))
 
   onStackCreated: (event) ->
+    @clear() unless event.stack.team?
+    
+  onStackDeleted: (event) ->
     @clear() unless event.stack.team?
 
 module.exports = MyStacksStore
