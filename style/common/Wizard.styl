@@ -1,0 +1,52 @@
+.wizard
+  
+  .dialog-buttons
+    display: flex
+    justify-content: flex-start
+    .right-buttons
+      display: flex
+      flex: 1
+      justify-content: flex-end
+  
+  .breadcrumbs
+    display: flex
+    overflow: hidden
+    border-bottom: 1px solid #ccc
+  
+    .breadcrumb
+      position: relative
+      cursor: pointer
+      flex: none
+      padding: 6px 16px 6px 26px
+      background: #efefef
+      
+      &:first-child
+        padding-left: 16px
+        
+      &:last-child
+        flex: 1
+        &:after { display: none }
+        
+      &.active
+        background: #ddd
+        font-weight: $bold-font-weight
+        &:after { background: #ddd }
+          
+      &:after
+        content: ""
+        position: absolute
+        top: 0px
+        right: -16px
+        width: 32px
+        height: 32px
+        transform: scale(0.707) rotate(45deg)
+        z-index: 1
+        background: #efefef
+        border-top: 1px solid #ccc
+        border-right: 1px solid #ccc
+
+    .breadcrumb-number
+      font-size: 12px
+      margin-right: 6px
+      font-weight: $heavy-font-weight
+      &:after { content: "." }
