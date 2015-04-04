@@ -28,6 +28,8 @@ PropTypes.Card = PropTypes.model {
   stack:   PropTypes.id
   user:    PropTypes.id
   team:    PropTypes.id
+  kind:    PropTypes.id
+  number:  PropTypes.number
 }
 
 PropTypes.Checklist = PropTypes.model {

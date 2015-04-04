@@ -1,15 +1,16 @@
 .card-widgets
-  margin: 0 0 6px 2px
+  margin: 1px 0 6px 2px
   display: flex
   
-  div
-    margin-right: 10px
+  .card-widget
+    margin-right: 20px
     font-size: 14px
-    color: $subtle-text-color
-    
-    a
-      color: $subtle-text-color
-      text-decoration: none
-      transition: color $hover-animation-delay linear
-      &:visited { color: $subtle-text-color }
-      &:hover { color: $text-color }
+    color: $color-ink-light
+    font-weight: $bold-font-weight
+  
+  a, .trigger
+    color: $color-ink-light
+    text-decoration: none
+    transition: color $hover-animation-delay linear
+    &:visited { color: $color-ink-light }
+    &:hover { color: $color-ink }

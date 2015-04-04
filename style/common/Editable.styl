@@ -8,17 +8,13 @@
   transition-duration: 0.1s
   transition-timing-function: ease-in-out
   outline: none !important
-  color: #333
-  &.dirty
-    border: 1px solid $editable-dirty-border-color !important
   &:hover
-    border: 1px dashed $editable-hover-border-color
+    border: 1px dashed black(40%)
   &:focus
     cursor: text;
-    color: $black
-    background: $bright-white
-    border: 1px solid $editable-active-border-color
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5)
+    background: $color-white
+    border: 1px solid black(60%)
+    box-shadow: 0px 0px 5px black(50%)
 
 textarea.editable
   overflow: hidden;

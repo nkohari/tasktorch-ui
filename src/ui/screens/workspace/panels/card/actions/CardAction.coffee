@@ -6,7 +6,7 @@ CardActionStatus        = React.createFactory(require 'ui/screens/workspace/pane
 CardActionOwner         = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CardActionOwner')
 CardActionText          = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CardActionText')
 CardActionDeleteTrigger = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CardActionDeleteTrigger')
-{div}                   = React.DOM
+{li, div}               = React.DOM
 
 CardAction = React.createClass {
 
@@ -22,14 +22,11 @@ CardAction = React.createClass {
       @props.action.status.toLowerCase()
     ]
 
-    div {className: classes},
-      div {className: 'left-controls'},
-        Icon {name: 'move-handle'}
+    li {className: classes, 'data-itemid': @props.action.id},
+      div {className: 'move-handle'}
+      CardActionText   {action: @props.action}
       CardActionStatus {action: @props.action}
       CardActionOwner  {action: @props.action}
-      CardActionText   {action: @props.action}
-      div {className: 'right-controls'},
-        CardActionDeleteTrigger {action: @props.action}
 
 }
 

@@ -1,124 +1,164 @@
 //------------------------------------------------------------------------------
 
-$shell-font = "Whitney A", "Whitney B"
+$shell-font   = "Whitney A", "Whitney B"
 $content-font = "Whitney A", "Whitney B"
-$brand-font = "Gotham SSm A", "Gotham SSm B"
-$icon-font = "TaskTorchIcons"
+$brand-font   = "Gotham SSm A", "Gotham SSm B"
+$icon-font    = "TaskTorchIcons"
+
 $normal-font-weight = 400
-$bold-font-weight = 500
-$heavy-font-weight = 600
+$bold-font-weight   = 500
+$heavy-font-weight  = 600
 
 //------------------------------------------------------------------------------
 
 $panel-animation-layer = -1
-$panel-layer = 0
-$shell-layer = 1
-$trigger-layer = 2
-$floating-layer = 3
+$panel-layer           = 0
+$shell-layer           = 1
+$trigger-layer         = 2
+$floating-layer        = 3
 
 //------------------------------------------------------------------------------
 
-$gray = #89979e
-$dark-gray = #2f3b41
-$light-gray = #ecece8
-
-//293642
-
-$steel-blue = #131d29
-$orange = #fe8b00
-$purple = #c5358d
-$teal = #33a3be
-$white = #f8f8f8
-$black = #212123
-$bright-white = #fff
-$dark-black = #000
-
-//------------------------------------------------------------------------------
-
-$drawer-width = 220px
-$stack-panel-width = 260px
-$card-panel-width = 600px
-$following-panel-width = 420px
-$stack-header-height = 32px
-$following-header-height = 32px
-$corner-height = 66px
-$content-margin = 10px
-$panel-margin = 10px
-$stack-card-margin = 6px
-$following-card-margin = 6px
-$shell-header-height = 42px
-$shell-footer-height = 42px
-$bigpicture-column-minwidth = 300px
+$drawer-width                   = 220px
+$stack-panel-width              = 260px
+$card-panel-width               = 600px
+$following-panel-width          = 420px
+$stack-header-height            = 32px
+$following-header-height        = 32px
+$corner-height                  = 66px
+$panel-margin                   = 10px
+$shell-header-height            = 42px
+$shell-footer-height            = 42px
+$big-picture-panel-minheight    = 344px
+$big-picture-column-minwidth    = 300px
+$overlay-arrow-width            = 5px
 
 //------------------------------------------------------------------------------
 
-$shell-highlight-color = #eee
-$shell-normal-color = #ddd
-$shell-lowlight-color = #ccc
-$shell-border-color = #aaa
+$hover-animation-delay          = 150ms
+$activate-animation-delay       = 150ms
 
-$nav-link-color = #aaa
-$nav-link-active-color = $black
-$nav-link-hover-color = #333
-$nav-highlight-color = $steel-blue
+//------------------------------------------------------------------------------
 
-$text-color = $black
-$soft-text-color = #333
-$subtle-text-color = #666
-$very-subtle-text-color = #999
-$disabled-text-color = #999
-$drawer-background-color = #333
-$drawer-header-text-color = #ccc
-$drawer-text-color = #999
-$drawer-active-text-color = $bright-white
-$drawer-active-background-color = #555
-$drop-indicator-background-color = #ddd
+$color-white                    = #ffffff
+$color-black                    = #212123
 
-$steel-highlight-color = #eee
-$steel-normal-color = #ddd
-$steel-lowlight-color = #ccc
-$steel-border-color = #999
-$steel-light-border-color = #aaa
+$color-paper                    = #f9f9f9
 
-$panel-background-color = $white
-$panel-border-color = #999
-$panel-header-text-color = $text-color
-$panel-header-trigger-color = $subtle-text-color
-$panel-block-border-color = #aaa
-$panel-block-header-background-color = #ccc
-$panel-block-header-text-color = #666
+$color-charcoal-dark            = #161719
+$color-charcoal                 = #3a3d42
+$color-charcoal-light           = #676b73
+$color-charcoal-verylight       = #b6b8bd
 
-$dialog-background-color = $white
-$dialog-border-color = $black
-$dialog-header-background-color = #ccc
-$dialog-header-border-color = #999
+$color-steel-dark               = #9c9ea4
+$color-steel                    = #d1d2d5
+$color-steel-medium             = #a9abb0
+$color-steel-light              = #e5e6ea
+$color-steel-verylight          = #f3f4f5
 
-$overlay-text-color = $black
-$overlay-background-color = $white
-$overlay-border-color = #999
-$overlay-separator-color = #ccc
-$arrow-width = 5px
+$color-ink                      = black(87%)
+$color-ink-light                = black(54%)
+$color-ink-subtle               = black(26%)
+$color-divider                  = black(12%)
+$color-selection                = black(12%)
 
-$editable-hover-border-color = #aaa
-$editable-active-border-color = #888
-$editable-dirty-border-color = #090
+$color-ink-inverted             = white(87%)
+$color-ink-inverted-light       = white(54%)
+$color-ink-inverted-subtle      = white(26%)
 
-$button-highlight-color = #fff
-$button-normal-color = #eee
-$button-lowlight-color = #ddd
-$button-border-radius = 4px
+$color-good                     = #558b2f
+$color-good-light               = #f1f8e9
+$color-bad                      = #b71c1c
+$color-bad-light                = #ffebee
+$color-bad-medium               = #ffcdd2
+$color-diff-added               = #a6f3a6
+$color-diff-removed             = #f8cbcb
 
-$shadow-color = shadow(30%)
-$shadow-blur = 3px
+$semantic-colors-foreground = { //700
+  red:        #d32f2f
+  pink:       #c2185b
+  purple:     #7b1fa2
+  deeppurple: #512da8
+  indigo:     #303f9f
+  blue:       #1976d2
+  lightblue:  #0288d1
+  cyan:       #0097a7
+  teal:       #00796b
+  green:      #388e3c
+  lightgreen: #689f38
+  lime:       #afb42b
+  yellow:     #fbc02d
+  amber:      #ffa000
+  orange:     #f57c00
+  deeporange: #e64a19
+  brown:      #5d4037
+}
+
+$semantic-colors-border = { //300
+  red:        #e57373
+  pink:       #f06292
+  purple:     #ba68c8
+  deeppurple: #9575cd
+  indigo:     #7986cb
+  blue:       #64b5f6
+  lightblue:  #4fc3f7
+  cyan:       #4dd0e1
+  teal:       #4db6ac
+  green:      #81c784
+  lightgreen: #aed581
+  lime:       #dce775
+  yellow:     #fff176
+  amber:      #ffd54f
+  orange:     #ffb74d
+  deeporange: #ff8a65
+  brown:      #a1887f
+}
+
+$semantic-colors-medium = { //200
+  red:        #ef9a9a
+  pink:       #f48fb1
+  purple:     #ce93d8
+  deeppurple: #b39ddb
+  indigo:     #9fa8da
+  blue:       #90caf9
+  lightblue:  #81d4fa
+  cyan:       #80deea
+  teal:       #80cbc4
+  green:      #a5d6a7
+  lightgreen: #c5e1a5
+  lime:       #e6ee9c
+  yellow:     #fff59d
+  amber:      #ffe082
+  orange:     #ffcc80
+  deeporange: #ffab91
+  brown:      #bcaaa4
+}
+
+$semantic-colors-background = { //100
+  red:        #ffcdd2
+  pink:       #f8bbd0
+  purple:     #e1bee7
+  deeppurple: #d1c4e9
+  indigo:     #c5cae9
+  blue:       #bbdefb
+  lightblue:  #b3e5fc
+  cyan:       #b2ebf2
+  teal:       #b2dfdb
+  green:      #c8e6c9
+  lightgreen: #dcedc8
+  lime:       #f0f4c3
+  yellow:     #fff9c4
+  amber:      #ffecb3
+  orange:     #ffe0b2
+  deeporange: #ffccbc
+  brown:      #d7ccc8
+}
+
+//------------------------------------------------------------------------------
 
 $warning-highlight-color = #f0635f
 $warning-normal-color = #e0534f
 $warning-lowlight-color = #d0433f
 $warning-border-color = #a0231f
-
-//------------------------------------------------------------------------------
-
-$hover-animation-delay = 150ms
-$activate-animation-delay = 150ms
 
 //------------------------------------------------------------------------------

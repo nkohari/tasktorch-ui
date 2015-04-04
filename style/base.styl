@@ -24,6 +24,7 @@ ul
   li { list-style-type: none }
 
 body
+  color: $color-ink
   font-family: $shell-font
   font-weight: $normal-font-weight
   font-size: 14px
@@ -33,7 +34,12 @@ body
   margin: 0
   padding: 0
   overflow: hidden
-  background: $bright-white url('/img/bg.png')
+  background: $color-white url('/img/bg.png')
   text-rendering: optimizeLegibility
   -webkit-font-smoothing: subpixel-antialiased
   user-select: none
+
+.ui-sortable-helper
+  display: block
+  cursor: move
+  list-style-type: none

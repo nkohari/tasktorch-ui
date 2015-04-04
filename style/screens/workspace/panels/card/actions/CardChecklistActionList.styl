@@ -1,11 +1,12 @@
 .card-checklist-action-list
-  margin: 0
-  padding: 0
+  min-height: 30px
   
-  li
-    border-bottom: 1px dotted #ccc
+  & > li
+    border: 1px solid $color-steel
+    border-top: none
+    &:first-child { border-top: 1px solid $color-steel }
 
   .drag-placeholder
     height: 30px
     visibility: normal
-    background: $drop-indicator-background-color
+    background: $color-selection

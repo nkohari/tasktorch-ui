@@ -1,10 +1,14 @@
-_                       = require 'lodash'
-React                   = require 'react'
-PropTypes               = require 'ui/framework/PropTypes'
-CachedState             = require 'ui/framework/mixins/CachedState'
-CardChecklistActionList = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CardChecklistActionList')
-CreateActionForm        = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CreateActionForm')
-{div}                   = React.DOM
+_                        = require 'lodash'
+React                    = require 'react'
+PropTypes                = require 'ui/framework/PropTypes'
+CachedState              = require 'ui/framework/mixins/CachedState'
+Button                   = React.createFactory(require 'ui/common/Button')
+Icon                     = React.createFactory(require 'ui/common/Icon')
+OverlayTrigger           = React.createFactory(require 'ui/common/OverlayTrigger')
+CardChecklistContextMenu = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CardChecklistContextMenu')
+CardChecklistActionList  = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CardChecklistActionList')
+CreateActionForm         = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CreateActionForm')
+{div, span}              = React.DOM
 
 CardChecklist = React.createClass {
 
@@ -17,6 +21,9 @@ CardChecklist = React.createClass {
 
   mixins: [CachedState]
 
+  getInitialState: ->
+    {adding: false}
+
   getCachedState: (cache) -> {
     actions: cache('actionsByChecklist').get(@props.checklist.id)
   }
@@ -24,9 +31,16 @@ CardChecklist = React.createClass {
   render: ->
 
     div {className: 'card-checklist'},
-      div {className: 'title'}, @props.stage.name
+      div {className: 'header'},
+        Icon {name: 'checklist'}
+        span {className: 'title'}, @props.stage.name
+        OverlayTrigger {overlay: CardChecklistContextMenu {checklist: @props.checklist, @toggleAdding}},
+          Icon {name: 'trigger'}
       CardChecklistActionList {checklist: @props.checklist, actions: @state.actions}
-      CreateActionForm {checklist: @props.checklist}
+      CreateActionForm {checklist: @props.checklist, @toggleAdding} if @state.adding
+
+  toggleAdding: ->
+    @setState {adding: !@state.adding}
 
 }
 

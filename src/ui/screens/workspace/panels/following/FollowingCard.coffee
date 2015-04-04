@@ -1,15 +1,16 @@
-_              = require 'lodash'
-React          = require 'react'
-classSet       = require 'common/util/classSet'
-PropTypes      = require 'ui/framework/PropTypes'
-CachedState    = require 'ui/framework/mixins/CachedState'
-Navigator      = require 'ui/framework/mixins/Navigator'
-CardPanelState = require 'ui/screens/workspace/panels/card/CardPanelState'
-CardLocation   = React.createFactory(require 'ui/common/CardLocation')
-CardOwner      = React.createFactory(require 'ui/common/CardOwner')
-Link           = React.createFactory(require 'ui/common/Link')
-ListItem       = React.createFactory(require 'ui/common/ListItem')
-{div}          = React.DOM
+_                = require 'lodash'
+React            = require 'react'
+classSet         = require 'common/util/classSet'
+PropTypes        = require 'ui/framework/PropTypes'
+CachedState      = require 'ui/framework/mixins/CachedState'
+Navigator        = require 'ui/framework/mixins/Navigator'
+CardPanelState   = require 'ui/screens/workspace/panels/card/CardPanelState'
+Card             = React.createFactory(require 'ui/common/Card')
+CardFollowToggle = React.createFactory(require 'ui/common/CardFollowToggle')
+CardLocation     = React.createFactory(require 'ui/common/CardLocation')
+CardLink         = React.createFactory(require 'ui/common/CardLink')
+CardOwner        = React.createFactory(require 'ui/common/CardOwner')
+{div}            = React.DOM
 
 FollowingCard = React.createClass {
 
@@ -32,21 +33,15 @@ FollowingCard = React.createClass {
 
   render: ->
 
-    if @state.kind?
-      style = {borderLeftColor: @state.kind.color}
-
-    classes = classSet [
-      'active' if @getScreen('workspace').isPanelVisible(@props.card.id)
-    ]
-
-    ListItem {@isReady, className: 'following-card'},
-      Link {className: classes, style, onClick: @showCard},
-        CardOwner {user: @state.user, team: @state.team}
-        div {className: 'card-summary'},
-          div {className: 'title'},
-            @props.card.title or 'Untitled Card'
-          div {className: 'widgets'},
-            CardLocation {card: @props.card, stack: @state.stack}
+    Card {className: 'following-card', card: @props.card},
+      CardOwner {user: @state.user, team: @state.team}
+      div {className: 'card-info'},
+        div {className: 'title'},
+          @props.card.title or 'Untitled Card'
+        div {className: 'widgets'},
+          CardLocation {card: @props.card, stack: @state.stack, link: true}
+      div {className: 'controls'},
+        CardLink {card: @props.card, onClick: @showCard}
 
   showCard: ->
     @getScreen('workspace').addPanelAfter('following', new CardPanelState(@props.card.id))

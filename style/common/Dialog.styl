@@ -8,7 +8,7 @@ a.trigger
   width: 100%
   height: 100%
   z-index: $floating-layer
-  background: shadow(70%)
+  background: black(70%)
   &.fade-enter { animation: dialog-enter 150ms ease-out }
   &.fade-leave { animation: dialog-leave 150ms linear }
 
@@ -16,22 +16,21 @@ a.trigger
   position: relative
   top: 50%
   margin: 0px auto
-  background: $dialog-background-color
-  border: 1px solid $dialog-border-color
-  box-shadow: 0px 1px 3px shadow(30%)
-  border-radius: 4px
+  background: $color-paper
+  border: 3px solid $color-charcoal-light
+  box-shadow: 0px 0px 5px black(50%)
 
 .dialog-header
   padding: 8px 10px
-  background: $dialog-header-background-color
+  background: $color-steel
   font-weight: $bold-font-weight
-  border-bottom: 1px solid $dialog-header-border-color
-  border-top-left-radius: 4px
-  border-top-right-radius: 4px
+  border-bottom: 1px solid $color-steel-dark
   i { margin-right: 6px }
 
 .dialog-content
   padding: 10px
+  font-size: 16px
+  line-height: 20px
 
 .dialog-buttons
   display: flex

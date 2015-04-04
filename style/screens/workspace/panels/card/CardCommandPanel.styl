@@ -1,6 +1,11 @@
 .command
-  padding: 10px
+  padding: 8px
   font-size: 14px
+  background: $color-steel
+  border-top: 1px solid $color-steel-dark
+  
+  &.slide-enter { animation: command-enter 150ms ease-out }
+  &.slide-leave { animation: command-leave 100ms linear }
   
   .confirm
     font-size: 16px
@@ -12,7 +17,7 @@
       margin-bottom: 4px
       em
         font-style: normal
-        color: #666
+        color: $color-ink-light
         margin-left: 6px
         font-size: 11px
   
@@ -25,19 +30,13 @@
     font-size: 14px
     resize: none
     outline: none !important
-    border: 1px solid #999
+    border: 1px solid $color-steel-light
     min-height: 60px
         
 @keyframes command-enter
-  from { margin-top: -200px }
-  to   { margin-top: 0px }
-
-.command.slide-enter
-  animation: command-enter 200ms ease-out
+  from { transform: translateY(200px) }
+  to   { transform: translateY(0px) }
 
 @keyframes command-leave
-  from { margin-top: 0px }
-  to   { margin-top: -200px }
-
-.command.slide-leave
-  animation: command-leave 100ms linear
+  from { transform: translateY(0px) }
+  to   { transform: translateY(200px) }

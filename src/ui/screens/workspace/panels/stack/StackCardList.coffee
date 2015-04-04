@@ -8,8 +8,8 @@ CachedState        = require 'ui/framework/mixins/CachedState'
 SortableList       = require 'ui/framework/mixins/SortableList'
 UserMovedCardEvent = require 'events/ui/UserMovedCardEvent'
 List               = React.createFactory(require 'ui/common/List')
-StackCardListItem  = React.createFactory(require 'ui/screens/workspace/panels/stack/StackCardListItem')
-{ul}               = React.DOM
+StackCard          = React.createFactory(require 'ui/screens/workspace/panels/stack/StackCard')
+{ul, li}           = React.DOM
 
 StackCardList = React.createClass {
 
@@ -42,7 +42,7 @@ StackCardList = React.createClass {
     @state.cards?
 
   componentWillReceiveProps: (newProps) ->
-    @setState {ids: newProps.stack.cards}
+    @setState {ids: _.clone(newProps.stack.cards)}
 
   render: ->
 
@@ -50,11 +50,7 @@ StackCardList = React.createClass {
     items = _.map @state.ids, (id) =>
       card = lookup[id]
       return unless card?
-      StackCardListItem {
-        key:   "card-#{card.id}"
-        stack: @props.stack
-        card:  card
-      }
+      StackCard {key: card.id, stack: @props.stack, card}
 
     classes = classSet [
       'stack-card-list'

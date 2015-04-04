@@ -1,6 +1,7 @@
 _               = require 'lodash'
 React           = require 'react'
 Router          = require 'react-router'
+mergeClasses    = require 'common/util/mergeClasses'
 PropTypes       = require 'ui/framework/PropTypes'
 Navigator       = require 'ui/framework/mixins/Navigator'
 CardStatus      = require 'data/enums/CardStatus'
@@ -35,7 +36,8 @@ CardLocation = React.createClass {
     else
       contents = @renderStackName()
 
-    div {className: 'location'}, contents
+    classes = mergeClasses('location', @props.className)
+    div {className: classes}, contents
 
   renderArchive: ->
     span {},

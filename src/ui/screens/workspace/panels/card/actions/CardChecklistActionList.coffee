@@ -6,7 +6,6 @@ Actor                = require 'ui/framework/mixins/Actor'
 SortableList         = require 'ui/framework/mixins/SortableList'
 UserMovedActionEvent = require 'events/ui/UserMovedActionEvent'
 List                 = React.createFactory(require 'ui/common/List')
-ListItem             = React.createFactory(require 'ui/common/ListItem')
 Icon                 = React.createFactory(require 'ui/common/Icon')
 CardAction           = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CardAction')
 
@@ -22,7 +21,6 @@ CardChecklistActionList = React.createClass {
     Actor
     SortableList {
       connectWith: '.card-checklist-action-list'
-      handle:      '.icon-move-handle'
       idAttribute: 'data-itemid'
       tolerance:   'intersect'
     }
@@ -41,8 +39,7 @@ CardChecklistActionList = React.createClass {
     items = _.map @state.ids, (id) =>
       action = lookup[id]
       return unless action?
-      ListItem {key: action.id, 'data-itemid': action.id},
-        CardAction {action}
+      CardAction {key: action.id, action}
 
     List {className: 'card-checklist-action-list'}, items
 

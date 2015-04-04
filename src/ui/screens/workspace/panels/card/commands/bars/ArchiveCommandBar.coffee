@@ -1,5 +1,6 @@
 _                    = require 'lodash'
 React                = require 'react'
+mergeClasses         = require 'common/util/mergeClasses'
 PropTypes            = require 'ui/framework/PropTypes'
 RestoreCommandButton = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/RestoreCommandButton')
 DeleteCommandButton  = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/DeleteCommandButton')
@@ -14,7 +15,7 @@ ArchiveCommandBar = React.createClass {
 
   render: ->
 
-    div {className: 'archive commands'},
+    div {className: mergeClasses('archive', @props.className)},
       div {className: 'button-group'},
         RestoreCommandButton {card: @props.card}
       div {className: 'button-group right'},

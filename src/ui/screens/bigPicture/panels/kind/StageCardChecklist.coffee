@@ -1,4 +1,5 @@
 _               = require 'lodash'
+classSet        = require 'common/util/classSet'
 React           = require 'react'
 ActionStatus    = require 'data/enums/ActionStatus'
 PropTypes       = require 'ui/framework/PropTypes'
@@ -26,9 +27,14 @@ StageCardChecklist = React.createClass {
       actionsToDisplay = _.filter @state.actions, (action) =>
         action.status == ActionStatus.InProgress or action.status == ActionStatus.Warning
       items = _.map actionsToDisplay, (action) =>
-        StageCardAction {key: action.id, stage: @props.stage, action}
+        StageCardAction {key: action.id, card: @props.card, stage: @props.stage, action}
 
-    ul {className: 'stage-card-action-list'}, items
+    classes = classSet [
+      'big-picture-card-action-list'
+      'empty' if items?.length == 0
+    ]
+
+    ul {className: classes}, items
 
 }
 

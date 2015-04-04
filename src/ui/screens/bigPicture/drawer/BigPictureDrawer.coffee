@@ -1,11 +1,10 @@
-_                   = require 'lodash'
-React               = require 'react'
-CachedState         = require 'ui/framework/mixins/CachedState'
-PropTypes           = require 'ui/framework/PropTypes'
-Frame               = React.createFactory(require 'ui/common/Frame')
-TabBlock            = React.createFactory(require 'ui/common/TabBlock')
-PeopleDrawerPanel   = React.createFactory(require 'ui/screens/bigPicture/drawer/PeopleDrawerPanel')
-ProgressDrawerPanel = React.createFactory(require 'ui/screens/bigPicture/drawer/ProgressDrawerPanel')
+_           = require 'lodash'
+React       = require 'react'
+CachedState = require 'ui/framework/mixins/CachedState'
+PropTypes   = require 'ui/framework/PropTypes'
+KindList    = React.createFactory(require 'ui/screens/bigPicture/drawer/KindList')
+TeamList    = React.createFactory(require 'ui/screens/bigPicture/drawer/TeamList')
+{div}       = React.DOM
 
 BigPictureDrawer = React.createClass {
 
@@ -15,12 +14,24 @@ BigPictureDrawer = React.createClass {
     currentOrg:  PropTypes.Org
     currentUser: PropTypes.User
 
+  mixins: [CachedState]
+
+  getCachedState: (cache) ->
+    kinds   = cache('kindsByOrg').get(@props.currentOrg.id)
+    teams   = cache('teamsByOrg').get(@props.currentOrg.id)
+    myTeams = cache('myTeams').get()
+    if teams? and myTeams?
+      otherTeams = []
+      for team in teams
+        otherTeams.push(team) unless _.any(myTeams, (t) -> t.id == team.id)
+    {kinds, myTeams, otherTeams}
+
   render: ->
 
-    Frame {className: 'big-picture drawer'},
-      TabBlock {selected: 'people'},
-        PeopleDrawerPanel   {key: 'people',   title: 'People',   currentOrg: @props.currentOrg, currentUser: @props.currentUser}
-        ProgressDrawerPanel {key: 'progress', title: 'Progress', currentOrg: @props.currentOrg, currentUser: @props.currentUser}
+    div {className: 'big-picture drawer'},
+      KindList {kinds: @state.kinds}
+      TeamList {title: 'My Teams',    teams: @state.myTeams}
+      TeamList {title: 'Other Teams', teams: @state.otherTeams}
 
 }
 

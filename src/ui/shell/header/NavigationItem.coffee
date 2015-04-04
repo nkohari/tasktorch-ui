@@ -4,8 +4,8 @@ classSet  = require 'common/util/classSet'
 PropTypes = require 'ui/framework/PropTypes'
 Navigator = require 'ui/framework/mixins/Navigator'
 Link      = React.createFactory(require 'ui/common/Link')
-ListItem  = React.createFactory(require 'ui/common/ListItem')
 Icon      = React.createFactory(require 'ui/common/Icon')
+{li}      = React.DOM
 
 NavigationItem = React.createClass {
 
@@ -21,11 +21,12 @@ NavigationItem = React.createClass {
   render: ->
 
     classes = classSet [
+      @props.screen
       'active' if @getCurrentScreen() is @getScreen(@props.screen)
     ]
 
-    ListItem {},
-      Link {className: classes, hotkey: @props.hotkey, onClick: @showScreen},
+    li {className: classes},
+      Link {hotkey: @props.hotkey, onClick: @showScreen},
         Icon {name: @props.screen}
         @props.title
 

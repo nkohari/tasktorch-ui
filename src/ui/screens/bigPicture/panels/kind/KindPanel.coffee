@@ -25,13 +25,13 @@ KindPanel = React.createClass {
 
   render: ->
 
-    items = _.map @state.stages, (stage) =>
+    columns = _.map @state.stages, (stage) =>
       StageColumn {key: stage.id, stage}
 
-    Frame {className: 'kind panel'},
+    Frame {className: 'big-picture panel'},
       PanelHeader {panelid: @props.id, icon: KindIcon {kind: @state.kind}},
         @state.kind?.name
-      div {className: 'columns'}, items
+      div {className: 'columns'}, columns
       div {className: 'footer'}
 
 }

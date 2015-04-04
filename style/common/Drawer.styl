@@ -9,7 +9,10 @@
   padding: 6px
   overflow-y: auto
   overflow-x: visible
-  background: $drawer-background-color
+  background: $color-charcoal
+  
+  &.slide-enter { animation: drawer-enter 200ms ease-out }
+  &.slide-leave { animation: drawer-leave 200ms ease-in }
 
   .tab-block
     
@@ -27,21 +30,23 @@
       display: flex
       flex-direction: row
       padding: 8px 4px
-      color: $drawer-header-text-color
+      color: $color-ink-inverted
       
       .title
         flex: 1
         font-size: 13px
         font-weight: $bold-font-weight
+        letter-spacing: 0.25px
         text-transform: uppercase
+        text-shadow: 1px 1px 1px black(70%)
       
       .trigger
         flex: none
         cursor: pointer
-        color: #666
+        color: $color-ink-inverted-light
         transition-property: color
         transition-duration: $hover-animation-delay
-        &:hover, &.active { color: $white }
+        &:hover, &.active { color: $color-ink-inverted }
         & > i
           margin-right: 0
           line-height: 16px
@@ -52,7 +57,7 @@
     line-height: 20px
     padding: 4px
     margin-bottom: 6px
-    color: $drawer-text-color
+    color: $color-ink-inverted-light
     border-radius: 4px
     text-decoration: none
     transition-property: color, background
@@ -60,18 +65,18 @@
     & > i { margin-right: 8px }
     
     &:hover, &:active
-      color: $drawer-active-text-color
+      color: $color-ink-inverted
     
     &.active
-      color: $drawer-active-text-color
-      background: $drawer-active-background-color
+      color: $color-ink-inverted
+      background: $color-charcoal-light
 
     .count
       min-width: 30px
       margin-left: 10px
       float: right
       padding: 4px 7px
-      background: #111
+      background: $color-charcoal-dark
       font-size: 12px
       font-weight: $heavy-font-weight
       text-shadow: none
@@ -85,14 +90,8 @@
   100%
     margin-left: 0
 
-.drawer.slide-enter
-  animation: drawer-enter 200ms ease-out
-
 @keyframes drawer-leave
   from
     margin-left: 0
   to
     margin-left: -($drawer-width)
-
-.drawer.slide-leave
-  animation: drawer-leave 200ms ease-in

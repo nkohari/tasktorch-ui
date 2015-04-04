@@ -1,10 +1,10 @@
-React            = require 'react'
-PropTypes        = require 'ui/framework/PropTypes'
-TabBlock         = React.createFactory(require 'ui/common/TabBlock')
-CardSummaryBlock = React.createFactory(require 'ui/screens/workspace/panels/card/CardSummaryBlock')
-CardActionsTab   = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CardActionsTab')
-CardTimelineTab  = React.createFactory(require 'ui/screens/workspace/panels/card/timeline/CardTimelineTab')
-{div}            = React.DOM
+React             = require 'react'
+PropTypes         = require 'ui/framework/PropTypes'
+TabBlock          = React.createFactory(require 'ui/common/TabBlock')
+CardSummaryBlock  = React.createFactory(require 'ui/screens/workspace/panels/card/CardSummaryBlock')
+CardActionsTab    = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CardActionsTab')
+CardTimelineTab   = React.createFactory(require 'ui/screens/workspace/panels/card/timeline/CardTimelineTab')
+{div}             = React.DOM
 
 CardBody = React.createClass {
 

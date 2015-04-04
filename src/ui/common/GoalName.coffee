@@ -1,9 +1,10 @@
-React       = require 'react'
-PropTypes   = require 'ui/framework/PropTypes'
-CachedState = require 'ui/framework/mixins/CachedState'
-Pure        = require 'ui/framework/mixins/Pure'
-Icon        = React.createFactory(require 'ui/common/Icon')
-{div}       = React.DOM
+React        = require 'react'
+mergeClasses = require 'common/util/mergeClasses'
+PropTypes    = require 'ui/framework/PropTypes'
+CachedState  = require 'ui/framework/mixins/CachedState'
+Pure         = require 'ui/framework/mixins/Pure'
+Icon         = React.createFactory(require 'ui/common/Icon')
+{div}        = React.DOM
 
 CardGoal = React.createClass {
 
@@ -22,7 +23,8 @@ CardGoal = React.createClass {
 
     # TODO: Link to the goal on the strategy screen
 
-    div {className: 'goal'},
+    classes = mergeClasses('goal', @props.className)
+    div {className: classes},
       Icon {name: 'goal'}
       @state.goal?.name
 

@@ -22,14 +22,10 @@ FollowingPanel = React.createClass {
   getCachedState: (cache) ->
     {cards: cache('myFollowedCards').get()}
 
-  isReady: ->
-    @state.cards?
-
   render: ->
 
     props = mergeProps @props, {
       className: 'following panel'
-      @isReady
     }
     
     Frame props,

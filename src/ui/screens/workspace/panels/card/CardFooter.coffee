@@ -1,9 +1,11 @@
-React                  = require 'react'
-PropTypes              = require 'ui/framework/PropTypes'
-Button                 = React.createFactory(require 'ui/common/Button')
-CardFollowersList      = React.createFactory(require 'ui/screens/workspace/panels/card/CardFollowersList')
-FollowCardToggleButton = React.createFactory(require 'ui/screens/workspace/panels/card/FollowCardToggleButton')
-{div}                  = React.DOM
+React                = require 'react/addons'
+PropTypes            = require 'ui/framework/PropTypes'
+CommandContextMaster = require 'ui/framework/mixins/CommandContextMaster'
+Button               = React.createFactory(require 'ui/common/Button')
+CardCommandBar       = React.createFactory(require 'ui/screens/workspace/panels/card/commands/CardCommandBar')
+CardCommandPanel     = React.createFactory(require 'ui/screens/workspace/panels/card/commands/CardCommandPanel')
+CSSTransitionGroup   = React.createFactory(React.addons.CSSTransitionGroup)
+{div}                = React.DOM
 
 CardFooter = React.createClass {
 
@@ -11,15 +13,18 @@ CardFooter = React.createClass {
 
   propTypes:
     card:        PropTypes.Card
+    kind:        PropTypes.Kind
+    stack:       PropTypes.Stack
     currentUser: PropTypes.User
+
+  mixins: [CommandContextMaster]
 
   render: ->
 
     div {className: 'card-footer'},
-      div {className: 'left-buttons'},
-        FollowCardToggleButton {card: @props.card, currentUser: @props.currentUser}
-      CardFollowersList {card: @props.card, currentUser: @props.currentUser}
-      div {className: 'right-buttons'}
+      CSSTransitionGroup {className: 'command-placeholder', component: 'div', transitionName: 'slide'},
+        CardCommandPanel {card: @props.card, stack: @props.stack} if @hasActiveCommand()
+      CardCommandBar {card: @props.card, stack: @props.stack}
 
 }
 

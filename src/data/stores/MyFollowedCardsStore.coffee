@@ -10,8 +10,7 @@ class MyFollowedCardsStore extends SingletonListStore
 
   listensFor: [
     'MyFollowedCardsLoaded'
-    'UserFollowedCard'
-    'UserUnfollowedCard'
+    'CardChanged'
   ]
 
   load: ->
@@ -20,10 +19,7 @@ class MyFollowedCardsStore extends SingletonListStore
   onMyFollowedCardsLoaded: (event) ->
     @set(_.pluck(event.cards, 'id'))
 
-  onUserFollowedCard: (event) ->
-    # TODO
-
-  onUserUnfollowedCard: (event) ->
-    # TODO
+  onCardChanged: (event) ->
+    @clear()
 
 module.exports = MyFollowedCardsStore

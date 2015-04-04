@@ -1,9 +1,15 @@
 .following
   width: $following-panel-width
   min-width: $following-panel-width
-  border: 1px solid $panel-border-color
-  background: $panel-background-color
   z-index: $panel-layer
+
+  &.slide-enter
+    animation: following-enter 300ms ease-out
+    z-index: $panel-animation-layer
+    
+  &.slide-leave
+    animation: following-leave 150ms linear
+    z-index: $panel-animation-layer
 
 @keyframes following-enter
   0%
@@ -19,10 +25,6 @@
     margin-left: 0
     margin-right: $panel-margin
 
-.following.slide-enter
-  animation: following-enter 300ms ease-out
-  z-index: $panel-animation-layer
-
 @keyframes following-leave
   from
     opacity: 1
@@ -30,7 +32,3 @@
   to
     opacity: 0
     margin-left: -($following-panel-width + $panel-margin)
-
-.following.slide-leave
-  animation: following-leave 150ms linear
-  z-index: $panel-animation-layer

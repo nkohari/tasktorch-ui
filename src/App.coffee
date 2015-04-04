@@ -9,6 +9,7 @@ CreateUserScreen = require 'ui/screens/createUser/CreateUserScreen'
 WorkspaceScreen  = require 'ui/screens/workspace/WorkspaceScreen'
 BigPictureScreen = require 'ui/screens/bigPicture/BigPictureScreen'
 StrategyScreen   = require 'ui/screens/strategy/StrategyScreen'
+KnowledgeScreen  = require 'ui/screens/knowledge/KnowledgeScreen'
 Route            = React.createFactory(Router.Route)
 
 window.Environment = environment = new Environment()
@@ -21,6 +22,7 @@ routes = [
     Route {name: 'workspace',  key: 'workspace',  handler: WorkspaceScreen}
     Route {name: 'bigpicture', key: 'bigpicture', handler: BigPictureScreen}
     Route {name: 'strategy',   key: 'strategy',   handler: StrategyScreen}
+    Route {name: 'knowledge',  key: 'knowledge',  handler: KnowledgeScreen}
   ]
 ]
 

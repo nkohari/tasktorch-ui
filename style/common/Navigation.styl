@@ -5,27 +5,36 @@
   li
     display: inline-block
     list-style-type: none
-    margin: 0
-    padding: 0 10px
+    width: 140px
     height: $shell-header-height
+    text-align: center
     line-height: 20px
+    color: $color-ink-light
+        
+    &.active
+      color: $color-ink
+      border-left: 1px solid $color-charcoal-light
+      border-right: 1px solid $color-charcoal-light
+      height: 44px
+      padding-bottom: 3px
+      border-bottom-right-radius: 4px
+      border-bottom-left-radius: 4px
+      box-shadow: 0px 1px 1px black(30%)
+      background: $color-charcoal-light
+      a { background: $color-charcoal-verylight }
     
     a
       display: block
-      width: 120px
       height: 100%
-      text-align: center
       text-decoration: none
-      color: $nav-link-color
       font-size: 16px
+      font-weight: $bold-font-weight
       padding-top: 10px
       transition: color $hover-animation-delay linear
-      & > i { margin-right: 6px }
+
+      & > i
+        font-size: 22px
+        margin-right: 6px
       
       &:hover
-        color: $nav-link-hover-color
-
-      &.active
-        color: $nav-link-active-color
-        font-weight: $bold-font-weight
-        border-bottom: 1px solid $nav-highlight-color
+        color: $color-ink

@@ -1,0 +1,39 @@
+.big-picture-card-action
+  display: flex
+  flex-direction: row
+  border: 1px solid
+  border-top: none
+  &:first-child { border-top: 1px solid }
+  
+  .owner
+    flex: none
+    margin-right: 10px
+    color: $color-ink-light
+    .avatar
+      height: 24px
+      width: 24px
+      border-radius: 3px
+      margin-top: 8px
+    & > i
+      color: $color-ink-subtle
+      width: 26px
+      margin-top: 12px
+      margin-right: 0
+    
+  .status
+    flex: none
+    margin-left: 10px
+    & > i
+      margin-right: 0
+      margin-top: 12px
+      
+  .text
+    flex: 1
+    font-size: 15px
+    line-height: 1.3em
+    margin: 10px 10px 10px 8px
+
+  &.warning
+    color: $color-bad !important
+    border-color: $color-bad !important
+    background: $color-bad-medium !important

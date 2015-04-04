@@ -1,26 +1,28 @@
 .stack-card
-  position: relative;
-  background: $bright-white
-  padding: 2px
-  border: 1px solid #bbb
-  transition: background $activate-animation-delay linear
-  cursor: pointer
+  display: block
+  position: relative
+  margin-bottom: 6px
+  cursor: move
+  
+  for $name, $color in $semantic-colors-border
+    &.{$name}
+      background: $semantic-colors-medium[$name]
+      border: 1px solid $color
+      & > .content
+        background: $semantic-colors-background[$name]
+        border-left: 1px solid $color
   
   &:last-child { margin-bottom: 0 }
-  &.active { background: #ececec }
   
-  &.ui-sortable-helper
-    list-style-type: none
-    cursor: move
-    border: 1px solid #aaa
-    box-shadow: 0 0 5px $shadow-color
-  
-  .summary
+  & > .content
+    
+    display: block
+    cursor: pointer
     padding: 6px 8px
-    border-left: 6px solid transparent
+    margin-left: 8px
     
     .title
-      color: $text-color
+      color: $color-ink
       font-size: 16px
       line-height: 20px
       font-weight: $bold-font-weight
@@ -29,7 +31,11 @@
       white-space: nowrap
 
     .subtitle
-      color: $very-subtle-text-color
+      color: $color-ink-light
       font-size: 12px
       font-style: italic
-      line-height: 14px
+      font-weight: $bold-font-weight
+      line-height: 16px
+  
+  &.ui-sortable-helper
+    box-shadow: 0 0 5px black(30%)

@@ -3,6 +3,7 @@ PropTypes                    = require 'ui/framework/PropTypes'
 ActionStatus                 = require 'data/enums/ActionStatus'
 Actor                        = require 'ui/framework/mixins/Actor'
 UserChangedActionStatusEvent = require 'events/ui/UserChangedActionStatusEvent'
+UserDeletedActionEvent       = require 'events/ui/UserDeletedActionEvent'
 Button                       = React.createFactory(require 'ui/common/Button')
 Overlay                      = React.createFactory(require 'ui/common/Overlay')
 Selector                     = React.createFactory(require 'ui/common/Selector')
@@ -24,7 +25,7 @@ ChangeActionStatusOverlay = React.createClass {
 
   render: ->
 
-    Overlay {arrow: true},
+    Overlay {position: 'right', arrow: true},
       Selector {selection: @state.status, onChange: @onStatusSelected},
         ActionStatusSelectorOption {value: ActionStatus.NotStarted, text: 'Not Started', icon: 'notstarted'}
         ActionStatusSelectorOption {value: ActionStatus.InProgress, text: 'In Progress', icon: 'inprogress'}
@@ -33,6 +34,7 @@ ChangeActionStatusOverlay = React.createClass {
       div {className: 'buttons'},
         Button {className: 'small', text: 'OK',     onClick: @onOkClicked, disabled: @state.status == @props.action.status}
         Button {className: 'small', text: 'Cancel', onClick: @onCancelClicked}
+        Button {className: 'small right', text: 'Delete Action', onClick: @onDeleteClicked}
 
   onStatusSelected: (status) ->
     @setState {status}
@@ -42,6 +44,10 @@ ChangeActionStatusOverlay = React.createClass {
     @props.hideOverlay()
 
   onCancelClicked: ->
+    @props.hideOverlay()
+
+  onDeleteClicked: ->
+    @publish new UserDeletedActionEvent(@props.action.id)
     @props.hideOverlay()
 
 }

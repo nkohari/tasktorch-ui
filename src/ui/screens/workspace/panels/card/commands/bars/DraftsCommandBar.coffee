@@ -1,5 +1,6 @@
 _                   = require 'lodash'
 React               = require 'react'
+mergeClasses        = require 'common/util/mergeClasses'
 PropTypes           = require 'ui/framework/PropTypes'
 AcceptCommandButton = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/AcceptCommandButton')
 PassCommandButton   = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/PassCommandButton')
@@ -15,7 +16,7 @@ DraftsCommandBar = React.createClass {
 
   render: ->
 
-    div {className: 'queue commands'},
+    div {className: mergeClasses('drafts', @props.className)},
       div {className: 'button-group'},
         AcceptCommandButton {card: @props.card}
         PassCommandButton {card: @props.card}

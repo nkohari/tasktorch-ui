@@ -32,6 +32,7 @@ Block = React.createClass {
       'block'
       'collapsible' if @props.collapsible
       'expanded'    if @props.collapsible and @state.expanded
+      'collapsed'   if @props.collapsible and !@state.expanded
     ]
 
     props = mergeProps _.omit(@props, 'title'), {

@@ -1,7 +1,9 @@
 React             = require 'react'
-PropTypes         = require 'ui/framework/PropTypes'
+classSet          = require 'common/util/classSet'
 CardStatus        = require 'data/enums/CardStatus'
 StackType         = require 'data/enums/StackType'
+PropTypes         = require 'ui/framework/PropTypes'
+CommandContext    = require 'ui/framework/mixins/CommandContext'
 ArchiveCommandBar = React.createFactory(require 'ui/screens/workspace/panels/card/commands/bars/ArchiveCommandBar')
 BacklogCommandBar = React.createFactory(require 'ui/screens/workspace/panels/card/commands/bars/BacklogCommandBar')
 DraftsCommandBar  = React.createFactory(require 'ui/screens/workspace/panels/card/commands/bars/DraftsCommandBar')
@@ -17,6 +19,8 @@ CardCommandBar = React.createClass {
     card:  PropTypes.Card
     stack: PropTypes.Stack
 
+  mixins: [CommandContext]
+
   render: ->
 
     if @props.card.status == CardStatus.Complete
@@ -26,7 +30,12 @@ CardCommandBar = React.createClass {
     else
       CommandBar = @getCommandBarClassByStackType()
 
-    CommandBar {card: @props.card, stack: @props.stack}
+    classes = classSet [
+      'commands'
+      'active' if @hasActiveCommand()
+    ]
+
+    CommandBar {className: classes, card: @props.card, stack: @props.stack}
 
   getCommandBarClassByStackType: ->
     switch @props.stack.type

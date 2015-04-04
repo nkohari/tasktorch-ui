@@ -3,9 +3,9 @@
   & > .header
     padding: 0
     margin: 0
-    color: $panel-block-header-text-color
-    background: linear-gradient(to bottom, $steel-highlight-color, $steel-lowlight-color)
-    border-bottom: 1px solid $panel-block-border-color
+    color: $color-ink-light
+    background: $color-steel-light
+    border-bottom: 1px solid $color-steel-medium
       
     .tab
       display: inline-block
@@ -15,25 +15,8 @@
       padding: 4px 10px
       font-weight: $heavy-font-weight
       text-transform: uppercase
-      border-right: 1px solid $panel-block-border-color
+      border-right: 1px solid $color-steel-medium
       
       &.active
-        background: $steel-lowlight-color
-
-@keyframes tab-pane-enter
-  from
-    opacity: 0
-  to
-    opacity: 1
-
-.tab-block .content .fade-enter
-  animation: tab-pane-enter 250ms ease-out
-
-@keyframes tab-pane-leave
-  from
-    opacity: 1
-  to
-    opacity: 0
-
-.tab-block .content .fade-leave
-  animation: tab-pane-leave 250ms ease-in
+        color: $color-ink
+        background: $color-steel

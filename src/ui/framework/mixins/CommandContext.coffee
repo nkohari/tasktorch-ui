@@ -13,6 +13,9 @@ CommandContext = {
   isActiveCommand: (name) ->
     @getActiveCommand() == name
 
+  hasActiveCommand: ->
+    @getActiveCommand()?
+
   showCommand: (name) ->
     @context.showCommand(name)
 

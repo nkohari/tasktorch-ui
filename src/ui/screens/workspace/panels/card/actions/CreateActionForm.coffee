@@ -11,21 +11,18 @@ CreateActionForm = React.createClass {
   displayName: 'CreateActionForm'
 
   props:
-    checklist: PropTypes.Checklist
+    checklist:    PropTypes.Checklist
+    toggleAdding: PropTypes.func
 
   mixins: [Actor]
 
   getInitialState: ->
-    {editing: false, text: ''}
+    {text: ''}
 
-  componentDidUpdate: ->
-    @refs.input.getDOMNode().focus() if @state.editing
+  componentDidMount: ->
+    @refs.input.getDOMNode().focus()
 
   render: ->
-
-    unless @state.editing
-      return div {className: 'create-action-form'},
-        a {onClick: @startEditing}, 'Add an action...'
 
     div {className: 'create-action-form'},
       input {
@@ -43,7 +40,7 @@ CreateActionForm = React.createClass {
         Button {
           className: 'small'
           text: 'Done'
-          onClick: @stopEditing
+          onClick: @props.toggleAdding
         }
 
   onKeyUp: (event) ->
@@ -58,12 +55,6 @@ CreateActionForm = React.createClass {
 
   onChange: (event) ->
     @setState {text: event.target.value}
-
-  startEditing: ->
-    @setState {editing: true, text: ''}
-
-  stopEditing: ->
-    @setState {editing: false}
 
   createAction: ->
     return unless @state.text?.length > 0

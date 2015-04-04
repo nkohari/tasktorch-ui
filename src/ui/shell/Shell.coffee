@@ -23,6 +23,8 @@ Shell = React.createClass {
     url:    PropTypes.object
 
   childContextTypes:
+    currentOrg:    PropTypes.Org
+    currentUser:   PropTypes.User
     currentScreen: PropTypes.string
     screenState:   PropTypes.object
 
@@ -31,12 +33,14 @@ Shell = React.createClass {
   getChildContext: -> {
     currentScreen: @props.url.screen
     screenState:   @screenState
+    currentOrg:    @state.currentOrg
+    currentUser:   @state.currentUser
   }
 
   getCachedState: (cache) -> {
     orgs:        cache('myOrgs').get()
-    currentUser: cache('users').get(@props.userid)
     currentOrg:  cache('orgs').get(@props.orgid)
+    currentUser: cache('users').get(@props.userid)
   }
 
   componentWillMount: ->
@@ -44,6 +48,7 @@ Shell = React.createClass {
       workspace:  new ScreenState('workspace',  @props.url, @transitionTo)
       bigpicture: new ScreenState('bigpicture', @props.url, @transitionTo)
       strategy:   new ScreenState('strategy',   @props.url, @transitionTo)
+      knowledge:  new ScreenState('knowledge',  @props.url, @transitionTo)
     }
 
   componentDidMount: ->

@@ -23,8 +23,7 @@ BigPicturePanelList = React.createClass {
       props = _.extend {key: panel.id, currentUser: @props.currentUser, currentOrg: @props.currentOrg}, panel
       BigPicturePanel(props)
 
-    #CSSTransitionGroup {component: 'div', className: 'content', transitionName: 'slide'},
-    div {className: 'content'},
+    CSSTransitionGroup {component: 'div', className: 'content', transitionName: 'slide'},
       panels
 
 }

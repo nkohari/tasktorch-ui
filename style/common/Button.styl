@@ -1,3 +1,5 @@
+$button-border-radius = 4px
+
 button, a.button
   position: relative
   display: inline-block
@@ -5,21 +7,19 @@ button, a.button
   height: 32px
   font-size: 14px
   padding: 6px 10px
-  color: $soft-text-color
-  border: 1px solid $steel-border-color
+  color: $color-ink
+  border: 1px solid $color-steel-dark
   border-radius: $button-border-radius
   margin-right: 4px
-  background: linear-gradient(to bottom, $button-highlight-color, $button-lowlight-color)
+  background: linear-gradient(to bottom, $color-white, $color-steel)
   outline: none !important
-  box-shadow: 0 1px 0 shadow(10%)
+  box-shadow: 0 1px 0 black(10%)
   text-decoration: none
   font-weight: $bold-font-weight
+  
   i
     line-height: 16px
     margin-right: 6px
-  
-  &.default
-    color: $dark-black
   
   &.small
     height: 24px
@@ -37,19 +37,15 @@ button, a.button
   &.warning
     border-color: $warning-border-color
     background: linear-gradient(to bottom, $warning-highlight-color, $warning-lowlight-color)
-    &:active, &.active { background: $warning-lowlight-color }
+    &:active, &.active { background: $warning-normal-color }
   
   &:active, &.active
-    color: $dark-black
-    background: $button-lowlight-color
-    box-shadow: inset 0px 0px $shadow-blur $shadow-color
-    
-  &:hover
-    color: $dark-black
+    background: $color-steel-light
+    box-shadow: inset 0px 0px 3px black(30%)
     
   &:disabled
-    color: $disabled-text-color;
-    background: $button-lowlight-color
+    color: $color-ink-subtle
+    background: $color-steel
     box-shadow: none
   
   &:last-child
@@ -68,11 +64,12 @@ button, a.button
       border-top-left-radius: $button-border-radius
       border-bottom-left-radius: $button-border-radius
     &:last-child
-      border-right: 1px solid $steel-border-color
+      border-right: 1px solid $color-steel-dark
       border-top-right-radius: $button-border-radius
       border-bottom-right-radius: $button-border-radius
 
 .menu-button
+  position: relative
   display: inline-block
   vertical-align: top
   

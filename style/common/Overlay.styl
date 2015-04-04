@@ -1,13 +1,21 @@
+.trigger
+  cursor: pointer
+
 .overlay
   position: absolute
+  cursor: auto
   z-index: $floating-layer
   margin: 2px 0 0 0
   padding: 6px
   font-size: 14px
-  border: 1px solid $overlay-border-color
-  background: $overlay-background-color
-  box-shadow: 0px 1px 3px shadow(30%)
+  color: $color-ink
+  background: $color-white
+  border: 1px solid $color-steel-dark
+  box-shadow: 0px 1px 3px black(30%)
   outline: none !important
+
+  &.slide-enter { animation: overlay-enter 100ms ease-out }
+  &.slide-leave { animation: overlay-leave 100ms linear   }
 
   &.right
     right: 0
@@ -16,47 +24,41 @@
     position: absolute
     width: 0
     height: 0
-    border: $arrow-width solid transparent
+    border: $overlay-arrow-width solid transparent
   
   .arrow:after
     content: " "
 
   &.left.with-arrow
-    margin-top: ($arrow-width + 2)
+    margin-top: ($overlay-arrow-width + 2)
     .arrow
-      top: -($arrow-width)
-      left: $arrow-width
+      top: -($overlay-arrow-width)
+      left: $overlay-arrow-width
       border-top-width: 0
-      border-bottom-color: $overlay-border-color
+      border-bottom-color: $color-steel-dark
       &:after
         top: 1px
-        margin-left: -($arrow-width)
+        margin-left: -($overlay-arrow-width)
         border-top-width: 0
-        border-bottom-color: $overlay-background-color
+        border-bottom-color: $color-white
         
   &.right.with-arrow
-    margin-top: ($arrow-width + 2)
+    margin-top: ($overlay-arrow-width + 2)
     .arrow
-      top: -($arrow-width)
-      right: $arrow-width
+      top: -($overlay-arrow-width)
+      right: $overlay-arrow-width
       border-top-width: 0
-      border-bottom-color: $overlay-border-color
+      border-bottom-color: $color-steel-dark
       &:after
         top: 1px
-        margin-left: -($arrow-width)
+        margin-left: -($overlay-arrow-width)
         border-top-width: 0
-        border-bottom-color: $overlay-background-color
+        border-bottom-color: $color-white
  
 @keyframes overlay-enter
   from { opacity: 0; transform: translateY(-5px) }
   to   { opacity: 1; transform: translateY(0) }
 
-.overlay.slide-enter
-  animation: overlay-enter 100ms ease-out
-
 @keyframes overlay-leave
   from { opacity: 1; transform: translateY(0) }
   to   { opacity: 0; transform: translateY(-5px) }
-
-.overlay.slide-leave
-  animation: overlay-leave 100ms linear

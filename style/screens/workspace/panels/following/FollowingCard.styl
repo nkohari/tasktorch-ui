@@ -1,61 +1,62 @@
 .following-card
-  padding: 2px
-  border-bottom: 1px solid #bbb
+  margin-bottom: 6px
   
-  a
+  for $name, $color in $semantic-colors-background
+    &.{$name}
+      background: $color
+      border: 1px solid $semantic-colors-border[$name]
+      .controls
+        color: $semantic-colors-border[$name]
+        .trigger:hover { color: $semantic-colors-foreground[$name] }
+          
+  & > .content
     display: flex
     width: 100%
-    padding: 4px 6px
-    color: $black
+    padding: 6px 8px
     text-decoration: none
-    background: $bright-white
-    border-left: 6px solid transparent
     transition: background $activate-animation-delay linear
-    &.active { background: #ececec }
 
     .card-owner
       flex: none
-      width: 36px
-      height: 36px
+      width: 48px
+      height: 48px
       padding: 2px
-      border: 1px solid $steel-light-border-color
-      border-radius: 50%
-      background: $bright-white
-    
-    .card-summary
+      border: 1px solid $color-steel-medium
+      border-radius: 6px
+      background: $color-white
+          
+      & > i
+        color: $color-steel-medium
+        font-size: 30px
+        line-height: 30px
+      
+    .card-info
       flex: 1
-      margin-left: 6px
+      margin-top: 2px
+      margin-left: 8px
       
       .title
-        color: $text-color
+        color: $color-ink
         font-size: 16px
         font-weight: $bold-font-weight
-        line-height: 20px
+        line-height: 24px
         overflow: hidden
         text-overflow: ellipsis
         white-space: nowrap
 
       .widgets
-        
-        .location
-          display: inline-block
-          width: 120px
-          color: $subtle-text-color
-          font-size: 12px
-          line-height: 18px
-          i
-            font-size: 12px
+        display: flex
+        flex-direction: row
+        color: $color-ink-light
+        font-weight: $bold-font-weight
+        font-size: 13px
+        i { font-size: 14px }
 
-        .progress
-          display: inline-block
-          color: #666
-          font-size: 10px
-          font-weight: $heavy-font-weight
-          width: 100px
-          background: #ddd
-          border: 1px solid #bbb
-          padding: 1px 0
-          text-align: center
-          border-radius: 10px
-          .count
-            padding: 0 2px
+    .controls
+      flex: none
+      margin-top: 4px
+      .trigger
+        display: block
+        margin-bottom: 6px
+        transition: color $hover-animation-delay linear
+        & > i { margin-right: 0 }

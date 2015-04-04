@@ -39,7 +39,7 @@ PassCommandPanel = React.createClass {
       CommandArgument {label: 'Message', hint: '(optional)'},
         EditableTextArea {className: 'message', onChange: @onMessageChanged}
       div {className: 'buttons'},
-        Button {text: 'Pass', className: 'default', onClick: @onOkButtonClicked}
+        Button {text: 'Pass', className: 'default', onClick: @passCard}
         Button {text: 'Cancel', onClick: @hideCommand}
 
   onRecipientChanged: (item, type) ->
@@ -48,7 +48,7 @@ PassCommandPanel = React.createClass {
   onMessageChanged: (message) ->
     @setState {message}
 
-  onOkButtonClicked: ->
+  passCard: ->
     @publish new UserPassedCardEvent(@props.card.id, @state.recipient, @state.message)
     @hideCommand()
 
