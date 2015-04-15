@@ -32,6 +32,7 @@ QueueCardAction = React.createClass {
     ]
 
     li {className: classes},
+      div {className: 'stage'}, @props.stage.name
       @renderStatus()
       div {className: 'text'}, @props.action.text
       @renderOwner()

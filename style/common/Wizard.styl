@@ -11,14 +11,14 @@
   .breadcrumbs
     display: flex
     overflow: hidden
-    border-bottom: 1px solid $color-steel-medium
+    border-bottom: 1px solid $color-steel
   
     .breadcrumb
       position: relative
       cursor: pointer
       flex: 1
       padding: 6px 32px 6px 26px
-      background: $color-steel-light
+      background: $color-steel-verylight
       
       &:first-child
         padding-left: 16px
@@ -27,9 +27,9 @@
         &:after { display: none }
         
       &.active
-        background: $color-steel
+        background: $color-steel-light
         font-weight: $bold-font-weight
-        &:after { background: $color-steel }
+        &:after { background: $color-steel-light }
           
       &:after
         content: ""
@@ -40,7 +40,9 @@
         height: 32px
         transform: rotate(45deg)
         z-index: 1
-        background: $color-steel-light
+        background: $color-steel-verylight
+        border-top: 1px solid $color-steel
+        border-right: 1px solid $color-steel
 
     .breadcrumb-number
       font-size: 12px

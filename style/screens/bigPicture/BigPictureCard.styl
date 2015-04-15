@@ -1,5 +1,4 @@
 .big-picture-card
-  padding: 8px
   margin-bottom: 6px
   
   for $name, $color in $semantic-colors-background
@@ -11,11 +10,11 @@
         .trigger:hover { color: $semantic-colors-foreground[$name] }
       .big-picture-card-action
         border-color: $semantic-colors-border[$name]
-        background: $semantic-colors-medium[$name]
 
   .card-summary
     display: flex
     flex-direction: row
+    padding: 8px
     
     .card-owner
       flex: none
@@ -62,5 +61,4 @@
       i { margin-right: 4px }
   
   .big-picture-card-action-list
-    margin-top: 8px
     &.empty { display: none }

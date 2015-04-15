@@ -18,6 +18,7 @@ CreateTeamDialog = React.createClass {
 
   getInitialState: -> {
     name: ''
+    purpose: ''
   }
 
   render: ->
@@ -25,8 +26,8 @@ CreateTeamDialog = React.createClass {
     completeButton = Button {text: 'Create Team', disabled: !@isComplete(), onClick: @createTeam}
 
     Wizard {icon: 'team', title: 'Create a team', completeButton, closeDialog: @props.closeDialog},
-      CreateTeamDialogNamePage    {title: 'Name your team', name: @state.name, onChange: @onPageStateChanged}
-      CreateTeamDialogMembersPage {title: 'Select team members', members: @state.memebrs, onChange: @onPageStateChanged}
+      CreateTeamDialogNamePage    {title: 'Name and Purpose', name: @state.name, purpose: @state.purpose, onChange: @onPageStateChanged}
+      CreateTeamDialogMembersPage {title: 'Membership', members: @state.memebrs, onChange: @onPageStateChanged}
 
   isComplete: ->
     @state.name?.length > 0
