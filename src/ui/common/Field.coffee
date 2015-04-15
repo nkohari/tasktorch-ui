@@ -7,7 +7,7 @@ Field = React.createClass {
   displayName: 'Field'
 
   props:
-    label: PropTypes.string
+    label: PropTypes.node
     note:  PropTypes.node
 
   render: ->
