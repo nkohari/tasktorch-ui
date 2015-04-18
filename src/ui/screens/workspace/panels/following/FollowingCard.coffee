@@ -23,18 +23,16 @@ FollowingCard = React.createClass {
 
   getCachedState: (cache) -> {
     kind:  cache('kinds').get(@props.card.kind)
-    user:  cache('users').get(@props.card.user)   if @props.card.user?
-    team:  cache('teams').get(@props.card.team)   if @props.card.team?
     stack: cache('stacks').get(@props.card.stack) if @props.card.stack?
   }
 
   isReady: ->
-    @state.kind? and (@state.user? or not @props.card.user?) and (@state.team? or not @props.card.team?) and (@state.stack? or not @props.card.stack?)
+    @state.kind? and (@state.stack? or not @props.card.stack?)
 
   render: ->
 
     Card {className: 'following-card', card: @props.card},
-      CardOwner {user: @state.user, team: @state.team}
+      CardOwner {card: @props.card}
       div {className: 'card-info'},
         div {className: 'title'},
           @props.card.title or 'Untitled Card'

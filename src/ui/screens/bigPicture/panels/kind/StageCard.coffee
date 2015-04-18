@@ -27,8 +27,6 @@ StageCard = React.createClass {
     checklists = cache('checklistsByCard').get(@props.card.id)
     return {
       checklist: _.find(checklists, (checklist) => checklist.stage == @props.stage.id)
-      user:      cache('users').get(@props.card.user)   if @props.card.user?
-      team:      cache('teams').get(@props.card.team)   if @props.card.team?
       stack:     cache('stacks').get(@props.card.stack) if @props.card.stack?
     }
 
@@ -39,7 +37,7 @@ StageCard = React.createClass {
 
     Card {className: 'big-picture-card', card: @props.card},
       div {className: 'card-summary'},
-        CardOwner {user: @state.user, team: @state.team}
+        CardOwner {card: @props.card}
         div {className: 'card-info'},
           div {className: 'title'}, @props.card.title or 'Untitled Card'
           CardLocation {card: @props.card, stack: @state.stack, link: true}

@@ -1,0 +1,38 @@
+.input
+  position: relative
+  
+  input
+    width: 100%
+    padding: 4px
+    background: $color-white
+    border: 1px solid $color-steel
+    outline: none !important
+    &:focus { border: 1px solid $color-steel-dark }
+  
+  &.has-left-icon
+    input { padding-left: 24px }
+    .input-placeholder { left: 26px }
+  
+  &.has-right-right
+    input { padding-right: 24px }
+
+  .left-icon
+    position: absolute
+    color: $color-ink-light
+    top: 4px
+    left: 4px
+
+  .right-icon
+    position: absolute
+    color: $color-ink-light
+    top: 5px
+    right: 4px
+        
+  .input-placeholder
+    position: absolute
+    top: 5px
+    left: 8px
+    font-size: 14px
+    font-style: italic
+    font-weight: $bold-font-weight
+    color: $color-ink-subtle

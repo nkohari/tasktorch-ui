@@ -1,6 +1,8 @@
-React        = require 'react'
-PropTypes    = require 'ui/framework/PropTypes'
-{div, label} = React.DOM
+React              = require 'react/addons'
+mergeClasses       = require 'common/util/mergeClasses'
+PropTypes          = require 'ui/framework/PropTypes'
+{div, span, label} = React.DOM
+{cloneWithProps}   = React.addons
 
 Field = React.createClass {
 
@@ -10,16 +12,28 @@ Field = React.createClass {
     label: PropTypes.node
     note:  PropTypes.node
 
+  getInitialState: ->
+    {focused: false}
+
   render: ->
 
-    if @props.note?
-      note = div {className: 'field-note'}, @props.note
+    if @props.note? and @state.focused
+      note = span {className: 'field-note'}, @props.note
 
-    div {className: 'field'},
-      label {className: 'field-label'}, @props.label
+    classes = mergeClasses('field', @props.className)
+
+    div {className: classes, @onFocus, @onBlur},
+      label {className: 'field-label'},
+        @props.label
+        note
       div {className: 'field-input'},
         @props.children
-        note
+
+  onFocus: ->
+    @setState {focused: true}
+
+  onBlur: ->
+    @setState {focused: false}
 
 }
 

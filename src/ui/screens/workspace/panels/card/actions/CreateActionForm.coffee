@@ -1,6 +1,6 @@
 React                  = require 'react'
-KeyCode                = require 'data/enums/KeyCode'
 UserCreatedActionEvent = require 'events/ui/UserCreatedActionEvent'
+KeyCode                = require 'ui/framework/KeyCode'
 PropTypes              = require 'ui/framework/PropTypes'
 Actor                  = require 'ui/framework/mixins/Actor'
 Button                 = React.createFactory(require 'ui/common/Button')

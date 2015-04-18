@@ -17,12 +17,9 @@
     flex: none
     height: 54px
     width: 54px
-    padding: 2px
-    margin-right: 6px
-    border: 1px solid $color-steel-medium
-    border-radius: 6px
-    background: $color-white
-  
+    font-size: 48px
+    line-height: 46px
+        
   .card-info
     flex: 1
   
@@ -33,6 +30,9 @@
       & > i { margin-right: 0px }
     
 .card.complete, .card.deleted
-  & > .card-header
-    background: linear-gradient(to bottom right, white(0.5) 25%, transparent 25%, transparent 50%, white(0.5) 50%, white(0.5) 75%, transparent 75%, transparent);
-    background-size: 16px 16px
+  .card-header
+    for $name, $color in $semantic-colors-background
+      $alt = $color-steel-light
+      &.{$name}
+        background: linear-gradient(to bottom right, $color 25%, $alt 25%, $alt 50%, $color 50%, $color 75%, $alt 75%, $alt);
+        background-size: 24px 24px

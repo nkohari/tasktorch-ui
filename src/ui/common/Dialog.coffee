@@ -1,6 +1,7 @@
 _                  = require 'lodash'
 React              = require 'react/addons'
 PropTypes          = require 'ui/framework/PropTypes'
+mergeClasses       = require 'common/util/mergeClasses'
 mergeProps         = require 'common/util/mergeProps'
 Icon               = React.createFactory(require 'ui/common/Icon')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
@@ -11,21 +12,19 @@ Dialog = React.createClass {
   displayName: 'Dialog'
 
   propTypes:
+    buttons:     PropTypes.node
     closeDialog: PropTypes.func
     icon:        PropTypes.string
     title:       PropTypes.string
     width:       PropTypes.number
+    height:      PropTypes.number
 
   getDefaultProps: ->
-    {width: 600}
-
-  componentDidMount: ->
-    node = @refs.dialog.getDOMNode()
-    node.style.marginTop = "#{@getMarginAdjustment()}px"
+    {width: 600, height: 'auto'}
 
   render: ->
 
-    props = mergeProps _.omit(@props, 'icon', 'title', 'width'), {
+    props = mergeProps _.omit(@props, 'className', 'icon', 'title', 'height', 'width'), {
       className: 'dialog-content'
     }
 
@@ -34,17 +33,14 @@ Dialog = React.createClass {
         Icon {name: @props.icon} if @props.icon?
         @props.title
 
-    style = {width: @props.width}
-    style.marginTop = @getMarginAdjustment() if @isMounted()
+    classes = mergeClasses('dialog', @props.className)
+    style   = {width: @props.width, height: @props.height}
 
     div {className: 'dialog-backdrop', onClick: @onContainerClicked},
-      div {ref: 'dialog', className: 'dialog', style},
+      div {ref: 'dialog', className: classes, style},
         header
         div props, @props.children
-
-  getMarginAdjustment: ->
-    node = @refs.dialog.getDOMNode()
-    return -(node.clientHeight / 2)
+        @props.buttons
 
   onContainerClicked: (event) ->
     if event.target == @getDOMNode()

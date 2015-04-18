@@ -23,7 +23,7 @@ SuggestingSelector = React.createClass {
     @types = _.flatten [@props.suggest]
 
   componentWillReceiveProps: (newProps) ->
-    if newProps.selection?
+    if newProps.selection isnt undefined
       @setState {selectionType: newProps.selectionType, selection: newProps.selection}
 
   getCachedState: (cache) ->

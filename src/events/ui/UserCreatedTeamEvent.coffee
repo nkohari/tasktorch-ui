@@ -4,6 +4,6 @@ class UserCreatedTeamEvent extends Event
 
   type: 'UserCreatedTeam'
 
-  constructor: (@name) ->
+  constructor: (@name, @purpose, @members, @leaders) ->
 
 module.exports = UserCreatedTeamEvent

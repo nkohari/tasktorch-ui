@@ -1,29 +1,18 @@
-.field-group
-  display: table
-  width: 100%
-  border-collapse: separate
-  border-spacing: 0 10px
-
 .field
-  display: table-row
   
   .field-label
-    display: table-cell
-    padding: 6px 10px 0 0
+    display: block
+    margin-bottom: 4px
     font-size: 14px
     font-weight: 500
+    
+  .field-note
+    float: right
     text-align: right
-    vertical-align: top
+    color: $color-ink-light
+    font-size: 14px
+    font-style: italic
+    font-weight: $bold-font-weight
   
   .field-input
-    display: table-cell
-    input
-      padding: 4px
-      width: 100%
-      outline: none !important
-    .field-note
-      margin-top: 4px
-      color: $color-ink-light
-      font-size: 14px
-      font-style: italic
-      font-weight: $bold-font-weight
+    margin-bottom: 8px

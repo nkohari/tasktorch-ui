@@ -1,6 +1,7 @@
 _                  = require 'lodash'
 React              = require 'react/addons'
 classSet           = require 'common/util/classSet'
+mergeClasses       = require 'common/util/mergeClasses'
 PropTypes          = require 'ui/framework/PropTypes'
 Button             = React.createFactory(require 'ui/common/Button')
 Icon               = React.createFactory(require 'ui/common/Icon')
@@ -17,7 +18,7 @@ Wizard = React.createClass {
     icon:        PropTypes.string
     title:       PropTypes.string
     width:       PropTypes.number
-    height:      PropTypes.number
+    height:      PropTypes.any
 
   getDefaultProps: ->
     {width: 600, height: 'auto'}
@@ -25,13 +26,9 @@ Wizard = React.createClass {
   getInitialState: ->
     {currentPage: 0}
 
-  componentDidMount: ->
-    node = @refs.dialog.getDOMNode()
-    node.style.marginTop = "#{@getMarginAdjustment()}px"
-
   render: ->
 
-    pages       = _.flatten [@props.children]
+    pages = _.flatten [@props.children]
     currentPage = pages[@state.currentPage]
 
     if @state.currentPage > 0
@@ -47,24 +44,21 @@ Wizard = React.createClass {
         Icon {name: @props.icon} if @props.icon?
         @props.title
 
-    style = {width: @props.width, height: @props.height}
+    classes = mergeClasses('wizard dialog', @props.className)
+    style   = {width: @props.width, height: @props.height}
 
     div {className: 'dialog-backdrop', onClick: @onContainerClicked},
-      div {ref: 'dialog', className: 'wizard dialog', style},
+      div {ref: 'dialog', className: classes, style},
         header
         WizardBreadcrumbs {pages, currentPage: @state.currentPage, @setPage}
         div {className: 'dialog-content'},
           currentPage
-          div {className: 'dialog-buttons'},
-            div {className: 'left-buttons'},
-              backButton
-            div {className: 'right-buttons'},
-              forwardButton
-              Button {text: 'Cancel', onClick: @props.closeDialog}
-
-  getMarginAdjustment: ->
-    node = @refs.dialog.getDOMNode()
-    return -(node.clientHeight / 2)
+        div {className: 'dialog-buttons'},
+          div {className: 'left-buttons'},
+            backButton
+          div {className: 'right-buttons'},
+            forwardButton
+            Button {text: 'Cancel', onClick: @props.closeDialog}
 
   onContainerClicked: (event) ->
     if event.target == @getDOMNode()

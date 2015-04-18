@@ -1,5 +1,5 @@
 React                   = require 'react'
-KeyCode                 = require 'data/enums/KeyCode'
+KeyCode                 = require 'ui/framework/KeyCode'
 PropTypes               = require 'ui/framework/PropTypes'
 Actor                   = require 'ui/framework/mixins/Actor'
 UserCreatedCommentEvent = require 'events/ui/UserCreatedCommentEvent'

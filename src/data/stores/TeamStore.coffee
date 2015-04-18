@@ -37,7 +37,7 @@ class TeamStore extends ModelStore
     @remove(event.team.id)
 
   onUserCreatedTeam: (event) ->
-    @execute new CreateTeamRequest(event.name)
+    @execute new CreateTeamRequest(event.name, event.purpose, event.members, event.leaders)
 
   onUserDeletedTeam: (event) ->
     @execute new DeleteTeamRequest(event.teamid)

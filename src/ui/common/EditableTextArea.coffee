@@ -1,7 +1,7 @@
 _          = require 'lodash'
 React      = require 'react'
 PropTypes  = require 'ui/framework/PropTypes'
-KeyCode    = require 'data/enums/KeyCode'
+KeyCode    = require 'ui/framework/KeyCode'
 classSet   = require 'common/util/classSet'
 mergeProps = require 'common/util/mergeProps'
 {textarea} = React.DOM

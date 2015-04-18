@@ -1,49 +1,50 @@
-_                  = require 'lodash'
-React              = require 'react'
-PropTypes          = require 'ui/framework/PropTypes'
-CachedState        = require 'ui/framework/mixins/CachedState'
-SuggestingSelector = React.createFactory(require 'ui/common/SuggestingSelector')
-UserSelectorOption = React.createFactory(require 'ui/common/UserSelectorOption')
-{div}              = React.DOM
+_                    = require 'lodash'
+React                = require 'react'
+PropTypes            = require 'ui/framework/PropTypes'
+CachedState          = require 'ui/framework/mixins/CachedState'
+UserSelector         = React.createFactory(require 'ui/common/UserSelector')
+MembershipEditorItem = React.createFactory(require 'ui/common/MembershipEditorItem')
+{div}                = React.DOM
 
 MembershipEditor = React.createClass {
 
   displayName: 'MembershipEditor'
 
   propTypes:
-    members: PropTypes.arrayOf(PropTypes.id)
     leaders: PropTypes.arrayOf(PropTypes.id)
+    members: PropTypes.arrayOf(PropTypes.id)
 
   mixins: [CachedState]
 
-  getDefaultProps: -> {
-    members: []
-    leaders: []
-  }
+  getInitialState: ->
+    {leaders: [], members: []}
 
-  getCachedState: (cache) -> {
-    users: cache('users').getAll(@props.members)
-  }
+  getCachedState: (cache) ->
+    return {
+      users: cache('users').getAll(@state.members) if @state?.members?
+    }
 
   render: ->
 
     if @state.users?
       lookup = _.indexBy(@state.users, 'id')
-      users = _.map @props.members, (id) =>
-        user     = lookup[id]
-        isLeader = _.contains(@props.leaders, id)
-        MembershipEditorItem {key: id, user, isLeader}
+      members = _.map @state.members, (id) =>
+        user = lookup[id]
+        return unless user?
+        isLeader = _.contains(@state.leaders, id)
+        MembershipEditorItem {key: id, user, isLeader, @removeMember}
 
     div {className: 'membership-editor'},
-      SuggestingSelector {
-        option:   UserSelectorOption
-        suggest:  'user'
-        onChange: @onUserSelected
-      }
-      users
+      UserSelector {onOptionSelected: @addMember}
+      div {className: 'member-list'}, members
 
-  onUserSelected: (user) ->
-    console.log(user)
+  addMember: (user) ->
+    members = @state.members.concat(user.id)
+    @setState {members}, => @forceCacheSync()
+
+  removeMember: (user) ->
+    members = _.without(@state.members, user.id)
+    @setState {members}, => @forceCacheSync()
 
 }
 

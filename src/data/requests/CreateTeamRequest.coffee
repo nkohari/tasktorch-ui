@@ -5,11 +5,11 @@ Request          = require 'data/framework/Request'
 
 class CreateTeamRequest extends Request
 
-  constructor: (@name) ->
+  constructor: (@name, @purpose, @members, @leaders) ->
 
   execute: (eventQueue) ->
     superagent.post("/api/#{Environment.orgid}/teams")
-    .send({@name})
+    .send {@name, @purpose, @members, @leaders}
     .end (res) =>
       team = new Team(res.body.team)
       eventQueue.publish new TeamCreatedEvent(team)

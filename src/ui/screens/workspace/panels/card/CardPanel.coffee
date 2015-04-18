@@ -30,7 +30,7 @@ CardPanel = React.createClass {
     {card, kind, stack}
 
   isReady: ->
-    @state.card? and @state.kind? and @state.stack?
+    @state.card? and @state.kind?
 
   render: ->
 

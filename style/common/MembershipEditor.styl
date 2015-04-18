@@ -1,4 +1,28 @@
 .membership-editor
-  padding: 4px
-  border: 1px solid $color-steel
-  background: $color-steel-light
+
+  .selector-prompt
+    padding: 4px
+    background: $color-steel-light
+    border: 1px solid $color-steel
+    border-bottom: none
+  
+  .member-list
+    border: 1px solid $color-steel
+    background: $color-white
+    overflow-y: auto
+    
+    .member
+      display: flex
+      padding: 6px 8px
+      font-size: 14px
+      border-bottom: 1px solid $color-steel-light
+      
+      .avatar
+        height: 24px
+        width: 24px
+        border-radius: 4px
+        margin-right: 8px
+      
+      .member-name
+        flex: 1
+        line-height: 24px
