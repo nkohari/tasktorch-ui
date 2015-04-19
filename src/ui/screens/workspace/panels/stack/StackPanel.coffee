@@ -10,6 +10,7 @@ Frame           = React.createFactory(require 'ui/common/Frame')
 StackHeader     = React.createFactory(require 'ui/screens/workspace/panels/stack/StackHeader')
 StackCardList   = React.createFactory(require 'ui/screens/workspace/panels/stack/StackCardList')
 StackFooter     = React.createFactory(require 'ui/screens/workspace/panels/stack/StackFooter')
+{div}           = React.DOM
 
 StackPanel = React.createClass {
 
@@ -37,8 +38,9 @@ StackPanel = React.createClass {
     }
     
     Frame props,
-      StackHeader   {panelid: @props.id, stack: @state.stack}
-      StackCardList {stack: @state.stack}
+      StackHeader {panelid: @props.id, stack: @state.stack}
+      div {className: 'content'},
+        StackCardList {stack: @state.stack}
       StackFooter   {stack: @state.stack}
 
   onStackDeleted: (event) ->

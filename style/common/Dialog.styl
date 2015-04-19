@@ -12,8 +12,14 @@ a.trigger
   display: flex
   align-items: center
   justify-content: center
-  &.fade-enter { animation: dialog-enter 150ms ease-out }
-  &.fade-leave { animation: dialog-leave 150ms linear }
+  
+  &.fade-enter
+    animation: dialog-backdrop-enter 150ms ease-out
+    .dialog { animation: dialog-enter 150ms ease-out }
+    
+  &.fade-leave
+    animation: dialog-backdrop-leave 150ms linear
+    .dialog { animation: dialog-leave 150ms linear }
 
 .dialog
   background: $color-paper
@@ -53,14 +59,30 @@ a.trigger
   border-bottom-left-radius: 6px
   border-bottom-right-radius: 6px
 
-@keyframes dialog-enter
+@keyframes dialog-backdrop-enter
   from
     opacity: 0
   to
     opacity: 1
 
-@keyframes dialog-leave
+@keyframes dialog-backdrop-leave
   from
     opacity: 1
   to
     opacity: 0
+
+@keyframes dialog-enter
+  from
+    opacity: 0
+    transform: translateY(100px)
+  to
+    opacity: 1
+    transform: translateY(0px)
+
+@keyframes dialog-leave
+  from
+    opacity: 1
+    transform: translateY(0px)
+  to
+    opacity: 0
+    transform: translateY(100px)

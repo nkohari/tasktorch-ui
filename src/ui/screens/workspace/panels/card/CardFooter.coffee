@@ -1,11 +1,8 @@
-React                = require 'react/addons'
-PropTypes            = require 'ui/framework/PropTypes'
-CommandContextMaster = require 'ui/framework/mixins/CommandContextMaster'
-Button               = React.createFactory(require 'ui/common/Button')
-CardCommandBar       = React.createFactory(require 'ui/screens/workspace/panels/card/commands/CardCommandBar')
-CardCommandPanel     = React.createFactory(require 'ui/screens/workspace/panels/card/commands/CardCommandPanel')
-CSSTransitionGroup   = React.createFactory(React.addons.CSSTransitionGroup)
-{div}                = React.DOM
+React          = require 'react/addons'
+PropTypes      = require 'ui/framework/PropTypes'
+Button         = React.createFactory(require 'ui/common/Button')
+CardCommandBar = React.createFactory(require 'ui/screens/workspace/panels/card/commands/CardCommandBar')
+{div}          = React.DOM
 
 CardFooter = React.createClass {
 
@@ -17,13 +14,9 @@ CardFooter = React.createClass {
     stack:       PropTypes.Stack
     currentUser: PropTypes.User
 
-  mixins: [CommandContextMaster]
-
   render: ->
 
-    div {className: 'card-footer'},
-      CSSTransitionGroup {className: 'command-placeholder', component: 'div', transitionName: 'slide'},
-        CardCommandPanel {card: @props.card, stack: @props.stack} if @hasActiveCommand()
+    div {className: 'footer'},
       CardCommandBar {card: @props.card, stack: @props.stack}
 
 }

@@ -2,7 +2,6 @@ _                  = require 'lodash'
 React              = require 'react'
 PropTypes          = require 'ui/framework/PropTypes'
 CachedState        = require 'ui/framework/mixins/CachedState'
-Frame              = React.createFactory(require 'ui/common/Frame')
 KindIcon           = React.createFactory(require 'ui/common/KindIcon')
 PanelHeader        = React.createFactory(require 'ui/common/PanelHeader')
 StageColumn        = React.createFactory(require 'ui/screens/bigPicture/panels/kind/StageColumn')
@@ -28,10 +27,10 @@ KindPanel = React.createClass {
     columns = _.map @state.stages, (stage) =>
       StageColumn {key: stage.id, stage}
 
-    Frame {className: 'big-picture panel'},
+    div {className: 'big-picture panel'},
       PanelHeader {panelid: @props.id, icon: KindIcon {kind: @state.kind}},
         @state.kind?.name
-      div {className: 'columns'}, columns
+      div {className: 'content'}, columns
       div {className: 'footer'}
 
 }

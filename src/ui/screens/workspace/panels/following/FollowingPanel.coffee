@@ -9,6 +9,7 @@ Frame             = React.createFactory(require 'ui/common/Frame')
 PanelHeader       = React.createFactory(require 'ui/common/PanelHeader')
 FollowingCardList = React.createFactory(require 'ui/screens/workspace/panels/following/FollowingCardList')
 FollowingFooter   = React.createFactory(require 'ui/screens/workspace/panels/following/FollowingFooter')
+{div}             = React.DOM
 
 FollowingPanel = React.createClass {
 
@@ -31,7 +32,8 @@ FollowingPanel = React.createClass {
     Frame props,
       PanelHeader {panelid: 'following', icon: 'follow'},
         'Following'
-      FollowingCardList {cards: @state.cards}
+      div {className: 'content'},
+        FollowingCardList {cards: @state.cards}
       FollowingFooter {}
 
 }

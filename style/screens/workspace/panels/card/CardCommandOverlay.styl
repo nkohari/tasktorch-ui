@@ -1,0 +1,81 @@
+.command-backdrop
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  display: flex
+  align-items: center
+  justify-content: center
+  background: white(60%)
+  padding: 20px
+
+  &.slide-enter
+    animation: command-backdrop-enter 150ms ease-out
+    .command-overlay { animation: command-enter 150ms ease-out }
+    
+  &.slide-leave
+    animation: command-backdrop-leave 100ms linear
+    .command-overlay { animation: command-leave 100ms linear }
+  
+.command-overlay
+  width: 100%
+  display: flex
+  flex-direction: column
+  background: $color-paper
+  border: 1px solid $color-steel-dark
+  box-shadow: 0 0 5px black(50%)
+
+  & > .content
+    flex: 1
+    padding: 14px
+    font-size: 14px
+    border-bottom: 1px solid $color-steel
+  
+  & > .buttons
+    flex: none
+    display: flex
+    justify-content: flex-end
+    padding: 8px 14px
+    border-bottom: 1px solid $color-steel
+    background: $color-steel-light
+    border-top: 1px solid $color-steel-verylight
+    button
+      padding: 4px 8px
+    
+  textarea
+    width: 100%
+    padding: 8px
+    font-size: 14px
+    resize: none
+    outline: none !important
+    border: 1px solid $color-steel-light
+    min-height: 60px
+ 
+@keyframes command-backdrop-enter
+  from
+    opacity: 0
+  to
+    opacity: 1
+
+@keyframes command-backdrop-leave
+  from
+    opacity: 1
+  to
+    opacity: 0
+       
+@keyframes command-enter
+  from
+    opacity: 0
+    transform: translateY(100px)
+  to
+    opacity: 1
+    transform: translateY(0px)
+
+@keyframes command-leave
+  from
+    opacity: 1
+    transform: translateY(0px)
+  to
+    opacity: 0
+    transform: translateY(100px)

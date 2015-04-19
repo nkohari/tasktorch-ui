@@ -4,11 +4,12 @@ PropTypes            = require 'ui/framework/PropTypes'
 Actor                = require 'ui/framework/mixins/Actor'
 CommandContext       = require 'ui/framework/mixins/CommandContext'
 Button               = React.createFactory(require 'ui/common/Button')
+CardCommandOverlay   = React.createFactory(require 'ui/screens/workspace/panels/card/commands/CardCommandOverlay')
 {div}                = React.DOM
 
-DeleteCommandPanel = React.createClass {
+DeleteCommandOverlay = React.createClass {
 
-  displayName: 'DeleteCommandPanel'
+  displayName: 'DeleteCommandOverlay'
 
   propTypes:
     card: PropTypes.Card
@@ -17,12 +18,12 @@ DeleteCommandPanel = React.createClass {
 
   render: ->
 
-    div {className: 'delete command'},
-      div {className: 'confirm'},
-        'Are you sure you want to send this card to the trash?'
-      div {className: 'buttons'},
-        Button {text: 'Send to Trash', className: 'default warning', onClick: @onOkButtonClicked}
-        Button {text: 'Cancel', onClick: @hideCommand}
+    buttons = div {className: 'buttons'},
+      Button {text: 'Delete Card', className: 'default', onClick: @onOkButtonClicked}
+      Button {text: 'Cancel', onClick: @hideCommand}
+
+    CardCommandOverlay {className: 'complete', buttons},
+      'Are you sure you want to delete this card?'
 
   onOkButtonClicked: ->
     @publish new UserDeletedCardEvent(@props.card.id)
@@ -30,4 +31,4 @@ DeleteCommandPanel = React.createClass {
 
 }
 
-module.exports = DeleteCommandPanel
+module.exports = DeleteCommandOverlay

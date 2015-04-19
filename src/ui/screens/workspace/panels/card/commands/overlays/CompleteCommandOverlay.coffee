@@ -4,11 +4,12 @@ PropTypes              = require 'ui/framework/PropTypes'
 Actor                  = require 'ui/framework/mixins/Actor'
 CommandContext         = require 'ui/framework/mixins/CommandContext'
 Button                 = React.createFactory(require 'ui/common/Button')
+CardCommandOverlay     = React.createFactory(require 'ui/screens/workspace/panels/card/commands/CardCommandOverlay')
 {div}                  = React.DOM
 
-CompleteCommandPanel = React.createClass {
+CompleteCommandOverlay = React.createClass {
 
-  displayName: 'CompleteCommandPanel'
+  displayName: 'CompleteCommandOverlay'
 
   propTypes:
     card: PropTypes.Card
@@ -17,12 +18,12 @@ CompleteCommandPanel = React.createClass {
 
   render: ->
 
-    div {className: 'complete command'},
-      div {className: 'confirm'},
-        'Are you sure you want to complete this card?'
-      div {className: 'buttons'},
-        Button {text: 'Complete Card', className: 'default', onClick: @onOkButtonClicked}
-        Button {text: 'Cancel', onClick: @hideCommand}
+    buttons = div {className: 'buttons'},
+      Button {text: 'Complete Card', className: 'default', onClick: @onOkButtonClicked}
+      Button {text: 'Cancel', onClick: @hideCommand}      
+
+    CardCommandOverlay {className: 'complete', buttons},
+      'Are you sure you want to complete this card?'
 
   onOkButtonClicked: ->
     @publish new UserCompletedCardEvent(@props.card.id)
@@ -30,4 +31,4 @@ CompleteCommandPanel = React.createClass {
 
 }
 
-module.exports = CompleteCommandPanel
+module.exports = CompleteCommandOverlay

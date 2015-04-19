@@ -5,14 +5,15 @@ Actor                    = require 'ui/framework/mixins/Actor'
 CommandContext           = require 'ui/framework/mixins/CommandContext'
 Button                   = React.createFactory(require 'ui/common/Button')
 Field                    = React.createFactory(require 'ui/common/Field')
-EditableTextArea         = React.createFactory(require 'ui/common/EditableTextArea')
+Icon                     = React.createFactory(require 'ui/common/Icon')
 SuggestingSelector       = React.createFactory(require 'ui/common/SuggestingSelector')
 UserOrTeamSelectorOption = React.createFactory(require 'ui/common/UserOrTeamSelectorOption')
+CardCommandOverlay       = React.createFactory(require 'ui/screens/workspace/panels/card/commands/CardCommandOverlay')
 {div}                    = React.DOM
 
-PassCommandPanel = React.createClass {
+PassCommandOverlay = React.createClass {
 
-  displayName: 'PassCommandPanel'
+  displayName: 'PassCommandOverlay'
 
   propTypes:
     card: PropTypes.Card
@@ -27,7 +28,11 @@ PassCommandPanel = React.createClass {
 
   render: ->
 
-    div {className: 'handoff command'},
+    buttons = div {className: 'buttons'},
+      Button {text: 'Pass', className: 'default', onClick: @passCard}
+      Button {text: 'Cancel', onClick: @hideCommand}
+
+    CardCommandOverlay {className: 'pass', buttons},
       Field {label: 'Recipient'},
         SuggestingSelector {
           ref:         'selector'
@@ -36,9 +41,6 @@ PassCommandPanel = React.createClass {
           suggest:     ['user', 'team']
           onChange:    @onRecipientChanged
         }
-      div {className: 'buttons'},
-        Button {text: 'Pass', className: 'default', onClick: @passCard}
-        Button {text: 'Cancel', onClick: @hideCommand}
 
   onRecipientChanged: (item, type) ->
     @setState {recipient: {item, type}}
@@ -52,4 +54,4 @@ PassCommandPanel = React.createClass {
 
 }
 
-module.exports = PassCommandPanel
+module.exports = PassCommandOverlay
