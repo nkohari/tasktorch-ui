@@ -15,10 +15,11 @@ TeamMembersDialog = React.createClass {
 
   render: ->
 
-    Dialog {icon: 'team', title: "#{@props.team.name} Membership", closeDialog: @props.closeDialog},
+    buttons = DialogButtons {},
+      Button {text: 'Close', onClick: @props.closeDialog}
+
+    Dialog {icon: 'team', title: "#{@props.team.name} Membership", buttons, closeDialog: @props.closeDialog},
       'Nothing to configure yet',
-      DialogButtons {},
-        Button {text: 'Close', onClick: @props.closeDialog}
 
 }
 

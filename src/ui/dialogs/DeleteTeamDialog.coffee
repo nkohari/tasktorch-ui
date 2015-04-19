@@ -5,7 +5,6 @@ UserDeletedTeamEvent = require 'events/ui/UserDeletedTeamEvent'
 Button               = React.createFactory(require 'ui/common/Button')
 Dialog               = React.createFactory(require 'ui/common/Dialog')
 DialogButtons        = React.createFactory(require 'ui/common/DialogButtons')
-{div}                = React.DOM
 
 DeleteTeamDialog = React.createClass {
 
@@ -19,11 +18,12 @@ DeleteTeamDialog = React.createClass {
 
   render: ->
 
-    Dialog {icon: 'trash', title: "Delete #{@props.team.name}", @closeDialog},
+    buttons = DialogButtons {},
+      Button {text: 'Delete Team', onClick: @deleteTeam, className: 'warning'}
+      Button {text: 'Cancel',      onClick: @props.closeDialog}
+
+    Dialog {icon: 'trash', title: "Delete #{@props.team.name}", buttons, closeDialog: @props.closeDialog},
       'Are you sure you want to delete this team? This action cannot be undone!'
-      DialogButtons {},
-        Button {text: 'Delete Team', className: 'warning', onClick: @deleteTeam}
-        Button {text: 'Cancel', onClick: @props.closeDialog}    
 
   deleteTeam: ->
     @publish new UserDeletedTeamEvent(@props.team.id)

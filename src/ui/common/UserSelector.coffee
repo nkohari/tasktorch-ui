@@ -1,6 +1,7 @@
 _                   = require 'lodash'
 React               = require 'react'
 classSet            = require 'common/util/classSet'
+dom                 = require 'common/util/dom'
 PropTypes           = require 'ui/framework/PropTypes'
 KeyCode             = require 'ui/framework/KeyCode'
 CachedState         = require 'ui/framework/mixins/CachedState'
@@ -24,23 +25,35 @@ UserSelector = React.createClass {
     {placeholder: "Start typing a user's name to search"}
 
   getInitialState: ->
-    {text: undefined, highlight: -1}
+    {expanded: false, text: undefined, highlight: -1}
 
   getCachedState: (cache) -> {
-    users: cache('suggestedUsers').get(@state.text) if @state?.text?
+    users: cache('suggestedUsers').get(@state.text) if @state?.text?.length > 0
   }
+
+  componentDidMount: ->
+    document.addEventListener('click', @onClickOutside)
+
+  componentDidUnmount: ->
+    document.removeEventListener('click', @onClickOutside)
 
   render: ->
 
-    options = _.map @state.users, (user, index) =>
-      SelectorOption {key: user.id, value: user, isHighlighted: @state.highlight == index, @highlight, @select},
-        Avatar {user}
-        span {className: 'text'}, user.name
+    if @state.expanded
+      options = _.map @state.users, (user, index) =>
+        SelectorOption {key: user.id, value: user, isHighlighted: @state.highlight == index, @highlight, @select},
+          Avatar {user}
+          span {className: 'text'}, user.name
 
     div {className: 'user-selector'},
       div {className: 'selector-prompt'},
         Input {ref: 'input', icon: 'user', rightIcon: 'search', placeholder: @props.placeholder, value: @state.text, @onKeyDown, onChange: @onInputChanged}
-      ul {className: 'selector-options'}, options if options.length > 0
+      ul {className: 'selector-options'}, options if @state.expanded
+
+  onClickOutside: (event) ->
+    return unless @isMounted()
+    unless dom.hasAncestor(event.target, @getDOMNode())
+      @setState {expanded: false}
 
   onKeyDown: (event) ->
     if event.which == KeyCode.RETURN and @state.highlight != -1
@@ -53,14 +66,14 @@ UserSelector = React.createClass {
       event.preventDefault()
 
   onInputChanged: (event) ->
-    @setState {text: event.target.value}, => @forceCacheSync()
+    @setState {expanded: true, text: event.target.value}, => @forceCacheSync()
 
   highlight: (user) ->
     highlight = _.findIndex @state.users, (u) -> u.id == user.id
     @setState {highlight}
 
   select: (user) ->
-    @setState {text: undefined, highlight: -1, users: undefined}
+    @setState {expanded: false, text: undefined, highlight: -1, users: undefined}
     @props.onOptionSelected(user)
 
 }

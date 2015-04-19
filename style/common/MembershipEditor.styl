@@ -1,6 +1,6 @@
 .membership-editor
 
-  .selector-prompt
+  .member-search
     padding: 4px
     background: $color-steel-light
     border: 1px solid $color-steel
@@ -15,6 +15,7 @@
       display: flex
       padding: 6px 8px
       font-size: 14px
+      line-height: 24px
       border-bottom: 1px solid $color-steel-light
       
       .avatar
@@ -25,4 +26,19 @@
       
       .member-name
         flex: 1
-        line-height: 24px
+      
+      .trigger
+        color: $color-ink-light
+        transition: color $hover-animation-delay linear
+        &:hover { color: $color-ink }
+        
+      .leader-toggle
+        margin-right: 10px
+        background: $color-steel-light
+        padding: 2px 8px
+        border-radius: 10px
+        color: $color-ink-light
+        font-size: 11px
+        font-weight: $heavy-font-weight
+        text-transform: uppercase
+        i { font-size: 16px }

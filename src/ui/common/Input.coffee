@@ -47,6 +47,10 @@ Input = React.createClass {
     return unless @isMounted()
     @refs.input.getDOMNode().focus()
 
+  select: ->
+    return unless @isMounted()
+    @refs.input.getDOMNode().select()
+
   onFocus: (event) ->
     @props.onFocus(event) if @props.onFocus?
 

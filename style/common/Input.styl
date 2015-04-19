@@ -10,23 +10,19 @@
     &:focus { border: 1px solid $color-steel-dark }
   
   &.has-left-icon
-    input { padding-left: 24px }
-    .input-placeholder { left: 26px }
+    input { padding-left: 26px }
+    .input-placeholder { left: 28px }
   
-  &.has-right-right
-    input { padding-right: 24px }
-
-  .left-icon
+  &.has-right-icon
+    input { padding-right: 26px }
+  
+  i
     position: absolute
     color: $color-ink-light
+    margin-right: 0
     top: 4px
-    left: 4px
-
-  .right-icon
-    position: absolute
-    color: $color-ink-light
-    top: 5px
-    right: 4px
+    &.left-icon { left: 6px }
+    &.right-icon { right: 6px }
         
   .input-placeholder
     position: absolute

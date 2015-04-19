@@ -23,7 +23,7 @@ LoginInterstitial = React.createClass {
         FieldGroup {},
           Field {label: Icon {name: 'user'}},
             input {type: 'text', name: 'login', placeholder: 'Username or email', onChange: @handleLoginChange}
-          Field {label: Icon {name: 'password'}},
+          Field {label: Icon {name: 'secure'}},
             input {type: 'password', name: 'password', placeholder: 'Password', onChange: @handlePasswordChange}
         div {className: 'buttons'},
           button {onClick: @handleSubmitClicked}, 'Log In'

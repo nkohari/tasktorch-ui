@@ -7,7 +7,8 @@ Dialog                = React.createFactory(require 'ui/common/Dialog')
 DialogButtons         = React.createFactory(require 'ui/common/DialogButtons')
 Field                 = React.createFactory(require 'ui/common/Field')
 FieldGroup            = React.createFactory(require 'ui/common/FieldGroup')
-{div, input}          = React.DOM
+Input                 = React.createFactory(require 'ui/common/Input')
+{div}                 = React.DOM
 
 RenameStackDialog = React.createClass {
 
@@ -26,19 +27,18 @@ RenameStackDialog = React.createClass {
   }
 
   componentDidMount: ->
-    node = @refs.name.getDOMNode()
-    node.focus()
-    node.select()
+    @refs.name.focus()
+    @refs.name.select()
 
   render: ->
 
-    Dialog {icon: 'stack', title: "Rename #{@props.stack.name}", closeDialog: @props.closeDialog},
-      FieldGroup {},
-        Field {label: 'Name', note: 'ex. Big Ideas, 2015-Q3, Next Week, Beta Version Features'},
-          input {ref: 'name', value: @state.name, onChange: @onNameChanged}
-      DialogButtons {},
-        Button {text: 'Rename Stack', disabled: !@isValid(), onClick: @renameStack}
-        Button {text: 'Cancel',       onClick: @props.closeDialog}
+    buttons = DialogButtons {},
+      Button {text: 'Rename Stack', onClick: @renameStack, disabled: !@isValid()}
+      Button {text: 'Cancel',       onClick: @props.closeDialog}
+
+    Dialog {icon: 'stack', title: "Rename #{@props.stack.name}", buttons, closeDialog: @props.closeDialog},
+      Field {label: 'Name', note: "What would you like to call the stack?"},
+        Input {ref: 'name', placeholder: 'ex. Big Ideas, 2015-Q3, Next Week, Beta Version Features', value: @state.name, onChange: @onNameChanged}
 
   isValid: ->
     @state.name?.length > 0

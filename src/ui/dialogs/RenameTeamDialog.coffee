@@ -7,7 +7,7 @@ Dialog               = React.createFactory(require 'ui/common/Dialog')
 DialogButtons        = React.createFactory(require 'ui/common/DialogButtons')
 Field                = React.createFactory(require 'ui/common/Field')
 FieldGroup           = React.createFactory(require 'ui/common/FieldGroup')
-{div, input}         = React.DOM
+Input                = React.createFactory(require 'ui/common/Input')
 
 RenameTeamDialog = React.createClass {
 
@@ -26,19 +26,18 @@ RenameTeamDialog = React.createClass {
   }
 
   componentDidMount: ->
-    node = @refs.name.getDOMNode()
-    node.focus()
-    node.select()
+    @refs.name.focus()
+    @refs.name.select()
 
   render: ->
 
-    Dialog {icon: 'team', title: "Rename #{@props.team.name}", closeDialog: @props.closeDialog},
-      FieldGroup {},
-        Field {label: 'Name', note: 'ex. Engineering, HR, World Peace Initiative, Secret Project Team'},
-          input {ref: 'name', value: @state.name, onChange: @onNameChanged}
-      DialogButtons {},
-        Button {text: 'Rename Team', disabled: !@isValid(), onClick: @renameTeam}
-        Button {text: 'Cancel',      onClick: @props.closeDialog}
+    buttons = DialogButtons {},
+      Button {text: 'Rename Team', onClick: @renameTeam, disabled: !@isValid()}
+      Button {text: 'Cancel',      onClick: @props.closeDialog}
+
+    Dialog {icon: 'team', title: "Rename #{@props.team.name}", buttons, closeDialog: @props.closeDialog},
+      Field {label: 'Name', note: 'What would you like to name the team?'},
+        Input {ref: 'name', placeholder: 'ex. Engineering, HR, World Peace Initiative, Secret Project Team', value: @state.name, onChange: @onNameChanged}
 
   isValid: ->
     @state.name?.length > 0

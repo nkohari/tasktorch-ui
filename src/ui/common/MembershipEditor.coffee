@@ -32,10 +32,11 @@ MembershipEditor = React.createClass {
         user = lookup[id]
         return unless user?
         isLeader = _.contains(@state.leaders, id)
-        MembershipEditorItem {key: id, user, isLeader, @removeMember}
+        MembershipEditorItem {key: id, user, isLeader, @toggleLeader, @removeMember}
 
     div {className: 'membership-editor'},
-      UserSelector {onOptionSelected: @addMember}
+      div {className: 'member-search'},
+        UserSelector {onOptionSelected: @addMember}
       div {className: 'member-list'}, members
 
   addMember: (user) ->
@@ -45,6 +46,13 @@ MembershipEditor = React.createClass {
   removeMember: (user) ->
     members = _.without(@state.members, user.id)
     @setState {members}, => @forceCacheSync()
+
+  toggleLeader: (user) ->
+    if _.contains(@state.leaders, user.id)
+      leaders = _.without(@state.leaders, user.id)
+    else
+      leaders = @state.leaders.concat(user.id)
+    @setState {leaders}, => @forceCacheSync()
 
 }
 

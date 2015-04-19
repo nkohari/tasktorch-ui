@@ -47,3 +47,9 @@ exports.getAncestors = getAncestors = (node) ->
   while ((node = node.parentNode) and node.nodeType != 9)
     ancestors.push(node) if node.nodeType == 1
   return ancestors
+
+exports.hasAncestor = hasAncestor = (node, ancestor) ->
+  return true if node is ancestor
+  while ((node = node.parentNode) and node.nodeType != 9)
+    return true if node is ancestor
+  return false

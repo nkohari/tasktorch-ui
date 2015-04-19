@@ -14,10 +14,11 @@ UserSettingsDialog = React.createClass {
 
   render: ->
 
-    Dialog {icon: 'settings', title: 'Preferences', closeDialog: @props.closeDialog},
+    buttons = DialogButtons {},
+      Button {text: 'Close', onClick: @props.closeDialog}
+
+    Dialog {icon: 'settings', title: 'Preferences', buttons, closeDialog: @props.closeDialog},
       'Nothing to configure yet',
-      DialogButtons {},
-        Button {text: 'Close', onClick: @props.closeDialog}
 
 }
 
