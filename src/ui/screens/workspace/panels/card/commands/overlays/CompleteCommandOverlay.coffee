@@ -20,10 +20,14 @@ CompleteCommandOverlay = React.createClass {
 
     buttons = div {className: 'buttons'},
       Button {text: 'Complete Card', className: 'default', onClick: @onOkButtonClicked}
-      Button {text: 'Cancel', onClick: @hideCommand}      
+      Button {text: 'Cancel', onClick: @hideCommand}
 
     CardCommandOverlay {className: 'complete', buttons},
-      'Are you sure you want to complete this card?'
+      div {className: 'prompt'},
+        'Are you sure you want to complete this card?'
+      div {className: 'hint'},
+        "By marking this card as complete, you're telling everyone that no more work "
+        "needs to be done on the card. Complete cards are sent to the archive."
 
   onOkButtonClicked: ->
     @publish new UserCompletedCardEvent(@props.card.id)
