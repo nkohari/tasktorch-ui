@@ -3,10 +3,10 @@ superagent = require 'superagent'
 React      = require 'react/addons'
 Router     = require 'react-router'
 request    = require 'superagent'
+Button     = React.createFactory(require 'ui/common/Button')
 Field      = React.createFactory(require 'ui/common/Field')
-FieldGroup = React.createFactory(require 'ui/common/FieldGroup')
-Icon       = React.createFactory(require 'ui/common/Icon')
-{div, input, button} = React.DOM
+Input      = React.createFactory(require 'ui/common/Input')
+{div}      = React.DOM
 
 LoginInterstitial = React.createClass {
 
@@ -17,16 +17,19 @@ LoginInterstitial = React.createClass {
   getInitialState: ->
     {login: undefined, password: undefined}
 
+  componentDidMount: ->
+    @refs.login.focus()
+
   render: ->
+
     div {className: 'login interstitial'},
       div {className: 'login-form'},
-        FieldGroup {},
-          Field {label: Icon {name: 'user'}},
-            input {type: 'text', name: 'login', placeholder: 'Username or email', onChange: @handleLoginChange}
-          Field {label: Icon {name: 'secure'}},
-            input {type: 'password', name: 'password', placeholder: 'Password', onChange: @handlePasswordChange}
+        Field {label: 'Username or Email'},
+          Input {ref: 'login', icon: 'user', value: @state.login, onChange: @handleLoginChange}
+        Field {label: 'Password'},
+          Input {type: 'password', icon: 'secure', value: @state.password, onChange: @handlePasswordChange}
         div {className: 'buttons'},
-          button {onClick: @handleSubmitClicked}, 'Log In'
+          Button {text: 'Log In', onClick: @handleSubmitClicked}
       div {className: 'brand'},
         'TaskTorch'
         div {className: 'version'}, 'Private Alpha'

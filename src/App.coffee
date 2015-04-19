@@ -1,23 +1,23 @@
-_                      = require 'lodash'
-cookies                = require 'cookies-js'
-React                  = require 'react/addons'
-Router                 = require 'react-router'
-Environment            = require './Environment'
-Shell                  = require 'ui/shell/Shell'
-LoginInterstitial      = require 'ui/interstitials/login/LoginInterstitial'
-CreateUserInterstitial = require 'ui/interstitials/createUser/CreateUserInterstitial'
-WorkspaceScreen        = require 'ui/screens/workspace/WorkspaceScreen'
-BigPictureScreen       = require 'ui/screens/bigPicture/BigPictureScreen'
-StrategyScreen         = require 'ui/screens/strategy/StrategyScreen'
-KnowledgeScreen        = require 'ui/screens/knowledge/KnowledgeScreen'
-Route                  = React.createFactory(Router.Route)
+_                  = require 'lodash'
+cookies            = require 'cookies-js'
+React              = require 'react/addons'
+Router             = require 'react-router'
+Environment        = require './Environment'
+Shell              = require 'ui/shell/Shell'
+LoginInterstitial  = require 'ui/interstitials/login/LoginInterstitial'
+InviteInterstitial = require 'ui/interstitials/invite/InviteInterstitial'
+WorkspaceScreen    = require 'ui/screens/workspace/WorkspaceScreen'
+BigPictureScreen   = require 'ui/screens/bigPicture/BigPictureScreen'
+StrategyScreen     = require 'ui/screens/strategy/StrategyScreen'
+KnowledgeScreen    = require 'ui/screens/knowledge/KnowledgeScreen'
+Route              = React.createFactory(Router.Route)
 
 window.Environment = environment = new Environment()
 window.Perf = React.addons.Perf
 
 routes = [
   Route {name: 'login', key: 'login', path: 'login', handler: LoginInterstitial}
-  Route {name: 'createuser', key: 'createuser', path: 'createuser', handler: CreateUserInterstitial}
+  Route {name: 'invite', key: 'invite', path: 'invite', handler: InviteInterstitial}
   Route {name: 'shell', key: 'shell', path: ':orgid', handler: Shell}, [
     Route {name: 'workspace',  key: 'workspace',  handler: WorkspaceScreen}
     Route {name: 'bigpicture', key: 'bigpicture', handler: BigPictureScreen}

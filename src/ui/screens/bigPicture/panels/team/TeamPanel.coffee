@@ -29,7 +29,7 @@ TeamPanel = React.createClass {
     div {className: 'big-picture panel'},
       PanelHeader {panelid: @props.id, icon: 'team'},
         @state.team?.name
-      div {className: 'columns'}, columns
+      div {className: 'content'}, columns
       div {className: 'footer'}
 
 }
