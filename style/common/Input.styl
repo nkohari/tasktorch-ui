@@ -1,13 +1,17 @@
 .input
   position: relative
+  font-size: 16px
   
-  input
+  input[type=text], input[type=password]
     width: 100%
     padding: 4px
     background: $color-white
     border: 1px solid $color-steel
     outline: none !important
     &:focus { border: 1px solid $color-steel-dark }
+  
+  input[type=checkbox], input[type=radio]
+    margin-right: 6px
   
   &.has-left-icon
     input { padding-left: 26px }
@@ -20,7 +24,7 @@
     position: absolute
     color: $color-ink-light
     margin-right: 0
-    top: 4px
+    top: 6px
     &.left-icon { left: 6px }
     &.right-icon { right: 6px }
         
@@ -29,6 +33,7 @@
     top: 5px
     left: 8px
     font-size: 14px
+    line-height: 18px
     font-style: italic
     font-weight: $bold-font-weight
     color: $color-ink-subtle

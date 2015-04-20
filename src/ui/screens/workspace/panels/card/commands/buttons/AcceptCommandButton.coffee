@@ -1,10 +1,8 @@
-_                     = require 'lodash'
-React                 = require 'react/addons'
-PropTypes             = require 'ui/framework/PropTypes'
-Actor                 = require 'ui/framework/mixins/Actor'
-UserAcceptedCardEvent = require 'events/ui/UserAcceptedCardEvent'
-Button                = React.createFactory(require 'ui/common/Button')
-{div}                 = React.DOM
+_                   = require 'lodash'
+React               = require 'react'
+PropTypes           = require 'ui/framework/PropTypes'
+CardCommand         = require 'data/enums/CardCommand'
+CommandToggleButton = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/CommandToggleButton')
 
 AcceptCommandButton = React.createClass {
 
@@ -13,18 +11,13 @@ AcceptCommandButton = React.createClass {
   propTypes:
     card: PropTypes.Card
 
-  mixins: [Actor]
-
   render: ->
-    
-    Button {
+
+    CommandToggleButton {
       icon:    'accept'
       text:    'Accept'
-      onClick: @onButtonClicked
+      command: CardCommand.Accept
     }
-
-  onButtonClicked: ->
-    @publish new UserAcceptedCardEvent(@props.card.id)
 
 }
 

@@ -6,9 +6,9 @@ Time       = React.createFactory(require 'ui/common/Time')
 UserWidget = React.createFactory(require 'ui/screens/workspace/panels/card/timeline/widgets/UserWidget')
 {div}      = React.DOM
 
-CardCreatedNote = React.createClass {
+FollowerAddedNote = React.createClass {
 
-  displayName: 'CardCreatedNote'
+  displayName: 'FollowerAddedNote'
 
   propTypes:
     card: PropTypes.Card
@@ -18,12 +18,12 @@ CardCreatedNote = React.createClass {
   render: ->
 
     div {className: 'activity'},
-      Icon {className: 'activity-icon', name: 'drafts'}
+      Icon {className: 'activity-icon', name: 'follow'}
       div {className: 'activity-body'},
         UserWidget {user: @props.user}
-        'created the card'
+        'started following the card'
         Time {relative: true, time: @props.note.time}
 
 }
 
-module.exports = CardCreatedNote
+module.exports = FollowerAddedNote

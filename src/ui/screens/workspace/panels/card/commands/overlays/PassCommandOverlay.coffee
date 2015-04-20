@@ -21,7 +21,7 @@ PassCommandOverlay = React.createClass {
   mixins: [Actor, CommandContext]
 
   getInitialState: ->
-    {recipient: undefined, message: undefined}
+    {recipient: undefined}
 
   componentDidMount: ->
     @refs.selector.getDOMNode().focus()
@@ -29,7 +29,7 @@ PassCommandOverlay = React.createClass {
   render: ->
 
     buttons = div {className: 'buttons'},
-      Button {text: 'Pass Card', className: 'default', onClick: @passCard}
+      Button {text: 'Pass Card', className: 'default', disabled: !@isValid(), onClick: @passCard}
       Button {text: 'Cancel', onClick: @hideCommand}
 
     CardCommandOverlay {className: 'pass', buttons},
@@ -48,11 +48,11 @@ PassCommandOverlay = React.createClass {
         "responsibility for the work it describes. The card will be delivered to the "
         "user or team's inbox, where it can be accepted or passed on to someone else."
 
+  isValid: ->
+    @state.recipient?
+
   onRecipientChanged: (item, type) ->
     @setState {recipient: {item, type}}
-
-  onMessageChanged: (message) ->
-    @setState {message}
 
   passCard: ->
     @publish new UserPassedCardEvent(@props.card.id, @state.recipient, @state.message)

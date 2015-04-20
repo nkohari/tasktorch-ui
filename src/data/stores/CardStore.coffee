@@ -51,7 +51,7 @@ class CardStore extends ModelStore
     @add(event.card)
 
   onUserAcceptedCard: (event) ->
-    @execute new AcceptCardRequest(event.cardid)
+    @execute new AcceptCardRequest(event.cardid, event.preempt)
 
   onUserCompletedCard: (event) ->
     @execute new CompleteCardRequest(event.cardid)

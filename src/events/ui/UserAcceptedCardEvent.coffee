@@ -4,6 +4,6 @@ class UserAcceptedCardEvent extends Event
   
   type: 'UserAcceptedCard'
 
-  constructor: (@cardid) ->
+  constructor: (@cardid, @preempt) ->
 
 module.exports = UserAcceptedCardEvent

@@ -35,11 +35,11 @@ CreateTeamDialog = React.createClass {
       Button {text: 'Cancel',      onClick: @props.closeDialog}
 
     Dialog {icon: 'team', width: 700, height: 560, className: 'create-team', title: 'Create a Team', buttons, closeDialog: @props.closeDialog},
-      Field {label: 'Name', note: 'What does the team call itself?'},
+      Field {label: 'Name'},
         Input {ref: 'name', placeholder: 'ex. Engineering, HR, World Peace Initiative, Secret Project Team', value: @state.name, onChange: @onNameChanged}
-      Field {label: 'Purpose', note: 'Why is the team being formed?'},
+      Field {label: 'Purpose'},
         Input {ref: 'purpose', placeholder: 'ex. Product Development, Customer Happiness, World Domination', value: @state.purpose, onChange: @onPurposeChanged}
-      Field {label: 'Members', className: 'members', note: 'Who is part of the team?'},
+      Field {label: 'Members', className: 'members'},
         MembershipEditor {leaders: @state.leaders, members: @state.members}
 
   isComplete: ->

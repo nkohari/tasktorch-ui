@@ -24,6 +24,9 @@ CardTimelineTab = React.createClass {
   componentDidMount: ->
     @scrollToBottom()
 
+  componentWillReceiveProps: ->
+    @scrollToBottom()
+
   componentDidUpdate: ->
     @scrollToBottom()
 

@@ -5,7 +5,8 @@ Actor                   = require 'ui/framework/mixins/Actor'
 UserCreatedCommentEvent = require 'events/ui/UserCreatedCommentEvent'
 Avatar                  = React.createFactory(require 'ui/common/Avatar')
 Button                  = React.createFactory(require 'ui/common/Button')
-{div, span, textarea}   = React.DOM
+TextArea                = React.createFactory(require 'ui/common/TextArea')
+{div, span}             = React.DOM
 
 CreateCommentForm = React.createClass {
 
@@ -20,20 +21,16 @@ CreateCommentForm = React.createClass {
   getInitialState: ->
     {text: ''}
 
-  componentDidMount: ->
-    node = @refs.textarea.getDOMNode()
-    node.style.height = "#{@getHeight()}px"
-
   render: ->
 
     div {className: 'comment create-comment-form'},
       Avatar {className: 'comment-user', user: @props.currentUser}
       div {className: 'comment-body'},
-        textarea {
-          ref: 'textarea'
+        TextArea {
+          flexible: true
           placeholder: 'Write a comment'
           value: @state.text
-          style: {height: @getHeight()} if @isMounted()
+          rows: 3
           @onKeyUp
           @onChange
         }
@@ -52,13 +49,6 @@ CreateCommentForm = React.createClass {
 
   onChange: (event) ->
     @setState {text: event.target.value}
-
-  getHeight: ->
-    return undefined unless @isMounted()
-    node = @refs.textarea.getDOMNode()
-    if node.scrollHeight == node.clientHeight
-      node.style.height = 'auto'
-    return node.scrollHeight
 
   createComment: ->
     return unless @state.text?.length > 0

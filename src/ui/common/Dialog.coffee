@@ -36,13 +36,13 @@ Dialog = React.createClass {
     classes = mergeClasses('dialog', @props.className)
     style   = {width: @props.width, height: @props.height}
 
-    div {className: 'dialog-backdrop', onClick: @onContainerClicked},
+    div {className: 'dialog-backdrop', onClick: @onBackdropClicked},
       div {ref: 'dialog', className: classes, style},
         header
         div props, @props.children
         @props.buttons
 
-  onContainerClicked: (event) ->
+  onBackdropClicked: (event) ->
     if event.target == @getDOMNode()
       @props.closeDialog()
 

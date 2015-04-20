@@ -16,6 +16,9 @@ Input = React.createClass {
     rightIcon:   PropTypes.string
     value:       PropTypes.any
 
+  getDefaultProps: ->
+    {type: 'text'}
+
   getInitialState: ->
     {focused: false}
 
@@ -30,11 +33,8 @@ Input = React.createClass {
       'has-right-icon' if @props.rightIcon?
     ]
 
-    props = mergeProps _.omit(@props, 'icon', 'rightIcon', 'placeholder', 'value'), {
-      ref:   'input'
-      value: @props.value
-      @onFocus
-      @onBlur
+    props = mergeProps _.omit(@props, 'icon', 'rightIcon', 'placeholder'), {
+      ref: 'input'
     }
 
     div {className: classes},
@@ -50,12 +50,6 @@ Input = React.createClass {
   select: ->
     return unless @isMounted()
     @refs.input.getDOMNode().select()
-
-  onFocus: (event) ->
-    @props.onFocus(event) if @props.onFocus?
-
-  onBlur: (event) ->
-    @props.onBlur(event) if @props.onBlur?
 
 }
 

@@ -15,6 +15,8 @@ NoteComponents =
   CardTitleChanged:    React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/CardTitleChangedNote')
   CardSummaryChanged:  React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/CardSummaryChangedNote')
   Comment:             React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/CommentNote')
+  FollowerAdded:       React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/FollowerAddedNote')
+  FollowerRemoved:     React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/FollowerRemovedNote')
 
 CardTimelineItem = React.createClass {
 
