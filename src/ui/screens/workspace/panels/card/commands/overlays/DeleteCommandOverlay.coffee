@@ -4,6 +4,7 @@ PropTypes            = require 'ui/framework/PropTypes'
 Actor                = require 'ui/framework/mixins/Actor'
 CommandContext       = require 'ui/framework/mixins/CommandContext'
 Button               = React.createFactory(require 'ui/common/Button')
+Prompt               = React.createFactory(require 'ui/common/Prompt')
 CardCommandOverlay   = React.createFactory(require 'ui/screens/workspace/panels/card/commands/CardCommandOverlay')
 {div}                = React.DOM
 
@@ -22,12 +23,14 @@ DeleteCommandOverlay = React.createClass {
       Button {text: 'Delete Card', className: 'default', onClick: @onOkButtonClicked}
       Button {text: 'Cancel', onClick: @hideCommand}
 
+    hint = """
+      Deleting a card immediately and permanently removes it. If you've just finished
+      work on the card, you should mark it as complete instead of deleting it.
+    """
+
     CardCommandOverlay {className: 'complete', buttons},
-      div {className: 'prompt'},
+      Prompt {hint},
         'Are you sure you want to delete this card?'
-      div {className: 'hint'},
-        "Deleting a card immediately and permanently removes it. If you've just finished "
-        "work on the card, you should mark it as complete instead of deleting it."
 
   onOkButtonClicked: ->
     @publish new UserDeletedCardEvent(@props.card.id)

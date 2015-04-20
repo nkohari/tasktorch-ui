@@ -32,10 +32,14 @@ PassCommandOverlay = React.createClass {
       Button {text: 'Pass Card', className: 'default', disabled: !@isValid(), onClick: @passCard}
       Button {text: 'Cancel', onClick: @hideCommand}
 
+    hint = """
+      Passing a card to someone else means that you're asking them to take over 
+      responsibility for the work it describes. The card will be delivered to the 
+      user or team's inbox, where it can be accepted or passed on to someone else.
+    """
+
     CardCommandOverlay {className: 'pass', buttons},
-      div {className: 'prompt'},
-        'Who should be responsible for this card?'
-      div {className: 'arguments'},
+      Field {label: 'Who should be responsible for this card?', hint},
         SuggestingSelector {
           ref:         'selector'
           option:      UserOrTeamSelectorOption
@@ -43,10 +47,6 @@ PassCommandOverlay = React.createClass {
           suggest:     ['user', 'team']
           onChange:    @onRecipientChanged
         }
-      div {className: 'hint'},
-        "Passing a card to someone else means that you're asking them to take over "
-        "responsibility for the work it describes. The card will be delivered to the "
-        "user or team's inbox, where it can be accepted or passed on to someone else."
 
   isValid: ->
     @state.recipient?
