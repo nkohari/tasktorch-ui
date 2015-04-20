@@ -1,7 +1,9 @@
+_                    = require 'lodash'
 React                = require 'react'
 UserCreatedTeamEvent = require 'events/ui/UserCreatedTeamEvent'
 PropTypes            = require 'ui/framework/PropTypes'
 Actor                = require 'ui/framework/mixins/Actor'
+CurrentUserAware     = require 'ui/framework/mixins/CurrentUserAware'
 Button               = React.createFactory(require 'ui/common/Button')
 Dialog               = React.createFactory(require 'ui/common/Dialog')
 DialogButtons        = React.createFactory(require 'ui/common/DialogButtons')
@@ -16,14 +18,11 @@ CreateTeamDialog = React.createClass {
   props:
     closeDialog: PropTypes.func
 
-  mixins: [Actor]
+  mixins: [Actor, CurrentUserAware]
 
-  getInitialState: -> {
-    name:    ''
-    purpose: ''
-    leaders: []
-    members: []
-  }
+  getInitialState: ->
+    currentUser = @getCurrentUser()
+    {leaders: [currentUser], members: [currentUser]}
 
   componentDidMount: ->
     @refs.name.focus()
@@ -36,23 +35,49 @@ CreateTeamDialog = React.createClass {
 
     Dialog {icon: 'team', width: 700, height: 560, className: 'create-team', title: 'Create a Team', buttons, closeDialog: @props.closeDialog},
       Field {label: 'Name'},
-        Input {ref: 'name', placeholder: 'ex. Engineering, HR, World Peace Initiative, Secret Project Team', value: @state.name, onChange: @onNameChanged}
+        Input {ref: 'name', placeholder: 'ex. Engineering, HR, World Peace Initiative, Secret Project Team', value: @state.name, onChange: @setName}
       Field {label: 'Purpose'},
-        Input {ref: 'purpose', placeholder: 'ex. Product Development, Customer Happiness, World Domination', value: @state.purpose, onChange: @onPurposeChanged}
+        Input {ref: 'purpose', placeholder: 'ex. Product Development, Customer Happiness, World Domination', value: @state.purpose, onChange: @setPurpose}
       Field {label: 'Members', className: 'members'},
-        MembershipEditor {leaders: @state.leaders, members: @state.members}
+        MembershipEditor {
+          leaders: @state.leaders
+          members: @state.members
+          @addLeader
+          @addMember
+          @removeLeader
+          @removeMember
+        }
 
   isComplete: ->
-    @state.name?.length > 0 and @state.members?.length > 0
+    @state.name?.length > 0 and @state.members?.length > 0 and @state.leaders?.length > 0
 
-  onNameChanged: (event) ->
+  setName: (event) ->
     @setState {name: event.target.value}
 
-  onPurposeChanged: (event) ->
+  setPurpose: (event) ->
     @setState {purpose: event.target.value}
 
+  addMember: (user) ->
+    members = @state.members.concat(user)
+    @setState {members}
+
+  removeMember: (user) ->
+    members = _.filter @state.members, (u) -> u.id != user.id
+    leaders = _.filter @state.leaders, (u) -> u.id != user.id
+    @setState {members, leaders}
+
+  addLeader: (user) ->
+    leaders = @state.leaders.concat(user)
+    @setState {leaders}
+
+  removeLeader: (user) ->
+    leaders = _.filter @state.leaders, (u) -> u.id != user.id
+    @setState {leaders}
+
   createTeam: ->
-    @publish new UserCreatedTeamEvent(@state.name, @state.purpose, @state.members, @state.leaders)
+    members = _.pluck(@state.members, 'id')
+    leaders = _.pluck(@state.leaders, 'id')
+    @publish new UserCreatedTeamEvent(@state.name, @state.purpose, members, leaders)
     @props.closeDialog()
 
 }

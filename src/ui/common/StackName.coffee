@@ -5,7 +5,6 @@ mergeProps  = require 'common/util/mergeProps'
 StackType   = require 'data/enums/StackType'
 CachedState = require 'ui/framework/mixins/CachedState'
 Pure        = require 'ui/framework/mixins/Pure'
-Text        = React.createFactory(require 'ui/common/Text')
 {span}      = React.DOM
 
 StackName = React.createClass {

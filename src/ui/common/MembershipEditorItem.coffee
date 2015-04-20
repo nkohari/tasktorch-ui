@@ -13,8 +13,9 @@ MembershipEditorItem = React.createClass {
   propTypes:
     user:         PropTypes.User
     isLeader:     PropTypes.bool
+    addLeader:    PropTypes.func
+    removeLeader: PropTypes.func
     removeMember: PropTypes.func
-    toggleLeader: PropTypes.func
 
   mixins: [CurrentUserAware]
 
@@ -47,7 +48,10 @@ MembershipEditorItem = React.createClass {
     @props.removeMember(@props.user)
 
   onLeaderToggleClicked: ->
-    @props.toggleLeader(@props.user)
+    if @props.isLeader
+      @props.removeLeader(@props.user)
+    else
+      @props.addLeader(@props.user)
 
 }
 
