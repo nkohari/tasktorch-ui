@@ -18,18 +18,18 @@ TeamContextMenu = React.createClass {
   render: ->
 
     ContextMenu {hideOverlay: @props.hideOverlay},
-      DialogTrigger {name: 'CreateStack', team: @props.team},
+      DialogTrigger {name: 'CreateStack', teamid: @props.team.id},
         Icon {name: 'stack'}
         'Create a stack'
       ContextMenuSeparator {}
-      DialogTrigger {name: 'RenameTeam', team: @props.team},
+      DialogTrigger {name: 'RenameTeam', teamid: @props.team.id},
         Icon {name: 'edit'}
         'Rename this team'
-      DialogTrigger {name: 'TeamMembers', team: @props.team},
+      DialogTrigger {name: 'TeamMembers', teamid: @props.team.id},
         Icon {name: 'team'}
         'Manage membership'
       ContextMenuSeparator {}
-      DialogTrigger {name: 'DeleteTeam', team: @props.team},
+      DialogTrigger {name: 'DeleteTeam', teamid: @props.team.id},
         Icon {name: 'trash'}
         'Delete this team'
 }

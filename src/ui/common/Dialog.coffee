@@ -20,7 +20,7 @@ Dialog = React.createClass {
     height:      PropTypes.number
 
   getDefaultProps: ->
-    {width: 600, height: 'auto'}
+    {width: 600}
 
   render: ->
 
@@ -34,7 +34,10 @@ Dialog = React.createClass {
         @props.title
 
     classes = mergeClasses('dialog', @props.className)
-    style   = {width: @props.width, height: @props.height}
+
+    style =
+      width:  @props.width
+      height: @props.height if @props.height?
 
     div {className: 'dialog-backdrop', onClick: @onBackdropClicked},
       div {ref: 'dialog', className: classes, style},

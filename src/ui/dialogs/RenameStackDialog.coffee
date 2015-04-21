@@ -2,6 +2,7 @@ React                 = require 'react'
 UserRenamedStackEvent = require 'events/ui/UserRenamedStackEvent'
 PropTypes             = require 'ui/framework/PropTypes'
 Actor                 = require 'ui/framework/mixins/Actor'
+CachedState           = require 'ui/framework/mixins/CachedState'
 Button                = React.createFactory(require 'ui/common/Button')
 Dialog                = React.createFactory(require 'ui/common/Dialog')
 DialogButtons         = React.createFactory(require 'ui/common/DialogButtons')
@@ -15,16 +16,15 @@ RenameStackDialog = React.createClass {
   displayName: 'RenameStackDialog'
 
   props:
-    stack:        PropTypes.Stack
+    stackid:     PropTypes.Stack
     closeDialog: PropTypes.func
 
-  mixins: [Actor]
+  mixins: [Actor, CachedState]
 
-  getInitialState: -> {
-    name:     @props.stack.name
-    previous: @props.stack.name
-    dirty:    false
-  }
+  getCachedState: (cache) ->
+    stack = cache('stacks').get(@props.stackid)
+    name  = stack.name if stack? and not @state?
+    {name, stack}
 
   componentDidMount: ->
     @refs.name.focus()
@@ -36,7 +36,7 @@ RenameStackDialog = React.createClass {
       Button {text: 'Rename Stack', onClick: @renameStack, disabled: !@isValid()}
       Button {text: 'Cancel',       onClick: @props.closeDialog}
 
-    Dialog {icon: 'stack', title: "Rename #{@props.stack.name}", buttons, closeDialog: @props.closeDialog},
+    Dialog {icon: 'stack', title: "Rename #{@state.stack?.name}", buttons, closeDialog: @props.closeDialog},
       Field {label: 'Name', note: "What would you like to call the stack?"},
         Input {ref: 'name', placeholder: 'ex. Big Ideas, 2015-Q3, Next Week, Beta Version Features', value: @state.name, onChange: @onNameChanged}
 
@@ -44,14 +44,11 @@ RenameStackDialog = React.createClass {
     @state.name?.length > 0
 
   onNameChanged: (event) ->
-    @setState {
-      name: event.target.value
-      dirty: event.target.value != @state.previous
-    }
+    @setState {name: event.target.value}
 
   renameStack: ->
-    unless @state.name == @state.previous
-      @publish new UserRenamedStackEvent(@props.stack.id, @state.name)
+    unless @state.name == @state.stack.name
+      @publish new UserRenamedStackEvent(@props.stackid, @state.name)
     @props.closeDialog()
 
 }

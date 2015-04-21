@@ -11,12 +11,14 @@
   padding: 20px
 
   &.slide-enter
+    overflow: hidden
     animation: command-backdrop-enter 150ms ease-out
     .command-overlay
       z-index: $panel-animation-layer
       animation: command-enter 150ms ease-out
     
   &.slide-leave
+    overflow: hidden
     animation: command-backdrop-leave 100ms linear
     .command-overlay
       z-index: $panel-animation-layer

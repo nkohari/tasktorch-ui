@@ -2,6 +2,7 @@ React                = require 'react'
 UserRenamedTeamEvent = require 'events/ui/UserRenamedTeamEvent'
 PropTypes            = require 'ui/framework/PropTypes'
 Actor                = require 'ui/framework/mixins/Actor'
+CachedState          = require 'ui/framework/mixins/CachedState'
 Button               = React.createFactory(require 'ui/common/Button')
 Dialog               = React.createFactory(require 'ui/common/Dialog')
 DialogButtons        = React.createFactory(require 'ui/common/DialogButtons')
@@ -14,16 +15,15 @@ RenameTeamDialog = React.createClass {
   displayName: 'RenameTeamDialog'
 
   props:
-    team:        PropTypes.Team
+    teamid:      PropTypes.Team
     closeDialog: PropTypes.func
 
-  mixins: [Actor]
+  mixins: [Actor, CachedState]
 
-  getInitialState: -> {
-    name:     @props.team.name
-    previous: @props.team.name
-    dirty:    false
-  }
+  getCachedState: (cache) ->
+    team = cache('teams').get(@props.teamid)
+    name = team.name if team? and not @state?
+    {name, team}
 
   componentDidMount: ->
     @refs.name.focus()
@@ -35,22 +35,19 @@ RenameTeamDialog = React.createClass {
       Button {text: 'Rename Team', onClick: @renameTeam, disabled: !@isValid()}
       Button {text: 'Cancel',      onClick: @props.closeDialog}
 
-    Dialog {icon: 'team', title: "Rename #{@props.team.name}", buttons, closeDialog: @props.closeDialog},
-      Field {label: 'Name', note: 'What would you like to name the team?'},
+    Dialog {icon: 'team', title: "Rename #{@state.team?.name}", buttons, closeDialog: @props.closeDialog},
+      Field {label: 'Name'},
         Input {ref: 'name', placeholder: 'ex. Engineering, HR, World Peace Initiative, Secret Project Team', value: @state.name, onChange: @onNameChanged}
 
   isValid: ->
     @state.name?.length > 0
 
   onNameChanged: (event) ->
-    @setState {
-      name: event.target.value
-      dirty: event.target.value != @state.previous
-    }
+    @setState {name: event.target.value}
 
   renameTeam: ->
-    unless @state.name == @state.previous
-      @publish new UserRenamedTeamEvent(@props.team.id, @state.name)
+    unless @state.name == @state.team.name
+      @publish new UserRenamedTeamEvent(@props.teamid, @state.name)
     @props.closeDialog()
 
 }

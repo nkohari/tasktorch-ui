@@ -18,11 +18,11 @@ StackContextMenu = React.createClass {
   render: ->
 
     ContextMenu {hideOverlay: @props.hideOverlay},
-      DialogTrigger {name: 'RenameStack', stack: @props.stack},
+      DialogTrigger {name: 'RenameStack', stackid: @props.stack.id},
         Icon {name: 'edit'}
         'Rename this stack'
       ContextMenuSeparator {}
-      DialogTrigger {name: 'DeleteStack', stack: @props.stack},
+      DialogTrigger {name: 'DeleteStack', stackid: @props.stack.id},
         Icon {name: 'trash'}
         'Delete this stack'
 }

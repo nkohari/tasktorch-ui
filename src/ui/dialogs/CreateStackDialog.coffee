@@ -3,6 +3,7 @@ UserCreatedStackEvent     = require 'events/ui/UserCreatedStackEvent'
 UserCreatedTeamStackEvent = require 'events/ui/UserCreatedTeamStackEvent'
 PropTypes                 = require 'ui/framework/PropTypes'
 Actor                     = require 'ui/framework/mixins/Actor'
+CachedState               = require 'ui/framework/mixins/CachedState'
 Button                    = React.createFactory(require 'ui/common/Button')
 Dialog                    = React.createFactory(require 'ui/common/Dialog')
 DialogButtons             = React.createFactory(require 'ui/common/DialogButtons')
@@ -16,14 +17,18 @@ CreateStackDialog = React.createClass {
   displayName: 'CreateStackDialog'
 
   props:
-    team:        PropTypes.Team
+    teamid:      PropTypes.id
     closeDialog: PropTypes.func
 
-  mixins: [Actor]
+  mixins: [Actor, CachedState]
 
   getInitialState: -> {
     dirty: false
     name:  ''
+  }
+
+  getCachedState: (cache) -> {
+    team: cache('teams').get(@props.teamid) if @props.teamid?
   }
 
   componentDidMount: ->
@@ -52,16 +57,16 @@ CreateStackDialog = React.createClass {
       and come back to it later.
     """
 
-    if @props.team?
-      hint += " This stack will belong to #{@props.team.name}, and all of the cards stored in it will be shared by the team."
+    if @props.teamid?
+      hint += " This stack will belong to #{@state.team?.name}, and all of the cards stored in it will be shared by the team."
     else
       hint += " This stack will belong to you, so all of the cards stored in it are your responsibility."
 
     return hint
 
   createStack: ->
-    if @props.team?
-      @publish new UserCreatedTeamStackEvent(@props.team.id, @state.name)
+    if @props.teamid?
+      @publish new UserCreatedTeamStackEvent(@props.teamid, @state.name)
     else
       @publish new UserCreatedStackEvent(@state.name)
     @props.closeDialog()
