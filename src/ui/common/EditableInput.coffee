@@ -4,11 +4,11 @@ PropTypes  = require 'ui/framework/PropTypes'
 KeyCode    = require 'ui/framework/KeyCode'
 mergeProps = require 'common/util/mergeProps'
 classSet   = require 'common/util/classSet'
-{input}    = React.DOM
+Input      = React.createFactory(require 'ui/common/Input')
 
-EditableText = React.createClass {
+EditableInput = React.createClass {
 
-  displayName: 'EditableText'
+  displayName: 'EditableInput'
 
   propTypes:
     value: PropTypes.any
@@ -27,6 +27,7 @@ EditableText = React.createClass {
     ]
 
     props = mergeProps _.omit(@props, 'value'), {
+      ref: 'input'
       className: classes
       value: @state.value
       @onChange
@@ -35,15 +36,15 @@ EditableText = React.createClass {
       @onKeyUp
     }
 
-    input props
+    Input props
 
   onKeyUp: (event) ->
     switch event.which
       when KeyCode.ESCAPE
         @setState {dirty: false, value: @state.previous}, =>
-          @getDOMNode().blur()
+          @refs.input.blur()
       when KeyCode.RETURN
-        @getDOMNode().blur()
+        @refs.input.blur()
 
   onChange: (event) ->
     @setState {dirty: true, value: event.target.value}
@@ -57,4 +58,4 @@ EditableText = React.createClass {
 
 }
 
-module.exports = EditableText
+module.exports = EditableInput

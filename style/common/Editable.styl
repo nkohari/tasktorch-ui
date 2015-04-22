@@ -1,27 +1,24 @@
 .editable
-  font-family: $content-font
   font-weight: $normal-font-weight
   -webkit-font-smoothing: subpixel-antialiased
-  border: 1px dashed transparent
-  background: transparent
+  border: 1px dashed transparent !important
+  background: transparent !important
   transition-property: border, background, box-shadow
   transition-duration: 0.1s
   transition-timing-function: ease-in-out
   outline: none !important
+  
   &:hover
-    border: 1px dashed black(40%)
+    border: 1px dashed black(40%) !important
+    
   &:focus
-    cursor: text;
-    background: $color-white
-    border: 1px solid black(60%)
+    cursor: text
+    background: $color-white !important
+    border: 1px solid black(60%) !important
     box-shadow: 0px 0px 5px black(50%)
 
 textarea.editable
-  overflow: hidden;
-  width: 100%;
-  padding: 4px;
-  resize: none;
-
-input.editable
-  padding: 2px
+  overflow: hidden
   width: 100%
+  padding: 4px
+  resize: none

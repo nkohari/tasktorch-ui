@@ -34,8 +34,11 @@ MembershipEditor = React.createClass {
 
     div {className: 'membership-editor'},
       div {className: 'member-search'},
-        UserSelector {onOptionSelected: @props.addMember}
+        UserSelector {ref: 'selector', onOptionSelected: @props.addMember}
       div {className: 'member-list'}, members
+
+  focus: ->
+    @refs.selector.focus()
 
 }
 

@@ -30,14 +30,18 @@ TeamMembersDialog = React.createClass {
     leaders = cache('users').getAll(team.leaders) if team?
     {leaders, members, team}
 
+  componentDidMount: ->
+    @refs.members.focus()
+
   render: ->
 
     buttons = DialogButtons {},
       Button {text: 'Done', onClick: @props.closeDialog}
 
-    Dialog {icon: 'team', height: 560, title: "#{@state.team?.name} Membership", buttons, closeDialog: @props.closeDialog},
-      Field {label: 'Members'},
+    Dialog {icon: 'team', height: 440, title: "#{@state.team?.name} Membership", buttons, closeDialog: @props.closeDialog},
+      Field {label: 'Members', expand: true},
         MembershipEditor {
+          ref: 'members'
           leaders: @state.leaders
           members: @state.members
           @addLeader

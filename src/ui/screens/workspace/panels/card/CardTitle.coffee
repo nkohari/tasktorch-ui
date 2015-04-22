@@ -5,7 +5,7 @@ Actor                     = require 'ui/framework/mixins/Actor'
 Pure                      = require 'ui/framework/mixins/Pure'
 UserChangedCardTitleEvent = require 'events/ui/UserChangedCardTitleEvent'
 Frame                     = React.createFactory(require 'ui/common/Frame')
-EditableText              = React.createFactory(require 'ui/common/EditableText')
+EditableInput             = React.createFactory(require 'ui/common/EditableInput')
 
 CardTitle = React.createClass {
 
@@ -21,9 +21,9 @@ CardTitle = React.createClass {
 
   render: ->
     Frame {className: 'card-title'},
-      EditableText {
+      EditableInput {
         ref:         'text'
-        placeholder: 'Untitled Card'
+        placeholder: 'What do you want to accomplish?'
         value:       @props.card.title
         save:        @onTitleChanged
       }

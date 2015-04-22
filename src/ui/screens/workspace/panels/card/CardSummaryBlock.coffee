@@ -20,7 +20,7 @@ CardSummaryBlock = React.createClass {
     Block {className: 'card-summary', title: 'Summary', collapsible: true},
       EditableTextArea {
         className:   'editable'
-        placeholder: 'Card Summary'
+        placeholder: 'Briefly describe the problem to be solved, or the idea to be implemented.'
         value:       @props.card.summary
         save:        @onSummaryChanged
       }

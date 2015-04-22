@@ -10,10 +10,10 @@ SelectorOption = React.createClass {
   displayName: 'SelectorOption'
 
   props:
-    value:         PropTypes.object
-    isHighlighted: PropTypes.bool
-    highlight:     PropTypes.func
-    select:        PropTypes.func
+    value:           PropTypes.object
+    isHighlighted:   PropTypes.bool
+    highlightOption: PropTypes.func
+    selectOption:    PropTypes.func
 
   render: ->
 
@@ -26,10 +26,10 @@ SelectorOption = React.createClass {
       @props.children
 
   onMouseOver: (event) ->
-    @props.highlight(@props.value)
+    @props.highlightOption(@props.value)
 
   onClick: (event) ->
-    @props.select(@props.value)
+    @props.selectOption(@props.value)
 
 }
 

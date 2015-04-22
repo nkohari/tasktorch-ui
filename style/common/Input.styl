@@ -1,8 +1,7 @@
 .input
   position: relative
-  font-size: 16px
   
-  input[type=text], input[type=password]
+  input[type=text], input[type=password], textarea
     width: 100%
     padding: 4px
     background: $color-white
@@ -30,10 +29,11 @@
         
   .input-placeholder
     position: absolute
-    top: 5px
-    left: 8px
-    font-size: 14px
-    line-height: 18px
+    top: 4px
+    left: 6px
+    font-size: 0.875em
+    line-height: 1.5em
     font-style: italic
     font-weight: $bold-font-weight
     color: $color-ink-subtle
+    pointer-events: none

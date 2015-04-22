@@ -41,7 +41,7 @@ UserSelector = React.createClass {
 
     if @state.expanded
       options = _.map @state.users, (user, index) =>
-        SelectorOption {key: user.id, value: user, isHighlighted: @state.highlight == index, @highlight, @select},
+        SelectorOption {key: user.id, value: user, isHighlighted: @state.highlight == index, @highlightOption, @selectOption},
           Avatar {user}
           span {className: 'text'}, user.name
 
@@ -49,6 +49,17 @@ UserSelector = React.createClass {
       div {className: 'selector-prompt'},
         Input {ref: 'input', icon: 'user', rightIcon: 'search', placeholder: @props.placeholder, value: @state.text, @onKeyDown, onChange: @onInputChanged}
       ul {className: 'selector-options'}, options if @state.expanded
+
+  focus: ->
+    @refs.input.focus()
+
+  highlightOption: (user) ->
+    highlight = _.findIndex @state.users, (u) -> u.id == user.id
+    @setState {highlight}
+
+  selectOption: (user) ->
+    @setState {expanded: false, text: undefined, highlight: -1, users: undefined}
+    @props.onOptionSelected(user)
 
   onClickOutside: (event) ->
     return unless @isMounted()
@@ -67,14 +78,6 @@ UserSelector = React.createClass {
 
   onInputChanged: (event) ->
     @setState {expanded: true, text: event.target.value}, => @forceCacheSync()
-
-  highlight: (user) ->
-    highlight = _.findIndex @state.users, (u) -> u.id == user.id
-    @setState {highlight}
-
-  select: (user) ->
-    @setState {expanded: false, text: undefined, highlight: -1, users: undefined}
-    @props.onOptionSelected(user)
 
 }
 

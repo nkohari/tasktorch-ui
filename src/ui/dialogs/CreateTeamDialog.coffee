@@ -38,7 +38,7 @@ CreateTeamDialog = React.createClass {
         Input {ref: 'name', placeholder: 'ex. Engineering, HR, World Peace Initiative, Secret Project Team', value: @state.name, onChange: @setName}
       Field {label: 'Purpose'},
         Input {ref: 'purpose', placeholder: 'ex. Product Development, Customer Happiness, World Domination', value: @state.purpose, onChange: @setPurpose}
-      Field {label: 'Members', className: 'members'},
+      Field {label: 'Members', expand: true},
         MembershipEditor {
           leaders: @state.leaders
           members: @state.members

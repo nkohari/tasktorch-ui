@@ -4,11 +4,11 @@ PropTypes  = require 'ui/framework/PropTypes'
 KeyCode    = require 'ui/framework/KeyCode'
 classSet   = require 'common/util/classSet'
 mergeProps = require 'common/util/mergeProps'
-{textarea} = React.DOM
+TextArea   = React.createFactory(require 'ui/common/TextArea')
 
-EditableTextArea = React.createClass {
+EditableInputArea = React.createClass {
 
-  displayName: 'EditableTextArea'
+  displayName: 'EditableInputArea'
 
   propTypes:
     value: PropTypes.any
@@ -19,10 +19,6 @@ EditableTextArea = React.createClass {
   componentWillReceiveProps: (newProps) ->
     @setState {dirty: false, previous: newProps.value, value: newProps.value}
 
-  componentDidMount: ->
-    node = @getDOMNode()
-    node.style.height = "#{@getHeight()}px"
-
   render: ->
 
     classes = classSet [
@@ -31,8 +27,8 @@ EditableTextArea = React.createClass {
     ]
 
     props = mergeProps _.omit(@props, 'value'), {
+      ref: 'textarea'
       className: classes
-      style: {height: @getHeight()} if @isMounted()
       value: @state.value
       @onChange
       @onFocus
@@ -40,16 +36,16 @@ EditableTextArea = React.createClass {
       @onKeyUp
     }
 
-    textarea props
+    TextArea props
 
   onKeyUp: (event) ->
     switch event.which
       when KeyCode.ESCAPE
         @setState {dirty: false, value: @state.previous}, =>
-          @getDOMNode().blur()
+          @refs.textarea.blur()
       when KeyCode.RETURN
         if event.shiftKey
-          @getDOMNode().blur()
+          @refs.textarea.blur()
 
   onChange: (event) ->
     @setState {dirty: true, value: event.target.value}
@@ -62,12 +58,6 @@ EditableTextArea = React.createClass {
     @props.save(@state.value) if @props.save? and @state.dirty
     @setState {dirty: false}
 
-  getHeight: ->
-    node = @getDOMNode()
-    if node.scrollHeight == node.clientHeight
-      node.style.height = 'auto'
-    return node.scrollHeight
-
 }
 
-module.exports = EditableTextArea
+module.exports = EditableInputArea

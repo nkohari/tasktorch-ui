@@ -25,7 +25,7 @@ Input = React.createClass {
   render: ->
 
     if @props.placeholder? and (not @props.value? or @props.value.length == 0)
-      placeholder = span {className: 'input-placeholder', onClick: @focus}, @props.placeholder
+      placeholder = span {className: 'input-placeholder'}, @props.placeholder
 
     classes = classSet [
       'input'
@@ -38,7 +38,7 @@ Input = React.createClass {
     }
 
     div {className: classes},
-      Icon {name: @props.icon,      className: 'left-icon',  onClick: @focus} if @props.icon?
+      Icon {name: @props.icon, className: 'left-icon',  onClick: @focus} if @props.icon?
       input props
       Icon {name: @props.rightIcon, className: 'right-icon', onClick: @focus} if @props.rightIcon?
       placeholder
@@ -46,6 +46,10 @@ Input = React.createClass {
   focus: ->
     return unless @isMounted()
     @refs.input.getDOMNode().focus()
+
+  blur: ->
+    return unless @isMounted()
+    @refs.input.getDOMNode().blur()
 
   select: ->
     return unless @isMounted()

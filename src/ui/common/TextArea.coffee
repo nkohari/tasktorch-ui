@@ -44,6 +44,10 @@ TextArea = React.createClass {
     return unless @isMounted()
     @refs.textarea.getDOMNode().focus()
 
+  blur: ->
+    return unless @isMounted()
+    @refs.textarea.getDOMNode().blur()
+
   select: ->
     return unless @isMounted()
     @refs.textarea.getDOMNode().select()
