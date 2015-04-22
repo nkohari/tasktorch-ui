@@ -22,6 +22,7 @@ CardTimelineTab = React.createClass {
   }
 
   componentDidMount: ->
+    @userIsScrolling = false
     @scrollToBottom()
 
   componentWillReceiveProps: ->
@@ -41,7 +42,7 @@ CardTimelineTab = React.createClass {
 
   onScroll: ->
     node = @refs.notes.getDOMNode()
-    @userIsScrolling = (node.scrollHeight - node.scrollTop == node.clientHeight)
+    @userIsScrolling = (node.scrollHeight - node.scrollTop != node.clientHeight)
     return
 
   scrollToBottom: ->

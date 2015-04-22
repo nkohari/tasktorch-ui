@@ -6,6 +6,7 @@ UserDeletedStackEvent = require 'events/ui/UserDeletedStackEvent'
 Button                = React.createFactory(require 'ui/common/Button')
 Dialog                = React.createFactory(require 'ui/common/Dialog')
 DialogButtons         = React.createFactory(require 'ui/common/DialogButtons')
+Prompt                = React.createFactory(require 'ui/common/Prompt')
 
 DeleteStackDialog = React.createClass {
 
@@ -15,7 +16,7 @@ DeleteStackDialog = React.createClass {
     stackid:     PropTypes.id
     closeDialog: PropTypes.func
 
-  mixins: [Actor]
+  mixins: [Actor, CachedState]
 
   getCachedState: (cache) -> {
     stack: cache('stacks').get(@props.stackid)
@@ -25,10 +26,16 @@ DeleteStackDialog = React.createClass {
 
     buttons = DialogButtons {},
       Button {text: 'Delete Stack', onClick: @deleteStack, className: 'warning'}
-      Button {text: 'Cancel',       onClick: @props.closeDialog}    
+      Button {text: 'Cancel',       onClick: @props.closeDialog}
+
+    hint = """
+      Deleting a stack is immediate and permanent. You cannot delete a stack that
+      has cards in it; they must first be moved to another stack.
+    """
 
     Dialog {icon: 'trash', title: "Delete #{@state.stack?.name}", buttons, closeDialog: @props.closeDialog},
-      'Are you sure you want to delete this stack? This action cannot be undone!'
+      Prompt {hint},
+        'Are you sure you want to delete this stack?'
 
   deleteStack: ->
     @publish new UserDeletedStackEvent(@props.stackid)
