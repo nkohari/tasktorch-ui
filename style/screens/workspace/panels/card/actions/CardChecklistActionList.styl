@@ -1,5 +1,6 @@
 .card-checklist-action-list
-  min-height: 30px
+  min-height: 5px
+  &.dragging { min-height: 42px }
   
   & > li
     border: 1px solid $color-steel
@@ -7,6 +8,6 @@
     &:first-child { border-top: 1px solid $color-steel }
 
   .drag-placeholder
-    height: 30px
+    height: 42px
     visibility: normal
     background: $color-selection

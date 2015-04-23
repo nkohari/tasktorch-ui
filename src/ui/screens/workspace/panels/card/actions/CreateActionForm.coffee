@@ -4,7 +4,8 @@ KeyCode                = require 'ui/framework/KeyCode'
 PropTypes              = require 'ui/framework/PropTypes'
 Actor                  = require 'ui/framework/mixins/Actor'
 Button                 = React.createFactory(require 'ui/common/Button')
-{a, div, input}        = React.DOM
+Input                  = React.createFactory(require 'ui/common/Input')
+{a, div}               = React.DOM
 
 CreateActionForm = React.createClass {
 
@@ -20,21 +21,23 @@ CreateActionForm = React.createClass {
     {text: ''}
 
   componentDidMount: ->
-    @refs.input.getDOMNode().focus()
+    @refs.input.focus()
 
   render: ->
 
     div {className: 'create-action-form'},
-      input {
+      Input {
         ref: 'input'
+        placeholder: 'What needs to be done?'
         value: @state.text
         @onKeyUp
         @onChange
       }
-      div {className: 'buttons'},
+      div {className: 'button-group'},
         Button {
           className: 'small'
           text: 'Create'
+          disabled: !@isValid()
           onClick: @createAction
         }
         Button {
@@ -42,6 +45,9 @@ CreateActionForm = React.createClass {
           text: 'Done'
           onClick: @props.toggleAdding
         }
+
+  isValid: ->
+    @state.text?.length > 0
 
   onKeyUp: (event) ->
     switch event.which

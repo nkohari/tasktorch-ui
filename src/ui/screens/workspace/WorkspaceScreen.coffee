@@ -18,8 +18,7 @@ WorkspaceScreen = React.createClass {
   mixins: [ShellContext]
 
   componentDidMount: ->
-    org = @getCurrentOrg()
-    document.title = "TaskTorch \u2014 #{org.name} \u2014 Workspace"
+    document.title = "TaskTorch | Workspace | #{@getCurrentOrg().name}"
 
   render: ->
 

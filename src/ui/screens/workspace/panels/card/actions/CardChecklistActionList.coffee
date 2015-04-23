@@ -1,5 +1,6 @@
 _                    = require 'lodash'
 React                = require 'react'
+classSet             = require 'common/util/classSet'
 compare              = require 'common/util/compare'
 PropTypes            = require 'ui/framework/PropTypes'
 Actor                = require 'ui/framework/mixins/Actor'
@@ -27,6 +28,7 @@ CardChecklistActionList = React.createClass {
   ]
 
   getInitialState: -> {
+    dragging: false
     ids: _.clone(@props.checklist.actions)
   }
 
@@ -41,13 +43,24 @@ CardChecklistActionList = React.createClass {
       return unless action?
       CardAction {key: action.id, action}
 
-    List {className: 'card-checklist-action-list'}, items
+    classes = classSet [
+      'card-checklist-action-list'
+      'dragging' if @state.dragging      
+    ]
+
+    List {className: classes}, items
 
   getSortableList: ->
     @props.checklist
 
   getSortableListItem: (id) ->
     _.find @props.actions, (action) -> action.id == id
+
+  onDragStarted: ->
+    @setState {dragging: true}
+
+  onDragStopped: ->
+    @setState {dragging: false}
 
   onReorder: (action, toPosition) ->
     @publish new UserMovedActionEvent(action.id, @props.checklist.id, toPosition)

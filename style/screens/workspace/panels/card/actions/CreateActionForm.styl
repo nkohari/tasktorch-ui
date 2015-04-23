@@ -1,14 +1,19 @@
 .create-action-form
   display: flex
-  margin: 10px 0 0 16px
+  margin-top: 10px
   
-  input
+  .input
     flex: 1
     font-size: 16px
-    padding: 4px
-    margin-right: 10px
-    outline: none !important
   
-  .buttons
+  .button-group
     flex: none
-    padding-top: 2px
+    background: $color-steel-light
+    margin-left: -1px
+    
+    button
+      line-height: 19px
+      padding: 4px 6px
+      &:first-child
+        border-top-left-radius: 0px
+        border-bottom-left-radius: 0px

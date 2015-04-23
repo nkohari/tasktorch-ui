@@ -1,6 +1,7 @@
 _                   = require 'lodash'
 React               = require 'react'
 PropTypes           = require 'ui/framework/PropTypes'
+ShellContext        = require 'ui/framework/mixins/ShellContext'
 Frame               = React.createFactory(require 'ui/common/Frame')
 BigPicturePanelList = React.createFactory(require 'ui/screens/bigPicture/BigPicturePanelList')
 BigPictureDrawer    = React.createFactory(require 'ui/screens/bigPicture/drawer/BigPictureDrawer')
@@ -12,6 +13,11 @@ BigPictureScreen = React.createClass {
 
   propTypes:
     drawer: PropTypes.bool
+
+  mixins: [ShellContext]
+
+  componentDidMount: ->
+    document.title = "TaskTorch | Big Picture | #{@getCurrentOrg().name}"
 
   render: ->
 
