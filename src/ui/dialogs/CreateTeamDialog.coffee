@@ -3,7 +3,7 @@ React                = require 'react'
 UserCreatedTeamEvent = require 'events/ui/UserCreatedTeamEvent'
 PropTypes            = require 'ui/framework/PropTypes'
 Actor                = require 'ui/framework/mixins/Actor'
-CurrentUserAware     = require 'ui/framework/mixins/CurrentUserAware'
+ShellContext         = require 'ui/framework/mixins/ShellContext'
 Button               = React.createFactory(require 'ui/common/Button')
 Dialog               = React.createFactory(require 'ui/common/Dialog')
 DialogButtons        = React.createFactory(require 'ui/common/DialogButtons')
@@ -18,7 +18,7 @@ CreateTeamDialog = React.createClass {
   props:
     closeDialog: PropTypes.func
 
-  mixins: [Actor, CurrentUserAware]
+  mixins: [Actor, ShellContext]
 
   getInitialState: ->
     currentUser = @getCurrentUser()

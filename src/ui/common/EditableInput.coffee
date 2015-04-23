@@ -38,6 +38,10 @@ EditableInput = React.createClass {
 
     Input props
 
+  focus: ->
+    return unless @isMounted()
+    @refs.input.focus()
+
   onKeyUp: (event) ->
     switch event.which
       when KeyCode.ESCAPE

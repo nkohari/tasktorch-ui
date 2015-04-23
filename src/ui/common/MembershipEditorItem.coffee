@@ -1,7 +1,7 @@
 React            = require 'react/addons'
 classSet         = require 'common/util/classSet'
 PropTypes        = require 'ui/framework/PropTypes'
-CurrentUserAware = require 'ui/framework/mixins/CurrentUserAware'
+ShellContext     = require 'ui/framework/mixins/ShellContext'
 Avatar           = React.createFactory(require 'ui/common/Avatar')
 Icon             = React.createFactory(require 'ui/common/Icon')
 {a, div, span}   = React.DOM
@@ -17,7 +17,7 @@ MembershipEditorItem = React.createClass {
     removeLeader: PropTypes.func
     removeMember: PropTypes.func
 
-  mixins: [CurrentUserAware]
+  mixins: [ShellContext]
 
   render: ->
 

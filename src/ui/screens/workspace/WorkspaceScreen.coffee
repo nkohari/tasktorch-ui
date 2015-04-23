@@ -1,6 +1,7 @@
 _                  = require 'lodash'
 React              = require 'react'
 PropTypes          = require 'ui/framework/PropTypes'
+ShellContext       = require 'ui/framework/mixins/ShellContext'
 Frame              = React.createFactory(require 'ui/common/Frame')
 WorkspacePanelList = React.createFactory(require 'ui/screens/workspace/WorkspacePanelList')
 WorkspaceDrawer    = React.createFactory(require 'ui/screens/workspace/drawer/WorkspaceDrawer')
@@ -11,10 +12,14 @@ WorkspaceScreen = React.createClass {
   displayName: 'WorkspaceScreen'
 
   propTypes:
-    currentOrg:  PropTypes.Org
-    currentUser: PropTypes.User
-    drawer:      PropTypes.bool
-    panels:      PropTypes.array
+    drawer: PropTypes.bool
+    panels: PropTypes.array
+
+  mixins: [ShellContext]
+
+  componentDidMount: ->
+    org = @getCurrentOrg()
+    document.title = "TaskTorch \u2014 #{org.name} \u2014 Workspace"
 
   render: ->
 

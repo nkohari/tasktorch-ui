@@ -3,7 +3,7 @@ React                   = require 'react'
 classSet                = require 'common/util/classSet'
 PropTypes               = require 'ui/framework/PropTypes'
 Actor                   = require 'ui/framework/mixins/Actor'
-CurrentUserAware        = require 'ui/framework/mixins/CurrentUserAware'
+ShellContext            = require 'ui/framework/mixins/ShellContext'
 UserFollowedCardEvent   = require 'events/ui/UserFollowedCardEvent'
 UserUnfollowedCardEvent = require 'events/ui/UserUnfollowedCardEvent'
 Frame                   = React.createFactory(require 'ui/common/Frame')
@@ -17,7 +17,7 @@ CardFollowToggle = React.createClass {
   propTypes:
     card: PropTypes.Card
 
-  mixins: [Actor, CurrentUserAware]
+  mixins: [Actor, ShellContext]
 
   render: ->
 

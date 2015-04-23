@@ -17,12 +17,12 @@ CardTitle = React.createClass {
   mixins: [Actor, Pure]
 
   componentDidMount: ->
-    @refs.text.getDOMNode().focus() unless @props.card.title
+    @refs.input.focus() unless @props.card.title?.length > 0
 
   render: ->
     Frame {className: 'card-title'},
       EditableInput {
-        ref:         'text'
+        ref:         'input'
         placeholder: 'What do you want to accomplish?'
         value:       @props.card.title
         save:        @onTitleChanged

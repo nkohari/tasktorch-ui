@@ -12,9 +12,7 @@ WorkspacePanelList = React.createClass {
   displayName: 'WorkspacePanelList'
 
   propTypes:
-    panels:      PropTypes.array
-    currentOrg:  PropTypes.Org
-    currentUser: PropTypes.User
+    panels: PropTypes.array
 
   mixins: [
     Navigator
@@ -26,8 +24,8 @@ WorkspacePanelList = React.createClass {
 
   render: ->
 
-    panels = _.map @props.panels, (panel) =>
-      props = _.extend {key: panel.id, currentUser: @props.currentUser, currentOrg: @props.currentOrg}, panel
+    panels = _.map @props.panels, (panelProps) =>
+      props = _.extend {key: panelProps.id}, panelProps
       WorkspacePanel(props)
 
     CSSTransitionGroup {component: 'div', className: 'content', transitionName: 'slide', @onWheel},

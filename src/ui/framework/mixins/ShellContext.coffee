@@ -1,13 +1,17 @@
 PropTypes = require 'ui/framework/PropTypes'
 
-CurrentUserAware = {
+ShellContext = {
 
   contextTypes:
+    currentOrg:  PropTypes.Org
     currentUser: PropTypes.User
+
+  getCurrentOrg: ->
+    @context.currentOrg
 
   getCurrentUser: ->
     @context.currentUser
 
 }
 
-module.exports = CurrentUserAware
+module.exports = ShellContext
