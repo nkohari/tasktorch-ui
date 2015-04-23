@@ -8,14 +8,10 @@ TopRightCorner = React.createClass {
 
   displayName: 'TopRightCorner'
 
-  propTypes:
-    currentOrg:  PropTypes.Org
-    currentUser: PropTypes.User
-
   render: ->
 
     Frame {className: 'top-right'},
-      OrgContextMenu {currentOrg: @props.currentOrg}
+      OrgContextMenu {}
 
 }
 

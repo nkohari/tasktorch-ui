@@ -1,6 +1,7 @@
 _              = require 'lodash'
 React          = require 'react'
 PropTypes      = require 'ui/framework/PropTypes'
+ShellContext   = require 'ui/framework/mixins/ShellContext'
 Button         = React.createFactory(require 'ui/common/Button')
 ContextMenu    = React.createFactory(require 'ui/common/ContextMenu')
 DialogTrigger  = React.createFactory(require 'ui/common/DialogTrigger')
@@ -11,8 +12,7 @@ OrgContextMenu = React.createClass {
 
   displayName: 'OrgContextMenu'
 
-  propTypes:
-    currentOrg: PropTypes.Org
+  mixins: [ShellContext]
 
   render: ->
 
@@ -22,7 +22,7 @@ OrgContextMenu = React.createClass {
         'Create a team'
 
     OverlayTrigger {className: 'org menu-button', overlay},
-      Button {text: @props.currentOrg.name, caret: true}
+      Button {text: @getCurrentOrg().name, caret: true}
 
 }
 

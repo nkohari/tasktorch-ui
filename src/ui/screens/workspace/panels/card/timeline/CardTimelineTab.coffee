@@ -12,8 +12,7 @@ CardTimelineTab = React.createClass {
   displayName: 'CardTimelineTab'
 
   propTypes:
-    card:        PropTypes.Card
-    currentUser: PropTypes.User
+    card: PropTypes.Card
 
   mixins: [CachedState]
 
@@ -38,7 +37,7 @@ CardTimelineTab = React.createClass {
 
     div {className: 'card-timeline-tab', @onScroll},
       div {ref: 'notes', className: 'card-notes'}, items
-      CreateCommentForm {card: @props.card, currentUser: @props.currentUser}
+      CreateCommentForm {card: @props.card}
 
   onScroll: ->
     node = @refs.notes.getDOMNode()

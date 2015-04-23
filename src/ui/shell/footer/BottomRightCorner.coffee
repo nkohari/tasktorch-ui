@@ -1,6 +1,7 @@
 _             = require 'lodash'
 React         = require 'react'
 PropTypes     = require 'ui/framework/PropTypes'
+ShellContext  = require 'ui/framework/mixins/ShellContext'
 Avatar        = React.createFactory(require 'ui/common/Avatar')
 DialogTrigger = React.createFactory(require 'ui/common/DialogTrigger')
 Frame         = React.createFactory(require 'ui/common/Frame')
@@ -10,9 +11,7 @@ BottomRightCorner = React.createClass {
 
   displayName: 'BottomRightCorner'
 
-  propTypes:
-    currentOrg:  PropTypes.Org
-    currentUser: PropTypes.User
+  mixins: [ShellContext]
 
   render: ->
 
@@ -21,7 +20,7 @@ BottomRightCorner = React.createClass {
         Icon {name: 'settings'}
       DialogTrigger {name: 'LogOut'},
         Icon {name: 'logout'}
-      Avatar {user: @props.currentUser}
+      Avatar {user: @getCurrentUser()}
 
 }
 

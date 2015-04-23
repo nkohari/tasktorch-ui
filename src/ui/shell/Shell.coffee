@@ -65,15 +65,13 @@ Shell = React.createClass {
 
     screenProps = _.extend @screenState[@props.url.screen], {
       key: @props.url.screen
-      currentOrg: @state.currentOrg
-      currentUser: @state.currentUser
     }
 
     Frame {@isReady, className: 'shell'},
-      ShellHeader {currentOrg: @state.currentOrg, currentUser: @state.currentUser}
+      ShellHeader {}
       CSSTransitionGroup {component: 'div', className: 'shell-main', transitionName: 'navigate'},
         RouteHandler screenProps
-      ShellFooter {currentOrg: @state.currentOrg, currentUser: @state.currentUser}
+      ShellFooter {}
       DialogLayer {}
 
 }

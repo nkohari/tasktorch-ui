@@ -5,6 +5,7 @@ UserCreatedCardEvent = require 'events/ui/UserCreatedCardEvent'
 Actor                = require 'ui/framework/mixins/Actor'
 CachedState          = require 'ui/framework/mixins/CachedState'
 Navigator            = require 'ui/framework/mixins/Navigator'
+ShellContext         = require 'ui/framework/mixins/ShellContext'
 PropTypes            = require 'ui/framework/PropTypes'
 CardPanelState       = require 'ui/screens/workspace/panels/card/CardPanelState'
 Button               = React.createFactory(require 'ui/common/Button')
@@ -19,15 +20,12 @@ ComposeMenu = React.createClass {
 
   displayName: 'ComposeMenu'
 
-  propTypes:
-    currentOrg: PropTypes.Org
-
-  mixins: [Actor, CachedState, Navigator]
+  mixins: [Actor, CachedState, Navigator, ShellContext]
 
   listensFor: ['CardCreated']
 
   getCachedState: (cache) ->
-    {kinds: cache('kindsByOrg').get(@props.currentOrg.id)}
+    {kinds: cache('kindsByOrg').get(@getCurrentOrg().id)}
 
   isReady: ->
     @state.kinds
@@ -46,7 +44,7 @@ ComposeMenu = React.createClass {
       Button {text: 'Compose', caret: true}
 
   onItemClicked: (kind, event) ->
-    @publish new UserCreatedCardEvent(@props.currentOrg.id, kind.id)
+    @publish new UserCreatedCardEvent(@getCurrentOrg().id, kind.id)
     @refs.trigger.hideOverlay()
 
   onCardCreated: (event) ->

@@ -16,11 +16,10 @@ CardHeader = React.createClass {
   displayName: 'CardHeader'
 
   propTypes:
-    card:        PropTypes.Card
-    kind:        PropTypes.Kind
-    stack:       PropTypes.Stack
-    panelid:     PropTypes.string
-    currentUser: PropTypes.User
+    card:    PropTypes.Card
+    kind:    PropTypes.Kind
+    stack:   PropTypes.Stack
+    panelid: PropTypes.string
 
   render: ->
 
@@ -35,7 +34,7 @@ CardHeader = React.createClass {
         CardTitle   {card: @props.card}
         CardWidgets {card: @props.card, kind: @props.kind, stack: @props.stack}
       div {className: 'controls'},
-        CardFollowToggle {card: @props.card, currentUser: @props.currentUser}
+        CardFollowToggle {card: @props.card}
 }
 
 module.exports = CardHeader

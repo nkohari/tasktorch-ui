@@ -10,16 +10,12 @@ ShellFooter = React.createClass {
 
   displayName: 'ShellFooter'
 
-  propTypes:
-    currentOrg:  PropTypes.Org
-    currentUser: PropTypes.User
-
   render: ->
 
     Frame {className: 'shell-footer'},
-      BottomLeftCorner  {currentOrg: @props.currentOrg, currentUser: @props.currentUser}
+      BottomLeftCorner {}
       BottomCenter {}
-      BottomRightCorner {currentOrg: @props.currentOrg, currentUser: @props.currentUser}
+      BottomRightCorner {}
 
 }
 

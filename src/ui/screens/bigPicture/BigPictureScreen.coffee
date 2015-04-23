@@ -11,16 +11,14 @@ BigPictureScreen = React.createClass {
   displayName: 'BigPictureScreen'
 
   propTypes:
-    currentOrg:  PropTypes.Org
-    currentUser: PropTypes.User
-    drawer:     PropTypes.bool
+    drawer: PropTypes.bool
 
   render: ->
 
     Frame {className: 'big-picture screen'},
       CSSTransitionGroup {component: 'div', className: 'drawer-container', transitionName: 'slide'},
-        BigPictureDrawer {currentOrg: @props.currentOrg, currentUser: @props.currentUser} if @props.drawer
-      BigPicturePanelList {currentOrg: @props.currentOrg, currentUser: @props.currentUser, panels: @props.panels}
+        BigPictureDrawer {} if @props.drawer
+      BigPicturePanelList {panels: @props.panels}
 
 }
 

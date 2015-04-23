@@ -25,8 +25,8 @@ WorkspaceScreen = React.createClass {
 
     Frame {className: 'workspace screen'},
       CSSTransitionGroup {component: 'div', className: 'drawer-container', transitionName: 'slide'},
-        WorkspaceDrawer {currentOrg: @props.currentOrg, currentUser: @props.currentUser} if @props.drawer
-      WorkspacePanelList {currentOrg: @props.currentOrg, currentUser: @props.currentUser, panels: @props.panels}
+        WorkspaceDrawer {} if @props.drawer
+      WorkspacePanelList {panels: @props.panels}
 
 }
 

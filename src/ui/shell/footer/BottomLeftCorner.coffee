@@ -11,10 +11,6 @@ BottomLeftCorner = React.createClass {
 
   displayName: 'BottomLeftCorner'
 
-  propTypes:
-    currentOrg:  PropTypes.Org
-    currentUser: PropTypes.User
-
   mixins: [CachedState]
 
   getCachedState: (cache) ->

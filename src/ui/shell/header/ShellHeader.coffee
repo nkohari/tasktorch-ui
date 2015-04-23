@@ -10,16 +10,12 @@ ShellHeader = React.createClass {
 
   displayName: 'ShellHeader'
 
-  propTypes:
-    currentOrg:  PropTypes.Org
-    currentUser: PropTypes.User
-
   render: ->
 
     Frame {className: 'shell-header'},
-      TopLeftCorner {currentOrg: @props.currentOrg, currentUser: @props.currentUser}
+      TopLeftCorner {}
       TopCenter {}
-      TopRightCorner {currentOrg: @props.currentOrg, currentUser: @props.currentUser}
+      TopRightCorner {}
 
 }
 

@@ -7,10 +7,6 @@ BottomCenter = React.createClass {
 
   displayName: 'BottomCenter'
 
-  propTypes:
-    currentOrg:  PropTypes.Org
-    currentUser: PropTypes.User
-
   render: ->
 
     div {className: 'bottom-center'},

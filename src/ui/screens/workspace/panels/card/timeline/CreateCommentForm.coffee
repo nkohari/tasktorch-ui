@@ -2,6 +2,7 @@ React                   = require 'react'
 KeyCode                 = require 'ui/framework/KeyCode'
 PropTypes               = require 'ui/framework/PropTypes'
 Actor                   = require 'ui/framework/mixins/Actor'
+ShellContext            = require 'ui/framework/mixins/ShellContext'
 UserCreatedCommentEvent = require 'events/ui/UserCreatedCommentEvent'
 Avatar                  = React.createFactory(require 'ui/common/Avatar')
 Button                  = React.createFactory(require 'ui/common/Button')
@@ -13,10 +14,9 @@ CreateCommentForm = React.createClass {
   displayName: 'CreateCommentForm'
 
   propTypes:
-    card:        PropTypes.Card
-    currentUser: PropTypes.User
+    card: PropTypes.Card
 
-  mixins: [Actor]
+  mixins: [Actor, ShellContext]
 
   getInitialState: ->
     {text: ''}
@@ -24,7 +24,7 @@ CreateCommentForm = React.createClass {
   render: ->
 
     div {className: 'comment create-comment-form'},
-      Avatar {className: 'comment-user', user: @props.currentUser}
+      Avatar {className: 'comment-user', user: @getCurrentUser()}
       div {className: 'comment-body'},
         TextArea {
           flexible: true

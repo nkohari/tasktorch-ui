@@ -11,10 +11,6 @@ WorkspaceDrawer = React.createClass {
 
   displayName: 'WorkspaceDrawer'
 
-  propTypes:
-    currentOrg:  PropTypes.Org
-    currentUser: PropTypes.User
-
   mixins: [CachedState]
 
   getCachedState: (cache) -> {
@@ -28,8 +24,8 @@ WorkspaceDrawer = React.createClass {
       TeamDrawerSection {key: team.id, team}
 
     Frame {className: 'workspace drawer'},
-      FollowingDrawerItem {currentUser: @props.currentUser}
-      MyWorkDrawerSection {currentUser: @props.currentUser, stacks: @state.stacks}
+      FollowingDrawerItem {}
+      MyWorkDrawerSection {stacks: @state.stacks}
       teamSections
 
 }

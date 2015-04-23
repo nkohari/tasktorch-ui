@@ -15,9 +15,6 @@ FollowingPanel = React.createClass {
 
   displayName: 'FollowingPanel'
 
-  propTypes:
-    currentUser: PropTypes.User
-
   mixins: [CachedState]
 
   getCachedState: (cache) ->

@@ -1,24 +1,22 @@
-_           = require 'lodash'
-React       = require 'react'
-CachedState = require 'ui/framework/mixins/CachedState'
-PropTypes   = require 'ui/framework/PropTypes'
-KindList    = React.createFactory(require 'ui/screens/bigPicture/drawer/KindList')
-TeamList    = React.createFactory(require 'ui/screens/bigPicture/drawer/TeamList')
-{div}       = React.DOM
+_            = require 'lodash'
+React        = require 'react'
+PropTypes    = require 'ui/framework/PropTypes'
+CachedState  = require 'ui/framework/mixins/CachedState'
+ShellContext = require 'ui/framework/mixins/ShellContext'
+KindList     = React.createFactory(require 'ui/screens/bigPicture/drawer/KindList')
+TeamList     = React.createFactory(require 'ui/screens/bigPicture/drawer/TeamList')
+{div}        = React.DOM
 
 BigPictureDrawer = React.createClass {
 
   displayName: 'BigPictureDrawer'
 
-  propTypes:
-    currentOrg:  PropTypes.Org
-    currentUser: PropTypes.User
-
-  mixins: [CachedState]
+  mixins: [CachedState, ShellContext]
 
   getCachedState: (cache) ->
-    kinds   = cache('kindsByOrg').get(@props.currentOrg.id)
-    teams   = cache('teamsByOrg').get(@props.currentOrg.id)
+    org     = @getCurrentOrg()
+    kinds   = cache('kindsByOrg').get(org.id)
+    teams   = cache('teamsByOrg').get(org.id)
     myTeams = cache('myTeams').get()
     if teams? and myTeams?
       otherTeams = []

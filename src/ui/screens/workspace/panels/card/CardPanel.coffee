@@ -21,8 +21,7 @@ CardPanel = React.createClass {
   displayName: 'CardPanel'
 
   propTypes:
-    id:          PropTypes.id
-    currentUser: PropTypes.User
+    id: PropTypes.id
 
   mixins: [Actor, CachedState, CommandContextMaster]
 
@@ -33,7 +32,7 @@ CardPanel = React.createClass {
     {card, kind, stack}
 
   isReady: ->
-    @state.card? and @state.kind?
+    @state.card? and @state.kind? and (@state.stack? or not @state.card.stack?)
 
   render: ->
 
@@ -50,10 +49,10 @@ CardPanel = React.createClass {
       PanelHeader {panelid: @props.id, icon: KindIcon {kind: @state.kind}},
         "#{@state.kind?.name} #{@state.card?.number}"
       div {className: 'content'},
-        CardHeader {card: @state.card, kind: @state.kind, stack: @state.stack, currentUser: @props.currentUser}
-        CardBody {card: @state.card, kind: @state.kind, stack: @state.stack, currentUser: @props.currentUser}
+        CardHeader {card: @state.card, kind: @state.kind, stack: @state.stack}
+        CardBody {card: @state.card, kind: @state.kind, stack: @state.stack}
         CardCommand {command: @getActiveCommand(), card: @state.card, stack: @state.stack}
-      CardFooter {card: @state.card, kind: @state.kind, stack: @state.stack, currentUser: @props.currentUser}
+      CardFooter {card: @state.card, kind: @state.kind, stack: @state.stack}
 
 }
 

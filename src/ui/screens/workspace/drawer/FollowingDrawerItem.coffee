@@ -14,9 +14,6 @@ FollowingDrawerItem = React.createClass {
 
   displayName: 'FollowingDrawerItem'
 
-  propTypes:
-    currentUser: PropTypes.User
-
   mixins: [CachedState, Navigator]
 
   getCachedState: (cache) -> {

@@ -9,10 +9,9 @@ CardFooter = React.createClass {
   displayName: 'CardFooter'
 
   propTypes:
-    card:        PropTypes.Card
-    kind:        PropTypes.Kind
-    stack:       PropTypes.Stack
-    currentUser: PropTypes.User
+    card:  PropTypes.Card
+    kind:  PropTypes.Kind
+    stack: PropTypes.Stack
 
   render: ->
 

@@ -9,15 +9,11 @@ TopLeftCorner = React.createClass {
 
   displayName: 'TopLeftCorner'
 
-  propTypes:
-    currentOrg:  PropTypes.Org
-    currentUser: PropTypes.User
-
   render: ->
 
     Frame {className: 'top-left'},
       DrawerToggleButton {}
-      ComposeMenu {currentOrg: @props.currentOrg}
+      ComposeMenu {}
 
 }
 
