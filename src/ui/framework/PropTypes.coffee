@@ -14,6 +14,8 @@ PropTypes.model = (spec) ->
     version: PropTypes.number
   }, spec
 
+# TODO: We should combine these with the model definitions somehow.
+
 PropTypes.Action = PropTypes.model {
   org:    PropTypes.id
   text:   PropTypes.text
@@ -77,6 +79,7 @@ PropTypes.Team = PropTypes.model {
 
 PropTypes.User = PropTypes.model {
   name:      PropTypes.string
+  email:     PropTypes.string
   avatarUrl: PropTypes.string
 }
 

@@ -6,6 +6,7 @@ DialogContainer = React.createFactory(require 'ui/common/DialogContainer')
 
 DIALOGS =
   ChangeMyName:     React.createFactory(require 'ui/dialogs/ChangeMyNameDialog')
+  ChangeMyEmail:    React.createFactory(require 'ui/dialogs/ChangeMyEmailDialog')
   ChangeMyPassword: React.createFactory(require 'ui/dialogs/ChangeMyPasswordDialog')
   CreateStack:      React.createFactory(require 'ui/dialogs/CreateStackDialog')
   CreateTeam:       React.createFactory(require 'ui/dialogs/CreateTeamDialog')
