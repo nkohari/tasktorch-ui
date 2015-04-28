@@ -25,7 +25,7 @@ ChangeActionStatusOverlay = React.createClass {
 
   render: ->
 
-    Overlay {position: 'right', arrow: true},
+    Overlay {position: 'bottom right', arrow: true},
       Selector {selection: @state.status, onChange: @onStatusSelected},
         ActionStatusSelectorOption {value: ActionStatus.NotStarted, text: 'Not Started', icon: 'notstarted'}
         ActionStatusSelectorOption {value: ActionStatus.InProgress, text: 'In Progress', icon: 'inprogress'}

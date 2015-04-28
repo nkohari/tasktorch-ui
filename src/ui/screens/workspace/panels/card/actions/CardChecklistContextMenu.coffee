@@ -16,7 +16,7 @@ CardChecklistContextMenu = React.createClass {
 
   render: ->
 
-    ContextMenu {position: 'right', hideOverlay: @props.hideOverlay},
+    ContextMenu {position: 'bottom right', hideOverlay: @props.hideOverlay},
       a {onClick: @props.toggleAdding},
         Icon {name: 'action'}
         'Add actions'

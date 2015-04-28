@@ -1,11 +1,12 @@
-_             = require 'lodash'
-React         = require 'react'
-PropTypes     = require 'ui/framework/PropTypes'
-ShellContext  = require 'ui/framework/mixins/ShellContext'
-Avatar        = React.createFactory(require 'ui/common/Avatar')
-DialogTrigger = React.createFactory(require 'ui/common/DialogTrigger')
-Frame         = React.createFactory(require 'ui/common/Frame')
-Icon          = React.createFactory(require 'ui/common/Icon')
+React           = require 'react'
+PropTypes       = require 'ui/framework/PropTypes'
+ShellContext    = require 'ui/framework/mixins/ShellContext'
+Avatar          = React.createFactory(require 'ui/common/Avatar')
+Frame           = React.createFactory(require 'ui/common/Frame')
+Icon            = React.createFactory(require 'ui/common/Icon')
+OverlayTrigger  = React.createFactory(require 'ui/common/OverlayTrigger')
+UserContextMenu = React.createFactory(require 'ui/shell/footer/UserContextMenu')
+{div}           = React.DOM
 
 BottomRightCorner = React.createClass {
 
@@ -15,12 +16,13 @@ BottomRightCorner = React.createClass {
 
   render: ->
 
-    Frame {className: 'bottom-right'},
-      DialogTrigger {name: 'UserSettings'},
-        Icon {name: 'settings'}
-      DialogTrigger {name: 'LogOut'},
-        Icon {name: 'logout'}
-      Avatar {user: @getCurrentUser()}
+    overlay = UserContextMenu {}
+
+    div {className: 'bottom-right'},
+      OverlayTrigger {overlay},
+        div {className: 'current-user'},
+          Icon {name: 'caret-flipped'}
+          Avatar {user: @getCurrentUser()}
 
 }
 

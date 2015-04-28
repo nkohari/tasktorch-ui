@@ -5,7 +5,6 @@
   position: absolute
   cursor: auto
   z-index: $floating-layer
-  margin: 2px 0 0 0
   padding: 6px
   font-size: 14px
   color: $color-ink
@@ -13,9 +12,17 @@
   border: 1px solid $color-steel-dark
   box-shadow: 0px 1px 3px black(30%)
   outline: none !important
+  
+  &.bottom
+    margin-top: 2px
+    &.slide-enter { animation: overlay-enter-down 100ms ease-out }
+    &.slide-leave { animation: overlay-leave-up   100ms linear   }
 
-  &.slide-enter { animation: overlay-enter 100ms ease-out }
-  &.slide-leave { animation: overlay-leave 100ms linear   }
+  &.top
+    bottom: 100%
+    margin-bottom: 2px
+    &.slide-enter { animation: overlay-enter-up   100ms ease-out }
+    &.slide-leave { animation: overlay-leave-down 100ms linear   }
 
   &.right
     right: 0
@@ -55,10 +62,18 @@
         border-top-width: 0
         border-bottom-color: $color-white
  
-@keyframes overlay-enter
+@keyframes overlay-enter-down
   from { opacity: 0; transform: translateY(-5px) }
   to   { opacity: 1; transform: translateY(0) }
 
-@keyframes overlay-leave
+@keyframes overlay-leave-up
   from { opacity: 1; transform: translateY(0) }
   to   { opacity: 0; transform: translateY(-5px) }
+
+@keyframes overlay-enter-up
+  from { opacity: 0; transform: translateY(5px) }
+  to   { opacity: 1; transform: translateY(0) }
+
+@keyframes overlay-leave-down
+  from { opacity: 1; transform: translateY(0) }
+  to   { opacity: 0; transform: translateY(5px) }

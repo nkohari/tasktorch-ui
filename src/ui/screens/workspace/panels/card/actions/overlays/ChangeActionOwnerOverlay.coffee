@@ -28,7 +28,7 @@ ChangeActionOwnerOverlay = React.createClass {
 
   render: ->
     
-    Overlay {position: 'right', arrow: true},
+    Overlay {position: 'bottom right', arrow: true},
       SuggestingSelector {
         option:        UserSelectorOption
         placeholder:   'Select a user'

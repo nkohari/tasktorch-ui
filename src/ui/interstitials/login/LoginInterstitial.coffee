@@ -18,6 +18,7 @@ LoginInterstitial = React.createClass {
     {login: undefined, password: undefined}
 
   componentDidMount: ->
+    document.title = "TaskTorch | Log In"
     @refs.login.focus()
 
   render: ->
@@ -48,7 +49,10 @@ LoginInterstitial = React.createClass {
         return
       superagent.get('/api/me/orgs').end (res) =>
         {orgs} = res.body
-        @transitionTo('workspace', {orgid: orgs[0].id})
+        if orgs.length == 1
+          @transitionTo('workspace', {orgid: orgs[0].id})
+        else
+          @transitionTo('orglist')
 
 }
 

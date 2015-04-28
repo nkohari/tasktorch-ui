@@ -13,7 +13,7 @@ ContextMenu = React.createClass {
     hideOverlay: PropTypes.func
 
   getDefaultProps: ->
-    {position: 'left'}
+    {position: 'bottom left'}
 
   render: ->
 

@@ -1,17 +1,24 @@
-_              = require 'lodash'
 React          = require 'react'
 PropTypes      = require 'ui/framework/PropTypes'
-Frame          = React.createFactory(require 'ui/common/Frame')
+ShellContext   = require 'ui/framework/mixins/ShellContext'
+Button         = React.createFactory(require 'ui/common/Button')
+OverlayTrigger = React.createFactory(require 'ui/common/OverlayTrigger')
 OrgContextMenu = React.createFactory(require 'ui/shell/header/OrgContextMenu')
+{div}          = React.DOM
 
 TopRightCorner = React.createClass {
 
   displayName: 'TopRightCorner'
 
+  mixins: [ShellContext]
+
   render: ->
 
-    Frame {className: 'top-right'},
-      OrgContextMenu {}
+    overlay = OrgContextMenu {}
+
+    div {className: 'top-right'},
+      OverlayTrigger {className: 'org menu-button', overlay},
+        Button {text: @getCurrentOrg().name, caret: true}
 
 }
 

@@ -1,0 +1,65 @@
+.org-list.interstitial
+  height: 100%
+  width: 100%
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  
+  .orgs
+    width: 350px
+    padding: 20px
+    background: $color-paper
+    border: 1px solid $color-steel-medium
+    border-radius: 4px
+    box-shadow: 0 0 3px black(30%)
+
+    .header
+      font-size: 18px
+      font-weight: $bold-font-weight
+      color: $color-ink
+      text-align: center
+      margin-bottom: 20px
+      
+    .org
+      display: flex
+      flex-direction: row
+      cursor: pointer
+      border: 1px solid $color-steel-medium
+      border-bottom: none
+      padding: 10px 14px
+      background: $color-white
+      transition: background $hover-animation-delay linear
+      &:last-child { border-bottom: 1px solid $color-steel-medium }
+      &:hover { background: $color-selection }
+      
+      & > i
+        font-size: 24px
+        color: $color-ink-light
+        margin-right: 10px
+      
+      .org-info
+        flex: 1
+        
+      .org-name
+        font-size: 16px
+        font-weight: $bold-font-weight
+        color: $color-ink
+      
+      .org-member-count
+        font-size: 12px
+        font-style: italic
+        font-weight: $bold-font-weight
+        color: $color-ink-light
+  
+  .brand
+    margin-top: 20px
+    font: 18px $brand-font
+    color: black(65%)
+    font-weight: 600
+    text-transform: uppercase
+    text-align: center
+    
+    .version
+      font-size: 11px
+      color: black(35%)

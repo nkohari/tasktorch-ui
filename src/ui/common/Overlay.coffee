@@ -15,7 +15,7 @@ Overlay = React.createClass {
     position: PropTypes.string
 
   getDefaultProps: ->
-    {position: 'left'}
+    {position: 'bottom left'}
 
   render: ->
 

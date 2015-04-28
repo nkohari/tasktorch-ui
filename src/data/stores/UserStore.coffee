@@ -1,6 +1,8 @@
-User            = require 'data/models/User'
-ModelStore      = require 'data/framework/ModelStore'
-LoadUserRequest = require 'data/requests/LoadUserRequest'
+User                    = require 'data/models/User'
+ModelStore              = require 'data/framework/ModelStore'
+LoadUserRequest         = require 'data/requests/LoadUserRequest'
+ChangeMyNameRequest     = require 'data/requests/ChangeMyNameRequest'
+ChangeMyPasswordRequest = require 'data/requests/ChangeMyPasswordRequest'
 
 class UserStore extends ModelStore
 
@@ -10,6 +12,9 @@ class UserStore extends ModelStore
 
   listensFor: [
     'UsersLoaded'
+    'UserChanged'
+    'UserChangedName'
+    'UserChangedPassword'
   ]
 
   load: (id) ->
@@ -17,5 +22,14 @@ class UserStore extends ModelStore
 
   onUsersLoaded: (event) ->
     @add(event.users)
+
+  onUserChanged: (event) ->
+    @add(event.user)
+
+  onUserChangedName: (event) ->
+    @execute new ChangeMyNameRequest(event.name)
+
+  onUserChangedPassword: (event) ->
+    @execute new ChangeMyPasswordRequest(event.password)
 
 module.exports = UserStore

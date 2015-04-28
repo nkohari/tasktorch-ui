@@ -21,6 +21,9 @@ InviteInterstitial = React.createClass {
   getInitialState: ->
     {token: @props.url.query?.token}
 
+  componentDidMount: ->
+    document.title = "TaskTorch | Accept Invitation"
+
   render: ->
 
     div {className: 'invite interstitial'},
