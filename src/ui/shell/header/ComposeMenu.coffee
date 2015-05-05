@@ -8,7 +8,7 @@ PropTypes            = require 'ui/framework/PropTypes'
 CardPanelState       = require 'ui/screens/workspace/panels/card/CardPanelState'
 Button               = React.createFactory(require 'ui/common/Button')
 ContextMenu          = React.createFactory(require 'ui/common/ContextMenu')
-KindIcon             = React.createFactory(require 'ui/common/KindIcon')
+Icon                 = React.createFactory(require 'ui/common/Icon')
 List                 = React.createFactory(require 'ui/common/List')
 ListItem             = React.createFactory(require 'ui/common/ListItem')
 Overlay              = React.createFactory(require 'ui/common/Overlay')
@@ -32,7 +32,7 @@ ComposeMenu = React.createClass {
 
     items = _.map @props.kinds, (kind) =>
       a {key: kind.id, onClick: @onItemClicked.bind(this, kind)},
-        KindIcon {kind}
+        Icon {name: 'card', color: kind.color}
         kind.name
 
     ContextMenu {hideOverlay: @props.hideOverlay}, items

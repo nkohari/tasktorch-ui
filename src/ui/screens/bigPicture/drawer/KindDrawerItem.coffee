@@ -7,7 +7,6 @@ KindPanelState = require 'ui/screens/bigPicture/panels/kind/KindPanelState'
 Icon           = React.createFactory(require 'ui/common/Icon')
 Link           = React.createFactory(require 'ui/common/Link')
 ListItem       = React.createFactory(require 'ui/common/ListItem')
-KindIcon       = React.createFactory(require 'ui/common/KindIcon')
 {span}         = React.DOM
 
 KindDrawerItem = React.createClass {
@@ -27,7 +26,7 @@ KindDrawerItem = React.createClass {
     ]
 
     Link {className: classes, onClick: @toggleKind},
-      KindIcon {kind: @props.kind}
+      Icon {name: 'card', color: @props.kind?.color}
       span {className: 'name'}, @props.kind.name
 
   toggleKind: ->

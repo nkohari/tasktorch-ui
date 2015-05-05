@@ -23,6 +23,7 @@ SortableList = (mixinConfig) -> {
       placeholder: 'drag-placeholder'
       revert: 100
       tolerance: 'pointer'
+      scroll: true
       zIndex: 99999
       activate: @_onSortableActivate
       deactivate: @_onSortableDeactivate
@@ -80,7 +81,7 @@ SortableList = (mixinConfig) -> {
     ids = @_getCurrentOrder()
     @_jQuery().sortable('cancel')
     if not context.sender? and dragState.fromList.id == dragState.toList.id and dragState.fromPosition != dragState.toPosition
-      @onReorder(dragState.item, dragState.toPosition)
+      @onReorder(dragState.item, dragState.toPosition) if @onReorder?
     @onListOrderChanged(ids)
 
   _onSortableChange: (event, context) ->
@@ -91,8 +92,8 @@ SortableList = (mixinConfig) -> {
   _onSortableReceive: (event, context) ->
     dragState = context.item.data(DRAG_STATE_KEY)
     ids = @_getCurrentOrder()
-    @onMove(dragState.item, dragState.toList, dragState.toPosition)
-    @onListOrderChanged(ids)
+    @onMove(dragState.item, dragState.toList, dragState.toPosition) if @onMove?
+    @onListOrderChanged(ids) if @onListOrderChanged?
 
   _getCurrentOrder: ->
     @_jQuery().sortable('toArray', {attribute: mixinConfig.idAttribute})

@@ -5,6 +5,9 @@ i
   font-size: 18px
   margin-right: 4px
   text-align: center
+
+  for $name, $color in $semantic-colors-foreground
+    &.{$name} { color: $color }
   
 i:before
   font-family: $icon-font !important

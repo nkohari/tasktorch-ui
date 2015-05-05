@@ -3,7 +3,7 @@ React         = require 'react'
 classSet      = require 'common/util/classSet'
 KindTemplates = require 'data/KindTemplates'
 PropTypes     = require 'ui/framework/PropTypes'
-KindIcon      = React.createFactory(require 'ui/common/KindIcon')
+Icon          = React.createFactory(require 'ui/common/Icon')
 {div, li, ul} = React.DOM
 
 KindTemplateList = React.createClass {
@@ -18,12 +18,13 @@ KindTemplateList = React.createClass {
   render: ->
 
     items = _.map KindTemplates, (template) =>
+      console.log(template)
       classes = classSet [
         'kind-template'
         'selected' if @props.value is template
       ]
       li {key: template.id, className: classes, onClick: @props.onChange.bind(null, template)},
-        KindIcon {kind: template}
+        Icon {name: 'card', color: template.color}
         div {className: 'template-info'},
           div {className: 'template-name'}, template.name
           div {className: 'template-description'}, template.description

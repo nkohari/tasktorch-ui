@@ -1,5 +1,6 @@
 _                  = require 'lodash'
 React              = require 'react'
+classSet           = require 'common/util/classSet'
 PropTypes          = require 'ui/framework/PropTypes'
 SortableList       = require 'ui/framework/mixins/SortableList'
 KindActionListItem = React.createFactory(require 'ui/dialogs/kindWizard/KindActionListItem')
@@ -19,13 +20,22 @@ KindActionList = React.createClass {
     SortableList {
       idAttribute: 'data-itemid'
       connectWith: '.kind-action-list'
+      tolerance:   'intersect'
     }
   ]
+
+  getInitialState: ->
+    {dragging: false}
 
   render: ->
 
     items = _.map @props.stage.actions, (action) =>
       KindActionListItem {key: action.id, stage: @props.stage, action, updateAction: @props.updateAction, removeAction: @props.removeAction}
+
+    classes = [
+      'kind-action-list'
+      'dragging' if @state.dragging
+    ]
 
     ul {className: 'kind-action-list'}, items
 
@@ -35,16 +45,20 @@ KindActionList = React.createClass {
   getSortableListItem: (id) ->
     _.find @props.stage.actions, (action) -> action.id == id
 
+  onDragStarted: ->
+    @setState {dragging: true}
+
+  onDragStopped: ->
+    @setState {dragging: false}
+
   onMove: (action, toStage, toPosition) ->
-
-  onReorder: (stage, toPosition) ->
-
-  onListOrderChanged: (ids) ->
-    actions = _.map ids, (id) => @getSortableListItem(id)
+    actions = _.cloneDeep(@props.stage.actions)
+    actions.splice(toPosition, 0, action)
     @props.setActions(@props.stage.id, actions)
 
-  isDropAllowed: (card, fromStack) ->
-    return true
+  onListOrderChanged: (ids) ->
+    actions = _.compact _.map ids, (id) => @getSortableListItem(id)
+    @props.setActions(@props.stage.id, actions)
 
 }
 

@@ -2,7 +2,7 @@ _                  = require 'lodash'
 React              = require 'react'
 PropTypes          = require 'ui/framework/PropTypes'
 CachedState        = require 'ui/framework/mixins/CachedState'
-KindIcon           = React.createFactory(require 'ui/common/KindIcon')
+Icon               = React.createFactory(require 'ui/common/Icon')
 PanelHeader        = React.createFactory(require 'ui/common/PanelHeader')
 StageColumn        = React.createFactory(require 'ui/screens/bigPicture/panels/kind/StageColumn')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
@@ -27,8 +27,10 @@ KindPanel = React.createClass {
     columns = _.map @state.stages, (stage) =>
       StageColumn {key: stage.id, stage}
 
+    icon = Icon {name: 'card', color: @state.kind?.color}
+
     div {className: 'big-picture panel'},
-      PanelHeader {panelid: @props.id, icon: KindIcon {kind: @state.kind}},
+      PanelHeader {panelid: @props.id, icon},
         @state.kind?.name
       div {className: 'content'}, columns
       div {className: 'footer'}

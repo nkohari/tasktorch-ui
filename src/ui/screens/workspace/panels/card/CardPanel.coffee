@@ -7,7 +7,7 @@ Actor                = require 'ui/framework/mixins/Actor'
 CachedState          = require 'ui/framework/mixins/CachedState'
 CommandContextMaster = require 'ui/framework/mixins/CommandContextMaster'
 Frame                = React.createFactory(require 'ui/common/Frame')
-KindIcon             = React.createFactory(require 'ui/common/KindIcon')
+Icon                 = React.createFactory(require 'ui/common/Icon')
 PanelHeader          = React.createFactory(require 'ui/common/PanelHeader')
 CardHeader           = React.createFactory(require 'ui/screens/workspace/panels/card/CardHeader')
 CardBody             = React.createFactory(require 'ui/screens/workspace/panels/card/CardBody')
@@ -45,8 +45,10 @@ CardPanel = React.createClass {
       @isReady
     }
 
+    icon = Icon {name: 'card', color: @state.kind?.color}
+
     Frame props,
-      PanelHeader {panelid: @props.id, icon: KindIcon {kind: @state.kind}},
+      PanelHeader {panelid: @props.id, icon},
         "#{@state.kind?.name} #{@state.card?.number}"
       div {className: 'content'},
         CardHeader {card: @state.card, kind: @state.kind, stack: @state.stack}
