@@ -16,7 +16,7 @@ KindIcon = React.createClass {
 
     classes = classSet [
       'kind-icon'
-      @props.kind.color if @props.kind?
+      @props.kind.color.toLowerCase() if @props.kind?
     ]
 
     props = mergeProps @props, {

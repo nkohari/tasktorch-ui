@@ -17,9 +17,12 @@ OrgContextMenu = React.createClass {
   render: ->
 
     ContextMenu {position: 'bottom right', hideOverlay: @props.hideOverlay},
-      DialogTrigger {name: 'CreateTeam', team: @props.team},
+      DialogTrigger {name: 'CreateTeam'},
         Icon {name: 'team'}
         'Create a team'
+      DialogTrigger {name: 'CreateKind'},
+        Icon {name: 'kind'}
+        'Define a card kind'
 
 }
 

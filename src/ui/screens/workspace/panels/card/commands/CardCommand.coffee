@@ -1,5 +1,5 @@
 React                  = require 'react'
-CardCommand            = require 'data/enums/CardCommand'
+CardCommandType        = require 'data/enums/CardCommandType'
 PropTypes              = require 'ui/framework/PropTypes'
 CommandContext         = require 'ui/framework/mixins/CommandContext'
 AcceptCommandOverlay   = React.createFactory(require 'ui/screens/workspace/panels/card/commands/overlays/AcceptCommandOverlay')
@@ -10,14 +10,14 @@ DeleteCommandOverlay   = React.createFactory(require 'ui/screens/workspace/panel
 CSSTransitionGroup     = React.createFactory(React.addons.CSSTransitionGroup)
 {div}                  = React.DOM
 
-CardCommandOverlay = React.createClass {
+CardCommand = React.createClass {
 
-  displayName: 'CardCommandOverlay'
+  displayName: 'CardCommand'
 
   propTypes:
     card:    PropTypes.Card
     stack:   PropTypes.Stack
-    command: PropTypes.enum(CardCommand)
+    command: PropTypes.enum(CardCommandType)
 
   mixins: [CommandContext]
 
@@ -33,11 +33,11 @@ CardCommandOverlay = React.createClass {
 
   getCommandOverlayClass: ->
     switch @props.command
-      when CardCommand.Accept   then AcceptCommandOverlay
-      when CardCommand.Defer    then DeferCommandOverlay
-      when CardCommand.Pass     then PassCommandOverlay
-      when CardCommand.Complete then CompleteCommandOverlay
-      when CardCommand.Delete   then DeleteCommandOverlay
+      when CardCommandType.Accept   then AcceptCommandOverlay
+      when CardCommandType.Defer    then DeferCommandOverlay
+      when CardCommandType.Pass     then PassCommandOverlay
+      when CardCommandType.Complete then CompleteCommandOverlay
+      when CardCommandType.Delete   then DeleteCommandOverlay
 
   onBackdropClicked: (event) ->
     if event.target == @refs.backdrop.getDOMNode()
@@ -45,4 +45,4 @@ CardCommandOverlay = React.createClass {
 
 }
 
-module.exports = CardCommandOverlay
+module.exports = CardCommand

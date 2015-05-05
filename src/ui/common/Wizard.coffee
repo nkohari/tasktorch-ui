@@ -1,13 +1,15 @@
 _                  = require 'lodash'
-React              = require 'react/addons'
+React              = require 'react'
 classSet           = require 'common/util/classSet'
 mergeClasses       = require 'common/util/mergeClasses'
 PropTypes          = require 'ui/framework/PropTypes'
 Button             = React.createFactory(require 'ui/common/Button')
 Icon               = React.createFactory(require 'ui/common/Icon')
 WizardBreadcrumbs  = React.createFactory(require 'ui/common/WizardBreadcrumbs')
+WizardPage         = React.createFactory(require 'ui/common/WizardPage')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
 {div}              = React.DOM
+{cloneWithProps}   = React.addons
 
 Wizard = React.createClass {
 
@@ -24,18 +26,22 @@ Wizard = React.createClass {
     {width: 600, height: 'auto'}
 
   getInitialState: ->
-    {currentPage: 0}
+    {currentIndex: 0, canProceed: false}
+
+  componentWillMount: ->
+    @pages = @createPages(@props.children)
+
+  componentWillReceiveProps: (newProps) ->
+    @pages = @createPages(newProps.children)
 
   render: ->
 
-    pages = _.flatten [@props.children]
-    currentPage = pages[@state.currentPage]
-
-    if @state.currentPage > 0
+    if @state.currentIndex > 0
       backButton = Button {text: 'Back', onClick: @onBackClicked}
 
-    if @state.currentPage < pages.length - 1
-      forwardButton = Button {text: 'Next', onClick: @onNextClicked}
+    if @state.currentIndex < @pages.length - 1
+      pageRef = @refs["page-#{@state.currentIndex}"]
+      forwardButton = Button {text: 'Next', disabled: !@state.canProceed, onClick: @onNextClicked}
     else
       forwardButton = @props.completeButton
 
@@ -50,9 +56,9 @@ Wizard = React.createClass {
     div {className: 'dialog-backdrop', onClick: @onContainerClicked},
       div {ref: 'dialog', className: classes, style},
         header
-        WizardBreadcrumbs {pages, currentPage: @state.currentPage, @setPage}
+        WizardBreadcrumbs {@pages, currentIndex: @state.currentIndex, @setPage}
         div {className: 'dialog-content'},
-          currentPage
+          @pages[@state.currentIndex]
         div {className: 'dialog-buttons'},
           div {className: 'left-buttons'},
             backButton
@@ -60,18 +66,25 @@ Wizard = React.createClass {
             forwardButton
             Button {text: 'Cancel', onClick: @props.closeDialog}
 
+  createPages: (children) ->
+    _.map _.flatten([children]), (page, index) =>
+      cloneWithProps(page, {key: "page-#{index}", @setCanProceed})
+
   onContainerClicked: (event) ->
     if event.target == @getDOMNode()
       @props.closeDialog()
 
   setPage: (index) ->
-    @setState {currentPage: index}
+    @setState {currentIndex: index}
+
+  setCanProceed: (canProceed) ->
+    @setState {canProceed} if canProceed != @state.canProceed
 
   onBackClicked: (event) ->
-    @setState {currentPage: @state.currentPage - 1}
+    @setState {currentIndex: @state.currentIndex - 1}
 
   onNextClicked: (event) ->
-    @setState {currentPage: @state.currentPage + 1}
+    @setState {currentIndex: @state.currentIndex + 1}
 
 }
 

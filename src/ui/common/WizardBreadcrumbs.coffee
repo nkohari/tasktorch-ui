@@ -9,9 +9,9 @@ WizardBreadcrumbs = React.createClass {
   displayName: 'WizardBreadcrumbs'
 
   propTypes:
-    currentPage: PropTypes.number
-    pages:       PropTypes.arrayOf(PropTypes.node)
-    setPage:     PropTypes.func
+    currentIndex: PropTypes.number
+    pages:        PropTypes.arrayOf(PropTypes.node)
+    setPage:      PropTypes.func
 
   render: ->
 
@@ -19,16 +19,13 @@ WizardBreadcrumbs = React.createClass {
       return unless child?
       classes = classSet [
         'breadcrumb'
-        'active' if index == @props.currentPage
+        'active' if index == @props.currentIndex
       ]
-      li {className: classes, onClick: @onBreadcrumbClicked.bind(this, index)},
+      li {className: classes},
         span {className: 'breadcrumb-number'}, index + 1
         span {className: 'breadcrumb-title'}, child.props?.title
 
     ul {className: 'breadcrumbs'}, items
-
-  onBreadcrumbClicked: (index) ->
-    @props.setPage(index)
 
 }
 

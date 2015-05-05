@@ -1,0 +1,37 @@
+.color-picker
+  display: flex
+  flex-direction: row
+  background: $color-steel-light
+  border: 1px solid $color-steel
+  
+  .selected-color-name
+    flex: 1
+    line-height: 20px
+    padding: 4px
+
+  .color-options
+    display: flex
+    flex-direction: row
+    justify-content: flex-end
+    background: $color-white
+    padding: 2px
+    margin: 2px
+    border: 1px solid $color-steel-medium
+    border-radius: 14px
+    
+    .color-option
+      cursor: pointer
+      flex: none
+      width: 18px
+      height: 18px
+      margin-left: 2px
+      border-radius: 50%
+      transition: all $hover-animation-delay linear
+      &:first-child { margin-left: 1px }
+      &:last-child { margin-right: 1px }
+
+      for $name, $color in $semantic-colors-background
+        &.{$name}
+          background: $color
+          &:hover, &.selected
+            background: $semantic-colors-foreground[$name]

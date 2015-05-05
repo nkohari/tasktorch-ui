@@ -9,12 +9,13 @@ Field = React.createClass {
   displayName: 'Field'
 
   props:
-    label:  PropTypes.node
-    hint:   PropTypes.node
-    expand: PropTypes.bool
+    label:        PropTypes.node
+    hint:         PropTypes.node
+    hintPosition: PropTypes.string
+    expand:       PropTypes.bool
 
   getDefaultProps: ->
-    {expand: false}
+    {expand: false, hintPosition: 'after'}
 
   render: ->
 
@@ -25,8 +26,9 @@ Field = React.createClass {
 
     div {className: classes},
       label {className: 'field-label'}, @props.label
+      div   {className: 'hint'},        @props.hint if @props.hint? and @props.hintPosition is 'before'
       div   {className: 'field-input'}, @props.children
-      div   {className: 'hint'},        @props.hint if @props.hint?
+      div   {className: 'hint'},        @props.hint if @props.hint? and @props.hintPosition is 'after'
 
 }
 

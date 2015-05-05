@@ -1,0 +1,41 @@
+.kind-template-list
+  flex: 1
+  margin-top: 14px
+  padding: 6px
+  border: 1px solid $color-steel
+  background: $color-white
+  
+  &.disabled
+    opacity: 0.6
+    pointer-events: none
+  
+  .kind-template
+    cursor: pointer
+    display: flex
+    flex-direction: row
+    padding: 10px
+    background: $color-white
+    border: 1px solid $color-steel-light
+    margin-bottom: 4px
+    &.selected
+      border: 1px solid $color-steel
+      background: $color-selection
+  
+    & > i
+      margin-right: 6px
+      for $name, $color in $semantic-colors-foreground
+        &.{$name}
+          color: $color
+  
+    .template-info
+      flex: 1
+      
+      .template-name
+        font-size: 16px
+        font-weight: $bold-font-weight
+      
+      .template-description
+        font-size: 14px
+        font-style: italic
+        font-weight: $bold-font-weight
+        color: $color-ink-light

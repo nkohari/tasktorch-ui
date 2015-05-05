@@ -1,18 +1,18 @@
-_              = require 'lodash'
-React          = require 'react'
-PropTypes      = require 'ui/framework/PropTypes'
-classSet       = require 'common/util/classSet'
-CardCommand    = require 'data/enums/CardCommand'
-CommandContext = require 'ui/framework/mixins/CommandContext'
-Button         = React.createFactory(require 'ui/common/Button')
-{div}          = React.DOM
+_               = require 'lodash'
+React           = require 'react'
+PropTypes       = require 'ui/framework/PropTypes'
+classSet        = require 'common/util/classSet'
+CardCommandType = require 'data/enums/CardCommandType'
+CommandContext  = require 'ui/framework/mixins/CommandContext'
+Button          = React.createFactory(require 'ui/common/Button')
+{div}           = React.DOM
 
 CommandToggleButton = React.createClass {
 
   displayName: 'CommandToggleButton'
 
   propTypes:
-    command: PropTypes.enum(CardCommand)
+    command: PropTypes.enum(CardCommandType)
 
   mixins: [CommandContext]
 

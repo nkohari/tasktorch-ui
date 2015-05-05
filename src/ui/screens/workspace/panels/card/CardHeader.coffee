@@ -1,7 +1,6 @@
 _                = require 'lodash'
 React            = require 'react/addons'
 classSet         = require 'common/util/classSet'
-CardCommand      = require 'data/enums/CardCommand'
 PropTypes        = require 'ui/framework/PropTypes'
 Avatar           = React.createFactory(require 'ui/common/Avatar')
 Frame            = React.createFactory(require 'ui/common/Frame')

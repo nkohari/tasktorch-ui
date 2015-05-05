@@ -37,7 +37,7 @@ ChangeMyEmailDialog = React.createClass {
       for your avatar on TaskTorch.
     """
 
-    Dialog {icon: 'settings', title: 'Change My Email', buttons, closeDialog: @props.closeDialog},
+    Dialog {icon: 'settings', title: 'Change My Email Address', buttons, closeDialog: @props.closeDialog},
       Field {label: 'Email', hint},
         Input {ref: 'email', icon: 'email', placeholder: 'Enter an email address', value: @state.email, onChange: @onEmailChanged}
 

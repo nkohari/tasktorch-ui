@@ -1,7 +1,7 @@
 _                   = require 'lodash'
 React               = require 'react'
 PropTypes           = require 'ui/framework/PropTypes'
-CardCommand         = require 'data/enums/CardCommand'
+CardCommandType     = require 'data/enums/CardCommandType'
 CommandToggleButton = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/CommandToggleButton')
 
 DeleteCommandButton = React.createClass {
@@ -15,7 +15,7 @@ DeleteCommandButton = React.createClass {
     CommandToggleButton {
       icon:    'trash'
       text:    'Trash'
-      command: CardCommand.Delete
+      command: CardCommandType.Delete
     }
 
 }

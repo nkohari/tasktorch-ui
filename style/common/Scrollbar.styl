@@ -3,10 +3,12 @@
   height: 10px
   
 ::-webkit-scrollbar-track
-  background: transparent
+  background: white(30%)
+  &:horizontal { border-top:  1px solid $color-steel-light }
+  &:vertical   { border-left: 1px solid $color-steel-light }
   
 ::-webkit-scrollbar-thumb
-  background: rgba(0, 0, 0, 0.2)
+  background: black(20%)
   background-clip: content-box
-  border: 2px solid transparent
+  border: 3px solid transparent
   border-radius: 10px

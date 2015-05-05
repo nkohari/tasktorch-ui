@@ -1,7 +1,7 @@
 _                   = require 'lodash'
 React               = require 'react'
 PropTypes           = require 'ui/framework/PropTypes'
-CardCommand         = require 'data/enums/CardCommand'
+CardCommandType     = require 'data/enums/CardCommandType'
 CommandToggleButton = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/CommandToggleButton')
 
 PassCommandButton = React.createClass {
@@ -15,7 +15,7 @@ PassCommandButton = React.createClass {
     CommandToggleButton {
       icon:    'pass'
       text:    'Pass'
-      command: CardCommand.Pass
+      command: CardCommandType.Pass
     }
 
 }
