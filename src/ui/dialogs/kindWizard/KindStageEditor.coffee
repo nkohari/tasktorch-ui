@@ -41,9 +41,9 @@ KindStageEditor = React.createClass {
   addStage: ->
     return unless @state.name?.length > 0
     @props.addStage({
-      id:      new Date().valueOf().toString()
-      name:    @state.name
-      actions: []
+      id:             new Date().valueOf().toString()
+      name:           @state.name
+      defaultActions: []
     })
     @setState {name: ''}
 

@@ -34,7 +34,7 @@ CreateKindWizardBasicsPage = React.createClass {
         ColorPicker {value: @props.color, onChange: @onColorChanged}
 
   isValid: ->
-    @props.name?.length > 0 and @props.description?.length > 0 and @props.color?
+    @props.name?.length > 0 and @props.color?
 
   onInputChanged: (name, event) ->
     @props.setValue(name, event.target.value)

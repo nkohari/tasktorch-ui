@@ -1,4 +1,6 @@
+_                                  = require 'lodash'
 React                              = require 'react'
+UserCreatedKindEvent               = require 'events/ui/UserCreatedKindEvent'
 PropTypes                          = require 'ui/framework/PropTypes'
 Actor                              = require 'ui/framework/mixins/Actor'
 ShellContext                       = require 'ui/framework/mixins/ShellContext'
@@ -38,10 +40,10 @@ CreateKindWizard = React.createClass {
       CreateKindWizardBasicsPage         {title: 'Basics', name: @state.name, description: @state.description, color: @state.color, @setValue}
       CreateKindWizardWorkflowPage       {title: 'Workflow', stages: @state.stages, @setValue}
       CreateKindWizardDefaultActionsPage {title: 'Default Actions', stages: @state.stages, @setValue}
-      CreateKindWizardReviewPage         {title: 'Review'}
+      CreateKindWizardReviewPage         {title: 'Review', name: @state.name, color: @state.color, description: @state.description, stages: @state.stages}
 
   isValid: ->
-    false
+    @state.name?.length > 0 and @state.color? and @state.stages?.length > 0
 
   setTemplate: (template) ->
     if template?
@@ -61,6 +63,16 @@ CreateKindWizard = React.createClass {
     @setState(patch)
 
   createKind: ->
+
+    # TODO: We need the ids in the UI to do tracking (for drag and drop, mainly), but
+    # we have to strip them before making the request. There's probably a cleaner way
+    # to do this.
+    stages = _.map @state.stages, (stage) -> {
+      name: stage.name
+      defaultActions: stage.defaultActions.map((action) -> {text: action.text})
+    }
+
+    @publish new UserCreatedKindEvent(@getCurrentOrg().id, @state.name, @state.description, @state.color, stages)
     @props.closeDialog()
 
 }

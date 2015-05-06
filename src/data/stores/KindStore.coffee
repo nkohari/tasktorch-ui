@@ -1,5 +1,6 @@
-Kind       = require 'data/models/Kind'
-ModelStore = require 'data/framework/ModelStore'
+Kind              = require 'data/models/Kind'
+ModelStore        = require 'data/framework/ModelStore'
+CreateKindRequest = require 'data/requests/CreateKindRequest'
 
 class KindStore extends ModelStore
 
@@ -9,6 +10,9 @@ class KindStore extends ModelStore
 
   listensFor: [
     'KindsLoaded'
+    'KindCreated'
+    'KindChanged'
+    'UserCreatedKind'
   ]
 
   load: (id) ->
@@ -16,5 +20,14 @@ class KindStore extends ModelStore
 
   onKindsLoaded: (event) ->
     @add(event.kinds)
+
+  onKindCreated: (event) ->
+    @add(event.kind)
+
+  onKindChanged: (event) ->
+    @add(event.kind)
+
+  onUserCreatedKind: (event) ->
+    @execute new CreateKindRequest(event.orgid, event.name, event.description, event.color, event.stages)
 
 module.exports = KindStore

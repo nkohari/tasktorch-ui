@@ -25,8 +25,8 @@ Card = React.createClass {
 
     classes = classSet [
       'card'
-      'active'          if @getCurrentScreen().isPanelVisible(@props.card.id)
-      @state.kind.color if @state.kind?
+      'active'                        if @getCurrentScreen().isPanelVisible(@props.card.id)
+      @state.kind.color.toLowerCase() if @state.kind?
     ]
 
     props = mergeProps _.omit(@props, 'card'), {

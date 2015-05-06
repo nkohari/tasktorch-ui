@@ -29,7 +29,7 @@ KindActionList = React.createClass {
 
   render: ->
 
-    items = _.map @props.stage.actions, (action) =>
+    items = _.map @props.stage.defaultActions, (action) =>
       KindActionListItem {key: action.id, stage: @props.stage, action, updateAction: @props.updateAction, removeAction: @props.removeAction}
 
     classes = [
@@ -43,7 +43,7 @@ KindActionList = React.createClass {
     @props.stage
 
   getSortableListItem: (id) ->
-    _.find @props.stage.actions, (action) -> action.id == id
+    _.find @props.stage.defaultActions, (action) -> action.id == id
 
   onDragStarted: ->
     @setState {dragging: true}
@@ -52,7 +52,7 @@ KindActionList = React.createClass {
     @setState {dragging: false}
 
   onMove: (action, toStage, toPosition) ->
-    actions = _.cloneDeep(@props.stage.actions)
+    actions = _.cloneDeep(@props.stage.defaultActions)
     actions.splice(toPosition, 0, action)
     @props.setActions(@props.stage.id, actions)
 

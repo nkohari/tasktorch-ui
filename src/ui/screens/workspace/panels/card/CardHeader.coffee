@@ -24,7 +24,7 @@ CardHeader = React.createClass {
 
     classes = classSet [
       'card-header'
-      @props.kind.color
+      @props.kind.color.toLowerCase() if @props.kind?
     ]
 
     Frame {@isReady, className: classes},

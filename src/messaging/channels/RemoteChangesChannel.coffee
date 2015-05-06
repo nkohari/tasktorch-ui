@@ -3,6 +3,7 @@ EventOrigin           = require 'data/enums/EventOrigin'
 Action                = require 'data/models/Action'
 Card                  = require 'data/models/Card'
 Checklist             = require 'data/models/Checklist'
+Kind                  = require 'data/models/Kind'
 Note                  = require 'data/models/Note'
 Stack                 = require 'data/models/Stack'
 Team                  = require 'data/models/Team'
@@ -13,6 +14,8 @@ ActionDeletedEvent    = require 'events/delete/ActionDeletedEvent'
 CardChangedEvent      = require 'events/change/CardChangedEvent'
 CardCreatedEvent      = require 'events/create/CardCreatedEvent'
 ChecklistChangedEvent = require 'events/change/ChecklistChangedEvent'
+KindCreatedEvent      = require 'events/create/KindCreatedEvent'
+KindChangedEvent      = require 'events/change/KindChangedEvent'
 NoteCreatedEvent      = require 'events/create/NoteCreatedEvent'
 StackChangedEvent     = require 'events/change/StackChangedEvent'
 StackCreatedEvent     = require 'events/create/StackCreatedEvent'
@@ -40,6 +43,7 @@ class RemoteChangesChannel extends Channel
     switch message.type
       when 'Action' then @publish new ActionCreatedEvent(new Action(message.document), EventOrigin.Remote)
       when 'Card'   then @publish new CardCreatedEvent(new Card(message.document), EventOrigin.Remote)
+      when 'Kind'   then @publish new KindCreatedEvent(new Kind(message.document), EventOrigin.Remote)
       when 'Note'   then @publish new NoteCreatedEvent(new Note(message.document), EventOrigin.Remote)
       when 'Stack'  then @publish new StackCreatedEvent(new Stack(message.document), EventOrigin.Remote)
       when 'Team'   then @publish new TeamCreatedEvent(new Team(message.document), EventOrigin.Remote)
@@ -48,6 +52,7 @@ class RemoteChangesChannel extends Channel
     switch message.type
       when 'Action'    then @publish new ActionChangedEvent(new Action(message.document), EventOrigin.Remote)
       when 'Card'      then @publish new CardChangedEvent(new Card(message.document), EventOrigin.Remote)
+      when 'Kind'      then @publish new KindChangedEvent(new Kind(message.document), EventOrigin.Remote)
       when 'Checklist' then @publish new ChecklistChangedEvent(new Checklist(message.document), EventOrigin.Remote)
       when 'Stack'     then @publish new StackChangedEvent(new Stack(message.document), EventOrigin.Remote)
       when 'Team'      then @publish new TeamChangedEvent(new Team(message.document), EventOrigin.Remote)

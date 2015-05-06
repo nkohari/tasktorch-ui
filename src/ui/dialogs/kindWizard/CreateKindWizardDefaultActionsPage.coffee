@@ -27,7 +27,7 @@ CreateKindWizardWorkflowPage = React.createClass {
         KindActionEditor {stages: @props.stages, @setActions, @addAction, @updateAction, @removeAction}
 
   isValid: ->
-    false
+    true
 
   setStages: (stages) ->
     @props.setValue('stages', stages)
@@ -36,21 +36,21 @@ CreateKindWizardWorkflowPage = React.createClass {
     stages = _.cloneDeep(@props.stages)
     for stage in stages
       if stage.id == stageid
-        stage.actions = actions
+        stage.defaultActions = actions
     @setStages(stages)
 
   addAction: (stageid, action) ->
     stages = _.cloneDeep(@props.stages)
     for stage in stages
       if stage.id == stageid
-        stage.actions.push(action)
+        stage.defaultActions.push(action)
     @setStages(stages)
 
   updateAction: (stageid, actionid, text) ->
     stages = _.cloneDeep(@props.stages)
     for stage in stages
       continue unless stage.id == stageid
-      for action in stage.actions
+      for action in stage.defaultActions
         if action.id == actionid
           action.text = text
     @setStages(stages)
@@ -60,7 +60,7 @@ CreateKindWizardWorkflowPage = React.createClass {
     stages = _.cloneDeep(@props.stages)
     for stage in stages
       if stage.id == stageid
-        stage.actions = _.filter stage.actions, (action) -> action.id != actionid
+        stage.defaultActions = _.filter stage.defaultActions, (action) -> action.id != actionid
     @setStages(stages)
 
 }

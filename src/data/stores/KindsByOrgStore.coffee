@@ -10,12 +10,17 @@ class KindsByOrgStore extends ListStore
 
   listensFor: [
     'KindsByOrgLoaded'
+    'KindCreated'
   ]
 
   load: (id) ->
     @execute new LoadKindsByOrgRequest(id)
 
   onKindsByOrgLoaded: (event) ->
-    @set(event.orgid, _.pluck(event.kinds, 'id'))
+    kinds = _.sortBy event.kinds, (kind) -> kind.name.toLowerCase()
+    @set(event.orgid, _.pluck(kinds, 'id'))
+
+  onKindCreated: (event) ->
+    @remove(event.kind.org)
 
 module.exports = KindsByOrgStore
