@@ -3,6 +3,7 @@ KindColor = require 'data/enums/KindColor'
 KindTemplates = []
 
 KindTemplates.push {
+  id: '1'
   name: 'Task'
   color: KindColor.Blue
   description: 'General purpose, can be used to track anything'
@@ -14,6 +15,7 @@ KindTemplates.push {
 }
 
 KindTemplates.push {
+  id: '2'
   name: 'Task'
   color: KindColor.Green
   description: 'General purpose, can be used to track anything'
@@ -25,6 +27,7 @@ KindTemplates.push {
 }
 
 KindTemplates.push {
+  id: '3'
   name: 'Task'
   color: KindColor.Green
   description: 'General purpose, can be used to track anything'
@@ -36,6 +39,7 @@ KindTemplates.push {
 }
 
 KindTemplates.push {
+  id: '4'
   name: 'Task'
   color: KindColor.Green
   description: 'General purpose, can be used to track anything'

@@ -24,9 +24,9 @@ CreateKindWizardStartPage = React.createClass {
     WizardPage {@isValid, setCanProceed: @props.setCanProceed},
       Field {hint: 'Start from scratch'},
         Radio {name: 'mode', text: 'Create a custom card kind', value: 'custom', checked: @props.mode is 'custom', onChange: @onModeChanged}
-      Field {expand: true},
+      Field {hint: 'Choose a predefined template, which you can then customize to fit your needs'},
         Radio {name: 'mode', text: 'Begin with a template', value: 'template', checked: @props.mode is 'template', onChange: @onModeChanged}
-        KindTemplateList {value: @props.template, disabled: @props.mode isnt 'template', onChange: @onTemplateChanged}
+      KindTemplateList {value: @props.template, disabled: @props.mode isnt 'template', onChange: @onTemplateChanged}
 
   isValid: ->
     @props.mode is 'custom' or (@props.mode is 'template' and @props.template?)

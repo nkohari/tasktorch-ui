@@ -23,7 +23,8 @@ CreateKindWizardWorkflowPage = React.createClass {
     hint = """
       What basic process do you follow for all work of this type? These stages will represent
       columns on the Big Picture screen, and you can define actions within these stages.
-      All card kinds must have at least one stage.
+      You can drag stages to reorder them, and your card kind must define at least one stage.
+      (If there isn't really a workflow for this kind of work, just create a single stage called Actions.)
     """
 
     WizardPage {@isValid, setCanProceed: @props.setCanProceed},

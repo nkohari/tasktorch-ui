@@ -1,6 +1,5 @@
 .kind-template-list
   flex: 1
-  margin-top: 14px
   border: 1px solid $color-steel
   background: $color-white
   
@@ -16,6 +15,8 @@
     background: $color-white
     border-bottom: 1px solid $color-steel-light
     &.selected { background: $color-selection }
+    &:focus
+      outline: 3px solid $color-steel
   
     & > i
       margin-right: 6px

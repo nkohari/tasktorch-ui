@@ -24,7 +24,7 @@ KindActionAddForm = React.createClass {
         ref: 'input'
         className: 'action-text'
         value: @state.text
-        placeholder: "Add another #{@props.stage.name} action"
+        placeholder: "Add another action to the #{@props.stage.name} stage"
         @onKeyUp
         @onChange
       }
