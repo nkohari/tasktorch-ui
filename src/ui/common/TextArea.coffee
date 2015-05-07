@@ -54,7 +54,6 @@ TextArea = React.createClass {
 
   adjustHeight: ->
     node = @refs.textarea.getDOMNode()
-    console.log {node, currently: node.scrollHeight, shouldBe: @getHeight()}
     node.style.height = "#{@getHeight()}px"
 
   getHeight: ->
