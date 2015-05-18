@@ -20,15 +20,8 @@ CreateKindWizardWorkflowPage = React.createClass {
 
   render: ->
 
-    hint = """
-      What basic process do you follow for all work of this type? These stages will represent
-      columns on the Big Picture screen, and you can define actions within these stages.
-      You can drag stages to reorder them, and your card kind must define at least one stage.
-      (If there isn't really a workflow for this kind of work, just create a single stage called Actions.)
-    """
-
     WizardPage {@isValid, setCanProceed: @props.setCanProceed},
-      Field {label: 'Define Stages of Work', hint, hintPosition: 'before', expand: true},
+      Field {label: 'Define Stages of Work', hint: 'create-kind-workflow', hintPosition: 'before', expand: true},
         KindStageEditor {ref: 'editor', stages: @props.stages, @setStages, @addStage, @updateStage, @removeStage}
 
   isValid: ->

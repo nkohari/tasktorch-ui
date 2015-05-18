@@ -3,6 +3,7 @@
 ROOT=`pwd`
 
 ln -snf $ROOT/src/common    ./node_modules/common
+ln -snf $ROOT/src/config    ./node_modules/config
 ln -snf $ROOT/src/data      ./node_modules/data
 ln -snf $ROOT/src/events    ./node_modules/events
 ln -snf $ROOT/src/messaging ./node_modules/messaging

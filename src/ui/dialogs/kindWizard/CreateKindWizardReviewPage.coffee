@@ -17,13 +17,8 @@ CreateKindWizardReviewPage = React.createClass {
 
   render: ->
 
-    hint = """
-      Take a moment to review your configuration below. If you're happy with your
-      settings, click Create Kind!
-    """
-
     WizardPage {@isValid, setCanProceed: @props.setCanProceed},
-      Prompt {hint},
+      Prompt {hint: 'create-kind-review'},
         'Do you want to create this card kind?'
       div {className: 'kind-preview'},
         Icon {name: 'card', color: @props.color}

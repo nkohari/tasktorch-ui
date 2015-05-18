@@ -16,14 +16,8 @@ CreateKindWizardWorkflowPage = React.createClass {
 
   render: ->
 
-    hint = """
-      Are there some actions that you always perform when doing work of this kind?
-      When someone creates a card of this kind, these actions will be added by default.
-      You can drag and drop the actions to reorganize them, or move them between stages.
-    """
-
     WizardPage {@isValid, setCanProceed: @props.setCanProceed},
-      Field {label: 'Define Default Actions', hint, hintPosition: 'before', expand: true},
+      Field {label: 'Define Default Actions', hint: 'create-kind-default-actions', hintPosition: 'before', expand: true},
         KindActionEditor {stages: @props.stages, @setActions, @addAction, @updateAction, @removeAction}
 
   isValid: ->

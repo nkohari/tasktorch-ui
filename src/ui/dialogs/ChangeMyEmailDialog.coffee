@@ -32,13 +32,8 @@ ChangeMyEmailDialog = React.createClass {
       Button {text: 'Change Email', className: 'default', disabled: !@isValid(), onClick: @changeEmail}
       Button {text: 'Cancel', onClick: @props.closeDialog}
 
-    hint = """
-      If you enter an email address associated with a Gravatar account, it will be used
-      for your avatar on TaskTorch.
-    """
-
     Dialog {icon: 'settings', title: 'Change My Email Address', buttons, closeDialog: @props.closeDialog},
-      Field {label: 'Email', hint},
+      Field {label: 'Email', hint: 'email'},
         Input {ref: 'email', icon: 'email', placeholder: 'Enter an email address', value: @state.email, onChange: @onEmailChanged}
 
   isValid: ->

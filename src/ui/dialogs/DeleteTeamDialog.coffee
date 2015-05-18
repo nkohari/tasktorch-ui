@@ -28,13 +28,8 @@ DeleteTeamDialog = React.createClass {
       Button {text: 'Delete Team', onClick: @deleteTeam, className: 'warning'}
       Button {text: 'Cancel',      onClick: @props.closeDialog}
 
-    hint = """
-      Deleting a team is immediate and permanent. You should only delete a team if
-      you're sure that it is no longer necessary.
-    """
-
     Dialog {icon: 'trash', title: "Delete #{@state.team?.name}", buttons, closeDialog: @props.closeDialog},
-      Prompt {hint},
+      Prompt {hint: 'delete-team'},
         'Are you sure you want to delete this team?'
 
   deleteTeam: ->

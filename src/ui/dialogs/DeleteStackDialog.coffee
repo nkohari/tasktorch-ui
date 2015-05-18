@@ -28,13 +28,8 @@ DeleteStackDialog = React.createClass {
       Button {text: 'Delete Stack', onClick: @deleteStack, className: 'warning'}
       Button {text: 'Cancel',       onClick: @props.closeDialog}
 
-    hint = """
-      Deleting a stack is immediate and permanent. You cannot delete a stack that
-      has cards in it; they must first be moved to another stack.
-    """
-
     Dialog {icon: 'trash', title: "Delete #{@state.stack?.name}", buttons, closeDialog: @props.closeDialog},
-      Prompt {hint},
+      Prompt {hint: 'delete-stack'},
         'Are you sure you want to delete this stack?'
 
   deleteStack: ->

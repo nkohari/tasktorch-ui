@@ -32,13 +32,8 @@ ChangeMyNameDialog = React.createClass {
       Button {text: 'Change Name', className: 'default', disabled: !@isValid(), onClick: @changeName}
       Button {text: 'Cancel', onClick: @props.closeDialog}
 
-    hint = """
-      This is the name that your team members will see. Be sure to make it something
-      that they can use to recognize you!
-    """
-
     Dialog {icon: 'settings', title: 'Change My Name', buttons, closeDialog: @props.closeDialog},
-      Field {label: 'Name', hint},
+      Field {label: 'Name', hint: 'username'},
         Input {ref: 'name', placeholder: 'Enter a name', value: @state.name, onChange: @onNameChanged}
 
   isValid: ->

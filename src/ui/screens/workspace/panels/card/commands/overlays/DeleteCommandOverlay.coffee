@@ -23,13 +23,8 @@ DeleteCommandOverlay = React.createClass {
       Button {text: 'Delete Card', className: 'default', onClick: @onOkButtonClicked}
       Button {text: 'Cancel', onClick: @hideCommand}
 
-    hint = """
-      Deleting a card immediately and permanently removes it. If you've just finished
-      work on the card, you should mark it as complete instead of deleting it.
-    """
-
     CardCommandOverlay {className: 'complete', buttons},
-      Prompt {hint},
+      Prompt {hint: 'delete-card'},
         'Are you sure you want to delete this card?'
 
   onOkButtonClicked: ->

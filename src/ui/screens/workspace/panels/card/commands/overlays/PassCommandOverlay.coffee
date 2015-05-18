@@ -32,14 +32,8 @@ PassCommandOverlay = React.createClass {
       Button {text: 'Pass Card', className: 'default', disabled: !@isValid(), onClick: @passCard}
       Button {text: 'Cancel', onClick: @hideCommand}
 
-    hint = """
-      Passing a card to someone else means that you're asking them to take over 
-      responsibility for the work it describes. The card will be delivered to the 
-      user or team's inbox, where it can be accepted or passed on to someone else.
-    """
-
     CardCommandOverlay {className: 'pass', buttons},
-      Field {label: 'Who should be responsible for this card?', hint},
+      Field {label: 'Who should be responsible for this card?', hint: 'pass-card'},
         SuggestingSelector {
           ref:         'selector'
           option:      UserOrTeamSelectorOption

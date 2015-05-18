@@ -24,14 +24,8 @@ AcceptCommandOverlay = React.createClass {
       Button {text: 'Start Immediately', onClick: @acceptCard.bind(this, true)}
       Button {text: 'Cancel', onClick: @hideCommand}
 
-    hint = """
-      Accepting the card will move it to your queue, which lets everyone know that
-      you intend to work on it. If you choose to begin working on it immediately,
-      it will be placed at the top of your queue, otherwise, it will be added to the bottom.
-    """
-
     CardCommandOverlay {className: 'complete', buttons},
-      Prompt {hint},
+      Prompt {hint: 'accept-card'},
         'Will you accept responsibility for this card?'
 
   acceptCard: (preempt) ->

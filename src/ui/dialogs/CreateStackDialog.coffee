@@ -41,7 +41,7 @@ CreateStackDialog = React.createClass {
       Button {text: 'Cancel',       onClick: @props.closeDialog}
 
     Dialog {icon: 'stack', title: "Create a stack", buttons, closeDialog: @props.closeDialog},
-      Field {label: 'Name', hint: @renderHint()},
+      Field {label: 'Name', hint: 'stacks'},
         Input {ref: 'name', placeholder: 'ex. Big Ideas, 2015-Q3, Next Week, Beta Version Features', value: @state.name, onChange: @onNameChanged}
 
   isValid: ->
@@ -49,20 +49,6 @@ CreateStackDialog = React.createClass {
 
   onNameChanged: (event) ->
     @setState {dirty: true, name: event.target.value}
-
-  renderHint: ->
-
-    hint = """
-      If you aren't ready to work on a card yet, you can set it aside in a stack
-      and come back to it later.
-    """
-
-    if @props.teamid?
-      hint += " This stack will belong to #{@state.team?.name}, and all of the cards stored in it will be shared by the team."
-    else
-      hint += " This stack will belong to you, so all of the cards stored in it are your responsibility."
-
-    return hint
 
   createStack: ->
     if @props.teamid?

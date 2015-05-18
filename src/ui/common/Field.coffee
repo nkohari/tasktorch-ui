@@ -1,6 +1,7 @@
 React        = require 'react'
 classSet     = require 'common/util/classSet'
 mergeClasses = require 'common/util/mergeClasses'
+Hints        = require 'config/Hints'
 PropTypes    = require 'ui/framework/PropTypes'
 {div, label} = React.DOM
 
@@ -26,9 +27,9 @@ Field = React.createClass {
 
     div {className: classes},
       label {className: 'field-label'}, @props.label
-      div   {className: 'hint'},        @props.hint if @props.hint? and @props.hintPosition is 'before'
+      div   {className: 'hint'},        Hints[@props.hint] if @props.hint? and @props.hintPosition is 'before'
       div   {className: 'field-input'}, @props.children
-      div   {className: 'hint'},        @props.hint if @props.hint? and @props.hintPosition is 'after'
+      div   {className: 'hint'},        Hints[@props.hint] if @props.hint? and @props.hintPosition is 'after'
 
 }
 

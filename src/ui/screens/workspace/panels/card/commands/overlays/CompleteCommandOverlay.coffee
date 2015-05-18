@@ -23,13 +23,8 @@ CompleteCommandOverlay = React.createClass {
       Button {text: 'Complete Card', className: 'default', onClick: @onOkButtonClicked}
       Button {text: 'Cancel', onClick: @hideCommand}
 
-    hint = """
-      By marking this card as complete, you're telling everyone that no more work
-      needs to be done on the card. Complete cards are sent to the archive.
-    """
-
     CardCommandOverlay {className: 'complete', buttons},
-      Prompt {hint},
+      Prompt {hint: 'complete-card'},
         'Are you sure you want to complete this card?'
 
   onOkButtonClicked: ->
