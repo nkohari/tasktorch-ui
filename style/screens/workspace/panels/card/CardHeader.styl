@@ -3,13 +3,12 @@
   for $name, $color in $semantic-colors-background
     &.{$name}
       background: $color
-      .controls
+      .follow-toggle
         color: $semantic-colors-border[$name]
-        .trigger:hover { color: $semantic-colors-foreground[$name] }
+        &:hover { color: $semantic-colors-foreground[$name] }
   
   display: flex
   flex: none
-  padding: 8px
   background: $color-steel
   border-bottom: 1px solid $color-steel-dark
 
@@ -19,15 +18,11 @@
     width: 54px
     font-size: 48px
     line-height: 46px
+    margin: 8px
         
   .card-info
     flex: 1
-  
-  .controls
-    margin-left: 8px
-    .trigger
-      transition: color $hover-animation-delay linear
-      & > i { margin-right: 0px }
+    padding: 10px 0 4px
     
 .card.complete, .card.deleted
   .card-header

@@ -25,10 +25,11 @@ CardFollowToggle = React.createClass {
 
     classes = classSet [
       'follow-toggle'
+      'trigger'
       'active' if isFollowing
     ]
 
-    a {className: 'trigger', onClick: @toggleFollowing},
+    a {className: classes, onClick: @toggleFollowing},
       Icon {name: if isFollowing then 'follow' else 'follow-open'}
 
   isFollowing: ->

@@ -1,14 +1,13 @@
-_                = require 'lodash'
-React            = require 'react/addons'
-classSet         = require 'common/util/classSet'
-PropTypes        = require 'ui/framework/PropTypes'
-Avatar           = React.createFactory(require 'ui/common/Avatar')
-Frame            = React.createFactory(require 'ui/common/Frame')
-CardFollowToggle = React.createFactory(require 'ui/common/CardFollowToggle')
-CardOwner        = React.createFactory(require 'ui/common/CardOwner')
-CardTitle        = React.createFactory(require 'ui/screens/workspace/panels/card/CardTitle')
-CardWidgets      = React.createFactory(require 'ui/screens/workspace/panels/card/CardWidgets')
-{div}            = React.DOM
+_           = require 'lodash'
+React       = require 'react/addons'
+classSet    = require 'common/util/classSet'
+PropTypes   = require 'ui/framework/PropTypes'
+Avatar      = React.createFactory(require 'ui/common/Avatar')
+Frame       = React.createFactory(require 'ui/common/Frame')
+CardOwner   = React.createFactory(require 'ui/common/CardOwner')
+CardTitle   = React.createFactory(require 'ui/screens/workspace/panels/card/CardTitle')
+CardWidgets = React.createFactory(require 'ui/screens/workspace/panels/card/CardWidgets')
+{div}       = React.DOM
 
 CardHeader = React.createClass {
 
@@ -30,10 +29,9 @@ CardHeader = React.createClass {
     Frame {@isReady, className: classes},
       CardOwner {card: @props.card}
       div {className: 'card-info'},
-        CardTitle   {card: @props.card}
         CardWidgets {card: @props.card, kind: @props.kind, stack: @props.stack}
-      div {className: 'controls'},
-        CardFollowToggle {card: @props.card}
+        CardTitle   {card: @props.card}
+
 }
 
 module.exports = CardHeader

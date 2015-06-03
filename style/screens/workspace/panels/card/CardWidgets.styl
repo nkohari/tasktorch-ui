@@ -1,7 +1,12 @@
 .card-widgets
-  margin: 1px 0 6px 2px
+  margin: 2px 8px 2px 2px
   display: flex
   
+  .right
+    flex: 1
+    display: flex
+    justify-content: flex-end
+    
   .card-widget
     margin-right: 20px
     font-size: 14px
@@ -14,3 +19,4 @@
     transition: color $hover-animation-delay linear
     &:visited { color: $color-ink-light }
     &:hover { color: $color-ink }
+    &.follow-toggle > i { margin-right: 0px }
