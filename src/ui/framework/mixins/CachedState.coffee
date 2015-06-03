@@ -17,6 +17,9 @@ CachedState = {
   forceCacheSync: ->
     @_syncWithCache()
 
+  setStateAndSync: (patch) ->
+    @setState patch, => @_syncWithCache()
+
   _getStore: (name) ->
     return Environment.cache.getStore(name)
 

@@ -45,7 +45,6 @@ SortableList = (mixinConfig) -> {
 
   _setDragState: (context, patch) ->
     newState = _.extend({}, @_getDragState(context), patch)
-    console.log(newState)
     context.item.data(DRAG_STATE_KEY, newState)
 
   _onSortableActivate: (event, context) ->
@@ -82,7 +81,7 @@ SortableList = (mixinConfig) -> {
     @_jQuery().sortable('cancel')
     if not context.sender? and dragState.fromList.id == dragState.toList.id and dragState.fromPosition != dragState.toPosition
       @onReorder(dragState.item, dragState.toPosition) if @onReorder?
-    @onListOrderChanged(ids)
+    @onListOrderChanged(ids) if @onListOrderChanged?
 
   _onSortableChange: (event, context) ->
     @_setDragState context, {
