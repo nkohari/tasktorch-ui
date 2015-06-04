@@ -73,4 +73,9 @@ responsibility for the work it describes. The card will be delivered to the
 user or team's inbox, where it can be accepted or passed on to someone else.
 """
 
+Hints['restore-card'] = """
+If you've accidentally marked this card as complete or moved it to the trash,
+restoring it will re-deliver it to your inbox.
+"""
+
 module.exports = Hints

@@ -23,7 +23,7 @@ DeleteCommandOverlay = React.createClass {
       Button {text: 'Delete Card', className: 'default', onClick: @onOkButtonClicked}
       Button {text: 'Cancel', onClick: @hideCommand}
 
-    CardCommandOverlay {className: 'complete', buttons},
+    CardCommandOverlay {className: 'delete', buttons},
       Prompt {hint: 'delete-card'},
         'Are you sure you want to delete this card?'
 

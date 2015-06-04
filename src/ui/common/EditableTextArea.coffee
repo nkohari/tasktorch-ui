@@ -38,6 +38,10 @@ EditableInputArea = React.createClass {
 
     TextArea props
 
+  focus: ->
+    return unless @isMounted()
+    @refs.textarea.focus()
+
   onKeyUp: (event) ->
     switch event.which
       when KeyCode.ESCAPE

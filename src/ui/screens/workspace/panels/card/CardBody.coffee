@@ -1,7 +1,7 @@
 React             = require 'react'
 PropTypes         = require 'ui/framework/PropTypes'
 TabBlock          = React.createFactory(require 'ui/common/TabBlock')
-CardSummaryBlock  = React.createFactory(require 'ui/screens/workspace/panels/card/CardSummaryBlock')
+CardDetailsTab    = React.createFactory(require 'ui/screens/workspace/panels/card/CardDetailsTab')
 CardActionsTab    = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CardActionsTab')
 CardTimelineTab   = React.createFactory(require 'ui/screens/workspace/panels/card/timeline/CardTimelineTab')
 {div}             = React.DOM
@@ -16,11 +16,10 @@ CardBody = React.createClass {
 
   render: ->
 
-    div {className: 'card-body'},
-      CardSummaryBlock {card: @props.card}
-      TabBlock {className: 'card-details', selected: 'actions'},
-        CardActionsTab  {key: 'actions',  title: 'Actions',  card: @props.card, kind: @props.kind}
-        CardTimelineTab {key: 'timeline', title: 'Timeline', card: @props.card}
+    TabBlock {className: 'card-body', selected: 'actions'},
+      CardActionsTab  {key: 'actions',  title: 'Actions',  card: @props.card, kind: @props.kind}
+      CardDetailsTab  {key: 'details',  title: 'Details',  card: @props.card}
+      CardTimelineTab {key: 'timeline', title: 'Timeline', card: @props.card}
 
 }
 

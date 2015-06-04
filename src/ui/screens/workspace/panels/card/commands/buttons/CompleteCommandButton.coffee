@@ -15,7 +15,6 @@ CompleteCommandButton = React.createClass {
 
     CommandToggleButton {
       icon:    'complete'
-      text:    'Complete'
       command: CardCommandType.Complete
     }
 

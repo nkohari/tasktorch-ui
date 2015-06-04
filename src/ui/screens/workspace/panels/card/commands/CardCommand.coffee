@@ -7,6 +7,7 @@ DeferCommandOverlay    = React.createFactory(require 'ui/screens/workspace/panel
 PassCommandOverlay     = React.createFactory(require 'ui/screens/workspace/panels/card/commands/overlays/PassCommandOverlay')
 CompleteCommandOverlay = React.createFactory(require 'ui/screens/workspace/panels/card/commands/overlays/CompleteCommandOverlay')
 DeleteCommandOverlay   = React.createFactory(require 'ui/screens/workspace/panels/card/commands/overlays/DeleteCommandOverlay')
+RestoreCommandOverlay  = React.createFactory(require 'ui/screens/workspace/panels/card/commands/overlays/RestoreCommandOverlay')
 CSSTransitionGroup     = React.createFactory(React.addons.CSSTransitionGroup)
 {div}                  = React.DOM
 
@@ -38,6 +39,7 @@ CardCommand = React.createClass {
       when CardCommandType.Pass     then PassCommandOverlay
       when CardCommandType.Complete then CompleteCommandOverlay
       when CardCommandType.Delete   then DeleteCommandOverlay
+      when CardCommandType.Restore  then RestoreCommandOverlay
 
   onBackdropClicked: (event) ->
     if event.target == @refs.backdrop.getDOMNode()

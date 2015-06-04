@@ -3,7 +3,6 @@ React                 = require 'react'
 mergeClasses          = require 'common/util/mergeClasses'
 PropTypes             = require 'ui/framework/PropTypes'
 PassCommandButton     = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/PassCommandButton')
-DeferCommandButton    = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/DeferCommandButton')
 CompleteCommandButton = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/CompleteCommandButton')
 DeleteCommandButton   = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/DeleteCommandButton')
 {div}                 = React.DOM
@@ -20,7 +19,6 @@ QueueCommandBar = React.createClass {
     div {className: mergeClasses('queue', @props.className)},
       div {className: 'button-group'},
         PassCommandButton {card: @props.card}
-        DeferCommandButton {card: @props.card}
       div {className: 'button-group right'},
         CompleteCommandButton {card: @props.card}
         DeleteCommandButton {card: @props.card}

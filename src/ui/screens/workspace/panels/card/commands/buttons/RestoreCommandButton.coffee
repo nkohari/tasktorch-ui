@@ -1,8 +1,8 @@
-_         = require 'lodash'
-React     = require 'react/addons'
-PropTypes = require 'ui/framework/PropTypes'
-Actor     = require 'ui/framework/mixins/Actor'
-Button    = React.createFactory(require 'ui/common/Button')
+_                   = require 'lodash'
+React               = require 'react'
+PropTypes           = require 'ui/framework/PropTypes'
+CardCommandType     = require 'data/enums/CardCommandType'
+CommandToggleButton = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/CommandToggleButton')
 
 RestoreCommandButton = React.createClass {
 
@@ -11,17 +11,13 @@ RestoreCommandButton = React.createClass {
   propTypes:
     card: PropTypes.Card
 
-  mixins: [Actor]
-
   render: ->
-    Button {
+
+    CommandToggleButton {
       icon:    'restore'
       text:    'Restore'
-      onClick: @onButtonClicked
+      command: CardCommandType.Restore
     }
-
-  onButtonClicked: ->
-    # TODO
 
 }
 

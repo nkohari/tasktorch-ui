@@ -14,7 +14,6 @@ DeleteCommandButton = React.createClass {
   render: ->
     CommandToggleButton {
       icon:    'trash'
-      text:    'Trash'
       command: CardCommandType.Delete
     }
 
