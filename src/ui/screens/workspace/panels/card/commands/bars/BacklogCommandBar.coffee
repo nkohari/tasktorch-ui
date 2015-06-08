@@ -6,6 +6,7 @@ AcceptCommandButton   = React.createFactory(require 'ui/screens/workspace/panels
 PassCommandButton     = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/PassCommandButton')
 CompleteCommandButton = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/CompleteCommandButton')
 DeleteCommandButton   = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/DeleteCommandButton')
+CommentCommandButton  = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/CommentCommandButton')
 {div}                 = React.DOM
 
 BacklogCommandBar = React.createClass {
@@ -21,6 +22,8 @@ BacklogCommandBar = React.createClass {
       div {className: 'button-group'},
         AcceptCommandButton {card: @props.card}
         PassCommandButton {card: @props.card}
+      div {className: 'button-group'},
+        CommentCommandButton {card: @props.card}
       div {className: 'button-group right'},
         CompleteCommandButton {card: @props.card}
         DeleteCommandButton {card: @props.card}

@@ -21,6 +21,9 @@ class DialogStore extends Store
     @items[name] = value
     @announce()
 
+  clear: ->
+    @items = {}
+
   onUserOpenedDialog: (event) ->
     @set(event.name, event.props)
 

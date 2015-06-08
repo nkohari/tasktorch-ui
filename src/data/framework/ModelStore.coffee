@@ -54,4 +54,9 @@ class ModelStore extends Store
     @states[id] = undefined
     @announce()
 
+  clear: ->
+    @models = {}
+    @states = {}
+    @announce()
+
 module.exports = ModelStore

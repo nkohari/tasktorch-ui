@@ -15,4 +15,7 @@ class PanelStore extends Store
   set: (screen, value) ->
     @items[name] = value
 
+  clear: ->
+    @items = {}
+
 module.exports = PanelStore

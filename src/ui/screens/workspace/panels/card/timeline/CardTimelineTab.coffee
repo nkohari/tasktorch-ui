@@ -1,11 +1,10 @@
-_                 = require 'lodash'
-React             = require 'react'
-PropTypes         = require 'ui/framework/PropTypes'
-CachedState       = require 'ui/framework/mixins/CachedState'
-List              = React.createFactory(require 'ui/common/List')
-CardTimelineItem  = React.createFactory(require 'ui/screens/workspace/panels/card/timeline/CardTimelineItem')
-CreateCommentForm = React.createFactory(require 'ui/screens/workspace/panels/card/timeline/CreateCommentForm')
-{div}             = React.DOM
+_                = require 'lodash'
+React            = require 'react'
+PropTypes        = require 'ui/framework/PropTypes'
+CachedState      = require 'ui/framework/mixins/CachedState'
+List             = React.createFactory(require 'ui/common/List')
+CardTimelineItem = React.createFactory(require 'ui/screens/workspace/panels/card/timeline/CardTimelineItem')
+{div}            = React.DOM
 
 CardTimelineTab = React.createClass {
 
@@ -37,7 +36,6 @@ CardTimelineTab = React.createClass {
 
     div {className: 'card-timeline-tab', @onScroll},
       div {ref: 'notes', className: 'card-notes'}, items
-      CreateCommentForm {card: @props.card}
 
   onScroll: ->
     node = @refs.notes.getDOMNode()

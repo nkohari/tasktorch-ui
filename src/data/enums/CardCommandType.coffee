@@ -7,4 +7,5 @@ module.exports = CardCommand = arrayEnum [
   'Complete'
   'Delete'
   'Restore'
+  'Comment'
 ]

@@ -15,6 +15,9 @@ OrgListInterstitial = React.createClass {
     orgs: cache('myOrgs').get()
   }
 
+  componentWillMount: ->
+    Environment.cache.clear()
+
   componentDidMount: ->
     document.title = "TaskTorch | My Organizations"
 

@@ -30,14 +30,15 @@ Start from scratch to define your own custom card kind
 """
 
 Hints['create-kind-template'] = """
-Begin with a predefined template, which you can then customize to fit your needs:
+Start with an example, which you can then customize to fit your needs:
 """
 
 Hints['create-kind-workflow'] = """
-What basic process do you follow for all work of this type? These stages will represent
-columns on the Big Picture screen, and you can define actions within these stages.
-You can drag stages to reorder them, and your card kind must define at least one stage.
-(If there isn't really a workflow for this kind of work, just create a single stage called Actions.)
+What basic process do you follow for all work of this type? Actions will be created
+within these stages, and they'll be used as columns on the Big Picture screen.
+Your card kind must define at least one stage; if there isn't really a workflow
+for this kind of work, just create a single stage called Checklist. You can drag
+stages to reorder them.
 """
 
 Hints['create-kind-default-actions'] = """
@@ -54,7 +55,7 @@ settings, click Create Kind!
 Hints['accept-card'] = """
 Accepting the card will move it to your queue, which lets everyone know that
 you intend to work on it. If you choose to begin working on it immediately,
-it will be placed at the top of your queue, otherwise, it will be added to the bottom.
+it will be placed at the top of your queue. Otherwise, it will be added to the end.
 """
 
 Hints['complete-card'] = """

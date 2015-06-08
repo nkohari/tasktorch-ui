@@ -2,6 +2,7 @@
   flex: 1
   border: 1px solid $color-steel
   background: $color-white
+  overflow-y: auto
   
   &.disabled
     opacity: 0.6
@@ -15,8 +16,8 @@
     background: $color-white
     border-bottom: 1px solid $color-steel-light
     &.selected { background: $color-selection }
-    &:focus
-      outline: 3px solid $color-steel
+    &:last-child { border-bottom: none }
+    &:focus { outline: none !important }
   
     & > i
       margin-right: 6px

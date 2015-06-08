@@ -42,5 +42,6 @@ class ListStore extends Store
   clear: ->
     @lists = {}
     @states = {}
+    @announce()
 
 module.exports = ListStore

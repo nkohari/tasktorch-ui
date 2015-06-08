@@ -19,6 +19,10 @@ class Cache extends EventEmitter
   addStores: (stores) ->
     @addStore(store) for store in stores
 
+  clear: ->
+    for name, store of @stores
+      store.clear()
+
   announce: (store) ->
     if @eventQueue.isFlushing
       console.debug("Cache: Deferred announcement of changes from #{store.displayName}")
