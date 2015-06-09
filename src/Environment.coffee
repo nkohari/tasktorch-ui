@@ -9,6 +9,8 @@ ChecklistsByCardStore   = require 'data/stores/ChecklistsByCardStore'
 DialogStore             = require 'data/stores/DialogStore'
 FollowersByCardStore    = require 'data/stores/FollowersByCardStore'
 GoalStore               = require 'data/stores/GoalStore'
+GoalsByCardStore        = require 'data/stores/GoalsByCardStore'
+GoalsByOrgStore         = require 'data/stores/GoalsByOrgStore'
 KindStore               = require 'data/stores/KindStore'
 KindsByOrgStore         = require 'data/stores/KindsByOrgStore'
 NoteStore               = require 'data/stores/NoteStore'
@@ -63,6 +65,8 @@ class Environment
       new CardsByStageStore(@eventQueue, @cache)
       new ChecklistsByCardStore(@eventQueue, @cache)
       new FollowersByCardStore(@eventQueue, @cache)
+      new GoalsByCardStore(@eventQueue, @cache)
+      new GoalsByOrgStore(@eventQueue, @cache)
       new KindsByOrgStore(@eventQueue, @cache)
       new MembersByTeamStore(@eventQueue, @cache)
       new MyFollowedCardsStore(@eventQueue, @cache)

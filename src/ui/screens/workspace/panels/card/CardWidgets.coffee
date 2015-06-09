@@ -1,7 +1,7 @@
 React            = require 'react'
 PropTypes        = require 'ui/framework/PropTypes'
 CardLocation     = React.createFactory(require 'ui/common/CardLocation')
-CardFollowers    = React.createFactory(require 'ui/screens/workspace/panels/card/CardFollowers')
+CardGoals        = React.createFactory(require 'ui/screens/workspace/panels/card/CardGoals')
 CardFollowToggle = React.createFactory(require 'ui/common/CardFollowToggle')
 GoalName         = React.createFactory(require 'ui/common/GoalName')
 {div}            = React.DOM
@@ -18,9 +18,8 @@ CardWidgets = React.createClass {
   render: ->
 
     div {className: 'card-widgets'},
-      CardLocation  {className: 'card-widget', card: @props.card, stack: @props.stack, link: true}
-      CardFollowers {className: 'card-widget', card: @props.card}
-      GoalName      {className: 'card-widget', goalid: @props.card.goal} if @props.card.goal?
+      CardLocation {className: 'card-widget', card: @props.card, stack: @props.stack, link: true}
+      CardGoals    {className: 'card-widget', card: @props.card}
       div {className: 'right'},
         CardFollowToggle {card: @props.card}
 

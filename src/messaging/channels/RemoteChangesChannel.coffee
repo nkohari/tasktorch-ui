@@ -3,6 +3,7 @@ EventOrigin           = require 'data/enums/EventOrigin'
 Action                = require 'data/models/Action'
 Card                  = require 'data/models/Card'
 Checklist             = require 'data/models/Checklist'
+Goal                  = require 'data/models/Goal'
 Kind                  = require 'data/models/Kind'
 Note                  = require 'data/models/Note'
 Stack                 = require 'data/models/Stack'
@@ -16,6 +17,8 @@ CardChangedEvent      = require 'events/change/CardChangedEvent'
 CardCreatedEvent      = require 'events/create/CardCreatedEvent'
 ChecklistChangedEvent = require 'events/change/ChecklistChangedEvent'
 ChecklistCreatedEvent = require 'events/create/ChecklistCreatedEvent'
+GoalChangedEvent      = require 'events/change/GoalChangedEvent'
+GoalCreatedEvent      = require 'events/create/GoalCreatedEvent'
 KindChangedEvent      = require 'events/change/KindChangedEvent'
 KindCreatedEvent      = require 'events/create/KindCreatedEvent'
 NoteCreatedEvent      = require 'events/create/NoteCreatedEvent'
@@ -48,6 +51,7 @@ class RemoteChangesChannel extends Channel
       when 'Action'    then @publish new ActionCreatedEvent(new Action(message.document), EventOrigin.Remote)
       when 'Card'      then @publish new CardCreatedEvent(new Card(message.document), EventOrigin.Remote)
       when 'Checklist' then @publish new ChecklistCreatedEvent(new Checklist(message.document), EventOrigin.Remote)
+      when 'Goal'      then @publish new GoalCreatedEvent(new Goal(message.document), EventOrigin.Remote)
       when 'Kind'      then @publish new KindCreatedEvent(new Kind(message.document), EventOrigin.Remote)
       when 'Note'      then @publish new NoteCreatedEvent(new Note(message.document), EventOrigin.Remote)
       when 'Stack'     then @publish new StackCreatedEvent(new Stack(message.document), EventOrigin.Remote)
@@ -58,6 +62,7 @@ class RemoteChangesChannel extends Channel
     switch message.type
       when 'Action'    then @publish new ActionChangedEvent(new Action(message.document), EventOrigin.Remote)
       when 'Card'      then @publish new CardChangedEvent(new Card(message.document), EventOrigin.Remote)
+      when 'Goal'      then @publish new GoalChangedEvent(new Goal(message.document), EventOrigin.Remote)
       when 'Kind'      then @publish new KindChangedEvent(new Kind(message.document), EventOrigin.Remote)
       when 'Checklist' then @publish new ChecklistChangedEvent(new Checklist(message.document), EventOrigin.Remote)
       when 'Stack'     then @publish new StackChangedEvent(new Stack(message.document), EventOrigin.Remote)

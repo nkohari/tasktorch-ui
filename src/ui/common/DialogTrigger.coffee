@@ -10,7 +10,8 @@ DialogTrigger = React.createClass {
   displayName: 'DialogTrigger'
 
   propTypes:
-    name: PropTypes.string
+    name:    PropTypes.string
+    onClick: PropTypes.func
 
   mixins: [Actor]
 
@@ -18,7 +19,8 @@ DialogTrigger = React.createClass {
 
     a {className: @props.className, @onClick}, @props.children
 
-  onClick: ->
+  onClick: (event) ->
+    @props.onClick(event) if @props.onClick?
     @publish new UserOpenedDialogEvent(@props.name, _.omit(@props, 'name'))
 
 }

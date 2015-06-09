@@ -8,6 +8,7 @@ DIALOGS =
   ChangeMyName:     React.createFactory(require 'ui/dialogs/ChangeMyNameDialog')
   ChangeMyEmail:    React.createFactory(require 'ui/dialogs/ChangeMyEmailDialog')
   ChangeMyPassword: React.createFactory(require 'ui/dialogs/ChangeMyPasswordDialog')
+  CreateGoal:       React.createFactory(require 'ui/dialogs/CreateGoalDialog')
   CreateKind:       React.createFactory(require 'ui/dialogs/CreateKindWizard')
   CreateStack:      React.createFactory(require 'ui/dialogs/CreateStackDialog')
   CreateTeam:       React.createFactory(require 'ui/dialogs/CreateTeamDialog')

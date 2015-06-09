@@ -12,6 +12,9 @@ ChangeCardTitleRequest        = require 'data/requests/ChangeCardTitleRequest'
 AddFollowerToCardRequest      = require 'data/requests/AddFollowerToCardRequest'
 RemoveFollowerFromCardRequest = require 'data/requests/RemoveFollowerFromCardRequest'
 RestoreCardRequest            = require 'data/requests/RestoreCardRequest'
+AddCardToGoalRequest          = require 'data/requests/AddCardToGoalRequest'
+RemoveCardFromGoalRequest     = require 'data/requests/RemoveCardFromGoalRequest'
+
 
 class CardStore extends ModelStore
 
@@ -35,6 +38,8 @@ class CardStore extends ModelStore
     'UserFollowedCard'
     'UserUnfollowedCard'
     'UserRestoredCard'
+    'UserAddedCardToGoal'
+    'UserRemovedCardFromGoal'
   ]
 
   load: (cardid) ->
@@ -85,4 +90,10 @@ class CardStore extends ModelStore
   onUserRestoredCard: (event) ->
     @execute new RestoreCardRequest(event.cardid)
     
+  onUserAddedCardToGoal: (event) ->
+    @execute new AddCardToGoalRequest(event.goalid, event.cardid)
+
+  onUserRemovedCardFromGoal: (event) ->
+    @execute new RemoveCardFromGoalRequest(event.goalid, event.cardid)
+
 module.exports = CardStore

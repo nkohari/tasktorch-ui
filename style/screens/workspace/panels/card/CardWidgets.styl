@@ -12,6 +12,13 @@
     font-size: 14px
     color: $color-ink-light
     font-weight: $bold-font-weight
+    &.empty
+      opacity: 0
+      transition: all $hover-animation-delay linear
+      color: $color-ink-subtle
+      &.active
+        opacity: 1
+        color: $color-ink-light
   
   a, .trigger
     color: $color-ink-light
@@ -20,3 +27,7 @@
     &:visited { color: $color-ink-light }
     &:hover { color: $color-ink }
     &.follow-toggle > i { margin-right: 0px }
+
+.card-header:hover
+  .card-widget.empty
+    opacity: 1

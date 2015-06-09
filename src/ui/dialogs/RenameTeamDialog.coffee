@@ -15,7 +15,7 @@ RenameTeamDialog = React.createClass {
   displayName: 'RenameTeamDialog'
 
   props:
-    teamid:      PropTypes.Team
+    teamid:      PropTypes.id
     closeDialog: PropTypes.func
 
   mixins: [Actor, CachedState]

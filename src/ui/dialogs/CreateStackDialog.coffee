@@ -42,7 +42,7 @@ CreateStackDialog = React.createClass {
 
     Dialog {icon: 'stack', title: "Create a stack", buttons, closeDialog: @props.closeDialog},
       Field {label: 'Name', hint: 'stacks'},
-        Input {ref: 'name', placeholder: 'ex. Big Ideas, 2015-Q3, Next Week, Beta Version Features', value: @state.name, onChange: @onNameChanged}
+        Input {ref: 'name', placeholder: 'ex. Big Ideas, 2015-Q3, Next Week, Remaining Beta Version Features', value: @state.name, onChange: @onNameChanged}
 
   isValid: ->
     @state.name?.length > 0

@@ -79,4 +79,11 @@ If you've accidentally marked this card as complete or moved it to the trash,
 restoring it will re-deliver it to your inbox.
 """
 
+Hints['create-goal'] = """
+A goal is a long-term objective, involving several cards, that you want to
+accomplish. It might be a project with a definitive end date, or an ongoing
+initiative like "Improve Documentation". The status of goals is visible on
+the Big Picture screen.
+"""
+
 module.exports = Hints

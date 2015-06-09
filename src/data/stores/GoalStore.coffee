@@ -1,6 +1,7 @@
-Goal            = require 'data/models/Goal'
-ModelStore      = require 'data/framework/ModelStore'
-LoadGoalRequest = require 'data/requests/LoadGoalRequest'
+Goal              = require 'data/models/Goal'
+ModelStore        = require 'data/framework/ModelStore'
+LoadGoalRequest   = require 'data/requests/LoadGoalRequest'
+CreateGoalRequest = require 'data/requests/CreateGoalRequest'
 
 class GoalStore extends ModelStore
 
@@ -10,6 +11,8 @@ class GoalStore extends ModelStore
 
   listensFor: [
     'GoalsLoaded'
+    'GoalChanged'
+    'UserCreatedGoal'
   ]
 
   load: (id) ->
@@ -17,5 +20,11 @@ class GoalStore extends ModelStore
 
   onGoalsLoaded: (event) ->
     @add(event.goals)
+
+  onGoalChanged: (event) ->
+    @set(event.goal.id, event.goal)
+
+  onUserCreatedGoal: (event) ->
+    @execute new CreateGoalRequest(event.name)
 
 module.exports = GoalStore

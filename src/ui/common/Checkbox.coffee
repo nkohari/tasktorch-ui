@@ -10,15 +10,15 @@ Checkbox = React.createClass {
   displayName: 'Checkbox'
 
   propTypes:
-    text:  PropTypes.string
-    value: PropTypes.any
+    text:    PropTypes.string
+    checked: PropTypes.bool
 
   render: ->
 
     props = mergeProps _.omit(@props, 'text'), {
-      ref:   'input'
-      type:  'checkbox'
-      value: @props.value
+      ref:     'input'
+      type:    'checkbox'
+      checked: @props.checked
     }
 
     div {className: 'input'},
