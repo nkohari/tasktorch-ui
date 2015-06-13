@@ -2,8 +2,10 @@ _              = require 'lodash'
 React          = require 'react'
 mergeProps     = require 'common/util/mergeProps'
 PropTypes      = require 'ui/framework/PropTypes'
+GoalPanelState = require 'ui/screens/bigPicture/panels/goal/GoalPanelState'
 KindPanelState = require 'ui/screens/bigPicture/panels/kind/KindPanelState'
 TeamPanelState = require 'ui/screens/bigPicture/panels/team/TeamPanelState'
+GoalPanel      = React.createFactory(require 'ui/screens/bigPicture/panels/goal/GoalPanel')
 KindPanel      = React.createFactory(require 'ui/screens/bigPicture/panels/kind/KindPanel')
 TeamPanel      = React.createFactory(require 'ui/screens/bigPicture/panels/team/TeamPanel')
 
@@ -21,8 +23,9 @@ BigPicturePanel = React.createClass {
     }
 
     switch @props.type
-      when TeamPanelState.type then TeamPanel(props)
+      when GoalPanelState.type then GoalPanel(props)
       when KindPanelState.type then KindPanel(props)
+      when TeamPanelState.type then TeamPanel(props)
 
 }
 

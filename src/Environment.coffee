@@ -2,6 +2,7 @@ Cache                   = require 'data/Cache'
 ActionsByChecklistStore = require 'data/stores/ActionsByChecklistStore'
 ActionStore             = require 'data/stores/ActionStore'
 CardStore               = require 'data/stores/CardStore'
+CardsByGoalStore        = require 'data/stores/CardsByGoalStore'
 CardsByStackStore       = require 'data/stores/CardsByStackStore'
 CardsByStageStore       = require 'data/stores/CardsByStageStore'
 ChecklistStore          = require 'data/stores/ChecklistStore'
@@ -61,6 +62,7 @@ class Environment
 
     @cache.addStores [
       new ActionsByChecklistStore(@eventQueue, @cache)
+      new CardsByGoalStore(@eventQueue, @cache)
       new CardsByStackStore(@eventQueue, @cache)
       new CardsByStageStore(@eventQueue, @cache)
       new ChecklistsByCardStore(@eventQueue, @cache)

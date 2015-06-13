@@ -1,7 +1,9 @@
 arrayEnum = require 'common/util/arrayEnum'
 
 module.exports = CardStatus = arrayEnum [
-  'Active'
+  'NotStarted'
+  'InProgress'
+  'Warning'
   'Complete'
   'Deleted'
 ]

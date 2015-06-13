@@ -3,6 +3,7 @@ React        = require 'react'
 PropTypes    = require 'ui/framework/PropTypes'
 CachedState  = require 'ui/framework/mixins/CachedState'
 ShellContext = require 'ui/framework/mixins/ShellContext'
+GoalList     = React.createFactory(require 'ui/screens/bigPicture/drawer/GoalList')
 KindList     = React.createFactory(require 'ui/screens/bigPicture/drawer/KindList')
 TeamList     = React.createFactory(require 'ui/screens/bigPicture/drawer/TeamList')
 {div}        = React.DOM
@@ -14,22 +15,19 @@ BigPictureDrawer = React.createClass {
   mixins: [CachedState, ShellContext]
 
   getCachedState: (cache) ->
-    org     = @getCurrentOrg()
-    kinds   = cache('kindsByOrg').get(org.id)
-    teams   = cache('teamsByOrg').get(org.id)
-    myTeams = cache('myTeams').get()
-    if teams? and myTeams?
-      otherTeams = []
-      for team in teams
-        otherTeams.push(team) unless _.any(myTeams, (t) -> t.id == team.id)
-    {kinds, myTeams, otherTeams}
+    org = @getCurrentOrg()
+    return {
+      goals: cache('goalsByOrg').get(org.id)
+      kinds: cache('kindsByOrg').get(org.id)
+      teams: cache('teamsByOrg').get(org.id)
+    }
 
   render: ->
 
     div {className: 'big-picture drawer'},
+      GoalList {goals: @state.goals}
+      TeamList {teams: @state.teams}
       KindList {kinds: @state.kinds}
-      TeamList {title: 'My Teams',    teams: @state.myTeams}
-      TeamList {title: 'Other Teams', teams: @state.otherTeams}
 
 }
 

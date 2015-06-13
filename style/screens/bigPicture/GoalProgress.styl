@@ -1,0 +1,15 @@
+.goal-progress
+  display: flex
+  flex-direction: row
+  
+  .completion
+    flex: none
+    font-size: 12px
+    font-weight: $bold-font-weight
+    margin-right: 8px
+  
+  .progress-bar-segment
+    &.complete   { background-color: $color-progress-complete }
+    &.inprogress { background-color: $color-progress-inprogress }
+    &.warning    { background-color: $color-progress-warning }
+    &.notstarted { background-color: $color-white }

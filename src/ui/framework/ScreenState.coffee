@@ -1,4 +1,5 @@
 _                   = require 'lodash'
+GoalPanelState      = require 'ui/screens/bigPicture/panels/goal/GoalPanelState'
 KindPanelState      = require 'ui/screens/bigPicture/panels/kind/KindPanelState'
 TeamPanelState      = require 'ui/screens/bigPicture/panels/team/TeamPanelState'
 CardPanelState      = require 'ui/screens/workspace/panels/card/CardPanelState'
@@ -97,6 +98,7 @@ class ScreenState
     switch type
       when CardPanelState.type      then new CardPanelState(id)
       when FollowingPanelState.type then new FollowingPanelState(id)
+      when GoalPanelState.type      then new GoalPanelState(id)
       when KindPanelState.type      then new KindPanelState(id)
       when StackPanelState.type     then new StackPanelState(id)
       when TeamPanelState.type      then new TeamPanelState(id)

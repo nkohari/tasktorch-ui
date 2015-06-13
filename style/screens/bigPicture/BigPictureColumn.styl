@@ -32,9 +32,31 @@
         color: $color-ink-light
         font-size: 14px
         font-weight: $bold-font-weight
+  
+  .big-picture-column-section
+    border-top: 1px solid $color-steel
+    &:first-child { border-top: 0px }
+    
+    .header
+      display: flex
+      width: 100%
+      flex: none
+      background: $color-steel-verylight
+      padding: 6px 8px
+      border-bottom: 1px solid $color-steel
+      color: $color-ink-light
+      font-weight: $bold-font-weight
+      .name
+        font-size: 14px
+      .count
+        flex: 1
+        font-size: 13px
+        text-align: right
 
-  .cards
+  & > .content
     flex: 1
     min-height: 100%
-    padding: 6px
     overflow-y: auto
+
+  .cards
+    padding: 8px

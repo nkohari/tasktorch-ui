@@ -9,7 +9,6 @@ TeamList = React.createClass {
   displayName: 'TeamList'
 
   propTypes:
-    title: PropTypes.string
     teams: PropTypes.arrayOf(PropTypes.Team)
 
   render: ->
@@ -19,7 +18,7 @@ TeamList = React.createClass {
 
     div {className: 'drawer-group'},
       div {className: 'header'},
-        span {className: 'title'}, @props.title
+        span {className: 'title'}, 'By Team'
       items
 
 }

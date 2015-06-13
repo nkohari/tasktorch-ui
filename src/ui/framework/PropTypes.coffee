@@ -40,6 +40,11 @@ PropTypes.Checklist = PropTypes.model {
   stage: PropTypes.id
 }
 
+PropTypes.Goal = PropTypes.model {
+  org:  PropTypes.id
+  name: PropTypes.string
+}
+
 PropTypes.Kind = PropTypes.model {
   org:    PropTypes.id
   name:   PropTypes.string

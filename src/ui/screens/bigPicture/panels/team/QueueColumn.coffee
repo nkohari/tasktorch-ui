@@ -34,7 +34,8 @@ QueueColumn = React.createClass {
         div {className: 'content'},
           div {className: 'name'},  @props.user.name
           div {className: 'count'}, "#{count} card#{plural} in queue"
-      ul {className: 'cards'}, cards
+      div {className: 'content'},
+        ul {className: 'cards'}, cards
 
 }
 

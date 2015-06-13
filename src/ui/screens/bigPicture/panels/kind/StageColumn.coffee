@@ -31,7 +31,8 @@ StageColumn = React.createClass {
         div {className: 'content'},
           div {className: 'name'}, @props.stage.name
           div {className: 'count'}, "#{count} card#{plural}"
-      ul {className: 'cards'}, cards
+      div {className: 'content'},
+        ul {className: 'cards'}, cards
 
 }
 

@@ -18,7 +18,7 @@ KindList = React.createClass {
 
     div {className: 'drawer-group'},
       div {className: 'header'},
-        span {className: 'title'}, 'Kinds of Work'
+        span {className: 'title'}, 'By Kind'
       items
 
 }

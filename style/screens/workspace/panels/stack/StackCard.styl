@@ -3,14 +3,14 @@
   position: relative
   margin-bottom: 6px
   cursor: move
+  box-shadow: 1px 1px 0 black(10%)
   
-  for $name, $color in $semantic-colors-border
+  for $name, $color in $semantic-colors-medium
     &.{$name}
-      background: $semantic-colors-medium[$name]
+      background: $color
       border: 1px solid $color
       & > .content
         background: $semantic-colors-background[$name]
-        border-left: 1px solid $color
   
   &:last-child { margin-bottom: 0 }
   
@@ -20,6 +20,7 @@
     cursor: pointer
     padding: 6px 8px
     margin-left: 8px
+    min-height: 60px
     
     .title
       color: $color-ink
