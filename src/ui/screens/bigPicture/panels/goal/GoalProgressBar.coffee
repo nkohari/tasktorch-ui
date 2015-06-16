@@ -32,11 +32,10 @@ GoalProgressBar = React.createClass {
 
     div {className: 'goal-progress'},
       div {className: 'completion'}, completion
-      ProgressBar {},
-        ProgressBarSegment {className: 'complete',   value: counts[CardStatus.Complete]}
-        ProgressBarSegment {className: 'inprogress', value: counts[CardStatus.InProgress]}
-        ProgressBarSegment {className: 'warning',    value: counts[CardStatus.Warning]}
-        ProgressBarSegment {className: 'notstarted', value: counts[CardStatus.NotStarted]}
+      ProgressBar {total: @props.cards?.length or 0},
+        ProgressBarSegment {className: 'complete',   value: counts[CardStatus.Complete]}   if counts[CardStatus.Complete] > 0
+        ProgressBarSegment {className: 'inprogress', value: counts[CardStatus.InProgress]} if counts[CardStatus.InProgress] > 0
+        ProgressBarSegment {className: 'warning',    value: counts[CardStatus.Warning]}    if counts[CardStatus.Warning] > 0
 
 }
 

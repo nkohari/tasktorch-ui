@@ -12,6 +12,7 @@ ShellHeader          = React.createFactory(require 'ui/shell/header/ShellHeader'
 ShellFooter          = React.createFactory(require 'ui/shell/footer/ShellFooter')
 RouteHandler         = React.createFactory(Router.RouteHandler)
 CSSTransitionGroup   = React.createFactory(React.addons.CSSTransitionGroup)
+{div}                = React.DOM
 
 Shell = React.createClass {
 
@@ -74,6 +75,7 @@ Shell = React.createClass {
         RouteHandler screenProps
       ShellFooter {}
       DialogLayer {}
+      div {id: 'intercom', style: {display: 'none'}}
 
 }
 

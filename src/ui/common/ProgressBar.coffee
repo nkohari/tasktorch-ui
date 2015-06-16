@@ -9,12 +9,13 @@ ProgressBar = React.createClass {
 
   displayName: 'ProgressBar'
 
+  propTypes:
+    total: PropTypes.number
+
   render: ->
 
-    total = _.sum @props.children, (child) -> child.props.value
-
-    segments = _.map @props.children, (child) ->
-      cloneWithProps child, {total}
+    segments = _.map @props.children, (child) =>
+      cloneWithProps child, {total: @props.total} if child?
 
     div {className: 'progress-bar'},
       segments

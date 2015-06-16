@@ -22,7 +22,7 @@ FollowerAddedNote = React.createClass {
       div {className: 'activity-body'},
         UserWidget {user: @props.user}
         'started following the card'
-        Time {relative: true, time: @props.note.time}
+        Time {relative: true, time: @props.note.created}
 
 }
 

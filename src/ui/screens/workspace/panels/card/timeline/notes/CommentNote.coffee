@@ -22,7 +22,7 @@ CommentNote = React.createClass {
         div {className: 'comment-header'},
           span {className: 'user'}, @props.user.name
           ' commented '
-          Time {relative: true, time: @props.note.time}
+          Time {relative: true, time: @props.note.created}
         div {className: 'comment-content'},
           @props.note.content 
 

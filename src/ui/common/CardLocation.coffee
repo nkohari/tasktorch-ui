@@ -51,12 +51,12 @@ CardLocation = React.createClass {
 
   renderStackName: ->
     span {},
-      Icon      {name: @props.stack.type.toLowerCase()}
+      Icon      {name: @props.stack?.type.toLowerCase()}
       StackName {stack: @props.stack}
 
   renderStackLink: ->
     Link {onClick: @showStack},
-      Icon      {name: @props.stack.type.toLowerCase()}
+      Icon      {name: @props.stack?.type.toLowerCase()}
       StackName {stack: @props.stack}
 
   showStack: ->

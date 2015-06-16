@@ -17,8 +17,8 @@ StackName = React.createClass {
   mixins: [CachedState, Pure]
 
   getCachedState: (cache) -> {
-    user: cache('users').get(@props.stack.user) if @props.stack.user?
-    team: cache('teams').get(@props.stack.team) if @props.stack.team?
+    user: cache('users').get(@props.stack.user) if @props.stack?.user?
+    team: cache('teams').get(@props.stack.team) if @props.stack?.team?
   }
 
   render: ->

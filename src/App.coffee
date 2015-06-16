@@ -2,6 +2,7 @@ _                   = require 'lodash'
 cookies             = require 'cookies-js'
 React               = require 'react/addons'
 Router              = require 'react-router'
+Analytics           = require 'common/Analytics'
 Environment         = require './Environment'
 Shell               = require 'ui/shell/Shell'
 LoginInterstitial   = require 'ui/interstitials/login/LoginInterstitial'
@@ -43,4 +44,5 @@ Router.run routes, Router.HistoryLocation, (handler, state) ->
     url:    url
   })
 
+  Analytics.update()
   React.render(element, document.body)

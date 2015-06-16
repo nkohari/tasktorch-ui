@@ -5,7 +5,7 @@ PropTypes   = require 'ui/framework/PropTypes'
 CachedState = require 'ui/framework/mixins/CachedState'
 Avatar      = React.createFactory(require 'ui/common/Avatar')
 Icon        = React.createFactory(require 'ui/common/Icon')
-{div}       = React.DOM
+{span}      = React.DOM
 
 CardOwner = React.createClass {
 
@@ -23,12 +23,14 @@ CardOwner = React.createClass {
 
   render: ->
 
-    if @props.card? and @props.card.status == CardStatus.Complete
+    if @props.card?.status == CardStatus.Complete
       Icon {className: 'card-owner', name: 'complete'}
     else if @state.user?
       Avatar {className: 'card-owner', user: @state.user}
     else if @state.team?
       Icon {className: 'card-owner', name: 'team'}
+    else
+      span {}
 
 }
 

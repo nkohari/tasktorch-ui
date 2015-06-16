@@ -41,7 +41,7 @@ CardPassedNote = React.createClass {
         UserWidget {user: @props.user}
         'passed the card to'
         recipient
-        Time {relative: true, time: @props.note.time}
+        Time {relative: true, time: @props.note.created}
 
 }
 

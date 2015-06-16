@@ -44,7 +44,7 @@ ActionOwnerChangedNote = React.createClass {
         UserWidget {user: @state.previousOwner}
         'to'
         UserWidget {user: @state.newOwner}
-        Time {relative: true, time: @props.note.time}
+        Time {relative: true, time: @props.note.created}
 
 }
 

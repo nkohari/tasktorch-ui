@@ -38,7 +38,7 @@ ActionCreatedNote = React.createClass {
         UserWidget {user: @props.user}
         'created the action'
         ActionWidget {action: @state.action}
-        Time {relative: true, time: @props.note.time}
+        Time {relative: true, time: @props.note.created}
 
 }
 

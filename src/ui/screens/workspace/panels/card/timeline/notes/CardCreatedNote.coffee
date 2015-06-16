@@ -22,7 +22,7 @@ CardCreatedNote = React.createClass {
       div {className: 'activity-body'},
         UserWidget {user: @props.user}
         'created the card'
-        Time {relative: true, time: @props.note.time}
+        Time {relative: true, time: @props.note.created}
 
 }
 

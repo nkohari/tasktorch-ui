@@ -35,7 +35,7 @@ CardMovedNote = React.createClass {
         UserWidget {user: @props.user}
         'moved the card to'
         StackWidget {stack: @state.stack}
-        Time {relative: true, time: @props.note.time}
+        Time {relative: true, time: @props.note.created}
 
 }
 

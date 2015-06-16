@@ -5,8 +5,8 @@ PropTypes   = require 'ui/framework/PropTypes'
 Avatar      = React.createFactory(require 'ui/common/Avatar')
 Frame       = React.createFactory(require 'ui/common/Frame')
 CardOwner   = React.createFactory(require 'ui/common/CardOwner')
+CardWidgets = React.createFactory(require 'ui/common/CardWidgets')
 CardTitle   = React.createFactory(require 'ui/screens/workspace/panels/card/CardTitle')
-CardWidgets = React.createFactory(require 'ui/screens/workspace/panels/card/CardWidgets')
 {div}       = React.DOM
 
 CardHeader = React.createClass {

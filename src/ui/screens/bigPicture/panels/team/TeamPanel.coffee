@@ -3,7 +3,7 @@ React              = require 'react'
 PropTypes          = require 'ui/framework/PropTypes'
 CachedState        = require 'ui/framework/mixins/CachedState'
 PanelHeader        = React.createFactory(require 'ui/common/PanelHeader')
-QueueColumn        = React.createFactory(require 'ui/screens/bigPicture/panels/team/QueueColumn')
+TeamPanelColumn    = React.createFactory(require 'ui/screens/bigPicture/panels/team/TeamPanelColumn')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
 {div}              = React.DOM
 
@@ -24,7 +24,7 @@ TeamPanel = React.createClass {
   render: ->
 
     columns = _.map @state.users, (user) =>
-      QueueColumn {key: user.id, user}
+      TeamPanelColumn {key: user.id, team: @state.team, user}
 
     div {className: 'big-picture panel'},
       PanelHeader {panelid: @props.id, icon: 'team'},

@@ -1,5 +1,6 @@
 .big-picture-card
-  margin-bottom: 6px
+  margin-bottom: 8px
+  border-radius: 3px
   box-shadow: 1px 1px 0 black(10%)
   &:last-child { margin-bottom: 0px }
   
@@ -7,11 +8,13 @@
     &.{$name}
       background: $color
       border: 1px solid $semantic-colors-medium[$name]
-      .controls
+      .trigger
         color: $semantic-colors-border[$name]
-        .trigger:hover { color: $semantic-colors-foreground[$name] }
-      .big-picture-card-action
+        &:hover { color: $semantic-colors-foreground[$name] }
+      .card-actions
         border-color: $semantic-colors-medium[$name]
+      .stage
+        background: $semantic-colors-medium[$name]
 
   .card-summary
     display: flex
@@ -24,29 +27,28 @@
     .card-info
       flex: 1
     
-    .controls
-      flex: none
-      margin-left: 4px
-      .trigger
-        display: inline-block
-        vertical-align: middle
-        margin-right: 4px
+    .card-widgets
+      margin: 3px 0px 6px 0px
+      display: flex
+      color: $color-ink-light
+      .location
+        flex: 1
+        font-size: 14px
+        font-weight: $bold-font-weight
         transition: color $hover-animation-delay linear
-        &:last-child { margin-right: 0 }
-        & > i { margin-right: 0 }
+        &:hover { color: $color-ink }
+        i { margin-right: 4px }
+      .follow-toggle
+        flex: none
+        transition: color $hover-animation-delay linear
       
     .title
       font-size: 18px
       line-height: 22px
-      overflow: hidden
-      text-overflow: ellipsis
-      white-space: nowrap
 
-    .location
-      font-size: 14px
-      font-weight: $bold-font-weight
-      color: $color-ink-light
-      i { margin-right: 4px }
-  
+  .card-actions
+    border-top: 1px dotted
+    padding: 4px 0px
+
   .big-picture-card-action-list
     &.empty { display: none }

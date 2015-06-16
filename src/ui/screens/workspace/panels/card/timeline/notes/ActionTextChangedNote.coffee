@@ -36,7 +36,7 @@ ActionTextChangedNote = React.createClass {
         UserWidget {user: @props.user}
         'changed the text of action'
         ActionWidget {action: @state.action}
-        Time {relative: true, time: @props.note.time}
+        Time {relative: true, time: @props.note.created}
         ExpandableDiff {from: @props.note.content.from, to: @props.note.content.to}
 
 }

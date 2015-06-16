@@ -23,7 +23,7 @@ CardSummaryChangedNote = React.createClass {
       div {className: 'activity-body'},
         UserWidget {user: @props.user}
         'changed the summary'
-        Time {relative: true, time: @props.note.time}
+        Time {relative: true, time: @props.note.created}
         ExpandableDiff {from: @props.note.content.from, to: @props.note.content.to}
 
 }

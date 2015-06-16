@@ -4,7 +4,7 @@ PropTypes          = require 'ui/framework/PropTypes'
 CachedState        = require 'ui/framework/mixins/CachedState'
 Icon               = React.createFactory(require 'ui/common/Icon')
 PanelHeader        = React.createFactory(require 'ui/common/PanelHeader')
-StageColumn        = React.createFactory(require 'ui/screens/bigPicture/panels/kind/StageColumn')
+KindPanelColumn    = React.createFactory(require 'ui/screens/bigPicture/panels/kind/KindPanelColumn')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
 {div}              = React.DOM
 
@@ -25,7 +25,7 @@ KindPanel = React.createClass {
   render: ->
 
     columns = _.map @state.stages, (stage) =>
-      StageColumn {key: stage.id, stage}
+      KindPanelColumn {key: stage.id, kind: @state.kind, stage}
 
     icon = Icon {name: 'card', color: @state.kind?.color}
 

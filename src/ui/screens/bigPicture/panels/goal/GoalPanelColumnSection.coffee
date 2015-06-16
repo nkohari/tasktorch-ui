@@ -4,7 +4,7 @@ CardStatus    = require 'data/enums/CardStatus'
 PropTypes     = require 'ui/framework/PropTypes'
 CachedState   = require 'ui/framework/mixins/CachedState'
 Icon          = React.createFactory(require 'ui/common/Icon')
-GoalPanelCard = React.createFactory(require 'ui/screens/bigPicture/panels/goal/GoalPanelCard')
+BigPictureCard = React.createFactory(require 'ui/screens/bigPicture/BigPictureCard')
 {div, ul}     = React.DOM
 
 GoalPanelColumnSection = React.createClass {
@@ -23,7 +23,7 @@ GoalPanelColumnSection = React.createClass {
     plural = if count == 1 then '' else 's'
 
     cards = _.map @props.cards, (card) =>
-      GoalPanelCard {key: card.id, card, goal: @props.goal, kind: @props.kind}
+      BigPictureCard {key: card.id, card, goal: @props.goal, kind: @props.kind}
 
     div {className: 'big-picture-column-section'},
       div {className: 'header'},

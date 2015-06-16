@@ -20,6 +20,10 @@ OrgContextMenu = React.createClass {
   render: ->
 
     ContextMenu {position: 'bottom right', hideOverlay: @props.hideOverlay},
+      DialogTrigger {name: 'Help'},
+        Icon {name: 'help'}
+        'Help'
+      ContextMenuSeparator {}
       DialogTrigger {name: 'CreateTeam'},
         Icon {name: 'team'}
         'Create a team'

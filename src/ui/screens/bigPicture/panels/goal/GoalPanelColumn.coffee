@@ -3,6 +3,7 @@ React                  = require 'react'
 CardStatus             = require 'data/enums/CardStatus'
 PropTypes              = require 'ui/framework/PropTypes'
 CachedState            = require 'ui/framework/mixins/CachedState'
+KindPanelState         = require 'ui/screens/bigPicture/panels/kind/KindPanelState'
 Icon                   = React.createFactory(require 'ui/common/Icon')
 GoalPanelColumnSection = React.createFactory(require 'ui/screens/bigPicture/panels/goal/GoalPanelColumnSection')
 {div, ul}              = React.DOM
@@ -30,7 +31,7 @@ GoalPanelColumn = React.createClass {
     div {className: 'big-picture-column'},
       div {className: 'header'},
         div {className: 'content'},
-          div {className: 'name'},
+          div {className: 'name', onClick: @toggleKind},
             Icon {name: 'card', color: @props.kind.color}
             @props.kind.name
           div {className: 'count'}, "#{count} card#{plural}"
@@ -39,6 +40,9 @@ GoalPanelColumn = React.createClass {
         GoalPanelColumnSection {status: CardStatus.InProgress, cards: cardsByStatus[CardStatus.InProgress], goal: @props.goal, kind: @props.kind} if cardsByStatus[CardStatus.InProgress]?.length > 0
         GoalPanelColumnSection {status: CardStatus.NotStarted, cards: cardsByStatus[CardStatus.NotStarted], goal: @props.goal, kind: @props.kind} if cardsByStatus[CardStatus.NotStarted]?.length > 0
         GoalPanelColumnSection {status: CardStatus.Complete,   cards: cardsByStatus[CardStatus.Complete],   goal: @props.goal, kind: @props.kind} if cardsByStatus[CardStatus.Complete]?.length > 0
+
+  toggleKind: ->
+    @getScreen('bigpicture').togglePanel(new KindPanelState(@props.kind.id))
 
 }
 

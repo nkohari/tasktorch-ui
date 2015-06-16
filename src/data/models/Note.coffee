@@ -6,6 +6,6 @@ class Note extends Model
   type: 'Note'
 
   getTimeDifference: (other) ->
-    moment(@time).diff(moment(other.time))
+    moment(@created).diff(moment(other.created))
 
 module.exports = Note
