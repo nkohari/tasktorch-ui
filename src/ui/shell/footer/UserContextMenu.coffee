@@ -1,6 +1,7 @@
 superagent           = require 'superagent'
 React                = require 'react'
 Router               = require 'react-router'
+Request              = require 'data/framework/Request'
 UserLoggedOutEvent   = require 'events/ui/UserLoggedOutEvent'
 PropTypes            = require 'ui/framework/PropTypes'
 Actor                = require 'ui/framework/mixins/Actor'
@@ -38,7 +39,10 @@ UserContextMenu = React.createClass {
 
   logOut: ->
     @publish new UserLoggedOutEvent()
-    superagent.post('/api/sessions/logout').end (res) =>
+    superagent
+    .post(Request.urlFor('/sessions/logout'))
+    .withCredentials()
+    .end (err, res) =>
       @transitionTo('login')
 
 }

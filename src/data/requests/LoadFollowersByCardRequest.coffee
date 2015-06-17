@@ -10,7 +10,9 @@ class LoadFollowersByCardRequest extends Request
   constructor: (@cardid) ->
 
   execute: (eventQueue) ->
-    superagent.get "/api/#{Environment.orgid}/cards/#{@cardid}/followers", (res) =>
+    superagent.get(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/followers"))
+    .withCredentials()
+    .end (err, res) =>
       users = _.map res.body.users, (doc) -> new User(doc)
       eventQueue.publish new UsersLoadedEvent(users)
       eventQueue.publish new FollowersByCardLoadedEvent(@cardid, users)

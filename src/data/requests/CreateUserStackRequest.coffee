@@ -8,9 +8,10 @@ class CreateUserStackRequest extends Request
   constructor: (@name) ->
 
   execute: (eventQueue) ->
-    superagent.post("/api/#{Environment.orgid}/me/stacks")
+    superagent.post(@urlFor("/#{Environment.orgid}/me/stacks"))
+    .withCredentials()
     .send({@name})
-    .end (res) =>
+    .end (err, res) =>
       stack = new Stack(res.body.stack)
       eventQueue.publish new StackCreatedEvent(stack)
 

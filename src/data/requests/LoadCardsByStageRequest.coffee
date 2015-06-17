@@ -10,7 +10,9 @@ class LoadCardsByStageRequest extends Request
   constructor: (@stageid) ->
 
   execute: (eventQueue) ->
-    superagent.get "/api/#{Environment.orgid}/stages/#{@stageid}/cards", (res) =>
+    superagent.get(@urlFor("/#{Environment.orgid}/stages/#{@stageid}/cards"))
+    .withCredentials()
+    .end (err, res) =>
       cards = _.map res.body.cards, (data) -> new Card(data)
       eventQueue.publish new CardsLoadedEvent(cards)
       eventQueue.publish new CardsByStageLoadedEvent(@stageid, cards)

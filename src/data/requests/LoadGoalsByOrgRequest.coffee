@@ -10,7 +10,9 @@ class LoadGoalsByOrgRequest extends Request
   constructor: (@orgid) ->
 
   execute: (eventQueue) ->
-    superagent.get "/api/#{@orgid}/goals", (res) =>
+    superagent.get(@urlFor("/#{@orgid}/goals"))
+    .withCredentials()
+    .end (err, res) =>
       goals = _.map res.body.goals, (data) -> new Goal(data)
       eventQueue.publish new GoalsLoadedEvent(goals)
       eventQueue.publish new GoalsByOrgLoadedEvent(@orgid, goals)

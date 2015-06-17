@@ -8,9 +8,10 @@ class ChangeMyEmailRequest extends Request
   constructor: (@email) ->
 
   execute: (eventQueue) ->
-    superagent.post("/api/me/email")
+    superagent.post(@urlFor("/me/email"))
+    .withCredentials()
     .send {@email}
-    .end (res) =>
+    .end (err, res) =>
       card = new User(res.body.user)
       eventQueue.publish new UserChangedEvent(user)
 

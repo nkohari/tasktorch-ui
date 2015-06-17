@@ -8,8 +8,9 @@ class DeleteCardRequest extends Request
   constructor: (@cardid) ->
 
   execute: (eventQueue) ->
-    superagent.del("/api/#{Environment.orgid}/cards/#{@cardid}")
-    .end (res) =>
+    superagent.del(@urlFor("/#{Environment.orgid}/cards/#{@cardid}"))
+    .withCredentials()
+    .end (err, res) =>
       card = new Card(res.body.card)
       eventQueue.publish new CardDeletedEvent(card)
 

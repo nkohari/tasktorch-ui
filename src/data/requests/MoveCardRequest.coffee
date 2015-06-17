@@ -8,9 +8,10 @@ class MoveCardRequest extends Request
   constructor: (@cardid, @stackid, @position) ->
 
   execute: (eventQueue) ->
-    superagent.post("/api/#{Environment.orgid}/cards/#{@cardid}/move")
+    superagent.post(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/move"))
+    .withCredentials()
     .send {stack: @stackid, @position}
-    .end (res) =>
+    .end (err, res) =>
       card = new Card(res.body.card)
       eventQueue.publish new CardChangedEvent(card)
 

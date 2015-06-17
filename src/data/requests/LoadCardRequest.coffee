@@ -8,7 +8,9 @@ class LoadCardRequest extends Request
   constructor: (@cardid) ->
 
   execute: (eventQueue) ->
-    superagent.get "/api/#{Environment.orgid}/cards/#{@cardid}", (res) =>
+    superagent.get(@urlFor("/#{Environment.orgid}/cards/#{@cardid}"))
+    .withCredentials()
+    .end (err, res) =>
       card = new Card(res.body.card)
       eventQueue.publish new CardsLoadedEvent([card])
 

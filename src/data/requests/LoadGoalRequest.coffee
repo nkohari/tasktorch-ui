@@ -8,7 +8,9 @@ class LoadGoalRequest extends Request
   constructor: (@goalid) ->
 
   execute: (eventQueue) ->
-    superagent.get "/api/#{Environment.orgid}/goals/#{@goalid}", (res) =>
+    superagent.get(@urlFor("/#{Environment.orgid}/goals/#{@goalid}"))
+    .withCredentials()
+    .end (err, res) =>
       goal = new Goal(res.body.goal)
       eventQueue.publish new GoalsLoadedEvent([goal])
 

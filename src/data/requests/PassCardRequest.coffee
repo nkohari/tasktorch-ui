@@ -12,9 +12,10 @@ class PassCardRequest extends Request
     payload = {@message}
     payload[@recipient.type] = @recipient.item.id
 
-    superagent.put("/api/#{Environment.orgid}/cards/#{@cardid}/pass")
+    superagent.put(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/pass"))
+    .withCredentials()
     .send(payload)
-    .end (res) =>
+    .end (err, res) =>
       card = new Card(res.body.card)
       eventQueue.publish new CardChangedEvent(card)
 

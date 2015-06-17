@@ -1,13 +1,16 @@
 _          = require 'lodash'
 moment     = require 'moment'
 superagent = require 'superagent'
+Request    = require 'data/framework/Request'
 
 INTERCOM_APPID = 'y3il7gkh'
 
 Analytics = {}
 
 Analytics.init = (user, org) ->
-  superagent.get "/api/_intercom", (res) =>
+  superagent.get(Request.urlFor('/_intercom'))
+  .withCredentials()
+  .end (err, res) =>
     {token} = res.body
     Intercom('boot', {
       app_id:     INTERCOM_APPID

@@ -8,7 +8,9 @@ Request           = require 'data/framework/Request'
 class LoadMyOrgsRequest extends Request
 
   execute: (eventQueue) ->
-    superagent.get "/api/me/orgs", (res) =>
+    superagent.get(@urlFor("/me/orgs"))
+    .withCredentials()
+    .end (err, res) =>
       orgs = _.map res.body.orgs, (doc) -> new Org(doc)
       eventQueue.publish new OrgsLoadedEvent(orgs)
       eventQueue.publish new MyOrgsLoadedEvent(orgs)

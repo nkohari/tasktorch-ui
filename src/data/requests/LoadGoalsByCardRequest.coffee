@@ -10,7 +10,9 @@ class LoadGoalsByCardRequest extends Request
   constructor: (@cardid) ->
 
   execute: (eventQueue) ->
-    superagent.get "/api/#{Environment.orgid}/cards/#{@cardid}/goals", (res) =>
+    superagent.get(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/goals"))
+    .withCredentials()
+    .end (err, res) =>
       goals = _.map res.body.goals, (data) -> new Goal(data)
       eventQueue.publish new GoalsLoadedEvent(goals)
       eventQueue.publish new GoalsByCardLoadedEvent(@cardid, goals)

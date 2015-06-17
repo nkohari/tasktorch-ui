@@ -8,8 +8,9 @@ class DeleteActionRequest extends Request
   constructor: (@actionid) ->
 
   execute: (eventQueue) ->
-    superagent.del("/api/#{Environment.orgid}/actions/#{@actionid}")
-    .end (res) =>
+    superagent.del(@urlFor("/#{Environment.orgid}/actions/#{@actionid}"))
+    .withCredentials()
+    .end (err, res) =>
       action = new Action(res.body.action)
       eventQueue.publish new ActionDeletedEvent(action)
 

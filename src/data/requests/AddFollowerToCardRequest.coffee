@@ -8,9 +8,10 @@ class AddFollowerToCardRequest extends Request
   constructor: (@cardid, @userid) ->
 
   execute: (eventQueue) ->
-    superagent.post("/api/#{Environment.orgid}/cards/#{@cardid}/followers")
+    superagent.post(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/followers"))
+    .withCredentials()
     .send({user: @userid})
-    .end (res) =>
+    .end (err, res) =>
       card = new Card(res.body.card)
       eventQueue.publish new CardChangedEvent(card)
 

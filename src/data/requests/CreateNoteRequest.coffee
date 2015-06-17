@@ -8,9 +8,10 @@ class CreateNoteRequest extends Request
   constructor: (@cardid, @type, @content) ->
 
   execute: (eventQueue) ->
-    superagent.post("/api/#{Environment.orgid}/cards/#{@cardid}/notes")
+    superagent.post(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/notes"))
+    .withCredentials()
     .send {@type, @content}
-    .end (res) =>
+    .end (err, res) =>
       note = new Note(res.body.note)
       eventQueue.publish new NoteCreatedEvent(note)
 

@@ -8,9 +8,10 @@ class CreateActionRequest extends Request
   constructor: (@checklistid, @text) ->
 
   execute: (eventQueue) ->
-    superagent.post("/api/#{Environment.orgid}/checklists/#{@checklistid}/actions")
+    superagent.post(@urlFor("/#{Environment.orgid}/checklists/#{@checklistid}/actions"))
+    .withCredentials()
     .send({@text})
-    .end (res) =>
+    .end (err, res) =>
       action = new Action(res.body.action)
       eventQueue.publish new ActionCreatedEvent(action)
 

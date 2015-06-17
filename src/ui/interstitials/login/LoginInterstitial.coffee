@@ -3,6 +3,7 @@ superagent = require 'superagent'
 React      = require 'react/addons'
 Router     = require 'react-router'
 request    = require 'superagent'
+Request    = require 'data/framework/Request'
 Button     = React.createFactory(require 'ui/common/Button')
 Field      = React.createFactory(require 'ui/common/Field')
 Input      = React.createFactory(require 'ui/common/Input')
@@ -43,11 +44,11 @@ LoginInterstitial = React.createClass {
 
   handleSubmitClicked: ->
     payload = {login: @state.login, password: @state.password}
-    superagent.post('/api/sessions').send(payload).end (res) =>
+    superagent.post(Request.urlFor('/sessions')).send(payload).withCredentials().end (err, res) =>
       if res.forbidden
         alert("Username or password incorrect")
         return
-      superagent.get('/api/me/orgs').end (res) =>
+      superagent.get(Request.urlFor('/me/orgs')).withCredentials().end (err, res) =>
         {orgs} = res.body
         if orgs.length == 1
           @transitionTo('workspace', {orgid: orgs[0].id})

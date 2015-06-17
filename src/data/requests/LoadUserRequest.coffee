@@ -8,7 +8,9 @@ class LoadUserRequest extends Request
   constructor: (@userid) ->
 
   execute: (eventQueue) ->
-    superagent.get "/api/#{Environment.orgid}/members/#{@userid}", (res) =>
+    superagent.get(@urlFor("/#{Environment.orgid}/members/#{@userid}"))
+    .withCredentials()
+    .end (err, res) =>
       user = new User(res.body.user)
       eventQueue.publish new UsersLoadedEvent([user])
 

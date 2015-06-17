@@ -8,9 +8,10 @@ class RenameTeamRequest extends Request
   constructor: (@teamid, @name) ->
 
   execute: (eventQueue) ->
-    superagent.post("/api/#{Environment.orgid}/teams/#{@teamid}/name")
+    superagent.post(@urlFor("/#{Environment.orgid}/teams/#{@teamid}/name"))
+    .withCredentials()
     .send {@name}
-    .end (res) =>
+    .end (err, res) =>
       team = new Team(res.body.team)
       eventQueue.publish new TeamChangedEvent(team)
 

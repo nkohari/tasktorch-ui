@@ -10,7 +10,9 @@ class LoadChecklistsByCardRequest extends Request
   constructor: (@cardid) ->
 
   execute: (eventQueue) ->
-    superagent.get "/api/#{Environment.orgid}/cards/#{@cardid}/checklists", (res) =>
+    superagent.get(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/checklists"))
+    .withCredentials()
+    .end (err, res) =>
       checklists = _.map res.body.checklists, (doc) -> new Checklist(doc)
       eventQueue.publish new ChecklistsLoadedEvent(checklists)
       eventQueue.publish new ChecklistsByCardLoadedEvent(@cardid, checklists)

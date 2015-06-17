@@ -10,7 +10,9 @@ class LoadNotesByCardRequest extends Request
   constructor: (@cardid) ->
 
   execute: (eventQueue) ->
-    superagent.get "/api/#{Environment.orgid}/cards/#{@cardid}/notes", (res) =>
+    superagent.get(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/notes"))
+    .withCredentials()
+    .end (err, res) =>
       notes = _.map res.body.notes, (doc) -> new Note(doc)
       eventQueue.publish new NotesLoadedEvent(notes)
       eventQueue.publish new NotesByCardLoadedEvent(@cardid, notes)

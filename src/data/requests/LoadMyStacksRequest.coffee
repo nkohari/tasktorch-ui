@@ -8,7 +8,9 @@ Request             = require 'data/framework/Request'
 class LoadMyStacksRequest extends Request
 
   execute: (eventQueue) ->
-    superagent.get "/api/#{Environment.orgid}/me/stacks", (res) =>
+    superagent.get(@urlFor("/#{Environment.orgid}/me/stacks"))
+    .withCredentials()
+    .end (err, res) =>
       stacks = _.map res.body.stacks, (doc) -> new Stack(doc)
       eventQueue.publish new StacksLoadedEvent(stacks)
       eventQueue.publish new MyStacksLoadedEvent(stacks)

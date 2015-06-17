@@ -8,7 +8,9 @@ class LoadOrgRequest extends Request
   constructor: (@orgid) ->
 
   execute: (eventQueue) ->
-    superagent.get "/api/#{@orgid}", (res) =>
+    superagent.get(@urlFor("/#{@orgid}"))
+    .withCredentials()
+    .end (err, res) =>
       org = new Org(res.body.org)
       eventQueue.publish new OrgsLoadedEvent([org])
 

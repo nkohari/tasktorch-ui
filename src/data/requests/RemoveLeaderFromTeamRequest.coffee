@@ -8,8 +8,9 @@ class RemoveLeaderFromTeamRequest extends Request
   constructor: (@teamid, @userid) ->
 
   execute: (eventQueue) ->
-    superagent.del("/api/#{Environment.orgid}/teams/#{@teamid}/leaders/#{@userid}")
-    .end (res) =>
+    superagent.del(@urlFor("/#{Environment.orgid}/teams/#{@teamid}/leaders/#{@userid}"))
+    .withCredentials()
+    .end (err, res) =>
       team = new Team(res.body.team)
       eventQueue.publish new TeamChangedEvent(team)
 

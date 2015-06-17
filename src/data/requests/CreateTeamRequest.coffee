@@ -8,9 +8,10 @@ class CreateTeamRequest extends Request
   constructor: (@name, @purpose, @members, @leaders) ->
 
   execute: (eventQueue) ->
-    superagent.post("/api/#{Environment.orgid}/teams")
+    superagent.post(@urlFor("/#{Environment.orgid}/teams"))
+    .withCredentials()
     .send {@name, @purpose, @members, @leaders}
-    .end (res) =>
+    .end (err, res) =>
       team = new Team(res.body.team)
       eventQueue.publish new TeamCreatedEvent(team)
 

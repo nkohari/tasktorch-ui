@@ -7,10 +7,12 @@ class AcceptCardRequest extends Request
 
   constructor: (@cardid, @preempt) ->
 
+
   execute: (eventQueue) ->
-    superagent.post("/api/#{Environment.orgid}/cards/#{@cardid}/accept")
+    superagent.post(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/accept"))
+    .withCredentials()
     .send {@preempt}
-    .end (res) =>
+    .end (err, res) =>
       card = new Card(res.body.card)
       eventQueue.publish new CardChangedEvent(card)
 

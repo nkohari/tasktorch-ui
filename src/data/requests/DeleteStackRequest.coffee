@@ -8,8 +8,9 @@ class DeleteStackRequest extends Request
   constructor: (@stackid) ->
 
   execute: (eventQueue) ->
-    superagent.del("/api/#{Environment.orgid}/stacks/#{@stackid}")
-    .end (res) =>
+    superagent.del(@urlFor("/#{Environment.orgid}/stacks/#{@stackid}"))
+    .withCredentials()
+    .end (err, res) =>
       stack = new Stack(res.body.stack)
       eventQueue.publish new StackDeletedEvent(stack)
 

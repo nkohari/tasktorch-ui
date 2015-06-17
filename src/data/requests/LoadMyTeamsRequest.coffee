@@ -8,7 +8,9 @@ Request            = require 'data/framework/Request'
 class LoadMyTeamsRequest extends Request
 
   execute: (eventQueue) ->
-    superagent.get "/api/#{Environment.orgid}/me/teams", (res) =>
+    superagent.get(@urlFor("/#{Environment.orgid}/me/teams"))
+    .withCredentials()
+    .end (err, res) =>
       teams = _.map res.body.teams, (doc) -> new Team(doc)
       eventQueue.publish new TeamsLoadedEvent(teams)
       eventQueue.publish new MyTeamsLoadedEvent(teams)

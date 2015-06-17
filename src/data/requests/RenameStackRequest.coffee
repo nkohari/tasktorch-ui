@@ -8,9 +8,10 @@ class RenameStackRequest extends Request
   constructor: (@stackid, @name) ->
 
   execute: (eventQueue) ->
-    superagent.post("/api/#{Environment.orgid}/stacks/#{@stackid}/name")
+    superagent.post(@urlFor("/#{Environment.orgid}/stacks/#{@stackid}/name"))
+    .withCredentials()
     .send {@name}
-    .end (res) =>
+    .end (err, res) =>
       stack = new Stack(res.body.stack)
       eventQueue.publish new StackChangedEvent(stack)
 

@@ -8,9 +8,10 @@ class ChangeActionStatusRequest extends Request
   constructor: (@actionid, @status) ->
 
   execute: (eventQueue) ->
-    superagent.post("/api/#{Environment.orgid}/actions/#{@actionid}/status")
+    superagent.post(@urlFor("/#{Environment.orgid}/actions/#{@actionid}/status"))
+    .withCredentials()
     .send {@status}
-    .end (res) =>
+    .end (err, res) =>
       action = new Action(res.body.action)
       eventQueue.publish new ActionChangedEvent(action)
 

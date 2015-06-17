@@ -10,7 +10,9 @@ class LoadStagesByKindRequest extends Request
   constructor: (@kindid) ->
 
   execute: (eventQueue) ->
-    superagent.get "/api/#{Environment.orgid}/kinds/#{@kindid}/stages", (res) =>
+    superagent.get(@urlFor("/#{Environment.orgid}/kinds/#{@kindid}/stages"))
+    .withCredentials()
+    .end (err, res) =>
       stages = _.map res.body.stages, (data) -> new Stage(data)
       eventQueue.publish new StagesLoadedEvent(stages)
       eventQueue.publish new StagesByKindLoadedEvent(@kindid, stages)

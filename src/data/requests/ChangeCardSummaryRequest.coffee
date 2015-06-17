@@ -8,9 +8,10 @@ class ChangeCardSummaryRequest extends Request
   constructor: (@cardid, @summary) ->
 
   execute: (eventQueue) ->
-    superagent.post("/api/#{Environment.orgid}/cards/#{@cardid}/summary")
+    superagent.post(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/summary"))
+    .withCredentials()
     .send {@summary}
-    .end (res) =>
+    .end (err, res) =>
       card = new Card(res.body.card)
       eventQueue.publish new CardChangedEvent(card)
 

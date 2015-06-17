@@ -6,7 +6,8 @@ class ChangeMyPasswordRequest extends Request
   constructor: (@password) ->
 
   execute: (eventQueue) ->
-    superagent.post("/api/me/password")
+    superagent.post(@urlFor("/me/password"))
+    .withCredentials()
     .send {@password}
     .end()
 

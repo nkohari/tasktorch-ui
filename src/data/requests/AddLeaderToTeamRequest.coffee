@@ -8,9 +8,10 @@ class AddLeaderToTeamRequest extends Request
   constructor: (@teamid, @userid) ->
 
   execute: (eventQueue) ->
-    superagent.post("/api/#{Environment.orgid}/teams/#{@teamid}/leaders")
+    superagent.post(@urlFor("/#{Environment.orgid}/teams/#{@teamid}/leaders"))
+    .withCredentials()
     .send({user: @userid})
-    .end (res) =>
+    .end (err, res) =>
       team = new Team(res.body.team)
       eventQueue.publish new TeamChangedEvent(team)
 

@@ -10,7 +10,9 @@ class LoadTeamsByOrgRequest extends Request
   constructor: (@orgid) ->
 
   execute: (eventQueue) ->
-    superagent.get "/api/#{@orgid}/teams", (res) =>
+    superagent.get(@urlFor("/#{@orgid}/teams"))
+    .withCredentials()
+    .end (err, res) =>
       teams = _.map res.body.teams, (data) -> new Team(data)
       eventQueue.publish new TeamsLoadedEvent(teams)
       eventQueue.publish new TeamsByOrgLoadedEvent(@orgid, teams)

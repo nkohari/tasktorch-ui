@@ -8,7 +8,9 @@ class LoadStageRequest extends Request
   constructor: (@stageid) ->
 
   execute: (eventQueue) ->
-    superagent.get "/api/#{Environment.orgid}/stages/#{@stageid}", (res) =>
+    superagent.get(@urlFor("/#{Environment.orgid}/stages/#{@stageid}"))
+    .withCredentials()
+    .end (err, res) =>
       stage = new Stage(res.body.stage)
       eventQueue.publish new StagesLoadedEvent([stage])
 

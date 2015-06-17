@@ -8,8 +8,9 @@ class RemoveCardFromGoalRequest extends Request
   constructor: (@goalid, @cardid) ->
 
   execute: (eventQueue) ->
-    superagent.del("/api/#{Environment.orgid}/cards/#{@cardid}/goals/#{@goalid}")
-    .end (res) =>
+    superagent.del(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/goals/#{@goalid}"))
+    .withCredentials()
+    .end (err, res) =>
       card = new Card(res.body.card)
       eventQueue.publish new CardChangedEvent(card)
 

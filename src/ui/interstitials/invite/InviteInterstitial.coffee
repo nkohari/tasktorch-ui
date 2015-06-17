@@ -4,6 +4,7 @@ React      = require 'react/addons'
 Router     = require 'react-router'
 request    = require 'superagent'
 PropTypes  = require 'ui/framework/PropTypes'
+Request    = require 'data/framework/Request'
 Button     = React.createFactory(require 'ui/common/Button')
 Field      = React.createFactory(require 'ui/common/Field')
 Input      = React.createFactory(require 'ui/common/Input')
@@ -48,7 +49,9 @@ InviteInterstitial = React.createClass {
       @setState(patch)
 
   handleSubmitClicked: ->
-    superagent.post('/api/users').send(@state).end (res) =>
+    superagent
+    .post(Request.urlFor('/users'))
+    .send(@state).end (err, res) =>
       if res.forbidden or res.badRequest
         alert("Error creating user")
         return

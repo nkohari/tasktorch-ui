@@ -8,9 +8,10 @@ class CreateGoalRequest extends Request
   constructor: (@name) ->
 
   execute: (eventQueue) ->
-    superagent.post("/api/#{Environment.orgid}/goals")
+    superagent.post(@urlFor("/#{Environment.orgid}/goals"))
+    .withCredentials()
     .send({@name})
-    .end (res) =>
+    .end (err, res) =>
       goal = new Goal(res.body.goal)
       eventQueue.publish new GoalCreatedEvent(goal)
 

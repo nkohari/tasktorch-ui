@@ -8,9 +8,10 @@ class ChangeMyNameRequest extends Request
   constructor: (@name) ->
 
   execute: (eventQueue) ->
-    superagent.post("/api/me/name")
+    superagent.post(@urlFor("/me/name"))
+    .withCredentials()
     .send {@name}
-    .end (res) =>
+    .end (err, res) =>
       card = new User(res.body.user)
       eventQueue.publish new UserChangedEvent(user)
 

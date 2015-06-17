@@ -10,7 +10,9 @@ class LoadActionsByChecklistRequest extends Request
   constructor: (@checklistid) ->
 
   execute: (eventQueue) ->
-    superagent.get "/api/#{Environment.orgid}/checklists/#{@checklistid}/actions", (res) =>
+    superagent.get(@urlFor("/#{Environment.orgid}/checklists/#{@checklistid}/actions"))
+    .withCredentials()
+    .end (err, res) =>
       actions = _.map res.body.actions, (doc) -> new Action(doc)
       eventQueue.publish new ActionsLoadedEvent(actions)
       eventQueue.publish new ActionsByChecklistLoadedEvent(@checklistid, actions)

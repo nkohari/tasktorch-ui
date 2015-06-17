@@ -10,7 +10,9 @@ class LoadStacksByTeamRequest extends Request
   constructor: (@teamid) ->
 
   execute: (eventQueue) ->
-    superagent.get "/api/#{Environment.orgid}/teams/#{@teamid}/stacks", (res) =>
+    superagent.get(@urlFor("/#{Environment.orgid}/teams/#{@teamid}/stacks"))
+    .withCredentials()
+    .end (err, res) =>
       stacks = _.map res.body.stacks, (data) -> new Stack(data)
       eventQueue.publish new StacksLoadedEvent(stacks)
       eventQueue.publish new StacksByTeamLoadedEvent(@teamid, stacks)

@@ -8,9 +8,10 @@ class AddCardToGoalRequest extends Request
   constructor: (@goalid, @cardid) ->
 
   execute: (eventQueue) ->
-    superagent.post("/api/#{Environment.orgid}/cards/#{@cardid}/goals")
+    superagent.post(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/goals"))
+    .withCredentials()
     .send({goal: @goalid})
-    .end (res) =>
+    .end (err, res) =>
       card = new Card(res.body.card)
       eventQueue.publish new CardChangedEvent(card)
 

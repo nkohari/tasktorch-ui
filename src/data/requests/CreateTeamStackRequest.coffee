@@ -8,9 +8,10 @@ class CreateTeamStackRequest extends Request
   constructor: (@teamid, @name) ->
 
   execute: (eventQueue) ->
-    superagent.post("/api/#{Environment.orgid}/teams/#{@teamid}/stacks")
+    superagent.post(@urlFor("/#{Environment.orgid}/teams/#{@teamid}/stacks"))
+    .withCredentials()
     .send({@name})
-    .end (res) =>
+    .end (err, res) =>
       stack = new Stack(res.body.stack)
       eventQueue.publish new StackCreatedEvent(stack)
 

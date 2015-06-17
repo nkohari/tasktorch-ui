@@ -8,9 +8,10 @@ class AddMemberToTeamRequest extends Request
   constructor: (@teamid, @userid) ->
 
   execute: (eventQueue) ->
-    superagent.post("/api/#{Environment.orgid}/teams/#{@teamid}/members")
+    superagent.post(@urlFor("/#{Environment.orgid}/teams/#{@teamid}/members"))
+    .withCredentials()
     .send({user: @userid})
-    .end (res) =>
+    .end (err, res) =>
       team = new Team(res.body.team)
       eventQueue.publish new TeamChangedEvent(team)
 

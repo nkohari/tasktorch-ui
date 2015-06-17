@@ -8,7 +8,9 @@ class LoadStackRequest extends Request
   constructor: (@stackid) ->
 
   execute: (eventQueue) ->
-    superagent.get "/api/#{Environment.orgid}/stacks/#{@stackid}", (res) =>
+    superagent.get(@urlFor("/#{Environment.orgid}/stacks/#{@stackid}"))
+    .withCredentials()
+    .end (err, res) =>
       stack = new Stack(res.body.stack)
       eventQueue.publish new StacksLoadedEvent([stack])
 

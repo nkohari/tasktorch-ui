@@ -10,7 +10,9 @@ class LoadSuggestedTeamsRequest extends Request
   constructor: (@phrase) ->
 
   execute: (eventQueue) ->
-    superagent.get "/api/#{Environment.orgid}/teams?suggest=#{@phrase}", (res) =>
+    superagent.get(@urlFor("/#{Environment.orgid}/teams?suggest=#{@phrase}"))
+    .withCredentials()
+    .end (err, res) =>
       teams = _.map res.body.teams, (doc) -> new Team(doc)
       eventQueue.publish new TeamsLoadedEvent(teams)
       eventQueue.publish new SuggestedTeamsLoadedEvent(@phrase, teams)

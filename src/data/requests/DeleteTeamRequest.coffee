@@ -8,8 +8,9 @@ class DeleteTeamRequest extends Request
   constructor: (@teamid) ->
 
   execute: (eventQueue) ->
-    superagent.del("/api/#{Environment.orgid}/teams/#{@teamid}")
-    .end (res) =>
+    superagent.del(@urlFor("/#{Environment.orgid}/teams/#{@teamid}"))
+    .withCredentials()
+    .end (err, res) =>
       team = new Team(res.body.team)
       eventQueue.publish new TeamDeletedEvent(team)
 

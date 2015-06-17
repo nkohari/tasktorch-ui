@@ -10,7 +10,9 @@ class LoadKindsByOrgRequest extends Request
   constructor: (@orgid) ->
 
   execute: (eventQueue) ->
-    superagent.get "/api/#{@orgid}/kinds", (res) =>
+    superagent.get(@urlFor("/#{@orgid}/kinds"))
+    .withCredentials()
+    .end (err, res) =>
       kinds = _.map res.body.kinds, (doc) -> new Kind(doc)
       eventQueue.publish new KindsLoadedEvent(kinds)
       eventQueue.publish new KindsByOrgLoadedEvent(@orgid, kinds)

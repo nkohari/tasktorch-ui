@@ -10,7 +10,9 @@ class LoadMembersByTeamRequest extends Request
   constructor: (@teamid) ->
 
   execute: (eventQueue) ->
-    superagent.get "/api/#{Environment.orgid}/teams/#{@teamid}/members", (res) =>
+    superagent.get(@urlFor("/#{Environment.orgid}/teams/#{@teamid}/members"))
+    .withCredentials()
+    .end (err, res) =>
       users = _.map res.body.users, (data) -> new User(data)
       eventQueue.publish new UsersLoadedEvent(users)
       eventQueue.publish new MembersByTeamLoadedEvent(@teamid, users)

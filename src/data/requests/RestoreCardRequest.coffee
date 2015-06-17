@@ -8,8 +8,9 @@ class RestoreCardRequest extends Request
   constructor: (@cardid) ->
 
   execute: (eventQueue) ->
-    superagent.post("/api/#{Environment.orgid}/cards/#{@cardid}/restore")
-    .end (res) =>
+    superagent.post(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/restore"))
+    .withCredentials()
+    .end (err, res) =>
       card = new Card(res.body.card)
       eventQueue.publish new CardChangedEvent(card)
 

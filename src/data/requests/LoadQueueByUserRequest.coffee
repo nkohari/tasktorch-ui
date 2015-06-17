@@ -9,7 +9,9 @@ class LoadQueueByUserRequest extends Request
   constructor: (@userid) ->
 
   execute: (eventQueue) ->
-    superagent.get "/api/#{Environment.orgid}/members/#{@userid}/queue", (res) =>
+    superagent.get(@urlFor("/#{Environment.orgid}/members/#{@userid}/queue"))
+    .withCredentials()
+    .end (err, res) =>
       stack = new Stack(res.body.stack)
       eventQueue.publish new StacksLoadedEvent([stack])
 

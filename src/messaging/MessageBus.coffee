@@ -1,8 +1,10 @@
+Request = require 'data/framework/Request'
+
 class MessageBus
 
   constructor: ->
     @_pusher = new Pusher '9bc5b19ceaf8c59adcea',
-      authEndpoint: '/api/_wsauth'
+      authEndpoint: Request.urlFor('/_wsauth')
       encrypted: true
 
   addChannel: (name, channel) ->
