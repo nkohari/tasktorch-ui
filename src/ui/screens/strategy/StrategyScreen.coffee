@@ -1,6 +1,8 @@
+#--------------------------------------------------------------------------------
 _     = require 'lodash'
 React = require 'react'
-Frame = React.createFactory(require 'ui/common/Frame')
+Screen = React.createFactory(require 'ui/common/Screen')
+#--------------------------------------------------------------------------------
 
 StrategyScreen = React.createClass {
 
@@ -8,7 +10,7 @@ StrategyScreen = React.createClass {
 
   render: ->
 
-    Frame {className: 'screen'},
+    Screen {className: 'strategy'},
       "Not yet implemented"
 
 }

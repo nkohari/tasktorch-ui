@@ -1,9 +1,12 @@
-_              = require 'lodash'
-React          = require 'react'
-PropTypes      = require 'ui/framework/PropTypes'
-CachedState    = require 'ui/framework/mixins/CachedState'
-BigPictureCard = React.createFactory(require 'ui/screens/bigPicture/BigPictureCard')
-{div, ul}      = React.DOM
+#--------------------------------------------------------------------------------
+_                = require 'lodash'
+React            = require 'react'
+PropTypes        = require 'ui/framework/PropTypes'
+CachedState      = require 'ui/framework/mixins/CachedState'
+BigPictureCard   = React.createFactory(require 'ui/screens/bigPicture/BigPictureCard')
+BigPictureColumn = React.createFactory(require 'ui/screens/bigPicture/BigPictureColumn')
+{div, ul}        = React.DOM
+#--------------------------------------------------------------------------------
 
 KindPanelColumn = React.createClass {
 
@@ -27,7 +30,7 @@ KindPanelColumn = React.createClass {
     cards = _.map @state.cards, (card) =>
       BigPictureCard {key: card.id, card}
 
-    div {className: 'big-picture-column'},
+    BigPictureColumn {},
       div {className: 'header'},
         div {className: 'content'},
           div {className: 'name'}, @props.stage.name

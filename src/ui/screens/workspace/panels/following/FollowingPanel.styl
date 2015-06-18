@@ -1,0 +1,36 @@
+@import '~Theme.styl'
+
+.following
+  width: $following-panel-width
+  min-width: $following-panel-width
+  z-index: $panel-layer
+
+  &.slide-enter
+    animation: following-enter 300ms ease-out
+    z-index: $panel-animation-layer
+    
+  &.slide-leave
+    animation: following-leave 150ms linear
+    z-index: $panel-animation-layer
+
+@keyframes following-enter
+  0%
+    opacity: 0
+    margin-left: -($following-panel-width + $panel-margin)
+    margin-right: $panel-margin
+  50%
+    opacity: 0
+    margin-left: -($following-panel-width + $panel-margin)
+    margin-right: $following-panel-width + $panel-margin
+  100%
+    opacity: 1
+    margin-left: 0
+    margin-right: $panel-margin
+
+@keyframes following-leave
+  from
+    opacity: 1
+    margin-left: 0
+  to
+    opacity: 0
+    margin-left: -($following-panel-width + $panel-margin)

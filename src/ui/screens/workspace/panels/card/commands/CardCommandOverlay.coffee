@@ -1,7 +1,11 @@
+#--------------------------------------------------------------------------------
 React        = require 'react'
 mergeClasses = require 'common/util/mergeClasses'
 PropTypes    = require 'ui/framework/PropTypes'
 {div}        = React.DOM
+#--------------------------------------------------------------------------------
+require './CardCommandOverlay.styl'
+#--------------------------------------------------------------------------------
 
 CardCommandOverlay = React.createClass {
 

@@ -1,9 +1,13 @@
+#--------------------------------------------------------------------------------
 _           = require 'lodash'
 React       = require 'react'
 PropTypes   = require 'ui/framework/PropTypes'
 Avatar      = React.createFactory(require 'ui/common/Avatar')
 Time        = React.createFactory(require 'ui/common/Time')
 {div, span} = React.DOM
+#--------------------------------------------------------------------------------
+require './CommentNote.styl'
+#--------------------------------------------------------------------------------
 
 CommentNote = React.createClass {
 

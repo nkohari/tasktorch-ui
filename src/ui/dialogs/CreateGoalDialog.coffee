@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React                = require 'react'
 UserCreatedGoalEvent = require 'events/ui/UserCreatedGoalEvent'
 PropTypes            = require 'ui/framework/PropTypes'
@@ -8,6 +9,7 @@ Dialog               = React.createFactory(require 'ui/common/Dialog')
 DialogButtons        = React.createFactory(require 'ui/common/DialogButtons')
 Field                = React.createFactory(require 'ui/common/Field')
 Input                = React.createFactory(require 'ui/common/Input')
+#--------------------------------------------------------------------------------
 
 CreateGoalDialog = React.createClass {
 

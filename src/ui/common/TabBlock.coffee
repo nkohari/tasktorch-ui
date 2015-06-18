@@ -1,9 +1,13 @@
+#--------------------------------------------------------------------------------
 _             = require 'lodash'
 React         = require 'react'
 classSet      = require 'common/util/classSet'
 mergeProps    = require 'common/util/mergeProps'
 PropTypes     = require 'ui/framework/PropTypes'
 {div, li, ul} = React.DOM
+#--------------------------------------------------------------------------------
+require './TabBlock.styl'
+#--------------------------------------------------------------------------------
 
 TabBlock = React.createClass {
 

@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                  = require 'lodash'
 React              = require 'react'
 PropTypes          = require 'ui/framework/PropTypes'
@@ -8,6 +9,9 @@ ComposeMenu        = React.createFactory(require 'ui/shell/header/ComposeMenu')
 DrawerToggleButton = React.createFactory(require 'ui/shell/header/DrawerToggleButton')
 OverlayTrigger     = React.createFactory(require 'ui/common/OverlayTrigger')
 {div}              = React.DOM
+#--------------------------------------------------------------------------------
+require './TopLeftCorner.styl'
+#--------------------------------------------------------------------------------
 
 TopLeftCorner = React.createClass {
 

@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React           = require 'react'
 PropTypes       = require 'ui/framework/PropTypes'
 ShellContext    = require 'ui/framework/mixins/ShellContext'
@@ -7,6 +8,9 @@ Icon            = React.createFactory(require 'ui/common/Icon')
 OverlayTrigger  = React.createFactory(require 'ui/common/OverlayTrigger')
 UserContextMenu = React.createFactory(require 'ui/shell/footer/UserContextMenu')
 {div}           = React.DOM
+#--------------------------------------------------------------------------------
+require './BottomRightCorner.styl'
+#--------------------------------------------------------------------------------
 
 BottomRightCorner = React.createClass {
 

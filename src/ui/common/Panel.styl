@@ -1,0 +1,27 @@
+@import '~Theme.styl'
+
+.panel
+  position: relative
+  flex: none
+  height: 100%
+  display: flex
+  flex-direction: column
+  vertical-align: top
+  box-shadow: 0px 1px 3px black(30%)
+  margin-right: $panel-margin
+  background: $color-paper
+  border: 1px solid $color-steel-dark
+
+  & > .content
+    position: relative
+    flex: 1
+    display: flex
+    flex-direction: column
+    border-bottom: 1px solid $color-steel-medium
+
+  & > .footer
+    flex: none
+    padding: 8px
+    background: $color-steel
+    border-top: 1px solid $color-steel-light
+    z-index: $panel-layer

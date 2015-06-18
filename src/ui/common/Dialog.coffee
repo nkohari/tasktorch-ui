@@ -8,7 +8,7 @@ Icon               = React.createFactory(require 'ui/common/Icon')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
 {div}              = React.DOM
 #--------------------------------------------------------------------------------
-require 'common/Dialog.styl'
+require './Dialog.styl'
 #--------------------------------------------------------------------------------
 
 Dialog = React.createClass {

@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React                   = require 'react'
 classSet                = require 'common/util/classSet'
 PropTypes               = require 'ui/framework/PropTypes'
@@ -7,6 +8,9 @@ CardActionOwner         = React.createFactory(require 'ui/screens/workspace/pane
 CardActionText          = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CardActionText')
 CardActionDeleteTrigger = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CardActionDeleteTrigger')
 {li, div}               = React.DOM
+#--------------------------------------------------------------------------------
+require './CardAction.styl'
+#--------------------------------------------------------------------------------
 
 CardAction = React.createClass {
 

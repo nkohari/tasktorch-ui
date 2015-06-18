@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _              = require 'lodash'
 React          = require 'react'
 mergeProps     = require 'common/util/mergeProps'
@@ -8,6 +9,9 @@ TeamPanelState = require 'ui/screens/bigPicture/panels/team/TeamPanelState'
 GoalPanel      = React.createFactory(require 'ui/screens/bigPicture/panels/goal/GoalPanel')
 KindPanel      = React.createFactory(require 'ui/screens/bigPicture/panels/kind/KindPanel')
 TeamPanel      = React.createFactory(require 'ui/screens/bigPicture/panels/team/TeamPanel')
+#--------------------------------------------------------------------------------
+require './BigPicturePanel.styl'
+#--------------------------------------------------------------------------------
 
 BigPicturePanel = React.createClass {
 

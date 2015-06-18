@@ -1,9 +1,11 @@
+#--------------------------------------------------------------------------------
 React       = require 'react'
 PropTypes   = require 'ui/framework/PropTypes'
 Icon        = React.createFactory(require 'ui/common/Icon')
 Prompt      = React.createFactory(require 'ui/common/Prompt')
 WizardPage  = React.createFactory(require 'ui/common/WizardPage')
 {div}       = React.DOM
+#--------------------------------------------------------------------------------
 
 CreateKindWizardReviewPage = React.createClass {
 

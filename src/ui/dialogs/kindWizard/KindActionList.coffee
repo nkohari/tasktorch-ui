@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                  = require 'lodash'
 React              = require 'react'
 classSet           = require 'common/util/classSet'
@@ -5,6 +6,9 @@ PropTypes          = require 'ui/framework/PropTypes'
 SortableList       = require 'ui/framework/mixins/SortableList'
 KindActionListItem = React.createFactory(require 'ui/dialogs/kindWizard/KindActionListItem')
 {div, li, ul}      = React.DOM
+#--------------------------------------------------------------------------------
+require './KindActionList.styl'
+#--------------------------------------------------------------------------------
 
 KindActionList = React.createClass {
 

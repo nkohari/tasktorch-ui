@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                   = require 'lodash'
 React               = require 'react'
 classSet            = require 'common/util/classSet'
@@ -10,6 +11,9 @@ Icon                = React.createFactory(require 'ui/common/Icon')
 Input               = React.createFactory(require 'ui/common/Input')
 SelectorOption      = React.createFactory(require 'ui/common/SelectorOption')
 {div, span, li, ul} = React.DOM
+#--------------------------------------------------------------------------------
+require './UserSelector.styl'
+#--------------------------------------------------------------------------------
 
 UserSelector = React.createClass {
 

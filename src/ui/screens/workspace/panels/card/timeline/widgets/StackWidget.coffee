@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _           = require 'lodash'
 React       = require 'react'
 PropTypes   = require 'ui/framework/PropTypes'
@@ -6,6 +7,7 @@ CachedState = require 'ui/framework/mixins/CachedState'
 Pure        = require 'ui/framework/mixins/Pure'
 Icon        = React.createFactory(require 'ui/common/Icon')
 {em}        = React.DOM
+#--------------------------------------------------------------------------------
 
 StackWidget = React.createClass {
 

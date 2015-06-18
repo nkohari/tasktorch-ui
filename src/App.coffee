@@ -15,7 +15,7 @@ StrategyScreen      = require 'ui/screens/strategy/StrategyScreen'
 KnowledgeScreen     = require 'ui/screens/knowledge/KnowledgeScreen'
 Route               = React.createFactory(Router.Route)
 #--------------------------------------------------------------------------------
-require 'base.styl'
+require './App.styl'
 #--------------------------------------------------------------------------------
 
 history.pushState({}, "", location.hash.substring(1));

@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                         = require 'lodash'
 React                     = require 'react'
 PropTypes                 = require 'ui/framework/PropTypes'
@@ -5,6 +6,9 @@ classSet                  = require 'common/util/classSet'
 mergeProps                = require 'common/util/mergeProps'
 Icon                      = React.createFactory(require 'ui/common/Icon')
 {div, label, span, input} = React.DOM
+#--------------------------------------------------------------------------------
+require './Input.styl'
+#--------------------------------------------------------------------------------
 
 Input = React.createClass {
 

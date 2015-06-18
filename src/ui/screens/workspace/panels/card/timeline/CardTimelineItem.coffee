@@ -1,7 +1,9 @@
+#--------------------------------------------------------------------------------
 React       = require 'react'
 PropTypes   = require 'ui/framework/PropTypes'
 CachedState = require 'ui/framework/mixins/CachedState'
 {div}       = React.DOM
+#--------------------------------------------------------------------------------
 
 NoteComponents =
   ActionCreated:       React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/ActionCreatedNote')

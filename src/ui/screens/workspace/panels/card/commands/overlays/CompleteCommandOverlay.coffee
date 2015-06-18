@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React                  = require 'react'
 UserCompletedCardEvent = require 'events/ui/UserCompletedCardEvent'
 PropTypes              = require 'ui/framework/PropTypes'
@@ -7,6 +8,7 @@ Button                 = React.createFactory(require 'ui/common/Button')
 Prompt                 = React.createFactory(require 'ui/common/Prompt')
 CardCommandOverlay     = React.createFactory(require 'ui/screens/workspace/panels/card/commands/CardCommandOverlay')
 {div}                  = React.DOM
+#--------------------------------------------------------------------------------
 
 CompleteCommandOverlay = React.createClass {
 

@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                    = require 'lodash'
 React                = require 'react'
 EventOrigin          = require 'data/enums/EventOrigin'
@@ -14,6 +15,7 @@ ListItem             = React.createFactory(require 'ui/common/ListItem')
 Overlay              = React.createFactory(require 'ui/common/Overlay')
 OverlayTrigger       = React.createFactory(require 'ui/common/OverlayTrigger')
 {a, li, ul}          = React.DOM
+#--------------------------------------------------------------------------------
 
 ComposeMenu = React.createClass {
 

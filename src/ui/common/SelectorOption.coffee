@@ -1,9 +1,11 @@
+#--------------------------------------------------------------------------------
 _            = require 'lodash'
 React        = require 'react'
 classSet     = require 'common/util/classSet'
 mergeClasses = require 'common/util/mergeClasses'
 PropTypes    = require 'ui/framework/PropTypes'
 {li}         = React.DOM
+#--------------------------------------------------------------------------------
 
 SelectorOption = React.createClass {
 

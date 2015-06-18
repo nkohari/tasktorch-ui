@@ -1,11 +1,13 @@
+#--------------------------------------------------------------------------------
 React      = require 'react'
 PropTypes  = require 'ui/framework/PropTypes'
 Diff       = React.createFactory(require 'ui/common/Diff')
 {a, span}  = React.DOM
+#--------------------------------------------------------------------------------
 
-ActivityDiff = React.createClass {
+ExpandableDiff = React.createClass {
 
-  displayName: 'ActivityDiff'
+  displayName: 'ExpandableDiff'
 
   propTypes:
     from: PropTypes.string
@@ -16,7 +18,7 @@ ActivityDiff = React.createClass {
 
   render: ->
 
-    span {className: 'activity-diff'},
+    span {className: 'expandable-diff'},
       a {className: 'diff-toggle', onClick: @toggleExpanded},
         if @state.expanded then '(hide change)' else '(show change)'
       Diff {from: @props.from, to: @props.to} if @state.expanded
@@ -26,4 +28,4 @@ ActivityDiff = React.createClass {
 
 }
 
-module.exports = ActivityDiff
+module.exports = ExpandableDiff

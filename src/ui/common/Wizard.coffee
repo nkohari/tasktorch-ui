@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                  = require 'lodash'
 React              = require 'react/addons'
 classSet           = require 'common/util/classSet'
@@ -10,6 +11,9 @@ WizardPage         = React.createFactory(require 'ui/common/WizardPage')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
 {div}              = React.DOM
 {cloneWithProps}   = React.addons
+#--------------------------------------------------------------------------------
+require './Wizard.styl'
+#--------------------------------------------------------------------------------
 
 Wizard = React.createClass {
 

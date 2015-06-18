@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                    = require 'lodash'
 React                = require 'react'
 PropTypes            = require 'ui/framework/PropTypes'
@@ -6,6 +7,7 @@ ContextMenuSeparator = React.createFactory(require 'ui/common/ContextMenuSeparat
 DialogTrigger        = React.createFactory(require 'ui/common/DialogTrigger')
 Icon                 = React.createFactory(require 'ui/common/Icon')
 {div}                = React.DOM
+#--------------------------------------------------------------------------------
 
 StackContextMenu = React.createClass {
 

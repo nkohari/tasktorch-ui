@@ -1,8 +1,10 @@
+#--------------------------------------------------------------------------------
 React     = require 'react'
 PropTypes = require 'ui/framework/PropTypes'
 Avatar    = React.createFactory(require 'ui/common/Avatar')
 Icon      = React.createFactory(require 'ui/common/Icon')
 {div}     = React.DOM
+#--------------------------------------------------------------------------------
 
 UserOrTeamSelectorOption = React.createClass {
 

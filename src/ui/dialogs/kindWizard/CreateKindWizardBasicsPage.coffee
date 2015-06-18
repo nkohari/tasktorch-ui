@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React       = require 'react'
 PropTypes   = require 'ui/framework/PropTypes'
 Button      = React.createFactory(require 'ui/common/Button')
@@ -7,6 +8,7 @@ Input       = React.createFactory(require 'ui/common/Input')
 Prompt      = React.createFactory(require 'ui/common/Prompt')
 WizardPage  = React.createFactory(require 'ui/common/WizardPage')
 {div}       = React.DOM
+#--------------------------------------------------------------------------------
 
 CreateKindWizardBasicsPage = React.createClass {
 

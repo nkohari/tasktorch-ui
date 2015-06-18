@@ -1,9 +1,11 @@
+#--------------------------------------------------------------------------------
 _                  = require 'lodash'
 React              = require 'react'
 PropTypes          = require 'ui/framework/PropTypes'
 classSet           = require 'common/util/classSet'
 mergeProps         = require 'common/util/mergeProps'
 {div, input, span} = React.DOM
+#--------------------------------------------------------------------------------
 
 Radio = React.createClass {
 

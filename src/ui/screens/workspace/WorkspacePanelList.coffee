@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                  = require 'lodash'
 dom                = require 'common/util/dom'
 React              = require 'react'
@@ -6,6 +7,7 @@ SortableList       = require 'ui/framework/mixins/SortableList'
 PropTypes          = require 'ui/framework/PropTypes'
 WorkspacePanel     = React.createFactory(require 'ui/screens/workspace/WorkspacePanel')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
+#--------------------------------------------------------------------------------
 
 WorkspacePanelList = React.createClass {
 

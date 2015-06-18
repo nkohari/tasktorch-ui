@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                    = require 'lodash'
 React                = require 'react'
 PropTypes            = require 'ui/framework/PropTypes'
@@ -5,6 +6,7 @@ Icon                 = React.createFactory(require 'ui/common/Icon')
 OverlayTrigger       = React.createFactory(require 'ui/common/OverlayTrigger')
 CardFollowersOverlay = React.createFactory(require 'ui/screens/workspace/panels/card/CardFollowersOverlay')
 {span}               = React.DOM
+#--------------------------------------------------------------------------------
 
 CardFollowers = React.createClass {
 

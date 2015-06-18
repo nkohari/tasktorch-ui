@@ -1,8 +1,12 @@
+#--------------------------------------------------------------------------------
 React        = require 'react'
 mergeClasses = require 'common/util/mergeClasses'
 Hints        = require 'config/Hints'
 PropTypes    = require 'ui/framework/PropTypes'
 {div}        = React.DOM
+#--------------------------------------------------------------------------------
+require './Prompt.styl'
+#--------------------------------------------------------------------------------
 
 Prompt = React.createClass {
 

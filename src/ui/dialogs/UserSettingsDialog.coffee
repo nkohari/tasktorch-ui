@@ -1,9 +1,11 @@
+#--------------------------------------------------------------------------------
 React         = require 'react'
 PropTypes     = require 'ui/framework/PropTypes'
 Button        = React.createFactory(require 'ui/common/Button')
 Dialog        = React.createFactory(require 'ui/common/Dialog')
 DialogButtons = React.createFactory(require 'ui/common/DialogButtons')
 {div}         = React.DOM
+#--------------------------------------------------------------------------------
 
 UserSettingsDialog = React.createClass {
 

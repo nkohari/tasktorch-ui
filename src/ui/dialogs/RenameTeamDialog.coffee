@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React                = require 'react'
 UserRenamedTeamEvent = require 'events/ui/UserRenamedTeamEvent'
 PropTypes            = require 'ui/framework/PropTypes'
@@ -9,6 +10,7 @@ DialogButtons        = React.createFactory(require 'ui/common/DialogButtons')
 Field                = React.createFactory(require 'ui/common/Field')
 FieldGroup           = React.createFactory(require 'ui/common/FieldGroup')
 Input                = React.createFactory(require 'ui/common/Input')
+#--------------------------------------------------------------------------------
 
 RenameTeamDialog = React.createClass {
 

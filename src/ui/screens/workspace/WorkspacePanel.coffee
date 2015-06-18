@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                   = require 'lodash'
 React               = require 'react'
 mergeProps          = require 'common/util/mergeProps'
@@ -8,6 +9,7 @@ FollowingPanelState = require 'ui/screens/workspace/panels/following/FollowingPa
 StackPanel          = React.createFactory(require 'ui/screens/workspace/panels/stack/StackPanel')
 CardPanel           = React.createFactory(require 'ui/screens/workspace/panels/card/CardPanel')
 FollowingPanel      = React.createFactory(require 'ui/screens/workspace/panels/following/FollowingPanel')
+#--------------------------------------------------------------------------------
 
 WorkspacePanel = React.createClass {
 

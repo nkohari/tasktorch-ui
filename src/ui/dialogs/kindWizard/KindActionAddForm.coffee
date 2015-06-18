@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _         = require 'lodash'
 React     = require 'react'
 KeyCode   = require 'ui/framework/KeyCode'
@@ -5,6 +6,7 @@ PropTypes = require 'ui/framework/PropTypes'
 Input     = React.createFactory(require 'ui/common/Input')
 Icon      = React.createFactory(require 'ui/common/Icon')
 {a, div}  = React.DOM
+#--------------------------------------------------------------------------------
 
 KindActionAddForm = React.createClass {
 

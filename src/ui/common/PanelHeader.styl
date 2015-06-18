@@ -1,0 +1,36 @@
+@import '~Theme.styl'
+
+.panel > .header
+  flex: none
+  width: 100%
+  height: $stack-header-height
+  font-size: 14px
+  line-height: 16px
+  font-weight: $bold-font-weight
+  overflow: hidden
+  padding: 8px
+  background: $color-steel
+  border-bottom: 1px solid $color-steel-dark
+  display: flex
+  flex-direction: row
+  
+  .panel-icon
+    line-height: 16px
+    margin-right: 0
+  
+  .title
+    flex: 1
+    margin-left: 6px
+    
+  .controls
+    display: flex
+    
+    .trigger, .close
+      margin-right: 4px
+      &:last-child { margin-right: 0 }
+      
+      & > i
+        margin-right: 0
+        color: $color-ink-light
+        transition: color $hover-animation-delay linear
+        &:hover, &.active { color: $color-ink }

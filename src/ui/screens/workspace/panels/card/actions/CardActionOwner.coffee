@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React                    = require 'react'
 PropTypes                = require 'ui/framework/PropTypes'
 CachedState              = require 'ui/framework/mixins/CachedState'
@@ -5,6 +6,9 @@ Avatar                   = React.createFactory(require 'ui/common/Avatar')
 Icon                     = React.createFactory(require 'ui/common/Icon')
 OverlayTrigger           = React.createFactory(require 'ui/common/OverlayTrigger')
 ChangeActionOwnerOverlay = React.createFactory(require 'ui/screens/workspace/panels/card/actions/overlays/ChangeActionOwnerOverlay')
+#--------------------------------------------------------------------------------
+require './CardActionOwner.styl'
+#--------------------------------------------------------------------------------
 
 CardActionOwner = React.createClass {
 

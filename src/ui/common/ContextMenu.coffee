@@ -5,7 +5,7 @@ classSet  = require 'common/util/classSet'
 PropTypes = require 'ui/framework/PropTypes'
 {li, ul}  = React.DOM
 #--------------------------------------------------------------------------------
-require 'common/ContextMenu.styl'
+require './ContextMenu.styl'
 #--------------------------------------------------------------------------------
 
 ContextMenu = React.createClass {

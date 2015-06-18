@@ -1,9 +1,11 @@
+#--------------------------------------------------------------------------------
 _         = require 'lodash'
 React     = require 'react'
 PropTypes = require 'ui/framework/PropTypes'
 Navigator = require 'ui/framework/mixins/Navigator'
 Icon      = React.createFactory(require 'ui/common/Icon')
 Link      = React.createFactory(require 'ui/common/Link')
+#--------------------------------------------------------------------------------
 
 PanelCloseLink = React.createClass {
 

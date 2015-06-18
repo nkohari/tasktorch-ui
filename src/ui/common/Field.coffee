@@ -1,9 +1,13 @@
+#--------------------------------------------------------------------------------
 React        = require 'react'
 classSet     = require 'common/util/classSet'
 mergeClasses = require 'common/util/mergeClasses'
 Hints        = require 'config/Hints'
 PropTypes    = require 'ui/framework/PropTypes'
 {div, label} = React.DOM
+#--------------------------------------------------------------------------------
+require './Field.styl'
+#--------------------------------------------------------------------------------
 
 Field = React.createClass {
 

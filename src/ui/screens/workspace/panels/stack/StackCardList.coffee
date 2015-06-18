@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                  = require 'lodash'
 React              = require 'react'
 PropTypes          = require 'ui/framework/PropTypes'
@@ -10,6 +11,9 @@ UserMovedCardEvent = require 'events/ui/UserMovedCardEvent'
 List               = React.createFactory(require 'ui/common/List')
 StackCard          = React.createFactory(require 'ui/screens/workspace/panels/stack/StackCard')
 {ul, li}           = React.DOM
+#--------------------------------------------------------------------------------
+require './StackCardList.styl'
+#--------------------------------------------------------------------------------
 
 StackCardList = React.createClass {
 

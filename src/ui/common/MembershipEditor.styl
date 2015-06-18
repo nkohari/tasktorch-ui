@@ -1,0 +1,50 @@
+@import '~Theme.styl'
+
+.membership-editor
+  flex: 1
+  display: flex
+  flex-direction: column
+
+  .member-search
+    padding: 4px
+    background: $color-steel-light
+    border: 1px solid $color-steel
+    border-bottom: none
+  
+  .member-list
+    flex: 1
+    border: 1px solid $color-steel
+    background: $color-white
+    overflow-y: auto
+    
+    .member
+      display: flex
+      padding: 6px 8px
+      font-size: 14px
+      line-height: 24px
+      border-bottom: 1px solid $color-steel-light
+      
+      .avatar
+        height: 24px
+        width: 24px
+        border-radius: 4px
+        margin-right: 8px
+      
+      .member-name
+        flex: 1
+      
+      .trigger
+        color: $color-ink-light
+        transition: color $hover-animation-delay linear
+        &:hover { color: $color-ink }
+        
+      .leader-toggle
+        margin-right: 10px
+        background: $color-steel-light
+        padding: 2px 8px
+        border-radius: 10px
+        color: $color-ink-light
+        font-size: 11px
+        font-weight: $heavy-font-weight
+        text-transform: uppercase
+        i { font-size: 16px }

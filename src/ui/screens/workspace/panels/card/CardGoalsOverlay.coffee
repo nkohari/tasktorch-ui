@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                            = require 'lodash'
 React                        = require 'react'
 UserAddedCardToGoalEvent     = require 'events/ui/UserAddedCardToGoalEvent'
@@ -10,6 +11,9 @@ Checkbox                     = React.createFactory(require 'ui/common/Checkbox')
 DialogTrigger                = React.createFactory(require 'ui/common/DialogTrigger')
 Overlay                      = React.createFactory(require 'ui/common/Overlay')
 {div, ul, li}                = React.DOM
+#--------------------------------------------------------------------------------
+require './CardGoalsOverlay.styl'
+#--------------------------------------------------------------------------------
 
 CardGoalsOverlay = React.createClass {
 

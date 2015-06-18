@@ -1,6 +1,8 @@
+#--------------------------------------------------------------------------------
 React     = require 'react'
 PropTypes = require 'ui/framework/PropTypes'
 {em}      = React.DOM
+#--------------------------------------------------------------------------------
 
 ActionWidget = React.createClass {
 

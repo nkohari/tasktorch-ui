@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                       = require 'lodash'
 moment                  = require 'moment'
 React                   = require 'react'
@@ -12,6 +13,9 @@ CardFollowToggle        = React.createFactory(require 'ui/common/CardFollowToggl
 CardLocation            = React.createFactory(require 'ui/common/CardLocation')
 BigPictureCardChecklist = React.createFactory(require 'ui/screens/bigPicture/BigPictureCardChecklist')
 {a, div}                = React.DOM
+#--------------------------------------------------------------------------------
+require './BigPictureCard.styl'
+#--------------------------------------------------------------------------------
 
 BigPictureCard = React.createClass {
 

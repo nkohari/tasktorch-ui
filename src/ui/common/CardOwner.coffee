@@ -8,7 +8,7 @@ Avatar      = React.createFactory(require 'ui/common/Avatar')
 Icon        = React.createFactory(require 'ui/common/Icon')
 {span}      = React.DOM
 #--------------------------------------------------------------------------------
-require 'common/CardOwner.styl'
+require './CardOwner.styl'
 #--------------------------------------------------------------------------------
 
 CardOwner = React.createClass {

@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                 = require 'lodash'
 React             = require 'react'
 Analytics         = require 'common/Analytics'
@@ -7,6 +8,9 @@ Frame             = React.createFactory(require 'ui/common/Frame')
 BottomLeftCorner  = React.createFactory(require 'ui/shell/footer/BottomLeftCorner')
 BottomRightCorner = React.createFactory(require 'ui/shell/footer/BottomRightCorner')
 BottomCenter      = React.createFactory(require 'ui/shell/footer/BottomCenter')
+#--------------------------------------------------------------------------------
+require './ShellFooter.styl'
+#--------------------------------------------------------------------------------
 
 ShellFooter = React.createClass {
 

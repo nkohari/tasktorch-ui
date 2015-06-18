@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                   = require 'lodash'
 React               = require 'react'
 PropTypes           = require 'ui/framework/PropTypes'
@@ -5,6 +6,9 @@ Icon                = React.createFactory(require 'ui/common/Icon')
 KindActionList      = React.createFactory(require 'ui/dialogs/kindWizard/KindActionList')
 KindActionAddForm   = React.createFactory(require 'ui/dialogs/kindWizard/KindActionAddForm')
 {div, li, ul, span} = React.DOM
+#--------------------------------------------------------------------------------
+require './KindActionEditor.styl'
+#--------------------------------------------------------------------------------
 
 KindActionEditor = React.createClass {
 

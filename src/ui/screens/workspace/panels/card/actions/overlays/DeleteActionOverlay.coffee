@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React                  = require 'react'
 PropTypes              = require 'ui/framework/PropTypes'
 Actor                  = require 'ui/framework/mixins/Actor'
@@ -5,6 +6,7 @@ UserDeletedActionEvent = require 'events/ui/UserDeletedActionEvent'
 Button                 = React.createFactory(require 'ui/common/Button')
 Overlay                = React.createFactory(require 'ui/common/Overlay')
 {div}                  = React.DOM
+#--------------------------------------------------------------------------------
 
 DeleteActionOverlay = React.createClass {
 

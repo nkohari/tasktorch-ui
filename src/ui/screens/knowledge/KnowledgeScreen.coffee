@@ -1,6 +1,8 @@
+#--------------------------------------------------------------------------------
 _     = require 'lodash'
 React = require 'react'
-Frame = React.createFactory(require 'ui/common/Frame')
+Screen = React.createFactory(require 'ui/common/Screen')
+#--------------------------------------------------------------------------------
 
 KnowledgeScreen = React.createClass {
 
@@ -8,7 +10,7 @@ KnowledgeScreen = React.createClass {
 
   render: ->
 
-    Frame {className: 'screen'},
+    Screen {className: 'knowledge'},
       "Not yet implemented"
 
 }

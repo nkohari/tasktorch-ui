@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                        = require 'lodash'
 React                    = require 'react'
 PropTypes                = require 'ui/framework/PropTypes'
@@ -9,6 +10,9 @@ CardChecklistContextMenu = React.createFactory(require 'ui/screens/workspace/pan
 CardChecklistActionList  = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CardChecklistActionList')
 CreateActionForm         = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CreateActionForm')
 {div, span}              = React.DOM
+#--------------------------------------------------------------------------------
+require './CardChecklist.styl'
+#--------------------------------------------------------------------------------
 
 CardChecklist = React.createClass {
 

@@ -13,11 +13,11 @@ module.exports = {
   },
   output: {
     path: 'dist',
-    filename: 'js/torch-[hash].js',
+    filename: 'torch-[hash].js',
     hash: true
   },
   plugins: [
-    new ExtractTextPlugin('css/[name]-[hash].css'),
+    new ExtractTextPlugin('[name]-[hash].css'),
     new HtmlWebpackPlugin({
       title: 'TaskTorch',
       filename: 'index.html',

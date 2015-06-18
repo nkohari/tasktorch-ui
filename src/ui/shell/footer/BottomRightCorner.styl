@@ -1,0 +1,27 @@
+@import '~Theme.styl'
+
+.bottom-right
+  position: absolute
+  bottom: 5px
+  right: 10px
+  
+  .current-user
+    position: relative
+    color: $color-ink-light
+    transition: all $hover-animation-delay linear
+    &:hover, &:active
+      color: $color-ink
+    
+    & > i
+      display: inline-block
+      vertical-align: middle
+        
+    .avatar
+      display: inline-block
+      vertical-align: middle
+      width: 32px
+      height: 32px
+      padding: 2px
+      background: $color-white
+      border: 1px solid $color-steel-dark
+      border-radius: 6px

@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _            = require 'lodash'
 React        = require 'react'
 classSet     = require 'common/util/classSet'
@@ -6,6 +7,9 @@ PropTypes    = require 'ui/framework/PropTypes'
 CachedState  = require 'ui/framework/mixins/CachedState'
 Icon         = React.createFactory(require 'ui/common/Icon')
 {div, li}    = React.DOM
+#--------------------------------------------------------------------------------
+require './BigPictureCardAction.styl'
+#--------------------------------------------------------------------------------
 
 BigPictureCardAction = React.createClass {
 

@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React             = require 'react'
 classSet          = require 'common/util/classSet'
 CardStatus        = require 'data/enums/CardStatus'
@@ -10,6 +11,7 @@ DraftsCommandBar  = React.createFactory(require 'ui/screens/workspace/panels/car
 InboxCommandBar   = React.createFactory(require 'ui/screens/workspace/panels/card/commands/bars/InboxCommandBar')
 QueueCommandBar   = React.createFactory(require 'ui/screens/workspace/panels/card/commands/bars/QueueCommandBar')
 TrashCommandBar   = React.createFactory(require 'ui/screens/workspace/panels/card/commands/bars/TrashCommandBar')
+#--------------------------------------------------------------------------------
 
 CardCommandBar = React.createClass {
 

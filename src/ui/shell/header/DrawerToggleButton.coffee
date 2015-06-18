@@ -1,9 +1,11 @@
+#--------------------------------------------------------------------------------
 _         = require 'lodash'
 React     = require 'react'
 classSet  = require 'common/util/classSet'
 Navigator = require 'ui/framework/mixins/Navigator'
 Icon      = React.createFactory(require 'ui/common/Icon')
 Link      = React.createFactory(require 'ui/common/Link')
+#--------------------------------------------------------------------------------
 
 DrawerToggleButton = React.createClass {
 

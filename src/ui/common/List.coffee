@@ -1,6 +1,8 @@
+#--------------------------------------------------------------------------------
 React     = require 'react'
 PropTypes = require 'ui/framework/PropTypes'
 {ul}      = React.DOM
+#--------------------------------------------------------------------------------
 
 List = React.createClass {
 

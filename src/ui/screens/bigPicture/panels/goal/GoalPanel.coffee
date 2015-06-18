@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                  = require 'lodash'
 React              = require 'react/addons'
 PropTypes          = require 'ui/framework/PropTypes'
@@ -9,6 +10,7 @@ GoalPanelColumn    = React.createFactory(require 'ui/screens/bigPicture/panels/g
 GoalProgressBar    = React.createFactory(require 'ui/screens/bigPicture/panels/goal/GoalProgressBar')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
 {div}              = React.DOM
+#--------------------------------------------------------------------------------
 
 GoalPanel = React.createClass {
 

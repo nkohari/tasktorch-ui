@@ -8,7 +8,7 @@ PropTypes     = require 'ui/framework/PropTypes'
 Icon          = React.createFactory(require 'ui/common/Icon')
 {div, li, ul} = React.DOM
 #--------------------------------------------------------------------------------
-require 'common/ColorPicker.styl'
+require './ColorPicker.styl'
 #--------------------------------------------------------------------------------
 
 ColorPicker = React.createClass {

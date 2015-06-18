@@ -1,8 +1,10 @@
+#--------------------------------------------------------------------------------
 _               = require 'lodash'
 React           = require 'react'
 PropTypes       = require 'ui/framework/PropTypes'
 GoalDrawerItem  = React.createFactory(require 'ui/screens/bigPicture/drawer/GoalDrawerItem')
 {div, span, ul} = React.DOM
+#--------------------------------------------------------------------------------
 
 GoalList = React.createClass {
 

@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                   = require 'lodash'
 React               = require 'react'
 classSet            = require 'common/util/classSet'
@@ -9,6 +10,7 @@ Frame               = React.createFactory(require 'ui/common/Frame')
 Icon                = React.createFactory(require 'ui/common/Icon')
 Link                = React.createFactory(require 'ui/common/Link')
 {span}              = React.DOM
+#--------------------------------------------------------------------------------
 
 FollowingDrawerItem = React.createClass {
 

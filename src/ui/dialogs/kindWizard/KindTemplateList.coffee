@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _             = require 'lodash'
 React         = require 'react'
 classSet      = require 'common/util/classSet'
@@ -6,6 +7,9 @@ KeyCode       = require 'ui/framework/KeyCode'
 PropTypes     = require 'ui/framework/PropTypes'
 Icon          = React.createFactory(require 'ui/common/Icon')
 {div, li, ul} = React.DOM
+#--------------------------------------------------------------------------------
+require './KindTemplateList.styl'
+#--------------------------------------------------------------------------------
 
 KindTemplateList = React.createClass {
 

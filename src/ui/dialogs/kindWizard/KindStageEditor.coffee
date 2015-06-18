@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _             = require 'lodash'
 React         = require 'react'
 KeyCode       = require 'ui/framework/KeyCode'
@@ -6,6 +7,9 @@ Input         = React.createFactory(require 'ui/common/Input')
 Icon          = React.createFactory(require 'ui/common/Icon')
 KindStageList = React.createFactory(require 'ui/dialogs/kindWizard/KindStageList')
 {div}         = React.DOM
+#--------------------------------------------------------------------------------
+require './KindStageEditor.styl'
+#--------------------------------------------------------------------------------
 
 KindStageEditor = React.createClass {
 

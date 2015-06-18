@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React             = require 'react'
 PropTypes         = require 'ui/framework/PropTypes'
 TabBlock          = React.createFactory(require 'ui/common/TabBlock')
@@ -5,6 +6,9 @@ CardDetailsTab    = React.createFactory(require 'ui/screens/workspace/panels/car
 CardActionsTab    = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CardActionsTab')
 CardTimelineTab   = React.createFactory(require 'ui/screens/workspace/panels/card/timeline/CardTimelineTab')
 {div}             = React.DOM
+#--------------------------------------------------------------------------------
+require './CardBody.styl'
+#--------------------------------------------------------------------------------
 
 CardBody = React.createClass {
 

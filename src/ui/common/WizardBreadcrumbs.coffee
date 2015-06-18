@@ -1,8 +1,10 @@
+#--------------------------------------------------------------------------------
 _              = require 'lodash'
 React          = require 'react'
 classSet       = require 'common/util/classSet'
 PropTypes      = require 'ui/framework/PropTypes'
 {span, li, ul} = React.DOM
+#--------------------------------------------------------------------------------
 
 WizardBreadcrumbs = React.createClass {
 

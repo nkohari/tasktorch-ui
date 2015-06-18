@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                   = require 'lodash'
 React               = require 'react'
 classSet            = require 'common/util/classSet'
@@ -7,6 +8,7 @@ FollowingPanelState = require 'ui/screens/workspace/panels/following/FollowingPa
 Icon                = React.createFactory(require 'ui/common/Icon')
 Link                = React.createFactory(require 'ui/common/Link')
 {span}              = React.DOM
+#--------------------------------------------------------------------------------
 
 FollowingToggleButton = React.createClass {
 

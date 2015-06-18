@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React                     = require 'react'
 UserCreatedStackEvent     = require 'events/ui/UserCreatedStackEvent'
 UserCreatedTeamStackEvent = require 'events/ui/UserCreatedTeamStackEvent'
@@ -11,6 +12,7 @@ Field                     = React.createFactory(require 'ui/common/Field')
 FieldGroup                = React.createFactory(require 'ui/common/FieldGroup')
 Input                     = React.createFactory(require 'ui/common/Input')
 {div}                     = React.DOM
+#--------------------------------------------------------------------------------
 
 CreateStackDialog = React.createClass {
 

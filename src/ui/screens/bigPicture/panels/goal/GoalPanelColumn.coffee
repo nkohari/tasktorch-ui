@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                      = require 'lodash'
 React                  = require 'react'
 CardStatus             = require 'data/enums/CardStatus'
@@ -5,8 +6,10 @@ PropTypes              = require 'ui/framework/PropTypes'
 CachedState            = require 'ui/framework/mixins/CachedState'
 KindPanelState         = require 'ui/screens/bigPicture/panels/kind/KindPanelState'
 Icon                   = React.createFactory(require 'ui/common/Icon')
+BigPictureColumn       = React.createFactory(require 'ui/screens/bigPicture/BigPictureColumn')
 GoalPanelColumnSection = React.createFactory(require 'ui/screens/bigPicture/panels/goal/GoalPanelColumnSection')
 {div, ul}              = React.DOM
+#--------------------------------------------------------------------------------
 
 GoalPanelColumn = React.createClass {
 
@@ -28,7 +31,7 @@ GoalPanelColumn = React.createClass {
       Complete:   []
     }, _.groupBy(@props.cards, 'status')
 
-    div {className: 'big-picture-column'},
+    BigPictureColumn {},
       div {className: 'header'},
         div {className: 'content'},
           div {className: 'name', onClick: @toggleKind},

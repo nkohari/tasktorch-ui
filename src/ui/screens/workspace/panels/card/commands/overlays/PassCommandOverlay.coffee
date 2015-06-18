@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React                    = require 'react'
 UserPassedCardEvent      = require 'events/ui/UserPassedCardEvent'
 PropTypes                = require 'ui/framework/PropTypes'
@@ -10,6 +11,7 @@ SuggestingSelector       = React.createFactory(require 'ui/common/SuggestingSele
 UserOrTeamSelectorOption = React.createFactory(require 'ui/common/UserOrTeamSelectorOption')
 CardCommandOverlay       = React.createFactory(require 'ui/screens/workspace/panels/card/commands/CardCommandOverlay')
 {div}                    = React.DOM
+#--------------------------------------------------------------------------------
 
 PassCommandOverlay = React.createClass {
 

@@ -1,8 +1,10 @@
+#--------------------------------------------------------------------------------
 React        = require 'react'
 ActionStatus = require 'data/enums/ActionStatus'
 PropTypes    = require 'ui/framework/PropTypes'
 Icon         = React.createFactory(require 'ui/common/Icon')
 {em}         = React.DOM
+#--------------------------------------------------------------------------------
 
 ActionStatusWidget = React.createClass {
 

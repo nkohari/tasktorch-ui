@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                  = require 'lodash'
 React              = require 'react/addons'
 PropTypes          = require 'ui/framework/PropTypes'
@@ -6,6 +7,7 @@ PanelHeader        = React.createFactory(require 'ui/common/PanelHeader')
 TeamPanelColumn    = React.createFactory(require 'ui/screens/bigPicture/panels/team/TeamPanelColumn')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
 {div}              = React.DOM
+#--------------------------------------------------------------------------------
 
 TeamPanel = React.createClass {
 

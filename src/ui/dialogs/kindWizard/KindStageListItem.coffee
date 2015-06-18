@@ -1,9 +1,11 @@
+#--------------------------------------------------------------------------------
 _             = require 'lodash'
 React         = require 'react'
 PropTypes     = require 'ui/framework/PropTypes'
 EditableInput = React.createFactory(require 'ui/common/EditableInput')
 Icon          = React.createFactory(require 'ui/common/Icon')
 {a, div, li}  = React.DOM
+#--------------------------------------------------------------------------------
 
 KindStageListItem = React.createClass {
 

@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                              = require 'lodash'
 React                          = require 'react'
 UserAddedLeaderToTeamEvent     = require 'events/ui/UserAddedLeaderToTeamEvent'
@@ -13,6 +14,7 @@ DialogButtons                  = React.createFactory(require 'ui/common/DialogBu
 Field                          = React.createFactory(require 'ui/common/Field')
 MembershipEditor               = React.createFactory(require 'ui/common/MembershipEditor')
 {div}                          = React.DOM
+#--------------------------------------------------------------------------------
 
 TeamMembersDialog = React.createClass {
 

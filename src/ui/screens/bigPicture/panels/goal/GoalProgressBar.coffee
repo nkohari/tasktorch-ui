@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                  = require 'lodash'
 React              = require 'react'
 CardStatus         = require 'data/enums/CardStatus'
@@ -5,6 +6,9 @@ PropTypes          = require 'ui/framework/PropTypes'
 ProgressBar        = React.createFactory(require 'ui/common/ProgressBar')
 ProgressBarSegment = React.createFactory(require 'ui/common/ProgressBarSegment')
 {div}              = React.DOM
+#--------------------------------------------------------------------------------
+require './GoalProgressBar.styl'
+#--------------------------------------------------------------------------------
 
 GoalProgressBar = React.createClass {
 
@@ -30,7 +34,7 @@ GoalProgressBar = React.createClass {
         pct = Math.floor(100 * (counts[CardStatus.Complete] / @props.cards.length))
       completion = "#{pct}% Complete"
 
-    div {className: 'goal-progress'},
+    div {className: 'goal-progress-bar'},
       div {className: 'completion'}, completion
       ProgressBar {total: @props.cards?.length or 0},
         ProgressBarSegment {className: 'complete',   value: counts[CardStatus.Complete]}   if counts[CardStatus.Complete] > 0

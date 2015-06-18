@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React                       = require 'react'
 PropTypes                   = require 'ui/framework/PropTypes'
 Actor                       = require 'ui/framework/mixins/Actor'
@@ -5,6 +6,9 @@ Pure                        = require 'ui/framework/mixins/Pure'
 UserChangedCardSummaryEvent = require 'events/ui/UserChangedCardSummaryEvent'
 EditableTextArea            = React.createFactory(require 'ui/common/EditableTextArea')
 {div}                       = React.DOM
+#--------------------------------------------------------------------------------
+require './CardDetailsTab.styl'
+#--------------------------------------------------------------------------------
 
 CardDetailsTab = React.createClass {
 

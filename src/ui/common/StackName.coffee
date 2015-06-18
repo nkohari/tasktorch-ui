@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _           = require 'lodash'
 React       = require 'react'
 PropTypes   = require 'ui/framework/PropTypes'
@@ -6,6 +7,7 @@ StackType   = require 'data/enums/StackType'
 CachedState = require 'ui/framework/mixins/CachedState'
 Pure        = require 'ui/framework/mixins/Pure'
 {span}      = React.DOM
+#--------------------------------------------------------------------------------
 
 StackName = React.createClass {
 

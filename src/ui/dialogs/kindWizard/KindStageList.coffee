@@ -1,9 +1,11 @@
+#--------------------------------------------------------------------------------
 _                 = require 'lodash'
 React             = require 'react'
 PropTypes         = require 'ui/framework/PropTypes'
 SortableList      = require 'ui/framework/mixins/SortableList'
 KindStageListItem = React.createFactory(require 'ui/dialogs/kindWizard/KindStageListItem')
 {div, li, ul}     = React.DOM
+#--------------------------------------------------------------------------------
 
 KindStageList = React.createClass {
 

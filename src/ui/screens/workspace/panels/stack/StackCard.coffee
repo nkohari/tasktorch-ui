@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _              = require 'lodash'
 moment         = require 'moment'
 React          = require 'react'
@@ -6,6 +7,9 @@ Navigator      = require 'ui/framework/mixins/Navigator'
 CardPanelState = require 'ui/screens/workspace/panels/card/CardPanelState'
 Card           = React.createFactory(require 'ui/common/Card')
 {div}          = React.DOM
+#--------------------------------------------------------------------------------
+require './StackCard.styl'
+#--------------------------------------------------------------------------------
 
 StackCard = React.createClass {
 

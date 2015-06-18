@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                = require 'lodash'
 React            = require 'react'
 classSet         = require 'common/util/classSet'
@@ -7,6 +8,7 @@ Radio            = React.createFactory(require 'ui/common/Radio')
 WizardPage       = React.createFactory(require 'ui/common/WizardPage')
 KindTemplateList = React.createFactory(require 'ui/dialogs/kindWizard/KindTemplateList')
 {div}            = React.DOM
+#--------------------------------------------------------------------------------
 
 CreateKindWizardStartPage = React.createClass {
 

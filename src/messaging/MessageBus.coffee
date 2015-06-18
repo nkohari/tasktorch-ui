@@ -1,6 +1,11 @@
 Pusher  = require 'pusher-js'
 Request = require 'data/framework/Request'
 
+Pusher.XHR = ->
+  xhr = new XMLHttpRequest()
+  xhr.withCredentials = true
+  return xhr
+
 class MessageBus
 
   constructor: ->

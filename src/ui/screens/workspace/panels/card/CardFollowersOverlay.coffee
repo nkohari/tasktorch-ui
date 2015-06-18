@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _              = require 'lodash'
 React          = require 'react'
 PropTypes      = require 'ui/framework/PropTypes'
@@ -5,6 +6,9 @@ CachedState    = require 'ui/framework/mixins/CachedState'
 Avatar         = React.createFactory(require 'ui/common/Avatar')
 Overlay        = React.createFactory(require 'ui/common/Overlay')
 {ul, li, span} = React.DOM
+#--------------------------------------------------------------------------------
+require './CardFollowersOverlay.styl'
+#--------------------------------------------------------------------------------
 
 CardFollowersOverlay = React.createClass {
 

@@ -1,8 +1,10 @@
+#--------------------------------------------------------------------------------
 moment     = require 'moment'
 React      = require 'react'
 mergeProps = require 'common/util/mergeProps'
 PropTypes  = require 'ui/framework/PropTypes'
 {time}     = React.DOM
+#--------------------------------------------------------------------------------
 
 Time = React.createClass {
 

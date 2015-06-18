@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _             = require 'lodash'
 React         = require 'react'
 CardStatus    = require 'data/enums/CardStatus'
@@ -6,6 +7,7 @@ CachedState   = require 'ui/framework/mixins/CachedState'
 Icon          = React.createFactory(require 'ui/common/Icon')
 BigPictureCard = React.createFactory(require 'ui/screens/bigPicture/BigPictureCard')
 {div, ul}     = React.DOM
+#--------------------------------------------------------------------------------
 
 GoalPanelColumnSection = React.createClass {
 

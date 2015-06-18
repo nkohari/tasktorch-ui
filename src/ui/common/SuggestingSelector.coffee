@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                             = require 'lodash'
 React                         = require 'react'
 classSet                      = require 'common/util/classSet'
@@ -5,6 +6,7 @@ CachedState                   = require 'ui/framework/mixins/CachedState'
 Caret                         = React.createFactory(require 'ui/common/Caret')
 Icon                          = React.createFactory(require 'ui/common/Icon')
 {a, div, ul, li, span, input} = React.DOM
+#--------------------------------------------------------------------------------
 
 SuggestingSelector = React.createClass {
 

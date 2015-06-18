@@ -7,7 +7,7 @@ classSet   = require 'common/util/classSet'
 mergeProps = require 'common/util/mergeProps'
 TextArea   = React.createFactory(require 'ui/common/TextArea')
 #--------------------------------------------------------------------------------
-require 'common/Editable.styl'
+require './Editable.styl'
 #--------------------------------------------------------------------------------
 
 EditableTextArea = React.createClass {

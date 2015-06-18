@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React                  = require 'react'
 UserCreatedActionEvent = require 'events/ui/UserCreatedActionEvent'
 KeyCode                = require 'ui/framework/KeyCode'
@@ -6,6 +7,9 @@ Actor                  = require 'ui/framework/mixins/Actor'
 Button                 = React.createFactory(require 'ui/common/Button')
 Input                  = React.createFactory(require 'ui/common/Input')
 {a, div}               = React.DOM
+#--------------------------------------------------------------------------------
+require './CreateActionForm.styl'
+#--------------------------------------------------------------------------------
 
 CreateActionForm = React.createClass {
 

@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                = require 'lodash'
 React            = require 'react'
 PropTypes        = require 'ui/framework/PropTypes'
@@ -5,6 +6,9 @@ Icon             = React.createFactory(require 'ui/common/Icon')
 PanelCloseLink   = React.createFactory(require 'ui/common/PanelCloseLink')
 {div}            = React.DOM
 {cloneWithProps} = React.addons
+#--------------------------------------------------------------------------------
+require './PanelHeader.styl'
+#--------------------------------------------------------------------------------
 
 PanelHeader = React.createClass {
 

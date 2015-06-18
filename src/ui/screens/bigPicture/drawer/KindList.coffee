@@ -1,8 +1,10 @@
+#--------------------------------------------------------------------------------
 _               = require 'lodash'
 React           = require 'react'
 PropTypes       = require 'ui/framework/PropTypes'
 KindDrawerItem  = React.createFactory(require 'ui/screens/bigPicture/drawer/KindDrawerItem')
 {div, span, ul} = React.DOM
+#--------------------------------------------------------------------------------
 
 KindList = React.createClass {
 

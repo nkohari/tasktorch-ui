@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 superagent           = require 'superagent'
 React                = require 'react'
 Router               = require 'react-router'
@@ -10,6 +11,7 @@ ContextMenuSeparator = React.createFactory(require 'ui/common/ContextMenuSeparat
 DialogTrigger        = React.createFactory(require 'ui/common/DialogTrigger')
 Icon                 = React.createFactory(require 'ui/common/Icon')
 {a}                  = React.DOM
+#--------------------------------------------------------------------------------
 
 UserContextMenu = React.createClass {
 

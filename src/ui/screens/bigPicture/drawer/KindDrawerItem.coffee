@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _              = require 'lodash'
 React          = require 'react'
 classSet       = require 'common/util/classSet'
@@ -8,6 +9,7 @@ Icon           = React.createFactory(require 'ui/common/Icon')
 Link           = React.createFactory(require 'ui/common/Link')
 ListItem       = React.createFactory(require 'ui/common/ListItem')
 {span}         = React.DOM
+#--------------------------------------------------------------------------------
 
 KindDrawerItem = React.createClass {
 

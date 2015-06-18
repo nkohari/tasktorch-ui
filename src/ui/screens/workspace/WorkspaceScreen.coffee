@@ -1,11 +1,15 @@
+#--------------------------------------------------------------------------------
 _                  = require 'lodash'
 React              = require 'react/addons'
 PropTypes          = require 'ui/framework/PropTypes'
 ShellContext       = require 'ui/framework/mixins/ShellContext'
-Frame              = React.createFactory(require 'ui/common/Frame')
+Screen              = React.createFactory(require 'ui/common/Screen')
 WorkspacePanelList = React.createFactory(require 'ui/screens/workspace/WorkspacePanelList')
 WorkspaceDrawer    = React.createFactory(require 'ui/screens/workspace/drawer/WorkspaceDrawer')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
+#--------------------------------------------------------------------------------
+require './WorkspaceScreen.styl'
+#--------------------------------------------------------------------------------
 
 WorkspaceScreen = React.createClass {
 
@@ -22,7 +26,7 @@ WorkspaceScreen = React.createClass {
 
   render: ->
 
-    Frame {className: 'workspace screen'},
+    Screen {className: 'workspace'},
       CSSTransitionGroup {component: 'div', className: 'drawer-container', transitionName: 'slide'},
         WorkspaceDrawer {} if @props.drawer
       WorkspacePanelList {panels: @props.panels}

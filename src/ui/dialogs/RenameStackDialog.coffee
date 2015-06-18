@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React                 = require 'react'
 UserRenamedStackEvent = require 'events/ui/UserRenamedStackEvent'
 PropTypes             = require 'ui/framework/PropTypes'
@@ -10,6 +11,7 @@ Field                 = React.createFactory(require 'ui/common/Field')
 FieldGroup            = React.createFactory(require 'ui/common/FieldGroup')
 Input                 = React.createFactory(require 'ui/common/Input')
 {div}                 = React.DOM
+#--------------------------------------------------------------------------------
 
 RenameStackDialog = React.createClass {
 

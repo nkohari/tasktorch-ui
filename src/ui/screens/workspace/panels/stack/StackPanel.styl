@@ -1,0 +1,44 @@
+@import '~Theme.styl'
+
+.stack.panel
+  width: $stack-panel-width
+  min-width: $stack-panel-width
+  
+  &.slide-enter
+    animation: stack-enter 300ms ease-out
+    z-index: $panel-animation-layer
+  &.slide-leave
+    animation: stack-leave 150ms linear
+    z-index: $panel-animation-layer
+
+  .empty-message
+    position: absolute
+    left: 0
+    top: 50%
+    width: 100%
+    font-size: 14px
+    font-weight: $bold-font-weight
+    color: $color-ink-light
+    text-align: center
+
+@keyframes stack-enter
+  0%
+    opacity: 0
+    margin-left: -($stack-panel-width + $panel-margin)
+    margin-right: $panel-margin
+  50%
+    opacity: 0
+    margin-left: -($stack-panel-width + $panel-margin)
+    margin-right: $stack-panel-width + $panel-margin
+  100%
+    opacity: 1
+    margin-left: 0
+    margin-right: $panel-margin
+
+@keyframes stack-leave
+  from
+    opacity: 1
+    margin-left: 0
+  to
+    opacity: 0
+    margin-left: -($stack-panel-width + $panel-margin)

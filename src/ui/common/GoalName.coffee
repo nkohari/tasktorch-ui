@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React        = require 'react'
 mergeClasses = require 'common/util/mergeClasses'
 PropTypes    = require 'ui/framework/PropTypes'
@@ -5,10 +6,11 @@ CachedState  = require 'ui/framework/mixins/CachedState'
 Pure         = require 'ui/framework/mixins/Pure'
 Icon         = React.createFactory(require 'ui/common/Icon')
 {div}        = React.DOM
+#--------------------------------------------------------------------------------
 
-CardGoal = React.createClass {
+GoalName = React.createClass {
 
-  displayName: 'CardGoal'
+  displayName: 'GoalName'
 
   propTypes:
     goalid: PropTypes.id
@@ -21,7 +23,7 @@ CardGoal = React.createClass {
 
   render: ->
 
-    # TODO: Link to the goal on the strategy screen
+    # TODO: Link to the goal on the strategy screen?
 
     classes = mergeClasses('goal', @props.className)
     div {className: classes},
@@ -30,4 +32,4 @@ CardGoal = React.createClass {
 
 }
 
-module.exports = CardGoal
+module.exports = GoalName

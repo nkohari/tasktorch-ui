@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React                  = require 'react/addons'
 CardCommandType        = require 'data/enums/CardCommandType'
 PropTypes              = require 'ui/framework/PropTypes'
@@ -11,6 +12,7 @@ RestoreCommandOverlay  = React.createFactory(require 'ui/screens/workspace/panel
 CommentCommandOverlay  = React.createFactory(require 'ui/screens/workspace/panels/card/commands/overlays/CommentCommandOverlay')
 CSSTransitionGroup     = React.createFactory(React.addons.CSSTransitionGroup)
 {div}                  = React.DOM
+#--------------------------------------------------------------------------------
 
 CardCommand = React.createClass {
 

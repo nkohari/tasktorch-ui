@@ -1,9 +1,11 @@
+#--------------------------------------------------------------------------------
 _                     = require 'lodash'
 classSet              = require 'common/util/classSet'
 mergeProps            = require 'common/util/mergeProps'
 React                 = require 'react'
 PropTypes             = require 'ui/framework/PropTypes'
 {div, span, textarea} = React.DOM
+#--------------------------------------------------------------------------------
 
 TextArea = React.createClass {
 

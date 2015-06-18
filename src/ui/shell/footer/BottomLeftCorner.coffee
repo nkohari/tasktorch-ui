@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                        = require 'lodash'
 React                    = require 'react'
 StackType                = require 'data/enums/StackType'
@@ -6,6 +7,9 @@ CachedState              = require 'ui/framework/mixins/CachedState'
 Frame                    = React.createFactory(require 'ui/common/Frame')
 FollowingToggleButton    = React.createFactory(require 'ui/shell/footer/FollowingToggleButton')
 SpecialStackToggleButton = React.createFactory(require 'ui/shell/footer/SpecialStackToggleButton')
+#--------------------------------------------------------------------------------
+require './BottomLeftCorner.styl'
+#--------------------------------------------------------------------------------
 
 BottomLeftCorner = React.createClass {
 

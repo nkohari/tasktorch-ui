@@ -1,9 +1,13 @@
+#--------------------------------------------------------------------------------
 _             = require 'lodash'
 React         = require 'react'
 PropTypes     = require 'ui/framework/PropTypes'
 CachedState   = require 'ui/framework/mixins/CachedState'
 CardChecklist = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CardChecklist')
 {div}         = React.DOM
+#--------------------------------------------------------------------------------
+require './CardActionsTab.styl'
+#--------------------------------------------------------------------------------
 
 CardActionsTab = React.createClass {
 

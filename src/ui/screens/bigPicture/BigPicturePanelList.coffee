@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                  = require 'lodash'
 React              = require 'react/addons'
 Navigator          = require 'ui/framework/mixins/Navigator'
@@ -5,6 +6,7 @@ PropTypes          = require 'ui/framework/PropTypes'
 BigPicturePanel    = React.createFactory(require 'ui/screens/bigPicture/BigPicturePanel')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
 {div}              = React.DOM
+#--------------------------------------------------------------------------------
 
 BigPicturePanelList = React.createClass {
 

@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _             = require 'lodash'
 React         = require 'react'
 PropTypes     = require 'ui/framework/PropTypes'
@@ -5,6 +6,7 @@ ContextMenu   = React.createFactory(require 'ui/common/ContextMenu')
 DialogTrigger = React.createFactory(require 'ui/common/DialogTrigger')
 Icon          = React.createFactory(require 'ui/common/Icon')
 {div}         = React.DOM
+#--------------------------------------------------------------------------------
 
 MyWorkContextMenu = React.createClass {
 

@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                                  = require 'lodash'
 React                              = require 'react'
 UserCreatedKindEvent               = require 'events/ui/UserCreatedKindEvent'
@@ -12,6 +13,7 @@ CreateKindWizardWorkflowPage       = React.createFactory(require 'ui/dialogs/kin
 CreateKindWizardDefaultActionsPage = React.createFactory(require 'ui/dialogs/kindWizard/CreateKindWizardDefaultActionsPage')
 CreateKindWizardReviewPage         = React.createFactory(require 'ui/dialogs/kindWizard/CreateKindWizardReviewPage')
 {div}                              = React.DOM
+#--------------------------------------------------------------------------------
 
 CreateKindWizard = React.createClass {
 

@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React          = require 'react'
 Analytics      = require 'common/Analytics'
 PropTypes      = require 'ui/framework/PropTypes'
@@ -5,6 +6,9 @@ Button         = React.createFactory(require 'ui/common/Button')
 Dialog         = React.createFactory(require 'ui/common/Dialog')
 DialogButtons  = React.createFactory(require 'ui/common/DialogButtons')
 {a, p, li, ul} = React.DOM
+#--------------------------------------------------------------------------------
+require './HelpDialog.styl'
+#--------------------------------------------------------------------------------
 
 HelpDialog = React.createClass {
 

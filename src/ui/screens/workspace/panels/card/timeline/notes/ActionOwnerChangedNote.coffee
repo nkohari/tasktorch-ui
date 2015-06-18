@@ -1,13 +1,15 @@
+#--------------------------------------------------------------------------------
 _            = require 'lodash'
 React        = require 'react'
 PropTypes    = require 'ui/framework/PropTypes'
 CachedState  = require 'ui/framework/mixins/CachedState'
-Frame        = React.createFactory(require 'ui/common/Frame')
 Icon         = React.createFactory(require 'ui/common/Icon')
 Time         = React.createFactory(require 'ui/common/Time')
+ActivityNote = React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/ActivityNote')
 ActionWidget = React.createFactory(require 'ui/screens/workspace/panels/card/timeline/widgets/ActionWidget')
 UserWidget   = React.createFactory(require 'ui/screens/workspace/panels/card/timeline/widgets/UserWidget')
 {div}        = React.DOM
+#--------------------------------------------------------------------------------
 
 ActionOwnerChangedNote = React.createClass {
 
@@ -34,17 +36,15 @@ ActionOwnerChangedNote = React.createClass {
 
   render: ->
 
-    Frame {@isReady, className: 'activity'},
-      Icon {className: 'activity-icon', name: 'action'}
-      div {className: 'activity-body'},
-        UserWidget {user: @props.user}
-        'changed the owner of action'
-        ActionWidget {action: @state.action}
-        'from'
-        UserWidget {user: @state.previousOwner}
-        'to'
-        UserWidget {user: @state.newOwner}
-        Time {relative: true, time: @props.note.created}
+    ActivityNote {@isReady, icon: 'action'},
+      UserWidget {user: @props.user}
+      'changed the owner of action'
+      ActionWidget {action: @state.action}
+      'from'
+      UserWidget {user: @state.previousOwner}
+      'to'
+      UserWidget {user: @state.newOwner}
+      Time {relative: true, time: @props.note.created}
 
 }
 

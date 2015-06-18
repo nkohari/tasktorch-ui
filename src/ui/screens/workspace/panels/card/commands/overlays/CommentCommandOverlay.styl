@@ -1,0 +1,37 @@
+@import '~Theme.styl'
+
+.create-comment-form
+  position: relative
+  padding-left: 44px
+  font-size: 16px
+  line-height: 1.3em
+  
+  &::before, &::after
+    display: block
+    position: absolute
+    top: 7px
+    width: 0;
+    height: 0
+    content: " "
+    border: 6px solid transparent;
+  
+  &::before
+    left: 32px
+    border-right-color: $color-steel-medium
+  
+  &::after
+    left: 39px
+    border-left-width: 0
+    border-right-color: $color-white
+
+  .avatar
+    display: block
+    float: left
+    width: 32px
+    height: 32px
+    margin-left: -46px
+    border-radius: 4px
+  
+  textarea
+    resize: none
+    &:focus { border-color: $color-steel-medium }

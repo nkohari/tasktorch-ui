@@ -1,8 +1,10 @@
+#--------------------------------------------------------------------------------
 React          = require 'react'
 PropTypes      = require 'ui/framework/PropTypes'
 Button         = React.createFactory(require 'ui/common/Button')
 CardCommandBar = React.createFactory(require 'ui/screens/workspace/panels/card/commands/CardCommandBar')
 {div}          = React.DOM
+#--------------------------------------------------------------------------------
 
 CardFooter = React.createClass {
 

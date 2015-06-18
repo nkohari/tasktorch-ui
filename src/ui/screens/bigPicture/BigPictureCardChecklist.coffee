@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                    = require 'lodash'
 React                = require 'react'
 classSet             = require 'common/util/classSet'
@@ -6,6 +7,7 @@ PropTypes            = require 'ui/framework/PropTypes'
 CachedState          = require 'ui/framework/mixins/CachedState'
 BigPictureCardAction = React.createFactory(require 'ui/screens/bigPicture/BigPictureCardAction')
 {div, ul}            = React.DOM
+#--------------------------------------------------------------------------------
 
 BigPictureCardChecklist = React.createClass {
 

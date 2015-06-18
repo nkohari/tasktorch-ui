@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React                        = require 'react'
 PropTypes                    = require 'ui/framework/PropTypes'
 ActionStatus                 = require 'data/enums/ActionStatus'
@@ -9,6 +10,7 @@ Overlay                      = React.createFactory(require 'ui/common/Overlay')
 Selector                     = React.createFactory(require 'ui/common/Selector')
 ActionStatusSelectorOption   = React.createFactory(require 'ui/screens/workspace/panels/card/actions/overlays/ActionStatusSelectorOption')
 {div}                        = React.DOM
+#--------------------------------------------------------------------------------
 
 ChangeActionStatusOverlay = React.createClass {
 

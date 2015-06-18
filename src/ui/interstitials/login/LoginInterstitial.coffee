@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _          = require 'lodash'
 superagent = require 'superagent'
 React      = require 'react'
@@ -8,6 +9,9 @@ Button     = React.createFactory(require 'ui/common/Button')
 Field      = React.createFactory(require 'ui/common/Field')
 Input      = React.createFactory(require 'ui/common/Input')
 {div}      = React.DOM
+#--------------------------------------------------------------------------------
+require './LoginInterstitial.styl'
+#--------------------------------------------------------------------------------
 
 LoginInterstitial = React.createClass {
 

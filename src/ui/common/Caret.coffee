@@ -2,7 +2,7 @@
 React  = require 'react'
 {span} = React.DOM
 #--------------------------------------------------------------------------------
-require 'common/Caret.styl'
+require './Caret.styl'
 #--------------------------------------------------------------------------------
 
 Caret = React.createClass {

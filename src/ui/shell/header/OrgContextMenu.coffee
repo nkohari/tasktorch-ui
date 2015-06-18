@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React                = require 'react'
 Router               = require 'react-router'
 PropTypes            = require 'ui/framework/PropTypes'
@@ -7,6 +8,7 @@ ContextMenuSeparator = React.createFactory(require 'ui/common/ContextMenuSeparat
 DialogTrigger        = React.createFactory(require 'ui/common/DialogTrigger')
 Icon                 = React.createFactory(require 'ui/common/Icon')
 {a}                  = React.DOM
+#--------------------------------------------------------------------------------
 
 OrgContextMenu = React.createClass {
 

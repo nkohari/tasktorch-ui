@@ -6,7 +6,7 @@ classSet   = require 'common/util/classSet'
 mergeProps = require 'common/util/mergeProps'
 {div}      = React.DOM
 #--------------------------------------------------------------------------------
-require 'common/Block.styl'
+require './Block.styl'
 #--------------------------------------------------------------------------------
 
 Block = React.createClass {

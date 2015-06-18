@@ -1,0 +1,33 @@
+@import '~Theme.styl'
+
+.login.interstitial
+  height: 100%
+  width: 100%
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  
+  .login-form
+    width: 350px
+    padding: 20px
+    background: $color-paper
+    border: 1px solid $color-steel-medium
+    border-radius: 4px
+    box-shadow: 0 0 3px black(30%)
+    
+    .buttons
+      display: flex
+      justify-content: flex-end
+
+  .brand
+    margin-top: 20px
+    font: 18px $brand-font
+    color: black(65%)
+    font-weight: 600
+    text-transform: uppercase
+    text-align: center
+    
+    .version
+      font-size: 11px
+      color: black(35%)

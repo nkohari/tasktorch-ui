@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React                   = require 'react'
 UserCreatedCommentEvent = require 'events/ui/UserCreatedCommentEvent'
 PropTypes               = require 'ui/framework/PropTypes'
@@ -9,6 +10,9 @@ Button                  = React.createFactory(require 'ui/common/Button')
 TextArea                = React.createFactory(require 'ui/common/TextArea')
 CardCommandOverlay      = React.createFactory(require 'ui/screens/workspace/panels/card/commands/CardCommandOverlay')
 {div}                   = React.DOM
+#--------------------------------------------------------------------------------
+require './CommentCommandOverlay.styl'
+#--------------------------------------------------------------------------------
 
 CommentCommandOverlay = React.createClass {
 

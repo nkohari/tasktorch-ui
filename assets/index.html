@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <title>TaskTorch</title>
 
-    {% if (o.htmlWebpackPlugin.files.favicon) { %}<link rel="shortcut icon" href="{%=o.htmlWebpackPlugin.files.favicon%}">{% } %}
-
+    <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" href="//cloud.typography.com/6999932/683886/css/fonts.css">
     {% for (var css in o.htmlWebpackPlugin.files.css) { %}<link href="/{%=o.htmlWebpackPlugin.files.css[css] %}" rel="stylesheet">{% } %}
 

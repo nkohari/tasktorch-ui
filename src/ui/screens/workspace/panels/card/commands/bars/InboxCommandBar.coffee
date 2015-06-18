@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React                 = require 'react'
 mergeClasses          = require 'common/util/mergeClasses'
 PropTypes             = require 'ui/framework/PropTypes'
@@ -8,6 +9,7 @@ CommentCommandButton  = React.createFactory(require 'ui/screens/workspace/panels
 CompleteCommandButton = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/CompleteCommandButton')
 DeleteCommandButton   = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/DeleteCommandButton')
 {div}                 = React.DOM
+#--------------------------------------------------------------------------------
 
 InboxCommandBar = React.createClass {
 

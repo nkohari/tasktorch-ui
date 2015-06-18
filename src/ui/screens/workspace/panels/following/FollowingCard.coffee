@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                = require 'lodash'
 React            = require 'react'
 classSet         = require 'common/util/classSet'
@@ -11,6 +12,9 @@ CardLocation     = React.createFactory(require 'ui/common/CardLocation')
 CardLink         = React.createFactory(require 'ui/common/CardLink')
 CardOwner        = React.createFactory(require 'ui/common/CardOwner')
 {div}            = React.DOM
+#--------------------------------------------------------------------------------
+require './FollowingCard.styl'
+#--------------------------------------------------------------------------------
 
 FollowingCard = React.createClass {
 

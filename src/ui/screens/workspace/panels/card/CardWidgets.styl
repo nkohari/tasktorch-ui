@@ -1,0 +1,35 @@
+@import '~Theme.styl'
+
+.card-widgets
+  margin: 2px 8px 2px 2px
+  display: flex
+  
+  .right
+    flex: 1
+    display: flex
+    justify-content: flex-end
+    
+  .card-widget
+    margin-right: 14px
+    font-size: 14px
+    color: $color-ink-light
+    font-weight: $bold-font-weight
+    &.empty
+      opacity: 0
+      transition: all $hover-animation-delay linear
+      color: $color-ink-subtle
+      &.active
+        opacity: 1
+        color: $color-ink-light
+  
+  a, .trigger
+    color: $color-ink-light
+    text-decoration: none
+    transition: color $hover-animation-delay linear
+    &:visited { color: $color-ink-light }
+    &:hover { color: $color-ink }
+    &.follow-toggle > i { margin-right: 0px }
+
+.card-header:hover
+  .card-widget.empty
+    opacity: 1

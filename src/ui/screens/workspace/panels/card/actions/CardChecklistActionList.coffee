@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                    = require 'lodash'
 React                = require 'react'
 classSet             = require 'common/util/classSet'
@@ -9,6 +10,9 @@ UserMovedActionEvent = require 'events/ui/UserMovedActionEvent'
 List                 = React.createFactory(require 'ui/common/List')
 Icon                 = React.createFactory(require 'ui/common/Icon')
 CardAction           = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CardAction')
+#--------------------------------------------------------------------------------
+require './CardChecklistActionList.styl'
+#--------------------------------------------------------------------------------
 
 CardChecklistActionList = React.createClass {
 

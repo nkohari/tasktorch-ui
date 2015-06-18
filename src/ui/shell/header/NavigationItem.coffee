@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _         = require 'lodash'
 React     = require 'react'
 classSet  = require 'common/util/classSet'
@@ -6,6 +7,7 @@ Navigator = require 'ui/framework/mixins/Navigator'
 Link      = React.createFactory(require 'ui/common/Link')
 Icon      = React.createFactory(require 'ui/common/Icon')
 {li}      = React.DOM
+#--------------------------------------------------------------------------------
 
 NavigationItem = React.createClass {
 

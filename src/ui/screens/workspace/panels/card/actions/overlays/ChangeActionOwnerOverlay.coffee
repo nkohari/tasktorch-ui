@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React                       = require 'react'
 PropTypes                   = require 'ui/framework/PropTypes'
 CachedState                 = require 'ui/framework/mixins/CachedState'
@@ -8,6 +9,7 @@ Overlay                     = React.createFactory(require 'ui/common/Overlay')
 SuggestingSelector          = React.createFactory(require 'ui/common/SuggestingSelector')
 UserSelectorOption          = React.createFactory(require 'ui/common/UserSelectorOption')
 {div}                       = React.DOM
+#--------------------------------------------------------------------------------
 
 ChangeActionOwnerOverlay = React.createClass {
 

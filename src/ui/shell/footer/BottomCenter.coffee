@@ -1,7 +1,11 @@
+#--------------------------------------------------------------------------------
 _         = require 'lodash'
 React     = require 'react'
 PropTypes = require 'ui/framework/PropTypes'
 {div}     = React.DOM
+#--------------------------------------------------------------------------------
+require './BottomCenter.styl'
+#--------------------------------------------------------------------------------
 
 BottomCenter = React.createClass {
 

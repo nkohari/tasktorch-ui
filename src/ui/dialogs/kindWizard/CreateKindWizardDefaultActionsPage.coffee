@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                = require 'lodash'
 React            = require 'react'
 PropTypes        = require 'ui/framework/PropTypes'
@@ -5,6 +6,7 @@ Field            = React.createFactory(require 'ui/common/Field')
 WizardPage       = React.createFactory(require 'ui/common/WizardPage')
 KindActionEditor = React.createFactory(require 'ui/dialogs/kindWizard/KindActionEditor')
 {div, ul}        = React.DOM
+#--------------------------------------------------------------------------------
 
 CreateKindWizardWorkflowPage = React.createClass {
 

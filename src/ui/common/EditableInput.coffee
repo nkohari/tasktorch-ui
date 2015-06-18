@@ -7,7 +7,7 @@ mergeProps = require 'common/util/mergeProps'
 classSet   = require 'common/util/classSet'
 Input      = React.createFactory(require 'ui/common/Input')
 #--------------------------------------------------------------------------------
-require 'common/Editable.styl'
+require './Editable.styl'
 #--------------------------------------------------------------------------------
 
 EditableInput = React.createClass {

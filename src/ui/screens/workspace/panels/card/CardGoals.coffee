@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                    = require 'lodash'
 React                = require 'react'
 classSet             = require 'common/util/classSet'
@@ -7,6 +8,7 @@ Icon                 = React.createFactory(require 'ui/common/Icon')
 OverlayTrigger       = React.createFactory(require 'ui/common/OverlayTrigger')
 CardGoalsOverlay     = React.createFactory(require 'ui/screens/workspace/panels/card/CardGoalsOverlay')
 {span}               = React.DOM
+#--------------------------------------------------------------------------------
 
 CardGoals = React.createClass {
 

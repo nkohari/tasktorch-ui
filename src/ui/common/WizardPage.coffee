@@ -1,9 +1,11 @@
+#--------------------------------------------------------------------------------
 _                = require 'lodash'
 React            = require 'react/addons'
 mergeProps       = require 'common/util/mergeProps'
 PropTypes        = require 'ui/framework/PropTypes'
 {div}            = React.DOM
 {cloneWithProps} = React.addons
+#--------------------------------------------------------------------------------
 
 WizardPage = React.createClass {
 

@@ -1,9 +1,13 @@
+#--------------------------------------------------------------------------------
 _                    = require 'lodash'
 React                = require 'react'
 PropTypes            = require 'ui/framework/PropTypes'
 UserSelector         = React.createFactory(require 'ui/common/UserSelector')
 MembershipEditorItem = React.createFactory(require 'ui/common/MembershipEditorItem')
 {div}                = React.DOM
+#--------------------------------------------------------------------------------
+require './MembershipEditor.styl'
+#--------------------------------------------------------------------------------
 
 MembershipEditor = React.createClass {
 

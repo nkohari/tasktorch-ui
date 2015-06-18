@@ -1,8 +1,10 @@
+#--------------------------------------------------------------------------------
 _           = require 'lodash'
 React       = require 'react'
 mergeProps  = require 'common/util/mergeProps'
 PropTypes   = require 'ui/framework/PropTypes'
 {div, span} = React.DOM
+#--------------------------------------------------------------------------------
 
 ProgressBarSegment = React.createClass {
 

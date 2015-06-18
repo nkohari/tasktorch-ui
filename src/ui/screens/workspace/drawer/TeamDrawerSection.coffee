@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _               = require 'lodash'
 React           = require 'react'
 PropTypes       = require 'ui/framework/PropTypes'
@@ -9,6 +10,7 @@ OverlayTrigger  = React.createFactory(require 'ui/common/OverlayTrigger')
 StackDrawerItem = React.createFactory(require 'ui/screens/workspace/drawer/StackDrawerItem')
 TeamContextMenu = React.createFactory(require 'ui/screens/workspace/drawer/TeamContextMenu')
 {div, span, ul} = React.DOM
+#--------------------------------------------------------------------------------
 
 TeamDrawerSection = React.createClass {
 

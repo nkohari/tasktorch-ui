@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                    = require 'lodash'
 React                = require 'react'
 UserCreatedTeamEvent = require 'events/ui/UserCreatedTeamEvent'
@@ -10,6 +11,7 @@ DialogButtons        = React.createFactory(require 'ui/common/DialogButtons')
 Field                = React.createFactory(require 'ui/common/Field')
 Input                = React.createFactory(require 'ui/common/Input')
 MembershipEditor     = React.createFactory(require 'ui/common/MembershipEditor')
+#--------------------------------------------------------------------------------
 
 CreateTeamDialog = React.createClass {
 

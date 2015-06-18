@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React            = require 'react'
 classSet         = require 'common/util/classSet'
 PropTypes        = require 'ui/framework/PropTypes'
@@ -5,6 +6,7 @@ ShellContext     = require 'ui/framework/mixins/ShellContext'
 Avatar           = React.createFactory(require 'ui/common/Avatar')
 Icon             = React.createFactory(require 'ui/common/Icon')
 {a, div, span}   = React.DOM
+#--------------------------------------------------------------------------------
 
 MembershipEditorItem = React.createClass {
 

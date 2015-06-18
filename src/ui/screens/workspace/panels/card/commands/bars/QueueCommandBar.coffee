@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                     = require 'lodash'
 React                 = require 'react'
 mergeClasses          = require 'common/util/mergeClasses'
@@ -8,6 +9,7 @@ CompleteCommandButton = React.createFactory(require 'ui/screens/workspace/panels
 DeleteCommandButton   = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/DeleteCommandButton')
 CommentCommandButton  = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/CommentCommandButton')
 {div}                 = React.DOM
+#--------------------------------------------------------------------------------
 
 QueueCommandBar = React.createClass {
 

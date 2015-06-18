@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                         = require 'lodash'
 React                     = require 'react'
 PropTypes                 = require 'ui/framework/PropTypes'
@@ -6,6 +7,9 @@ Pure                      = require 'ui/framework/mixins/Pure'
 UserChangedCardTitleEvent = require 'events/ui/UserChangedCardTitleEvent'
 Frame                     = React.createFactory(require 'ui/common/Frame')
 EditableTextArea          = React.createFactory(require 'ui/common/EditableTextArea')
+#--------------------------------------------------------------------------------
+require './CardTitle.styl'
+#--------------------------------------------------------------------------------
 
 CardTitle = React.createClass {
 

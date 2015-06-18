@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _               = require 'lodash'
 React           = require 'react'
 classSet        = require 'common/util/classSet'
@@ -8,6 +9,7 @@ StackPanelState = require 'ui/screens/workspace/panels/stack/StackPanelState'
 Icon            = React.createFactory(require 'ui/common/Icon')
 Link            = React.createFactory(require 'ui/common/Link')
 {span}          = React.DOM
+#--------------------------------------------------------------------------------
 
 StackDrawerItem = React.createClass {
 

@@ -8,7 +8,7 @@ Caret          = React.createFactory(require 'ui/common/Caret')
 Icon           = React.createFactory(require 'ui/common/Icon')
 {span, button} = React.DOM
 #--------------------------------------------------------------------------------
-require 'common/Button.styl'
+require './Button.styl'
 #--------------------------------------------------------------------------------
 
 Button = React.createClass {

@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React                = require 'react'
 PropTypes            = require 'ui/framework/PropTypes'
 Actor                = require 'ui/framework/mixins/Actor'
@@ -7,6 +8,7 @@ Button               = React.createFactory(require 'ui/common/Button')
 Dialog               = React.createFactory(require 'ui/common/Dialog')
 DialogButtons        = React.createFactory(require 'ui/common/DialogButtons')
 Prompt               = React.createFactory(require 'ui/common/Prompt')
+#--------------------------------------------------------------------------------
 
 DeleteTeamDialog = React.createClass {
 

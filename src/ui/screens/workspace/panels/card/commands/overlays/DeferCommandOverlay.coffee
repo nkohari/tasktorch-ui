@@ -1,9 +1,11 @@
+#--------------------------------------------------------------------------------
 React              = require 'react'
 PropTypes          = require 'ui/framework/PropTypes'
 CommandContext     = require 'ui/framework/mixins/CommandContext'
 Button             = React.createFactory(require 'ui/common/Button')
 CardCommandOverlay = React.createFactory(require 'ui/screens/workspace/panels/card/commands/CardCommandOverlay')
 {div}              = React.DOM
+#--------------------------------------------------------------------------------
 
 DeferCommandOverlay = React.createClass {
 

@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _           = require 'lodash'
 React       = require 'react'
 classSet    = require 'common/util/classSet'
@@ -5,9 +6,12 @@ PropTypes   = require 'ui/framework/PropTypes'
 Avatar      = React.createFactory(require 'ui/common/Avatar')
 Frame       = React.createFactory(require 'ui/common/Frame')
 CardOwner   = React.createFactory(require 'ui/common/CardOwner')
-CardWidgets = React.createFactory(require 'ui/common/CardWidgets')
+CardWidgets = React.createFactory(require 'ui/screens/workspace/panels/card/CardWidgets')
 CardTitle   = React.createFactory(require 'ui/screens/workspace/panels/card/CardTitle')
 {div}       = React.DOM
+#--------------------------------------------------------------------------------
+require './CardHeader.styl'
+#--------------------------------------------------------------------------------
 
 CardHeader = React.createClass {
 

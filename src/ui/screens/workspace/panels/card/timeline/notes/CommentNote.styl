@@ -1,0 +1,54 @@
+@import '~Theme.styl'
+
+.comment
+  position: relative
+  margin: 14px 0
+  padding: 0 10px 0 48px
+  z-index: 1
+  
+  &::before, &::after
+    display: block
+    position: absolute
+    width: 0px
+    height: 0px
+    content: " "
+    border: 6px solid transparent
+  
+  &::before
+    top: 9px
+    left: 36px
+    border-right-color: $color-steel-medium
+  
+  &::after
+    top: 9px
+    left: 43px
+    border-left-width: 0
+    border-right-color: $color-steel-light
+  
+  .comment-user
+    display: block
+    float: left
+    width: 32px
+    height: 32px
+    margin-left: -40px
+    border: 2px solid $color-white
+    border-radius: 4px
+
+  .comment-body
+    position: relative
+    border: 1px solid $color-steel
+    background: $color-white
+  
+  .comment-header
+    background: $color-steel-light
+    padding: 4px 6px
+    border-bottom: 1px solid $color-steel
+    font-size: 14px
+    color: $color-ink-light
+
+    .user
+      color: $color-ink
+      font-weight: $bold-font-weight
+
+  .comment-content
+    padding: 6px

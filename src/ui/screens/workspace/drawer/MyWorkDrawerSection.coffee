@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                 = require 'lodash'
 React             = require 'react'
 StackType         = require 'data/enums/StackType'
@@ -6,6 +7,7 @@ OverlayTrigger    = React.createFactory(require 'ui/common/OverlayTrigger')
 MyWorkContextMenu = React.createFactory(require 'ui/screens/workspace/drawer/MyWorkContextMenu')
 StackDrawerItem   = React.createFactory(require 'ui/screens/workspace/drawer/StackDrawerItem')
 {div, span, ul}   = React.DOM
+#--------------------------------------------------------------------------------
 
 MyWorkDrawerSection = React.createClass {
 

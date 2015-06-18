@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                    = require 'lodash'
 React                = require 'react/addons'
 mergeProps           = require 'common/util/mergeProps'
@@ -6,8 +7,8 @@ PropTypes            = require 'ui/framework/PropTypes'
 Actor                = require 'ui/framework/mixins/Actor'
 CachedState          = require 'ui/framework/mixins/CachedState'
 CommandContextMaster = require 'ui/framework/mixins/CommandContextMaster'
-Frame                = React.createFactory(require 'ui/common/Frame')
 Icon                 = React.createFactory(require 'ui/common/Icon')
+Panel                = React.createFactory(require 'ui/common/Panel')
 PanelHeader          = React.createFactory(require 'ui/common/PanelHeader')
 CardHeader           = React.createFactory(require 'ui/screens/workspace/panels/card/CardHeader')
 CardBody             = React.createFactory(require 'ui/screens/workspace/panels/card/CardBody')
@@ -15,6 +16,9 @@ CardFooter           = React.createFactory(require 'ui/screens/workspace/panels/
 CardCommand          = React.createFactory(require 'ui/screens/workspace/panels/card/commands/CardCommand')
 {div}                = React.DOM
 CSSTransitionGroup   = React.createFactory(React.addons.CSSTransitionGroup)
+#--------------------------------------------------------------------------------
+require './CardPanel.styl'
+#--------------------------------------------------------------------------------
 
 CardPanel = React.createClass {
 
@@ -39,7 +43,6 @@ CardPanel = React.createClass {
     props = mergeProps _.omit(@props, 'id'), {
       className: classSet [
         'card'
-        'panel'
         @state.card.status.toLowerCase() if @state.card?
       ]
       @isReady
@@ -47,7 +50,7 @@ CardPanel = React.createClass {
 
     icon = Icon {name: 'card', color: @state.kind?.color}
 
-    Frame props,
+    Panel props,
       PanelHeader {panelid: @props.id, icon},
         "#{@state.kind?.name} #{@state.card?.number}"
       div {className: 'content'},

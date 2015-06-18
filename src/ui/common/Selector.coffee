@@ -1,9 +1,13 @@
+#--------------------------------------------------------------------------------
 _                = require 'lodash'
 React            = require 'react'
 classSet         = require 'common/util/classSet'
 Caret            = React.createFactory(require 'ui/common/Caret')
 Icon             = React.createFactory(require 'ui/common/Icon')
 {a, div, ul, li} = React.DOM
+#--------------------------------------------------------------------------------
+require './Selector.styl'
+#--------------------------------------------------------------------------------
 
 Selector = React.createClass {
 

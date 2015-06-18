@@ -1,7 +1,11 @@
+#--------------------------------------------------------------------------------
 _              = require 'lodash'
 React          = require 'react'
 NavigationItem = React.createFactory(require 'ui/shell/header/NavigationItem')
 {div, ul}      = React.DOM
+#--------------------------------------------------------------------------------
+require './TopCenter.styl'
+#--------------------------------------------------------------------------------
 
 TopCenter = React.createClass {
 

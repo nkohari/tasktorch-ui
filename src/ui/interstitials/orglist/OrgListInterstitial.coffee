@@ -1,9 +1,13 @@
+#--------------------------------------------------------------------------------
 _             = require 'lodash'
 React         = require 'react'
 Router        = require 'react-router'
 CachedState   = require 'ui/framework/mixins/CachedState'
 Icon          = React.createFactory(require 'ui/common/Icon')
 {div, li, ul} = React.DOM
+#--------------------------------------------------------------------------------
+require './OrgListInterstitial.styl'
+#--------------------------------------------------------------------------------
 
 OrgListInterstitial = React.createClass {
 

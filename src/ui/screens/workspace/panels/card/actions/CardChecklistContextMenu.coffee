@@ -1,9 +1,11 @@
+#--------------------------------------------------------------------------------
 _             = require 'lodash'
 React         = require 'react'
 PropTypes     = require 'ui/framework/PropTypes'
 ContextMenu   = React.createFactory(require 'ui/common/ContextMenu')
 Icon          = React.createFactory(require 'ui/common/Icon')
 {a}           = React.DOM
+#--------------------------------------------------------------------------------
 
 CardChecklistContextMenu = React.createClass {
 

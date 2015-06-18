@@ -15,7 +15,7 @@ RouteHandler         = React.createFactory(Router.RouteHandler)
 CSSTransitionGroup   = React.createFactory(React.addons.CSSTransitionGroup)
 {div}                = React.DOM
 #--------------------------------------------------------------------------------
-require 'shell/Shell.styl'
+require './Shell.styl'
 #--------------------------------------------------------------------------------
 
 Shell = React.createClass {

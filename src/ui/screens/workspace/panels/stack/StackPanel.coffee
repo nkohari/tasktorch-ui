@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _               = require 'lodash'
 React           = require 'react'
 mergeProps      = require 'common/util/mergeProps'
@@ -6,11 +7,14 @@ Actor           = require 'ui/framework/mixins/Actor'
 CachedState     = require 'ui/framework/mixins/CachedState'
 Navigator       = require 'ui/framework/mixins/Navigator'
 StackPanelState = require 'ui/screens/workspace/panels/stack/StackPanelState'
-Frame           = React.createFactory(require 'ui/common/Frame')
+Panel           = React.createFactory(require 'ui/common/Panel')
 StackHeader     = React.createFactory(require 'ui/screens/workspace/panels/stack/StackHeader')
 StackCardList   = React.createFactory(require 'ui/screens/workspace/panels/stack/StackCardList')
 StackFooter     = React.createFactory(require 'ui/screens/workspace/panels/stack/StackFooter')
 {div}           = React.DOM
+#--------------------------------------------------------------------------------
+require './StackPanel.styl'
+#--------------------------------------------------------------------------------
 
 StackPanel = React.createClass {
 
@@ -33,11 +37,11 @@ StackPanel = React.createClass {
   render: ->
 
     props = mergeProps _.omit(@props, 'id'), {
-      className: 'stack panel'
+      className: 'stack'
       @isReady
     }
     
-    Frame props,
+    Panel props,
       StackHeader {panelid: @props.id, stack: @state.stack}
       div {className: 'content'},
         StackCardList {stack: @state.stack}

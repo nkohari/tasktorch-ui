@@ -1,9 +1,13 @@
+#--------------------------------------------------------------------------------
 _             = require 'lodash'
 React         = require 'react'
 PropTypes     = require 'ui/framework/PropTypes'
 Block         = React.createFactory(require 'ui/common/Block')
 FollowingCard = React.createFactory(require 'ui/screens/workspace/panels/following/FollowingCard')
 {div, ul}     = React.DOM
+#--------------------------------------------------------------------------------
+require './FollowingCardList.styl'
+#--------------------------------------------------------------------------------
 
 FollowingCardList = React.createClass {
 

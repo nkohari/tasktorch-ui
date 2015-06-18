@@ -1,8 +1,10 @@
+#--------------------------------------------------------------------------------
 _               = require 'lodash'
 React           = require 'react'
 PropTypes       = require 'ui/framework/PropTypes'
 TeamDrawerItem  = React.createFactory(require 'ui/screens/bigPicture/drawer/TeamDrawerItem')
 {div, span, ul} = React.DOM
+#--------------------------------------------------------------------------------
 
 TeamList = React.createClass {
 

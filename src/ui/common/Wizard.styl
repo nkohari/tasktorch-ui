@@ -1,0 +1,75 @@
+@import '~Theme.styl'
+
+.wizard
+  
+  .wizard-page
+    flex: 1
+    display: flex
+    flex-direction: column
+    
+    & > .header
+      flex: none
+      padding: 14px
+      background: $color-steel-light
+      border-bottom: 1px solid $color-steel
+    
+    & > .content
+      flex: 1
+      display: flex
+      flex-direction: column
+      background: $color-paper
+
+  .dialog-buttons
+    display: flex
+    justify-content: flex-start
+    .right-buttons
+      display: flex
+      flex: 1
+      justify-content: flex-end
+  
+  .breadcrumbs
+    display: flex
+    overflow: hidden
+    border-bottom: 1px solid $color-steel
+  
+    .breadcrumb
+      position: relative
+      flex: 1
+      font-size: 15px
+      padding: 12px 32px 12px 38px
+      background: $color-steel-verylight
+      
+      &:first-child
+        padding-left: 16px
+        
+      &:last-child
+        &:after { display: none }
+        
+      &.active
+        background: $color-steel-light
+        font-weight: $bold-font-weight
+        &:after { background: $color-steel-light }
+          
+      &:after
+        content: ""
+        position: absolute
+        top: -1px
+        right: -12px
+        width: 44px
+        height: 44px
+        transform: rotate(45deg)
+        z-index: 1
+        background: $color-steel-verylight
+        border-top: 1px solid $color-steel
+        border-right: 1px solid $color-steel
+
+    .breadcrumb-number
+      font-size: 12px
+      margin-right: 6px
+      font-weight: $heavy-font-weight
+      &:after { content: "." }
+    
+    .breadcrumb-title
+      position: relative
+      white-space: nowrap
+      z-index: 2
