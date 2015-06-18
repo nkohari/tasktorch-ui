@@ -1,5 +1,5 @@
 _                    = require 'lodash'
-React                = require 'react'
+React                = require 'react/addons'
 mergeProps           = require 'common/util/mergeProps'
 classSet             = require 'common/util/classSet'
 PropTypes            = require 'ui/framework/PropTypes'

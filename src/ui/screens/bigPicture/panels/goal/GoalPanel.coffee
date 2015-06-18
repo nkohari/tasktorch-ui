@@ -1,5 +1,5 @@
 _                  = require 'lodash'
-React              = require 'react'
+React              = require 'react/addons'
 PropTypes          = require 'ui/framework/PropTypes'
 CachedState        = require 'ui/framework/mixins/CachedState'
 ShellContext       = require 'ui/framework/mixins/ShellContext'

@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                     = require 'lodash'
 React                 = require 'react/addons'
 Keymaster             = require 'keymaster'
@@ -7,6 +8,7 @@ Actor                 = require 'ui/framework/mixins/Actor'
 CachedState           = require 'ui/framework/mixins/CachedState'
 CSSTransitionGroup    = React.createFactory(React.addons.CSSTransitionGroup)
 {cloneWithProps}      = React.addons
+#--------------------------------------------------------------------------------
 
 DialogContainer = React.createClass {
 

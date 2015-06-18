@@ -1,4 +1,4 @@
-React     = require 'react/addons'
+React     = require 'react'
 PropTypes = require 'ui/framework/PropTypes'
 {li}      = React.DOM
 

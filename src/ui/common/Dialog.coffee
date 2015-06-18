@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                  = require 'lodash'
 React              = require 'react/addons'
 PropTypes          = require 'ui/framework/PropTypes'
@@ -6,6 +7,9 @@ mergeProps         = require 'common/util/mergeProps'
 Icon               = React.createFactory(require 'ui/common/Icon')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
 {div}              = React.DOM
+#--------------------------------------------------------------------------------
+require 'common/Dialog.styl'
+#--------------------------------------------------------------------------------
 
 Dialog = React.createClass {
 

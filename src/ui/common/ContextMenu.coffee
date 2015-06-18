@@ -1,8 +1,12 @@
+#--------------------------------------------------------------------------------
 _         = require 'lodash'
 React     = require 'react'
 classSet  = require 'common/util/classSet'
 PropTypes = require 'ui/framework/PropTypes'
 {li, ul}  = React.DOM
+#--------------------------------------------------------------------------------
+require 'common/ContextMenu.styl'
+#--------------------------------------------------------------------------------
 
 ContextMenu = React.createClass {
 

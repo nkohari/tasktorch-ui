@@ -1,4 +1,4 @@
-React                  = require 'react'
+React                  = require 'react/addons'
 CardCommandType        = require 'data/enums/CardCommandType'
 PropTypes              = require 'ui/framework/PropTypes'
 CommandContext         = require 'ui/framework/mixins/CommandContext'

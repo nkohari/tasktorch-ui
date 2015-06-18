@@ -1,9 +1,11 @@
+#--------------------------------------------------------------------------------
 _                     = require 'lodash'
 React                 = require 'react'
 UserOpenedDialogEvent = require 'events/ui/UserOpenedDialogEvent'
 PropTypes             = require 'ui/framework/PropTypes'
 Actor                 = require 'ui/framework/mixins/Actor'
 {a}                   = React.DOM
+#--------------------------------------------------------------------------------
 
 DialogTrigger = React.createClass {
 

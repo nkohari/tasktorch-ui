@@ -1,8 +1,10 @@
+#--------------------------------------------------------------------------------
 _           = require 'lodash'
 diff        = require 'diff'
 React       = require 'react'
 PropTypes   = require 'ui/framework/PropTypes'
 {div, span} = React.DOM
+#--------------------------------------------------------------------------------
 
 Diff = React.createClass {
 

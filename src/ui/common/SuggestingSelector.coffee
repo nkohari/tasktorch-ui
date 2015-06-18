@@ -1,5 +1,5 @@
 _                             = require 'lodash'
-React                         = require 'react/addons'
+React                         = require 'react'
 classSet                      = require 'common/util/classSet'
 CachedState                   = require 'ui/framework/mixins/CachedState'
 Caret                         = React.createFactory(require 'ui/common/Caret')

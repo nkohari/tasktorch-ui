@@ -1,9 +1,13 @@
+#--------------------------------------------------------------------------------
 _          = require 'lodash'
-React      = require 'react/addons'
+React      = require 'react'
 PropTypes  = require 'ui/framework/PropTypes'
 classSet   = require 'common/util/classSet'
 mergeProps = require 'common/util/mergeProps'
 {div}      = React.DOM
+#--------------------------------------------------------------------------------
+require 'common/Block.styl'
+#--------------------------------------------------------------------------------
 
 Block = React.createClass {
 

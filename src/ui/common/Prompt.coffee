@@ -1,4 +1,4 @@
-React        = require 'react/addons'
+React        = require 'react'
 mergeClasses = require 'common/util/mergeClasses'
 Hints        = require 'config/Hints'
 PropTypes    = require 'ui/framework/PropTypes'

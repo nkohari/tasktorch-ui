@@ -1,12 +1,15 @@
-@charset "UTF-8"
+@import './normalize.css'
+@import './theme.styl'
+
+@charset 'UTF-8'
 
 @font-face
-  font-family: "TaskTorchIcons"
-  src:url("/fonts/tasktorch.eot")
-  src:url("/fonts/tasktorch.eot?#iefix") format("embedded-opentype"),
-    url("/fonts/tasktorch.woff") format("woff"),
-    url("/fonts/tasktorch.ttf") format("truetype"),
-    url("/fonts/tasktorch.svg#tasktorch") format("svg")
+  font-family: 'TaskTorchIcons'
+  src: url('~fonts/tasktorch.eot')
+  src: url('~fonts/tasktorch.eot?#iefix') format('embedded-opentype'),
+    url('~fonts/tasktorch.woff') format('woff'),
+    url('~fonts/tasktorch.ttf') format('truetype'),
+    url('~fonts/tasktorch.svg#tasktorch') format('svg')
   font-weight: normal
   font-style: normal
 
@@ -34,7 +37,7 @@ body
   margin: 0
   padding: 0
   overflow: hidden
-  background: $color-white url('/img/bg.png')
+  background: $color-white url('~img/bg.png')
   text-rendering: optimizeLegibility
   -webkit-font-smoothing: subpixel-antialiased
   user-select: none

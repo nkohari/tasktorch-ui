@@ -1,6 +1,6 @@
 _          = require 'lodash'
 superagent = require 'superagent'
-React      = require 'react/addons'
+React      = require 'react'
 Router     = require 'react-router'
 request    = require 'superagent'
 PropTypes  = require 'ui/framework/PropTypes'

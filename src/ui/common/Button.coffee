@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _              = require 'lodash'
 Keymaster      = require 'keymaster'
 React          = require 'react'
@@ -6,6 +7,9 @@ mergeProps     = require 'common/util/mergeProps'
 Caret          = React.createFactory(require 'ui/common/Caret')
 Icon           = React.createFactory(require 'ui/common/Icon')
 {span, button} = React.DOM
+#--------------------------------------------------------------------------------
+require 'common/Button.styl'
+#--------------------------------------------------------------------------------
 
 Button = React.createClass {
 

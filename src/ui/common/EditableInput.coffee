@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _          = require 'lodash'
 React      = require 'react'
 PropTypes  = require 'ui/framework/PropTypes'
@@ -5,6 +6,9 @@ KeyCode    = require 'ui/framework/KeyCode'
 mergeProps = require 'common/util/mergeProps'
 classSet   = require 'common/util/classSet'
 Input      = React.createFactory(require 'ui/common/Input')
+#--------------------------------------------------------------------------------
+require 'common/Editable.styl'
+#--------------------------------------------------------------------------------
 
 EditableInput = React.createClass {
 

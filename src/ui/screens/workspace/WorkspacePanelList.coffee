@@ -1,6 +1,6 @@
 _                  = require 'lodash'
 dom                = require 'common/util/dom'
-React              = require 'react/addons'
+React              = require 'react'
 Navigator          = require 'ui/framework/mixins/Navigator'
 SortableList       = require 'ui/framework/mixins/SortableList'
 PropTypes          = require 'ui/framework/PropTypes'

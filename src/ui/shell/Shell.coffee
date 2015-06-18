@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                    = require 'lodash'
 React                = require 'react/addons'
 Router               = require 'react-router'
@@ -13,6 +14,9 @@ ShellFooter          = React.createFactory(require 'ui/shell/footer/ShellFooter'
 RouteHandler         = React.createFactory(Router.RouteHandler)
 CSSTransitionGroup   = React.createFactory(React.addons.CSSTransitionGroup)
 {div}                = React.DOM
+#--------------------------------------------------------------------------------
+require 'shell/Shell.styl'
+#--------------------------------------------------------------------------------
 
 Shell = React.createClass {
 

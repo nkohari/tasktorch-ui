@@ -1,5 +1,5 @@
 _                   = require 'lodash'
-React               = require 'react'
+React               = require 'react/addons'
 PropTypes           = require 'ui/framework/PropTypes'
 ShellContext        = require 'ui/framework/mixins/ShellContext'
 Frame               = React.createFactory(require 'ui/common/Frame')

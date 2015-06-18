@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _              = require 'lodash'
 React          = require 'react'
 classSet       = require 'common/util/classSet'
@@ -7,6 +8,7 @@ CachedState    = require 'ui/framework/mixins/CachedState'
 Navigator      = require 'ui/framework/mixins/Navigator'
 CardPanelState = require 'ui/screens/workspace/panels/card/CardPanelState'
 {div, li}      = React.DOM
+#--------------------------------------------------------------------------------
 
 Card = React.createClass {
 

@@ -1,12 +1,12 @@
-_                = require 'lodash'
-Keymaster        = require 'keymaster'
-React            = require 'react/addons'
-PropTypes        = require 'ui/framework/PropTypes'
-classSet         = require 'common/util/classSet'
-mergeProps       = require 'common/util/mergeProps'
-Frame            = React.createFactory(require 'ui/common/Frame')
-{cloneWithProps} = React.addons
-{div}            = React.DOM
+_                  = require 'lodash'
+Keymaster          = require 'keymaster'
+React              = require 'react/addons'
+PropTypes          = require 'ui/framework/PropTypes'
+classSet           = require 'common/util/classSet'
+mergeProps         = require 'common/util/mergeProps'
+Frame              = React.createFactory(require 'ui/common/Frame')
+{cloneWithProps}   = React.addons
+{div}              = React.DOM
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
 
 OverlayTrigger = React.createClass {

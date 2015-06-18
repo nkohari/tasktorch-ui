@@ -1,3 +1,4 @@
+Pusher  = require 'pusher-js'
 Request = require 'data/framework/Request'
 
 class MessageBus

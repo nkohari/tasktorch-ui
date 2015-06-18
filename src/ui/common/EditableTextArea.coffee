@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _          = require 'lodash'
 React      = require 'react'
 PropTypes  = require 'ui/framework/PropTypes'
@@ -5,10 +6,13 @@ KeyCode    = require 'ui/framework/KeyCode'
 classSet   = require 'common/util/classSet'
 mergeProps = require 'common/util/mergeProps'
 TextArea   = React.createFactory(require 'ui/common/TextArea')
+#--------------------------------------------------------------------------------
+require 'common/Editable.styl'
+#--------------------------------------------------------------------------------
 
-EditableInputArea = React.createClass {
+EditableTextArea = React.createClass {
 
-  displayName: 'EditableInputArea'
+  displayName: 'EditableTextArea'
 
   propTypes:
     value: PropTypes.any
@@ -64,4 +68,4 @@ EditableInputArea = React.createClass {
 
 }
 
-module.exports = EditableInputArea
+module.exports = EditableTextArea

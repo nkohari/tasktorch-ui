@@ -1,6 +1,7 @@
+#--------------------------------------------------------------------------------
 _                   = require 'lodash'
 cookies             = require 'cookies-js'
-React               = require 'react/addons'
+React               = require 'react'
 Router              = require 'react-router'
 Analytics           = require 'common/Analytics'
 Environment         = require './Environment'
@@ -13,9 +14,13 @@ BigPictureScreen    = require 'ui/screens/bigPicture/BigPictureScreen'
 StrategyScreen      = require 'ui/screens/strategy/StrategyScreen'
 KnowledgeScreen     = require 'ui/screens/knowledge/KnowledgeScreen'
 Route               = React.createFactory(Router.Route)
+#--------------------------------------------------------------------------------
+require 'base.styl'
+#--------------------------------------------------------------------------------
+
+history.pushState({}, "", location.hash.substring(1));
 
 window.Environment = environment = new Environment()
-window.Perf = React.addons.Perf
 
 routes = [
   Route {name: 'login', key: 'login', path: 'login', handler: LoginInterstitial}

@@ -1,9 +1,11 @@
+#--------------------------------------------------------------------------------
 React          = require 'react'
 PropTypes      = require 'ui/framework/PropTypes'
 Navigator      = require 'ui/framework/mixins/Navigator'
 CardPanelState = require 'ui/screens/workspace/panels/card/CardPanelState'
 Icon           = React.createFactory(require 'ui/common/Icon')
 {a}            = React.DOM
+#--------------------------------------------------------------------------------
 
 CardLink = React.createClass {
 

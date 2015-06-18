@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 React            = require 'react'
 PropTypes        = require 'ui/framework/PropTypes'
 CardLocation     = React.createFactory(require 'ui/common/CardLocation')
@@ -5,6 +6,7 @@ CardGoals        = React.createFactory(require 'ui/screens/workspace/panels/card
 CardFollowToggle = React.createFactory(require 'ui/common/CardFollowToggle')
 GoalName         = React.createFactory(require 'ui/common/GoalName')
 {div}            = React.DOM
+#--------------------------------------------------------------------------------
 
 CardWidgets = React.createClass {
 

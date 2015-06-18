@@ -1,6 +1,8 @@
+#--------------------------------------------------------------------------------
 React     = require 'react'
 PropTypes = require 'ui/framework/PropTypes'
 {div}     = React.DOM
+#--------------------------------------------------------------------------------
 
 DialogButtons = React.createClass {
 

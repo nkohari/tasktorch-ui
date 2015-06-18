@@ -1,4 +1,4 @@
-React            = require 'react/addons'
+React            = require 'react'
 classSet         = require 'common/util/classSet'
 PropTypes        = require 'ui/framework/PropTypes'
 ShellContext     = require 'ui/framework/mixins/ShellContext'

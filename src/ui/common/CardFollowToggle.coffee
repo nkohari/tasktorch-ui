@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _                       = require 'lodash'
 React                   = require 'react'
 classSet                = require 'common/util/classSet'
@@ -9,6 +10,7 @@ UserUnfollowedCardEvent = require 'events/ui/UserUnfollowedCardEvent'
 Frame                   = React.createFactory(require 'ui/common/Frame')
 Icon                    = React.createFactory(require 'ui/common/Icon')
 {a}                     = React.DOM
+#--------------------------------------------------------------------------------
 
 CardFollowToggle = React.createClass {
 

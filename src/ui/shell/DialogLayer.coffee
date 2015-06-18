@@ -1,8 +1,10 @@
+#--------------------------------------------------------------------------------
 _               = require 'lodash'
-React           = require 'react/addons'
+React           = require 'react'
 PropTypes       = require 'ui/framework/PropTypes'
 DialogContainer = React.createFactory(require 'ui/common/DialogContainer')
 {div}           = React.DOM
+#--------------------------------------------------------------------------------
 
 DIALOGS =
   ChangeMyName:     React.createFactory(require 'ui/dialogs/ChangeMyNameDialog')

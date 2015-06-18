@@ -1,5 +1,5 @@
 _                = require 'lodash'
-React            = require 'react/addons'
+React            = require 'react'
 PropTypes        = require 'ui/framework/PropTypes'
 Icon             = React.createFactory(require 'ui/common/Icon')
 PanelCloseLink   = React.createFactory(require 'ui/common/PanelCloseLink')

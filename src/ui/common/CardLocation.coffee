@@ -1,3 +1,4 @@
+#--------------------------------------------------------------------------------
 _               = require 'lodash'
 React           = require 'react'
 Router          = require 'react-router'
@@ -10,6 +11,7 @@ Link            = React.createFactory(require 'ui/common/Link')
 StackName       = React.createFactory(require 'ui/common/StackName')
 StackPanelState = require 'ui/screens/workspace/panels/stack/StackPanelState'
 {div, span}     = React.DOM
+#--------------------------------------------------------------------------------
 
 CardLocation = React.createClass {
 

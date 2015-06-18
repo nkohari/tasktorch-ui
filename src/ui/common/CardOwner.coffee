@@ -1,11 +1,15 @@
+#--------------------------------------------------------------------------------
 _           = require 'lodash'
-React       = require 'react/addons'
+React       = require 'react'
 CardStatus  = require 'data/enums/CardStatus'
 PropTypes   = require 'ui/framework/PropTypes'
 CachedState = require 'ui/framework/mixins/CachedState'
 Avatar      = React.createFactory(require 'ui/common/Avatar')
 Icon        = React.createFactory(require 'ui/common/Icon')
 {span}      = React.DOM
+#--------------------------------------------------------------------------------
+require 'common/CardOwner.styl'
+#--------------------------------------------------------------------------------
 
 CardOwner = React.createClass {
 
