@@ -14,17 +14,16 @@ class ScreenState
   constructor: (@name, url, @transitionTo) ->
 
     @drawer = false
-    @panels  = []
-    @orgid   = url.params.orgid
+    @panels = []
+    @orgid  = url.params.orgid
 
-    if url.screen == name
+    if url.screen == @name
       @drawer = !!url.query.d if url.query.d?
       if url.query.p?
         try
           @panels = _.map url.query.p.split(OBJECT_SEPARATOR), (blob) => @deserialize(blob)
         catch err
           console.warn("Error deserializing panel state: #{err}")
-      console.log(@panels)
 
   showDrawer: ->
     @drawer = true

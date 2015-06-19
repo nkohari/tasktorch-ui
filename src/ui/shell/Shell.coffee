@@ -72,6 +72,7 @@ Shell = React.createClass {
     screenProps = _.extend @screenState[@props.url.screen], {
       key: @props.url.screen
     }
+    console.log(screenProps)
 
     Frame {@isReady, className: 'shell'},
       ShellHeader {}

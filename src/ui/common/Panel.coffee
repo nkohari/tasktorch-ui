@@ -13,7 +13,8 @@ Panel = React.createClass {
   displayName: 'Panel'
 
   propTypes:
-    id: PropTypes.string
+    id:      PropTypes.string
+    isReady: PropTypes.func
 
   render: ->
 
@@ -22,8 +23,12 @@ Panel = React.createClass {
       'data-itemid': @props.id
     }
 
-    div props,
-      @props.children
+    if not @props.isReady? or @props.isReady()
+      children = @props.children
+    else
+      children = []
+
+    div props, children
 
 }
 

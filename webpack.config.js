@@ -1,4 +1,5 @@
 var path              = require('path');
+var nib               = require('nib');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -29,5 +30,9 @@ module.exports = {
   resolve: {
     extensions: ['', '.coffee', '.js'],
     modulesDirectories: ['./src', './assets', './style', 'node_modules']
+  },
+  stylus: {
+    use: [nib()],
+    import: ['~normalize.css/normalize.css', __dirname + '/src/Theme.styl', 'nib']
   }
 };

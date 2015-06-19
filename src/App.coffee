@@ -18,7 +18,8 @@ Route               = React.createFactory(Router.Route)
 require './App.styl'
 #--------------------------------------------------------------------------------
 
-history.pushState({}, "", location.hash.substring(1));
+if location.hash?.length > 0
+  history.pushState({}, "", location.hash.substring(1));
 
 window.Environment = environment = new Environment()
 
