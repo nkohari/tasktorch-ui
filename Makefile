@@ -1,13 +1,30 @@
-BINPATH=node_modules/.bin
-OUTPATH=dist
+BIN=node_modules/.bin
+DIST=dist
+BUCKET=static.tasktorch.com
 
 all: build
 
-build: clean
-	$(BINPATH)/webpack --progress --color
-
 clean:
-	rm -rf $(OUTPATH)/*
+	@rm -rf $(DIST)/*
+
+build: clean
+	@NODE_ENV=production $(BIN)/webpack --progress --color --optimize-minimize
+
+compress: build
+	@ls $(DIST)/*/torch.* | while read -r file; do \
+		echo "Compressing $$file"; \
+		gzip -9 -c "$$file" > "$$file.gz"; \
+		mv "$$file.gz" "$$file"; \
+	done
+
+deploy: compress
+	cd $(DIST) && s3cmd put \
+		--access_key=$(AWS_ACCESS_KEY_ID) \
+		--secret_key=$(AWS_SECRET_ACCESS_KEY) \
+		--acl-public \
+		--add-header "Content-Encoding: gzip" \
+		--recursive . \
+		s3://$(BUCKET)/
 
 dev:
-	$(BINPATH)/webpack-dev-server --devtool eval --progress --colors --hot --content-base $(OUTPATH) --port 8888 --history-api-fallback
+	@$(BIN)/webpack-dev-server --devtool eval --progress --colors --hot --content-base $(DIST) --port 8888 --history-api-fallback

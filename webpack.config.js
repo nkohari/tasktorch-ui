@@ -1,7 +1,8 @@
 var path              = require('path');
 var nib               = require('nib');
+var DefinePlugin      = require('webpack').DefinePlugin;
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+var HtmlPlugin        = require('html-webpack-plugin');
 
 module.exports = {
   entry: {torch: 'App'},
@@ -9,22 +10,23 @@ module.exports = {
     loaders: [
       {test: /\.coffee$/, loader: 'coffee-loader'},
       {test: /\.styl$/,   loader: ExtractTextPlugin.extract('style-loader', 'css-loader!stylus-loader')},
-      {test: /assets/,    loader: 'url-loader?limit=20000&name=static/[name].[ext]'},
+      {test: /assets/,    loader: 'url-loader?limit=50000&name=static/[name].[ext]'},
     ]
   },
   output: {
-    path: 'dist',
-    filename: 'torch-[hash].js',
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[hash]/torch.js',
     hash: true
   },
   plugins: [
-    new ExtractTextPlugin('[name]-[hash].css'),
-    new HtmlWebpackPlugin({
+    new DefinePlugin({
+      '__DEV__': process.env['NODE_ENV'] !== 'production'
+    }),
+    new ExtractTextPlugin('[hash]/[name].css'),
+    new HtmlPlugin({
       title: 'TaskTorch',
       filename: 'index.html',
-      template: 'assets/index.html',
-      favicon: 'assets/favicon.ico',
-      minify: true
+      template: 'assets/index-dev.html'
     })
   ],
   resolve: {
