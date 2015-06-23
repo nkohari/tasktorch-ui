@@ -4,17 +4,17 @@
   box-shadow: 1px 1px 0 black(10%)
   &:last-child { margin-bottom: 0px }
   
-  for $name, $color in $semantic-colors-background
+  for $name in $color-names
     &.{$name}
-      background: $color
-      border: 1px solid $semantic-colors-medium[$name]
+      background: theme-color($name, 100)
+      border: 1px solid theme-color($name, 200)
       .trigger
-        color: $semantic-colors-border[$name]
-        &:hover { color: $semantic-colors-foreground[$name] }
+        color: theme-color($name, 300)
+        &:hover { color: theme-color($name, 700) }
       .card-actions
-        border-color: $semantic-colors-medium[$name]
+        border-color: theme-color($name, 200)
       .stage
-        background: $semantic-colors-medium[$name]
+        background: theme-color($name, 200)
 
   .card-summary
     display: flex

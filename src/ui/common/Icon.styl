@@ -6,8 +6,8 @@ i
   margin-right: 4px
   text-align: center
 
-  for $name, $color in $semantic-colors-foreground
-    &.{$name} { color: $color }
+  for $name in $color-names
+    &.{$name} { color: theme-color($name, 700) }
   
 i:before
   font-family: $icon-font !important
@@ -75,3 +75,6 @@ i:before
 .icon-kind:before          { content: "\e033" }
 .icon-add:before           { content: "\e034" }
 .icon-switch:before        { content: "\e035" }
+.icon-invite:before        { content: "\e036" }
+.icon-error:before         { content: "\e037" }
+.icon-success:before       { content: "\e038" }

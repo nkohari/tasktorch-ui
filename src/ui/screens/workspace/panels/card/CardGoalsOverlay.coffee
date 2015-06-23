@@ -29,11 +29,9 @@ CardGoalsOverlay = React.createClass {
     {allGoals: cache('goalsByOrg').get(@props.card.org)}
 
   componentWillMount: ->
-    console.log "componentWillMount: #{@props.card.goals}"
     @setState {selectedGoals: @props.card.goals}
 
   componentWillReceiveProps: (newProps) ->
-    console.log "componentWillReceiveProps: #{newProps.card.goals}"
     @setState {selectedGoals: newProps.card.goals}
 
   render: ->

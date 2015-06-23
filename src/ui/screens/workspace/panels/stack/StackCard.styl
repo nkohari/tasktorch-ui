@@ -6,12 +6,12 @@
   cursor: move
   box-shadow: 1px 1px 0 black(10%)
   
-  for $name, $color in $semantic-colors-medium
+  for $name in $color-names
     &.{$name}
-      background: $color
-      border: 1px solid $color
+      background: theme-color($name, 200)
+      border: 1px solid theme-color($name, 200)
       & > .content
-        background: $semantic-colors-background[$name]
+        background: theme-color($name, 100)
   
   &:last-child { margin-bottom: 0 }
   

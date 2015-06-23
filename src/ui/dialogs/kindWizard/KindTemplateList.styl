@@ -21,9 +21,9 @@
   
     & > i
       margin-right: 6px
-      for $name, $color in $semantic-colors-foreground
+      for $name in $color-names
         &.{$name}
-          color: $color
+          color: theme-color($name, 700)
   
     .template-info
       flex: 1

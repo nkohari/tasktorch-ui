@@ -16,7 +16,7 @@ class KindStore extends ModelStore
   ]
 
   load: (id) ->
-    console.warn('KindStore.load() was called')
+    debug.warn('KindStore.load() was called')
 
   onKindsLoaded: (event) ->
     @add(event.kinds)

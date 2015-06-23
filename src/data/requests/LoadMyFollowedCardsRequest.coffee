@@ -19,15 +19,15 @@ class LoadMyFollowedCardsRequest extends Request
     .withCredentials()
     .end (err, res) =>
 
-      cards  = _.map res.body.cards,          (doc) -> new Card(doc)
-      stacks = _.map res.body.related.stacks, (doc) -> new Stack(doc)
-      teams  = _.map res.body.related.teams,  (doc) -> new Team(doc)
-      users  = _.map res.body.related.users,  (doc) -> new User(doc)
+      cards  = _.map res.body.cards,           (doc) -> new Card(doc)
+      stacks = _.map res.body.related?.stacks, (doc) -> new Stack(doc)
+      teams  = _.map res.body.related?.teams,  (doc) -> new Team(doc)
+      users  = _.map res.body.related?.users,  (doc) -> new User(doc)
 
       eventQueue.publish new CardsLoadedEvent(cards)
-      eventQueue.publish new StacksLoadedEvent(stacks) if stacks.length > 0
-      eventQueue.publish new TeamsLoadedEvent(teams)  if teams.length > 0
-      eventQueue.publish new UsersLoadedEvent(users)  if users.length > 0
+      eventQueue.publish new StacksLoadedEvent(stacks) if stacks?.length > 0
+      eventQueue.publish new TeamsLoadedEvent(teams)   if teams?.length > 0
+      eventQueue.publish new UsersLoadedEvent(users)   if users?.length > 0
 
       eventQueue.publish new MyFollowedCardsLoadedEvent(cards)
 

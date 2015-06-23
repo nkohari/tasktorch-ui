@@ -12,6 +12,7 @@ FollowersByCardStore    = require 'data/stores/FollowersByCardStore'
 GoalStore               = require 'data/stores/GoalStore'
 GoalsByCardStore        = require 'data/stores/GoalsByCardStore'
 GoalsByOrgStore         = require 'data/stores/GoalsByOrgStore'
+InviteStore             = require 'data/stores/InviteStore'
 KindStore               = require 'data/stores/KindStore'
 KindsByOrgStore         = require 'data/stores/KindsByOrgStore'
 NoteStore               = require 'data/stores/NoteStore'
@@ -31,6 +32,7 @@ SuggestedTeamsStore     = require 'data/stores/SuggestedTeamsStore'
 SuggestedUsersStore     = require 'data/stores/SuggestedUsersStore'
 TeamStore               = require 'data/stores/TeamStore'
 TeamsByOrgStore         = require 'data/stores/TeamsByOrgStore'
+TokenStore              = require 'data/stores/TokenStore'
 UserStore               = require 'data/stores/UserStore'
 EventQueue              = require 'events/EventQueue'
 MessageBus              = require 'messaging/MessageBus'
@@ -51,12 +53,14 @@ class Environment
       new ChecklistStore(@eventQueue, @cache)
       new DialogStore(@eventQueue, @cache)
       new GoalStore(@eventQueue, @cache)
+      new InviteStore(@eventQueue, @cache)
       new KindStore(@eventQueue, @cache)
       new NoteStore(@eventQueue, @cache)
       new OrgStore(@eventQueue, @cache)
       new StackStore(@eventQueue, @cache)
       new StageStore(@eventQueue, @cache)
       new TeamStore(@eventQueue, @cache)
+      new TokenStore(@eventQueue, @cache)
       new UserStore(@eventQueue, @cache)
     ]
 

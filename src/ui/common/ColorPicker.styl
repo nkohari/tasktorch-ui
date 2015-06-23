@@ -31,8 +31,8 @@
       &:last-child { margin-right: 1px }
       &:focus { outline: none !important }
 
-      for $name, $color in $semantic-colors-background
+      for $name in $color-names
         &.{$name}
-          background: $color
+          background: theme-color($name, 100)
           &:hover, &.selected
-            background: $semantic-colors-foreground[$name]
+            background: theme-color($name, 700)

@@ -1,7 +1,7 @@
 class Request
 
   @urlFor: (path) ->
-    if __DEV__
+    if TASKTORCH_FLAGS_DEBUG
       domain = "https://api.tasktorch.dev:9001"
     else
       domain = "https://api.tasktorch.com"

@@ -27,7 +27,7 @@ class ActionStore extends ModelStore
   ]
 
   load: (id) ->
-    console.warn('ActionStore.load() was called')
+    debug.warn('ActionStore.load() was called')
 
   onActionsLoaded: (event) ->
     @add(event.actions)

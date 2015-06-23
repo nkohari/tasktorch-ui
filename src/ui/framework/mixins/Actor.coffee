@@ -5,7 +5,7 @@ Actor = {
       for type in @listensFor
         func = "on#{type}"
         unless this[func]?
-          console.warn("Missing event handler definition #{func}() on #{@constructor.displayName}")
+          debug.error("Missing event handler definition #{func}() on #{@constructor.displayName}")
         Environment.eventQueue.addListener(type, this[func])
 
   componentDidUnmount: ->

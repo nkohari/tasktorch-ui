@@ -6,10 +6,32 @@
   &:last-child { margin-bottom: 0 }
   &.expand { flex: 1 }
   
-  .field-label
-    display: block
+  &.valid
+    .field-status
+      color: green(700)
+    input
+      background: green(50) !important
+      border-color: green(200) !important
+
+  &.error
+    .field-status
+      color: red(700)
+    input
+      background: red(50) !important
+      border-color: red(200) !important
+  
+  .field-meta
+    position: relative
+    display: flex
     margin-bottom: 8px
-    font-weight: $bold-font-weight
+    .field-icon
+      color: $color-ink-light
+      line-height: 16px
+    .field-label
+      flex: 1
+      font-weight: $bold-font-weight
+    .field-status
+      & > i { margin-right: 0 }
   
   .field-input
     flex: 1
@@ -18,8 +40,8 @@
     margin-bottom: 8px
 
   .hint
-    font-size: 15px
+    font-size: 14px
     font-style: italic
     font-weight: $bold-font-weight
     color: $color-ink-light
-    line-height: 20px
+    line-height: 18px

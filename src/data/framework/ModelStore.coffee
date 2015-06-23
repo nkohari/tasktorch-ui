@@ -17,7 +17,7 @@ class ModelStore extends Store
       return model
     else
       if @states[id] != ReadyState.Loading
-        console.debug("#{@displayName}: Cache miss on #{id}")
+        debug.log("#{@displayName}: Cache miss on #{id}")
         @states[id] = ReadyState.Loading
         @load(id)
       return undefined
@@ -29,7 +29,7 @@ class ModelStore extends Store
 
   set: (id, model) ->
     if compare.values(model, @models[id])
-      console.debug("#{@displayName}: Ignoring set() for %O", model)
+      debug.log("#{@displayName}: Ignoring set() for %O", model)
     else
       @models[id] = model
       @states[id] = ReadyState.Loaded
@@ -41,7 +41,7 @@ class ModelStore extends Store
     for model in _.flatten(models)
       id = model.id
       if compare.values(model, @models[id])
-        console.debug("#{@displayName}: Ignoring add() for %O", model)
+        debug.log("#{@displayName}: Ignoring add() for %O", model)
       else
         @models[id] = model
         @states[id] = ReadyState.Loaded

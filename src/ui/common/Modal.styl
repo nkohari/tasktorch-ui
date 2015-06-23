@@ -1,0 +1,83 @@
+$animation-length   = 300ms
+$animation-distance = 50px
+
+.modal
+  position: absolute
+  left: 0
+  height: 100%
+  width: 100%
+  display: flex
+  background: $color-white
+
+  .modal-content
+    z-index: 1
+    height: 100%
+    display: flex
+    flex: 1
+      
+  .modal-splash
+    z-index: 2
+    display: flex
+    flex-direction: column
+    height: 100%
+    margin-right: 80px
+    padding: 0 60px
+    background: #fcfcfc
+    border-right: 1px solid $color-steel-light
+    align-self: center
+    justify-content: center
+    .logo
+      height: 120px
+      width: 98px
+      flex: none
+      align-self: center
+    .brand
+      margin-top: 16px
+      font: 24px $brand-font
+      font-weight: $heavy-font-weight
+      text-transform: uppercase
+      align-self: center
+      .word-one { color: $color-brand-pink }
+      .word-two { color: $color-brand-orange }
+    .version
+      font: 12px $brand-font
+      font-weight: $heavy-font-weight
+      color: $color-ink-subtle
+      text-transform: uppercase
+      align-self: center
+  
+  &.slide-appear, &.slide-enter
+    animation: modal-enter $animation-length ease-out
+    .modal-content { animation: modal-content-enter $animation-length ease-out }
+    
+  &.slide-leave
+    animation: modal-leave $animation-length linear
+    .modal-content { animation: modal-content-leave $animation-length linear }
+
+@keyframes modal-enter
+  from
+    opacity: 0
+  to
+    opacity: 1
+
+@keyframes modal-leave
+  from
+    opacity: 1
+  to
+    opacity: 1
+
+@keyframes modal-content-enter
+  from
+    opacity: 0
+    transform: translateX(-($animation-distance))
+  to
+    opacity: 1
+    transform: translateX(0)
+
+@keyframes modal-content-leave
+  from
+    opacity: 1
+    transform: translateX(0)
+  to
+    opacity: 0
+    transform: translateX($animation-distance)

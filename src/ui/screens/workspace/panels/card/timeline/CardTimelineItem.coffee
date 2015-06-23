@@ -41,7 +41,7 @@ CardTimelineItem = React.createClass {
     NoteComponent = NoteComponents[@props.note.type]
 
     unless NoteComponent?
-      console.warn("Don't know how to render a note of type #{@props.note.type}")
+      debug.warn("Don't know how to render a note of type #{@props.note.type}")
       return div {}
 
     NoteComponent {card: @props.card, note: @props.note, user: @state.user}

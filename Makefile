@@ -27,4 +27,4 @@ deploy: compress
 		s3://$(BUCKET)/
 
 dev:
-	@$(BIN)/webpack-dev-server --devtool eval --progress --colors --hot --content-base $(DIST) --port 8888 --history-api-fallback
+	@$(BIN)/webpack-dev-server --devtool eval --progress --colors --hot --content-base $(DIST) --port 9000 --history-api-fallback

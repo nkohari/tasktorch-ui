@@ -17,6 +17,10 @@ OverlayTrigger = React.createClass {
 
   propTypes:
     overlay: PropTypes.node
+    method:  PropTypes.string
+
+  getDefaultProps: ->
+    {method: 'click'}
 
   getInitialState: ->
     {visible: false}
@@ -42,7 +46,9 @@ OverlayTrigger = React.createClass {
       className: classSet [
         'active' if @state.visible
       ]
-      onClick: @toggleOverlay
+      onClick:     @toggleOverlay if @props.method is 'click'
+      onMouseOver: @showOverlay   if @props.method is 'hover'
+      onMouseOut:  @hideOverlay   if @props.method is 'hover'
     }
 
     if @state.visible

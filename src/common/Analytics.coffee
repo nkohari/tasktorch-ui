@@ -23,10 +23,8 @@ Analytics.init = (user, org) ->
       widget:
         activator:  '#intercom'
       company:
-        id:         org.id
-        name:       org.name
-        created_at: moment(org.created).unix()
-        members:    _.size(org.members)
+        id:   org.id
+        name: org.name
     })
 
 Analytics.update = (info = undefined) ->

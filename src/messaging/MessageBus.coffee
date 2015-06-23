@@ -9,6 +9,7 @@ Pusher.XHR = ->
 class MessageBus
 
   constructor: ->
+    @channels = []
     @_pusher = new Pusher '9bc5b19ceaf8c59adcea',
       authEndpoint: Request.urlFor('/_wsauth')
       encrypted: true
@@ -20,6 +21,10 @@ class MessageBus
     @addChannel(name, channel) for name, channel of hash
 
   subscribe: (name) ->
-    @_pusher.subscribe(name)
+    @channels.push(name)
+    return @_pusher.subscribe(name)
+
+  reset: ->
+    @_pusher.unsubscribe(channel) for channel in @channels
     
 module.exports = MessageBus

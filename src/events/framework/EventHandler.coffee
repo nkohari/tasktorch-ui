@@ -8,7 +8,7 @@ class EventHandler
         @eventQueue.addListener(type, @handle.bind(this))
 
   handle: (event) ->
-    console.debug("#{@displayName}: Received %O", event)
+    debug.log("#{@displayName}: Received %O", event)
     this["on#{event.type}"].call(this, event)
     return
 

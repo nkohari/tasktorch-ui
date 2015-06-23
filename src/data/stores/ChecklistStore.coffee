@@ -14,7 +14,7 @@ class ChecklistStore extends ModelStore
   ]
 
   load: (id) ->
-    console.warn('ChecklistStore.load() was called')
+    debug.log('WARN: ChecklistStore.load() was called')
 
   onChecklistsLoaded: (event) ->
     @add(event.checklists)

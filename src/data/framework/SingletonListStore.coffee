@@ -16,7 +16,7 @@ class SingletonListStore extends Store
       return _.map @list, (id) => @modelStore.get(id)
     else
       if @state != ReadyState.Loading
-        console.debug("#{@constructor.name}: Cache miss")
+        debug.log("#{@constructor.name}: Cache miss")
         @state = ReadyState.Loading
         @load()
       return undefined

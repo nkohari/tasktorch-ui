@@ -1,11 +1,11 @@
 .card-header
   
-  for $name, $color in $semantic-colors-background
+  for $name in $color-names
     &.{$name}
-      background: $color
+      background: theme-color($name, 100)
       .follow-toggle
-        color: $semantic-colors-border[$name]
-        &:hover { color: $semantic-colors-foreground[$name] }
+        color: theme-color($name, 300)
+        &:hover { color: theme-color($name, 700) }
   
   display: flex
   flex: none
@@ -26,8 +26,9 @@
     
 .card.complete, .card.deleted
   .card-header
-    for $name, $color in $semantic-colors-background
-      $alt = $color-steel-light
+    for $name in $color-names
+      $color = theme-color($name, 100)
+      $alt   = $color-steel-light
       &.{$name}
         background: linear-gradient(to bottom right, $color 25%, $alt 25%, $alt 50%, $color 50%, $color 75%, $alt 75%, $alt);
         background-size: 24px 24px

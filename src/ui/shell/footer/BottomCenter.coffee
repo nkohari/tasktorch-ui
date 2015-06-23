@@ -16,7 +16,7 @@ BottomCenter = React.createClass {
     div {className: 'bottom-center'},
       div {className: 'brand'},
         'TaskTorch'
-        div {className: 'version'}, 'Private Alpha'
+        div {className: 'version'}, 'Private Beta'
 
 }
 

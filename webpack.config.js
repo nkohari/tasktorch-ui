@@ -9,8 +9,9 @@ module.exports = {
   module: {
     loaders: [
       {test: /\.coffee$/, loader: 'coffee-loader'},
+      {test: /\.cjsx$/,   loader: 'coffee-loader!cjsx-loader'},
       {test: /\.styl$/,   loader: ExtractTextPlugin.extract('style-loader', 'css-loader!stylus-loader')},
-      {test: /assets/,    loader: 'url-loader?limit=50000&name=static/[name].[ext]'},
+      {test: /assets/,    loader: 'url-loader?name=static/[name].[ext]'},
     ]
   },
   output: {
@@ -20,7 +21,7 @@ module.exports = {
   },
   plugins: [
     new DefinePlugin({
-      '__DEV__': process.env['NODE_ENV'] !== 'production'
+      'TASKTORCH_FLAGS_DEBUG': process.env['NODE_ENV'] !== 'production'
     }),
     new ExtractTextPlugin('[hash]/[name].css'),
     new HtmlPlugin({
@@ -30,7 +31,7 @@ module.exports = {
     })
   ],
   resolve: {
-    extensions: ['', '.coffee', '.js'],
+    extensions: ['', '.coffee', '.js', '.jsx', '.cjsx'],
     modulesDirectories: ['./src', './assets', './style', 'node_modules']
   },
   stylus: {

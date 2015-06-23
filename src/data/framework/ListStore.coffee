@@ -18,7 +18,7 @@ class ListStore extends Store
       return _.compact _.map list, (id) => @modelStore.get(id)
     else
       if @states[id] != ReadyState.Loading
-        console.debug("#{@constructor.name}: Cache miss on #{id}")
+        debug.log("#{@constructor.name}: Cache miss on #{id}")
         @states[id] = ReadyState.Loading
         @load(id)
       return undefined

@@ -34,7 +34,7 @@ ChangeMyEmailDialog = React.createClass {
       Button {text: 'Change Email', className: 'default', disabled: !@isValid(), onClick: @changeEmail}
       Button {text: 'Cancel', onClick: @props.closeDialog}
 
-    Dialog {icon: 'settings', title: 'Change My Email Address', buttons, closeDialog: @props.closeDialog},
+    Dialog {icon: 'settings', title: 'Change My Email', buttons, closeDialog: @props.closeDialog},
       Field {label: 'Email', hint: 'email'},
         Input {ref: 'email', icon: 'email', placeholder: 'Enter an email address', value: @state.email, onChange: @onEmailChanged}
 

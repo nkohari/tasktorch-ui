@@ -1,13 +1,13 @@
 .following-card
   margin-bottom: 6px
   
-  for $name, $color in $semantic-colors-background
+  for $name in $color-names
     &.{$name}
-      background: $color
-      border: 1px solid $semantic-colors-border[$name]
+      background: theme-color($name, 100)
+      border: 1px solid theme-color($name, 300)
       .controls
-        color: $semantic-colors-border[$name]
-        .trigger:hover { color: $semantic-colors-foreground[$name] }
+        color: theme-color($name, 300)
+        .trigger:hover { color: theme-color($name, 700) }
           
   & > .content
     display: flex

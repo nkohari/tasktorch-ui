@@ -50,6 +50,7 @@ Shell = React.createClass {
 
   componentWillMount: ->
     Environment.cache.clear()
+    # TODO: This is all silly garbage and should be put into a Store where it belongs.
     @screenState = {
       workspace:  new ScreenState('workspace',  @props.url, @transitionTo)
       bigpicture: new ScreenState('bigpicture', @props.url, @transitionTo)
@@ -72,7 +73,6 @@ Shell = React.createClass {
     screenProps = _.extend @screenState[@props.url.screen], {
       key: @props.url.screen
     }
-    console.log(screenProps)
 
     Frame {@isReady, className: 'shell'},
       ShellHeader {}

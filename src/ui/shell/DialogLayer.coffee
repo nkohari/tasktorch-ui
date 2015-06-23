@@ -19,6 +19,7 @@ DIALOGS =
   Help:             React.createFactory(require 'ui/dialogs/HelpDialog')
   RenameStack:      React.createFactory(require 'ui/dialogs/RenameStackDialog')
   RenameTeam:       React.createFactory(require 'ui/dialogs/RenameTeamDialog')
+  SendInvites:      React.createFactory(require 'ui/dialogs/SendInvitesDialog')
   TeamMembers:      React.createFactory(require 'ui/dialogs/TeamMembersDialog')
   UserSettings:     React.createFactory(require 'ui/dialogs/UserSettingsDialog')
 

@@ -15,7 +15,7 @@ class NoteStore extends ModelStore
   ]
 
   load: (id) ->
-    console.warn('NoteStore.load() was called')
+    debug.warn('NoteStore.load() was called')
 
   onNotesLoaded: (event) ->
     @add(event.notes)

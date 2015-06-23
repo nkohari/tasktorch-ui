@@ -86,4 +86,10 @@ initiative like "Improve Documentation". The status of goals is visible on
 the Big Picture screen.
 """
 
+Hints['send-invites'] = """
+Enter the email addresses for the people you'd like to invite. They'll receive
+a message from us with a link that they can use to join your organization.
+If they don't already have a TaskTorch account, they'll be able to create one. 
+"""
+
 module.exports = Hints

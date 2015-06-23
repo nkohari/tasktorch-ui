@@ -52,7 +52,6 @@ CreateKindWizardWorkflowPage = React.createClass {
     @setStages(stages)
 
   removeAction: (stageid, actionid) ->
-    console.log 'hay'
     stages = _.cloneDeep(@props.stages)
     for stage in stages
       if stage.id == stageid

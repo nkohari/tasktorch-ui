@@ -4,14 +4,16 @@ React         = require 'react'
 Router        = require 'react-router'
 CachedState   = require 'ui/framework/mixins/CachedState'
 Icon          = React.createFactory(require 'ui/common/Icon')
+Modal         = React.createFactory(require 'ui/common/Modal')
+ModalMessage  = React.createFactory(require 'ui/common/ModalMessage')
 {div, li, ul} = React.DOM
 #--------------------------------------------------------------------------------
-require './OrgListInterstitial.styl'
+require './SelectOrgModal.styl'
 #--------------------------------------------------------------------------------
 
-OrgListInterstitial = React.createClass {
+SelectOrgModal = React.createClass {
 
-  displayName: 'OrgListInterstitial'
+  displayName: 'SelectOrgModal'
 
   mixins: [CachedState, Router.Navigation]
 
@@ -21,9 +23,7 @@ OrgListInterstitial = React.createClass {
 
   componentWillMount: ->
     Environment.cache.clear()
-
-  componentDidMount: ->
-    document.title = "TaskTorch | My Organizations"
+    Environment.messageBus.reset()
 
   render: ->
 
@@ -34,17 +34,16 @@ OrgListInterstitial = React.createClass {
           div {className: 'org-name'}, org.name
           div {className: 'org-member-count'}, "#{org.members.length} Member#{if org.members.length == 1 then '' else 's'}"
 
-    div {className: 'org-list interstitial'},
+    Modal {title: 'My Organizations', className: 'select-org-modal'},
       div {className: 'orgs'},
-        div {className: 'header'}, 'Which Organization?'
+        div {className: 'header'}, 'My Organizations'
         ul {className: 'org-list'}, items
-      div {className: 'brand'},
-        'TaskTorch'
-        div {className: 'version'}, 'Private Alpha'
+      ModalMessage {},
+        "Which organization would you like to view?"
 
   selectOrg: (org) ->
     @transitionTo('workspace', {orgid: org.id})
 
 }
 
-module.exports = OrgListInterstitial
+module.exports = SelectOrgModal

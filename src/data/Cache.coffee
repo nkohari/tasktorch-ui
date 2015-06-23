@@ -25,7 +25,7 @@ class Cache extends EventEmitter
 
   announce: (store) ->
     if @eventQueue.isFlushing
-      console.debug("Cache: Deferred announcement of changes from #{store.displayName}")
+      debug.log("Cache: Deferred announcement of changes from #{store.displayName}")
       @hasPendingChanges = true
     else
       @_announceChanges()
@@ -36,7 +36,7 @@ class Cache extends EventEmitter
       @hasPendingChanges = false
 
   _announceChanges: ->
-    console.debug("Cache: Announcing changes")
+    debug.log("Cache: Announcing changes")
     @emit('StateChanged')
 
 module.exports = Cache

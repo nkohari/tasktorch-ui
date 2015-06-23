@@ -2,7 +2,7 @@
   position: relative
   width: 100%
   
-  input[type=text], input[type=password], textarea
+  input[type=text], input[type=email], input[type=password], textarea
     width: 100%
     padding: 4px
     background: $color-white
@@ -15,20 +15,35 @@
     cursor: pointer
     margin-right: 10px
   
+  select
+    font-size: 15px
+    width: 100%
+    background: $color-white
+    border: 1px solid $color-steel
+    &:focus
+      border: 1px solid $color-steel-dark
+      outline: none
+  
+  ul
+    li
+      font-size: 15px
+      line-height: 19px
+      margin-left: 4px
+  
   &.has-left-icon
-    input { padding-left: 26px }
-    .input-placeholder { left: 28px }
+    input { padding-left: 30px }
+    .input-placeholder { left: 34px }
   
   &.has-right-icon
-    input { padding-right: 26px }
+    input { padding-right: 30px }
   
   i
     position: absolute
     color: $color-ink-light
     margin-right: 0
     top: 6px
-    &.left-icon { left: 6px }
-    &.right-icon { right: 6px }
+    &.left-icon { left: 8px }
+    &.right-icon { right: 8px }
         
   .input-placeholder
     position: absolute

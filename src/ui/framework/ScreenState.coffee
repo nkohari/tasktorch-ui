@@ -23,7 +23,7 @@ class ScreenState
         try
           @panels = _.map url.query.p.split(OBJECT_SEPARATOR), (blob) => @deserialize(blob)
         catch err
-          console.warn("Error deserializing panel state: #{err}")
+          debug.error("Error deserializing panel state: #{err}")
 
   showDrawer: ->
     @drawer = true
@@ -56,7 +56,7 @@ class ScreenState
       @addPanel(panel)
 
   addPanelAfter: (otherid, panel) ->
-    console.log "index of #{otherid} is #{@getIndexOfPanel(otherid)}"
+    debug.log "index of #{otherid} is #{@getIndexOfPanel(otherid)}"
     @addPanel(panel, @getIndexOfPanel(otherid) + 1)
 
   addPanelBefore: (otherid, panel) ->

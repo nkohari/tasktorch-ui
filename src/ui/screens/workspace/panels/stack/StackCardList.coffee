@@ -46,7 +46,6 @@ StackCardList = React.createClass {
     @state.cards?
 
   componentWillReceiveProps: (newProps) ->
-    console.log 'componentWillReceiveProps()'
     @setState {ids: _.clone(newProps.stack.cards)}
 
   render: ->
@@ -79,15 +78,12 @@ StackCardList = React.createClass {
     @setState {dragActive: false, dropAllowed: undefined}
 
   onReorder: (card, toPosition) ->
-    console.log 'onReorder()'
     @publish new UserMovedCardEvent(card.id, @props.stack.id, toPosition)
 
   onMove: (card, toStack, toPosition) ->
-    console.log 'onMove()'
     @publish new UserMovedCardEvent(card.id, toStack.id, toPosition)
 
   onListOrderChanged: (ids) ->
-    console.log "onListOrderChanged(): #{ids.join(',')}"
     @setStateAndSync {ids}
 
   isDropAllowed: (card, stack) ->

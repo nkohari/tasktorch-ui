@@ -1,0 +1,72 @@
+.banner-container 
+  height: 100%
+  width: 100%
+  display: flex
+  justify-content: center
+  align-items: center
+
+  .banner
+    height: 600px
+    width: 100%
+    display: flex
+    justify-content: center
+    align-items: center
+    border-top: 1px solid $color-steel
+    border-bottom: 1px solid $color-steel
+    background: $color-white
+    box-shadow: 0 0 10px black(20%)
+          
+    .banner-splash
+      display: flex
+      flex-direction: column
+      justify-content: center
+      .logo
+        height: 120px
+        width: 98px
+        flex: none
+        align-self: center
+      .brand
+        margin-top: 16px
+        font: 24px $brand-font
+        font-weight: $heavy-font-weight
+        text-transform: uppercase
+        align-self: center
+        .word-one { color: $color-brand-pink }
+        .word-two { color: $color-brand-orange }
+      .version
+        font: 12px $brand-font
+        font-weight: $heavy-font-weight
+        color: $color-ink-subtle
+        text-transform: uppercase
+        align-self: center
+    
+    .banner-content
+      margin-left: 60px
+      padding: 60px 0 60px 60px
+      border-left: 1px solid $color-steel-light
+      p
+        font-size: 18px
+        line-height: 1.2em
+        margin: 0 0 16px 0
+      p.status-code
+        font-size: 72px
+        font-weight: $bold-font-weight
+        color: $color-ink-subtle
+      a
+        color: $color-link
+        text-decoration: underline
+        transition: all $hover-animation-delay linear
+        &:hover
+          color: $color-link-active        
+
+@keyframes banner-enter
+  from
+    opacity: 0
+  to
+    opacity: 1
+
+@keyframes banner-leave
+  from
+    opacity: 1
+  to
+    opacity: 0

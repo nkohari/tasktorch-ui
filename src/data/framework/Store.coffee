@@ -6,7 +6,7 @@ class Store extends EventHandler
     super(eventQueue)
 
   announce: ->
-    console.debug("#{@displayName}: Announcing changes")
+    debug.log("#{@displayName}: Announcing changes")
     @cache.announce(this)
 
   load: (id) ->

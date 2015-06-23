@@ -30,7 +30,7 @@ UserContextMenu = React.createClass {
         'Change my name'
       DialogTrigger {name: 'ChangeMyEmail'},
         Icon {name: 'email'}
-        'Change my email address'
+        'Change my email'
       DialogTrigger {name: 'ChangeMyPassword'},
         Icon {name: 'secure'}
         'Change my password'
