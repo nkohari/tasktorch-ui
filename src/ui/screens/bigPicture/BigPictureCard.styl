@@ -4,6 +4,12 @@
   box-shadow: 1px 1px 0 black(10%)
   &:last-child { margin-bottom: 0px }
   
+  &.complete
+    .card-widgets
+      position: absolute
+      right: 0
+      top: 0
+  
   for $name in $color-names
     &.{$name}
       background: theme-color($name, 100)
@@ -25,6 +31,7 @@
       flex: none
     
     .card-info
+      position: relative
       flex: 1
     
     .card-widgets

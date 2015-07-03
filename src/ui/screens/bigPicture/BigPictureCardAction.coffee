@@ -29,7 +29,7 @@ BigPictureCardAction = React.createClass {
 
     li {className: classes},
       div {className: 'status'}, Icon {name: @props.action.status.toLowerCase()}
-      div {className: 'text'},   @props.action.text
+      div {className: 'text'},   @props.action.text or '(Unnamed Action)'
       div {className: 'stage'},  @props.stage.name
 
 }

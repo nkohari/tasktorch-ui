@@ -40,6 +40,7 @@ GoalPanelColumnSection = React.createClass {
       when CardStatus.NotStarted then 'Not Started'
       when CardStatus.InProgress then 'In Progress'
       when CardStatus.Warning    then 'Warning'
+      when CardStatus.Idle       then 'Idle'
       when CardStatus.Complete   then 'Complete'
 
 }

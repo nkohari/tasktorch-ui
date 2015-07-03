@@ -27,9 +27,14 @@ GoalPanelColumn = React.createClass {
     cardsByStatus = _.extend {
       Warning:    []
       InProgress: []
+      Idle:       []
       NotStarted: []
       Complete:   []
     }, _.groupBy(@props.cards, 'status')
+
+    sections = _.map cardsByStatus, (cards, status) =>
+      return unless cards.length > 0
+      GoalPanelColumnSection {key: status, status, cards}
 
     BigPictureColumn {},
       div {className: 'header'},
@@ -39,10 +44,7 @@ GoalPanelColumn = React.createClass {
             @props.kind.name
           div {className: 'count'}, "#{count} card#{plural}"
       div {className: 'content'},
-        GoalPanelColumnSection {status: CardStatus.Warning,    cards: cardsByStatus[CardStatus.Warning],    goal: @props.goal, kind: @props.kind} if cardsByStatus[CardStatus.Warning]?.length > 0
-        GoalPanelColumnSection {status: CardStatus.InProgress, cards: cardsByStatus[CardStatus.InProgress], goal: @props.goal, kind: @props.kind} if cardsByStatus[CardStatus.InProgress]?.length > 0
-        GoalPanelColumnSection {status: CardStatus.NotStarted, cards: cardsByStatus[CardStatus.NotStarted], goal: @props.goal, kind: @props.kind} if cardsByStatus[CardStatus.NotStarted]?.length > 0
-        GoalPanelColumnSection {status: CardStatus.Complete,   cards: cardsByStatus[CardStatus.Complete],   goal: @props.goal, kind: @props.kind} if cardsByStatus[CardStatus.Complete]?.length > 0
+        sections
 
   toggleKind: ->
     @getScreen('bigpicture').togglePanel(new KindPanelState(@props.kind.id))

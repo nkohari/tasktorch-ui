@@ -18,20 +18,12 @@ BigPictureCardChecklist = React.createClass {
     kind:      PropTypes.Kind
     checklist: PropTypes.Checklist
     stage:     PropTypes.Stage
-
-  mixins: [CachedState]
-
-  getCachedState: (cache) -> {
-    actions: cache('actionsByChecklist').get(@props.checklist.id)
-  }
+    actions:   PropTypes.arrayOf(PropTypes.Action)
 
   render: ->
 
-    if @state.actions?
-      actionsToDisplay = _.filter @state.actions, (action) =>
-        action.status == ActionStatus.InProgress or action.status == ActionStatus.Warning
-      items = _.map actionsToDisplay, (action) =>
-        BigPictureCardAction {key: action.id, card: @props.card, stage: @props.stage, action}
+    items = _.map @props.actions, (action) =>
+      BigPictureCardAction {key: action.id, card: @props.card, stage: @props.stage, action}
 
     classes = classSet [
       'big-picture-card-action-list'

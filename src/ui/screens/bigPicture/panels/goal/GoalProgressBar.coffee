@@ -23,6 +23,7 @@ GoalProgressBar = React.createClass {
     counts = _.extend {
       Complete:   0
       InProgress: 0
+      Idle:       0
       Warning:    0
       NotStarted: 0
     }, _.countBy(@props.cards, 'status')
@@ -39,6 +40,7 @@ GoalProgressBar = React.createClass {
       ProgressBar {total: @props.cards?.length or 0},
         ProgressBarSegment {className: 'complete',   value: counts[CardStatus.Complete]}   if counts[CardStatus.Complete] > 0
         ProgressBarSegment {className: 'inprogress', value: counts[CardStatus.InProgress]} if counts[CardStatus.InProgress] > 0
+        ProgressBarSegment {className: 'idle',       value: counts[CardStatus.Idle]}       if counts[CardStatus.Idle] > 0
         ProgressBarSegment {className: 'warning',    value: counts[CardStatus.Warning]}    if counts[CardStatus.Warning] > 0
 
 }
