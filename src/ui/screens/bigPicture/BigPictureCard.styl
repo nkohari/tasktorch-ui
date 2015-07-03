@@ -1,27 +1,22 @@
+$big-picture-card-border-radius = 3px
+
 .big-picture-card
   margin-bottom: 8px
-  border-radius: 3px
+  border-radius: $big-picture-card-border-radius
+  border: 1px solid $color-steel-medium
   box-shadow: 1px 1px 0 black(10%)
   &:last-child { margin-bottom: 0px }
   
-  &.complete
-    .card-widgets
-      position: absolute
-      right: 0
-      top: 0
-  
   for $name in $color-names
     &.{$name}
-      background: theme-color($name, 100)
-      border: 1px solid theme-color($name, 200)
-      .trigger
-        color: theme-color($name, 300)
-        &:hover { color: theme-color($name, 700) }
-      .card-actions
-        border-color: theme-color($name, 200)
-      .stage
-        background: theme-color($name, 200)
-
+      background: theme-color($name, 200)
+  
+  & > .content
+    margin-left: 8px
+    background: $color-paper
+    border-top-right-radius: $big-picture-card-border-radius
+    border-bottom-right-radius: $big-picture-card-border-radius
+    
   .card-summary
     display: flex
     flex-direction: row
@@ -38,6 +33,8 @@
       margin: 3px 0px 6px 0px
       display: flex
       color: $color-ink-light
+      .trigger
+        &:hover { color: $color-ink }
       .location
         flex: 1
         font-size: 14px
@@ -47,6 +44,7 @@
         i { margin-right: 4px }
       .follow-toggle
         flex: none
+        color: $color-ink-subtle
         transition: color $hover-animation-delay linear
       
     .title
@@ -54,8 +52,14 @@
       line-height: 22px
 
   .card-actions
-    border-top: 1px dotted
-    padding: 4px 0px
+    border-top: 1px solid $color-divider
+    padding-top: 4px
 
+  &.complete
+    .card-widgets
+      position: absolute
+      right: 0
+      top: 0
+  
   .big-picture-card-action-list
     &.empty { display: none }

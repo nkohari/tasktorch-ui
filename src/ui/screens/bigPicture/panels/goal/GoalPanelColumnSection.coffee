@@ -1,6 +1,7 @@
 #--------------------------------------------------------------------------------
 _             = require 'lodash'
 React         = require 'react'
+classSet      = require 'common/util/classSet'
 CardStatus    = require 'data/enums/CardStatus'
 PropTypes     = require 'ui/framework/PropTypes'
 CachedState   = require 'ui/framework/mixins/CachedState'
@@ -27,12 +28,17 @@ GoalPanelColumnSection = React.createClass {
     cards = _.map @props.cards, (card) =>
       BigPictureCard {key: card.id, card, goal: @props.goal, kind: @props.kind}
 
-    div {className: 'big-picture-column-section'},
+    classes = classSet [
+      'big-picture-column-section'
+      @props.status.toLowerCase()
+    ]
+
+    div {className: classes},
       div {className: 'header'},
         div {className: 'name'},
           Icon {name: @props.status.toLowerCase()}
           @getName()
-        div {className: 'count'}, "#{count} card#{plural}"
+        div {className: 'count'}, count
       ul {className: 'cards'}, cards
 
   getName: ->

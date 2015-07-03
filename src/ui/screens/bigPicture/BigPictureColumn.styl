@@ -11,7 +11,7 @@
     width: 100%
     flex: none
     background: $color-steel-light
-    padding: 8px
+    padding: 8px 10px
     border-bottom: 1px solid $color-steel-medium
     .avatar
       flex: none
@@ -37,30 +37,64 @@
         font-size: 14px
         font-weight: $bold-font-weight
   
+  .cards
+    padding: 10px
+    
   .big-picture-column-section
-    border-top: 1px solid $color-steel
-    &:first-child { border-top: 0px }
     
     .header
       display: flex
-      width: 100%
       flex: none
-      background: $color-steel-verylight
-      padding: 6px 8px
-      border-bottom: 1px solid $color-steel
-      color: $color-ink-light
+      padding: 10px
       font-weight: $bold-font-weight
       .name
+        flex: 1
         font-size: 14px
       .count
-        flex: 1
         font-size: 13px
-        text-align: right
+        min-width: 30px
+        padding: 4px 7px
+        font-weight: $heavy-font-weight
+        text-align: center
+        line-height: 1em
+        border-radius: 8px
+          
+    &.warning
+      .header
+        .name
+          color: $color-bad
+        .count
+          color: $color-white
+          background: $color-bad
+        
+    &.inprogress
+      .header
+        .name
+          color: $color-good
+        .count
+          color: $color-white
+          background: $color-good
+        
+    &.idle
+      .header
+        .name
+          color: $color-caution
+        .count
+          color: $color-white
+          background: $color-caution        
+          
+    &.notstarted, &.complete
+      .header
+        .name
+          color: $color-ink-light
+        .count
+          color: $color-ink-light
+          background: $color-steel-verylight
+        
+    .cards
+      padding-top: 0px
 
   & > .content
     flex: 1
     min-height: 100%
     overflow-y: auto
-
-  .cards
-    padding: 8px

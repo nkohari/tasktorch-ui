@@ -56,11 +56,12 @@ InProgressBigPictureCard = React.createClass {
 
   renderActions: ->
     return unless @state.kind? and @state.checklists? and @state.stages? and @state.actions?
-    _.map @state.kind.stages, (stageid) =>
+    actions = _.map @state.kind.stages, (stageid) =>
       stage     = _.find @state.stages,     (stage)     -> stage.id == stageid
       checklist = _.find @state.checklists, (checklist) -> checklist.stage == stageid
       actions   = _.filter @state.actions[checklist.id], (action) -> action.status == ActionStatus.InProgress
       BigPictureCardChecklist {card: @props.card, kind: @props.kind, checklist, stage, actions}
+    div {className: 'card-actions'}, actions
 
   showCard: ->
     @getScreen('workspace').addPanel(new CardPanelState(@props.card.id))

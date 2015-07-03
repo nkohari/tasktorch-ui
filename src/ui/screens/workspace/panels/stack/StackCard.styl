@@ -1,17 +1,17 @@
+$stack-card-border-radius = 3px
+
 .stack-card
   display: block
   position: relative
   margin-bottom: 6px
-  border-radius: 3px
+  border: 1px solid $color-steel-medium
+  border-radius: $stack-card-border-radius
   cursor: move
   box-shadow: 1px 1px 0 black(10%)
   
   for $name in $color-names
     &.{$name}
       background: theme-color($name, 200)
-      border: 1px solid theme-color($name, 200)
-      & > .content
-        background: theme-color($name, 100)
   
   &:last-child { margin-bottom: 0 }
   
@@ -22,8 +22,9 @@
     padding: 6px 8px
     margin-left: 8px
     min-height: 60px
-    border-top-right-radius: 3px
-    border-bottom-right-radius: 3px
+    background: $color-paper
+    border-top-right-radius: $stack-card-border-radius
+    border-bottom-right-radius: $stack-card-border-radius
     
     .title
       color: $color-ink

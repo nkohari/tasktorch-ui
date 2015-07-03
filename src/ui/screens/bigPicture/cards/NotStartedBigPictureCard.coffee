@@ -51,7 +51,8 @@ NotStartedBigPictureCard = React.createClass {
     {checklist, action} = @findNextNotStartedAction()
     return unless checklist? and action?
     stage = _.find @state.stages, (stage) -> stage.id is action.stage
-    BigPictureCardChecklist {card: @props.card, kind: @props.kind, checklist, stage, actions: [action]}
+    div {className: 'card-actions'},
+      BigPictureCardChecklist {card: @props.card, kind: @props.kind, checklist, stage, actions: [action]}
 
   findNextNotStartedAction: ->
     for stageid in @state.kind.stages
