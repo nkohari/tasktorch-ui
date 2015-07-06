@@ -2,6 +2,7 @@
 superagent           = require 'superagent'
 React                = require 'react'
 Router               = require 'react-router'
+GrantType            = require 'data/enums/GrantType'
 Request              = require 'data/framework/Request'
 UserLoggedOutEvent   = require 'events/ui/UserLoggedOutEvent'
 PropTypes            = require 'ui/framework/PropTypes'
@@ -18,13 +19,14 @@ UserContextMenu = React.createClass {
   displayName: 'UserContextMenu'
 
   propTypes:
+    user:        PropTypes.User
     hideOverlay: PropTypes.func
 
   mixins: [Actor, Router.Navigation]
 
   render: ->
 
-    ContextMenu {position: 'top right', hideOverlay: @props.hideOverlay},
+    commonItems = [
       DialogTrigger {name: 'ChangeMyName'},
         Icon {name: 'user'}
         'Change my name'
@@ -38,6 +40,18 @@ UserContextMenu = React.createClass {
       a {onClick: @logOut},
         Icon {name: 'logout'}
         'Log out'
+    ]
+
+    giveTokensItems = [
+      DialogTrigger {name: 'GiveTokens'},
+        Icon {name: 'token'}
+        'Give beta tokens'
+      ContextMenuSeparator {}
+    ]
+
+    ContextMenu {position: 'top right', hideOverlay: @props.hideOverlay},
+      giveTokensItems if _.contains(@props.user?.grants, GrantType.GiveTokens)
+      commonItems
 
   logOut: ->
     @publish new UserLoggedOutEvent()

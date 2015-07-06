@@ -20,13 +20,14 @@ BottomRightCorner = React.createClass {
 
   render: ->
 
-    overlay = UserContextMenu {}
+    user = @getCurrentUser()
+    overlay = UserContextMenu {user}
 
     div {className: 'bottom-right'},
       OverlayTrigger {overlay},
         div {className: 'current-user'},
           Icon {name: 'caret-flipped'}
-          Avatar {user: @getCurrentUser()}
+          Avatar {user}
 
 }
 

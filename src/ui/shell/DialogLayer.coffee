@@ -16,6 +16,7 @@ DIALOGS =
   CreateTeam:       React.createFactory(require 'ui/dialogs/CreateTeamDialog')
   DeleteStack:      React.createFactory(require 'ui/dialogs/DeleteStackDialog')
   DeleteTeam:       React.createFactory(require 'ui/dialogs/DeleteTeamDialog')
+  GiveTokens:       React.createFactory(require 'ui/dialogs/GiveTokensDialog')
   Help:             React.createFactory(require 'ui/dialogs/HelpDialog')
   RenameStack:      React.createFactory(require 'ui/dialogs/RenameStackDialog')
   RenameTeam:       React.createFactory(require 'ui/dialogs/RenameTeamDialog')

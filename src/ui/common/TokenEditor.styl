@@ -1,0 +1,56 @@
+.token-editor
+  
+  .add-token
+    display: flex
+    padding: 4px
+    background: $color-steel-light
+    border: 1px solid $color-steel
+    border-bottom: none
+    .input
+      flex: 1
+      font-size: 16px
+    a
+      cursor: pointer
+      margin-left: 6px
+      line-height: 28px
+      color: $color-ink-light
+      &:hover { color: $color-ink }
+  
+  .token-list
+    height: 240px
+    border: 1px solid $color-steel
+    background: $color-white
+    overflow-y: auto
+    
+    .token
+      display: flex
+      flex-direction: row
+      padding: 6px
+      line-height: 18px
+      
+      .number
+        font-size: 14px
+        font-weight: $heavy-font-weight
+        color: $color-ink-light
+        width: 12px
+        text-align: center
+        margin-right: 6px
+      
+      .avatar
+        height: 20px
+        width: 20px
+        margin-right: 6px
+        background: $color-divider
+        border-radius: 2px
+      
+      .email
+        flex: 1
+        font-size: 16px
+      
+      .remove
+        cursor: pointer
+        margin-left: 6px
+        margin-right: 2px
+        color: $color-ink-light
+        &:hover { color: $color-ink }
+        i { margin-right: 0 }

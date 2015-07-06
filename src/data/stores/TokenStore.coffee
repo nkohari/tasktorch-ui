@@ -1,6 +1,7 @@
-Token            = require 'data/models/Token'
-ModelStore       = require 'data/framework/ModelStore'
-LoadTokenRequest = require 'data/requests/LoadTokenRequest'
+Token               = require 'data/models/Token'
+ModelStore          = require 'data/framework/ModelStore'
+LoadTokenRequest    = require 'data/requests/LoadTokenRequest'
+CreateTokensRequest = require 'data/requests/CreateTokensRequest'
 
 class TokenStore extends ModelStore
 
@@ -10,6 +11,7 @@ class TokenStore extends ModelStore
 
   listensFor: [
     'TokensLoaded'
+    'UserCreatedTokens'
   ]
 
   load: (id) ->
@@ -17,5 +19,8 @@ class TokenStore extends ModelStore
 
   onTokensLoaded: (event) ->
     @add(event.tokens)
+
+  onUserCreatedTokens: (event) ->
+    @execute new CreateTokensRequest(event.tokens)
 
 module.exports = TokenStore
