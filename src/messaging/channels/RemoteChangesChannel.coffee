@@ -21,6 +21,7 @@ GoalChangedEvent      = require 'events/change/GoalChangedEvent'
 GoalCreatedEvent      = require 'events/create/GoalCreatedEvent'
 KindChangedEvent      = require 'events/change/KindChangedEvent'
 KindCreatedEvent      = require 'events/create/KindCreatedEvent'
+NoteChangedEvent      = require 'events/change/NoteChangedEvent'
 NoteCreatedEvent      = require 'events/create/NoteCreatedEvent'
 StackChangedEvent     = require 'events/change/StackChangedEvent'
 StackCreatedEvent     = require 'events/create/StackCreatedEvent'
@@ -64,6 +65,7 @@ class RemoteChangesChannel extends Channel
       when 'Card'      then @publish new CardChangedEvent(new Card(message.document), EventOrigin.Remote)
       when 'Goal'      then @publish new GoalChangedEvent(new Goal(message.document), EventOrigin.Remote)
       when 'Kind'      then @publish new KindChangedEvent(new Kind(message.document), EventOrigin.Remote)
+      when 'Note'      then @publish new NoteChangedEvent(new Note(message.document), EventOrigin.Remote)
       when 'Checklist' then @publish new ChecklistChangedEvent(new Checklist(message.document), EventOrigin.Remote)
       when 'Stack'     then @publish new StackChangedEvent(new Stack(message.document), EventOrigin.Remote)
       when 'Stage'     then @publish new StageChangedEvent(new Stage(message.document), EventOrigin.Remote)

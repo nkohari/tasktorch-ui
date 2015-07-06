@@ -11,6 +11,7 @@ class NoteStore extends ModelStore
   listensFor: [
     'NotesLoaded'
     'NoteCreated'
+    'NoteChanged'
     'UserCreatedComment'
   ]
 
@@ -21,6 +22,9 @@ class NoteStore extends ModelStore
     @add(event.notes)
 
   onNoteCreated: (event) ->
+    @add(event.note)
+
+  onNoteChanged: (event) ->
     @add(event.note)
 
   onUserCreatedComment: (event) ->
