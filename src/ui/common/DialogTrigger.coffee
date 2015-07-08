@@ -18,7 +18,6 @@ DialogTrigger = React.createClass {
   mixins: [Actor]
 
   render: ->
-
     a {className: @props.className, @onClick}, @props.children
 
   onClick: (event) ->

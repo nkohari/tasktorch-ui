@@ -8,7 +8,7 @@ CachedState             = require 'ui/framework/mixins/CachedState'
 ShellContext            = require 'ui/framework/mixins/ShellContext'
 Button                  = React.createFactory(require 'ui/common/Button')
 Dialog                  = React.createFactory(require 'ui/common/Dialog')
-DialogButtons           = React.createFactory(require 'ui/common/DialogButtons')
+DialogFooter            = React.createFactory(require 'ui/common/DialogFooter')
 InviteEditor            = React.createFactory(require 'ui/common/InviteEditor')
 Field                   = React.createFactory(require 'ui/common/Field')
 #--------------------------------------------------------------------------------
@@ -30,11 +30,14 @@ SendInvitesDialog = React.createClass {
 
   render: ->
 
-    buttons = DialogButtons {},
-      Button {text: 'Send Invitations', onClick: @sendInvites, disabled: !@isValid()}
-      Button {text: 'Cancel',           onClick: @props.closeDialog}
+    footer = DialogFooter {
+      right: [
+        Button {text: 'Send Invitations', onClick: @sendInvites, disabled: !@isValid()}
+        Button {text: 'Cancel',           onClick: @props.closeDialog}
+      ]
+    }
 
-    Dialog {icon: 'invite', title: "Invite Others to #{@state.org?.name}", buttons, className: 'send-invites-dialog', closeDialog: @props.closeDialog},
+    Dialog {icon: 'invite', title: "Invite Others to #{@state.org?.name}", footer, className: 'send-invites-dialog', closeDialog: @props.closeDialog},
       Field {label: 'Who would you like to invite to join the organization?', hint: 'send-invites'},
         InviteEditor {value: @state.invites, @onChange}
 

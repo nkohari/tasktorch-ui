@@ -7,8 +7,8 @@ CachedState     = require 'ui/framework/mixins/CachedState'
 Frame           = React.createFactory(require 'ui/common/Frame')
 Icon            = React.createFactory(require 'ui/common/Icon')
 OverlayTrigger  = React.createFactory(require 'ui/common/OverlayTrigger')
+TeamContextMenu = React.createFactory(require 'ui/overlays/TeamContextMenu')
 StackDrawerItem = React.createFactory(require 'ui/screens/workspace/drawer/StackDrawerItem')
-TeamContextMenu = React.createFactory(require 'ui/screens/workspace/drawer/TeamContextMenu')
 {div, span, ul} = React.DOM
 #--------------------------------------------------------------------------------
 

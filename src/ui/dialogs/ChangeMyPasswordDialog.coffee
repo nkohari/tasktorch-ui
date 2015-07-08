@@ -5,7 +5,7 @@ PropTypes                = require 'ui/framework/PropTypes'
 Actor                    = require 'ui/framework/mixins/Actor'
 Button                   = React.createFactory(require 'ui/common/Button')
 Dialog                   = React.createFactory(require 'ui/common/Dialog')
-DialogButtons            = React.createFactory(require 'ui/common/DialogButtons')
+DialogFooter             = React.createFactory(require 'ui/common/DialogFooter')
 Field                    = React.createFactory(require 'ui/common/Field')
 Input                    = React.createFactory(require 'ui/common/Input')
 #--------------------------------------------------------------------------------
@@ -29,11 +29,14 @@ ChangeMyPasswordDialog = React.createClass {
 
   render: ->
 
-    buttons = DialogButtons {},
-      Button {text: 'Change Password', className: 'default', disabled: !@isValid(), onClick: @changePassword}
-      Button {text: 'Cancel', onClick: @props.closeDialog}
+    footer = DialogFooter {
+      right: [
+        Button {text: 'Change Password', className: 'default', disabled: !@isValid(), onClick: @changePassword}
+        Button {text: 'Cancel', onClick: @props.closeDialog}
+      ]
+    }
 
-    Dialog {icon: 'settings', title: 'Change My Password', buttons, closeDialog: @props.closeDialog},
+    Dialog {icon: 'settings', title: 'Change My Password', footer, closeDialog: @props.closeDialog},
       Field {label: 'New Password'},
         Input {ref: 'password', type: 'password', icon: 'secure', placeholder: 'Enter a new password', value: @state.password, onChange: @onPasswordChanged}
       Field {label: 'New Password (again)'},

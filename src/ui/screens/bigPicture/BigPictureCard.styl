@@ -45,7 +45,9 @@ $big-picture-card-border-radius = 3px
       .follow-toggle
         flex: none
         color: $color-ink-subtle
-        transition: color $hover-animation-delay linear
+        opacity: 0
+        transition: all $hover-animation-delay linear
+        &.active { opacity: 1 }
       
     .title
       font-size: 18px
@@ -54,6 +56,9 @@ $big-picture-card-border-radius = 3px
   .card-actions
     border-top: 1px solid $color-divider
     padding-top: 4px
+  
+  &:hover
+    .follow-toggle { opacity: 1 !important }
 
   &.complete
     .card-widgets

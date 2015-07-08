@@ -6,7 +6,7 @@ Avatar          = React.createFactory(require 'ui/common/Avatar')
 Frame           = React.createFactory(require 'ui/common/Frame')
 Icon            = React.createFactory(require 'ui/common/Icon')
 OverlayTrigger  = React.createFactory(require 'ui/common/OverlayTrigger')
-UserContextMenu = React.createFactory(require 'ui/shell/footer/UserContextMenu')
+UserContextMenu = React.createFactory(require 'ui/overlays/UserContextMenu')
 {div}           = React.DOM
 #--------------------------------------------------------------------------------
 require './BottomRightCorner.styl'

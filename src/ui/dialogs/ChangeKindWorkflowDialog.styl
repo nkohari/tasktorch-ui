@@ -1,0 +1,27 @@
+.change-kind-workflow-dialog
+  
+  .stage-list
+    height: 500px
+    margin-top: 8px
+    border: 1px solid $color-steel
+    overflow-y: auto
+    
+  .section
+    border-top: 1px solid $color-white
+    border-bottom: 1px solid $color-steel-light
+    &:last-child { border-bottom: none }
+
+  .add-stage
+    display: block
+    cursor: pointer
+    text-align: center
+    padding: 4px
+    font-size: 14px
+    color: $color-ink-light
+    border: 1px dashed $color-steel
+    margin: 8px
+    transition: all $hover-animation-delay linear
+    &:hover
+      color: $color-ink
+      border-color: $color-steel-medium
+      background: $color-white

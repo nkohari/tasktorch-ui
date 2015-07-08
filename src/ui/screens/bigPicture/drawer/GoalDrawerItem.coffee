@@ -7,7 +7,6 @@ Navigator      = require 'ui/framework/mixins/Navigator'
 GoalPanelState = require 'ui/screens/bigPicture/panels/goal/GoalPanelState'
 Icon           = React.createFactory(require 'ui/common/Icon')
 Link           = React.createFactory(require 'ui/common/Link')
-ListItem       = React.createFactory(require 'ui/common/ListItem')
 {span}         = React.DOM
 #--------------------------------------------------------------------------------
 

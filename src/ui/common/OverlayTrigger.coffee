@@ -16,11 +16,14 @@ OverlayTrigger = React.createClass {
   displayName: 'OverlayTrigger'
 
   propTypes:
-    overlay: PropTypes.node
-    method:  PropTypes.string
+    component: PropTypes.node
+    overlay:   PropTypes.node
+    method:    PropTypes.string
 
-  getDefaultProps: ->
-    {method: 'click'}
+  getDefaultProps: -> {
+    component: 'div'
+    method: 'click'
+  }
 
   getInitialState: ->
     {visible: false}
@@ -54,7 +57,12 @@ OverlayTrigger = React.createClass {
     if @state.visible
       overlay = cloneWithProps @props.overlay, {@hideOverlay}
 
-    div props,
+    if _.isString(@props.component)
+      component = React.DOM[@props.component]
+    else
+      component = @props.component
+
+    component props,
       trigger
       CSSTransitionGroup {component: 'div', transitionName: 'slide'},
         overlay

@@ -37,7 +37,7 @@ CreateKindWizard = React.createClass {
 
     completeButton = Button {text: 'Create Kind', onClick: @createKind, disabled: !@isValid()}
 
-    Wizard {icon: 'kind', width: 850, height: 650, title: "Define a Card Kind", completeButton, closeDialog: @props.closeDialog},
+    Wizard {icon: 'kind', width: 850, height: 650, title: "Create a Card Kind", completeButton, closeDialog: @props.closeDialog},
       CreateKindWizardStartPage          {title: 'Start', mode: @state.mode, template: @state.template, @setValue, @setTemplate}
       CreateKindWizardBasicsPage         {title: 'Basics', name: @state.name, description: @state.description, color: @state.color, @setValue}
       CreateKindWizardWorkflowPage       {title: 'Workflow', stages: @state.stages, @setValue}

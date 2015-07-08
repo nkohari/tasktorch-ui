@@ -41,9 +41,9 @@ OrgContextMenu = React.createClass {
       DialogTrigger {name: 'CreateTeam'},
         Icon {name: 'team'}
         'Create a team'
-      DialogTrigger {name: 'CreateKind'},
+      DialogTrigger {name: 'ManageKinds'},
         Icon {name: 'kind'}
-        'Create a card kind'
+        'Manage card kinds'
     ]
 
     switchItems = [

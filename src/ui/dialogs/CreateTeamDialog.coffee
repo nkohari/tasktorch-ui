@@ -7,7 +7,7 @@ Actor                = require 'ui/framework/mixins/Actor'
 ShellContext         = require 'ui/framework/mixins/ShellContext'
 Button               = React.createFactory(require 'ui/common/Button')
 Dialog               = React.createFactory(require 'ui/common/Dialog')
-DialogButtons        = React.createFactory(require 'ui/common/DialogButtons')
+DialogFooter        = React.createFactory(require 'ui/common/DialogFooter')
 Field                = React.createFactory(require 'ui/common/Field')
 Input                = React.createFactory(require 'ui/common/Input')
 MembershipEditor     = React.createFactory(require 'ui/common/MembershipEditor')
@@ -31,11 +31,14 @@ CreateTeamDialog = React.createClass {
 
   render: ->
 
-    buttons = DialogButtons {},
-      Button {text: 'Create Team', onClick: @createTeam, disabled: !@isComplete()}
-      Button {text: 'Cancel',      onClick: @props.closeDialog}
+    footer = DialogFooter {
+      right: [
+        Button {text: 'Create Team', onClick: @createTeam, disabled: !@isComplete()}
+        Button {text: 'Cancel',      onClick: @props.closeDialog}
+      ]
+    }
 
-    Dialog {icon: 'team', width: 700, height: 560, className: 'create-team', title: 'Create a Team', buttons, closeDialog: @props.closeDialog},
+    Dialog {icon: 'team', width: 700, height: 560, className: 'create-team', title: 'Create a Team', footer, closeDialog: @props.closeDialog},
       Field {label: 'Name'},
         Input {ref: 'name', placeholder: 'ex. Engineering, HR, World Peace Initiative, Secret Project Team', value: @state.name, onChange: @setName}
       Field {label: 'Purpose'},

@@ -3,7 +3,6 @@ _                = require 'lodash'
 React            = require 'react'
 PropTypes        = require 'ui/framework/PropTypes'
 CachedState      = require 'ui/framework/mixins/CachedState'
-List             = React.createFactory(require 'ui/common/List')
 CardTimelineItem = React.createFactory(require 'ui/screens/workspace/panels/card/timeline/CardTimelineItem')
 {div}            = React.DOM
 #--------------------------------------------------------------------------------

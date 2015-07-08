@@ -8,7 +8,6 @@ Actor              = require 'ui/framework/mixins/Actor'
 CachedState        = require 'ui/framework/mixins/CachedState'
 SortableList       = require 'ui/framework/mixins/SortableList'
 UserMovedCardEvent = require 'events/ui/UserMovedCardEvent'
-List               = React.createFactory(require 'ui/common/List')
 StackCard          = React.createFactory(require 'ui/screens/workspace/panels/stack/StackCard')
 {ul, li}           = React.DOM
 #--------------------------------------------------------------------------------
@@ -42,9 +41,6 @@ StackCardList = React.createClass {
     cards: cache('cardsByStack').get(@props.stack.id)
   }
 
-  isReady: ->
-    @state.cards?
-
   componentWillReceiveProps: (newProps) ->
     @setState {ids: _.clone(newProps.stack.cards)}
 
@@ -63,7 +59,7 @@ StackCardList = React.createClass {
       'drop-disallowed' if @state.dragActive and not @state.dropAllowed
     ]
 
-    List {@isReady, className: classes}, items
+    ul {className: classes}, items
 
   getSortableList: ->
     @props.stack

@@ -7,9 +7,9 @@ PropTypes            = require 'ui/framework/PropTypes'
 Actor                = require 'ui/framework/mixins/Actor'
 SortableList         = require 'ui/framework/mixins/SortableList'
 UserMovedActionEvent = require 'events/ui/UserMovedActionEvent'
-List                 = React.createFactory(require 'ui/common/List')
 Icon                 = React.createFactory(require 'ui/common/Icon')
 CardAction           = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CardAction')
+{ul}                 = React.DOM
 #--------------------------------------------------------------------------------
 require './CardChecklistActionList.styl'
 #--------------------------------------------------------------------------------
@@ -52,7 +52,7 @@ CardChecklistActionList = React.createClass {
       'dragging' if @state.dragging      
     ]
 
-    List {className: classes}, items
+    ul {className: classes}, items
 
   getSortableList: ->
     @props.checklist

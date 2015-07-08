@@ -4,7 +4,7 @@ React             = require 'react'
 StackType         = require 'data/enums/StackType'
 Icon              = React.createFactory(require 'ui/common/Icon')
 OverlayTrigger    = React.createFactory(require 'ui/common/OverlayTrigger')
-MyWorkContextMenu = React.createFactory(require 'ui/screens/workspace/drawer/MyWorkContextMenu')
+MyWorkContextMenu = React.createFactory(require 'ui/overlays/MyWorkContextMenu')
 StackDrawerItem   = React.createFactory(require 'ui/screens/workspace/drawer/StackDrawerItem')
 {div, span, ul}   = React.DOM
 #--------------------------------------------------------------------------------

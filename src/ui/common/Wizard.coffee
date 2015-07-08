@@ -6,6 +6,7 @@ mergeClasses       = require 'common/util/mergeClasses'
 PropTypes          = require 'ui/framework/PropTypes'
 Button             = React.createFactory(require 'ui/common/Button')
 Icon               = React.createFactory(require 'ui/common/Icon')
+DialogFooter       = React.createFactory(require 'ui/common/DialogFooter')
 WizardBreadcrumbs  = React.createFactory(require 'ui/common/WizardBreadcrumbs')
 WizardPage         = React.createFactory(require 'ui/common/WizardPage')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
@@ -40,15 +41,6 @@ Wizard = React.createClass {
 
   render: ->
 
-    if @state.currentIndex > 0
-      backButton = Button {text: 'Back', onClick: @onBackClicked}
-
-    if @state.currentIndex < @pages.length - 1
-      pageRef = @refs["page-#{@state.currentIndex}"]
-      forwardButton = Button {text: 'Next', disabled: !@state.canProceed, onClick: @onNextClicked}
-    else
-      forwardButton = @props.completeButton
-
     if @props.title?
       header = div {className: 'dialog-header'},
         Icon {name: @props.icon} if @props.icon?
@@ -63,12 +55,26 @@ Wizard = React.createClass {
         WizardBreadcrumbs {@pages, currentIndex: @state.currentIndex, @setPage}
         div {className: 'dialog-content'},
           @pages[@state.currentIndex]
-        div {className: 'dialog-buttons'},
-          div {className: 'left-buttons'},
-            backButton
-          div {className: 'right-buttons'},
-            forwardButton
-            Button {text: 'Cancel', onClick: @props.closeDialog}
+        @renderFooter()
+
+  renderFooter: ->
+
+    if @state.currentIndex > 0
+      backButton = Button {text: 'Back', onClick: @onBackClicked}
+
+    if @state.currentIndex < @pages.length - 1
+      pageRef = @refs["page-#{@state.currentIndex}"]
+      forwardButton = Button {text: 'Next', disabled: !@state.canProceed, onClick: @onNextClicked}
+    else
+      forwardButton = @props.completeButton
+
+    DialogFooter {
+      left: backButton
+      right: [
+        forwardButton
+        Button {text: 'Cancel', onClick: @props.closeDialog}
+      ]
+    }
 
   createPages: (children) ->
     _.map _.flatten([children]), (page, index) =>

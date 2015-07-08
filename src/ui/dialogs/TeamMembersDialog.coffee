@@ -10,7 +10,7 @@ Actor                          = require 'ui/framework/mixins/Actor'
 CachedState                    = require 'ui/framework/mixins/CachedState'
 Button                         = React.createFactory(require 'ui/common/Button')
 Dialog                         = React.createFactory(require 'ui/common/Dialog')
-DialogButtons                  = React.createFactory(require 'ui/common/DialogButtons')
+DialogFooter                   = React.createFactory(require 'ui/common/DialogFooter')
 Field                          = React.createFactory(require 'ui/common/Field')
 MembershipEditor               = React.createFactory(require 'ui/common/MembershipEditor')
 {div}                          = React.DOM
@@ -37,10 +37,11 @@ TeamMembersDialog = React.createClass {
 
   render: ->
 
-    buttons = DialogButtons {},
-      Button {text: 'Done', onClick: @props.closeDialog}
+    footer = DialogFooter {
+      right: Button {text: 'Done', onClick: @props.closeDialog}
+    }
 
-    Dialog {icon: 'team', height: 440, title: "#{@state.team?.name} Membership", buttons, closeDialog: @props.closeDialog},
+    Dialog {icon: 'team', height: 440, title: "#{@state.team?.name} Membership", footer, closeDialog: @props.closeDialog},
       Field {label: 'Members', expand: true},
         MembershipEditor {
           ref: 'members'

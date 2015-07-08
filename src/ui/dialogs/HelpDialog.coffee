@@ -4,7 +4,7 @@ Analytics      = require 'common/Analytics'
 PropTypes      = require 'ui/framework/PropTypes'
 Button         = React.createFactory(require 'ui/common/Button')
 Dialog         = React.createFactory(require 'ui/common/Dialog')
-DialogButtons  = React.createFactory(require 'ui/common/DialogButtons')
+DialogFooter   = React.createFactory(require 'ui/common/DialogFooter')
 {a, p, li, ul} = React.DOM
 #--------------------------------------------------------------------------------
 require './HelpDialog.styl'
@@ -19,10 +19,11 @@ HelpDialog = React.createClass {
 
   render: ->
 
-    buttons = DialogButtons {},
-      Button {text: 'Close', onClick: @props.closeDialog}
+    footer = DialogFooter {
+      right: Button {text: 'Close', onClick: @props.closeDialog}
+    }
 
-    Dialog {icon: 'help', title: "Help", className: 'help-dialog', buttons, closeDialog: @props.closeDialog},
+    Dialog {icon: 'help', title: "Help", className: 'help-dialog', footer, closeDialog: @props.closeDialog},
       p {},
         "We've created the "
         a {href: "http://support.tasktorch.com/", target: "_blank"}, "TaskTorch Guide"

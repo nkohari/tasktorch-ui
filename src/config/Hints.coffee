@@ -92,4 +92,13 @@ a message from us with a link that they can use to join your organization.
 If they don't already have a TaskTorch account, they'll be able to create one. 
 """
 
+Hints['change-kind-workflow'] = """
+You can change the stages and default actions for cards of this kind.
+"""
+
+Hints['delete-stage'] = """
+If you choose to delete this stage, any actions currently in the stage will be
+moved to the end of stage you select. Deleting a stage is permanent, and cannot be undone!
+"""
+
 module.exports = Hints

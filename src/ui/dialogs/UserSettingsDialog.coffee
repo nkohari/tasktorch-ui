@@ -3,7 +3,7 @@ React         = require 'react'
 PropTypes     = require 'ui/framework/PropTypes'
 Button        = React.createFactory(require 'ui/common/Button')
 Dialog        = React.createFactory(require 'ui/common/Dialog')
-DialogButtons = React.createFactory(require 'ui/common/DialogButtons')
+DialogFooter = React.createFactory(require 'ui/common/DialogFooter')
 {div}         = React.DOM
 #--------------------------------------------------------------------------------
 
@@ -16,10 +16,11 @@ UserSettingsDialog = React.createClass {
 
   render: ->
 
-    buttons = DialogButtons {},
-      Button {text: 'Close', onClick: @props.closeDialog}
+    footer = DialogFooter {
+      right: Button {text: 'Close', onClick: @props.closeDialog}
+    }
 
-    Dialog {icon: 'settings', title: 'Preferences', buttons, closeDialog: @props.closeDialog},
+    Dialog {icon: 'settings', title: 'Preferences', footer, closeDialog: @props.closeDialog},
       'Nothing to configure yet',
 
 }

@@ -1,3 +1,4 @@
+_     = require 'lodash'
 Store = require 'data/framework/Store'
 
 class DialogStore extends Store
@@ -18,6 +19,7 @@ class DialogStore extends Store
     @items[name]
 
   set: (name, value) ->
+    @clear()
     @items[name] = value
     @announce()
 

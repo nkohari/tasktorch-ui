@@ -8,7 +8,7 @@ CachedState            = require 'ui/framework/mixins/CachedState'
 ShellContext           = require 'ui/framework/mixins/ShellContext'
 Button                 = React.createFactory(require 'ui/common/Button')
 Dialog                 = React.createFactory(require 'ui/common/Dialog')
-DialogButtons          = React.createFactory(require 'ui/common/DialogButtons')
+DialogFooter           = React.createFactory(require 'ui/common/DialogFooter')
 TokenEditor            = React.createFactory(require 'ui/common/TokenEditor')
 Field                  = React.createFactory(require 'ui/common/Field')
 #--------------------------------------------------------------------------------
@@ -27,11 +27,14 @@ GiveTokensDialog = React.createClass {
 
   render: ->
 
-    buttons = DialogButtons {},
-      Button {text: 'Give Tokens', onClick: @sendTokens, disabled: !@isValid()}
-      Button {text: 'Cancel',      onClick: @props.closeDialog}
+    footer = DialogFooter {
+      right: [
+        Button {text: 'Give Tokens', onClick: @sendTokens, disabled: !@isValid()}
+        Button {text: 'Cancel',      onClick: @props.closeDialog}
+      ]
+    }
 
-    Dialog {icon: 'token', title: "Give beta tokens", buttons, className: 'give-tokens-dialog', closeDialog: @props.closeDialog},
+    Dialog {icon: 'token', title: "Give beta tokens", footer, className: 'give-tokens-dialog', closeDialog: @props.closeDialog},
       Field {label: 'Who would you like to give beta tokens to?'},
         TokenEditor {value: @state.tokens, @onChange}
 

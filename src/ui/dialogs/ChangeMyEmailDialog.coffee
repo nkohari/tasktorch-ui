@@ -6,7 +6,7 @@ Actor                 = require 'ui/framework/mixins/Actor'
 ShellContext          = require 'ui/framework/mixins/ShellContext'
 Button                = React.createFactory(require 'ui/common/Button')
 Dialog                = React.createFactory(require 'ui/common/Dialog')
-DialogButtons         = React.createFactory(require 'ui/common/DialogButtons')
+DialogFooter          = React.createFactory(require 'ui/common/DialogFooter')
 Field                 = React.createFactory(require 'ui/common/Field')
 Input                 = React.createFactory(require 'ui/common/Input')
 #--------------------------------------------------------------------------------
@@ -30,11 +30,14 @@ ChangeMyEmailDialog = React.createClass {
 
   render: ->
 
-    buttons = DialogButtons {},
-      Button {text: 'Change Email', className: 'default', disabled: !@isValid(), onClick: @changeEmail}
-      Button {text: 'Cancel', onClick: @props.closeDialog}
+    footer = DialogFooter {
+      right: [
+        Button {text: 'Change Email', className: 'default', disabled: !@isValid(), onClick: @changeEmail}
+        Button {text: 'Cancel', onClick: @props.closeDialog}
+      ]
+    }
 
-    Dialog {icon: 'settings', title: 'Change My Email', buttons, closeDialog: @props.closeDialog},
+    Dialog {icon: 'settings', title: 'Change My Email', footer, closeDialog: @props.closeDialog},
       Field {label: 'Email', hint: 'email'},
         Input {ref: 'email', icon: 'email', placeholder: 'Enter an email address', value: @state.email, onChange: @onEmailChanged}
 

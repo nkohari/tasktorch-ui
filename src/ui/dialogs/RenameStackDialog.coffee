@@ -6,7 +6,7 @@ Actor                 = require 'ui/framework/mixins/Actor'
 CachedState           = require 'ui/framework/mixins/CachedState'
 Button                = React.createFactory(require 'ui/common/Button')
 Dialog                = React.createFactory(require 'ui/common/Dialog')
-DialogButtons         = React.createFactory(require 'ui/common/DialogButtons')
+DialogFooter          = React.createFactory(require 'ui/common/DialogFooter')
 Field                 = React.createFactory(require 'ui/common/Field')
 FieldGroup            = React.createFactory(require 'ui/common/FieldGroup')
 Input                 = React.createFactory(require 'ui/common/Input')
@@ -34,11 +34,14 @@ RenameStackDialog = React.createClass {
 
   render: ->
 
-    buttons = DialogButtons {},
-      Button {text: 'Rename Stack', onClick: @renameStack, disabled: !@isValid()}
-      Button {text: 'Cancel',       onClick: @props.closeDialog}
+    footer = DialogFooter {
+      right: [
+        Button {text: 'Rename Stack', onClick: @renameStack, disabled: !@isValid()}
+        Button {text: 'Cancel',       onClick: @props.closeDialog}
+      ]
+    }
 
-    Dialog {icon: 'stack', title: "Rename #{@state.stack?.name}", buttons, closeDialog: @props.closeDialog},
+    Dialog {icon: 'stack', title: "Rename #{@state.stack?.name}", footer, closeDialog: @props.closeDialog},
       Field {label: 'Name', note: "What would you like to call the stack?"},
         Input {ref: 'name', placeholder: 'ex. Big Ideas, 2015-Q3, Next Week, Beta Version Features', value: @state.name, onChange: @onNameChanged}
 

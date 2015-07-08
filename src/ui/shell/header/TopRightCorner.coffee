@@ -4,7 +4,7 @@ PropTypes      = require 'ui/framework/PropTypes'
 ShellContext   = require 'ui/framework/mixins/ShellContext'
 Button         = React.createFactory(require 'ui/common/Button')
 OverlayTrigger = React.createFactory(require 'ui/common/OverlayTrigger')
-OrgContextMenu = React.createFactory(require 'ui/shell/header/OrgContextMenu')
+OrgContextMenu = React.createFactory(require 'ui/overlays/OrgContextMenu')
 {div}          = React.DOM
 #--------------------------------------------------------------------------------
 require './TopRightCorner.styl'
