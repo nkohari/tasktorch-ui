@@ -10,6 +10,8 @@ class StagesByKindStore extends ListStore
 
   listensFor: [
     'KindChanged'
+    'StageChanged'
+    'StageCreated'
     'StagesByKindLoaded'
   ]
 
@@ -18,6 +20,12 @@ class StagesByKindStore extends ListStore
 
   onKindChanged: (event) ->
     @set(event.kind.id, event.kind.stages)
+
+  onStageChanged: (event) ->
+    @remove(event.stage.kind)
+
+  onStageCreated: (event) ->
+    @remove(event.stage.kind)
 
   onStagesByKindLoaded: (event) ->
     @set(event.kindid, _.pluck(event.stages, 'id'))

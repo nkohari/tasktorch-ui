@@ -14,6 +14,7 @@ DIALOGS =
   CreateGoal:         React.createFactory(require 'ui/dialogs/CreateGoalDialog')
   CreateKind:         React.createFactory(require 'ui/dialogs/CreateKindWizard')
   CreateStack:        React.createFactory(require 'ui/dialogs/CreateStackDialog')
+  CreateStage:        React.createFactory(require 'ui/dialogs/CreateStageDialog')
   CreateTeam:         React.createFactory(require 'ui/dialogs/CreateTeamDialog')
   DeleteStack:        React.createFactory(require 'ui/dialogs/DeleteStackDialog')
   DeleteStage:        React.createFactory(require 'ui/dialogs/DeleteStageDialog')

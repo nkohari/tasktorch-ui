@@ -1,6 +1,7 @@
 Stage                            = require 'data/models/Stage'
 ModelStore                       = require 'data/framework/ModelStore'
 LoadStageRequest                 = require 'data/requests/LoadStageRequest'
+CreateStageRequest               = require 'data/requests/CreateStageRequest'
 DeleteStageRequest               = require 'data/requests/DeleteStageRequest'
 RenameStageRequest               = require 'data/requests/RenameStageRequest'
 ChangeStageDefaultActionsRequest = require 'data/requests/ChangeStageDefaultActionsRequest'
@@ -15,6 +16,7 @@ class StageStore extends ModelStore
     'StagesLoaded'
     'StageCreated'
     'StageChanged'
+    'UserCreatedStage'
     'UserChangedStageDefaultActions'
     'UserDeletedStage'
     'UserRenamedStage'
@@ -31,6 +33,9 @@ class StageStore extends ModelStore
 
   onStageCreated: (event) ->
     @add(event.stage)
+
+  onUserCreatedStage: (event) ->
+    @execute new CreateStageRequest(event.kindid, event.name, event.position)
 
   onUserChangedStageDefaultActions: (event) ->
     @execute new ChangeStageDefaultActionsRequest(event.stageid, event.defaultActions)

@@ -13,23 +13,30 @@ class DialogStore extends Store
 
   constructor: (eventQueue, cache) ->
     super(eventQueue, cache)
-    @items = {}
+    @stack = []
 
   get: (name) ->
-    @items[name]
+    visible = _.first(@stack)
+    if visible?.name == name
+      return visible.props
+    else
+      return undefined
 
-  set: (name, value) ->
-    @clear()
-    @items[name] = value
+  push: (name, props) ->
+    @stack.unshift {name, props}
+    @announce()
+
+  pop: ->
+    @stack.shift()
     @announce()
 
   clear: ->
-    @items = {}
+    @stack = []
 
   onUserOpenedDialog: (event) ->
-    @set(event.name, event.props)
+    @push(event.name, event.props)
 
   onUserClosedDialog: (event) ->
-    @set(event.name, undefined)
+    @pop()
 
 module.exports = DialogStore

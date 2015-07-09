@@ -7,6 +7,7 @@ CachedState             = require 'ui/framework/mixins/CachedState'
 Button                  = React.createFactory(require 'ui/common/Button')
 Dialog                  = React.createFactory(require 'ui/common/Dialog')
 DialogFooter            = React.createFactory(require 'ui/common/DialogFooter')
+DialogTrigger           = React.createFactory(require 'ui/common/DialogTrigger')
 Prompt                  = React.createFactory(require 'ui/common/Prompt')
 ChangeKindWorkflowStage = React.createFactory(require 'ui/dialogs/changeKindWorkflow/ChangeKindWorkflowStage')
 {a, div, ul}            = React.DOM
@@ -34,10 +35,11 @@ ChangeKindWorkflowDialog = React.createClass {
     items = _.map @state.stages, (stage, index) =>
       div {key: stage.id, className: 'section'},
         ChangeKindWorkflowStage {key: stage.id, stage}
-        div {className: 'add-stage'}, 'Add another stage'
+        DialogTrigger {className: 'add-stage', name: 'CreateStage', kindid: @props.kindid, position: index + 1},
+          'Add another stage'
 
     footer = DialogFooter {
-      right: Button {text: 'Done', onClick: @props.closeDialog}
+      right: Button {text: 'Close', onClick: @props.closeDialog}
     }
 
     Dialog {icon: 'workflow', title: "Change #{@state.kind?.name} Workflow", footer, className: 'change-kind-workflow-dialog', closeDialog: @props.closeDialog},

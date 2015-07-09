@@ -33,6 +33,7 @@ CardActionsTab = React.createClass {
       lookup = _.indexBy(@state.checklists, 'stage')
       items = _.map @state.stages, (stage) =>
         checklist = lookup[stage.id]
+        return unless checklist?
         CardChecklist {key: checklist.id, card: @props.card, kind: @props.kind, stage, checklist}
       
     div {className: 'card-actions-tab'}, items
