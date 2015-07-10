@@ -22,7 +22,6 @@ Dialog = React.createClass {
     title:       PropTypes.string
     width:       PropTypes.number
     height:      PropTypes.number
-    layer:       PropTypes.number
 
   getDefaultProps: ->
     {width: 600}
@@ -43,7 +42,6 @@ Dialog = React.createClass {
     style =
       width:  @props.width
       height: @props.height if @props.height?
-      zIndex: @props.layer
 
     div {className: 'dialog-backdrop', onClick: @onBackdropClicked},
       div {ref: 'dialog', className: classes, style},

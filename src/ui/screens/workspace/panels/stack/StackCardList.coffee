@@ -1,6 +1,7 @@
 #--------------------------------------------------------------------------------
 _                  = require 'lodash'
 React              = require 'react'
+compare            = require 'common/util/compare'
 PropTypes          = require 'ui/framework/PropTypes'
 classSet           = require 'common/util/classSet'
 StackType          = require 'data/enums/StackType'
@@ -20,33 +21,26 @@ StackCardList = React.createClass {
 
   propTypes:
     stack: PropTypes.Stack
-    ids:   PropTypes.idArray
+    cards: PropTypes.arrayOf(PropTypes.Card)
 
   mixins: [
     Actor
-    CachedState
-    SortableList {
-      connectWith: '.stack-card-list'
-      idAttribute: 'data-itemid'
-    }
+    SortableList {idAttribute: 'data-itemid', connectWith: '.stack-card-list'}
   ]
 
   getInitialState: -> {
-    ids: _.clone(@props.stack.cards)
+    ids: _.clone(@props.stack?.cards)
     dragActive: false
     dropAllowed: undefined
   }
 
-  getCachedState: (cache) -> {
-    cards: cache('cardsByStack').get(@props.stack.id)
-  }
-
   componentWillReceiveProps: (newProps) ->
-    @setState {ids: _.clone(newProps.stack.cards)}
+    unless compare.hashes(@props, newProps)
+      @setState {ids: _.clone(newProps.stack.cards)}
 
   render: ->
 
-    lookup = _.indexBy(@state.cards, 'id')
+    lookup = _.indexBy(@props.cards, 'id')
     items = _.map @state.ids, (id) =>
       card = lookup[id]
       return unless card?
@@ -65,7 +59,7 @@ StackCardList = React.createClass {
     @props.stack
 
   getSortableListItem: (id) ->
-    _.find @state.cards, (card) -> card.id == id
+    _.find @props.cards, (card) -> card.id == id
 
   onDragStarted: (dragContext) ->
     @setState {dragActive: true, dropAllowed: @isDropAllowed(dragContext.item, dragContext.list)}
@@ -73,14 +67,14 @@ StackCardList = React.createClass {
   onDragStopped: (dragContext) ->
     @setState {dragActive: false, dropAllowed: undefined}
 
-  onReorder: (card, toPosition) ->
-    @publish new UserMovedCardEvent(card.id, @props.stack.id, toPosition)
+  onReorder: (card, position) ->
+    @publish new UserMovedCardEvent(card.id, @props.stack.id, position)
 
-  onMove: (card, toStack, toPosition) ->
-    @publish new UserMovedCardEvent(card.id, toStack.id, toPosition)
+  onReceiveListItem: (card, stack, position) ->
+    @publish new UserMovedCardEvent(card.id, stack.id, position)
 
   onListOrderChanged: (ids) ->
-    @setStateAndSync {ids}
+    @setState {ids}
 
   isDropAllowed: (card, stack) ->
     true

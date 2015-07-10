@@ -93,7 +93,10 @@ If they don't already have a TaskTorch account, they'll be able to create one.
 """
 
 Hints['change-kind-workflow'] = """
-You can change the stages and default actions for cards of this kind.
+Here, you can change the stages and default actions for cards of this kind.
+You can drag both stages and default actions to reorganize them. Changes to
+default actions will only affect new cards, but changes to the name or order
+of stages will affect all cards of this kind. Be careful!
 """
 
 Hints['delete-stage'] = """

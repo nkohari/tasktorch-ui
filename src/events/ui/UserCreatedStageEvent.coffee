@@ -4,6 +4,6 @@ class UserCreatedStageEvent extends Event
 
   type: 'UserCreatedStage'
 
-  constructor: (@kindid, @name, @position) ->
+  constructor: (@kindid, @name) ->
 
 module.exports = UserCreatedStageEvent

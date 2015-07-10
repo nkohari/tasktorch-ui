@@ -1,18 +1,15 @@
 #--------------------------------------------------------------------------------
-_                       = require 'lodash'
-React                   = require 'react'
-PropTypes               = require 'ui/framework/PropTypes'
-Actor                   = require 'ui/framework/mixins/Actor'
-CachedState             = require 'ui/framework/mixins/CachedState'
-Button                  = React.createFactory(require 'ui/common/Button')
-Dialog                  = React.createFactory(require 'ui/common/Dialog')
-DialogFooter            = React.createFactory(require 'ui/common/DialogFooter')
-DialogTrigger           = React.createFactory(require 'ui/common/DialogTrigger')
-Prompt                  = React.createFactory(require 'ui/common/Prompt')
-ChangeKindWorkflowStage = React.createFactory(require 'ui/dialogs/changeKindWorkflow/ChangeKindWorkflowStage')
-{a, div, ul}            = React.DOM
-#--------------------------------------------------------------------------------
-require './ChangeKindWorkflowDialog.styl'
+_                           = require 'lodash'
+React                       = require 'react'
+PropTypes                   = require 'ui/framework/PropTypes'
+CachedState                 = require 'ui/framework/mixins/CachedState'
+Button                      = React.createFactory(require 'ui/common/Button')
+Dialog                      = React.createFactory(require 'ui/common/Dialog')
+DialogFooter                = React.createFactory(require 'ui/common/DialogFooter')
+DialogTrigger               = React.createFactory(require 'ui/common/DialogTrigger')
+Prompt                      = React.createFactory(require 'ui/common/Prompt')
+ChangeKindWorkflowStageList = React.createFactory(require 'ui/dialogs/changeKindWorkflow/ChangeKindWorkflowStageList')
+{div}                       = React.DOM
 #--------------------------------------------------------------------------------
 
 ChangeKindWorkflowDialog = React.createClass {
@@ -23,7 +20,7 @@ ChangeKindWorkflowDialog = React.createClass {
     kindid:      PropTypes.id
     closeDialog: PropTypes.func
 
-  mixins: [Actor, CachedState]
+  mixins: [CachedState]
 
   getCachedState: (cache) -> {
     kind:   cache('kinds').get(@props.kindid)
@@ -32,23 +29,16 @@ ChangeKindWorkflowDialog = React.createClass {
 
   render: ->
 
-    items = _.map @state.stages, (stage, index) =>
-      div {key: stage.id, className: 'section'},
-        ChangeKindWorkflowStage {key: stage.id, stage}
-        DialogTrigger {className: 'add-stage', name: 'CreateStage', kindid: @props.kindid, position: index + 1},
-          'Add another stage'
-
     footer = DialogFooter {
+      left: DialogTrigger {name: 'CreateStage', kindid: @props.kindid},
+        Button {text: 'Add another stage'}
       right: Button {text: 'Close', onClick: @props.closeDialog}
     }
 
-    Dialog {icon: 'workflow', title: "Change #{@state.kind?.name} Workflow", footer, className: 'change-kind-workflow-dialog', closeDialog: @props.closeDialog},
+    Dialog {icon: 'workflow', title: "Change workflow of #{@state.kind?.name}", footer, className: 'change-kind-workflow-dialog', closeDialog: @props.closeDialog},
       Prompt {hint: 'change-kind-workflow'},
-        'What process do you follow for these cards?'
-      ul {className: 'stage-list'},
-        items
-
-  addStage: (index) ->
+        "What process do you follow for #{@state.kind?.name} cards?"
+      ChangeKindWorkflowStageList {kind: @state.kind, stages: @state.stages}
 
 }
 

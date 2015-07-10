@@ -21,10 +21,11 @@ PanelHeader = React.createClass {
 
   render: ->
 
-    if _.isString(@props.icon)
-      icon = Icon {className: 'panel-icon', name: @props.icon}
-    else
-      icon = cloneWithProps @props.icon, {className: 'panel-icon'}
+    if @props.icon?
+      if _.isString(@props.icon)
+        icon = Icon {className: 'panel-icon', name: @props.icon}
+      else
+        icon = cloneWithProps @props.icon, {className: 'panel-icon'}
 
     div {className: 'header'},
       icon      

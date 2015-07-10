@@ -31,9 +31,10 @@ DeleteStageDialog = React.createClass {
   getCachedState: (cache) ->
     stage = cache('stages').get(@props.stageid)
     if stage?
+      kind        = cache('kinds').get(stage.kind)
       allStages   = cache('stagesByKind').get(stage.kind)
       otherStages = _.without(allStages, stage)
-    {stage, otherStages}
+    {stage, kind, otherStages}
 
   render: ->
 
@@ -44,11 +45,11 @@ DeleteStageDialog = React.createClass {
       ]
     }
 
-    Dialog {icon: 'trash', title: "Delete #{@state.stage?.name} Stage", footer, closeDialog: @props.closeDialog},
+    Dialog {icon: 'trash', title: "Delete the #{@state.stage?.name} stage from #{@state.kind?.name}", footer, closeDialog: @props.closeDialog},
       Field {label: 'Where would you like to move the actions from this stage?', hint: 'delete-stage'},
         StaticSelector {
           component:   StageOption
-          placeholder: 'Click to select a stage'
+          placeholder: "Click to select another stage in #{@state.kind?.name}"
           value:       @state.inheritorStage
           options:     @state.otherStages
           onChange:    @onStageSelected

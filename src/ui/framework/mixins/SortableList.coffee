@@ -32,6 +32,7 @@ SortableList = (mixinConfig) -> {
       start: @_onSortableStart
       stop: @_onSortableStop
       receive: @_onSortableReceive
+      remove: @_onSortableRemove
     }, mixinConfig)
 
   componentWillUnmount: ->
@@ -55,7 +56,7 @@ SortableList = (mixinConfig) -> {
 
   _onSortableDragOver: (event, context) ->
     @_setDragState context, {
-      toList: @getSortableList()
+      toList:     @getSortableList()
       toPosition: @_getCurrentPosition(context)
     }
 
@@ -64,35 +65,46 @@ SortableList = (mixinConfig) -> {
       width:  context.helper.outerWidth()
       height: context.helper.outerHeight()
     }
-    item = @getSortableListItem(context.item.attr(mixinConfig.idAttribute))
+    id   = context.item.attr(mixinConfig.idAttribute)
+    item = @getSortableListItem(id)
     list = @getSortableList()
     position = context.item.index()
     @_setDragState context, {
+      id:           id
       item:         item
       fromList:     list
       fromPosition: position
       toList:       list
       toPosition:   position
+      order:        @_getCurrentOrder()
     }
 
   _onSortableStop: (event, context) ->
-    dragState = @_getDragState(context)
-    ids = @_getCurrentOrder()
-    @_jQuery().sortable('cancel')
-    if not context.sender? and dragState.fromList.id == dragState.toList.id and dragState.fromPosition != dragState.toPosition
-      @onReorder(dragState.item, dragState.toPosition) if @onReorder?
-    @onListOrderChanged(ids) if @onListOrderChanged?
+    order = @_getCurrentOrder()
+    _.defer =>
+      @_cancelSortable()
+      dragState = @_getDragState(context)
+      if not context.sender? and dragState.fromList.id == dragState.toList.id and dragState.fromPosition != dragState.toPosition
+        @onReorder(dragState.item, dragState.toPosition, dragState.fromPosition) if @onReorder?
+      @onListOrderChanged(order) if @onListOrderChanged?
 
   _onSortableChange: (event, context) ->
     @_setDragState context, {
       toPosition: @_getCurrentPosition(context)
+      order:      @_getCurrentOrder()
     }
 
   _onSortableReceive: (event, context) ->
-    dragState = context.item.data(DRAG_STATE_KEY)
-    ids = @_getCurrentOrder()
-    @onMove(dragState.item, dragState.toList, dragState.toPosition) if @onMove?
-    @onListOrderChanged(ids) if @onListOrderChanged?
+    @_cancelSortable()
+    _.defer =>
+      dragState = @_getDragState(context)
+      @onReceiveListItem(dragState.item, dragState.toList, dragState.toPosition, dragState.fromPosition) if @onReceiveListItem?
+
+  _onSortableRemove: (event, context) ->
+    @_cancelSortable()
+    _.defer =>
+      dragState = @_getDragState(context)
+      @onRemoveListItem(dragState.item, dragState.fromPosition) if @onRemoveListItem?
 
   _getCurrentOrder: ->
     @_jQuery().sortable('toArray', {attribute: mixinConfig.idAttribute})
@@ -104,6 +116,9 @@ SortableList = (mixinConfig) -> {
       return position - 1
     else
       return position
+
+  _cancelSortable: (context) ->
+    @_jQuery().sortable('cancel')
 
 }
 

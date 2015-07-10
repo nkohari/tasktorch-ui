@@ -29,23 +29,20 @@ StackPanel = React.createClass {
 
   getCachedState: (cache) -> {
     stack: cache('stacks').get(@props.id)
+    cards: cache('cardsByStack').get(@props.id)
   }
-
-  isReady: ->
-    @state.stack?
 
   render: ->
 
     props = mergeProps _.omit(@props, 'id'), {
       className: 'stack'
-      @isReady
     }
     
     Panel props,
       StackHeader {panelid: @props.id, stack: @state.stack}
       div {className: 'content'},
-        StackCardList {stack: @state.stack}
-      StackFooter   {stack: @state.stack}
+        StackCardList {stack: @state.stack, cards: @state.cards}
+      StackFooter {stack: @state.stack}
 
   onStackDeleted: (event) ->
     if event.stack.id == @props.id

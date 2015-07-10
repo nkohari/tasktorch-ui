@@ -19,6 +19,7 @@ KindStageList = React.createClass {
 
   mixins: [
     SortableList {
+      handle: '.drag-handle'
       idAttribute: 'data-itemid'
     }
   ]

@@ -55,7 +55,7 @@ KindActionList = React.createClass {
   onDragStopped: ->
     @setState {dragging: false}
 
-  onMove: (action, toStage, toPosition) ->
+  onReceiveListItem: (action, toStage, toPosition) ->
     actions = _.cloneDeep(@props.stage.defaultActions)
     actions.splice(toPosition, 0, action)
     @props.setActions(@props.stage.id, actions)

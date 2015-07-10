@@ -24,12 +24,12 @@ StackHeader = React.createClass {
 
   render: ->
 
-    if @props.stack.type is StackType.Backlog
+    if @props.stack?.type is StackType.Backlog
       menu = StackContextMenu {stack: @props.stack}
       controls = OverlayTrigger {overlay: menu},
         Icon {name: 'trigger'}
 
-    PanelHeader {panelid: @props.panelid, icon: @props.stack.type.toLowerCase(), controls},
+    PanelHeader {panelid: @props.panelid, icon: @props.stack?.type.toLowerCase(), controls},
       StackName {stack: @props.stack}
 
 }

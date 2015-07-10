@@ -32,9 +32,12 @@ ColorPicker = React.createClass {
       ]
       li {key: color, ref: "item#{index}", tabIndex: index, className: classes, @onKeyUp, onFocus: @props.onChange.bind(null, color)}
 
-    div {className: 'color-picker'},
+    div {tabIndex: 0, className: 'color-picker'},
       div {className: 'selected-color-name'}, @getColorName(@props.value)
       ul {className: 'color-options'}, items
+
+  focus: ->
+    @getDOMNode().focus()
 
   onKeyUp: (event) ->
 

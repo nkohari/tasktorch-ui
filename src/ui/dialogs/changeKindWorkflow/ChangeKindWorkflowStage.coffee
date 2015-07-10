@@ -1,6 +1,7 @@
 #--------------------------------------------------------------------------------
 _                                   = require 'lodash'
 React                               = require 'react'
+classSet                            = require 'common/util/classSet'
 UserRenamedStageEvent               = require 'events/ui/UserRenamedStageEvent'
 UserChangedStageDefaultActionsEvent = require 'events/ui/UserChangedStageDefaultActionsEvent'
 KeyCode                             = require 'ui/framework/KeyCode'
@@ -9,9 +10,10 @@ Actor                               = require 'ui/framework/mixins/Actor'
 EditableInput                       = React.createFactory(require 'ui/common/EditableInput')
 EditableTextArea                    = React.createFactory(require 'ui/common/EditableTextArea')
 Icon                                = React.createFactory(require 'ui/common/Icon')
-Input                               = React.createFactory(require 'ui/common/Input')
+RepeatableInput                     = React.createFactory(require 'ui/common/RepeatableInput')
 OverlayTrigger                      = React.createFactory(require 'ui/common/OverlayTrigger')
 StageContextMenu                    = React.createFactory(require 'ui/overlays/StageContextMenu')
+ChangeKindWorkflowActionList        = React.createFactory(require 'ui/dialogs/changeKindWorkflow/ChangeKindWorkflowActionList')
 {a, div, ul, li}                    = React.DOM
 #--------------------------------------------------------------------------------
 require './ChangeKindWorkflowStage.styl'
@@ -27,51 +29,39 @@ ChangeKindWorkflowStage = React.createClass {
   mixins: [Actor]
 
   getInitialState: ->
-    {text: ''}
+    {adding: false}
 
   render: ->
 
-    items = _.map @props.stage.defaultActions, (action, index) =>
-      li {key: index, className: 'action'},
-        div {className: 'action-content'},
-          EditableTextArea {value: action.text, rows: 1, save: @changeActionText.bind(this, index)}
-          a {className: 'delete-action', onClick: @deleteAction.bind(this, index)},
-            Icon {name: 'remove'}
+    classes = classSet [
+      'change-kind-workflow-stage'
+      'dragging' if @props.dragging
+    ]
 
-    div {className: 'change-kind-workflow-stage'},
+    if @state.adding
+      input = RepeatableInput {placeholder: "Add another #{@props.stage.name} action", onValue: @addAction, onDone: @stopAdding}
+
+    li {className: classes, 'data-itemid': @props.stage.id},
       div {className: 'header'},
         div {className: 'stage-name'},
-          Icon {name: 'checklist'}
+          Icon {className: 'drag-handle', name: 'checklist'}
           EditableInput {value: @props.stage.name, save: @renameStage}
-        OverlayTrigger {overlay: StageContextMenu {stage: @props.stage}},
+        OverlayTrigger {overlay: StageContextMenu {stage: @props.stage, @startAdding}},
           Icon {name: 'trigger'}
-      ul {className: 'action-list'},
-        items
-      Input {className: 'add-action', value: @state.text, placeholder: "Add another #{@props.stage.name} action", @onKeyUp, @onChange}
+      ChangeKindWorkflowActionList {stage: @props.stage}
+      input
 
-  onKeyUp: (event) ->
-    if event.which is KeyCode.RETURN and @state.text?.length > 0
-      @addAction(@state.text)
-      @setState {text: ''}
+  startAdding: ->
+    @setState {adding: true}
 
-  onChange: (event) ->
-    @setState {text: event.target.value}
+  stopAdding: ->
+    @setState {adding: false}
 
   renameStage: (name) ->
     @publish new UserRenamedStageEvent(@props.stage.id, name)
 
-  changeActionText: (index, text) ->
-    defaultActions = _.clone(@props.stage.defaultActions)
-    defaultActions[index].text = text
-    @publish new UserChangedStageDefaultActionsEvent(@props.stage.id, defaultActions)
-
   addAction: (text) ->
     defaultActions = @props.stage.defaultActions.concat {text}
-    @publish new UserChangedStageDefaultActionsEvent(@props.stage.id, defaultActions)
-
-  deleteAction: (index) ->
-    defaultActions = _.clone(@props.stage.defaultActions)
-    defaultActions.splice(index, 1)
     @publish new UserChangedStageDefaultActionsEvent(@props.stage.id, defaultActions)
 
 }

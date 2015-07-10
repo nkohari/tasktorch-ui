@@ -5,12 +5,12 @@ Request           = require 'data/framework/Request'
 
 class CreateStageRequest extends Request
 
-  constructor: (@kindid, @name, @position) ->
+  constructor: (@kindid, @name) ->
 
   execute: (eventQueue) ->
     superagent.post(@urlFor("/#{Environment.orgid}/kinds/#{@kindid}/stages"))
     .withCredentials()
-    .send {@name, @position}
+    .send {@name}
     .end (err, res) =>
       team = new Stage(res.body.team)
       eventQueue.publish new StageCreatedEvent(team)

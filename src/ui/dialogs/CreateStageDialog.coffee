@@ -18,7 +18,6 @@ CreateStageDialog = React.createClass {
 
   props:
     kindid:      PropTypes.id
-    position:    PropTypes.number
     closeDialog: PropTypes.func
 
   mixins: [Actor, CachedState]
@@ -53,7 +52,7 @@ CreateStageDialog = React.createClass {
     @setState {dirty: true, name: event.target.value}
 
   createStage: ->
-    @publish new UserCreatedStageEvent(@props.kindid, @state.name, @props.position)
+    @publish new UserCreatedStageEvent(@props.kindid, @state.name)
     @props.closeDialog()
 
 }

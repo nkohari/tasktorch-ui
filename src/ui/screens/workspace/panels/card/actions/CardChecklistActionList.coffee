@@ -37,7 +37,8 @@ CardChecklistActionList = React.createClass {
   }
 
   componentWillReceiveProps: (newProps) ->
-    @setState {ids: newProps.checklist.actions}
+    unless compare.arrays(@props.checklist.actions, newProps.checklist.actions)
+      @setState {ids: newProps.checklist.actions}
 
   render: ->
 
@@ -69,7 +70,7 @@ CardChecklistActionList = React.createClass {
   onReorder: (action, toPosition) ->
     @publish new UserMovedActionEvent(action.id, @props.checklist.id, toPosition)
 
-  onMove: (action, toChecklist, toPosition) ->
+  onReceiveListItem: (action, toChecklist, toPosition) ->
     @publish new UserMovedActionEvent(action.id, toChecklist.id, toPosition)
 
   onListOrderChanged: (ids) ->

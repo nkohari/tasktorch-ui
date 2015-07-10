@@ -38,7 +38,7 @@ OverlayTrigger = React.createClass {
 
   render: ->
 
-    props = mergeProps _.omit(@props, 'overlay'), {
+    props = mergeProps _.omit(@props, 'method', 'overlay'), {
       className: classSet [
         'trigger'
         'active' if @state.visible

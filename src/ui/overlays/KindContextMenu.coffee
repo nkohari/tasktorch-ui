@@ -26,9 +26,15 @@ KindContextMenu = React.createClass {
   render: ->
 
     ContextMenu {position: 'bottom right', hideOverlay: @props.hideOverlay},
-      DialogTrigger {name: 'RenameKindDialog', kindid: @props.kindid},
+      DialogTrigger {name: 'RenameKind', kindid: @props.kindid},
         Icon {name: 'edit'}
         'Rename'
+      DialogTrigger {name: 'ChangeKindColor', kindid: @props.kindid},
+        Icon {name: 'edit'}
+        'Change color'
+      DialogTrigger {name: 'ChangeKindDescription', kindid: @props.kindid},
+        Icon {name: 'edit'}
+        'Change description'
       DialogTrigger {name: 'ChangeKindWorkflow', kindid: @props.kindid},
         Icon {name: 'workflow'}
         'Change workflow'
