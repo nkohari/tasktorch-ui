@@ -6,7 +6,7 @@ CachedState = {
   getInitialState: ->
     unless _.isFunction(@getCachedState)
       throw new Error("You must implement getCachedState() on #{@constructor.name}")
-    @getCachedState(@_getStore)
+    @getCachedState(@getStore)
 
   componentWillMount: ->
     Environment.cache.addListener('StateChanged', @_syncWithCache)
@@ -20,12 +20,12 @@ CachedState = {
   setStateAndSync: (patch) ->
     @setState patch, => @_syncWithCache()
 
-  _getStore: (name) ->
+  getStore: (name) ->
     return Environment.cache.getStore(name)
 
   _syncWithCache: ->
     if @isMounted()
-      newState = @getCachedState(@_getStore)
+      newState = @getCachedState(@getStore)
       @setState(newState) unless compare.hashes(@state, newState)
     return
 

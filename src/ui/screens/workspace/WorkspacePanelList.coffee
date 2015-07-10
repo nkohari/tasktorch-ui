@@ -3,7 +3,6 @@ _                  = require 'lodash'
 dom                = require 'common/util/dom'
 React              = require 'react'
 Navigator          = require 'ui/framework/mixins/Navigator'
-SortableList       = require 'ui/framework/mixins/SortableList'
 PropTypes          = require 'ui/framework/PropTypes'
 WorkspacePanel     = React.createFactory(require 'ui/screens/workspace/WorkspacePanel')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
@@ -16,13 +15,7 @@ WorkspacePanelList = React.createClass {
   propTypes:
     panels: PropTypes.array
 
-  mixins: [
-    Navigator
-    SortableList {
-      handle: '.header, .card-header'
-      idAttribute: 'data-itemid'
-    }
-  ]
+  mixins: [Navigator]
 
   render: ->
 
@@ -32,19 +25,6 @@ WorkspacePanelList = React.createClass {
 
     CSSTransitionGroup {component: 'div', className: 'content', transitionName: 'slide', @onWheel},
       panels
-
-  getSortableList: ->
-    # TODO: The SortableList mixin is designed to support connected lists, like StackCardList.
-    # This hack allows us to use it for non-connected lists, but we should really fix the mixin.
-    {id: 'dummy'}
-
-  getSortableListItem: (id) ->
-    {id}
-
-  onReorder: (panel, toPosition) ->
-    # TODO
-
-  onListOrderChanged: (ids) ->
 
   onWheel: (event) ->
     {deltaX, deltaY, target} = event

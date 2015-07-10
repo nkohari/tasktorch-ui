@@ -1,12 +1,12 @@
 #--------------------------------------------------------------------------------
 _                                   = require 'lodash'
 React                               = require 'react'
+SortableMixin                       = require 'sortablejs/react-sortable-mixin'
 compare                             = require 'common/util/compare'
 classSet                            = require 'common/util/classSet'
 UserChangedStageDefaultActionsEvent = require 'events/ui/UserChangedStageDefaultActionsEvent'
 PropTypes                           = require 'ui/framework/PropTypes'
 Actor                               = require 'ui/framework/mixins/Actor'
-SortableList                        = require 'ui/framework/mixins/SortableList'
 EditableTextArea                    = React.createFactory(require 'ui/common/EditableTextArea')
 Icon                                = React.createFactory(require 'ui/common/Icon')
 {a, div, ul, li}                    = React.DOM
@@ -21,25 +21,20 @@ ChangeKindWorkflowActionList = React.createClass {
   propTypes:
     stage: PropTypes.Stage
 
-  mixins: [
-    Actor
-    SortableList {
-      idAttribute: 'data-itemid'
-      connectWith: '.change-kind-workflow-action-list'
-    }
-  ]
+  mixins: [Actor, SortableMixin]
+
+  sortableOptions:
+    group: 'kind-actions'
+    model: 'actions'
 
   getInitialState: ->
-    {actions: _.cloneDeep(@props.stage.defaultActions)}
+    {actions: _.clone(@props.stage.defaultActions), dirty: false}
 
   componentWillReceiveProps: (newProps) ->
-    console.log "#{@props.stage.name} componentWillReceiveProps(): %o", newProps
-    unless compare.values(@props.stage, newProps.stage)
-      actions = _.cloneDeep(newProps.stage.defaultActions)
-      console.log "#{@props.stage.name} will update, actions now %o", actions
-      @setState {actions}
-    else
-      console.log "#{@props.stage.name} will NOT update, actions remain %o", @state.actions
+    if not @state.dirty
+      @setState {actions: newProps.stage.defaultActions}
+    else if not compare.arrays(newProps.stage.defaultActions, @props.stage.defaultActions)
+      @setState {actions: newProps.stage.defaultActions, dirty: false}
 
   render: ->
 
@@ -52,34 +47,6 @@ ChangeKindWorkflowActionList = React.createClass {
 
     ul {className: 'change-kind-workflow-action-list'}, items
 
-  getSortableList: ->
-    @props.stage
-
-  getSortableListItem: (index) ->
-    @state.actions[index]
-
-  onReceiveListItem: (action, stage, index) ->
-    actions = _.cloneDeep(@state.actions)
-    actions.splice(index, 0, action)
-    console.log "#{@props.stage.name} onReceiveListItem %o", actions
-    @setState {actions}
-    @publish new UserChangedStageDefaultActionsEvent(@props.stage.id, actions)
-
-  onRemoveListItem: (action, index) ->
-    actions = _.cloneDeep(@state.actions)
-    actions.splice(index, 1)
-    console.log "#{@props.stage.name} onRemoveListItem %o", actions
-    @setState {actions}
-    @publish new UserChangedStageDefaultActionsEvent(@props.stage.id, actions)
-
-  onReorder: (action, index, previousIndex) ->
-    actions = _.cloneDeep(@state.actions)
-    actions.splice(previousIndex, 1)
-    actions.splice(index, 0, action)
-    console.log "#{@props.stage.name} onReorder %o", actions
-    @setState {actions}
-    @publish new UserChangedStageDefaultActionsEvent(@props.stage.id, actions)
-
   changeActionText: (index, text) ->
     actions = _.cloneDeep(@state.actions)
     actions[index].text = text
@@ -87,10 +54,22 @@ ChangeKindWorkflowActionList = React.createClass {
     @publish new UserChangedStageDefaultActionsEvent(@props.stage.id, actions)
 
   deleteAction: (index) ->
-    actions = _.cloneDeep(@state.actions)
+    actions = _.clone(@state.actions)
     actions.splice(index, 1)
     @setState {actions}
     @publish new UserChangedStageDefaultActionsEvent(@props.stage.id, actions)
+
+  handleUpdate: (event) ->
+    @setState {dirty: true}
+    @publish new UserChangedStageDefaultActionsEvent(@props.stage.id, @state.actions)
+
+  handleAdd: (event) ->
+    @setState {dirty: true}
+    @publish new UserChangedStageDefaultActionsEvent(@props.stage.id, @state.actions)
+
+  handleRemove: (event) ->
+    @setState {dirty: true}
+    @publish new UserChangedStageDefaultActionsEvent(@props.stage.id, @state.actions)
 
 }
 

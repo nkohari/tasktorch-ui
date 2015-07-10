@@ -1,11 +1,11 @@
 #--------------------------------------------------------------------------------
 _                       = require 'lodash'
 React                   = require 'react'
+SortableMixin           = require 'sortablejs/react-sortable-mixin'
 compare                 = require 'common/util/compare'
 UserMovedStageEvent     = require 'events/ui/UserMovedStageEvent'
 PropTypes               = require 'ui/framework/PropTypes'
 Actor                   = require 'ui/framework/mixins/Actor'
-SortableList            = require 'ui/framework/mixins/SortableList'
 ChangeKindWorkflowStage = React.createFactory(require 'ui/dialogs/changeKindWorkflow/ChangeKindWorkflowStage')
 {ul, li}                = React.DOM
 #--------------------------------------------------------------------------------
@@ -20,41 +20,33 @@ ChangeKindWorkflowStageList = React.createClass {
     kind:   PropTypes.Kind
     stages: PropTypes.arrayOf(PropTypes.Stage)
 
-  mixins: [
-    Actor
-    SortableList {idAttribute: 'data-itemid'}
-  ]
+  mixins: [Actor, SortableMixin]
+
+  sortableOptions:
+    group: 'stages'
+    model: 'stages'
 
   getInitialState: ->
-    {ids: _.pluck(@props.stages, 'id')}
+    {stages: @props.stages, dirty: false}
 
   componentWillReceiveProps: (newProps) ->
-    unless compare.hashes(@props, newProps)
-      @setState {ids: _.clone(newProps.kind.stages)}
+    if not @state.dirty
+      @setState {stages: newProps.stages}
+    else if not compare.arrays(newProps.stages, @props.stages)
+      @setState {stages: newProps.stages, dirty: false}
 
   render: ->
 
-    if @props.stages?
-      lookup = _.indexBy(@props.stages, 'id')
-      items = _.map @state.ids, (stageid, index) =>
-        stage = lookup[stageid]
-        return unless stage?
-        ChangeKindWorkflowStage {key: stageid, stage}
+    items = _.map @state.stages, (stage) =>
+      ChangeKindWorkflowStage {key: stage.id, stage}
 
     ul {className: 'change-kind-workflow-stage-list'},
       items
 
-  getSortableList: ->
-    @props.kind
-
-  getSortableListItem: (id) ->
-    _.find @props.stages, (stage) -> stage.id == id
-
-  onReorder: (stage, position) ->
-    @publish new UserMovedStageEvent(stage.id, position)
-
-  onListOrderChanged: (ids) ->
-    @setState {ids}
+  handleUpdate: (event) ->
+    stageid = event.item.getAttribute('data-itemid')
+    @setState {dirty: true}
+    @publish new UserMovedStageEvent(stageid, event.newIndex)
 
 }
 

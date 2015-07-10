@@ -1,13 +1,13 @@
 #--------------------------------------------------------------------------------
 _                  = require 'lodash'
 React              = require 'react'
+SortableMixin      = require 'sortablejs/react-sortable-mixin'
 compare            = require 'common/util/compare'
 PropTypes          = require 'ui/framework/PropTypes'
 classSet           = require 'common/util/classSet'
 StackType          = require 'data/enums/StackType'
 Actor              = require 'ui/framework/mixins/Actor'
 CachedState        = require 'ui/framework/mixins/CachedState'
-SortableList       = require 'ui/framework/mixins/SortableList'
 UserMovedCardEvent = require 'events/ui/UserMovedCardEvent'
 StackCard          = React.createFactory(require 'ui/screens/workspace/panels/stack/StackCard')
 {ul, li}           = React.DOM
@@ -23,61 +23,37 @@ StackCardList = React.createClass {
     stack: PropTypes.Stack
     cards: PropTypes.arrayOf(PropTypes.Card)
 
-  mixins: [
-    Actor
-    SortableList {idAttribute: 'data-itemid', connectWith: '.stack-card-list'}
-  ]
+  mixins: [Actor, SortableMixin]
 
-  getInitialState: -> {
-    ids: _.clone(@props.stack?.cards)
-    dragActive: false
-    dropAllowed: undefined
-  }
+  sortableOptions:
+    group: 'cards'
+    model: 'cards'
+
+  getInitialState: ->
+    {cards: _.clone(@props.cards), dirty: false}
 
   componentWillReceiveProps: (newProps) ->
-    unless compare.hashes(@props, newProps)
-      @setState {ids: _.clone(newProps.stack.cards)}
+    if not @state.dirty
+      @setState {cards: newProps.cards}
+    else if not compare.arrays(newProps.cards, @props.cards)
+      @setState {cards: newProps.cards, dirty: false}
 
   render: ->
 
-    lookup = _.indexBy(@props.cards, 'id')
-    items = _.map @state.ids, (id) =>
-      card = lookup[id]
-      return unless card?
+    items = _.map @state.cards, (card) =>
       StackCard {key: card.id, stack: @props.stack, card}
 
-    classes = classSet [
-      'stack-card-list'
-      'drag-active'     if @state.dragActive
-      'drop-allowed'    if @state.dragActive and @state.dropAllowed
-      'drop-disallowed' if @state.dragActive and not @state.dropAllowed
-    ]
+    ul {className: 'stack-card-list'}, items
 
-    ul {className: classes}, items
+  handleUpdate: (event) ->
+    cardid = event.item.getAttribute('data-itemid')
+    @setState {dirty: true}
+    @publish new UserMovedCardEvent(cardid, @props.stack.id, event.newIndex)
 
-  getSortableList: ->
-    @props.stack
-
-  getSortableListItem: (id) ->
-    _.find @props.cards, (card) -> card.id == id
-
-  onDragStarted: (dragContext) ->
-    @setState {dragActive: true, dropAllowed: @isDropAllowed(dragContext.item, dragContext.list)}
-
-  onDragStopped: (dragContext) ->
-    @setState {dragActive: false, dropAllowed: undefined}
-
-  onReorder: (card, position) ->
-    @publish new UserMovedCardEvent(card.id, @props.stack.id, position)
-
-  onReceiveListItem: (card, stack, position) ->
-    @publish new UserMovedCardEvent(card.id, stack.id, position)
-
-  onListOrderChanged: (ids) ->
-    @setState {ids}
-
-  isDropAllowed: (card, stack) ->
-    true
+  handleAdd: (event) ->
+    cardid = event.item.getAttribute('data-itemid')
+    @setState {dirty: true}
+    @publish new UserMovedCardEvent(cardid, @props.stack.id, event.newIndex)
 
 }
 

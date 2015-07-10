@@ -1,9 +1,10 @@
 #--------------------------------------------------------------------------------
 _                  = require 'lodash'
 React              = require 'react'
+SortableMixin      = require 'sortablejs/react-sortable-mixin'
 classSet           = require 'common/util/classSet'
+compare            = require 'common/util/compare'
 PropTypes          = require 'ui/framework/PropTypes'
-SortableList       = require 'ui/framework/mixins/SortableList'
 KindActionListItem = React.createFactory(require 'ui/dialogs/kindWizard/KindActionListItem')
 {div, li, ul}      = React.DOM
 #--------------------------------------------------------------------------------
@@ -20,49 +21,39 @@ KindActionList = React.createClass {
     updateAction: PropTypes.func
     removeAction: PropTypes.func
 
-  mixins: [
-    SortableList {
-      idAttribute: 'data-itemid'
-      connectWith: '.kind-action-list'
-      tolerance:   'intersect'
-    }
-  ]
+  mixins: [SortableMixin]
+
+  sortableOptions:
+    group: 'kind-actions'
+    model: 'actions'
 
   getInitialState: ->
-    {dragging: false}
+    {actions: @props.stage.defaultActions, dirty: false}
+
+  componentWillReceiveProps: (newProps) ->
+    if not @state.dirty
+      @setState {actions: newProps.stage.defaultActions}
+    else if not compare.arrays(newProps.stage.defaultActions, @props.stage.defaultActions)
+      @setState {actions: newProps.stage.defaultActions, dirty: false}
 
   render: ->
 
-    items = _.map @props.stage.defaultActions, (action) =>
-      KindActionListItem {key: action.id, stage: @props.stage, action, updateAction: @props.updateAction, removeAction: @props.removeAction}
-
-    classes = [
-      'kind-action-list'
-      'dragging' if @state.dragging
-    ]
+    items = _.map @state.actions, (action, index) =>
+      KindActionListItem {key: index, stage: @props.stage, action, updateAction: @props.updateAction, removeAction: @props.removeAction}
 
     ul {className: 'kind-action-list'}, items
 
-  getSortableList: ->
-    @props.stage
+  handleAdd: (event) ->
+    @setState {dirty: true}
+    @props.setActions(@props.stage.id, @state.actions)
 
-  getSortableListItem: (id) ->
-    _.find @props.stage.defaultActions, (action) -> action.id == id
+  handleRemove: (event) ->
+    @setState {dirty: true}
+    @props.setActions(@props.stage.id, @state.actions)
 
-  onDragStarted: ->
-    @setState {dragging: true}
-
-  onDragStopped: ->
-    @setState {dragging: false}
-
-  onReceiveListItem: (action, toStage, toPosition) ->
-    actions = _.cloneDeep(@props.stage.defaultActions)
-    actions.splice(toPosition, 0, action)
-    @props.setActions(@props.stage.id, actions)
-
-  onListOrderChanged: (ids) ->
-    actions = _.compact _.map ids, (id) => @getSortableListItem(id)
-    @props.setActions(@props.stage.id, actions)
+  handleUpdate: (event) ->
+    @setState {dirty: true}
+    @props.setActions(@props.stage.id, @state.actions)
 
 }
 

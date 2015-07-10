@@ -1,11 +1,11 @@
 #--------------------------------------------------------------------------------
 _                    = require 'lodash'
 React                = require 'react'
+SortableMixin        = require 'sortablejs/react-sortable-mixin'
 classSet             = require 'common/util/classSet'
 compare              = require 'common/util/compare'
 PropTypes            = require 'ui/framework/PropTypes'
 Actor                = require 'ui/framework/mixins/Actor'
-SortableList         = require 'ui/framework/mixins/SortableList'
 UserMovedActionEvent = require 'events/ui/UserMovedActionEvent'
 Icon                 = React.createFactory(require 'ui/common/Icon')
 CardAction           = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CardAction')
@@ -22,59 +22,37 @@ CardChecklistActionList = React.createClass {
     actions:   PropTypes.arrayOf(PropTypes.Action)
     checklist: PropTypes.Checklist
 
-  mixins: [
-    Actor
-    SortableList {
-      connectWith: '.card-checklist-action-list'
-      idAttribute: 'data-itemid'
-      tolerance:   'intersect'
-    }
-  ]
+  sortableOptions:
+    group: 'actions'
+    model: 'actions'
 
-  getInitialState: -> {
-    dragging: false
-    ids: _.clone(@props.checklist.actions)
-  }
+  mixins: [Actor, SortableMixin]
+
+  getInitialState: ->
+    {actions: _.clone(@props.actions), dirty: false}
 
   componentWillReceiveProps: (newProps) ->
-    unless compare.arrays(@props.checklist.actions, newProps.checklist.actions)
-      @setState {ids: newProps.checklist.actions}
+    if not @state.dirty
+      @setState {actions: newProps.actions}
+    else if not compare.arrays(newProps.actions, @props.actions)
+      @setState {actions: newProps.actions, dirty: false}
 
   render: ->
 
-    lookup = _.indexBy(@props.actions, 'id')
-    items = _.map @state.ids, (id) =>
-      action = lookup[id]
-      return unless action?
+    items = _.map @state.actions, (action) =>
       CardAction {key: action.id, action}
 
-    classes = classSet [
-      'card-checklist-action-list'
-      'dragging' if @state.dragging      
-    ]
+    ul {className: 'card-checklist-action-list'}, items
 
-    ul {className: classes}, items
+  handleUpdate: (event) ->
+    actionid = event.item.getAttribute('data-itemid')
+    @setState {dirty: true}
+    @publish new UserMovedActionEvent(actionid, @props.checklist.id, event.newIndex)
 
-  getSortableList: ->
-    @props.checklist
-
-  getSortableListItem: (id) ->
-    _.find @props.actions, (action) -> action.id == id
-
-  onDragStarted: ->
-    @setState {dragging: true}
-
-  onDragStopped: ->
-    @setState {dragging: false}
-
-  onReorder: (action, toPosition) ->
-    @publish new UserMovedActionEvent(action.id, @props.checklist.id, toPosition)
-
-  onReceiveListItem: (action, toChecklist, toPosition) ->
-    @publish new UserMovedActionEvent(action.id, toChecklist.id, toPosition)
-
-  onListOrderChanged: (ids) ->
-    @setState {ids}
+  handleAdd: (event) ->
+    actionid = event.item.getAttribute('data-itemid')
+    @setState {dirty: true}
+    @publish new UserMovedActionEvent(actionid, @props.checklist.id, event.newIndex)
 
 }
 

@@ -1,8 +1,9 @@
 #--------------------------------------------------------------------------------
 _                 = require 'lodash'
 React             = require 'react'
+SortableMixin     = require 'sortablejs/react-sortable-mixin'
+compare           = require 'common/util/compare'
 PropTypes         = require 'ui/framework/PropTypes'
-SortableList      = require 'ui/framework/mixins/SortableList'
 KindStageListItem = React.createFactory(require 'ui/dialogs/kindWizard/KindStageListItem')
 {div, li, ul}     = React.DOM
 #--------------------------------------------------------------------------------
@@ -17,12 +18,17 @@ KindStageList = React.createClass {
     updateStage: PropTypes.func
     removeStage: PropTypes.func
 
-  mixins: [
-    SortableList {
-      handle: '.drag-handle'
-      idAttribute: 'data-itemid'
-    }
-  ]
+  mixins: [SortableMixin]
+
+  sortableOptions:
+    group: 'kind-stages'
+    model: 'stages'
+
+  getInitialState: ->
+    {stages: @props.stages}
+
+  componentWillReceiveProps: (newProps) ->
+    @setState {stages: newProps.stages}
 
   componentDidUpdate: (prevProps) ->
     if prevProps.stages.length < @props.stages.length
@@ -30,25 +36,13 @@ KindStageList = React.createClass {
 
   render: ->
 
-    items = _.map @props.stages, (stage) =>
+    items = _.map @state.stages, (stage) =>
       KindStageListItem {key: stage.id, stage, updateStage: @props.updateStage, removeStage: @props.removeStage}
 
     ul {className: 'kind-stage-list'}, items
 
-  getSortableList: ->
-    {id: 'dummy'}
-
-  getSortableListItem: (id) ->
-    _.find @props.stages, (stage) -> stage.id == id
-
-  onReorder: (stage, toPosition) ->
-
-  onListOrderChanged: (ids) ->
-    stages = _.map ids, (id) => @getSortableListItem(id)
-    @props.setStages(stages)
-
-  isDropAllowed: (card, fromStack) ->
-    return true
+  handleUpdate: (event) ->
+    @props.setStages(@state.stages)
 
   scrollToBottom: ->
     node = @getDOMNode()
