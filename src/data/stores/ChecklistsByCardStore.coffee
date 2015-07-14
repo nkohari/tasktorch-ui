@@ -1,4 +1,5 @@
 _                           = require 'lodash'
+DocumentStatus              = require 'data/enums/DocumentStatus'
 ListStore                   = require 'data/framework/ListStore'
 LoadChecklistsByCardRequest = require 'data/requests/LoadChecklistsByCardRequest'
 
@@ -18,7 +19,9 @@ class ChecklistsByCardStore extends ListStore
     @execute new LoadChecklistsByCardRequest(id)
 
   onChecklistChanged: (event) ->
-    @remove(event.checklist.card)
+    # TODO: This should really be a "deleted" event
+    if event.checklist.status is DocumentStatus.Deleted
+      @remove(event.checklist.card)
 
   onChecklistCreated: (event) ->
     @remove(event.checklist.card)

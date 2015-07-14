@@ -10,6 +10,8 @@ $big-picture-card-border-radius = 3px
   for $name in $color-names
     &.{$name}
       background: theme-color($name, 200)
+      & > .content
+        border-left: 1px solid theme-color($name, 300)
   
   & > .content
     margin-left: 8px

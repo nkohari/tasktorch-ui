@@ -29,8 +29,7 @@ TeamMembersDialog = React.createClass {
   getCachedState: (cache) ->
     team    = cache('teams').get(@props.teamid)
     members = cache('membersByTeam').get(@props.teamid)
-    leaders = cache('users').getAll(team.leaders) if team?
-    {leaders, members, team}
+    {members, team}
 
   componentDidMount: ->
     @refs.members.focus()
@@ -41,12 +40,12 @@ TeamMembersDialog = React.createClass {
       right: Button {text: 'Done', onClick: @props.closeDialog}
     }
 
-    Dialog {icon: 'team', height: 440, title: "#{@state.team?.name} Membership", footer, closeDialog: @props.closeDialog},
+    Dialog {icon: 'team', height: 600, title: "Members of #{@state.team?.name}", footer, closeDialog: @props.closeDialog},
       Field {label: 'Members', expand: true},
         MembershipEditor {
           ref: 'members'
-          leaders: @state.leaders
           members: @state.members
+          leaders: @state.team?.leaders
           @addLeader
           @addMember
           @removeLeader
@@ -60,17 +59,17 @@ TeamMembersDialog = React.createClass {
 
   removeMember: (user) ->
     members = _.filter @state.members, (u) -> u.id != user.id
-    leaders = _.filter @state.leaders, (u) -> u.id != user.id
+    leaders = _.without(@state.leaders, user.id)
     @setState {members, leaders}
     @publish new UserRemovedMemberFromTeamEvent(@props.teamid, user.id)
 
   addLeader: (user) ->
-    leaders = @state.leaders.concat(user)
+    leaders = @state.leaders.concat(user.id)
     @setState {leaders}
     @publish new UserAddedLeaderToTeamEvent(@props.teamid, user.id)
 
   removeLeader: (user) ->
-    leaders = _.filter @state.leaders, (u) -> u.id != user.id
+    leaders = _.without(@state.leaders, user.id)
     @setState {leaders}
     @publish new UserRemovedLeaderFromTeamEvent(@props.teamid, user.id)
 

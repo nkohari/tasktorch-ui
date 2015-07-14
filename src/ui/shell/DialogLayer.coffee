@@ -24,6 +24,7 @@ DIALOGS =
   GiveTokens:            React.createFactory(require 'ui/dialogs/GiveTokensDialog')
   Help:                  React.createFactory(require 'ui/dialogs/HelpDialog')
   ManageKinds:           React.createFactory(require 'ui/dialogs/ManageKindsDialog')
+  OrgMembers:            React.createFactory(require 'ui/dialogs/OrgMembersDialog')
   RenameKind:            React.createFactory(require 'ui/dialogs/RenameKindDialog')
   RenameStack:           React.createFactory(require 'ui/dialogs/RenameStackDialog')
   RenameTeam:            React.createFactory(require 'ui/dialogs/RenameTeamDialog')

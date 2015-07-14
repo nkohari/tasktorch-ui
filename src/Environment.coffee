@@ -34,6 +34,7 @@ TeamStore               = require 'data/stores/TeamStore'
 TeamsByOrgStore         = require 'data/stores/TeamsByOrgStore'
 TokenStore              = require 'data/stores/TokenStore'
 UserStore               = require 'data/stores/UserStore'
+UsersByOrgStore         = require 'data/stores/UsersByOrgStore'
 EventQueue              = require 'events/EventQueue'
 MessageBus              = require 'messaging/MessageBus'
 PresenceChannel         = require 'messaging/channels/PresenceChannel'
@@ -86,6 +87,7 @@ class Environment
       new SuggestedTeamsStore(@eventQueue, @cache)
       new SuggestedUsersStore(@eventQueue, @cache)
       new TeamsByOrgStore(@eventQueue, @cache)
+      new UsersByOrgStore(@eventQueue, @cache)
     ]
 
     @messageBus.addChannels {

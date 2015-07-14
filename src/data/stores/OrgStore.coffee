@@ -10,6 +10,7 @@ class OrgStore extends ModelStore
 
   listensFor: [
     'OrgsLoaded'
+    'OrgChanged'
   ]
 
   load: (id) ->
@@ -17,5 +18,8 @@ class OrgStore extends ModelStore
 
   onOrgsLoaded: (event) ->
     @add(event.orgs)
+
+  onOrgChanged: (event) ->
+    @add(event.org)
     
 module.exports = OrgStore

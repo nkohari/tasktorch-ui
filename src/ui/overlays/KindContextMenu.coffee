@@ -38,10 +38,6 @@ KindContextMenu = React.createClass {
       DialogTrigger {name: 'ChangeKindWorkflow', kindid: @props.kindid},
         Icon {name: 'workflow'}
         'Change workflow'
-      ContextMenuSeparator {}
-      DialogTrigger {name: 'DeleteKind', kindid: @props.kindid},
-        Icon {name: 'trash'}
-        'Delete'
 
 }
 

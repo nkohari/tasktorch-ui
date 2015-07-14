@@ -3,7 +3,10 @@ moment     = require 'moment'
 superagent = require 'superagent'
 Request    = require 'data/framework/Request'
 
-INTERCOM_APPID = 'y3il7gkh'
+if TASKTORCH_FLAGS_DEBUG
+  INTERCOM_APPID = 'm48cllxy'
+else
+  INTERCOM_APPID = 'y3il7gkh'
 
 Analytics = {}
 

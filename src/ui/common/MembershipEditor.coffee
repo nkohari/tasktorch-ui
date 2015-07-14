@@ -14,35 +14,40 @@ MembershipEditor = React.createClass {
   displayName: 'MembershipEditor'
 
   propTypes:
-    leaders:      PropTypes.arrayOf(PropTypes.User)
-    members:      PropTypes.arrayOf(PropTypes.User)
-    addLeader:    PropTypes.func
-    addMember:    PropTypes.func
-    removeLeader: PropTypes.func
-    removeMember: PropTypes.func
+    leaders:       PropTypes.arrayOf(PropTypes.User)
+    members:       PropTypes.arrayOf(PropTypes.User)
+    addLeader:     PropTypes.func
+    addMember:     PropTypes.func
+    removeLeader:  PropTypes.func
+    removeMember:  PropTypes.func
+    allowEditSelf: PropTypes.bool
 
   getDefaultProps: ->
-    {members: [], leaders: []}
+    {members: [], leaders: [], allowEditSelf: true}
 
   render: ->
+
+    if @props.addMember?
+      addForm = div {className: 'member-search'},
+        UserSelector {ref: 'selector', onOptionSelected: @props.addMember}
 
     members = _.map @props.members, (user) =>
       MembershipEditorItem {
         key: user.id
         user
-        isLeader:     _.contains(@props.leaders, user)
-        addLeader:    @props.addLeader
-        removeLeader: @props.removeLeader
-        removeMember: @props.removeMember
+        isLeader:      _.contains(@props.leaders, user.id)
+        allowEditSelf: @props.allowEditSelf
+        addLeader:     @props.addLeader
+        removeLeader:  @props.removeLeader
+        removeMember:  @props.removeMember
       }
 
     div {className: 'membership-editor'},
-      div {className: 'member-search'},
-        UserSelector {ref: 'selector', onOptionSelected: @props.addMember}
+      addForm
       div {className: 'member-list'}, members
 
   focus: ->
-    @refs.selector.focus()
+    @refs.selector.focus() if @refs.selector?
 
 }
 

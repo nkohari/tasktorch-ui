@@ -1,14 +1,16 @@
 #--------------------------------------------------------------------------------
 _                        = require 'lodash'
 React                    = require 'react'
+UserCreatedActionEvent   = require 'events/ui/UserCreatedActionEvent'
 PropTypes                = require 'ui/framework/PropTypes'
+Actor                    = require 'ui/framework/mixins/Actor'
 CachedState              = require 'ui/framework/mixins/CachedState'
 Button                   = React.createFactory(require 'ui/common/Button')
 Icon                     = React.createFactory(require 'ui/common/Icon')
 OverlayTrigger           = React.createFactory(require 'ui/common/OverlayTrigger')
+RepeatableInput          = React.createFactory(require 'ui/common/RepeatableInput')
 CardChecklistContextMenu = React.createFactory(require 'ui/overlays/CardChecklistContextMenu')
 CardChecklistActionList  = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CardChecklistActionList')
-CreateActionForm         = React.createFactory(require 'ui/screens/workspace/panels/card/actions/CreateActionForm')
 {div, span}              = React.DOM
 #--------------------------------------------------------------------------------
 require './CardChecklist.styl'
@@ -23,7 +25,7 @@ CardChecklist = React.createClass {
     checklist: PropTypes.Checklist
     stage:     PropTypes.Stage
 
-  mixins: [CachedState]
+  mixins: [Actor, CachedState]
 
   getInitialState: ->
     {adding: false}
@@ -38,13 +40,19 @@ CardChecklist = React.createClass {
       div {className: 'header'},
         Icon {name: 'checklist'}
         span {className: 'title'}, @props.stage.name
-        OverlayTrigger {overlay: CardChecklistContextMenu {checklist: @props.checklist, @toggleAdding}},
+        OverlayTrigger {overlay: CardChecklistContextMenu {checklist: @props.checklist, @startAdding}},
           Icon {name: 'trigger'}
       CardChecklistActionList {checklist: @props.checklist, actions: @state.actions}
-      CreateActionForm {checklist: @props.checklist, @toggleAdding} if @state.adding
+      RepeatableInput {onValue: @createAction, onDone: @stopAdding} if @state.adding
 
-  toggleAdding: ->
-    @setState {adding: !@state.adding}
+  startAdding: ->
+    @setState {adding: true}
+
+  stopAdding: ->
+    @setState {adding: false}
+
+  createAction: (text) ->
+    @publish new UserCreatedActionEvent(@props.checklist.id, text)
 
 }
 

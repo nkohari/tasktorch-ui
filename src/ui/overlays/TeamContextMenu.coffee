@@ -29,7 +29,7 @@ TeamContextMenu = React.createClass {
         'Rename this team'
       DialogTrigger {name: 'TeamMembers', teamid: @props.team.id},
         Icon {name: 'team'}
-        'Manage membership'
+        'Manage members'
       ContextMenuSeparator {}
       DialogTrigger {name: 'DeleteTeam', teamid: @props.team.id},
         Icon {name: 'trash'}

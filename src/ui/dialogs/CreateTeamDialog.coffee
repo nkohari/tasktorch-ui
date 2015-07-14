@@ -68,15 +68,15 @@ CreateTeamDialog = React.createClass {
 
   removeMember: (user) ->
     members = _.filter @state.members, (u) -> u.id != user.id
-    leaders = _.filter @state.leaders, (u) -> u.id != user.id
+    leaders = _.without(@state.leaders, user.id)
     @setState {members, leaders}
 
   addLeader: (user) ->
-    leaders = @state.leaders.concat(user)
+    leaders = @state.leaders.concat(user.id)
     @setState {leaders}
 
   removeLeader: (user) ->
-    leaders = _.filter @state.leaders, (u) -> u.id != user.id
+    leaders = _.without(@state.leaders, user.id)
     @setState {leaders}
 
   createTeam: ->
