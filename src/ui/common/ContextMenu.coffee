@@ -22,7 +22,7 @@ ContextMenu = React.createClass {
   render: ->
 
     items = React.Children.map @props.children, (child) =>
-      li {className: 'menu-item', onClick: @onMenuItemClicked}, child
+      li {className: 'menu-item', onMouseUp: @onMenuItemClicked}, child
 
     classes = classSet [
       'overlay'

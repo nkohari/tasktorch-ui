@@ -46,7 +46,7 @@ CardGoalsOverlay = React.createClass {
       div {className: 'content'},
         ul {className: 'goal-list'}, goals
       div {className: 'buttons'},
-        DialogTrigger {name: 'CreateGoal', cardid: @props.card.id, onClick: @onCreateGoalClicked},
+        DialogTrigger {name: 'CreateGoal', cardid: @props.card.id, onActivated: @onCreateGoalClicked},
           'Create another goal...'
 
   onCreateGoalClicked: ->

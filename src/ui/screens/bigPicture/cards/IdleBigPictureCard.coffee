@@ -5,9 +5,6 @@ React                   = require 'react'
 ActionStatus            = require 'data/enums/ActionStatus'
 PropTypes               = require 'ui/framework/PropTypes'
 CachedState             = require 'ui/framework/mixins/CachedState'
-Navigator               = require 'ui/framework/mixins/Navigator'
-CardPanelState          = require 'ui/screens/workspace/panels/card/CardPanelState'
-Card                    = React.createFactory(require 'ui/common/Card')
 CardOwner               = React.createFactory(require 'ui/common/CardOwner')
 CardFollowToggle        = React.createFactory(require 'ui/common/CardFollowToggle')
 CardLocation            = React.createFactory(require 'ui/common/CardLocation')
@@ -22,7 +19,7 @@ IdleBigPictureCard = React.createClass {
   propTypes:
     card: PropTypes.Card
 
-  mixins: [CachedState, Navigator]
+  mixins: [CachedState]
 
   getCachedState: (cache) ->
     kind       = cache('kinds').get(@props.card.kind)
@@ -35,14 +32,14 @@ IdleBigPictureCard = React.createClass {
 
   render: ->
 
-    Card {className: 'big-picture-card idle', card: @props.card},
+    div {className: 'card-content'},
       div {className: 'card-summary'},
         CardOwner {card: @props.card} if @props.card?.user? or @props.card?.team?
         div {className: 'card-info'},
           div {className: 'card-widgets'},
             CardLocation {card: @props.card, stack: @state.stack, link: true}
             CardFollowToggle {card: @props.card}
-          a {className: 'title', onClick: @showCard},
+          div {className: 'title'},
             @props.card.title or 'Untitled Card'
       @renderActions()
 
@@ -60,9 +57,6 @@ IdleBigPictureCard = React.createClass {
       action    = _.find @state.actions[checklist.id], (action)    -> action.status is ActionStatus.NotStarted
       return {checklist, action} if action?
     return {}
-
-  showCard: ->
-    @getScreen('workspace').addPanel(new CardPanelState(@props.card.id))
 
 }
 

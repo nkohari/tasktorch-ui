@@ -7,11 +7,9 @@ Actor                = require 'ui/framework/mixins/Actor'
 Navigator            = require 'ui/framework/mixins/Navigator'
 PropTypes            = require 'ui/framework/PropTypes'
 CardPanelState       = require 'ui/screens/workspace/panels/card/CardPanelState'
-Button               = React.createFactory(require 'ui/common/Button')
 ContextMenu          = React.createFactory(require 'ui/common/ContextMenu')
 Icon                 = React.createFactory(require 'ui/common/Icon')
-Overlay              = React.createFactory(require 'ui/common/Overlay')
-OverlayTrigger       = React.createFactory(require 'ui/common/OverlayTrigger')
+MenuOption           = React.createFactory(require 'ui/common/MenuOption')
 {a, li, ul}          = React.DOM
 #--------------------------------------------------------------------------------
 
@@ -31,15 +29,16 @@ ComposeMenu = React.createClass {
   render: ->
 
     items = _.map @props.kinds, (kind) =>
-      a {key: kind.id, onClick: @onItemClicked.bind(this, kind)},
+      MenuOption {key: kind.id, onActivated: @createCard.bind(this, kind)},
         Icon {name: 'card', color: kind.color}
         kind.name
 
     ContextMenu {hideOverlay: @props.hideOverlay}, items
 
-  onItemClicked: (kind, event) ->
+  createCard: (kind) ->
     @publish new UserCreatedCardEvent(@props.org.id, kind.id)
 
+  # TODO: This should be moved to ViewStore when it's created
   onCardCreated: (event) ->
     return unless event.origin is EventOrigin.Local
     @getScreen('workspace').addPanel(new CardPanelState(event.card.id))

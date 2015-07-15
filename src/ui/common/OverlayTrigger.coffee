@@ -49,7 +49,7 @@ OverlayTrigger = React.createClass {
       className: classSet [
         'active' if @state.visible
       ]
-      onClick:     @toggleOverlay if @props.method is 'click'
+      onMouseDown: @toggleOverlay if @props.method is 'click'
       onMouseOver: @showOverlay   if @props.method is 'hover'
       onMouseOut:  @hideOverlay   if @props.method is 'hover'
     }

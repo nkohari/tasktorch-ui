@@ -1,10 +1,11 @@
 #--------------------------------------------------------------------------------
-_             = require 'lodash'
-React         = require 'react'
-PropTypes     = require 'ui/framework/PropTypes'
-ContextMenu   = React.createFactory(require 'ui/common/ContextMenu')
-Icon          = React.createFactory(require 'ui/common/Icon')
-{a}           = React.DOM
+_           = require 'lodash'
+React       = require 'react'
+PropTypes   = require 'ui/framework/PropTypes'
+ContextMenu = React.createFactory(require 'ui/common/ContextMenu')
+Icon        = React.createFactory(require 'ui/common/Icon')
+MenuOption  = React.createFactory(require 'ui/common/MenuOption')
+{a}         = React.DOM
 #--------------------------------------------------------------------------------
 
 CardChecklistContextMenu = React.createClass {
@@ -19,7 +20,7 @@ CardChecklistContextMenu = React.createClass {
   render: ->
 
     ContextMenu {position: 'bottom right', hideOverlay: @props.hideOverlay},
-      a {onClick: @props.startAdding},
+      MenuOption {onActivated: @props.startAdding},
         Icon {name: 'action'}
         'Add actions'
 

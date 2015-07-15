@@ -7,11 +7,14 @@ $stack-card-border-radius = 3px
   border: 1px solid $color-steel-medium
   border-radius: $stack-card-border-radius
   cursor: move
+  transition: background $hover-animation-delay ease
   box-shadow: 1px 1px 0 black(10%)
   
   for $name in $color-names
     &.{$name}
       background: theme-color($name, 200)
+      &:hover
+        background: theme-color($name, 300)
       & > .content
         border-left: 1px solid theme-color($name, 300)
   
@@ -27,6 +30,9 @@ $stack-card-border-radius = 3px
     background: $color-paper
     border-top-right-radius: $stack-card-border-radius
     border-bottom-right-radius: $stack-card-border-radius
+    transition: background $hover-animation-delay ease
+    &:hover
+      background: $color-paper-dark
     
     .title
       color: $color-ink
