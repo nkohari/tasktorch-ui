@@ -1,9 +1,9 @@
 #--------------------------------------------------------------------------------
-React                     = require 'react'
-PropTypes                 = require 'ui/framework/PropTypes'
-Icon                      = React.createFactory(require 'ui/common/Icon')
-OverlayTrigger            = React.createFactory(require 'ui/common/OverlayTrigger')
-ChangeActionStatusOverlay = React.createFactory(require 'ui/screens/workspace/panels/card/actions/overlays/ChangeActionStatusOverlay')
+React            = require 'react'
+PropTypes        = require 'ui/framework/PropTypes'
+Icon             = React.createFactory(require 'ui/common/Icon')
+OverlayTrigger   = React.createFactory(require 'ui/common/OverlayTrigger')
+ActionStatusMenu = React.createFactory(require 'ui/overlays/ActionStatusMenu')
 #--------------------------------------------------------------------------------
 require './CardActionStatus.styl'
 #--------------------------------------------------------------------------------
@@ -17,9 +17,7 @@ CardActionStatus = React.createClass {
 
   render: ->
 
-    overlay = ChangeActionStatusOverlay {action: @props.action}
-
-    OverlayTrigger {className: 'card-action-status', overlay},
+    OverlayTrigger {className: 'card-action-status', overlay: ActionStatusMenu {action: @props.action}},
       Icon {name: @props.action.status.toLowerCase()}
 
 }

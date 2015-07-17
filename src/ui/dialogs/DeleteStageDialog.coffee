@@ -10,7 +10,7 @@ Dialog                = React.createFactory(require 'ui/common/Dialog')
 DialogFooter          = React.createFactory(require 'ui/common/DialogFooter')
 Field                 = React.createFactory(require 'ui/common/Field')
 Icon                  = React.createFactory(require 'ui/common/Icon')
-StaticSelector        = React.createFactory(require 'ui/common/StaticSelector')
+Selector              = React.createFactory(require 'ui/common/Selector')
 StageOption           = React.createFactory(require 'ui/options/StageOption')
 {div}                 = React.DOM
 #--------------------------------------------------------------------------------
@@ -47,7 +47,7 @@ DeleteStageDialog = React.createClass {
 
     Dialog {icon: 'trash', title: "Delete the #{@state.stage?.name} stage from #{@state.kind?.name}", footer, closeDialog: @props.closeDialog},
       Field {label: 'Where would you like to move the actions from this stage?', hint: 'delete-stage'},
-        StaticSelector {
+        Selector {
           component:   StageOption
           placeholder: "Click to select another stage in #{@state.kind?.name}"
           value:       @state.inheritorStage

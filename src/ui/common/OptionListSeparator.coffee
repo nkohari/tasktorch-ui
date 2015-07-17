@@ -3,12 +3,12 @@ React      = require 'react'
 PropTypes  = require 'ui/framework/PropTypes'
 {li, span} = React.DOM
 #--------------------------------------------------------------------------------
-require './ContextMenuSeparator.styl'
+require './OptionListSeparator.styl'
 #--------------------------------------------------------------------------------
 
-ContextMenuSeparator = React.createClass {
+OptionListSeparator = React.createClass {
 
-  displayName: 'ContextMenuSeparator'
+  displayName: 'OptionListSeparator'
 
   propTypes:
     text: PropTypes.string
@@ -16,11 +16,9 @@ ContextMenuSeparator = React.createClass {
   render: ->
 
     if @props.text
-      li {className: 'menu-separator'},
+      li {className: 'option-list-separator'},
         span {className: 'text'}, @props.text
-    else
-      li {className: 'menu-separator-line'}
 
 }
 
-module.exports = ContextMenuSeparator
+module.exports = OptionListSeparator

@@ -9,15 +9,16 @@ CachedState         = require 'ui/framework/mixins/CachedState'
 Avatar              = React.createFactory(require 'ui/common/Avatar')
 Icon                = React.createFactory(require 'ui/common/Icon')
 Input               = React.createFactory(require 'ui/common/Input')
-SelectorOption      = React.createFactory(require 'ui/common/SelectorOption')
+OptionList          = React.createFactory(require 'ui/common/OptionList')
+UserOption          = React.createFactory(require 'ui/options/UserOption')
 {div, span, li, ul} = React.DOM
 #--------------------------------------------------------------------------------
-require './UserSelector.styl'
+require './UserSearchBox.styl'
 #--------------------------------------------------------------------------------
 
-UserSelector = React.createClass {
+UserSearchBox = React.createClass {
 
-  displayName: 'UserSelector'
+  displayName: 'UserSearchBox'
 
   mixins: [CachedState]
 
@@ -45,14 +46,12 @@ UserSelector = React.createClass {
 
     if @state.expanded
       options = _.map @state.users, (user, index) =>
-        SelectorOption {key: user.id, value: user, isHighlighted: @state.highlight == index, @highlightOption, @selectOption},
-          Avatar {user}
-          span {className: 'text'}, user.name
+        UserOption {key: user.id, value: user}
+      list = OptionList {onSelect: @selectOption}, options
 
-    div {className: 'user-selector'},
-      div {className: 'selector-prompt'},
-        Input {ref: 'input', icon: 'user', rightIcon: 'search', placeholder: @props.placeholder, value: @state.text, @onKeyDown, onChange: @onInputChanged}
-      ul {className: 'selector-options'}, options if @state.expanded
+    div {className: 'user-search-box'},
+      Input {ref: 'input', rightIcon: 'search', placeholder: @props.placeholder, value: @state.text, @onKeyDown, onChange: @onInputChanged}
+      list if @state.expanded
 
   focus: ->
     @refs.input.focus()
@@ -85,4 +84,4 @@ UserSelector = React.createClass {
 
 }
 
-module.exports = UserSelector
+module.exports = UserSearchBox

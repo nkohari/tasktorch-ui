@@ -1,98 +1,43 @@
 .selector
   position: relative
-  user-select: none
-  outline: none !important
-
-  .caret
-    top: 5px
-          
-  &.expanded
-    a
-      background: $color-steel
-      border-radius: 4px 4px 0 0
-      border-bottom: 1px solid $color-steel-dark
-
-  a
-    position: relative
-    z-index: $trigger-layer
-    display: block
-    padding: 4px 8px
-    background: $color-steel-light
-    border: 1px solid $color-steel-dark
-    border-radius: 4px
-    line-height: 20px
-    text-decoration: none
+  
+  .selector-trigger
     cursor: pointer
-    overflow: hidden
+    border: 1px solid $color-steel
+    border-radius: 4px
+    padding: 6px 8px
+    background: $color-white
+    box-shadow: 0 1px 0 black(10%)
+    outline: none
     
-    .value
-      color: $color-ink
-      font-size: 14px
-      margin-right: 28px
-      text-overflow: ellipsis
-      &.placeholder { color: $color-ink-light }
-      .avatar
-        float: left
-        height: 18px
-        width: 18px
-        border-radius: 50%
-        margin-right: 4px
-      
-  .drop
+    &:focus
+      background: $color-selection
+      border: 1px solid $color-steel-dark
+      outline: none
+    
+    .selector-value
+      &.placeholder
+        font-size: 14px
+        font-style: italic
+        font-weight: $bold-font-weight
+        color: $color-ink-light
+  
+  &.expanded
+    .selector-trigger
+      border-bottom-left-radius: 0
+      border-bottom-right-radius: 0
+  
+  .selector-options
     position: absolute
     z-index: $floating-layer
     width: 100%
     border: 1px solid $color-steel-dark
-    border-top: 0px
-    border-radius: 0 0 4px 4px
-    padding: 4px
     background: $color-white
+    margin-top: -1px
+    border-bottom-left-radius: 4px
+    border-bottom-right-radius: 4px
     
-    .suggest
-      position: relative
-      border: 1px solid $color-divider
-      input
-        padding: 4px 28px 4px 4px
-        width: 100%
-        border: none !important
-        outline: none !important
-      & > i
-        position: absolute
-        top: 4px
-        right: 4px
-        color: $color-ink-light
-        margin: 0
-        
-    ul
-      padding: 0
-      margin: 0
-      
-      li
-        list-style-type: none
-        cursor: pointer
-        font-size: 14px
-        padding: 4px
-        background: $color-white
-        
-        &:hover
-          background: $color-selection
-          
-        &:last-child
-          border-radius: 0 0 4px 4px
-          
-        i
-          display: inline-block
-          vertical-align: middle
-          
-        .avatar
-          display: inline-block
-          vertical-align: middle
-          margin-right: 4px
-          height: 18px
-          width: 18px
-          border-radius: 50%
-          
-        span
-          display: inline-block
-          vertical-align: middle
-          line-height: 18px
+    .selector-option
+      cursor: pointer
+      padding: 6px 8px
+      &.highlighted { background: $color-selection }

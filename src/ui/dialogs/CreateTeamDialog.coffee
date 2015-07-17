@@ -63,6 +63,7 @@ CreateTeamDialog = React.createClass {
     @setState {purpose: event.target.value}
 
   addMember: (user) ->
+    return if _.any(@state.members, (u) -> u.id == user.id)
     members = @state.members.concat(user)
     @setState {members}
 
@@ -76,6 +77,7 @@ CreateTeamDialog = React.createClass {
     @setState {leaders}
 
   removeLeader: (user) ->
+    return if _.any(@state.leaders, (u) -> u.id == user.id)
     leaders = _.without(@state.leaders, user.id)
     @setState {leaders}
 

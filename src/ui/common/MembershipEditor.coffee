@@ -2,7 +2,7 @@
 _                    = require 'lodash'
 React                = require 'react'
 PropTypes            = require 'ui/framework/PropTypes'
-UserSelector         = React.createFactory(require 'ui/common/UserSelector')
+UserSearchBox        = React.createFactory(require 'ui/common/UserSearchBox')
 MembershipEditorItem = React.createFactory(require 'ui/common/MembershipEditorItem')
 {div}                = React.DOM
 #--------------------------------------------------------------------------------
@@ -29,7 +29,7 @@ MembershipEditor = React.createClass {
 
     if @props.addMember?
       addForm = div {className: 'member-search'},
-        UserSelector {ref: 'selector', onOptionSelected: @props.addMember}
+        UserSearchBox {ref: 'search', onOptionSelected: @props.addMember}
 
     members = _.map @props.members, (user) =>
       MembershipEditorItem {
@@ -47,7 +47,7 @@ MembershipEditor = React.createClass {
       div {className: 'member-list'}, members
 
   focus: ->
-    @refs.selector.focus() if @refs.selector?
+    @refs.search.focus() if @refs.search?
 
 }
 

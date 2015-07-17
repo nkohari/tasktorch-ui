@@ -1,11 +1,11 @@
 #--------------------------------------------------------------------------------
-React                    = require 'react'
-PropTypes                = require 'ui/framework/PropTypes'
-CachedState              = require 'ui/framework/mixins/CachedState'
-Avatar                   = React.createFactory(require 'ui/common/Avatar')
-Icon                     = React.createFactory(require 'ui/common/Icon')
-OverlayTrigger           = React.createFactory(require 'ui/common/OverlayTrigger')
-ChangeActionOwnerOverlay = React.createFactory(require 'ui/screens/workspace/panels/card/actions/overlays/ChangeActionOwnerOverlay')
+React              = require 'react'
+PropTypes          = require 'ui/framework/PropTypes'
+CachedState        = require 'ui/framework/mixins/CachedState'
+Avatar             = React.createFactory(require 'ui/common/Avatar')
+Icon               = React.createFactory(require 'ui/common/Icon')
+OverlayTrigger     = React.createFactory(require 'ui/common/OverlayTrigger')
+ActionOwnerOverlay = React.createFactory(require 'ui/overlays/ActionOwnerOverlay')
 #--------------------------------------------------------------------------------
 require './CardActionOwner.styl'
 #--------------------------------------------------------------------------------
@@ -33,8 +33,7 @@ CardActionOwner = React.createClass {
     else
       contents = Icon {name: 'user'}
 
-    overlay = ChangeActionOwnerOverlay {action: @props.action}
-
+    overlay = ActionOwnerOverlay {action: @props.action}
     OverlayTrigger {@isReady, className: 'card-action-owner', overlay},
       contents
 

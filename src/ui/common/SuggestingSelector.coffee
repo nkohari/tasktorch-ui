@@ -7,6 +7,8 @@ Caret                         = React.createFactory(require 'ui/common/Caret')
 Icon                          = React.createFactory(require 'ui/common/Icon')
 {a, div, ul, li, span, input} = React.DOM
 #--------------------------------------------------------------------------------
+require './SuggestingSelector.styl'
+#--------------------------------------------------------------------------------
 
 SuggestingSelector = React.createClass {
 
@@ -40,7 +42,7 @@ SuggestingSelector = React.createClass {
   render: ->
 
     classes = classSet [
-      'selector'
+      'suggesting-selector'
       'expanded' if @state.expanded
     ]
 

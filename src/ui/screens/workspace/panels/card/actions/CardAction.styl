@@ -2,8 +2,6 @@
   display: flex
   flex-direction: row
   background-color: $color-white
-  transition: background $hover-animation-delay ease
-  &:hover { background-color: $color-paper }
 
   .move-handle
     flex: none
@@ -12,7 +10,7 @@
     border-right: 1px solid $color-steel
     cursor: move
     
-  .input
+  & > .input
     flex: 1
     font-size: 16px
     margin: 6px 10px 2px 8px
@@ -44,15 +42,15 @@
   
   &.inprogress
     background: $color-good-light
-    .input { color: $color-good }
+    .card-action-text { color: $color-good }
 
   &.warning
     background: $color-bad-light
-    .input { color: $color-bad }
+    .card-action-text { color: $color-bad }
 
   &.complete
     background: $color-steel-verylight
-    .input
+    .card-action-text
       textarea
         color: $color-ink-light
         text-decoration: line-through
