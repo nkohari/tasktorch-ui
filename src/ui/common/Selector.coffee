@@ -39,16 +39,6 @@ Selector = React.createClass {
 
   render: ->
 
-    if @state.expanded
-      options = _.map @props.options, (value, index) =>
-        classes = classSet [
-          'selector-option'
-          'highlighted' if @state.highlightIndex == index
-        ]
-        li {key: index, className: classes, onMouseOver: @highlight.bind(this, value), onMouseUp: @select.bind(this, value)},
-          @props.component {value}
-      drop = ul {className: 'selector-options'}, options
-
     if @props.value?
       value = div {className: 'selector-value'},
         @props.component {value: @props.value}
@@ -65,7 +55,20 @@ Selector = React.createClass {
       div {ref: 'trigger', tabIndex: 1, className: 'selector-trigger', @onKeyDown, onMouseDown: @toggle},
         value
         Caret {}
-      drop
+      @renderDropDown()
+
+  renderDropDown: ->
+    return unless @state.expanded
+
+    options = _.map @props.options, (value, index) =>
+      classes = classSet [
+        'selector-option'
+        'highlighted' if @state.highlightIndex == index
+      ]
+      li {key: index, className: classes, onMouseOver: @highlight.bind(this, value), onMouseUp: @select.bind(this, value)},
+        @props.component {value}
+
+    ul {className: 'selector-options'}, options
 
   expand: ->
     @setState {expanded: true}
@@ -81,7 +84,7 @@ Selector = React.createClass {
 
   select: (value) ->
     @setState {expanded: false, highlightIndex: -1}
-    @props.onChange(value)
+    @props.onChange(value) if @props.onChange?
 
   onClickOutside: (event) ->
     return unless @isMounted()

@@ -1,11 +1,18 @@
 #--------------------------------------------------------------------------------
-_                             = require 'lodash'
-React                         = require 'react'
-classSet                      = require 'common/util/classSet'
-CachedState                   = require 'ui/framework/mixins/CachedState'
-Caret                         = React.createFactory(require 'ui/common/Caret')
-Icon                          = React.createFactory(require 'ui/common/Icon')
-{a, div, ul, li, span, input} = React.DOM
+_                   = require 'lodash'
+React               = require 'react/addons'
+classSet            = require 'common/util/classSet'
+KeyCode             = require 'ui/framework/KeyCode'
+PropTypes           = require 'ui/framework/PropTypes'
+CachedState         = require 'ui/framework/mixins/CachedState'
+Caret               = React.createFactory(require 'ui/common/Caret')
+Icon                = React.createFactory(require 'ui/common/Icon')
+Input               = React.createFactory(require 'ui/common/Input')
+OptionList          = React.createFactory(require 'ui/common/OptionList')
+OptionListSeparator = React.createFactory(require 'ui/common/OptionListSeparator')
+EmptyOption         = React.createFactory(require 'ui/options/EmptyOption')
+{cloneWithProps}    = React.addons
+{a, div, span}      = React.DOM
 #--------------------------------------------------------------------------------
 require './SuggestingSelector.styl'
 #--------------------------------------------------------------------------------
@@ -14,91 +21,95 @@ SuggestingSelector = React.createClass {
 
   displayName: 'SuggestingSelector'
 
+  propTypes:
+    component: PropTypes.func
+    value:     PropTypes.any
+
   mixins: [CachedState]
 
-  getInitialState: -> {
-    expanded:      false
-    phrase:        undefined
-    selectionType: @props.selectionType
-    selection:     @props.selection
-  }
-
-  componentDidMount: ->
-    @types = _.flatten [@props.suggest]
-
-  componentWillReceiveProps: (newProps) ->
-    if newProps.selection isnt undefined
-      @setState {selectionType: newProps.selectionType, selection: newProps.selection}
+  getInitialState: ->
+    {text: undefined}
 
   getCachedState: (cache) ->
-    if @state?.phrase?
+    if @state?.text?.length > 0
       suggestions = {}
-      for type in @types
-        switch type
-          when 'user' then suggestions.user = cache('suggestedUsers').get(@state.phrase)
-          when 'team' then suggestions.team = cache('suggestedTeams').get(@state.phrase)
+      for group in @props.groups
+        switch group.type
+          when 'user' then suggestions.user = cache('suggestedUsers').get(@state.text)
+          when 'team' then suggestions.team = cache('suggestedTeams').get(@state.text)
     {suggestions}
+
+  componentDidUpdate: ->
+    @refs.input?.focus() unless @state.text?.length > 0
 
   render: ->
 
+    if @props.value?
+      value = div {className: 'selector-trigger', onClick: @clear},
+        @props.component {value: @props.value}
+        Icon {name: 'remove'}
+    else
+      value = Input {
+          ref: 'input'
+          rightIcon: 'search'
+          className: 'selector-input'
+          placeholder: @props.placeholder
+          value: @state.text
+          onKeyDown: @onKeyDown
+          onChange: @onInputChanged
+        }
+
     classes = classSet [
       'suggesting-selector'
-      'expanded' if @state.expanded
+      'expanded' if @state.suggestions?
     ]
 
     div {className: classes},
-      @renderTrigger()
-      @renderDropDown() if @state.expanded
+      value
+      @renderOptions() if @state.text?.length > 0
 
-  renderTrigger: ->
+  renderOptions: ->
 
-    if @state.selection?
-      value = @props.option {type: @state.selectionType, value: @state.selection}
+    hasSuggestions = _.any @props.groups, (group) => @state.suggestions?[group.type]?.length > 0
+
+    unless hasSuggestions
+      items = [EmptyOption {}]
     else
-      value = span {className: 'placeholder'}, [@props.placeholder ? 'Click to select']
+      items = _.flatten _.map @props.groups, (group, index) =>
+        items = _.compact @state.suggestions[group.type]
+        return unless items?.length > 0
+        return _.map items, (item) =>
+          @props.component {value: {type: group.type, item}}
 
-    a {className: 'trigger', onClick: @onTriggerClicked},
-      div {className: 'value'}, value
-      Caret {}
+    OptionList {ref: 'list', className: 'selector-options', onSelect: @select}, items
 
-  renderDropDown: ->
+  focus: ->
+    @refs.input.focus()
 
-    if @state.suggestions?
-      options = _.flatten _.map @types, (type) =>
-        items = @state.suggestions[type]
-        if items?
-          return _.map items, (item) => @renderOption(type, item)
+  clear: ->
+    @props.onChange(undefined) if @props.onChange?
 
-    div {className: 'drop'},
-      div {className: 'suggest'},
-        input {ref: 'input', type: 'text', value: @state.phrase, onChange: @onInputChanged}
-        Icon {name: 'search'}
-      ul {className: 'options'}, options
-
-  renderOption: (type, item) ->
-
-    classes = classSet [
-      'option'
-      'selected' if @state.selection?.id == item.id and @state.selectionType?.type == type
-    ]
-
-    li {key: item.id, className: classes, onClick: @onOptionSelected.bind(this, item, type)},
-      @props.option {type: type, value: item}
-
-  onTriggerClicked: (event) ->
-    @setState {expanded: !@state.expanded}, =>
-      if @state.expanded
-        node = @refs.input.getDOMNode()
-        node.focus()
-        node.select()
+  select: (value) ->
+    @setState {text: undefined, suggestions: undefined}
+    @props.onChange(value) if @props.onChange?
 
   onInputChanged: (event) ->
-    @setState {phrase: event.target.value}, =>
-      @forceCacheSync()
+    @setState {text: event.target.value}, => @forceCacheSync()
 
-  onOptionSelected: (item, type) ->
-    @setState {expanded: false, selectionType: type, selection: item}
-    @props.onChange(item, type) if @props.onChange?
+  onKeyDown: (event) ->
+    switch event.which
+      when KeyCode.DOWN
+        @refs.list.highlightNext()
+        event.preventDefault()
+      when KeyCode.UP
+        @refs.list.highlightPrevious()
+        event.preventDefault()
+      when KeyCode.RETURN
+        @select(@refs.list.getValue())
+        event.preventDefault()
+      when KeyCode.ESCAPE
+        @props.closeOverlay()
+        event.preventDefault()
 
 }
 

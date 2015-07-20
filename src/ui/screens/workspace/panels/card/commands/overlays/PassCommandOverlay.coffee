@@ -26,7 +26,7 @@ PassCommandOverlay = React.createClass {
     {recipient: undefined}
 
   componentDidMount: ->
-    @refs.selector.getDOMNode().focus()
+    @refs.selector.focus()
 
   render: ->
 
@@ -38,17 +38,21 @@ PassCommandOverlay = React.createClass {
       Field {label: 'Who should be responsible for this card?', hint: 'pass-card'},
         SuggestingSelector {
           ref:         'selector'
-          option:      UserOrTeamOption
-          placeholder: 'Choose a user or team',
-          suggest:     ['user', 'team']
+          component:   UserOrTeamOption
+          placeholder: 'Start typing to find users and teams',
+          value:       @state.recipient
           onChange:    @onRecipientChanged
+          groups: [
+            {type: 'user', title: 'Users'}
+            {type: 'team', title: 'Teams'}
+          ]
         }
 
   isValid: ->
     @state.recipient?
 
-  onRecipientChanged: (item, type) ->
-    @setState {recipient: {item, type}}
+  onRecipientChanged: (value) ->
+    @setState {recipient: value}
 
   passCard: ->
     @publish new UserPassedCardEvent(@props.card.id, @state.recipient, @state.message)

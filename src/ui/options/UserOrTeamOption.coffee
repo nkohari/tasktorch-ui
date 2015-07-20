@@ -1,10 +1,10 @@
 #--------------------------------------------------------------------------------
 _          = require 'lodash'
 React      = require 'react'
+mergeProps = require 'common/util/mergeProps'
 PropTypes  = require 'ui/framework/PropTypes'
 UserOption = React.createFactory(require 'ui/options/UserOption')
 TeamOption = React.createFactory(require 'ui/options/TeamOption')
-{div}      = React.DOM
 #--------------------------------------------------------------------------------
 
 UserOrTeamOption = React.createClass {
@@ -12,13 +12,18 @@ UserOrTeamOption = React.createClass {
   displayName: 'UserOrTeamOption'
 
   propTypes:
-    type:          PropTypes.oneOf ['user', 'team']
-    value:         PropTypes.oneOfType [PropTypes.User, PropTypes.Team]
+    value:         PropTypes.object
     isHighlighted: PropTypes.bool
 
   render: ->
-    props = _.omit(@props, 'type')
-    switch @props.type
+
+    {item, type} = @props.value
+
+    props = mergeProps _.omit(@props, 'value'), {
+      value: item
+    }
+
+    switch type
       when 'user' then UserOption(props)
       when 'team' then TeamOption(props)
 

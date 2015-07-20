@@ -1,12 +1,12 @@
 #--------------------------------------------------------------------------------
-_                = require 'lodash'
-mergeProps       = require 'common/util/mergeProps'
-React            = require 'react/addons'
-KeyCode          = require 'ui/framework/KeyCode'
-PropTypes        = require 'ui/framework/PropTypes'
+_                   = require 'lodash'
+mergeProps          = require 'common/util/mergeProps'
+React               = require 'react/addons'
+KeyCode             = require 'ui/framework/KeyCode'
+PropTypes           = require 'ui/framework/PropTypes'
 OptionListSeparator = React.createFactory(require 'ui/common/OptionListSeparator')
-{cloneWithProps} = React.addons
-{ul}             = React.DOM
+{cloneWithProps}    = React.addons
+{div}               = React.DOM
 #--------------------------------------------------------------------------------
 
 OptionList = React.createClass {
@@ -25,7 +25,7 @@ OptionList = React.createClass {
       className: 'option-list'
     }
 
-    ul props, @renderChildren()
+    div props, @renderChildren()
 
   renderChildren: ->
     @values = []

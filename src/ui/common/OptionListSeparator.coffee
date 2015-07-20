@@ -15,9 +15,8 @@ OptionListSeparator = React.createClass {
 
   render: ->
 
-    if @props.text
-      li {className: 'option-list-separator'},
-        span {className: 'text'}, @props.text
+    li {className: 'option-list-separator'},
+      span {className: 'text'}, @props.text
 
 }
 
