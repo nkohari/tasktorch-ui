@@ -1,6 +1,7 @@
 #--------------------------------------------------------------------------------
 React                   = require 'react'
 UserCreatedCommentEvent = require 'events/ui/UserCreatedCommentEvent'
+KeyCode                 = require 'ui/framework/KeyCode'
 PropTypes               = require 'ui/framework/PropTypes'
 Actor                   = require 'ui/framework/mixins/Actor'
 CommandContext          = require 'ui/framework/mixins/CommandContext'
