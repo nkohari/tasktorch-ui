@@ -10,8 +10,7 @@ class CardsByStageStore extends ListStore
 
   listensFor: [
     'CardsByStageLoaded'
-    'ActionChanged'
-    'ActionDeleted'
+    'CardChanged'
   ]
 
   load: (id) ->
@@ -20,13 +19,11 @@ class CardsByStageStore extends ListStore
   onCardsByStageLoaded: (event) ->
     @set(event.stageid, _.pluck(event.cards, 'id'))
 
-  # TODO: There's currently no way to know which lists should be invalidated,
-  # so we just wipe the whole board clean and start over. Revisit if possible.
-
-  onActionChanged: (event) ->
-    @clear()
-
-  onActionDeleted: (event) ->
+  # TODO: To avoid purging the entire cache, we need a copy of the previous version
+  # of the document. This is sent when the change is remote (from the watcher), but
+  # not on a local change.
+  
+  onCardChanged: (event) ->
     @clear()
 
 module.exports = CardsByStageStore
