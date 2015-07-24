@@ -1,4 +1,8 @@
 .card-header
+  flex: none
+  display: flex
+  background: $color-steel
+  border-bottom: 1px solid $color-steel-dark
   
   for $name in $color-names
     &.{$name}
@@ -7,11 +11,6 @@
         color: theme-color($name, 300)
         &:hover { color: theme-color($name, 700) }
   
-  display: flex
-  flex: none
-  background: $color-steel
-  border-bottom: 1px solid $color-steel-dark
-
   .card-owner
     flex: none
     height: 54px

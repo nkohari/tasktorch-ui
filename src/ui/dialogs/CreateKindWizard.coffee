@@ -11,7 +11,6 @@ CreateKindWizardStartPage          = React.createFactory(require 'ui/dialogs/kin
 CreateKindWizardBasicsPage         = React.createFactory(require 'ui/dialogs/kindWizard/CreateKindWizardBasicsPage')
 CreateKindWizardWorkflowPage       = React.createFactory(require 'ui/dialogs/kindWizard/CreateKindWizardWorkflowPage')
 CreateKindWizardDefaultActionsPage = React.createFactory(require 'ui/dialogs/kindWizard/CreateKindWizardDefaultActionsPage')
-CreateKindWizardReviewPage         = React.createFactory(require 'ui/dialogs/kindWizard/CreateKindWizardReviewPage')
 {div}                              = React.DOM
 #--------------------------------------------------------------------------------
 
@@ -42,7 +41,6 @@ CreateKindWizard = React.createClass {
       CreateKindWizardBasicsPage         {title: 'Basics', name: @state.name, description: @state.description, color: @state.color, @setValue}
       CreateKindWizardWorkflowPage       {title: 'Workflow', stages: @state.stages, @setValue}
       CreateKindWizardDefaultActionsPage {title: 'Default Actions', stages: @state.stages, @setValue}
-      CreateKindWizardReviewPage         {title: 'Review', name: @state.name, color: @state.color, description: @state.description, stages: @state.stages}
 
   isValid: ->
     @state.name?.length > 0 and @state.color? and @state.stages?.length > 0

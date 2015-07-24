@@ -36,6 +36,11 @@ module.exports = {
   },
   stylus: {
     use: [nib()],
-    import: ['~normalize.css/normalize.css', __dirname + '/src/Theme.styl', 'nib']
+    import: [
+      '~normalize.css/normalize.css',
+      __dirname + '/src/Theme.styl',
+      __dirname + '/src/Mixins.styl',
+      'nib'
+    ]
   }
 };

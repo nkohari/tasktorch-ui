@@ -31,7 +31,8 @@ TabBlock = React.createClass {
 
     div props,
       ul {className: 'header'}, @renderHeaders()
-      content
+      div {className: 'content'},
+        content
 
   renderHeaders: ->
     _.map @props.children, (child) =>

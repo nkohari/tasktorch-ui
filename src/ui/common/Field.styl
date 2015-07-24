@@ -4,7 +4,9 @@
   margin-bottom: 10px
   font-size: 16px
   &:last-child { margin-bottom: 0 }
-  &.expand { flex: 1 }
+  &.expand
+    flex: 1
+    min-height: 0px
   
   &.valid
     .field-status
@@ -35,6 +37,7 @@
   
   .field-input
     flex: 1
+    min-height: 0px
     display: flex
     flex-direction: column
     margin-bottom: 8px
