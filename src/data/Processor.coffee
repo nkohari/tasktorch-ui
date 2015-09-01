@@ -22,7 +22,6 @@ class Processor
         @handleUnauthorized()
 
   handleUnauthorized: ->
-    # TODO: This is kind of ham-handed. Any better way to redirect?
-    document.location = '/x/login'
+    document.location = "/x/login?from=expired&return=#{encodeURIComponent(document.location)}"
 
 module.exports = Processor

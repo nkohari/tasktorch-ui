@@ -53,6 +53,10 @@ LoginModal = React.createClass {
           p {}, "Welcome to TaskTorch!"
           p {}, "Your account has been created and you're now a member of the organization."
           p {}, "Please log in with the username and password you provided, and we'll get started!"
+      when 'expired'
+        ModalMessage {},
+          p {}, "Welcome to TaskTorch!"
+          p {}, "Your session has expired. Please log in again."
       else
         ModalMessage {},
           p {}, "Welcome back! Please log in."
@@ -80,6 +84,13 @@ LoginModal = React.createClass {
         # TODO
         alert("Username or password incorrect.")
         return
+      @redirect()
+
+  redirect: ->
+    url = @props.url.query?.return
+    if url?
+      document.location = url
+    else
       superagent
       .get(Request.urlFor('/me/orgs'))
       .withCredentials()
