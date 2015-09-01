@@ -1,5 +1,4 @@
 _                      = require 'lodash'
-superagent             = require 'superagent'
 Request                = require 'data/framework/Request'
 Card                   = require 'data/models/Card'
 CardsLoadedEvent       = require 'events/load/CardsLoadedEvent'
@@ -9,12 +8,14 @@ class LoadCardsByGoalRequest extends Request
 
   constructor: (@goalid) ->
 
-  execute: (eventQueue) ->
-    superagent.get(@urlFor("/#{Environment.orgid}/goals/#{@goalid}/cards"))
+  create: (agent) ->
+    agent
+    .get(@urlFor("/#{Environment.orgid}/goals/#{@goalid}/cards"))
     .withCredentials()
-    .end (err, res) =>
-      cards = _.map res.body.cards, (data) -> new Card(data)
-      eventQueue.publish new CardsLoadedEvent(cards)
-      eventQueue.publish new CardsByGoalLoadedEvent(@goalid, cards)
+  
+  onSuccess: (result, publish) ->
+    cards = _.map result.cards, (data) -> new Card(data)
+    publish new CardsLoadedEvent(cards)
+    publish new CardsByGoalLoadedEvent(@goalid, cards)
 
 module.exports = LoadCardsByGoalRequest

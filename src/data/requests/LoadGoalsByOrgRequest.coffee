@@ -1,5 +1,4 @@
 _                     = require 'lodash'
-superagent            = require 'superagent'
 Request               = require 'data/framework/Request'
 Goal                  = require 'data/models/Goal'
 GoalsLoadedEvent      = require 'events/load/GoalsLoadedEvent'
@@ -9,12 +8,14 @@ class LoadGoalsByOrgRequest extends Request
 
   constructor: (@orgid) ->
 
-  execute: (eventQueue) ->
-    superagent.get(@urlFor("/#{@orgid}/goals"))
+  create: (agent) ->
+    agent
+    .get(@urlFor("/#{@orgid}/goals"))
     .withCredentials()
-    .end (err, res) =>
-      goals = _.map res.body.goals, (data) -> new Goal(data)
-      eventQueue.publish new GoalsLoadedEvent(goals)
-      eventQueue.publish new GoalsByOrgLoadedEvent(@orgid, goals)
+  
+  onSuccess: (result, publish) ->
+    goals = _.map result.goals, (data) -> new Goal(data)
+    publish new GoalsLoadedEvent(goals)
+    publish new GoalsByOrgLoadedEvent(@orgid, goals)
 
 module.exports = LoadGoalsByOrgRequest

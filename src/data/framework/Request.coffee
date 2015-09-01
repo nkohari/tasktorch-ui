@@ -10,7 +10,19 @@ class Request
   urlFor: (path) ->
     Request.urlFor(path)
 
-  execute: ->
-    throw new Error("You must implement execute() on #{@constructor.name}")
+  create: ->
+    throw new Error("You must implement create() on #{@constructor.name}")
+
+  onSuccess: ->
+    throw new Error("You must implement onSuccess() on #{@constructor.name}")    
+
+  onNotFound: ->
+    throw new Error("You must implement onNotFound() on #{@constructor.name}")    
+
+  onForbidden: ->
+    throw new Error("You must implement onForbidden() on #{@constructor.name}")    
+
+  onError: ->
+    throw new Error("You must implement onError() on #{@constructor.name}")    
 
 module.exports = Request

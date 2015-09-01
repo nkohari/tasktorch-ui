@@ -5,8 +5,8 @@ compare     = require 'common/util/compare'
 
 class SingletonListStore extends Store
 
-  constructor: (eventQueue, cache) ->
-    super(eventQueue, cache)
+  constructor: (eventQueue, processor, cache) ->
+    super(eventQueue, processor, cache)
     @modelStore = cache.getStore(@dependsOn)
     @list = undefined
     @state = undefined

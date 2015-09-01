@@ -5,8 +5,8 @@ compare     = require 'common/util/compare'
 
 class ListStore extends Store
 
-  constructor: (eventQueue, cache) ->
-    super(eventQueue, cache)
+  constructor: (eventQueue, processor, cache) ->
+    super(eventQueue, processor, cache)
     @modelStore = cache.getStore(@dependsOn)
     @lists = {}
     @states = {}

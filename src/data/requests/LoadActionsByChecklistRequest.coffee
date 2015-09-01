@@ -1,5 +1,4 @@
 _                             = require 'lodash'
-superagent                    = require 'superagent'
 Action                        = require 'data/models/Action'
 Request                       = require 'data/framework/Request'
 ActionsLoadedEvent            = require 'events/load/ActionsLoadedEvent'
@@ -9,12 +8,14 @@ class LoadActionsByChecklistRequest extends Request
 
   constructor: (@checklistid) ->
 
-  execute: (eventQueue) ->
-    superagent.get(@urlFor("/#{Environment.orgid}/checklists/#{@checklistid}/actions"))
+  create: (agent) ->
+    agent
+    .get(@urlFor("/#{Environment.orgid}/checklists/#{@checklistid}/actions"))
     .withCredentials()
-    .end (err, res) =>
-      actions = _.map res.body.actions, (doc) -> new Action(doc)
-      eventQueue.publish new ActionsLoadedEvent(actions)
-      eventQueue.publish new ActionsByChecklistLoadedEvent(@checklistid, actions)
+  
+  onSuccess: (result, publish) ->
+    actions = _.map result.actions, (doc) -> new Action(doc)
+    publish new ActionsLoadedEvent(actions)
+    publish new ActionsByChecklistLoadedEvent(@checklistid, actions)
 
 module.exports = LoadActionsByChecklistRequest

@@ -1,5 +1,4 @@
 _                          = require 'lodash'
-superagent                 = require 'superagent'
 Card                       = require 'data/models/Card'
 Stack                      = require 'data/models/Stack'
 Team                       = require 'data/models/Team'
@@ -13,22 +12,23 @@ Request                    = require 'data/framework/Request'
 
 class LoadMyFollowedCardsRequest extends Request
 
-  execute: (eventQueue) ->
-    
-    superagent.get(@urlFor("/#{Environment.orgid}/me/following?expand=user,team,stack"))
+  create: (agent) ->
+    agent
+    .get(@urlFor("/#{Environment.orgid}/me/following?expand=user,team,stack"))
     .withCredentials()
-    .end (err, res) =>
+  
+  onSuccess: (result, publish) ->
 
-      cards  = _.map res.body.cards,           (doc) -> new Card(doc)
-      stacks = _.map res.body.related?.stacks, (doc) -> new Stack(doc)
-      teams  = _.map res.body.related?.teams,  (doc) -> new Team(doc)
-      users  = _.map res.body.related?.users,  (doc) -> new User(doc)
+    cards  = _.map result.cards,           (doc) -> new Card(doc)
+    stacks = _.map result.related?.stacks, (doc) -> new Stack(doc)
+    teams  = _.map result.related?.teams,  (doc) -> new Team(doc)
+    users  = _.map result.related?.users,  (doc) -> new User(doc)
 
-      eventQueue.publish new CardsLoadedEvent(cards)
-      eventQueue.publish new StacksLoadedEvent(stacks) if stacks?.length > 0
-      eventQueue.publish new TeamsLoadedEvent(teams)   if teams?.length > 0
-      eventQueue.publish new UsersLoadedEvent(users)   if users?.length > 0
+    publish new CardsLoadedEvent(cards)
+    publish new StacksLoadedEvent(stacks) if stacks?.length > 0
+    publish new TeamsLoadedEvent(teams)   if teams?.length > 0
+    publish new UsersLoadedEvent(users)   if users?.length > 0
 
-      eventQueue.publish new MyFollowedCardsLoadedEvent(cards)
+    publish new MyFollowedCardsLoadedEvent(cards)
 
 module.exports = LoadMyFollowedCardsRequest

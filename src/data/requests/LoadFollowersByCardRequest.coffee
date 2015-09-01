@@ -1,5 +1,4 @@
 _                          = require 'lodash'
-superagent                 = require 'superagent'
 User                       = require 'data/models/User'
 UsersLoadedEvent           = require 'events/load/UsersLoadedEvent'
 FollowersByCardLoadedEvent = require 'events/load/FollowersByCardLoadedEvent'
@@ -9,12 +8,14 @@ class LoadFollowersByCardRequest extends Request
 
   constructor: (@cardid) ->
 
-  execute: (eventQueue) ->
-    superagent.get(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/followers"))
+  create: (agent) ->
+    agent
+    .get(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/followers"))
     .withCredentials()
-    .end (err, res) =>
-      users = _.map res.body.users, (doc) -> new User(doc)
-      eventQueue.publish new UsersLoadedEvent(users)
-      eventQueue.publish new FollowersByCardLoadedEvent(@cardid, users)
+  
+  onSuccess: (result, publish) ->
+    users = _.map result.users, (doc) -> new User(doc)
+    publish new UsersLoadedEvent(users)
+    publish new FollowersByCardLoadedEvent(@cardid, users)
 
 module.exports = LoadFollowersByCardRequest

@@ -1,5 +1,4 @@
 _                       = require 'lodash'
-superagent              = require 'superagent'
 Stage                   = require 'data/models/Stage'
 Request                 = require 'data/framework/Request'
 StagesLoadedEvent       = require 'events/load/StagesLoadedEvent'
@@ -9,12 +8,14 @@ class LoadStagesByKindRequest extends Request
 
   constructor: (@kindid) ->
 
-  execute: (eventQueue) ->
-    superagent.get(@urlFor("/#{Environment.orgid}/kinds/#{@kindid}/stages"))
+  create: (agent) ->
+    agent
+    .get(@urlFor("/#{Environment.orgid}/kinds/#{@kindid}/stages"))
     .withCredentials()
-    .end (err, res) =>
-      stages = _.map res.body.stages, (data) -> new Stage(data)
-      eventQueue.publish new StagesLoadedEvent(stages)
-      eventQueue.publish new StagesByKindLoadedEvent(@kindid, stages)
+  
+  onSuccess: (result, publish) ->
+    stages = _.map result.stages, (data) -> new Stage(data)
+    publish new StagesLoadedEvent(stages)
+    publish new StagesByKindLoadedEvent(@kindid, stages)
 
 module.exports = LoadStagesByKindRequest

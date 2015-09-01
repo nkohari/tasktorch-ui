@@ -4,7 +4,7 @@ class JoinUserChannelRequest extends Request
 
   constructor: (@userid) ->
 
-  execute: (eventQueue) ->
+  create: (agent) ->
     eventQueue.subscribe("private-user-#{@userid}")
 
 module.exports = JoinUserChannelRequest

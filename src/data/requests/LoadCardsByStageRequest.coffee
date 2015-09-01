@@ -1,5 +1,4 @@
 _                       = require 'lodash'
-superagent              = require 'superagent'
 Request                 = require 'data/framework/Request'
 Card                    = require 'data/models/Card'
 CardsLoadedEvent        = require 'events/load/CardsLoadedEvent'
@@ -9,12 +8,14 @@ class LoadCardsByStageRequest extends Request
 
   constructor: (@stageid) ->
 
-  execute: (eventQueue) ->
-    superagent.get(@urlFor("/#{Environment.orgid}/stages/#{@stageid}/cards"))
+  create: (agent) ->
+    agent
+    .get(@urlFor("/#{Environment.orgid}/stages/#{@stageid}/cards"))
     .withCredentials()
-    .end (err, res) =>
-      cards = _.map res.body.cards, (data) -> new Card(data)
-      eventQueue.publish new CardsLoadedEvent(cards)
-      eventQueue.publish new CardsByStageLoadedEvent(@stageid, cards)
+  
+  onSuccess: (result, publish) ->
+    cards = _.map result.cards, (data) -> new Card(data)
+    publish new CardsLoadedEvent(cards)
+    publish new CardsByStageLoadedEvent(@stageid, cards)
 
 module.exports = LoadCardsByStageRequest

@@ -1,5 +1,4 @@
 _                     = require 'lodash'
-superagent            = require 'superagent'
 Kind                  = require 'data/models/Kind'
 KindsLoadedEvent      = require 'events/load/KindsLoadedEvent'
 KindsByOrgLoadedEvent = require 'events/load/KindsByOrgLoadedEvent'
@@ -9,12 +8,14 @@ class LoadKindsByOrgRequest extends Request
 
   constructor: (@orgid) ->
 
-  execute: (eventQueue) ->
-    superagent.get(@urlFor("/#{@orgid}/kinds"))
+  create: (agent) ->
+    agent
+    .get(@urlFor("/#{@orgid}/kinds"))
     .withCredentials()
-    .end (err, res) =>
-      kinds = _.map res.body.kinds, (doc) -> new Kind(doc)
-      eventQueue.publish new KindsLoadedEvent(kinds)
-      eventQueue.publish new KindsByOrgLoadedEvent(@orgid, kinds)
+  
+  onSuccess: (result, publish) ->
+    kinds = _.map result.kinds, (doc) -> new Kind(doc)
+    publish new KindsLoadedEvent(kinds)
+    publish new KindsByOrgLoadedEvent(@orgid, kinds)
 
 module.exports = LoadKindsByOrgRequest

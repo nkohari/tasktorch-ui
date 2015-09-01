@@ -6,8 +6,8 @@ ReadyState = require 'data/enums/ReadyState'
 
 class ModelStore extends Store
 
-  constructor: (eventQueue, cache) ->
-    super(eventQueue, cache)
+  constructor: (eventQueue, processor, cache) ->
+    super(eventQueue, processor, cache)
     @models = {}
     @states = {}
 

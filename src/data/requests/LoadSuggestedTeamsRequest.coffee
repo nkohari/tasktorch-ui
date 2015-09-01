@@ -1,5 +1,4 @@
 _                         = require 'lodash'
-superagent                = require 'superagent'
 Team                      = require 'data/models/Team'
 Request                   = require 'data/framework/Request'
 TeamsLoadedEvent          = require 'events/load/TeamsLoadedEvent'
@@ -9,12 +8,14 @@ class LoadSuggestedTeamsRequest extends Request
 
   constructor: (@phrase) ->
 
-  execute: (eventQueue) ->
-    superagent.get(@urlFor("/#{Environment.orgid}/teams?suggest=#{@phrase}"))
+  create: (agent) ->
+    agent
+    .get(@urlFor("/#{Environment.orgid}/teams?suggest=#{@phrase}"))
     .withCredentials()
-    .end (err, res) =>
-      teams = _.map res.body.teams, (doc) -> new Team(doc)
-      eventQueue.publish new TeamsLoadedEvent(teams)
-      eventQueue.publish new SuggestedTeamsLoadedEvent(@phrase, teams)
+  
+  onSuccess: (result, publish) ->
+    teams = _.map result.teams, (doc) -> new Team(doc)
+    publish new TeamsLoadedEvent(teams)
+    publish new SuggestedTeamsLoadedEvent(@phrase, teams)
 
 module.exports = LoadSuggestedTeamsRequest

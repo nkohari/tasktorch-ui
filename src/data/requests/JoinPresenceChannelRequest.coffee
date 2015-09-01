@@ -4,7 +4,7 @@ class JoinPresenceChannelRequest extends Request
 
   constructor: (@orgid) ->
 
-  execute: (eventQueue) ->
+  create: (agent) ->
     eventQueue.subscribe("presence-org-#{@orgid}")
 
 module.exports = JoinPresenceChannelRequest

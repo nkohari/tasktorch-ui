@@ -2,7 +2,7 @@ EventHandler = require 'events/framework/EventHandler'
 
 class Store extends EventHandler
 
-  constructor: (eventQueue, @cache) ->
+  constructor: (eventQueue, @processor, @cache) ->
     super(eventQueue)
 
   announce: ->
@@ -13,6 +13,6 @@ class Store extends EventHandler
     throw new Error("You must implement load() on #{@constructor.name}")
 
   execute: (request) ->
-    request.execute(@eventQueue)
+    @processor.execute(request)
 
 module.exports = Store

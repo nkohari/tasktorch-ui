@@ -15,7 +15,6 @@ RestoreCardRequest            = require 'data/requests/RestoreCardRequest'
 AddCardToGoalRequest          = require 'data/requests/AddCardToGoalRequest'
 RemoveCardFromGoalRequest     = require 'data/requests/RemoveCardFromGoalRequest'
 
-
 class CardStore extends ModelStore
 
   displayName: 'CardStore'

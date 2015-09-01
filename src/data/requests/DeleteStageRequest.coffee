@@ -1,4 +1,3 @@
-superagent        = require 'superagent'
 Stage             = require 'data/models/Stage'
 StageDeletedEvent = require 'events/delete/StageDeletedEvent'
 Request           = require 'data/framework/Request'
@@ -7,12 +6,14 @@ class DeleteStageRequest extends Request
 
   constructor: (@stageid, @inheritorStage) ->
 
-  execute: (eventQueue) ->
-    superagent.del(@urlFor("/#{Environment.orgid}/stages/#{@stageid}"))
-    .send {@inheritorStage}
+  create: (agent) ->
+    agent
+    .del(@urlFor("/#{Environment.orgid}/stages/#{@stageid}"))
     .withCredentials()
-    .end (err, res) =>
-      stage = new Stage(res.body.stage)
-      eventQueue.publish new StageDeletedEvent(stage)
+    .send {@inheritorStage}
+  
+  onSuccess: (result, publish) ->
+    stage = new Stage(result.stage)
+    publish new StageDeletedEvent(stage)
 
 module.exports = DeleteStageRequest

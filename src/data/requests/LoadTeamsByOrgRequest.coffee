@@ -1,5 +1,4 @@
 _                     = require 'lodash'
-superagent            = require 'superagent'
 Request               = require 'data/framework/Request'
 Team                  = require 'data/models/Team'
 TeamsLoadedEvent      = require 'events/load/TeamsLoadedEvent'
@@ -9,12 +8,14 @@ class LoadTeamsByOrgRequest extends Request
 
   constructor: (@orgid) ->
 
-  execute: (eventQueue) ->
-    superagent.get(@urlFor("/#{@orgid}/teams"))
+  create: (agent) ->
+    agent
+    .get(@urlFor("/#{@orgid}/teams"))
     .withCredentials()
-    .end (err, res) =>
-      teams = _.map res.body.teams, (data) -> new Team(data)
-      eventQueue.publish new TeamsLoadedEvent(teams)
-      eventQueue.publish new TeamsByOrgLoadedEvent(@orgid, teams)
+  
+  onSuccess: (result, publish) ->
+    teams = _.map result.teams, (data) -> new Team(data)
+    publish new TeamsLoadedEvent(teams)
+    publish new TeamsByOrgLoadedEvent(@orgid, teams)
 
 module.exports = LoadTeamsByOrgRequest

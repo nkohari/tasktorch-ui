@@ -1,14 +1,15 @@
-superagent = require 'superagent'
-Request    = require 'data/framework/Request'
+Request = require 'data/framework/Request'
 
 class CreateTokenRequest extends Request
 
   constructor: (@tokens) ->
 
-  execute: (eventQueue) ->
-    superagent.post(@urlFor("/tokens"))
+  create: (agent) ->
+    agent
+    .post(@urlFor("/tokens"))
     .withCredentials()
-    .send({@tokens})
-    .end()
+    .send {@tokens}
+
+  onSuccess: (result, publish) ->
 
 module.exports = CreateTokenRequest
