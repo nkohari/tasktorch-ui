@@ -11,8 +11,8 @@ class DialogStore extends Store
     'UserClosedDialog'
   ]
 
-  constructor: (eventQueue, cache) ->
-    super(eventQueue, cache)
+  constructor: (eventQueue, processor, cache) ->
+    super(eventQueue, processor, cache)
     @stack = []
 
   get: (name) ->
