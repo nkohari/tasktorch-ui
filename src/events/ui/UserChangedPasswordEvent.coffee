@@ -1,6 +1,6 @@
-Event = require 'events/framework/Event'
+UiEvent = require 'events/framework/UiEvent'
 
-class UserChangedPasswordEvent extends Event
+class UserChangedPasswordEvent extends UiEvent
 
   type: 'UserChangedPassword'
 

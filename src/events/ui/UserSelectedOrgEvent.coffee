@@ -1,8 +1,9 @@
-Event = require 'events/framework/Event'
+UiEvent = require 'events/framework/UiEvent'
 
-class UserSelectedOrgEvent extends Event
+class UserSelectedOrgEvent extends UiEvent
   
   type: 'UserSelectedOrg'
+  shouldRecord: false
 
   constructor: (@userid, @orgid) ->
 

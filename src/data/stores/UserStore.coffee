@@ -1,9 +1,11 @@
+UserFlag                = require 'data/enums/UserFlag'
 User                    = require 'data/models/User'
 ModelStore              = require 'data/framework/ModelStore'
 LoadUserRequest         = require 'data/requests/LoadUserRequest'
 ChangeMyNameRequest     = require 'data/requests/ChangeMyNameRequest'
 ChangeMyEmailRequest    = require 'data/requests/ChangeMyEmailRequest'
 ChangeMyPasswordRequest = require 'data/requests/ChangeMyPasswordRequest'
+SetMyFlagRequest        = require 'data/requests/SetMyFlagRequest'
 
 class UserStore extends ModelStore
 
@@ -17,6 +19,7 @@ class UserStore extends ModelStore
     'UserChangedName'
     'UserChangedEmail'
     'UserChangedPassword'
+    'UserCompletedWalkthrough'
   ]
 
   load: (id) ->
@@ -36,5 +39,8 @@ class UserStore extends ModelStore
 
   onUserChangedPassword: (event) ->
     @execute new ChangeMyPasswordRequest(event.password)
+
+  onUserCompletedWalkthrough: (event) ->
+    @execute new SetMyFlagRequest(UserFlag.HasCompletedWalkthrough, true)
 
 module.exports = UserStore

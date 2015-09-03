@@ -1,6 +1,6 @@
-Event = require 'events/framework/Event'
+UiEvent = require 'events/framework/UiEvent'
 
-class UserRemovedCardFromGoalEvent extends Event
+class UserRemovedCardFromGoalEvent extends UiEvent
   
   type: 'UserRemovedCardFromGoal'
 

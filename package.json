@@ -32,7 +32,7 @@
     "stylus-loader": "1.2.1",
     "url-loader": "0.5.6",
     "webpack": "1.9.11",
-    "webpack-dev-server": "1.9.0"
+    "webpack-dev-server": "1.10.1"
   },
   "scripts": {}
 }

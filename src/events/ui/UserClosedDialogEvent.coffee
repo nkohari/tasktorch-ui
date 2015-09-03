@@ -1,8 +1,9 @@
-Event = require 'events/framework/Event'
+UiEvent = require 'events/framework/UiEvent'
 
-class UserClosedDialogEvent extends Event
+class UserClosedDialogEvent extends UiEvent
   
   type: 'UserClosedDialog'
+  shouldRecord: false
 
   constructor: (@name) ->
 

@@ -1,6 +1,6 @@
-Event = require 'events/framework/Event'
+DataLoadedEvent = require 'events/framework/DataLoadedEvent'
 
-class ChecklistsLoadedEvent extends Event
+class ChecklistsLoadedEvent extends DataLoadedEvent
 
   type: 'ChecklistsLoaded'
 

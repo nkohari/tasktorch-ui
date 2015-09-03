@@ -1,6 +1,6 @@
-Event = require 'events/framework/Event'
+DataLoadedEvent = require 'events/framework/DataLoadedEvent'
 
-class CardsByGoalLoadedEvent extends Event
+class CardsByGoalLoadedEvent extends DataLoadedEvent
 
   type: 'CardsByGoalLoaded'
 

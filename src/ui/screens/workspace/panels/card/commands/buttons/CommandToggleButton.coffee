@@ -21,6 +21,7 @@ CommandToggleButton = React.createClass {
   render: ->
 
     classes = classSet [
+      "command-toggle-#{@props.command.toLowerCase()}"
       'active' if @isActiveCommand(@props.command)
     ]
 

@@ -8,6 +8,8 @@ Link      = React.createFactory(require 'ui/common/Link')
 Icon      = React.createFactory(require 'ui/common/Icon')
 {li}      = React.DOM
 #--------------------------------------------------------------------------------
+require './NavigationItem.styl'
+#--------------------------------------------------------------------------------
 
 NavigationItem = React.createClass {
 
@@ -23,6 +25,7 @@ NavigationItem = React.createClass {
   render: ->
 
     classes = classSet [
+      'navigation-item'
       @props.screen
       'active' if @getCurrentScreen() is @getScreen(@props.screen)
     ]

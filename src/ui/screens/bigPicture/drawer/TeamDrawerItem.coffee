@@ -5,9 +5,7 @@ classSet       = require 'common/util/classSet'
 PropTypes      = require 'ui/framework/PropTypes'
 Navigator      = require 'ui/framework/mixins/Navigator'
 TeamPanelState = require 'ui/screens/bigPicture/panels/team/TeamPanelState'
-Icon           = React.createFactory(require 'ui/common/Icon')
-Link           = React.createFactory(require 'ui/common/Link')
-{span}         = React.DOM
+DrawerItem     = React.createFactory(require 'ui/common/DrawerItem')
 #--------------------------------------------------------------------------------
 
 TeamDrawerItem = React.createClass {
@@ -22,13 +20,16 @@ TeamDrawerItem = React.createClass {
   render: ->
 
     classes = classSet [
-      'drawer-item'
+      'team'
       'active' if @getScreen('bigpicture').isPanelVisible(@props.team.id)
     ]
 
-    Link {className: classes, onClick: @toggleTeam},
-      Icon {name: 'team'}
-      span {className: 'name'}, @props.team.name
+    DrawerItem {
+      className: classes
+      icon:      'team'
+      label:     @props.team.name
+      onClick:   @toggleTeam
+    }   
 
   toggleTeam: ->
     @getScreen('bigpicture').togglePanel(new TeamPanelState(@props.team.id))

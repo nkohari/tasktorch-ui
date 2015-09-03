@@ -1,6 +1,6 @@
-Event = require 'events/framework/Event'
+DataLoadedEvent = require 'events/framework/DataLoadedEvent'
 
-class InvitesLoadedEvent extends Event
+class InvitesLoadedEvent extends DataLoadedEvent
 
   type: 'InvitesLoaded'
 

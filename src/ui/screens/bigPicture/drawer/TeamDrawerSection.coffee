@@ -2,13 +2,13 @@
 _               = require 'lodash'
 React           = require 'react'
 PropTypes       = require 'ui/framework/PropTypes'
+DrawerSection   = React.createFactory(require 'ui/common/DrawerSection')
 TeamDrawerItem  = React.createFactory(require 'ui/screens/bigPicture/drawer/TeamDrawerItem')
-{div, span, ul} = React.DOM
 #--------------------------------------------------------------------------------
 
-TeamList = React.createClass {
+TeamDrawerSection = React.createClass {
 
-  displayName: 'TeamList'
+  displayName: 'TeamDrawerSection'
 
   propTypes:
     teams: PropTypes.arrayOf(PropTypes.Team)
@@ -18,11 +18,9 @@ TeamList = React.createClass {
     items = _.map @props.teams, (team) =>
       TeamDrawerItem {key: team.id, team}
 
-    div {className: 'drawer-group'},
-      div {className: 'header'},
-        span {className: 'title'}, 'By Team'
+    DrawerSection {className: 'team-section', title: 'By Team'},
       items
 
 }
 
-module.exports = TeamList
+module.exports = TeamDrawerSection

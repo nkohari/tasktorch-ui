@@ -1,6 +1,6 @@
-Event = require 'events/framework/Event'
+UiEvent = require 'events/framework/UiEvent'
 
-class UserRemovedLeaderFromTeamEvent extends Event
+class UserRemovedLeaderFromTeamEvent extends UiEvent
   
   type: 'UserRemovedLeaderFromTeam'
 

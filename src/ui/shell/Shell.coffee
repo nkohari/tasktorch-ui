@@ -11,6 +11,7 @@ Frame                = React.createFactory(require 'ui/common/Frame')
 DialogLayer          = React.createFactory(require 'ui/shell/DialogLayer')
 ShellHeader          = React.createFactory(require 'ui/shell/header/ShellHeader')
 ShellFooter          = React.createFactory(require 'ui/shell/footer/ShellFooter')
+Walkthrough          = React.createFactory(require 'ui/walkthrough/Walkthrough')
 RouteHandler         = React.createFactory(Router.RouteHandler)
 CSSTransitionGroup   = React.createFactory(React.addons.CSSTransitionGroup)
 {div}                = React.DOM
@@ -81,6 +82,7 @@ Shell = React.createClass {
       ShellFooter {}
       DialogLayer {}
       div {id: 'intercom', style: {display: 'none'}}
+      Walkthrough {} unless @state.currentUser?.hasCompletedWalkthrough()
 
 }
 

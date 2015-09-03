@@ -27,7 +27,7 @@ PanelHeader = React.createClass {
       else
         icon = cloneWithProps @props.icon, {className: 'panel-icon'}
 
-    div {className: 'header'},
+    div {className: 'panel-header'},
       icon      
       div {className: 'title'},
         @props.children

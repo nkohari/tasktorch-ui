@@ -3,7 +3,7 @@ _                   = require 'lodash'
 React               = require 'react'
 CachedState         = require 'ui/framework/mixins/CachedState'
 PropTypes           = require 'ui/framework/PropTypes'
-Frame               = React.createFactory(require 'ui/common/Frame')
+Drawer              = React.createFactory(require 'ui/common/Drawer')
 FollowingDrawerItem = React.createFactory(require 'ui/screens/workspace/drawer/FollowingDrawerItem')
 MyWorkDrawerSection = React.createFactory(require 'ui/screens/workspace/drawer/MyWorkDrawerSection')
 TeamDrawerSection   = React.createFactory(require 'ui/screens/workspace/drawer/TeamDrawerSection')
@@ -25,7 +25,7 @@ WorkspaceDrawer = React.createClass {
     teamSections = _.map @state.teams, (team) =>
       TeamDrawerSection {key: team.id, team}
 
-    Frame {className: 'workspace drawer'},
+    Drawer {className: 'workspace'},
       FollowingDrawerItem {}
       MyWorkDrawerSection {stacks: @state.stacks}
       teamSections

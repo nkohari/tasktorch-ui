@@ -15,6 +15,7 @@ Analytics.init = (user, org) ->
   .withCredentials()
   .end (err, res) =>
     {token} = res.body
+    debug.log("Analytics: Initialized for user %o", user)
     Intercom('boot', {
       app_id:     INTERCOM_APPID
       user_id:    user.id
@@ -35,5 +36,9 @@ Analytics.update = (info = undefined) ->
 
 Analytics.showHelp = () ->
   Intercom('show')
+
+Analytics.recordEvent = (name, metadata = undefined) ->
+  debug.log("Analytics: Recorded event #{name}: %o", metadata)
+  Intercom('trackEvent', name, metadata)
 
 module.exports = Analytics

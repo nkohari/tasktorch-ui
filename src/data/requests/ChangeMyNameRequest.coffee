@@ -13,7 +13,7 @@ class ChangeMyNameRequest extends Request
     .send {@name}
 
   onSuccess: (result, publish) ->
-    card = new User(result.user)
+    user = new User(result.user)
     publish new UserChangedEvent(user)
 
 module.exports = ChangeMyNameRequest

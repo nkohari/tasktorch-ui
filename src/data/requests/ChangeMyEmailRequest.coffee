@@ -13,7 +13,7 @@ class ChangeMyEmailRequest extends Request
     .send {@email}
 
   onSuccess: (result, publish) ->
-    card = new User(result.user)
+    user = new User(result.user)
     publish new UserChangedEvent(user)
 
 module.exports = ChangeMyEmailRequest

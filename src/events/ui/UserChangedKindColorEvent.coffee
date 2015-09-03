@@ -1,6 +1,6 @@
-Event = require 'events/framework/Event'
+UiEvent = require 'events/framework/UiEvent'
 
-class UserChangedKindColorEvent extends Event
+class UserChangedKindColorEvent extends UiEvent
 
   type: 'UserChangedKindColor'
 

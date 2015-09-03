@@ -1,6 +1,6 @@
-Event = require 'events/framework/Event'
+DataLoadedEvent = require 'events/framework/DataLoadedEvent'
 
-class NotesLoadedEvent extends Event
+class NotesLoadedEvent extends DataLoadedEvent
 
   type: 'NotesLoaded'
 

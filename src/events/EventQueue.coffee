@@ -1,4 +1,5 @@
 EventEmitter = require 'eventemitter3'
+Analytics    = require 'common/Analytics'
 
 class EventQueue extends EventEmitter
 
@@ -7,10 +8,17 @@ class EventQueue extends EventEmitter
     @isFlushing = false
 
   publish: (event) ->
+
     unless event.type?
       throw new Error("EventQueue: Bogus event #{event.constructor.name} was queued without a type name")
+
     @pendingEvents.push(event)
     debug.log("EventQueue: (#{@pendingEvents.length}) Queued %O", event)
+
+    if event.shouldRecord
+      name = event.type.replace(/^User/, '')
+      Analytics.recordEvent(name, event)
+
     unless @isFlushing
       @isFlushing = true
       setTimeout(@_flush, 0)

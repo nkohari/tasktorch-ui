@@ -1,8 +1,7 @@
 #--------------------------------------------------------------------------------
-_              = require 'lodash'
-React          = require 'react'
-NavigationItem = React.createFactory(require 'ui/shell/header/NavigationItem')
-{div, ul}      = React.DOM
+React      = require 'react'
+Navigation = React.createFactory(require 'ui/shell/header/Navigation')
+{div}      = React.DOM
 #--------------------------------------------------------------------------------
 require './TopCenter.styl'
 #--------------------------------------------------------------------------------
@@ -14,11 +13,7 @@ TopCenter = React.createClass {
   render: ->
 
     div {className: 'top-center'},
-      ul {className: 'navigation'},
-        NavigationItem {screen: 'workspace',  hotkey: 'w', title: 'Workspace'}
-        NavigationItem {screen: 'bigpicture', hotkey: 'b', title: 'Big Picture'}
-        #NavigationItem {screen: 'strategy',   hotkey: 's', title: 'Strategy'}
-        #NavigationItem {screen: 'knowledge',  hotkey: 'k', title: 'Knowledge'}
+      Navigation {}
 
 }
 

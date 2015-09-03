@@ -1,6 +1,6 @@
-Event = require 'events/framework/Event'
+UiEvent = require 'events/framework/UiEvent'
 
-class UserRenamedStageEvent extends Event
+class UserRenamedStageEvent extends UiEvent
 
   type: 'UserRenamedStage'
 

@@ -6,9 +6,8 @@ PropTypes           = require 'ui/framework/PropTypes'
 CachedState         = require 'ui/framework/mixins/CachedState'
 Navigator           = require 'ui/framework/mixins/Navigator'
 FollowingPanelState = require 'ui/screens/workspace/panels/following/FollowingPanelState'
-Frame               = React.createFactory(require 'ui/common/Frame')
+DrawerItem          = React.createFactory(require 'ui/common/DrawerItem')
 Icon                = React.createFactory(require 'ui/common/Icon')
-Link                = React.createFactory(require 'ui/common/Link')
 {span}              = React.DOM
 #--------------------------------------------------------------------------------
 
@@ -32,10 +31,13 @@ FollowingDrawerItem = React.createClass {
       'active' if @getScreen('workspace').isPanelVisible('following')
     ]
 
-    Link {className: classes, onClick: @toggleFollowing},
-      Icon {name: 'follow'}
-      span {className: 'name'}, 'Following'
-      span {className: 'count'}, @state.cards.length if @state.cards?.length > 0
+    DrawerItem {
+      className: classes
+      icon: 'follow'
+      label: 'Following'
+      badge: @state.cards.length if @state.cards?.length > 0
+      onClick: @toggleFollowing
+    }
 
   toggleFollowing: ->
     @getScreen('workspace').togglePanel(new FollowingPanelState())

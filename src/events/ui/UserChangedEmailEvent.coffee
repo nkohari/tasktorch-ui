@@ -1,6 +1,6 @@
-Event = require 'events/framework/Event'
+UiEvent = require 'events/framework/UiEvent'
 
-class UserChangedEmailEvent extends Event
+class UserChangedEmailEvent extends UiEvent
 
   type: 'UserChangedEmail'
 

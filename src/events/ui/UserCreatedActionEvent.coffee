@@ -1,6 +1,6 @@
-Event = require 'events/framework/Event'
+UiEvent = require 'events/framework/UiEvent'
 
-class UserCreatedActionEvent extends Event
+class UserCreatedActionEvent extends UiEvent
 
   type: 'UserCreatedAction'
 

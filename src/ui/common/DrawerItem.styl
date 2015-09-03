@@ -1,0 +1,32 @@
+.drawer-item
+  display: block
+  font-size: 14px
+  line-height: 20px
+  padding: 4px
+  margin-bottom: 6px
+  color: $color-ink-inverted-light
+  border-radius: 4px
+  text-decoration: none
+  transition-property: color, background
+  transition-duration: $hover-animation-delay
+  & > i { margin-right: 8px }
+  
+  &:hover, &:active
+    color: $color-ink-inverted
+  
+  &.active
+    color: $color-ink-inverted
+    background: $color-charcoal-light
+
+  .badge
+    min-width: 30px
+    margin-left: 10px
+    float: right
+    padding: 4px 7px
+    background: $color-charcoal-dark
+    font-size: 12px
+    font-weight: $heavy-font-weight
+    text-shadow: none
+    text-align: center
+    line-height: 1em
+    border-radius: 8px

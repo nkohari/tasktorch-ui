@@ -3,6 +3,7 @@ ModelStore                   = require 'data/framework/ModelStore'
 CreateKindRequest            = require 'data/requests/CreateKindRequest'
 ChangeKindColorRequest       = require 'data/requests/ChangeKindColorRequest'
 ChangeKindDescriptionRequest = require 'data/requests/ChangeKindDescriptionRequest'
+LoadKindRequest              = require 'data/requests/LoadKindRequest'
 RenameKindRequest            = require 'data/requests/RenameKindRequest'
 
 class KindStore extends ModelStore
@@ -21,8 +22,8 @@ class KindStore extends ModelStore
     'UserRenamedKind'
   ]
 
-  load: (id) ->
-    debug.warn('KindStore.load() was called')
+  load: (kindid) ->
+    @execute new LoadKindRequest(kindid)
 
   onKindsLoaded: (event) ->
     @add(event.kinds)

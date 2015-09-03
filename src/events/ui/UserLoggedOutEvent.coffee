@@ -1,6 +1,6 @@
-Event = require 'events/framework/Event'
+UiEvent = require 'events/framework/UiEvent'
 
-class UserLoggedOutEvent extends Event
+class UserLoggedOutEvent extends UiEvent
 
   type: 'UserLoggedOut'
 

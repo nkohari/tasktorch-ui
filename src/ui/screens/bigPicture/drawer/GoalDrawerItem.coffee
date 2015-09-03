@@ -5,9 +5,7 @@ classSet       = require 'common/util/classSet'
 PropTypes      = require 'ui/framework/PropTypes'
 Navigator      = require 'ui/framework/mixins/Navigator'
 GoalPanelState = require 'ui/screens/bigPicture/panels/goal/GoalPanelState'
-Icon           = React.createFactory(require 'ui/common/Icon')
-Link           = React.createFactory(require 'ui/common/Link')
-{span}         = React.DOM
+DrawerItem     = React.createFactory(require 'ui/common/DrawerItem')
 #--------------------------------------------------------------------------------
 
 GoalDrawerItem = React.createClass {
@@ -22,13 +20,16 @@ GoalDrawerItem = React.createClass {
   render: ->
 
     classes = classSet [
-      'drawer-item'
+      'goal'
       'active' if @getScreen('bigpicture').isPanelVisible(@props.goal.id)
     ]
 
-    Link {className: classes, onClick: @toggleGoal},
-      Icon {name: 'goal'}
-      span {className: 'name'}, @props.goal.name
+    DrawerItem {
+      className: classes
+      icon:      'goal'
+      label:     @props.goal.name
+      onClick:   @toggleGoal
+    }    
 
   toggleGoal: ->
     @getScreen('bigpicture').togglePanel(new GoalPanelState(@props.goal.id))

@@ -1,6 +1,6 @@
-Event = require 'events/framework/Event'
+UiEvent = require 'events/framework/UiEvent'
 
-class UserPassedCardEvent extends Event
+class UserPassedCardEvent extends UiEvent
 
   type: 'UserPassedCard'
 

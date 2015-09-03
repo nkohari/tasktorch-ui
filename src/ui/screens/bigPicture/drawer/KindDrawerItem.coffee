@@ -5,9 +5,8 @@ classSet       = require 'common/util/classSet'
 PropTypes      = require 'ui/framework/PropTypes'
 Navigator      = require 'ui/framework/mixins/Navigator'
 KindPanelState = require 'ui/screens/bigPicture/panels/kind/KindPanelState'
+DrawerItem     = React.createFactory(require 'ui/common/DrawerItem')
 Icon           = React.createFactory(require 'ui/common/Icon')
-Link           = React.createFactory(require 'ui/common/Link')
-{span}         = React.DOM
 #--------------------------------------------------------------------------------
 
 KindDrawerItem = React.createClass {
@@ -22,13 +21,16 @@ KindDrawerItem = React.createClass {
   render: ->
 
     classes = classSet [
-      'drawer-item'
+      'kind'
       'active' if @getScreen('bigpicture').isPanelVisible(@props.kind.id)
     ]
 
-    Link {className: classes, onClick: @toggleKind},
-      Icon {name: 'card', color: @props.kind?.color}
-      span {className: 'name'}, @props.kind.name
+    DrawerItem {
+      className: classes
+      icon:      Icon {name: 'card', color: @props.kind?.color}
+      label:     @props.kind.name
+      onClick:   @toggleKind
+    }    
 
   toggleKind: ->
     @getScreen('bigpicture').togglePanel(new KindPanelState(@props.kind.id))

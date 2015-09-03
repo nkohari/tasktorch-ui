@@ -1,0 +1,27 @@
+.drawer-section
+  background: $color-charcoal
+
+  .header
+    display: flex
+    flex-direction: row
+    padding: 8px 4px
+    color: $color-ink-inverted
+    
+    .title
+      flex: 1
+      font-size: 13px
+      font-weight: $bold-font-weight
+      letter-spacing: 0.25px
+      text-transform: uppercase
+      text-shadow: 1px 1px 1px black(70%)
+    
+    .trigger
+      flex: none
+      cursor: pointer
+      color: $color-ink-inverted-light
+      transition-property: color
+      transition-duration: $hover-animation-delay
+      &:hover, &.active { color: $color-ink-inverted }
+      & > i
+        margin-right: 0
+        line-height: 16px

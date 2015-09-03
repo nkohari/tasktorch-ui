@@ -1,6 +1,6 @@
-Event = require 'events/framework/Event'
+UiEvent = require 'events/framework/UiEvent'
 
-class UserCreatedCommentEvent extends Event
+class UserCreatedCommentEvent extends UiEvent
 
   type: 'UserCreatedComment'
 

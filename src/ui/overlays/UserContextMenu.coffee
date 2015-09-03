@@ -50,7 +50,7 @@ UserContextMenu = React.createClass {
     ]
 
     ContextMenu {position: 'top right', hideOverlay: @props.hideOverlay},
-      giveTokensItems if _.contains(@props.user?.grants, GrantType.GiveTokens)
+      giveTokensItems if @props.user?.canGiveTokens()
       commonItems
 
   logOut: ->
