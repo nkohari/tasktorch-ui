@@ -69,19 +69,20 @@ CreateTeamDialog = React.createClass {
 
   removeMember: (user) ->
     members = _.filter @state.members, (u) -> u.id != user.id
-    leaders = _.without(@state.leaders, user.id)
+    leaders = _.filter @state.leaders, (u) -> u.id != user.id
     @setState {members, leaders}
 
   addLeader: (user) ->
-    leaders = @state.leaders.concat(user.id)
+    return if _.any(@state.leaders, (u) -> u.id == user.id)
+    leaders = @state.leaders.concat(user)
     @setState {leaders}
 
   removeLeader: (user) ->
-    return if _.any(@state.leaders, (u) -> u.id == user.id)
-    leaders = _.without(@state.leaders, user.id)
+    leaders = _.filter @state.leaders, (u) -> u.id != user.id
     @setState {leaders}
 
   createTeam: ->
+    console.log {members: @state.members, leaders: @state.leaders}
     members = _.pluck(@state.members, 'id')
     leaders = _.pluck(@state.leaders, 'id')
     @publish new UserCreatedTeamEvent(@state.name, @state.purpose, members, leaders)

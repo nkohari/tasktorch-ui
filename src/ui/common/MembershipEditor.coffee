@@ -35,7 +35,7 @@ MembershipEditor = React.createClass {
       MembershipEditorItem {
         key: user.id
         user
-        isLeader:      _.contains(@props.leaders, user.id)
+        isLeader:      _.any(@props.leaders, (u) -> u.id == user.id)
         allowEditSelf: @props.allowEditSelf
         addLeader:     @props.addLeader
         removeLeader:  @props.removeLeader
