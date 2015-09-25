@@ -52,8 +52,10 @@ ManageKindsDialog = React.createClass {
       ul {className: 'kind-list'},
         items
 
-  showKindMenu: (index) ->
-    @refs["trigger#{index}"].toggleOverlay()
+  showKindMenu: (index, event) ->
+    event.stopPropagation()
+    event.preventDefault()
+    @refs["trigger#{index}"].showOverlay()
 
   onCreateClicked: ->
     @publish new UserOpenedDialogEvent('CreateKind')

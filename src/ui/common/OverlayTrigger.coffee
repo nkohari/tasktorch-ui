@@ -49,9 +49,9 @@ OverlayTrigger = React.createClass {
       className: classSet [
         'active' if @state.visible
       ]
-      onMouseDown: @toggleOverlay if @props.method is 'click'
-      onMouseOver: @showOverlay   if @props.method is 'hover'
-      onMouseOut:  @hideOverlay   if @props.method is 'hover'
+      @onMouseDown
+      @onMouseOver
+      @onMouseOut
     }
 
     if @state.visible
@@ -75,6 +75,21 @@ OverlayTrigger = React.createClass {
 
   toggleOverlay: ->
     @setState {visible: !@state.visible}
+
+  onMouseDown: (event) ->
+    return unless @props.method is 'click'
+    event.stopPropagation()
+    @toggleOverlay()
+
+  onMouseOver: (event) ->
+    return unless @props.method is 'hover'
+    event.stopPropagation()
+    @showOverlay()
+
+  onMouseOut: (event) ->
+    return unless @props.method is 'hover'
+    event.stopPropagation()
+    @hideOverlay()
 
   onEscapePressed: ->
     @hideOverlay() if @isMounted()
