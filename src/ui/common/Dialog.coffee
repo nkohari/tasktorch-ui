@@ -20,8 +20,10 @@ Dialog = React.createClass {
     closeDialog: PropTypes.func
     icon:        PropTypes.string
     title:       PropTypes.string
-    width:       PropTypes.number
-    height:      PropTypes.number
+    width:       PropTypes.oneOfType(PropTypes.number, PropTypes.string)
+    height:      PropTypes.oneOfType(PropTypes.number, PropTypes.string)
+    maxWidth:    PropTypes.oneOfType(PropTypes.number, PropTypes.string)
+    maxHeight:   PropTypes.oneOfType(PropTypes.number, PropTypes.string)
 
   getDefaultProps: ->
     {width: 600}
@@ -40,8 +42,10 @@ Dialog = React.createClass {
     classes = mergeClasses('dialog', @props.className)
 
     style =
-      width:  @props.width
-      height: @props.height if @props.height?
+      width:     @props.width
+      height:    @props.height    if @props.height?
+      maxWidth:  @props.maxWidth  if @props.maxWidth?
+      maxHeight: @props.maxHeight if @props.maxHeight?
 
     div {className: 'dialog-backdrop', onClick: @onBackdropClicked},
       div {ref: 'dialog', className: classes, style},
