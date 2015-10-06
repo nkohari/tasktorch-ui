@@ -1,7 +1,11 @@
-_       = require 'lodash'
-compare = require 'common/util/compare'
+_         = require 'lodash'
+compare   = require 'common/util/compare'
+PropTypes = require 'ui/framework/PropTypes'
 
 CachedState = {
+
+  contextTypes:
+    environment: PropTypes.object
 
   getInitialState: ->
     unless _.isFunction(@getCachedState)
@@ -9,10 +13,10 @@ CachedState = {
     @getCachedState(@getStore)
 
   componentWillMount: ->
-    Environment.cache.addListener('StateChanged', @_syncWithCache)
+    @_getCache().addListener('StateChanged', @_syncWithCache)
 
   componentWillUnmount: ->
-    Environment.cache.removeListener('StateChanged', @_syncWithCache)
+    @_getCache().removeListener('StateChanged', @_syncWithCache)
 
   forceCacheSync: ->
     @_syncWithCache()
@@ -21,7 +25,10 @@ CachedState = {
     @setState patch, => @_syncWithCache()
 
   getStore: (name) ->
-    return Environment.cache.getStore(name)
+    return @_getCache().getStore(name)
+
+  _getCache: ->
+    @context.environment.get('cache')
 
   _syncWithCache: ->
     if @isMounted()

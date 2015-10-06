@@ -6,9 +6,9 @@ class DeleteTeamRequest extends Request
 
   constructor: (@teamid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .del(@urlFor("/#{Environment.orgid}/teams/#{@teamid}"))
+    .del(@urlFor("/#{identity.orgid}/teams/#{@teamid}"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

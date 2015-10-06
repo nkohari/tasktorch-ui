@@ -25,7 +25,7 @@ CardAction = React.createClass {
       @props.action.status.toLowerCase()
     ]
 
-    li {className: classes, 'data-itemid': @props.action.id},
+    li {className: classes, 'data-id': @props.action.id},
       div {className: 'move-handle'}
       CardActionText   {action: @props.action}
       CardActionStatus {action: @props.action}

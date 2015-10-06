@@ -2,7 +2,7 @@
 React            = require 'react'
 classSet         = require 'common/util/classSet'
 PropTypes        = require 'ui/framework/PropTypes'
-ShellContext     = require 'ui/framework/mixins/ShellContext'
+IdentityContext  = require 'ui/framework/mixins/IdentityContext'
 Avatar           = React.createFactory(require 'ui/common/Avatar')
 Icon             = React.createFactory(require 'ui/common/Icon')
 Overlay          = React.createFactory(require 'ui/common/Overlay')
@@ -22,7 +22,7 @@ MembershipEditorItem = React.createClass {
     removeLeader:  PropTypes.func
     removeMember:  PropTypes.func
 
-  mixins: [ShellContext]
+  mixins: [IdentityContext]
 
   getDefaultProps: ->
     {allowEditSelf: true}

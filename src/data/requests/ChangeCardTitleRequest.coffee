@@ -6,9 +6,9 @@ class ChangeCardTitleRequest extends Request
 
   constructor: (@cardid, @title) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/title"))
+    .post(@urlFor("/#{identity.orgid}/cards/#{@cardid}/title"))
     .withCredentials()
     .send {@title}
 

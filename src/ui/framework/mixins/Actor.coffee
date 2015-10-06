@@ -1,20 +1,30 @@
+PropTypes = require 'ui/framework/PropTypes'
+
 Actor = {
 
+  contextTypes:
+    environment: PropTypes.object
+
   componentWillMount: ->
-    if @listensFor?
-      for type in @listensFor
-        func = "on#{type}"
-        unless this[func]?
-          debug.error("Missing event handler definition #{func}() on #{@constructor.displayName}")
-        Environment.eventQueue.addListener(type, this[func])
+    return unless @listensFor?
+    eventQueue = @_getEventQueue()
+    for type in @listensFor
+      func = "on#{type}"
+      unless this[func]?
+        debug.error("Missing event handler definition #{func}() on #{@constructor.displayName}")
+      eventQueue.addListener(type, this[func])
 
   componentDidUnmount: ->
-    if @listensFor?
-      for type in @listensFor
-        Environment.eventQueue.removeListener(type, this["on#{type}"])
+    return unless @listensFor?
+    eventQueue = @_getEventQueue()
+    for type in @listensFor
+      eventQueue.removeListener(type, this["on#{type}"])
 
   publish: (event) ->
-    Environment.eventQueue.publish(event)
+    @_getEventQueue().publish(event)
+
+  _getEventQueue: ->
+    @context.environment.get('eventQueue')
 
 }
 

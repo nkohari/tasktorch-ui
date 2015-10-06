@@ -2,7 +2,7 @@
 React                 = require 'react'
 mergeClasses          = require 'common/util/mergeClasses'
 PropTypes             = require 'ui/framework/PropTypes'
-ShellContext          = require 'ui/framework/mixins/ShellContext'
+IdentityContext       = require 'ui/framework/mixins/IdentityContext'
 AcceptCommandButton   = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/AcceptCommandButton')
 PassCommandButton     = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/PassCommandButton')
 CommentCommandButton  = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/CommentCommandButton')
@@ -18,7 +18,7 @@ InboxCommandBar = React.createClass {
   propTypes:
     card: PropTypes.Card
 
-  mixins: [ShellContext]
+  mixins: [IdentityContext]
 
   render: ->
 

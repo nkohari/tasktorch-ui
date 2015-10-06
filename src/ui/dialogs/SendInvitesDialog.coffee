@@ -5,7 +5,7 @@ UserCreatedInvitesEvent = require 'events/ui/UserCreatedInvitesEvent'
 PropTypes               = require 'ui/framework/PropTypes'
 Actor                   = require 'ui/framework/mixins/Actor'
 CachedState             = require 'ui/framework/mixins/CachedState'
-ShellContext            = require 'ui/framework/mixins/ShellContext'
+IdentityContext         = require 'ui/framework/mixins/IdentityContext'
 Button                  = React.createFactory(require 'ui/common/Button')
 Dialog                  = React.createFactory(require 'ui/common/Dialog')
 DialogFooter            = React.createFactory(require 'ui/common/DialogFooter')
@@ -20,7 +20,7 @@ SendInvitesDialog = React.createClass {
   props:
     closeDialog: PropTypes.func
 
-  mixins: [Actor, CachedState, ShellContext]
+  mixins: [Actor, CachedState, IdentityContext]
 
   getInitialState: ->
     {invites: []}

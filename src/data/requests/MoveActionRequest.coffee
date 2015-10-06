@@ -6,9 +6,9 @@ class MoveActionRequest extends Request
 
   constructor: (@actionid, @checklistid, @position) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/actions/#{@actionid}/move"))
+    .post(@urlFor("/#{identity.orgid}/actions/#{@actionid}/move"))
     .withCredentials()
     .send {checklist: @checklistid, @position}
   

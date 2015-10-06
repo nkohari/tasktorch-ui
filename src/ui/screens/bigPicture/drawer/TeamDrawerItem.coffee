@@ -1,11 +1,13 @@
 #--------------------------------------------------------------------------------
-_              = require 'lodash'
-React          = require 'react'
-classSet       = require 'common/util/classSet'
-PropTypes      = require 'ui/framework/PropTypes'
-Navigator      = require 'ui/framework/mixins/Navigator'
-TeamPanelState = require 'ui/screens/bigPicture/panels/team/TeamPanelState'
-DrawerItem     = React.createFactory(require 'ui/common/DrawerItem')
+_                       = require 'lodash'
+React                   = require 'react'
+classSet                = require 'common/util/classSet'
+UserToggledPanelEvent   = require 'events/ui/UserToggledPanelEvent'
+PropTypes               = require 'ui/framework/PropTypes'
+Actor                   = require 'ui/framework/mixins/Actor'
+ViewContext             = require 'ui/framework/mixins/ViewContext'
+BigPictureTeamPanelSpec = require 'ui/framework/panels/BigPictureTeamPanelSpec'
+DrawerItem              = React.createFactory(require 'ui/common/DrawerItem')
 #--------------------------------------------------------------------------------
 
 TeamDrawerItem = React.createClass {
@@ -15,13 +17,13 @@ TeamDrawerItem = React.createClass {
   propTypes:
     team: PropTypes.Team
 
-  mixins: [Navigator]
+  mixins: [Actor, ViewContext]
 
   render: ->
 
     classes = classSet [
       'team'
-      'active' if @getScreen('bigpicture').isPanelVisible(@props.team.id)
+      'active' if @isPanelOpen(@props.team.id)
     ]
 
     DrawerItem {
@@ -32,7 +34,7 @@ TeamDrawerItem = React.createClass {
     }   
 
   toggleTeam: ->
-    @getScreen('bigpicture').togglePanel(new TeamPanelState(@props.team.id))
+    @publish new UserToggledPanelEvent(new BigPictureTeamPanelSpec(@props.team.id))
 
 }
 

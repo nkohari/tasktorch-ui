@@ -18,7 +18,7 @@ KindStageListItem = React.createClass {
 
   render: ->
 
-    li {className: 'kind-stage-list-item', 'data-itemid': @props.stage.id},
+    li {className: 'kind-stage-list-item', 'data-id': @props.stage.id},
       div {className: 'stage-content'},
         Icon {name: 'checklist'}
         EditableInput {

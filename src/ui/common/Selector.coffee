@@ -1,6 +1,6 @@
 #--------------------------------------------------------------------------------
 _             = require 'lodash'
-React         = require 'react/addons'
+React         = require 'react'
 classSet      = require 'common/util/classSet'
 dom           = require 'common/util/dom'
 PropTypes     = require 'ui/framework/PropTypes'

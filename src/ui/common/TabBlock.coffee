@@ -20,6 +20,12 @@ TabBlock = React.createClass {
   getInitialState: ->
     {selected: @props.selected}
 
+  componentWillMount: ->
+    @tabs = _.flatten [@props.children]
+
+  componentWillReceiveProps: (newProps) ->
+    @tabs = _.flatten [newProps.children]
+
   render: ->
 
     props = mergeProps _.omit(@props, 'selected'), {
@@ -27,7 +33,7 @@ TabBlock = React.createClass {
     }
 
     if not @props.isReady? or @props.isReady()
-      content = _.find @props.children, (child) => child.key == @state.selected
+      content = _.find @tabs, (tab) => tab.key == @state.selected
 
     div props,
       ul {className: 'header'}, @renderHeaders()
@@ -35,13 +41,13 @@ TabBlock = React.createClass {
         content
 
   renderHeaders: ->
-    _.map @props.children, (child) =>
+    _.map @tabs, (tab) =>
       classes = classSet [
         'tab'
-        'active' if @state.selected == child.key
+        'active' if @state.selected == tab.key
       ]
-      li {key: child.key, className: classes, onClick: @onTabClicked.bind(this, child.key)},
-        child.props.title
+      li {key: tab.key, className: classes, onClick: @onTabClicked.bind(this, tab.key)},
+        tab.props.title
 
   onTabClicked: (key, event) ->
     @setState {selected: key}

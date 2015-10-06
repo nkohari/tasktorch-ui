@@ -1,6 +1,6 @@
 #--------------------------------------------------------------------------------
 _                = require 'lodash'
-React            = require 'react/addons'
+React            = require 'react'
 mergeProps       = require 'common/util/mergeProps'
 PropTypes        = require 'ui/framework/PropTypes'
 {div}            = React.DOM

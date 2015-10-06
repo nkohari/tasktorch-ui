@@ -8,9 +8,9 @@ class LoadCardsByStageRequest extends Request
 
   constructor: (@stageid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{Environment.orgid}/stages/#{@stageid}/cards"))
+    .get(@urlFor("/#{identity.orgid}/stages/#{@stageid}/cards"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

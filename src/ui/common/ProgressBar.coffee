@@ -1,6 +1,6 @@
 #--------------------------------------------------------------------------------
 _                = require 'lodash'
-React            = require 'react/addons'
+React            = require 'react'
 CardStatus       = require 'data/enums/CardStatus'
 PropTypes        = require 'ui/framework/PropTypes'
 {div}            = React.DOM

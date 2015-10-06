@@ -44,7 +44,7 @@ ChangeKindWorkflowStageList = React.createClass {
       items
 
   handleUpdate: (event) ->
-    stageid = event.item.getAttribute('data-itemid')
+    stageid = event.item.getAttribute('data-id')
     @setState {dirty: true}
     @publish new UserMovedStageEvent(stageid, event.newIndex)
 

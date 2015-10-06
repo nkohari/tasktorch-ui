@@ -1,10 +1,12 @@
 #--------------------------------------------------------------------------------
 _                 = require 'lodash'
-cookies           = require 'cookies-js'
+{createHistory}   = require 'history'
 React             = require 'react'
-Router            = require 'react-router'
+ReactRouter       = require 'react-router'
 Analytics         = require 'common/Analytics'
 Environment       = require './Environment'
+PropTypes         = require 'ui/framework/PropTypes'
+Identity          = require 'ui/framework/Identity'
 Shell             = require 'ui/shell/Shell'
 NotFoundBanner    = require 'ui/banners/NotFoundBanner'
 ModalContainer    = require 'ui/common/ModalContainer'
@@ -16,51 +18,62 @@ SelectOrgModal    = require 'ui/modals/SelectOrgModal'
 SignUpModal       = require 'ui/modals/SignUpModal'
 WorkspaceScreen   = require 'ui/screens/workspace/WorkspaceScreen'
 BigPictureScreen  = require 'ui/screens/bigPicture/BigPictureScreen'
-StrategyScreen    = require 'ui/screens/strategy/StrategyScreen'
-KnowledgeScreen   = require 'ui/screens/knowledge/KnowledgeScreen'
-Route             = React.createFactory(Router.Route)
-NotFoundRoute     = React.createFactory(Router.NotFoundRoute)
+Router            = React.createFactory(ReactRouter.Router)
+Route             = React.createFactory(ReactRouter.Route)
+{cloneWithProps}  = React.addons
 #--------------------------------------------------------------------------------
 require './App.styl'
 #--------------------------------------------------------------------------------
 
 window.debug = require('common/util/debug')
-window.Environment = environment = new Environment()
 
-routes = [
+App = React.createClass {
 
-  Route {key: 'modal', path: 'x', handler: ModalContainer},
-    Route {name: 'login',        key: 'login',        path: 'login',               handler: LoginModal}
-    Route {name: 'create-org',   key: 'create-org',   path: 'create-org',          handler: CreateOrgModal}
-    Route {name: 'send-invites', key: 'send-invites', path: 'send-invites/:orgid', handler: SendInvitesModal}
-    Route {name: 'select-org',   key: 'select-org',   path: 'select-org',          handler: SelectOrgModal}
-    Route {name: 'invite',       key: 'invite',       path: 'invite/:inviteid',    handler: AcceptInviteModal}
-    Route {name: 'signup',       key: 'signup',       path: 'signup/:tokenid',     handler: SignUpModal}
+  displayName: 'App'
 
-  Route {name: 'shell', key: 'shell', path: ':orgid', handler: Shell},
-    Route {name: 'workspace',    key: 'workspace',    path: 'workspace',        handler: WorkspaceScreen}
-    Route {name: 'bigpicture',   key: 'bigpicture',   path: 'bigpicture',       handler: BigPictureScreen}
-    Route {name: 'strategy',     key: 'strategy',     path: 'strategy',         handler: StrategyScreen}
-    Route {name: 'knowledge',    key: 'knowledge',    path: 'knowledge',        handler: KnowledgeScreen}
+  childContextTypes:
+    environment: PropTypes.object
+    currentView: PropTypes.object
 
-  NotFoundRoute {handler: NotFoundBanner}
-
-]
-
-Router.run routes, Router.HistoryLocation, (handler, state) ->
-
-  environment.orgid  = state.params.orgid
-  environment.userid = cookies.get('tt-userid')
-
-  url = _.extend {}, state, {
-    screen: state.routes[1]?.name
+  getChildContext: -> {
+    environment: @state.environment
+    currentView: @state.environment.get('viewMaster').getCurrentView()
   }
 
-  element = React.createElement(handler, {
-    orgid:  environment.orgid
-    userid: environment.userid
-    url:    url
-  })
+  componentWillMount: ->
+    environment = new Environment(@props.history)
+    viewMaster  = environment.get('viewMaster')
+    viewMaster.setLocation(@props.location)
+    viewMaster.setIdentity(new Identity(@props.params))
+    @setState {environment}
 
-  Analytics.update()
-  React.render(element, document.body)
+  componentWillReceiveProps: (newProps) ->
+    viewMaster = @state.environment.get('viewMaster')
+    viewMaster.setLocation(newProps.location)
+    viewMaster.setIdentity(new Identity(newProps.params))
+
+  componentDidUpdate: ->
+    Analytics.update()
+
+  render: ->
+
+    cloneWithProps @props.children, {
+      identity: @state.environment.get('viewMaster').getIdentity()
+    }
+
+}
+
+router = Router {history: createHistory()},
+  Route {path: '/', component: App},
+    Route {path: 'x', component: ModalContainer},
+      Route {path: 'login',               component: LoginModal}
+      Route {path: 'create-org',          component: CreateOrgModal}
+      Route {path: 'send-invites/:orgid', component: SendInvitesModal}
+      Route {path: 'select-org',          component: SelectOrgModal}
+      Route {path: 'invite/:inviteid',    component: AcceptInviteModal}
+      Route {path: 'signup/:tokenid',     component: SignUpModal}
+    Route {path: ':orgid', component: Shell},
+      Route {name: 'workspace',  path: 'workspace',  component: WorkspaceScreen}
+      Route {name: 'bigpicture', path: 'bigpicture', component: BigPictureScreen}
+
+React.render(router, document.body)

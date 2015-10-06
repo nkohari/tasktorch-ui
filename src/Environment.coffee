@@ -23,7 +23,9 @@ MyOrgsStore             = require 'data/stores/MyOrgsStore'
 MyStacksStore           = require 'data/stores/MyStacksStore'
 MyTeamsStore            = require 'data/stores/MyTeamsStore'
 NotesByCardStore        = require 'data/stores/NotesByCardStore'
+OnlineUsersStore        = require 'data/stores/OnlineUsersStore'
 OrgStore                = require 'data/stores/OrgStore'
+ProfileStore            = require 'data/stores/ProfileStore'
 QueueByUserStore        = require 'data/stores/QueueByUserStore'
 StackStore              = require 'data/stores/StackStore'
 StacksByTeamStore       = require 'data/stores/StacksByTeamStore'
@@ -33,6 +35,7 @@ SuggestedTeamsStore     = require 'data/stores/SuggestedTeamsStore'
 SuggestedUsersStore     = require 'data/stores/SuggestedUsersStore'
 TeamStore               = require 'data/stores/TeamStore'
 TeamsByOrgStore         = require 'data/stores/TeamsByOrgStore'
+TeamsByUserStore        = require 'data/stores/TeamsByUserStore'
 TokenStore              = require 'data/stores/TokenStore'
 UserStore               = require 'data/stores/UserStore'
 UsersByOrgStore         = require 'data/stores/UsersByOrgStore'
@@ -40,14 +43,16 @@ EventQueue              = require 'events/EventQueue'
 MessageBus              = require 'messaging/MessageBus'
 PresenceChannel         = require 'messaging/channels/PresenceChannel'
 RemoteChangesChannel    = require 'messaging/channels/RemoteChangesChannel'
+ViewMaster              = require 'ui/framework/ViewMaster'
 
 class Environment
 
-  constructor: ->
+  constructor: (@history) ->
 
     @eventQueue = new EventQueue()
     @cache      = new Cache(@eventQueue)
-    @processor  = new Processor(@eventQueue)
+    @viewMaster = new ViewMaster(@eventQueue, @history)
+    @processor  = new Processor(@eventQueue, @viewMaster)
     @messageBus = new MessageBus()
 
     createStore = (type) =>
@@ -63,6 +68,7 @@ class Environment
       createStore(KindStore)
       createStore(NoteStore)
       createStore(OrgStore)
+      createStore(ProfileStore)
       createStore(StackStore)
       createStore(StageStore)
       createStore(TeamStore)
@@ -85,13 +91,15 @@ class Environment
       createStore(MyOrgsStore)
       createStore(MyStacksStore)
       createStore(MyTeamsStore)
-      createStore(QueueByUserStore)
+      createStore(OnlineUsersStore)
       createStore(NotesByCardStore)
+      createStore(QueueByUserStore)
       createStore(StacksByTeamStore)
       createStore(StagesByKindStore)
       createStore(SuggestedTeamsStore)
       createStore(SuggestedUsersStore)
       createStore(TeamsByOrgStore)
+      createStore(TeamsByUserStore)
       createStore(UsersByOrgStore)
     ]
 
@@ -99,5 +107,10 @@ class Environment
       remoteChanges: new RemoteChangesChannel(@eventQueue, @messageBus)
       presence:      new PresenceChannel(@eventQueue, @messageBus)
     }
+
+  get: (name) ->
+    unless this[name]?
+      throw new Error("[Environment] Unknown service requested: #{name}")
+    this[name]
 
 module.exports = Environment

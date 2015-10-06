@@ -1,12 +1,14 @@
 #--------------------------------------------------------------------------------
-_         = require 'lodash'
-React     = require 'react'
-classSet  = require 'common/util/classSet'
-PropTypes = require 'ui/framework/PropTypes'
-Navigator = require 'ui/framework/mixins/Navigator'
-Link      = React.createFactory(require 'ui/common/Link')
-Icon      = React.createFactory(require 'ui/common/Icon')
-{li}      = React.DOM
+_                       = require 'lodash'
+React                   = require 'react'
+classSet                = require 'common/util/classSet'
+UserSelectedScreenEvent = require 'events/ui/UserSelectedScreenEvent'
+PropTypes               = require 'ui/framework/PropTypes'
+Actor                   = require 'ui/framework/mixins/Actor'
+ViewContext             = require 'ui/framework/mixins/ViewContext'
+Link                    = React.createFactory(require 'ui/common/Link')
+Icon                    = React.createFactory(require 'ui/common/Icon')
+{li}                    = React.DOM
 #--------------------------------------------------------------------------------
 require './NavigationItem.styl'
 #--------------------------------------------------------------------------------
@@ -15,7 +17,7 @@ NavigationItem = React.createClass {
 
   displayName: 'NavigationItem'
 
-  mixins: [Navigator]
+  mixins: [Actor, ViewContext]
 
   propTypes:
     hotkey: PropTypes.string
@@ -27,7 +29,7 @@ NavigationItem = React.createClass {
     classes = classSet [
       'navigation-item'
       @props.screen
-      'active' if @getCurrentScreen() is @getScreen(@props.screen)
+      'active' if @getCurrentScreen() == @props.screen
     ]
 
     li {className: classes},
@@ -36,7 +38,7 @@ NavigationItem = React.createClass {
         @props.title
 
   showScreen: ->
-    @getScreen(@props.screen).navigate()
+    @publish new UserSelectedScreenEvent(@props.screen)
 
 }
 

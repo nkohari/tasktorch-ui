@@ -6,9 +6,9 @@ Request             = require 'data/framework/Request'
 
 class LoadMyStacksRequest extends Request
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{Environment.orgid}/me/stacks"))
+    .get(@urlFor("/#{identity.orgid}/me/stacks"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

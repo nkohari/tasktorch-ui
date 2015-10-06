@@ -5,7 +5,6 @@ UserCreatedTokensEvent = require 'events/ui/UserCreatedTokensEvent'
 PropTypes              = require 'ui/framework/PropTypes'
 Actor                  = require 'ui/framework/mixins/Actor'
 CachedState            = require 'ui/framework/mixins/CachedState'
-ShellContext           = require 'ui/framework/mixins/ShellContext'
 Button                 = React.createFactory(require 'ui/common/Button')
 Dialog                 = React.createFactory(require 'ui/common/Dialog')
 DialogFooter           = React.createFactory(require 'ui/common/DialogFooter')

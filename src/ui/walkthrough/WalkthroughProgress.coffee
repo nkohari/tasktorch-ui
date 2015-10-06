@@ -1,5 +1,5 @@
 #--------------------------------------------------------------------------------
-React     = require 'react/addons'
+React     = require 'react'
 classSet  = require 'common/util/classSet'
 PropTypes = require 'ui/framework/PropTypes'
 Icon      = React.createFactory(require 'ui/common/Icon')

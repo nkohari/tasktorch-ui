@@ -1,6 +1,6 @@
 .stack.panel
-  width: $stack-panel-width
-  min-width: $stack-panel-width
+  width: $narrow-panel-width
+  min-width: $narrow-panel-width
   
   &.slide-enter
     animation: stack-enter 300ms ease-out
@@ -22,12 +22,12 @@
 @keyframes stack-enter
   0%
     opacity: 0
-    margin-left: -($stack-panel-width + $panel-margin)
+    margin-left: -($narrow-panel-width + $panel-margin)
     margin-right: $panel-margin
   50%
     opacity: 0
-    margin-left: -($stack-panel-width + $panel-margin)
-    margin-right: $stack-panel-width + $panel-margin
+    margin-left: -($narrow-panel-width + $panel-margin)
+    margin-right: $narrow-panel-width + $panel-margin
   100%
     opacity: 1
     margin-left: 0
@@ -39,4 +39,4 @@
     margin-left: 0
   to
     opacity: 0
-    margin-left: -($stack-panel-width + $panel-margin)
+    margin-left: -($narrow-panel-width + $panel-margin)

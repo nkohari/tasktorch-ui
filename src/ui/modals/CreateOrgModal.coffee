@@ -26,7 +26,7 @@ CreateOrgModal = React.createClass {
   propTypes:
     url: PropTypes.object
 
-  mixins: [Router.Navigation]
+  mixins: [Router.History]
 
   getInitialState: -> {
     form: new CreateOrgForm {@onChange}
@@ -76,7 +76,7 @@ CreateOrgModal = React.createClass {
         alert("There was an error creating the organization. Please try again.")
         return
       {org} = res.body
-      @transitionTo('send-invites', {orgid: org.id})
+      @history.pushState(null, "/x/send-invites/#{org.id}")
 
 }
 

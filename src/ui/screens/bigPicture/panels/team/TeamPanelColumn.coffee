@@ -34,7 +34,7 @@ TeamPanelColumn = React.createClass {
 
     BigPictureColumn {},
       div {className: 'header'},
-        Avatar {user: @props.user}
+        Avatar {user: @props.user, size: 38, presence: true}
         div {className: 'content'},
           div {className: 'name'},  @props.user.name
           div {className: 'count'}, "#{count} card#{plural} in queue"

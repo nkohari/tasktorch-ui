@@ -7,7 +7,7 @@ PropTypes                   = require 'ui/framework/PropTypes'
 Actor                       = require 'ui/framework/mixins/Actor'
 CachedState                 = require 'ui/framework/mixins/CachedState'
 LocalStorage                = require 'ui/framework/mixins/LocalStorage'
-ShellContext                = require 'ui/framework/mixins/ShellContext'
+IdentityContext             = require 'ui/framework/mixins/IdentityContext'
 Avatar                      = React.createFactory(require 'ui/common/Avatar')
 Icon                        = React.createFactory(require 'ui/common/Icon')
 Input                       = React.createFactory(require 'ui/common/Input')
@@ -31,7 +31,7 @@ ActionOwnerOverlay = React.createClass {
     action:      PropTypes.Action
     hideOverlay: PropTypes.func
 
-  mixins: [Actor, CachedState, LocalStorage, ShellContext]
+  mixins: [Actor, CachedState, LocalStorage, IdentityContext]
 
   getInitialState: ->
     {text: '', highlighted: undefined}

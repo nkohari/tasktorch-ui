@@ -6,9 +6,9 @@ class CompleteCardRequest extends Request
 
   constructor: (@cardid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/complete"))
+    .post(@urlFor("/#{identity.orgid}/cards/#{@cardid}/complete"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

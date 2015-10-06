@@ -4,7 +4,7 @@ UserOpenedDialogEvent = require 'events/ui/UserOpenedDialogEvent'
 PropTypes             = require 'ui/framework/PropTypes'
 Actor                 = require 'ui/framework/mixins/Actor'
 CachedState           = require 'ui/framework/mixins/CachedState'
-ShellContext          = require 'ui/framework/mixins/ShellContext'
+IdentityContext       = require 'ui/framework/mixins/IdentityContext'
 Button                = React.createFactory(require 'ui/common/Button')
 Icon                  = React.createFactory(require 'ui/common/Icon')
 Dialog                = React.createFactory(require 'ui/common/Dialog')
@@ -24,7 +24,7 @@ ManageKindsDialog = React.createClass {
   propTypes:
     closeDialog: PropTypes.func
 
-  mixins: [Actor, CachedState, ShellContext]
+  mixins: [Actor, CachedState, IdentityContext]
 
   getCachedState: (cache) -> {
     kinds: cache('kindsByOrg').get(@getCurrentOrg().id)

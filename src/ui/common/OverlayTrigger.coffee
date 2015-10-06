@@ -1,7 +1,7 @@
 #--------------------------------------------------------------------------------
 _                  = require 'lodash'
 Keymaster          = require 'keymaster'
-React              = require 'react/addons'
+React              = require 'react'
 PropTypes          = require 'ui/framework/PropTypes'
 classSet           = require 'common/util/classSet'
 mergeProps         = require 'common/util/mergeProps'

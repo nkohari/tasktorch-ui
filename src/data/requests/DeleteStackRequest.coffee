@@ -6,9 +6,9 @@ class DeleteStackRequest extends Request
 
   constructor: (@stackid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .del(@urlFor("/#{Environment.orgid}/stacks/#{@stackid}"))
+    .del(@urlFor("/#{identity.orgid}/stacks/#{@stackid}"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

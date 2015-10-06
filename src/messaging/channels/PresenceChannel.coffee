@@ -19,8 +19,8 @@ class PresenceChannel extends Channel
     channel.bind('pusher:member_removed', @onUserDisconnected, this)
 
   onSubscriptionSucceeded: (message) ->
-    connectedUsers = _.map message.members, (member) -> member
-    @publish new JoinedPresenceChannelEvent(connectedUsers)
+    onlineUsers = _.map message.members, (member) -> member
+    @publish new JoinedPresenceChannelEvent(onlineUsers)
 
   onUserConnected: (message) ->
     @publish new UserConnectedEvent(message.info)

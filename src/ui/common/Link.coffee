@@ -2,7 +2,6 @@
 _          = require 'lodash'
 Keymaster  = require 'keymaster'
 React      = require 'react'
-Router     = require 'react-router'
 PropTypes  = require 'ui/framework/PropTypes'
 {a}        = React.DOM
 #--------------------------------------------------------------------------------
@@ -12,8 +11,6 @@ require './Link.styl'
 Link = React.createClass {
 
   displayName: 'Link'
-
-  mixins: [Router.Navigation]
 
   propTypes:
     isReady: PropTypes.func

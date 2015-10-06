@@ -6,9 +6,9 @@ class ChangeActionStatusRequest extends Request
 
   constructor: (@actionid, @status) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/actions/#{@actionid}/status"))
+    .post(@urlFor("/#{identity.orgid}/actions/#{@actionid}/status"))
     .withCredentials()
     .send {@status}
 

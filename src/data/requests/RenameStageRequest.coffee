@@ -6,9 +6,9 @@ class RenameStageRequest extends Request
 
   constructor: (@stageid, @name) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/stages/#{@stageid}/name"))
+    .post(@urlFor("/#{identity.orgid}/stages/#{@stageid}/name"))
     .withCredentials()
     .send {@name}
   

@@ -8,9 +8,9 @@ class LoadSuggestedUsersRequest extends Request
 
   constructor: (@phrase) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{Environment.orgid}/members?suggest=#{@phrase}"))
+    .get(@urlFor("/#{identity.orgid}/members?suggest=#{@phrase}"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

@@ -6,7 +6,7 @@ Request           = require 'data/framework/Request'
 
 class LoadMyOrgsRequest extends Request
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
     .get(@urlFor("/me/orgs"))
     .withCredentials()

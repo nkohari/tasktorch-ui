@@ -6,8 +6,8 @@ class ChangeKindDescriptionRequest extends Request
 
   constructor: (@kindid, @description) ->
 
-  create: (agent) ->
-    agent.post(@urlFor("/#{Environment.orgid}/kinds/#{@kindid}/description"))
+  create: (identity, agent) ->
+    agent.post(@urlFor("/#{identity.orgid}/kinds/#{@kindid}/description"))
     .withCredentials()
     .send {@description}
 

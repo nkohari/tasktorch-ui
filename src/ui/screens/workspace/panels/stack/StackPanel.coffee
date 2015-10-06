@@ -1,17 +1,14 @@
 #--------------------------------------------------------------------------------
-_               = require 'lodash'
-React           = require 'react'
-mergeProps      = require 'common/util/mergeProps'
-PropTypes       = require 'ui/framework/PropTypes'
-Actor           = require 'ui/framework/mixins/Actor'
-CachedState     = require 'ui/framework/mixins/CachedState'
-Navigator       = require 'ui/framework/mixins/Navigator'
-StackPanelState = require 'ui/screens/workspace/panels/stack/StackPanelState'
-Panel           = React.createFactory(require 'ui/common/Panel')
-StackHeader     = React.createFactory(require 'ui/screens/workspace/panels/stack/StackHeader')
-StackCardList   = React.createFactory(require 'ui/screens/workspace/panels/stack/StackCardList')
-StackFooter     = React.createFactory(require 'ui/screens/workspace/panels/stack/StackFooter')
-{div}           = React.DOM
+_             = require 'lodash'
+React         = require 'react'
+mergeProps    = require 'common/util/mergeProps'
+PropTypes     = require 'ui/framework/PropTypes'
+CachedState   = require 'ui/framework/mixins/CachedState'
+Panel         = React.createFactory(require 'ui/common/Panel')
+StackHeader   = React.createFactory(require 'ui/screens/workspace/panels/stack/StackHeader')
+StackCardList = React.createFactory(require 'ui/screens/workspace/panels/stack/StackCardList')
+StackFooter   = React.createFactory(require 'ui/screens/workspace/panels/stack/StackFooter')
+{div}         = React.DOM
 #--------------------------------------------------------------------------------
 require './StackPanel.styl'
 #--------------------------------------------------------------------------------
@@ -23,9 +20,7 @@ StackPanel = React.createClass {
   propTypes:
     id: PropTypes.id
 
-  mixins: [Actor, CachedState, Navigator]
-
-  listensFor: ['StackDeleted']
+  mixins: [CachedState]
 
   getCachedState: (cache) -> {
     stack: cache('stacks').get(@props.id)
@@ -34,7 +29,7 @@ StackPanel = React.createClass {
 
   render: ->
 
-    props = mergeProps _.omit(@props, 'id'), {
+    props = mergeProps _.omit(@props, 'type'), {
       className: 'stack'
     }
     
@@ -43,10 +38,6 @@ StackPanel = React.createClass {
       div {className: 'content'},
         StackCardList {stack: @state.stack, cards: @state.cards}
       StackFooter {stack: @state.stack}
-
-  onStackDeleted: (event) ->
-    if event.stack.id == @props.id
-      @getScreen('workspace').removePanel(new StackPanelState(event.stack.id))
 
 }
 

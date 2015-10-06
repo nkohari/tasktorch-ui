@@ -19,7 +19,7 @@ KindActionListItem = React.createClass {
 
   render: ->
 
-    li {className: 'kind-action-list-item', 'data-itemid': @props.action.id},
+    li {className: 'kind-action-list-item', 'data-id': @props.action.id},
       div {className: 'action-content'},
         EditableInput {
           className: 'action-text'

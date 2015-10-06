@@ -1,5 +1,5 @@
 #--------------------------------------------------------------------------------
-React     = require 'react/addons'
+React     = require 'react'
 PropTypes = require 'ui/framework/PropTypes'
 Callout   = React.createFactory(require 'ui/walkthrough/Callout')
 {p}       = React.DOM

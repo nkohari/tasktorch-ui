@@ -6,9 +6,9 @@ class RenameKindRequest extends Request
 
   constructor: (@kindid, @name) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/kinds/#{@kindid}/name"))
+    .post(@urlFor("/#{identity.orgid}/kinds/#{@kindid}/name"))
     .withCredentials()
     .send {@name}
   

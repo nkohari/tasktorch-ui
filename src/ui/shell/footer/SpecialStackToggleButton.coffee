@@ -1,20 +1,22 @@
 #--------------------------------------------------------------------------------
-_               = require 'lodash'
-React           = require 'react'
-classSet        = require 'common/util/classSet'
-PropTypes       = require 'ui/framework/PropTypes'
-Navigator       = require 'ui/framework/mixins/Navigator'
-StackPanelState = require 'ui/screens/workspace/panels/stack/StackPanelState'
-Icon            = React.createFactory(require 'ui/common/Icon')
-Link            = React.createFactory(require 'ui/common/Link')
-{span}          = React.DOM
+_                     = require 'lodash'
+React                 = require 'react'
+classSet              = require 'common/util/classSet'
+UserToggledPanelEvent = require 'events/ui/UserToggledPanelEvent'
+PropTypes             = require 'ui/framework/PropTypes'
+Actor                 = require 'ui/framework/mixins/Actor'
+ViewContext           = require 'ui/framework/mixins/ViewContext'
+StackPanelSpec        = require 'ui/framework/panels/StackPanelSpec'
+Icon                  = React.createFactory(require 'ui/common/Icon')
+Link                  = React.createFactory(require 'ui/common/Link')
+{span}                = React.DOM
 #--------------------------------------------------------------------------------
 
 SpecialStackToggleButton = React.createClass {
 
   displayName: 'SpecialStackToggleButton'
 
-  mixins: [Navigator]
+  mixins: [Actor, ViewContext]
 
   propTypes:
     stack:  PropTypes.Stack
@@ -25,7 +27,7 @@ SpecialStackToggleButton = React.createClass {
 
     classes = classSet [
       'button'
-      'active' if @getScreen('workspace').isPanelVisible(@props.stack.id)
+      'active' if @isPanelOpen(@props.stack.id)
     ]
 
     Link {className: classes, hotkey: @props.hotkey, onClick: @toggleStack},
@@ -33,7 +35,7 @@ SpecialStackToggleButton = React.createClass {
       span {className: 'count'}, @props.stack.cards.length
 
   toggleStack: ->
-    @getScreen('workspace').togglePanel(new StackPanelState(@props.stack.id))
+    @publish new UserToggledPanelEvent(new StackPanelSpec(@props.stack.id))
 
 }
 

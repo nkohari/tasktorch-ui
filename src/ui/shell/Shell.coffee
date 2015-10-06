@@ -1,12 +1,14 @@
 #--------------------------------------------------------------------------------
 _                    = require 'lodash'
-React                = require 'react/addons'
+cookies              = require 'cookies-js'
+React                = require 'react'
 Router               = require 'react-router'
+compare              = require 'common/util/compare'
 UserSelectedOrgEvent = require 'events/ui/UserSelectedOrgEvent'
 PropTypes            = require 'ui/framework/PropTypes'
-ScreenState          = require 'ui/framework/ScreenState'
 Actor                = require 'ui/framework/mixins/Actor'
 CachedState          = require 'ui/framework/mixins/CachedState'
+ViewContext          = require 'ui/framework/mixins/ViewContext'
 Frame                = React.createFactory(require 'ui/common/Frame')
 DialogLayer          = React.createFactory(require 'ui/shell/DialogLayer')
 ShellHeader          = React.createFactory(require 'ui/shell/header/ShellHeader')
@@ -15,6 +17,7 @@ Walkthrough          = React.createFactory(require 'ui/walkthrough/Walkthrough')
 RouteHandler         = React.createFactory(Router.RouteHandler)
 CSSTransitionGroup   = React.createFactory(React.addons.CSSTransitionGroup)
 {div}                = React.DOM
+{cloneWithProps}     = React.addons
 #--------------------------------------------------------------------------------
 require './Shell.styl'
 #--------------------------------------------------------------------------------
@@ -24,61 +27,51 @@ Shell = React.createClass {
   displayName: 'Shell'
 
   propTypes:
-    userid: PropTypes.id
-    orgid:  PropTypes.id
-    url:    PropTypes.object
+    identity: PropTypes.object
+
+  mixins: [Actor, CachedState, ViewContext]
+
+  contextTypes:
+    environment: PropTypes.object
 
   childContextTypes:
-    currentOrg:    PropTypes.Org
-    currentUser:   PropTypes.User
-    currentScreen: PropTypes.string
-    screenState:   PropTypes.object
-
-  mixins: [Actor, CachedState, Router.Navigation]
+    currentOrg:  PropTypes.Org
+    currentUser: PropTypes.User
 
   getChildContext: -> {
-    currentScreen: @props.url.screen
-    screenState:   @screenState
-    currentOrg:    @state.currentOrg
-    currentUser:   @state.currentUser
+    currentOrg:  @state.currentOrg
+    currentUser: @state.currentUser
   }
 
   getCachedState: (cache) -> {
     orgs:        cache('myOrgs').get()
-    currentOrg:  cache('orgs').get(@props.orgid)
-    currentUser: cache('users').get(@props.userid)
+    currentOrg:  cache('orgs').get(@props.identity.orgid)
+    currentUser: cache('users').get(@props.identity.userid)
   }
 
   componentWillMount: ->
-    Environment.cache.clear()
-    # TODO: This is all silly garbage and should be put into a Store where it belongs.
-    @screenState = {
-      workspace:  new ScreenState('workspace',  @props.url, @transitionTo)
-      bigpicture: new ScreenState('bigpicture', @props.url, @transitionTo)
-      strategy:   new ScreenState('strategy',   @props.url, @transitionTo)
-      knowledge:  new ScreenState('knowledge',  @props.url, @transitionTo)
-    }
+    @context.environment.get('cache').clear()
 
   componentDidMount: ->
-    @publish new UserSelectedOrgEvent(@props.userid, @props.orgid)
+    @publish new UserSelectedOrgEvent(@props.identity.userid, @props.identity.orgid)
 
   componentWillReceiveProps: (newProps) ->
-    unless @props.userid == newProps.userid and @props.orgid == newProps.orgid
-      @publish new UserSelectedOrgEvent(newProps.userid, newProps.orgid)
+    unless compare.hashes(@props.identity, newProps.identity)
+      @publish new UserSelectedOrgEvent(newProps.identity.userid, newProps.identity.orgid)
 
   isReady: ->
     @state.currentUser? and @state.currentOrg?
 
   render: ->
 
-    screenProps = _.extend @screenState[@props.url.screen], {
-      key: @props.url.screen
+    screen = cloneWithProps @props.children, {
+      key: @getCurrentScreen()
     }
 
     Frame {@isReady, className: 'shell'},
       ShellHeader {}
       CSSTransitionGroup {component: 'div', className: 'shell-main', transitionName: 'navigate'},
-        RouteHandler screenProps
+        screen
       ShellFooter {}
       DialogLayer {}
       div {id: 'intercom', style: {display: 'none'}}

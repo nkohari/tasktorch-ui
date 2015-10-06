@@ -1,15 +1,16 @@
 #--------------------------------------------------------------------------------
-React                         = require 'react/addons'
+React                         = require 'react'
 classSet                      = require 'common/util/classSet'
 UserCompletedWalkthroughEvent = require 'events/ui/UserCompletedWalkthroughEvent'
 UserStartedWalkthroughEvent   = require 'events/ui/UserStartedWalkthroughEvent'
+UserOpenedDrawerEvent         = require 'events/ui/UserOpenedDrawerEvent'
+UserOpenedPanelEvent          = require 'events/ui/UserOpenedPanelEvent'
 StackType                     = require 'data/enums/StackType'
 PropTypes                     = require 'ui/framework/PropTypes'
 Actor                         = require 'ui/framework/mixins/Actor'
 CachedState                   = require 'ui/framework/mixins/CachedState'
-Navigator                     = require 'ui/framework/mixins/Navigator'
-StackPanelState               = require 'ui/screens/workspace/panels/stack/StackPanelState'
-CardPanelState                = require 'ui/screens/workspace/panels/card/CardPanelState'
+CardPanelSpec                 = require 'ui/framework/panels/CardPanelSpec'
+StackPanelSpec                = require 'ui/framework/panels/StackPanelSpec'
 Icon                          = React.createFactory(require 'ui/common/Icon')
 WalkthroughIntro              = React.createFactory(require 'ui/walkthrough/WalkthroughIntro')
 WalkthroughOutro              = React.createFactory(require 'ui/walkthrough/WalkthroughOutro')
@@ -52,7 +53,7 @@ Walkthrough = React.createClass {
 
   displayName: 'Walkthrough'
 
-  mixins: [Actor, CachedState, Navigator]
+  mixins: [Actor, CachedState]
 
   getInitialState: ->
     {slide: -1, panelsReady: false}
@@ -66,7 +67,7 @@ Walkthrough = React.createClass {
     {queue, card}
 
   componentDidUpdate: ->
-    unless @state.panelsReady
+    if @state.queue? and @state.card? and not @state.panelsReady
       @arrangePanels()
       @publish new UserStartedWalkthroughEvent()
       @setState {panelsReady: true}
@@ -96,11 +97,9 @@ Walkthrough = React.createClass {
       @setState {slide: @state.slide + 1}
 
   arrangePanels: ->
-    screen = @getScreen('workspace')
-    screen.showDrawer()
-    screen.addPanel(new CardPanelState(@state.card.id))
-    screen.addPanel(new StackPanelState(@state.queue.id))
-
+    @publish new UserOpenedDrawerEvent()
+    @publish new UserOpenedPanelEvent(new CardPanelSpec(@state.card.id))
+    @publish new UserOpenedPanelEvent(new StackPanelSpec(@state.queue.id))
 
 }
 

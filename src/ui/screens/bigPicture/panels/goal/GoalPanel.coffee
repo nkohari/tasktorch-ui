@@ -1,10 +1,12 @@
 #--------------------------------------------------------------------------------
 _                  = require 'lodash'
-React              = require 'react/addons'
+React              = require 'react'
+mergeProps         = require 'common/util/mergeProps'
 PropTypes          = require 'ui/framework/PropTypes'
 CachedState        = require 'ui/framework/mixins/CachedState'
-ShellContext       = require 'ui/framework/mixins/ShellContext'
+IdentityContext    = require 'ui/framework/mixins/IdentityContext'
 Icon               = React.createFactory(require 'ui/common/Icon')
+Panel              = React.createFactory(require 'ui/common/Panel')
 PanelHeader        = React.createFactory(require 'ui/common/PanelHeader')
 GoalPanelColumn    = React.createFactory(require 'ui/screens/bigPicture/panels/goal/GoalPanelColumn')
 GoalProgressBar    = React.createFactory(require 'ui/screens/bigPicture/panels/goal/GoalProgressBar')
@@ -19,7 +21,7 @@ GoalPanel = React.createClass {
   propTypes:
     id: PropTypes.id
 
-  mixins: [CachedState, ShellContext]
+  mixins: [CachedState, IdentityContext]
 
   getCachedState: (cache) ->
     org   = @getCurrentOrg()
@@ -36,7 +38,11 @@ GoalPanel = React.createClass {
         return unless cardsByKind[kind.id]?.length > 0
         GoalPanelColumn {key: kind.id, kind, cards: cardsByKind[kind.id]}
 
-    div {className: 'big-picture panel'},
+    props = mergeProps _.omit(@props, 'type'), {
+      className: 'big-picture'
+    }
+
+    Panel props,
       PanelHeader {panelid: @props.id, icon: 'goal'},
         @state.goal?.name
       div {className: 'subheader'},

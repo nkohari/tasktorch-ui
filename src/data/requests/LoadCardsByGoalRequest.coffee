@@ -8,9 +8,9 @@ class LoadCardsByGoalRequest extends Request
 
   constructor: (@goalid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{Environment.orgid}/goals/#{@goalid}/cards"))
+    .get(@urlFor("/#{identity.orgid}/goals/#{@goalid}/cards"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

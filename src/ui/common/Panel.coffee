@@ -19,8 +19,8 @@ Panel = React.createClass {
   render: ->
 
     props = mergeProps _.omit(@props, 'id'), {
-      className:     'panel'
-      'data-itemid': @props.id
+      className: 'panel'
+      'data-id': @props.id
     }
 
     if not @props.isReady? or @props.isReady()

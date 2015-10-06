@@ -24,15 +24,15 @@ AcceptInviteModal = React.createClass {
   displayName: 'AcceptInviteModal'
 
   propTypes:
-    url: PropTypes.object
+    params: PropTypes.object
 
-  mixins: [CachedState, Router.Navigation]
+  mixins: [CachedState, Router.History]
 
   getInitialState: ->
     {form: new CreateUserForm {@onChange}}
 
   getCachedState: (cache) ->
-    {invite: cache('invites').get(@props.url.params.inviteid)}
+    {invite: cache('invites').get(@props.params.inviteid)}
 
   render: ->
 
@@ -89,7 +89,7 @@ AcceptInviteModal = React.createClass {
     @forceUpdate()
 
   onLoginClicked: ->
-    @transitionTo('login', null, {from: 'invite', invite: @state.invite.id})
+    @history.pushState(null, 'login', {from: 'invite', invite: @state.invite.id})
 
   onSubmit: (event) ->
 
@@ -116,7 +116,7 @@ AcceptInviteModal = React.createClass {
         if res.forbidden or res.badRequest
           alert("There was an error creating your account. Please try again.")
           return
-        @transitionTo('login', null, {from: 'invite-accepted'})
+        @history.pushState(null, '/x/login', {from: 'invite-accepted'})
 
 }
 

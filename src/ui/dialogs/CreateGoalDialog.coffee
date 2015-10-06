@@ -3,7 +3,7 @@ React                = require 'react'
 UserCreatedGoalEvent = require 'events/ui/UserCreatedGoalEvent'
 PropTypes            = require 'ui/framework/PropTypes'
 Actor                = require 'ui/framework/mixins/Actor'
-ShellContext         = require 'ui/framework/mixins/ShellContext'
+IdentityContext      = require 'ui/framework/mixins/IdentityContext'
 Button               = React.createFactory(require 'ui/common/Button')
 Dialog               = React.createFactory(require 'ui/common/Dialog')
 DialogFooter         = React.createFactory(require 'ui/common/DialogFooter')
@@ -18,7 +18,7 @@ CreateGoalDialog = React.createClass {
   propTypes:
     closeDialog: PropTypes.func
 
-  mixins: [Actor, ShellContext]
+  mixins: [Actor, IdentityContext]
 
   getInitialState: -> {
     name: ''
@@ -48,7 +48,7 @@ CreateGoalDialog = React.createClass {
     @setState {name: event.target.value}
 
   createGoal: ->
-    @publish new UserCreatedGoalEvent(@state.name)
+    @publish new UserCreatedGoalEvent(@getCurrentOrg().id, @state.name)
     @props.closeDialog()
 
 }

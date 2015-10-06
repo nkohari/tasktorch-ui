@@ -16,6 +16,7 @@ EditableInput = React.createClass {
 
   propTypes:
     value: PropTypes.any
+    save:  PropTypes.func
 
   getInitialState: ->
     {dirty: false, previous: @props.value, value: @props.value}

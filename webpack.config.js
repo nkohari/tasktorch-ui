@@ -11,6 +11,7 @@ module.exports = {
       {test: /\.coffee$/, loader: 'coffee-loader'},
       {test: /\.cjsx$/,   loader: 'coffee-loader!cjsx-loader'},
       {test: /\.styl$/,   loader: ExtractTextPlugin.extract('style-loader', 'css-loader!stylus-loader')},
+      {test: /\.json$/,   loader: 'json-loader'},
       {test: /assets/,    loader: 'url-loader?name=static/[name].[ext]'},
     ]
   },
@@ -31,7 +32,11 @@ module.exports = {
     })
   ],
   resolve: {
-    extensions: ['', '.coffee', '.js', '.jsx', '.cjsx'],
+    alias: {
+      "react": __dirname + '/node_modules/react/addons',
+      "react/addons": __dirname + '/node_modules/react/addons',
+    },
+    extensions: ['', '.coffee', '.js', '.json', '.jsx', '.cjsx'],
     modulesDirectories: ['./src', './assets', './style', 'node_modules']
   },
   stylus: {

@@ -6,9 +6,9 @@ class AddCardToGoalRequest extends Request
 
   constructor: (@goalid, @cardid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/goals"))
+    .post(@urlFor("/#{identity.orgid}/cards/#{@cardid}/goals"))
     .withCredentials()
     .send {goal: @goalid}
 

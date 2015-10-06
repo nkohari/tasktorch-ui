@@ -1,6 +1,6 @@
 #--------------------------------------------------------------------------------
 _                    = require 'lodash'
-React                = require 'react/addons'
+React                = require 'react'
 mergeProps           = require 'common/util/mergeProps'
 classSet             = require 'common/util/classSet'
 PropTypes            = require 'ui/framework/PropTypes'
@@ -40,7 +40,7 @@ CardPanel = React.createClass {
 
   render: ->
 
-    props = mergeProps _.omit(@props, 'id'), {
+    props = mergeProps _.omit(@props, 'type'), {
       className: classSet [
         'card'
         @state.card.status.toLowerCase() if @state.card?

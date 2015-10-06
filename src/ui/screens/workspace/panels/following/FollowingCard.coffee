@@ -1,17 +1,18 @@
 #--------------------------------------------------------------------------------
-_                = require 'lodash'
-React            = require 'react'
-classSet         = require 'common/util/classSet'
-PropTypes        = require 'ui/framework/PropTypes'
-CachedState      = require 'ui/framework/mixins/CachedState'
-Navigator        = require 'ui/framework/mixins/Navigator'
-CardPanelState   = require 'ui/screens/workspace/panels/card/CardPanelState'
-Card             = React.createFactory(require 'ui/common/Card')
-CardFollowToggle = React.createFactory(require 'ui/common/CardFollowToggle')
-CardLocation     = React.createFactory(require 'ui/common/CardLocation')
-CardLink         = React.createFactory(require 'ui/common/CardLink')
-CardOwner        = React.createFactory(require 'ui/common/CardOwner')
-{div}            = React.DOM
+_                    = require 'lodash'
+React                = require 'react'
+classSet             = require 'common/util/classSet'
+UserOpenedPanelEvent = require 'events/ui/UserOpenedPanelEvent'
+PropTypes            = require 'ui/framework/PropTypes'
+Actor                = require 'ui/framework/mixins/Actor'
+CachedState          = require 'ui/framework/mixins/CachedState'
+CardPanelSpec        = require 'ui/framework/panels/CardPanelSpec'
+Card                 = React.createFactory(require 'ui/common/Card')
+CardFollowToggle     = React.createFactory(require 'ui/common/CardFollowToggle')
+CardLocation         = React.createFactory(require 'ui/common/CardLocation')
+CardLink             = React.createFactory(require 'ui/common/CardLink')
+CardOwner            = React.createFactory(require 'ui/common/CardOwner')
+{div}                = React.DOM
 #--------------------------------------------------------------------------------
 require './FollowingCard.styl'
 #--------------------------------------------------------------------------------
@@ -23,7 +24,7 @@ FollowingCard = React.createClass {
   propTypes:
     card: PropTypes.Card
 
-  mixins: [CachedState, Navigator]
+  mixins: [Actor, CachedState]
 
   getCachedState: (cache) -> {
     kind:  cache('kinds').get(@props.card.kind)
@@ -46,7 +47,7 @@ FollowingCard = React.createClass {
         CardLink {card: @props.card, onClick: @showCard}
 
   showCard: ->
-    @getScreen('workspace').addPanelAfter('following', new CardPanelState(@props.card.id))
+    @publish new UserOpenedPanelEvent(new CardPanelSpec(@props.card.id), {after: 'following'})
 
 }
 

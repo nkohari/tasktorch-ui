@@ -6,8 +6,8 @@ class ChangeKindColorRequest extends Request
 
   constructor: (@kindid, @color) ->
 
-  create: (agent) ->
-    agent.post(@urlFor("/#{Environment.orgid}/kinds/#{@kindid}/color"))
+  create: (identity, agent) ->
+    agent.post(@urlFor("/#{identity.orgid}/kinds/#{@kindid}/color"))
     .withCredentials()
     .send {@color}
 

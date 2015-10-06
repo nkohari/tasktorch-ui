@@ -6,9 +6,9 @@ class CreateStageRequest extends Request
 
   constructor: (@kindid, @name) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/kinds/#{@kindid}/stages"))
+    .post(@urlFor("/#{identity.orgid}/kinds/#{@kindid}/stages"))
     .withCredentials()
     .send {@name}
   

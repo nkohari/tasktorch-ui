@@ -6,9 +6,9 @@ class RenameStackRequest extends Request
 
   constructor: (@stackid, @name) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/stacks/#{@stackid}/name"))
+    .post(@urlFor("/#{identity.orgid}/stacks/#{@stackid}/name"))
     .withCredentials()
     .send {@name}
   

@@ -6,9 +6,9 @@ class RemoveCardFromGoalRequest extends Request
 
   constructor: (@goalid, @cardid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .del(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/goals/#{@goalid}"))
+    .del(@urlFor("/#{identity.orgid}/cards/#{@cardid}/goals/#{@goalid}"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

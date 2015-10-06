@@ -1,0 +1,34 @@
+.user.panel
+  background: $color-paper
+  width: $normal-panel-width
+  min-width: $normal-panel-width
+  
+  &.slide-enter
+    animation: user-enter 250ms ease-out
+    z-index: $panel-animation-layer
+    
+  &.slide-leave
+    animation: user-leave 200ms linear
+    z-index: $panel-animation-layer  
+
+@keyframes user-enter
+  0%
+    opacity: 0
+    margin-left: -($normal-panel-width + $panel-margin)
+    margin-right: $panel-margin
+  50%
+    opacity: 0
+    margin-left: -($normal-panel-width + $panel-margin)
+    margin-right: $normal-panel-width + $panel-margin
+  100%
+    opacity: 1
+    margin-left: 0
+    margin-right: $panel-margin
+
+@keyframes user-leave
+  from
+    opacity: 1
+    margin-left: 0
+  to
+    opacity: 0
+    margin-left: -($normal-panel-width + $panel-margin)

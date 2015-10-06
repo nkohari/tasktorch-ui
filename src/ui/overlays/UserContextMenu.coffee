@@ -4,9 +4,11 @@ React                = require 'react'
 Router               = require 'react-router'
 GrantType            = require 'data/enums/GrantType'
 Request              = require 'data/framework/Request'
+UserOpenedPanelEvent = require 'events/ui/UserOpenedPanelEvent'
 UserLoggedOutEvent   = require 'events/ui/UserLoggedOutEvent'
 PropTypes            = require 'ui/framework/PropTypes'
 Actor                = require 'ui/framework/mixins/Actor'
+UserPanelSpec        = require 'ui/framework/panels/UserPanelSpec'
 ContextMenu          = React.createFactory(require 'ui/common/ContextMenu')
 ContextMenuSeparator = React.createFactory(require 'ui/common/ContextMenuSeparator')
 DialogTrigger        = React.createFactory(require 'ui/common/DialogTrigger')
@@ -22,14 +24,14 @@ UserContextMenu = React.createClass {
     user:        PropTypes.User
     hideOverlay: PropTypes.func
 
-  mixins: [Actor, Router.Navigation]
+  mixins: [Actor, Router.History]
 
   render: ->
 
     commonItems = [
-      DialogTrigger {name: 'ChangeMyName'},
+      a {onClick: @openProfile},
         Icon {name: 'user'}
-        'Change my name'
+        'Open my profile'
       DialogTrigger {name: 'ChangeMyEmail'},
         Icon {name: 'email'}
         'Change my email'
@@ -53,13 +55,16 @@ UserContextMenu = React.createClass {
       giveTokensItems if @props.user?.canGiveTokens()
       commonItems
 
+  openProfile: ->
+    @publish new UserOpenedPanelEvent(new UserPanelSpec(@props.user.id))
+
   logOut: ->
     @publish new UserLoggedOutEvent()
     superagent
     .post(Request.urlFor('/sessions/logout'))
     .withCredentials()
     .end (err, res) =>
-      @transitionTo('login')
+      @history.pushState(null, '/x/login')
 
 }
 

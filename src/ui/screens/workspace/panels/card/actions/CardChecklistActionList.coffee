@@ -40,17 +40,18 @@ CardChecklistActionList = React.createClass {
   render: ->
 
     items = _.map @state.actions, (action) =>
+      return unless action?
       CardAction {key: action.id, action}
 
     ul {className: 'card-checklist-action-list'}, items
 
   handleUpdate: (event) ->
-    actionid = event.item.getAttribute('data-itemid')
+    actionid = event.item.getAttribute('data-id')
     @setState {dirty: true}
     @publish new UserMovedActionEvent(actionid, @props.checklist.id, event.newIndex)
 
   handleAdd: (event) ->
-    actionid = event.item.getAttribute('data-itemid')
+    actionid = event.item.getAttribute('data-id')
     @setState {dirty: true}
     @publish new UserMovedActionEvent(actionid, @props.checklist.id, event.newIndex)
 

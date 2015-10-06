@@ -4,7 +4,7 @@ Router               = require 'react-router'
 autokey              = require 'common/util/autokey'
 PropTypes            = require 'ui/framework/PropTypes'
 CachedState          = require 'ui/framework/mixins/CachedState'
-ShellContext         = require 'ui/framework/mixins/ShellContext'
+IdentityContext      = require 'ui/framework/mixins/IdentityContext'
 ContextMenu          = React.createFactory(require 'ui/common/ContextMenu')
 ContextMenuSeparator = React.createFactory(require 'ui/common/ContextMenuSeparator')
 DialogTrigger        = React.createFactory(require 'ui/common/DialogTrigger')
@@ -19,7 +19,7 @@ OrgContextMenu = React.createClass {
   propTypes:
     hideOverlay: PropTypes.func
 
-  mixins: [CachedState, ShellContext, Router.Navigation]
+  mixins: [CachedState, IdentityContext, Router.History]
 
   getCachedState: (cache) -> {
     isMemberOfMultipleOrgs: cache('myOrgs').get()?.length > 1
@@ -68,7 +68,7 @@ OrgContextMenu = React.createClass {
       items
 
   switchOrgsClicked: ->
-    @transitionTo('select-org')
+    @history.pushState(null, '/x/select-org')
 
 }
 

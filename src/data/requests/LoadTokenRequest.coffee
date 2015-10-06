@@ -6,7 +6,7 @@ class LoadTokenRequest extends Request
 
   constructor: (@tokenid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
     .get(@urlFor("/tokens/#{@tokenid}"))
     .withCredentials()

@@ -3,7 +3,7 @@ React                 = require 'react'
 UserChangedEmailEvent = require 'events/ui/UserChangedEmailEvent'
 PropTypes             = require 'ui/framework/PropTypes'
 Actor                 = require 'ui/framework/mixins/Actor'
-ShellContext          = require 'ui/framework/mixins/ShellContext'
+IdentityContext       = require 'ui/framework/mixins/IdentityContext'
 Button                = React.createFactory(require 'ui/common/Button')
 Dialog                = React.createFactory(require 'ui/common/Dialog')
 DialogFooter          = React.createFactory(require 'ui/common/DialogFooter')
@@ -18,7 +18,7 @@ ChangeMyEmailDialog = React.createClass {
   propTypes:
     closeDialog: PropTypes.func
 
-  mixins: [Actor, ShellContext]
+  mixins: [Actor, IdentityContext]
 
   getInitialState: -> {
     email: @getCurrentUser().email

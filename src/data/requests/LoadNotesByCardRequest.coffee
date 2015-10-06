@@ -8,9 +8,9 @@ class LoadNotesByCardRequest extends Request
 
   constructor: (@cardid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/notes"))
+    .get(@urlFor("/#{identity.orgid}/cards/#{@cardid}/notes"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

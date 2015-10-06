@@ -6,9 +6,9 @@ class LoadCardRequest extends Request
 
   constructor: (@cardid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{Environment.orgid}/cards/#{@cardid}"))
+    .get(@urlFor("/#{identity.orgid}/cards/#{@cardid}"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

@@ -8,7 +8,7 @@ class LoadKindsByOrgRequest extends Request
 
   constructor: (@orgid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
     .get(@urlFor("/#{@orgid}/kinds"))
     .withCredentials()

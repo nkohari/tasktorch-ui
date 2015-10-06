@@ -11,9 +11,9 @@ class LoadChecklistsByCardRequest extends Request
 
   constructor: (@cardid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/checklists?expand=actions"))
+    .get(@urlFor("/#{identity.orgid}/cards/#{@cardid}/checklists?expand=actions"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

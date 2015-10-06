@@ -1,13 +1,13 @@
 #--------------------------------------------------------------------------------
-_            = require 'lodash'
-React        = require 'react'
-classSet     = require 'common/util/classSet'
-mergeProps   = require 'common/util/mergeProps'
-PropTypes    = require 'ui/framework/PropTypes'
-ShellContext = require 'ui/framework/mixins/ShellContext'
-Avatar       = React.createFactory(require 'ui/common/Avatar')
-Icon         = React.createFactory(require 'ui/common/Icon')
-{div, span}  = React.DOM
+_               = require 'lodash'
+React           = require 'react'
+classSet        = require 'common/util/classSet'
+mergeProps      = require 'common/util/mergeProps'
+PropTypes       = require 'ui/framework/PropTypes'
+IdentityContext = require 'ui/framework/mixins/IdentityContext'
+Avatar          = React.createFactory(require 'ui/common/Avatar')
+Icon            = React.createFactory(require 'ui/common/Icon')
+{div, span}     = React.DOM
 #--------------------------------------------------------------------------------
 require './UserOption.styl'
 #--------------------------------------------------------------------------------
@@ -20,7 +20,7 @@ UserOption = React.createClass {
     value:         PropTypes.User
     isHighlighted: PropTypes.bool
 
-  mixins: [ShellContext]
+  mixins: [IdentityContext]
 
   render: ->
 

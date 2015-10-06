@@ -4,10 +4,10 @@ React                = require 'react'
 UserCreatedTeamEvent = require 'events/ui/UserCreatedTeamEvent'
 PropTypes            = require 'ui/framework/PropTypes'
 Actor                = require 'ui/framework/mixins/Actor'
-ShellContext         = require 'ui/framework/mixins/ShellContext'
+IdentityContext      = require 'ui/framework/mixins/IdentityContext'
 Button               = React.createFactory(require 'ui/common/Button')
 Dialog               = React.createFactory(require 'ui/common/Dialog')
-DialogFooter        = React.createFactory(require 'ui/common/DialogFooter')
+DialogFooter         = React.createFactory(require 'ui/common/DialogFooter')
 Field                = React.createFactory(require 'ui/common/Field')
 Input                = React.createFactory(require 'ui/common/Input')
 MembershipEditor     = React.createFactory(require 'ui/common/MembershipEditor')
@@ -20,7 +20,7 @@ CreateTeamDialog = React.createClass {
   props:
     closeDialog: PropTypes.func
 
-  mixins: [Actor, ShellContext]
+  mixins: [Actor, IdentityContext]
 
   getInitialState: ->
     currentUser = @getCurrentUser()
@@ -82,7 +82,6 @@ CreateTeamDialog = React.createClass {
     @setState {leaders}
 
   createTeam: ->
-    console.log {members: @state.members, leaders: @state.leaders}
     members = _.pluck(@state.members, 'id')
     leaders = _.pluck(@state.leaders, 'id')
     @publish new UserCreatedTeamEvent(@state.name, @state.purpose, members, leaders)

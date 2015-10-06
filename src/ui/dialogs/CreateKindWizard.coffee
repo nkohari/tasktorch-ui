@@ -4,7 +4,7 @@ React                              = require 'react'
 UserCreatedKindEvent               = require 'events/ui/UserCreatedKindEvent'
 PropTypes                          = require 'ui/framework/PropTypes'
 Actor                              = require 'ui/framework/mixins/Actor'
-ShellContext                       = require 'ui/framework/mixins/ShellContext'
+IdentityContext                    = require 'ui/framework/mixins/IdentityContext'
 Button                             = React.createFactory(require 'ui/common/Button')
 Wizard                             = React.createFactory(require 'ui/common/Wizard')
 CreateKindWizardStartPage          = React.createFactory(require 'ui/dialogs/kindWizard/CreateKindWizardStartPage')
@@ -21,7 +21,7 @@ CreateKindWizard = React.createClass {
   props:
     closeDialog: PropTypes.func
 
-  mixins: [Actor, ShellContext]
+  mixins: [Actor, IdentityContext]
 
   getInitialState: -> {
     mode:        'custom'

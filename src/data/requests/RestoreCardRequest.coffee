@@ -6,9 +6,9 @@ class RestoreCardRequest extends Request
 
   constructor: (@cardid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/restore"))
+    .post(@urlFor("/#{identity.orgid}/cards/#{@cardid}/restore"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

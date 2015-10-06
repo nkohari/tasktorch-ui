@@ -30,7 +30,7 @@ TeamMembersDialog = React.createClass {
     team    = cache('teams').get(@props.teamid)
     members = cache('membersByTeam').get(@props.teamid)
     if team? and members?
-      leaders = _.map @state.team.leaders, (id) ->
+      leaders = _.map team.leaders, (id) ->
         _.find members, (u) -> u.id == id
     {members, leaders, team}
 

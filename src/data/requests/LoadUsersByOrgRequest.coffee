@@ -8,7 +8,7 @@ class LoadUsersByOrgRequest extends Request
 
   constructor: (@orgid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
     .get(@urlFor("/#{@orgid}/members"))
     .withCredentials()

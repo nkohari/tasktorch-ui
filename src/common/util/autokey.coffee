@@ -1,4 +1,4 @@
-React            = require 'react/addons'
+React            = require 'react'
 {cloneWithProps} = React.addons
 
 module.exports = autokey = (items...) ->

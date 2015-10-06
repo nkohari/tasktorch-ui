@@ -6,9 +6,9 @@ class CreateActionRequest extends Request
 
   constructor: (@checklistid, @text) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/checklists/#{@checklistid}/actions"))
+    .post(@urlFor("/#{identity.orgid}/checklists/#{@checklistid}/actions"))
     .withCredentials()
     .send {@text}
   

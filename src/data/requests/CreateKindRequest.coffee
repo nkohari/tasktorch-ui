@@ -6,7 +6,7 @@ class CreateKindRequest extends Request
 
   constructor: (@orgid, @name, @description, @color, @stages) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
     .post(@urlFor("/#{@orgid}/kinds"))
     .withCredentials()

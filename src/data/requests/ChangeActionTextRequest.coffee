@@ -6,9 +6,9 @@ class ChangeActionTextRequest extends Request
 
   constructor: (@actionid, @text) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/actions/#{@actionid}/text"))
+    .post(@urlFor("/#{identity.orgid}/actions/#{@actionid}/text"))
     .withCredentials()
     .send {@text}
 

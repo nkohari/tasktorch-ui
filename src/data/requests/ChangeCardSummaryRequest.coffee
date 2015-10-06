@@ -6,9 +6,9 @@ class ChangeCardSummaryRequest extends Request
 
   constructor: (@cardid, @summary) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/summary"))
+    .post(@urlFor("/#{identity.orgid}/cards/#{@cardid}/summary"))
     .withCredentials()
     .send {@summary}
 

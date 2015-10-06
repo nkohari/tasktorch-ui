@@ -1,13 +1,12 @@
 #--------------------------------------------------------------------------------
-_              = require 'lodash'
-React          = require 'react'
-classSet       = require 'common/util/classSet'
-mergeProps     = require 'common/util/mergeProps'
-PropTypes      = require 'ui/framework/PropTypes'
-CachedState    = require 'ui/framework/mixins/CachedState'
-Navigator      = require 'ui/framework/mixins/Navigator'
-CardPanelState = require 'ui/screens/workspace/panels/card/CardPanelState'
-{div, li}      = React.DOM
+_           = require 'lodash'
+React       = require 'react'
+classSet    = require 'common/util/classSet'
+mergeProps  = require 'common/util/mergeProps'
+PropTypes   = require 'ui/framework/PropTypes'
+CachedState = require 'ui/framework/mixins/CachedState'
+ViewContext = require 'ui/framework/mixins/ViewContext'
+{div, li}   = React.DOM
 #--------------------------------------------------------------------------------
 
 Card = React.createClass {
@@ -17,7 +16,7 @@ Card = React.createClass {
   propTypes:
     card: PropTypes.Card
 
-  mixins: [CachedState, Navigator]
+  mixins: [CachedState, ViewContext]
 
   getCachedState: (cache) -> {
     kind: cache('kinds').get(@props.card.kind) if @props.card?
@@ -27,13 +26,13 @@ Card = React.createClass {
 
     classes = classSet [
       'card'
-      'active'                        if @getCurrentScreen().isPanelVisible(@props.card.id)
+      'active'                        if @isPanelOpen(@props.card.id)
       @state.kind.color.toLowerCase() if @state.kind?
     ]
 
     props = mergeProps _.omit(@props, 'card'), {
       className:     classes
-      'data-itemid': @props.card.id
+      'data-id': @props.card.id
     }
 
     li props, 

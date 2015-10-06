@@ -65,6 +65,12 @@ PropTypes.Org = PropTypes.model {
   members: PropTypes.idArray
 }
 
+PropTypes.Profile = PropTypes.model {
+  title:    PropTypes.string
+  bio:      PropTypes.string
+  contacts: PropTypes.arrayOf(PropTypes.object)
+}
+
 PropTypes.Stack = PropTypes.model {
   org:   PropTypes.id
   name:  PropTypes.string

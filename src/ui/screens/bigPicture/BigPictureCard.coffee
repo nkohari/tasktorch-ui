@@ -3,9 +3,10 @@ _                        = require 'lodash'
 React                    = require 'react'
 classSet                 = require 'common/util/classSet'
 CardStatus               = require 'data/enums/CardStatus'
+UserOpenedPanelEvent     = require 'events/ui/UserOpenedPanelEvent'
 PropTypes                = require 'ui/framework/PropTypes'
-Navigator                = require 'ui/framework/mixins/Navigator'
-CardPanelState           = require 'ui/screens/workspace/panels/card/CardPanelState'
+Actor                    = require 'ui/framework/mixins/Actor'
+CardPanelSpec            = require 'ui/framework/panels/CardPanelSpec'
 Card                     = React.createFactory(require 'ui/common/Card')
 NotStartedBigPictureCard = React.createFactory(require './cards/NotStartedBigPictureCard')
 InProgressBigPictureCard = React.createFactory(require './cards/InProgressBigPictureCard')
@@ -23,7 +24,7 @@ BigPictureCard = React.createClass {
   propTypes:
     card: PropTypes.Card
 
-  mixins: [Navigator]
+  mixins: [Actor]
 
   render: ->
 
@@ -45,7 +46,7 @@ BigPictureCard = React.createClass {
       when CardStatus.Complete   then CompleteBigPictureCard   {card: @props.card}
 
   showCard: ->
-    @getScreen('workspace').addPanel(new CardPanelState(@props.card.id))
+    @publish new UserOpenedPanelEvent(new CardPanelSpec(@props.card.id), {screen: 'workspace'})
 
 }
 

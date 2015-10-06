@@ -6,9 +6,9 @@ class ChangeActionOwnerRequest extends Request
 
   constructor: (@actionid, @userid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/actions/#{@actionid}/user"))
+    .post(@urlFor("/#{identity.orgid}/actions/#{@actionid}/user"))
     .withCredentials()
     .send {user: @userid}
 

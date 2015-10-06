@@ -1,13 +1,15 @@
 #--------------------------------------------------------------------------------
-_                   = require 'lodash'
-React               = require 'react'
-classSet            = require 'common/util/classSet'
-PropTypes           = require 'ui/framework/PropTypes'
-Navigator           = require 'ui/framework/mixins/Navigator'
-FollowingPanelState = require 'ui/screens/workspace/panels/following/FollowingPanelState'
-Icon                = React.createFactory(require 'ui/common/Icon')
-Link                = React.createFactory(require 'ui/common/Link')
-{span}              = React.DOM
+_                     = require 'lodash'
+React                 = require 'react'
+classSet              = require 'common/util/classSet'
+UserToggledPanelEvent = require 'events/ui/UserToggledPanelEvent'
+PropTypes             = require 'ui/framework/PropTypes'
+Actor                 = require 'ui/framework/mixins/Actor'
+ViewContext           = require 'ui/framework/mixins/ViewContext'
+FollowingPanelSpec    = require 'ui/framework/panels/FollowingPanelSpec'
+Icon                  = React.createFactory(require 'ui/common/Icon')
+Link                  = React.createFactory(require 'ui/common/Link')
+{span}                = React.DOM
 #--------------------------------------------------------------------------------
 
 FollowingToggleButton = React.createClass {
@@ -17,13 +19,13 @@ FollowingToggleButton = React.createClass {
   propTypes:
     cards: PropTypes.arrayOf(PropTypes.Card)
 
-  mixins: [Navigator]
+  mixins: [Actor, ViewContext]
 
   render: ->
 
     classes = classSet [
       'button'
-      'active' if @getScreen('workspace').isPanelVisible('following')
+      'active' if @isPanelOpen('following')
     ]
 
     Link {className: classes, hotkey: 'f', onClick: @toggleFollowing},
@@ -31,7 +33,7 @@ FollowingToggleButton = React.createClass {
       span {className: 'count'}, @props.cards?.length or 0
 
   toggleFollowing: ->
-    @getScreen('workspace').togglePanel(new FollowingPanelState())
+    @publish new UserToggledPanelEvent(new FollowingPanelSpec())
 
 }
 

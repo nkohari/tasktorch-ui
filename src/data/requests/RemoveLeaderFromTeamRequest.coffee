@@ -6,9 +6,9 @@ class RemoveLeaderFromTeamRequest extends Request
 
   constructor: (@teamid, @userid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .del(@urlFor("/#{Environment.orgid}/teams/#{@teamid}/leaders/#{@userid}"))
+    .del(@urlFor("/#{identity.orgid}/teams/#{@teamid}/leaders/#{@userid}"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

@@ -6,9 +6,9 @@ class RenameTeamRequest extends Request
 
   constructor: (@teamid, @name) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/teams/#{@teamid}/name"))
+    .post(@urlFor("/#{identity.orgid}/teams/#{@teamid}/name"))
     .withCredentials()
     .send {@name}
   

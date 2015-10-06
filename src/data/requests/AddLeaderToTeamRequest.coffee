@@ -6,9 +6,9 @@ class AddLeaderToTeamRequest extends Request
 
   constructor: (@teamid, @userid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/teams/#{@teamid}/leaders"))
+    .post(@urlFor("/#{identity.orgid}/teams/#{@teamid}/leaders"))
     .withCredentials()
     .send {user: @userid}
 

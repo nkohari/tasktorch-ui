@@ -2,12 +2,12 @@ superagent = require 'superagent'
 
 class Processor
 
-  constructor: (@eventQueue) ->
+  constructor: (@eventQueue, @viewMaster) ->
 
   execute: (request) ->
 
     publish = @eventQueue.publish.bind(@eventQueue)
-    req     = request.create(superagent)
+    req     = request.create(@viewMaster.getIdentity(), superagent)
 
     req.end (err, res) =>
       if res.ok

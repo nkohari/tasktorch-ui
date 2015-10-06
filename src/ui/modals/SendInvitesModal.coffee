@@ -6,7 +6,6 @@ InviteStatus            = require 'data/enums/InviteStatus'
 UserCreatedInvitesEvent = require 'events/ui/UserCreatedInvitesEvent'
 PropTypes               = require 'ui/framework/PropTypes'
 Actor                   = require 'ui/framework/mixins/Actor'
-ShellContext            = require 'ui/framework/mixins/ShellContext'
 Button                  = React.createFactory(require 'ui/common/Button')
 Field                   = React.createFactory(require 'ui/common/Field')
 ModalForm               = React.createFactory(require 'ui/common/ModalForm')
@@ -23,12 +22,12 @@ SendInvitesModal = React.createClass {
   displayName: 'SendInvitesModal'
 
   propTypes:
-    url: PropTypes.object
+    params: PropTypes.object
 
-  mixins: [Actor, Router.Navigation, ShellContext]
+  mixins: [Actor, Router.History]
 
   getInitialState: -> {
-    orgid:   @props.url.params?.orgid
+    orgid:   @props.params?.orgid
     invites: []
   }
 
@@ -65,7 +64,7 @@ SendInvitesModal = React.createClass {
     @state.invites.length > 0
 
   transitionToWorkspace: ->
-    @transitionTo('workspace', {orgid: @state.orgid})
+    @history.pushState(null, "/#{@state.orgid}/workspace")
 
   onSubmit: (event) ->
     @publish new UserCreatedInvitesEvent(@state.orgid, @state.invites)

@@ -4,7 +4,6 @@ React                  = require 'react'
 CardStatus             = require 'data/enums/CardStatus'
 PropTypes              = require 'ui/framework/PropTypes'
 CachedState            = require 'ui/framework/mixins/CachedState'
-KindPanelState         = require 'ui/screens/bigPicture/panels/kind/KindPanelState'
 Icon                   = React.createFactory(require 'ui/common/Icon')
 BigPictureColumn       = React.createFactory(require 'ui/screens/bigPicture/BigPictureColumn')
 GoalPanelColumnSection = React.createFactory(require 'ui/screens/bigPicture/panels/goal/GoalPanelColumnSection')
@@ -39,15 +38,12 @@ GoalPanelColumn = React.createClass {
     BigPictureColumn {},
       div {className: 'header'},
         div {className: 'content'},
-          div {className: 'name', onClick: @toggleKind},
+          div {className: 'name'},
             Icon {name: 'card', color: @props.kind.color}
             @props.kind.name
           div {className: 'count'}, "#{count} card#{plural}"
       div {className: 'content'},
         sections
-
-  toggleKind: ->
-    @getScreen('bigpicture').togglePanel(new KindPanelState(@props.kind.id))
 
 }
 

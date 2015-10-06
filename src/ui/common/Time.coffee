@@ -1,10 +1,12 @@
 #--------------------------------------------------------------------------------
-moment     = require 'moment'
+moment     = require 'moment-timezone'
 React      = require 'react'
 mergeProps = require 'common/util/mergeProps'
 PropTypes  = require 'ui/framework/PropTypes'
 {time}     = React.DOM
 #--------------------------------------------------------------------------------
+
+moment.locale(window.navigator.userLanguage ? window.navigator.language)
 
 Time = React.createClass {
 
@@ -12,6 +14,7 @@ Time = React.createClass {
 
   propTypes:
     time:     PropTypes.oneOfType [PropTypes.string, PropTypes.instanceOf(Date)]
+    timezone: PropTypes.string
     format:   PropTypes.string
     relative: PropTypes.bool
 
@@ -21,6 +24,9 @@ Time = React.createClass {
   render: ->
 
     value = moment(@props.time)
+
+    if @props.timezone?
+      value = value.tz(@props.timezone)
 
     if @props.relative
       text = value.fromNow()

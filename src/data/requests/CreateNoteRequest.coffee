@@ -6,9 +6,9 @@ class CreateNoteRequest extends Request
 
   constructor: (@cardid, @type, @content) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/notes"))
+    .post(@urlFor("/#{identity.orgid}/cards/#{@cardid}/notes"))
     .withCredentials()
     .send {@type, @content}
   

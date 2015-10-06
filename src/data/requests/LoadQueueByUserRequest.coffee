@@ -7,9 +7,9 @@ class LoadQueueByUserRequest extends Request
 
   constructor: (@userid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{Environment.orgid}/members/#{@userid}/queue"))
+    .get(@urlFor("/#{identity.orgid}/members/#{@userid}/queue"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

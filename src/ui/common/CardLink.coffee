@@ -1,10 +1,11 @@
 #--------------------------------------------------------------------------------
-React          = require 'react'
-PropTypes      = require 'ui/framework/PropTypes'
-Navigator      = require 'ui/framework/mixins/Navigator'
-CardPanelState = require 'ui/screens/workspace/panels/card/CardPanelState'
-Icon           = React.createFactory(require 'ui/common/Icon')
-{a}            = React.DOM
+React                = require 'react'
+UserOpenedPanelEvent = require 'events/ui/UserOpenedPanelEvent'
+PropTypes            = require 'ui/framework/PropTypes'
+Actor                = require 'ui/framework/mixins/Actor'
+CardPanelSpec        = require 'ui/framework/panels/CardPanelSpec'
+Icon                 = React.createFactory(require 'ui/common/Icon')
+{a}                  = React.DOM
 #--------------------------------------------------------------------------------
 
 CardLink = React.createClass {
@@ -15,7 +16,7 @@ CardLink = React.createClass {
     card:    PropTypes.Card
     onClick: PropTypes.func
 
-  mixins: [Navigator]
+  mixins: [Actor]
 
   render: ->
 
@@ -23,7 +24,7 @@ CardLink = React.createClass {
       Icon {name: 'link'}
 
   showCard: ->
-    @getScreen('workspace').addPanel(new CardPanelState(@props.card.id))
+    @publish new UserOpenedPanelEvent(new CardPanelSpec(@props.card.id))
 
 }
 

@@ -1,12 +1,13 @@
 #--------------------------------------------------------------------------------
-_           = require 'lodash'
-React       = require 'react'
-PropTypes   = require 'ui/framework/PropTypes'
-mergeProps  = require 'common/util/mergeProps'
-StackType   = require 'data/enums/StackType'
-CachedState = require 'ui/framework/mixins/CachedState'
-Pure        = require 'ui/framework/mixins/Pure'
-{span}      = React.DOM
+_               = require 'lodash'
+React           = require 'react'
+PropTypes       = require 'ui/framework/PropTypes'
+mergeProps      = require 'common/util/mergeProps'
+StackType       = require 'data/enums/StackType'
+CachedState     = require 'ui/framework/mixins/CachedState'
+Pure            = require 'ui/framework/mixins/Pure'
+IdentityContext = require 'ui/framework/mixins/IdentityContext'
+{span}          = React.DOM
 #--------------------------------------------------------------------------------
 
 StackName = React.createClass {
@@ -16,7 +17,7 @@ StackName = React.createClass {
   propTypes:
     stack: PropTypes.Stack
 
-  mixins: [CachedState, Pure]
+  mixins: [CachedState, Pure, IdentityContext]
 
   getCachedState: (cache) -> {
     user: cache('users').get(@props.stack.user) if @props.stack?.user?
@@ -36,7 +37,7 @@ StackName = React.createClass {
     if @state.team?
       possessive = @state.team.name
     else
-      if @state.user.id == Environment.userid
+      if @state.user.id == @getCurrentUser().id
         possessive = 'My'
       else
         possessive = "#{@state.user.name}'s"

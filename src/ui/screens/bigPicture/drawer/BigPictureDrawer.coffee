@@ -3,7 +3,7 @@ _                 = require 'lodash'
 React             = require 'react'
 PropTypes         = require 'ui/framework/PropTypes'
 CachedState       = require 'ui/framework/mixins/CachedState'
-ShellContext      = require 'ui/framework/mixins/ShellContext'
+IdentityContext   = require 'ui/framework/mixins/IdentityContext'
 Drawer            = React.createFactory(require 'ui/common/Drawer')
 GoalDrawerSection = React.createFactory(require 'ui/screens/bigPicture/drawer/GoalDrawerSection')
 KindDrawerSection = React.createFactory(require 'ui/screens/bigPicture/drawer/KindDrawerSection')
@@ -15,7 +15,7 @@ BigPictureDrawer = React.createClass {
 
   displayName: 'BigPictureDrawer'
 
-  mixins: [CachedState, ShellContext]
+  mixins: [CachedState, IdentityContext]
 
   getCachedState: (cache) ->
     org = @getCurrentOrg()

@@ -1,10 +1,11 @@
 #--------------------------------------------------------------------------------
-_         = require 'lodash'
-React     = require 'react'
-PropTypes = require 'ui/framework/PropTypes'
-Navigator = require 'ui/framework/mixins/Navigator'
-Icon      = React.createFactory(require 'ui/common/Icon')
-Link      = React.createFactory(require 'ui/common/Link')
+_                    = require 'lodash'
+React                = require 'react'
+UserClosedPanelEvent = require 'events/ui/UserClosedPanelEvent'
+PropTypes            = require 'ui/framework/PropTypes'
+Actor                = require 'ui/framework/mixins/Actor'
+Icon                 = React.createFactory(require 'ui/common/Icon')
+Link                 = React.createFactory(require 'ui/common/Link')
 #--------------------------------------------------------------------------------
 
 PanelCloseLink = React.createClass {
@@ -14,14 +15,14 @@ PanelCloseLink = React.createClass {
   propTypes:
     id: PropTypes.string
 
-  mixins: [Navigator]
+  mixins: [Actor]
 
   render: ->
     Link {className: 'close', onClick: @closePanel},
       Icon {name: 'close'}
 
   closePanel: ->
-    @getCurrentScreen().removePanel(@props.id)
+    @publish new UserClosedPanelEvent(@props.id)
 
 }
 

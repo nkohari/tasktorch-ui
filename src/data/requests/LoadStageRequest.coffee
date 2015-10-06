@@ -6,9 +6,9 @@ class LoadStageRequest extends Request
 
   constructor: (@stageid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{Environment.orgid}/stages/#{@stageid}"))
+    .get(@urlFor("/#{identity.orgid}/stages/#{@stageid}"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

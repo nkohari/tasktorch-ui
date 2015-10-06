@@ -6,7 +6,7 @@ class CreateInviteRequest extends Request
 
   constructor: (@orgid, @invites) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
     .post(@urlFor("/#{@orgid}/invites"))
     .withCredentials()

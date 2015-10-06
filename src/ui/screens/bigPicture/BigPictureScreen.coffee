@@ -1,9 +1,10 @@
 #--------------------------------------------------------------------------------
 _                   = require 'lodash'
-React               = require 'react/addons'
+React               = require 'react'
 PropTypes           = require 'ui/framework/PropTypes'
-ShellContext        = require 'ui/framework/mixins/ShellContext'
-Screen               = React.createFactory(require 'ui/common/Screen')
+ViewContext         = require 'ui/framework/mixins/ViewContext'
+IdentityContext     = require 'ui/framework/mixins/IdentityContext'
+Screen              = React.createFactory(require 'ui/common/Screen')
 BigPicturePanelList = React.createFactory(require 'ui/screens/bigPicture/BigPicturePanelList')
 BigPictureDrawer    = React.createFactory(require 'ui/screens/bigPicture/drawer/BigPictureDrawer')
 CSSTransitionGroup  = React.createFactory(React.addons.CSSTransitionGroup)
@@ -15,10 +16,7 @@ BigPictureScreen = React.createClass {
 
   displayName: 'BigPictureScreen'
 
-  propTypes:
-    drawer: PropTypes.bool
-
-  mixins: [ShellContext]
+  mixins: [ViewContext, IdentityContext]
 
   componentDidMount: ->
     document.title = "TaskTorch | Big Picture | #{@getCurrentOrg().name}"
@@ -27,8 +25,8 @@ BigPictureScreen = React.createClass {
 
     Screen {className: 'big-picture'},
       CSSTransitionGroup {component: 'div', className: 'drawer-container', transitionName: 'slide'},
-        BigPictureDrawer {} if @props.drawer
-      BigPicturePanelList {panels: @props.panels}
+        BigPictureDrawer {} if @isDrawerOpen()
+      BigPicturePanelList {panels: @getOpenPanels()}
 
 }
 

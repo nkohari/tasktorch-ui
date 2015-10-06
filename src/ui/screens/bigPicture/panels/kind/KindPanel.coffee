@@ -1,9 +1,11 @@
 #--------------------------------------------------------------------------------
 _                  = require 'lodash'
-React              = require 'react/addons'
+React              = require 'react'
+mergeProps         = require 'common/util/mergeProps'
 PropTypes          = require 'ui/framework/PropTypes'
 CachedState        = require 'ui/framework/mixins/CachedState'
 Icon               = React.createFactory(require 'ui/common/Icon')
+Panel              = React.createFactory(require 'ui/common/Panel')
 PanelHeader        = React.createFactory(require 'ui/common/PanelHeader')
 KindPanelColumn    = React.createFactory(require 'ui/screens/bigPicture/panels/kind/KindPanelColumn')
 CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
@@ -31,7 +33,11 @@ KindPanel = React.createClass {
 
     icon = Icon {name: 'card', color: @state.kind?.color}
 
-    div {className: 'big-picture panel'},
+    props = mergeProps _.omit(@props, 'type'), {
+      className: 'big-picture'
+    }
+
+    Panel props,
       PanelHeader {panelid: @props.id, icon},
         @state.kind?.name
       div {className: 'content'}, columns

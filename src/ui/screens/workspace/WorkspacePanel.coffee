@@ -1,14 +1,15 @@
 #--------------------------------------------------------------------------------
-_                   = require 'lodash'
-React               = require 'react'
-mergeProps          = require 'common/util/mergeProps'
-PropTypes           = require 'ui/framework/PropTypes'
-StackPanelState     = require 'ui/screens/workspace/panels/stack/StackPanelState'
-CardPanelState      = require 'ui/screens/workspace/panels/card/CardPanelState'
-FollowingPanelState = require 'ui/screens/workspace/panels/following/FollowingPanelState'
-StackPanel          = React.createFactory(require 'ui/screens/workspace/panels/stack/StackPanel')
-CardPanel           = React.createFactory(require 'ui/screens/workspace/panels/card/CardPanel')
-FollowingPanel      = React.createFactory(require 'ui/screens/workspace/panels/following/FollowingPanel')
+_                  = require 'lodash'
+React              = require 'react'
+PropTypes          = require 'ui/framework/PropTypes'
+CardPanelSpec      = require 'ui/framework/panels/CardPanelSpec'
+FollowingPanelSpec = require 'ui/framework/panels/FollowingPanelSpec'
+StackPanelSpec     = require 'ui/framework/panels/StackPanelSpec'
+UserPanelSpec      = require 'ui/framework/panels/UserPanelSpec'
+CardPanel          = React.createFactory(require 'ui/screens/workspace/panels/card/CardPanel')
+FollowingPanel     = React.createFactory(require 'ui/screens/workspace/panels/following/FollowingPanel')
+StackPanel         = React.createFactory(require 'ui/screens/workspace/panels/stack/StackPanel')
+UserPanel          = React.createFactory(require 'ui/screens/workspace/panels/user/UserPanel')
 #--------------------------------------------------------------------------------
 
 WorkspacePanel = React.createClass {
@@ -16,18 +17,26 @@ WorkspacePanel = React.createClass {
   displayName: 'WorkspacePanel'
 
   propTypes:
-    type: PropTypes.string
+    spec: PropTypes.object
+
+  childContextTypes:
+    currentPanel: PropTypes.object
+
+  getChildContext: ->
+    {currentPanel: @props.spec}
 
   render: ->
 
-    props = mergeProps _.omit(@props, 'type'), {
-      'data-itemid': @props.id
-    }
-
-    switch @props.type
-      when StackPanelState.type     then StackPanel(props)
-      when CardPanelState.type      then CardPanel(props)
-      when FollowingPanelState.type then FollowingPanel(props)
+    if @props.spec instanceof CardPanelSpec
+      CardPanel(@props.spec)
+    else if @props.spec instanceof FollowingPanelSpec
+      FollowingPanel(@props.spec)
+    else if @props.spec instanceof StackPanelSpec
+      StackPanel(@props.spec)
+    else if @props.spec instanceof UserPanelSpec
+      UserPanel(@props.spec)
+    else
+      throw new Error("Unknown panel spec #{@props.spec.constructor.name}")
 
 }
 

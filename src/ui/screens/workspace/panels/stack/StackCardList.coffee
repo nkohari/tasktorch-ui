@@ -46,12 +46,12 @@ StackCardList = React.createClass {
     ul {className: 'stack-card-list'}, items
 
   handleUpdate: (event) ->
-    cardid = event.item.getAttribute('data-itemid')
+    cardid = event.item.getAttribute('data-id')
     @setState {dirty: true}
     @publish new UserMovedCardEvent(cardid, @props.stack.id, event.newIndex)
 
   handleAdd: (event) ->
-    cardid = event.item.getAttribute('data-itemid')
+    cardid = event.item.getAttribute('data-id')
     @setState {dirty: true}
     @publish new UserMovedCardEvent(cardid, @props.stack.id, event.newIndex)
 

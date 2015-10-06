@@ -6,7 +6,7 @@ class ChangeMyEmailRequest extends Request
 
   constructor: (@email) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
     .post(@urlFor("/me/email"))
     .withCredentials()

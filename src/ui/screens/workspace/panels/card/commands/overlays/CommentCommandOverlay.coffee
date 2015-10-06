@@ -5,7 +5,7 @@ KeyCode                 = require 'ui/framework/KeyCode'
 PropTypes               = require 'ui/framework/PropTypes'
 Actor                   = require 'ui/framework/mixins/Actor'
 CommandContext          = require 'ui/framework/mixins/CommandContext'
-ShellContext            = require 'ui/framework/mixins/ShellContext'
+IdentityContext         = require 'ui/framework/mixins/IdentityContext'
 Avatar                  = React.createFactory(require 'ui/common/Avatar')
 Button                  = React.createFactory(require 'ui/common/Button')
 TextArea                = React.createFactory(require 'ui/common/TextArea')
@@ -22,7 +22,7 @@ CommentCommandOverlay = React.createClass {
   propTypes:
     card: PropTypes.Card
 
-  mixins: [Actor, CommandContext, ShellContext]
+  mixins: [Actor, CommandContext, IdentityContext]
 
   getInitialState: ->
     {text: ''}
@@ -38,7 +38,7 @@ CommentCommandOverlay = React.createClass {
 
     CardCommandOverlay {className: 'create-comment', buttons},
       div {className: 'create-comment-form'},
-        Avatar {className: 'comment-user', user: @getCurrentUser()}
+        Avatar {className: 'comment-user', user: @getCurrentUser(), size: 32}
         TextArea {
           ref: 'textarea'
           flexible: true

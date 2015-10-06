@@ -10,7 +10,7 @@ NotFoundBanner = React.createClass {
 
   displayName: 'NotFoundBanner'
 
-  mixins: [Router.Navigation]
+  mixins: [Router.History]
 
   render: ->
 
@@ -22,7 +22,7 @@ NotFoundBanner = React.createClass {
         a {onClick: @goBackClicked}, "Back to log in"
 
   goBackClicked: ->
-    @transitionTo('login')
+    @history.pushState(null, '/x/login')
 
 }
 

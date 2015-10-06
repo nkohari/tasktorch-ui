@@ -2,6 +2,7 @@
 _             = require 'lodash'
 React         = require 'react'
 Router        = require 'react-router'
+PropTypes     = require 'ui/framework/PropTypes'
 CachedState   = require 'ui/framework/mixins/CachedState'
 Icon          = React.createFactory(require 'ui/common/Icon')
 Modal         = React.createFactory(require 'ui/common/Modal')
@@ -15,15 +16,19 @@ SelectOrgModal = React.createClass {
 
   displayName: 'SelectOrgModal'
 
-  mixins: [CachedState, Router.Navigation]
+  contextTypes:
+    environment: PropTypes.object
+
+  mixins: [CachedState, Router.History]
 
   getCachedState: (cache) -> {
     orgs: cache('myOrgs').get()
   }
 
   componentWillMount: ->
-    Environment.cache.clear()
-    Environment.messageBus.reset()
+    @context.environment.get('cache').clear()
+    @context.environment.get('viewMaster').reset()
+    @context.environment.get('messageBus').reset()
 
   render: ->
 
@@ -42,7 +47,7 @@ SelectOrgModal = React.createClass {
         "Which organization would you like to view?"
 
   selectOrg: (org) ->
-    @transitionTo('workspace', {orgid: org.id})
+    @history.pushState(null, "/#{org.id}/workspace")
 
 }
 

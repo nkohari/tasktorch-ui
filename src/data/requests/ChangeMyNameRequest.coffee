@@ -6,7 +6,7 @@ class ChangeMyNameRequest extends Request
 
   constructor: (@name) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
     .post(@urlFor("/me/name"))
     .withCredentials()

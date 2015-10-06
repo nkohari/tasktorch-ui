@@ -1,11 +1,13 @@
 #--------------------------------------------------------------------------------
-_                  = require 'lodash'
-React              = require 'react/addons'
-Navigator          = require 'ui/framework/mixins/Navigator'
-PropTypes          = require 'ui/framework/PropTypes'
-BigPicturePanel    = React.createFactory(require 'ui/screens/bigPicture/BigPicturePanel')
-CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
-{div}              = React.DOM
+_                   = require 'lodash'
+React               = require 'react'
+SortableMixin       = require 'sortablejs/react-sortable-mixin'
+UserMovedPanelEvent = require 'events/ui/UserMovedPanelEvent'
+PropTypes           = require 'ui/framework/PropTypes'
+Actor               = require 'ui/framework/mixins/Actor'
+BigPicturePanel     = React.createFactory(require 'ui/screens/bigPicture/BigPicturePanel')
+CSSTransitionGroup  = React.createFactory(React.addons.CSSTransitionGroup)
+{div}               = React.DOM
 #--------------------------------------------------------------------------------
 
 BigPicturePanelList = React.createClass {
@@ -15,16 +17,26 @@ BigPicturePanelList = React.createClass {
   propTypes:
     panels: PropTypes.array
 
-  mixins: [Navigator]
+  mixins: [Actor, SortableMixin]
+
+  sortableOptions:
+    model:  'panels'
+    handle: '.panel-header'
+
+  getInitialState: ->
+    {panels: @props.panels}
 
   render: ->
 
-    panels = _.map @props.panels, (panelProps) =>
-      props = _.extend {key: panelProps.id}, panelProps
-      BigPicturePanel(props)
+    panels = _.map @state.panels, (spec) =>
+      BigPicturePanel {key: spec.id, spec}
 
     CSSTransitionGroup {component: 'div', className: 'content', transitionName: 'slide'},
       panels
+
+  handleUpdate: (event) ->
+    panelid = event.item.getAttribute('data-id')
+    @publish new UserMovedPanelEvent(panelid, event.newIndex)
 
 }
 

@@ -1,12 +1,13 @@
 #--------------------------------------------------------------------------------
-_              = require 'lodash'
-moment         = require 'moment'
-React          = require 'react'
-PropTypes      = require 'ui/framework/PropTypes'
-Navigator      = require 'ui/framework/mixins/Navigator'
-CardPanelState = require 'ui/screens/workspace/panels/card/CardPanelState'
-Card           = React.createFactory(require 'ui/common/Card')
-{div}          = React.DOM
+_                    = require 'lodash'
+moment               = require 'moment'
+React                = require 'react'
+UserOpenedPanelEvent = require 'events/ui/UserOpenedPanelEvent'
+PropTypes            = require 'ui/framework/PropTypes'
+Actor                = require 'ui/framework/mixins/Actor'
+CardPanelSpec        = require 'ui/framework/panels/CardPanelSpec'
+Card                 = React.createFactory(require 'ui/common/Card')
+{div}                = React.DOM
 #--------------------------------------------------------------------------------
 require './StackCard.styl'
 #--------------------------------------------------------------------------------
@@ -19,7 +20,7 @@ StackCard = React.createClass {
     card:  PropTypes.Card
     stack: PropTypes.Stack
 
-  mixins: [Navigator]
+  mixins: [Actor]
 
   render: ->
 
@@ -28,7 +29,7 @@ StackCard = React.createClass {
         @props.card.title or 'Untitled Card'
 
   showCard: ->
-    @getScreen('workspace').addPanelAfter(@props.stack.id, new CardPanelState(@props.card.id))
+    @publish new UserOpenedPanelEvent(new CardPanelSpec(@props.card.id), {after: @props.stack.id})
 
 }
 

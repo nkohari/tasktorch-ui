@@ -6,9 +6,9 @@ class RemoveMemberFromTeamRequest extends Request
 
   constructor: (@teamid, @userid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .del(@urlFor("/#{Environment.orgid}/teams/#{@teamid}/members/#{@userid}"))
+    .del(@urlFor("/#{identity.orgid}/teams/#{@teamid}/members/#{@userid}"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

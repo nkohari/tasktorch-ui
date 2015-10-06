@@ -6,9 +6,9 @@ class AcceptCardRequest extends Request
 
   constructor: (@cardid, @preempt) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/accept"))
+    .post(@urlFor("/#{identity.orgid}/cards/#{@cardid}/accept"))
     .withCredentials()
     .send {@preempt}
 

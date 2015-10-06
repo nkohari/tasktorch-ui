@@ -6,7 +6,7 @@ class LoadOrgRequest extends Request
 
   constructor: (@orgid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
     .get(@urlFor("/#{@orgid}"))
     .withCredentials()

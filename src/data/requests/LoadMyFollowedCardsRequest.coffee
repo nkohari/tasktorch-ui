@@ -12,9 +12,9 @@ Request                    = require 'data/framework/Request'
 
 class LoadMyFollowedCardsRequest extends Request
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{Environment.orgid}/me/following?expand=user,team,stack"))
+    .get(@urlFor("/#{identity.orgid}/me/following?expand=user,team,stack"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

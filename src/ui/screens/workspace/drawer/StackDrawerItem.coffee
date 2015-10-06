@@ -1,14 +1,16 @@
 #--------------------------------------------------------------------------------
-_               = require 'lodash'
-React           = require 'react'
-classSet        = require 'common/util/classSet'
-StackType       = require 'data/enums/StackType'
-PropTypes       = require 'ui/framework/PropTypes'
-Navigator       = require 'ui/framework/mixins/Navigator'
-StackPanelState = require 'ui/screens/workspace/panels/stack/StackPanelState'
-DrawerItem      = React.createFactory(require 'ui/common/DrawerItem')
-Icon            = React.createFactory(require 'ui/common/Icon')
-{span}          = React.DOM
+_                     = require 'lodash'
+React                 = require 'react'
+classSet              = require 'common/util/classSet'
+StackType             = require 'data/enums/StackType'
+UserToggledPanelEvent = require 'events/ui/UserToggledPanelEvent'
+PropTypes             = require 'ui/framework/PropTypes'
+Actor                 = require 'ui/framework/mixins/Actor'
+ViewContext           = require 'ui/framework/mixins/ViewContext'
+StackPanelSpec        = require 'ui/framework/panels/StackPanelSpec'
+DrawerItem            = React.createFactory(require 'ui/common/DrawerItem')
+Icon                  = React.createFactory(require 'ui/common/Icon')
+{span}                = React.DOM
 #--------------------------------------------------------------------------------
 
 StackDrawerItem = React.createClass {
@@ -18,13 +20,13 @@ StackDrawerItem = React.createClass {
   propTypes:
     stack: PropTypes.Stack
 
-  mixins: [Navigator]
+  mixins: [Actor, ViewContext]
 
   render: ->
 
     classes = classSet [
       'stack'
-      'active' if @getScreen('workspace').isPanelVisible(@props.stack.id)
+      'active' if @isPanelOpen(@props.stack.id)
     ]
 
     DrawerItem {
@@ -43,7 +45,7 @@ StackDrawerItem = React.createClass {
       @props.stack.type
 
   toggleStack: ->
-    @getScreen('workspace').togglePanel(new StackPanelState(@props.stack.id))
+    @publish new UserToggledPanelEvent(new StackPanelSpec(@props.stack.id))
 
 }
 

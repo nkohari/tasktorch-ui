@@ -6,7 +6,7 @@ class LoadInviteRequest extends Request
 
   constructor: (@inviteid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
     .get(@urlFor("/invites/#{@inviteid}"))
     .withCredentials()

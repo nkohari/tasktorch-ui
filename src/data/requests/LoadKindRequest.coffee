@@ -6,9 +6,9 @@ class LoadKindRequest extends Request
 
   constructor: (@kindid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{Environment.orgid}/kinds/#{@kindid}"))
+    .get(@urlFor("/#{identity.orgid}/kinds/#{@kindid}"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

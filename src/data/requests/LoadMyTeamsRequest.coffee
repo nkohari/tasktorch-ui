@@ -6,9 +6,9 @@ Request            = require 'data/framework/Request'
 
 class LoadMyTeamsRequest extends Request
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{Environment.orgid}/me/teams"))
+    .get(@urlFor("/#{identity.orgid}/me/teams"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

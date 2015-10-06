@@ -8,9 +8,9 @@ class LoadStagesByKindRequest extends Request
 
   constructor: (@kindid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{Environment.orgid}/kinds/#{@kindid}/stages"))
+    .get(@urlFor("/#{identity.orgid}/kinds/#{@kindid}/stages"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

@@ -6,9 +6,9 @@ class LoadGoalRequest extends Request
 
   constructor: (@goalid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{Environment.orgid}/goals/#{@goalid}"))
+    .get(@urlFor("/#{identity.orgid}/goals/#{@goalid}"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

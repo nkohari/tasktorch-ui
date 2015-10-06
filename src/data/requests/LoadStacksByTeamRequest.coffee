@@ -8,9 +8,9 @@ class LoadStacksByTeamRequest extends Request
 
   constructor: (@teamid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{Environment.orgid}/teams/#{@teamid}/stacks"))
+    .get(@urlFor("/#{identity.orgid}/teams/#{@teamid}/stacks"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

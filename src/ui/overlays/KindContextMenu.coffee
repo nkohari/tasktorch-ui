@@ -2,7 +2,6 @@
 React                = require 'react'
 PropTypes            = require 'ui/framework/PropTypes'
 CachedState          = require 'ui/framework/mixins/CachedState'
-ShellContext         = require 'ui/framework/mixins/ShellContext'
 ContextMenu          = React.createFactory(require 'ui/common/ContextMenu')
 ContextMenuSeparator = React.createFactory(require 'ui/common/ContextMenuSeparator')
 DialogTrigger        = React.createFactory(require 'ui/common/DialogTrigger')
@@ -17,7 +16,7 @@ KindContextMenu = React.createClass {
     kindid:      PropTypes.string
     hideOverlay: PropTypes.func
 
-  mixins: [CachedState, ShellContext]
+  mixins: [CachedState]
 
   getCachedState: (cache) -> {
     kind: cache('kinds').get(@props.kindid)

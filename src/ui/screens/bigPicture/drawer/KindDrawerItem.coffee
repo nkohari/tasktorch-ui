@@ -1,12 +1,14 @@
 #--------------------------------------------------------------------------------
-_              = require 'lodash'
-React          = require 'react'
-classSet       = require 'common/util/classSet'
-PropTypes      = require 'ui/framework/PropTypes'
-Navigator      = require 'ui/framework/mixins/Navigator'
-KindPanelState = require 'ui/screens/bigPicture/panels/kind/KindPanelState'
-DrawerItem     = React.createFactory(require 'ui/common/DrawerItem')
-Icon           = React.createFactory(require 'ui/common/Icon')
+_                       = require 'lodash'
+React                   = require 'react'
+classSet                = require 'common/util/classSet'
+UserToggledPanelEvent   = require 'events/ui/UserToggledPanelEvent'
+PropTypes               = require 'ui/framework/PropTypes'
+Actor                   = require 'ui/framework/mixins/Actor'
+ViewContext             = require 'ui/framework/mixins/ViewContext'
+BigPictureKindPanelSpec = require 'ui/framework/panels/BigPictureKindPanelSpec'
+DrawerItem              = React.createFactory(require 'ui/common/DrawerItem')
+Icon                    = React.createFactory(require 'ui/common/Icon')
 #--------------------------------------------------------------------------------
 
 KindDrawerItem = React.createClass {
@@ -16,13 +18,13 @@ KindDrawerItem = React.createClass {
   propTypes:
     kind: PropTypes.Kind
 
-  mixins: [Navigator]
+  mixins: [Actor, ViewContext]
 
   render: ->
 
     classes = classSet [
       'kind'
-      'active' if @getScreen('bigpicture').isPanelVisible(@props.kind.id)
+      'active' if @isPanelOpen(@props.kind.id)
     ]
 
     DrawerItem {
@@ -33,7 +35,7 @@ KindDrawerItem = React.createClass {
     }    
 
   toggleKind: ->
-    @getScreen('bigpicture').togglePanel(new KindPanelState(@props.kind.id))
+    @publish new UserToggledPanelEvent(new BigPictureKindPanelSpec(@props.kind.id))
 
 }
 

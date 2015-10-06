@@ -11,47 +11,52 @@ class ModelStore extends Store
     @models = {}
     @states = {}
 
-  get: (id) ->
-    model = @models[id]
+  key: (model) ->
+    # By default, ModelStore just provides a map between the model's primary key (id)
+    # and the model. Subclasses can override this to key on a custom property.
+    model.id
+
+  get: (key) ->
+    model = @models[key]
     if model?
       return model
     else
-      if @states[id] != ReadyState.Loading
-        debug.log("#{@displayName}: Cache miss on #{id}")
-        @states[id] = ReadyState.Loading
-        @load(id)
+      if @states[key] != ReadyState.Loading
+        debug.log("#{@displayName}: Cache miss on #{key}")
+        @states[key] = ReadyState.Loading
+        @load(key)
       return undefined
 
   # TODO: This is inefficient; it'll make a separate call for each cache miss.
   # We should roll this up into a bulk-get request.
-  getAll: (ids) ->
-    _.compact _.map ids, (id) => @get(id)
+  getAll: (keys) ->
+    _.compact _.map keys, (key) => @get(key)
 
-  set: (id, model) ->
-    if compare.values(model, @models[id])
+  set: (key, model) ->
+    if compare.values(model, @models[key])
       debug.log("#{@displayName}: Ignoring set() for %O", model)
     else
-      @models[id] = model
-      @states[id] = ReadyState.Loaded
+      @models[key] = model
+      @states[key] = ReadyState.Loaded
       @announce()
     return
 
   add: (models...) ->
     changed = false
     for model in _.flatten(models)
-      id = model.id
-      if compare.values(model, @models[id])
+      key = @key(model)
+      if compare.values(model, @models[key])
         debug.log("#{@displayName}: Ignoring add() for %O", model)
       else
-        @models[id] = model
-        @states[id] = ReadyState.Loaded
+        @models[key] = model
+        @states[key] = ReadyState.Loaded
         changed = true
     @announce() if changed
     return
 
-  remove: (id) ->
-    @models[id] = undefined
-    @states[id] = undefined
+  remove: (key) ->
+    @models[key] = undefined
+    @states[key] = undefined
     @announce()
 
   clear: ->

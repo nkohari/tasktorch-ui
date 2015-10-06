@@ -1,6 +1,6 @@
 PropTypes = require 'ui/framework/PropTypes'
 
-ShellContext = {
+IdentityContext = {
 
   contextTypes:
     currentOrg:  PropTypes.Org
@@ -14,4 +14,4 @@ ShellContext = {
 
 }
 
-module.exports = ShellContext
+module.exports = IdentityContext

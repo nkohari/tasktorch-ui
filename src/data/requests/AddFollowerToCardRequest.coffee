@@ -6,9 +6,9 @@ class AddFollowerToCardRequest extends Request
 
   constructor: (@cardid, @userid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/followers"))
+    .post(@urlFor("/#{identity.orgid}/cards/#{@cardid}/followers"))
     .withCredentials()
     .send {user: @userid}
 

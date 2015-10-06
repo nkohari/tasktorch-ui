@@ -6,9 +6,9 @@ class MoveCardRequest extends Request
 
   constructor: (@cardid, @stackid, @position) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/move"))
+    .post(@urlFor("/#{identity.orgid}/cards/#{@cardid}/move"))
     .withCredentials()
     .send {stack: @stackid, @position}
   

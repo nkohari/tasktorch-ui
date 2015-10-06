@@ -6,9 +6,9 @@ class CreateUserStackRequest extends Request
 
   constructor: (@name) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/me/stacks"))
+    .post(@urlFor("/#{identity.orgid}/me/stacks"))
     .withCredentials()
     .send {@name}
   

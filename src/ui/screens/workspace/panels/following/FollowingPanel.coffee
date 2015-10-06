@@ -26,7 +26,7 @@ FollowingPanel = React.createClass {
 
   render: ->
 
-    props = mergeProps @props, {
+    props = mergeProps _.omit(@props, 'type'), {
       className: 'following'
     }
     

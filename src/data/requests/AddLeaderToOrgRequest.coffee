@@ -6,7 +6,7 @@ class AddLeaderToOrgRequest extends Request
 
   constructor: (@orgid, @userid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
     .post(@urlFor("/#{@orgid}/leaders"))
     .withCredentials()

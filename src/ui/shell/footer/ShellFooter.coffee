@@ -3,7 +3,7 @@ _                 = require 'lodash'
 React             = require 'react'
 Analytics         = require 'common/Analytics'
 PropTypes         = require 'ui/framework/PropTypes'
-ShellContext      = require 'ui/framework/mixins/ShellContext'
+IdentityContext   = require 'ui/framework/mixins/IdentityContext'
 Frame             = React.createFactory(require 'ui/common/Frame')
 BottomLeftCorner  = React.createFactory(require 'ui/shell/footer/BottomLeftCorner')
 BottomRightCorner = React.createFactory(require 'ui/shell/footer/BottomRightCorner')
@@ -16,7 +16,7 @@ ShellFooter = React.createClass {
 
   displayName: 'ShellFooter'
 
-  mixins: [ShellContext]
+  mixins: [IdentityContext]
 
   componentDidMount: ->
     Analytics.init(@getCurrentUser(), @getCurrentOrg())

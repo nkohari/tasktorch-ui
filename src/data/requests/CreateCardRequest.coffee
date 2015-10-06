@@ -6,7 +6,7 @@ class CreateCardRequest extends Request
 
   constructor: (@orgid, @kindid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
     .post(@urlFor("/#{@orgid}/cards"))
     .withCredentials()

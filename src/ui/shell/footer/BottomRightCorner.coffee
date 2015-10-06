@@ -1,7 +1,7 @@
 #--------------------------------------------------------------------------------
 React           = require 'react'
 PropTypes       = require 'ui/framework/PropTypes'
-ShellContext    = require 'ui/framework/mixins/ShellContext'
+IdentityContext = require 'ui/framework/mixins/IdentityContext'
 Avatar          = React.createFactory(require 'ui/common/Avatar')
 Frame           = React.createFactory(require 'ui/common/Frame')
 Icon            = React.createFactory(require 'ui/common/Icon')
@@ -16,7 +16,7 @@ BottomRightCorner = React.createClass {
 
   displayName: 'BottomRightCorner'
 
-  mixins: [ShellContext]
+  mixins: [IdentityContext]
 
   render: ->
 
@@ -27,7 +27,7 @@ BottomRightCorner = React.createClass {
       OverlayTrigger {overlay},
         div {className: 'current-user'},
           Icon {name: 'caret-flipped'}
-          Avatar {user}
+          Avatar {user, size: 32, presence: true}
 
 }
 

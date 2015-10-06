@@ -8,9 +8,9 @@ class LoadCardsByStackRequest extends Request
 
   constructor: (@stackid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{Environment.orgid}/stacks/#{@stackid}/cards"))
+    .get(@urlFor("/#{identity.orgid}/stacks/#{@stackid}/cards"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

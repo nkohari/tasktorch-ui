@@ -6,9 +6,9 @@ class DeleteActionRequest extends Request
 
   constructor: (@actionid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .del(@urlFor("/#{Environment.orgid}/actions/#{@actionid}"))
+    .del(@urlFor("/#{identity.orgid}/actions/#{@actionid}"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

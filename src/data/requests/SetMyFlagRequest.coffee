@@ -6,7 +6,7 @@ class SetMyFlagRequest extends Request
 
   constructor: (@flag, @value) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
     .post(@urlFor("/me/flags"))
     .withCredentials()

@@ -1,10 +1,12 @@
 #--------------------------------------------------------------------------------
 _                 = require 'lodash'
+jstz              = require 'jstz'
 superagent        = require 'superagent'
 React             = require 'react'
 Router            = require 'react-router'
 Request           = require 'data/framework/Request'
 LoginForm         = require 'ui/forms/LoginForm'
+PropTypes         = require 'ui/framework/PropTypes'
 Button            = React.createFactory(require 'ui/common/Button')
 FormButtons       = React.createFactory(require 'ui/common/FormButtons')
 Modal             = React.createFactory(require 'ui/common/Modal')
@@ -17,7 +19,10 @@ LoginModal = React.createClass {
 
   displayName: 'LoginModal'
 
-  mixins: [Router.Navigation]
+  mixins: [Router.History]
+
+  propTypes:
+    query: PropTypes.object
 
   getInitialState: -> {
     form: new LoginForm {@onChange}
@@ -38,7 +43,7 @@ LoginModal = React.createClass {
     @forceUpdate()
 
   getMessage: ->
-    switch @props.url.query?.from
+    switch @props.query?.from
       when 'signup'
         ModalMessage {},
           p {}, "Welcome to TaskTorch!"
@@ -70,10 +75,13 @@ LoginModal = React.createClass {
 
     return unless @state.form.validate()
 
-    payload =
+    timezone = jstz.determine()
+    payload = {
       login:    @state.form.cleanedData.login
       password: @state.form.cleanedData.password
-      invite:   @props.url.query?.invite
+      invite:   @props.query?.invite
+      timezone: timezone.name()
+    }
 
     superagent
     .post(Request.urlFor('/sessions'))
@@ -87,7 +95,7 @@ LoginModal = React.createClass {
       @redirect()
 
   redirect: ->
-    url = @props.url.query?.return
+    url = @props.query?.return
     if url?
       document.location = url
     else
@@ -96,9 +104,9 @@ LoginModal = React.createClass {
       .withCredentials()
       .end (err, res) =>
         {orgs} = res.body
-        if      orgs.length == 0 then @transitionTo('create-org')
-        else if orgs.length == 1 then @transitionTo('workspace', {orgid: orgs[0].id})
-        else @transitionTo('select-org')
+        if      orgs.length == 0 then @history.pushState(null, '/x/create-org')
+        else if orgs.length == 1 then @history.pushState(null, "/#{orgs[0].id}/workspace")
+        else @history.pushState(null, '/x/select-org')
 
 }
 

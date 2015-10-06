@@ -1,14 +1,13 @@
 #--------------------------------------------------------------------------------
-_              = require 'lodash'
-React          = require 'react'
-mergeProps     = require 'common/util/mergeProps'
-PropTypes      = require 'ui/framework/PropTypes'
-GoalPanelState = require 'ui/screens/bigPicture/panels/goal/GoalPanelState'
-KindPanelState = require 'ui/screens/bigPicture/panels/kind/KindPanelState'
-TeamPanelState = require 'ui/screens/bigPicture/panels/team/TeamPanelState'
-GoalPanel      = React.createFactory(require 'ui/screens/bigPicture/panels/goal/GoalPanel')
-KindPanel      = React.createFactory(require 'ui/screens/bigPicture/panels/kind/KindPanel')
-TeamPanel      = React.createFactory(require 'ui/screens/bigPicture/panels/team/TeamPanel')
+_                       = require 'lodash'
+React                   = require 'react'
+PropTypes               = require 'ui/framework/PropTypes'
+BigPictureGoalPanelSpec = require 'ui/framework/panels/BigPictureGoalPanelSpec'
+BigPictureKindPanelSpec = require 'ui/framework/panels/BigPictureKindPanelSpec'
+BigPictureTeamPanelSpec = require 'ui/framework/panels/BigPictureTeamPanelSpec'
+GoalPanel               = React.createFactory(require 'ui/screens/bigPicture/panels/goal/GoalPanel')
+KindPanel               = React.createFactory(require 'ui/screens/bigPicture/panels/kind/KindPanel')
+TeamPanel               = React.createFactory(require 'ui/screens/bigPicture/panels/team/TeamPanel')
 #--------------------------------------------------------------------------------
 require './BigPicturePanel.styl'
 #--------------------------------------------------------------------------------
@@ -18,18 +17,18 @@ BigPicturePanel = React.createClass {
   displayName: 'BigPicturePanel'
 
   propTypes:
-    type: PropTypes.string
+    spec: PropTypes.object
 
   render: ->
 
-    props = mergeProps _.omit(@props, 'type'), {
-      'data-itemid': @props.id
-    }
-
-    switch @props.type
-      when GoalPanelState.type then GoalPanel(props)
-      when KindPanelState.type then KindPanel(props)
-      when TeamPanelState.type then TeamPanel(props)
+    if @props.spec instanceof BigPictureGoalPanelSpec
+      GoalPanel(@props.spec)
+    else if @props.spec instanceof BigPictureKindPanelSpec
+      KindPanel(@props.spec)
+    else if @props.spec instanceof BigPictureTeamPanelSpec
+      TeamPanel(@props.spec)
+    else
+      throw new Error("Unknown panel spec #{@props.spec.constructor.name}")
 
 }
 

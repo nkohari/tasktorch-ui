@@ -6,9 +6,9 @@ class RemoveFollowerFromCardRequest extends Request
 
   constructor: (@cardid, @userid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .del(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/followers/#{@userid}"))
+    .del(@urlFor("/#{identity.orgid}/cards/#{@cardid}/followers/#{@userid}"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

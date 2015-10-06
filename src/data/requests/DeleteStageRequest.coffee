@@ -6,9 +6,9 @@ class DeleteStageRequest extends Request
 
   constructor: (@stageid, @inheritorStage) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .del(@urlFor("/#{Environment.orgid}/stages/#{@stageid}"))
+    .del(@urlFor("/#{identity.orgid}/stages/#{@stageid}"))
     .withCredentials()
     .send {@inheritorStage}
   

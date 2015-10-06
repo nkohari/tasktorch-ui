@@ -7,6 +7,7 @@ Goal                  = require 'data/models/Goal'
 Kind                  = require 'data/models/Kind'
 Note                  = require 'data/models/Note'
 Org                   = require 'data/models/Org'
+Profile               = require 'data/models/Profile'
 Stack                 = require 'data/models/Stack'
 Stage                 = require 'data/models/Stage'
 Team                  = require 'data/models/Team'
@@ -25,6 +26,7 @@ KindCreatedEvent      = require 'events/create/KindCreatedEvent'
 NoteChangedEvent      = require 'events/change/NoteChangedEvent'
 NoteCreatedEvent      = require 'events/create/NoteCreatedEvent'
 OrgChangedEvent       = require 'events/change/OrgChangedEvent'
+ProfileChangedEvent   = require 'events/change/ProfileChangedEvent'
 StackChangedEvent     = require 'events/change/StackChangedEvent'
 StackCreatedEvent     = require 'events/create/StackCreatedEvent'
 StackDeletedEvent     = require 'events/delete/StackDeletedEvent'
@@ -70,6 +72,7 @@ class RemoteChangesChannel extends Channel
       when 'Kind'      then @publish new KindChangedEvent(new Kind(message.document), EventOrigin.Remote)
       when 'Note'      then @publish new NoteChangedEvent(new Note(message.document), EventOrigin.Remote)
       when 'Org'       then @publish new OrgChangedEvent(new Org(message.document), EventOrigin.Remote)
+      when 'Profile'   then @publish new ProfileChangedEvent(new Profile(message.document), EventOrigin.Remote)
       when 'Stack'     then @publish new StackChangedEvent(new Stack(message.document), EventOrigin.Remote)
       when 'Stage'     then @publish new StageChangedEvent(new Stage(message.document), EventOrigin.Remote)
       when 'Team'      then @publish new TeamChangedEvent(new Team(message.document), EventOrigin.Remote)

@@ -36,7 +36,7 @@ TokenEditor = React.createClass {
     tokens = _.map @props.value, (token, index) =>
       li {key: index, className: 'token'},
         span {className: 'number'}, index + 1
-        Avatar {email: token.email}
+        Avatar {email: token.email, size: 20}
         span {className: 'email'}, token.email
         a {className: 'remove', onClick: @onRemoveClicked.bind(null, index)},
           Icon {name: 'remove'}

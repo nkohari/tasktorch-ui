@@ -25,6 +25,6 @@ class GoalStore extends ModelStore
     @set(event.goal.id, event.goal)
 
   onUserCreatedGoal: (event) ->
-    @execute new CreateGoalRequest(event.name)
+    @execute new CreateGoalRequest(event.orgid, event.name)
 
 module.exports = GoalStore

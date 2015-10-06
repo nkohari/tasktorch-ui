@@ -39,7 +39,7 @@ ChangeKindWorkflowActionList = React.createClass {
   render: ->
 
     items = _.map @state.actions, (action, index) =>
-      li {key: "#{@props.stage.id}-#{index}", 'data-itemid': index, className: 'change-kind-workflow-action'},
+      li {key: "#{@props.stage.id}-#{index}", 'data-id': index, className: 'change-kind-workflow-action'},
         div {className: 'action-content'},
           EditableTextArea {value: action.text, rows: 1, save: @changeActionText.bind(this, index)}
           a {className: 'delete-action', onClick: @deleteAction.bind(this, index)},

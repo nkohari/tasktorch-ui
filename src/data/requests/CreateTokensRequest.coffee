@@ -4,7 +4,7 @@ class CreateTokenRequest extends Request
 
   constructor: (@tokens) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
     .post(@urlFor("/tokens"))
     .withCredentials()

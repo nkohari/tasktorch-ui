@@ -8,9 +8,9 @@ class LoadActionsByChecklistRequest extends Request
 
   constructor: (@checklistid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{Environment.orgid}/checklists/#{@checklistid}/actions"))
+    .get(@urlFor("/#{identity.orgid}/checklists/#{@checklistid}/actions"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

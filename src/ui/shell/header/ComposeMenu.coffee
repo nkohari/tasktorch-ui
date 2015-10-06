@@ -3,10 +3,10 @@ _                    = require 'lodash'
 React                = require 'react'
 EventOrigin          = require 'data/enums/EventOrigin'
 UserCreatedCardEvent = require 'events/ui/UserCreatedCardEvent'
-Actor                = require 'ui/framework/mixins/Actor'
-Navigator            = require 'ui/framework/mixins/Navigator'
+UserOpenedPanelEvent = require 'events/ui/UserOpenedPanelEvent'
 PropTypes            = require 'ui/framework/PropTypes'
-CardPanelState       = require 'ui/screens/workspace/panels/card/CardPanelState'
+Actor                = require 'ui/framework/mixins/Actor'
+CardPanelSpec        = require 'ui/framework/panels/CardPanelSpec'
 ContextMenu          = React.createFactory(require 'ui/common/ContextMenu')
 Icon                 = React.createFactory(require 'ui/common/Icon')
 MenuOption           = React.createFactory(require 'ui/common/MenuOption')
@@ -22,7 +22,7 @@ ComposeMenu = React.createClass {
     org:         PropTypes.Org
     hideOverlay: PropTypes.func
 
-  mixins: [Actor, Navigator]
+  mixins: [Actor]
 
   listensFor: ['CardCreated']
 
@@ -38,10 +38,9 @@ ComposeMenu = React.createClass {
   createCard: (kind) ->
     @publish new UserCreatedCardEvent(@props.org.id, kind.id)
 
-  # TODO: This should be moved to ViewStore when it's created
   onCardCreated: (event) ->
-    return unless event.origin is EventOrigin.Local
-    @getScreen('workspace').addPanel(new CardPanelState(event.card.id))
+    if event.origin is EventOrigin.Local
+      @publish new UserOpenedPanelEvent(new CardPanelSpec(event.card.id))
 
 }
 

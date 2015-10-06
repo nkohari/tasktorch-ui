@@ -3,7 +3,7 @@ _                     = require 'lodash'
 React                 = require 'react'
 mergeClasses          = require 'common/util/mergeClasses'
 PropTypes             = require 'ui/framework/PropTypes'
-ShellContext          = require 'ui/framework/mixins/ShellContext'
+IdentityContext       = require 'ui/framework/mixins/IdentityContext'
 PassCommandButton     = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/PassCommandButton')
 CompleteCommandButton = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/CompleteCommandButton')
 DeleteCommandButton   = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/DeleteCommandButton')
@@ -18,7 +18,7 @@ QueueCommandBar = React.createClass {
   propTypes:
     card: PropTypes.Card
 
-  mixins: [ShellContext]
+  mixins: [IdentityContext]
 
   render: ->
 

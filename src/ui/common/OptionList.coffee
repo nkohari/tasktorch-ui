@@ -1,7 +1,7 @@
 #--------------------------------------------------------------------------------
 _                   = require 'lodash'
 mergeProps          = require 'common/util/mergeProps'
-React               = require 'react/addons'
+React               = require 'react'
 KeyCode             = require 'ui/framework/KeyCode'
 PropTypes           = require 'ui/framework/PropTypes'
 OptionListSeparator = React.createFactory(require 'ui/common/OptionListSeparator')

@@ -6,13 +6,13 @@ class PassCardRequest extends Request
 
   constructor: (@cardid, @recipient, @message) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
 
     payload = {@message}
     payload[@recipient.type] = @recipient.item.id
 
     agent
-    .put(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/pass"))
+    .put(@urlFor("/#{identity.orgid}/cards/#{@cardid}/pass"))
     .withCredentials()
     .send(payload)
   

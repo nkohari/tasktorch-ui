@@ -1,16 +1,17 @@
 #--------------------------------------------------------------------------------
-_               = require 'lodash'
-React           = require 'react'
-Router          = require 'react-router'
-mergeClasses    = require 'common/util/mergeClasses'
-PropTypes       = require 'ui/framework/PropTypes'
-Navigator       = require 'ui/framework/mixins/Navigator'
-CardStatus      = require 'data/enums/CardStatus'
-Icon            = React.createFactory(require 'ui/common/Icon')
-Link            = React.createFactory(require 'ui/common/Link')
-StackName       = React.createFactory(require 'ui/common/StackName')
-StackPanelState = require 'ui/screens/workspace/panels/stack/StackPanelState'
-{div, span}     = React.DOM
+_                    = require 'lodash'
+React                = require 'react'
+Router               = require 'react-router'
+mergeClasses         = require 'common/util/mergeClasses'
+UserOpenedPanelEvent = require 'events/ui/UserOpenedPanelEvent'
+PropTypes            = require 'ui/framework/PropTypes'
+Actor                = require 'ui/framework/mixins/Actor'
+CardStatus           = require 'data/enums/CardStatus'
+Icon                 = React.createFactory(require 'ui/common/Icon')
+Link                 = React.createFactory(require 'ui/common/Link')
+StackName            = React.createFactory(require 'ui/common/StackName')
+StackPanelSpec       = require 'ui/framework/panels/StackPanelSpec'
+{div, span}          = React.DOM
 #--------------------------------------------------------------------------------
 
 CardLocation = React.createClass {
@@ -22,7 +23,7 @@ CardLocation = React.createClass {
     stack: PropTypes.Stack
     link:  PropTypes.bool
 
-  mixins: [Navigator]
+  mixins: [Actor]
 
   getDefaultProps: ->
     {link: false}
@@ -62,7 +63,7 @@ CardLocation = React.createClass {
       StackName {stack: @props.stack}
 
   showStack: ->
-    @getScreen('workspace').addPanelBefore(@props.card.id, new StackPanelState(@props.stack.id))
+    @publish new UserOpenedPanelEvent(new StackPanelSpec(@props.stack.id), {before: @props.card.id})
 
 }
 

@@ -6,7 +6,7 @@ class RemoveMemberFromOrgRequest extends Request
 
   constructor: (@orgid, @userid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
     .del(@urlFor("/#{@orgid}/members/#{@userid}"))
     .withCredentials()

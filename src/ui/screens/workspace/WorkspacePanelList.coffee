@@ -1,30 +1,45 @@
 #--------------------------------------------------------------------------------
-_                  = require 'lodash'
-dom                = require 'common/util/dom'
-React              = require 'react'
-Navigator          = require 'ui/framework/mixins/Navigator'
-PropTypes          = require 'ui/framework/PropTypes'
-WorkspacePanel     = React.createFactory(require 'ui/screens/workspace/WorkspacePanel')
-CSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup)
+_                   = require 'lodash'
+React               = require 'react'
+SortableMixin       = require 'sortablejs/react-sortable-mixin'
+dom                 = require 'common/util/dom'
+UserMovedPanelEvent = require 'events/ui/UserMovedPanelEvent'
+PropTypes           = require 'ui/framework/PropTypes'
+Actor               = require 'ui/framework/mixins/Actor'
+WorkspacePanel      = React.createFactory(require 'ui/screens/workspace/WorkspacePanel')
+CSSTransitionGroup  = React.createFactory(React.addons.CSSTransitionGroup)
 #--------------------------------------------------------------------------------
 
 WorkspacePanelList = React.createClass {
 
   displayName: 'WorkspacePanelList'
 
+  mixins: [Actor, SortableMixin]
+
   propTypes:
     panels: PropTypes.array
 
-  mixins: [Navigator]
+  sortableOptions:
+    model:  'panels'
+    handle: '.panel-header'
+
+  getInitialState: ->
+    {panels: @props.panels}
+
+  componentWillReceiveProps: (newProps) ->
+    @setState {panels: newProps.panels}
 
   render: ->
 
-    panels = _.map @props.panels, (panelProps) =>
-      props = _.extend {key: panelProps.id}, panelProps
-      WorkspacePanel(props)
+    panels = _.map @state.panels, (spec) =>
+      WorkspacePanel {key: spec.id, spec}
 
     CSSTransitionGroup {component: 'div', className: 'content', transitionName: 'slide', @onWheel},
       panels
+
+  handleUpdate: (event) ->
+    panelid = event.item.getAttribute('data-id')
+    @publish new UserMovedPanelEvent(panelid, event.newIndex)
 
   onWheel: (event) ->
     {deltaX, deltaY, target} = event

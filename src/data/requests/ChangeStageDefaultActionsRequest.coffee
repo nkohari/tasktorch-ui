@@ -6,9 +6,9 @@ class ChangeStageDefaultActionsRequest extends Request
 
   constructor: (@stageid, @defaultActions) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/stages/#{@stageid}/defaultActions"))
+    .post(@urlFor("/#{identity.orgid}/stages/#{@stageid}/defaultActions"))
     .withCredentials()
     .send {@defaultActions}
   

@@ -41,7 +41,7 @@ ChangeKindWorkflowStage = React.createClass {
     if @state.adding
       input = RepeatableInput {placeholder: "Add another #{@props.stage.name} action", onValue: @addAction, onDone: @stopAdding}
 
-    li {className: classes, 'data-itemid': @props.stage.id},
+    li {className: classes, 'data-id': @props.stage.id},
       div {className: 'header'},
         div {className: 'stage-name'},
           Icon {className: 'drag-handle', name: 'checklist'}

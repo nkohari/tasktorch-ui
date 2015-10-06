@@ -24,16 +24,16 @@ SignUpModal = React.createClass {
   displayName: 'SignUpModal'
 
   propTypes:
-    url: PropTypes.object
+    params: PropTypes.object
 
-  mixins: [CachedState, Router.Navigation]
+  mixins: [CachedState, Router.History]
 
   getInitialState: -> {
     form: new CreateUserForm {@onChange}
   }
 
   getCachedState: (cache) -> {
-    token: cache('tokens').get(@props.url.params.tokenid)
+    token: cache('tokens').get(@props.params.tokenid)
   }
 
   render: ->
@@ -85,7 +85,7 @@ SignUpModal = React.createClass {
     @forceUpdate()
 
   onLoginClicked: ->
-    @transitionTo('login')
+    @history.pushState(null, '/x/login')
 
   onSubmit: (event) ->
 
@@ -108,7 +108,7 @@ SignUpModal = React.createClass {
         if res.forbidden or res.badRequest
           alert("There was an error creating your account. Please try again.")
           return
-        @transitionTo('login', null, {from: 'signup'})
+        @history.pushState(null, '/x/login', {from: 'signup'})
 
     event.preventDefault()
 

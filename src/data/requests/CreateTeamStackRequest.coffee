@@ -6,9 +6,9 @@ class CreateTeamStackRequest extends Request
 
   constructor: (@teamid, @name) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/teams/#{@teamid}/stacks"))
+    .post(@urlFor("/#{identity.orgid}/teams/#{@teamid}/stacks"))
     .withCredentials()
     .send {@name}
   

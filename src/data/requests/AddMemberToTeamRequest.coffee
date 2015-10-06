@@ -6,9 +6,9 @@ class AddMemberToTeamRequest extends Request
 
   constructor: (@teamid, @userid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/teams/#{@teamid}/members"))
+    .post(@urlFor("/#{identity.orgid}/teams/#{@teamid}/members"))
     .withCredentials()
     .send({user: @userid})
 

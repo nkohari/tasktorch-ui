@@ -6,9 +6,9 @@ class LoadTeamRequest extends Request
 
   constructor: (@teamid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{Environment.orgid}/teams/#{@teamid}"))
+    .get(@urlFor("/#{identity.orgid}/teams/#{@teamid}"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

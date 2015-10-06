@@ -20,7 +20,7 @@ DrawerSection = React.createClass {
 
   render: ->
 
-    props = mergeProps @props, {
+    props = mergeProps _.omit(@props, 'title'), {
       className: 'drawer-section'
     }
 

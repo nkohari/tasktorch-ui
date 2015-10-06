@@ -4,11 +4,11 @@ Request          = require 'data/framework/Request'
 
 class CreateGoalRequest extends Request
 
-  constructor: (@name) ->
+  constructor: (@orgid, @name) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/goals"))
+    .post(@urlFor("/#{@orgid}/goals"))
     .withCredentials()
     .send {@name}
   

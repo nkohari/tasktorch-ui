@@ -4,7 +4,7 @@ class ChangeMyPasswordRequest extends Request
 
   constructor: (@password) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
     .post(@urlFor("/me/password"))
     .withCredentials()

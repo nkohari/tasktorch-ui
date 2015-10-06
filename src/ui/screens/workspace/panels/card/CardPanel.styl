@@ -1,7 +1,7 @@
 .card.panel
   background: $color-paper
-  width: $card-panel-width
-  min-width: $card-panel-width
+  width: $normal-panel-width
+  min-width: $normal-panel-width
   
   &.slide-enter
     animation: card-enter 250ms ease-out
@@ -14,12 +14,12 @@
 @keyframes card-enter
   0%
     opacity: 0
-    margin-left: -($card-panel-width + $panel-margin)
+    margin-left: -($normal-panel-width + $panel-margin)
     margin-right: $panel-margin
   50%
     opacity: 0
-    margin-left: -($card-panel-width + $panel-margin)
-    margin-right: $card-panel-width + $panel-margin
+    margin-left: -($normal-panel-width + $panel-margin)
+    margin-right: $normal-panel-width + $panel-margin
   100%
     opacity: 1
     margin-left: 0
@@ -31,4 +31,4 @@
     margin-left: 0
   to
     opacity: 0
-    margin-left: -($card-panel-width + $panel-margin)
+    margin-left: -($normal-panel-width + $panel-margin)

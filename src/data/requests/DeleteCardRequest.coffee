@@ -6,9 +6,9 @@ class DeleteCardRequest extends Request
 
   constructor: (@cardid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .del(@urlFor("/#{Environment.orgid}/cards/#{@cardid}"))
+    .del(@urlFor("/#{identity.orgid}/cards/#{@cardid}"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

@@ -1,6 +1,6 @@
 #--------------------------------------------------------------------------------
 _                     = require 'lodash'
-React                 = require 'react/addons'
+React                 = require 'react'
 Keymaster             = require 'keymaster'
 UserClosedDialogEvent = require 'events/ui/UserClosedDialogEvent'
 PropTypes             = require 'ui/framework/PropTypes'

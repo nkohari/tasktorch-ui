@@ -6,9 +6,9 @@ class LoadStackRequest extends Request
 
   constructor: (@stackid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{Environment.orgid}/stacks/#{@stackid}"))
+    .get(@urlFor("/#{identity.orgid}/stacks/#{@stackid}"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

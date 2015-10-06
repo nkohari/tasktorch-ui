@@ -4,7 +4,6 @@ React        = require 'react'
 classSet     = require 'common/util/classSet'
 mergeProps   = require 'common/util/mergeProps'
 PropTypes    = require 'ui/framework/PropTypes'
-ShellContext = require 'ui/framework/mixins/ShellContext'
 Avatar       = React.createFactory(require 'ui/common/Avatar')
 Icon         = React.createFactory(require 'ui/common/Icon')
 {div, span}  = React.DOM

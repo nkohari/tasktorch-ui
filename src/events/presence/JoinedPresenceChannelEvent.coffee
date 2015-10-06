@@ -4,7 +4,7 @@ class JoinedPresenceChannelEvent extends Event
   
   type: 'JoinedPresenceChannel'
 
-  constructor: (@connectedUsers) ->
+  constructor: (@onlineUsers) ->
     super()
 
 module.exports = JoinedPresenceChannelEvent

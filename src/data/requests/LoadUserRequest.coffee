@@ -6,9 +6,9 @@ class LoadUserRequest extends Request
 
   constructor: (@userid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{Environment.orgid}/members/#{@userid}"))
+    .get(@urlFor("/#{identity.orgid}/members/#{@userid}"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

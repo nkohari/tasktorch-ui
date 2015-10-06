@@ -6,9 +6,9 @@ class CreateTeamRequest extends Request
 
   constructor: (@name, @purpose, @members, @leaders) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/teams"))
+    .post(@urlFor("/#{identity.orgid}/teams"))
     .withCredentials()
     .send {@name, @purpose, @members, @leaders}
   

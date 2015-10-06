@@ -8,9 +8,9 @@ class LoadFollowersByCardRequest extends Request
 
   constructor: (@cardid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{Environment.orgid}/cards/#{@cardid}/followers"))
+    .get(@urlFor("/#{identity.orgid}/cards/#{@cardid}/followers"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

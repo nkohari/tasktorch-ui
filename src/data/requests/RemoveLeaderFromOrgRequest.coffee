@@ -6,7 +6,7 @@ class RemoveLeaderFromOrgRequest extends Request
 
   constructor: (@orgid, @userid) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
     .del(@urlFor("/#{@orgid}/leaders/#{@userid}"))
     .withCredentials()

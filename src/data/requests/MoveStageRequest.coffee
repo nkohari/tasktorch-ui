@@ -6,9 +6,9 @@ class MoveStageRequest extends Request
 
   constructor: (@stageid, @position) ->
 
-  create: (agent) ->
+  create: (identity, agent) ->
     agent
-    .post(@urlFor("/#{Environment.orgid}/stages/#{@stageid}/move"))
+    .post(@urlFor("/#{identity.orgid}/stages/#{@stageid}/move"))
     .withCredentials()
     .send {@position}
   

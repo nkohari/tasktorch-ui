@@ -1,5 +1,5 @@
 #--------------------------------------------------------------------------------
-React                  = require 'react/addons'
+React                  = require 'react'
 PropTypes              = require 'ui/framework/PropTypes'
 {a, div, img, p, span} = React.DOM
 #--------------------------------------------------------------------------------
