@@ -89,7 +89,7 @@ AcceptInviteModal = React.createClass {
     @forceUpdate()
 
   onLoginClicked: ->
-    @history.pushState(null, 'login', {from: 'invite', invite: @state.invite.id})
+    @history.pushState(null, '/x/login', {from: 'invite', invite: @state.invite.id})
 
   onSubmit: (event) ->
 
