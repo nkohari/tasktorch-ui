@@ -40,7 +40,7 @@ StackCardList = React.createClass {
 
   render: ->
 
-    items = _.map @state.cards, (card) =>
+    items = _.map _.compact(@state.cards), (card) =>
       StackCard {key: card.id, stack: @props.stack, card}
 
     ul {className: 'stack-card-list'}, items

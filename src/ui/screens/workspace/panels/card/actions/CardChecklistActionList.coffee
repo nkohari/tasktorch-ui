@@ -39,8 +39,7 @@ CardChecklistActionList = React.createClass {
 
   render: ->
 
-    items = _.map @state.actions, (action) =>
-      return unless action?
+    items = _.map _.compact(@state.actions), (action) =>
       CardAction {key: action.id, action}
 
     ul {className: 'card-checklist-action-list'}, items

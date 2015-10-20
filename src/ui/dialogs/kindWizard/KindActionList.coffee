@@ -38,7 +38,7 @@ KindActionList = React.createClass {
 
   render: ->
 
-    items = _.map @state.actions, (action, index) =>
+    items = _.map _.compact(@state.actions), (action, index) =>
       KindActionListItem {key: index, stage: @props.stage, action, updateAction: @props.updateAction, removeAction: @props.removeAction}
 
     ul {className: 'kind-action-list'}, items

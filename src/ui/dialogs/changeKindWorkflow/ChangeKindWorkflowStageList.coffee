@@ -37,7 +37,7 @@ ChangeKindWorkflowStageList = React.createClass {
 
   render: ->
 
-    items = _.map @state.stages, (stage) =>
+    items = _.map _.compact(@state.stages), (stage) =>
       ChangeKindWorkflowStage {key: stage.id, stage}
 
     ul {className: 'change-kind-workflow-stage-list'},

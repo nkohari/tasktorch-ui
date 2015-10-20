@@ -36,7 +36,7 @@ KindStageList = React.createClass {
 
   render: ->
 
-    items = _.map @state.stages, (stage) =>
+    items = _.map _.compact(@state.stages), (stage) =>
       KindStageListItem {key: stage.id, stage, updateStage: @props.updateStage, removeStage: @props.removeStage}
 
     ul {className: 'kind-stage-list'}, items

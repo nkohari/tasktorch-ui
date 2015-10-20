@@ -31,7 +31,7 @@ WorkspacePanelList = React.createClass {
 
   render: ->
 
-    panels = _.map @state.panels, (spec) =>
+    panels = _.map _.compact(@state.panels), (spec) =>
       WorkspacePanel {key: spec.id, spec}
 
     CSSTransitionGroup {component: 'div', className: 'content', transitionName: 'slide', @onWheel},
