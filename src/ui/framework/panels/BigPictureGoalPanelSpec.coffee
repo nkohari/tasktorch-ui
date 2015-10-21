@@ -4,13 +4,16 @@ PanelSpec = require 'ui/framework/panels/PanelSpec'
 class BigPictureGoalPanelSpec extends PanelSpec
 
   constructor: (id) ->
-    super('bigpicture', id)
+    super('bigpicture', 'goal', id)
 
-  serialize: ->
+  deserialize: (data) ->
+    {@id} = data
+
+  toQuery: ->
     "g.#{@id}"
 
-  deserialize: (str) ->
+  fromQuery: (str) ->
     [code, @id] = str.split('.')
 
-ViewSpec.registerPanel('g', BigPictureGoalPanelSpec)
+ViewSpec.registerPanel('g', 'goal', BigPictureGoalPanelSpec)
 module.exports = BigPictureGoalPanelSpec

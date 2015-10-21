@@ -4,13 +4,16 @@ PanelSpec = require 'ui/framework/panels/PanelSpec'
 class CardPanelSpec extends PanelSpec
 
   constructor: (id) ->
-    super('workspace', id)
+    super('workspace', 'card', id)
 
-  serialize: ->
+  deserialize: (data) ->
+    {@id} = data
+    
+  toQuery: ->
     "c.#{@id}"
 
-  deserialize: (str) ->
+  fromQuery: (str) ->
     [code, @id] = str.split('.')
 
-ViewSpec.registerPanel('c', CardPanelSpec)
+ViewSpec.registerPanel('c', 'card', CardPanelSpec)
 module.exports = CardPanelSpec

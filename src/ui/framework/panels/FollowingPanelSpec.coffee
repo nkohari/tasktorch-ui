@@ -4,13 +4,16 @@ PanelSpec = require 'ui/framework/panels/PanelSpec'
 class FollowingPanelSpec extends PanelSpec
 
   constructor: ->
-    super('workspace', 'following')
+    super('workspace', 'following', 'following')
     
-  serialize: ->
+  deserialize: (data) ->
+    # Nothing to deserialize
+    
+  toQuery: ->
     'f'
 
-  deserialize: (str) ->
+  fromQuery: (str) ->
     # Nothing to deserialize
 
-ViewSpec.registerPanel('f', FollowingPanelSpec)
+ViewSpec.registerPanel('f', 'following', FollowingPanelSpec)
 module.exports = FollowingPanelSpec

@@ -4,13 +4,16 @@ PanelSpec = require 'ui/framework/panels/PanelSpec'
 class UserPanelSpec extends PanelSpec
 
   constructor: (id) ->
-    super('workspace', id)
+    super('workspace', 'user', id)
 
-  serialize: ->
+  deserialize: (data) ->
+    {@id} = data
+    
+  toQuery: ->
     "u.#{@id}"
 
-  deserialize: (str) ->
+  fromQuery: (str) ->
     [code, @id] = str.split('.')
 
-ViewSpec.registerPanel('u', UserPanelSpec)
+ViewSpec.registerPanel('u', 'user', UserPanelSpec)
 module.exports = UserPanelSpec

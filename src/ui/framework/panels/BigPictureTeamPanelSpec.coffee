@@ -4,13 +4,16 @@ PanelSpec = require 'ui/framework/panels/PanelSpec'
 class BigPictureTeamPanelSpec extends PanelSpec
 
   constructor: (id) ->
-    super('bigpicture', id)
+    super('bigpicture', 'team', id)
 
-  serialize: ->
+  deserialize: (data) ->
+    {@id} = data
+    
+  toQuery: ->
     "t.#{@id}"
 
-  deserialize: (str) ->
+  fromQuery: (str) ->
     [code, @id] = str.split('.')
 
-ViewSpec.registerPanel('t', BigPictureTeamPanelSpec)
+ViewSpec.registerPanel('t', 'team', BigPictureTeamPanelSpec)
 module.exports = BigPictureTeamPanelSpec

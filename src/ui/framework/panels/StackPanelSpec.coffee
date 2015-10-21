@@ -4,13 +4,16 @@ PanelSpec = require 'ui/framework/panels/PanelSpec'
 class StackPanelSpec extends PanelSpec
 
   constructor: (id) ->
-    super('workspace', id)
+    super('workspace', 'stack', id)
 
-  serialize: ->
+  deserialize: (data) ->
+    {@id} = data
+    
+  toQuery: ->
     "s.#{@id}"
 
-  deserialize: (str) ->
+  fromQuery: (str) ->
     [code, @id] = str.split('.')
 
-ViewSpec.registerPanel('s', StackPanelSpec)
+ViewSpec.registerPanel('s', 'stack', StackPanelSpec)
 module.exports = StackPanelSpec

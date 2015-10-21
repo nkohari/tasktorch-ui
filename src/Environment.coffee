@@ -52,7 +52,7 @@ class Environment
     @eventQueue = new EventQueue()
     @cache      = new Cache(@eventQueue)
     @viewMaster = new ViewMaster(@eventQueue, @history)
-    @processor  = new Processor(@eventQueue, @viewMaster)
+    @processor  = new Processor(@history, @eventQueue, @viewMaster)
     @messageBus = new MessageBus()
 
     createStore = (type) =>

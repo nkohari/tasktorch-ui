@@ -1,16 +1,21 @@
 class PanelSpec
 
-  @fromTokens: (str) ->
+  @fromQuery: (str) ->
     panel = new this()
-    panel.deserialize(str)
+    panel.fromQuery(str)
     return panel
 
-  constructor: (@screen, @id) ->
+  @deserialize: (data) ->
+    panel = new this()
+    panel.deserialize(data)
+    return panel
 
-  serialize: ->
-    throw new Error("You must implement serialize() on #{@constructor.name}")
+  constructor: (@screen, @type, @id) ->
 
-  deserialize: (tokens) ->
-    throw new Error("You must implement deserialize() on #{@constructor.name}")
+  toQuery: ->
+    throw new Error("You must implement toQuery() on #{@constructor.name}")
+
+  fromQuery: (tokens) ->
+    throw new Error("You must implement fromQuery() on #{@constructor.name}")
 
 module.exports = PanelSpec

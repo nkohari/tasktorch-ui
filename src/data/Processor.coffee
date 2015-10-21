@@ -2,7 +2,8 @@ superagent = require 'superagent'
 
 class Processor
 
-  constructor: (@eventQueue, @viewMaster) ->
+  constructor: (@history, @eventQueue, @viewMaster) ->
+    @redirecting = false
 
   execute: (request) ->
 
@@ -22,6 +23,8 @@ class Processor
         @handleUnauthorized()
 
   handleUnauthorized: ->
-    document.location = "/x/login?from=expired&return=#{encodeURIComponent(document.location)}"
-
+    unless @redirecting
+      @redirecting = true
+      @history.pushState(null, '/x/login', {from: 'expired', return: document.location.toString()})
+ 
 module.exports = Processor

@@ -4,13 +4,16 @@ PanelSpec = require 'ui/framework/panels/PanelSpec'
 class BigPictureKindPanelSpec extends PanelSpec
 
   constructor: (id) ->
-    super('bigpicture', id)
+    super('bigpicture', 'kind', id)
 
-  serialize: ->
+  deserialize: (data) ->
+    {@id} = data
+    
+  toQuery: ->
     "k.#{@id}"
 
-  deserialize: (str) ->
+  fromQuery: (str) ->
     [code, @id] = str.split('.')
     
-ViewSpec.registerPanel('k', BigPictureKindPanelSpec)
+ViewSpec.registerPanel('k', 'kind', BigPictureKindPanelSpec)
 module.exports = BigPictureKindPanelSpec

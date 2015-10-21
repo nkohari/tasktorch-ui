@@ -2,25 +2,37 @@ _ = require 'lodash'
 
 class ViewSpec
 
-  @registerPanel: (code, type) ->
-    panelSpecTypes = (@panelSpecTypes ?= {})
-    panelSpecTypes[code] = type
+  @registerPanel: (code, type, klass) ->
+    (@panelsByCode ?= {})[code] = klass
+    (@panelsByType ?= {})[type] = klass
 
-  constructor: (@screen, query = {}) ->
-    @drawer = true
-    @panels = []
+  @fromLocalStorage: (screen, state) ->
+    view = new this(screen)
+    view.drawer = state.drawer
+    view.panels = _.map state.panels, (data) =>
+      @panelsByType[data.type].deserialize(data)
+    return view
+
+  @fromUrl: (screen, query) ->
+    view = new this(screen)
 
     if query.d?
       try
-        @drawer = Boolean(Number(query.d))
+        view.drawer = Boolean(Number(query.d))
       catch err
 
     if query.p?
       try
-        @panels = _.map query.p.split('-'), (str) =>
+        view.panels = _.map query.p.split('-'), (str) =>
           code = str[0]
-          @constructor.panelSpecTypes[code].fromTokens(str)
+          @panelsByCode[code].fromQuery(str)
       catch err
+
+    return view
+
+  constructor: (@screen) ->
+    @drawer = true
+    @panels = []
 
   addPanel: (panel, position = undefined) ->
     unless @isPanelOpen(panel.id)
@@ -79,7 +91,7 @@ class ViewSpec
       query.d = 0
 
     if @panels.length > 0
-      query.p = _.map(@panels, (p) -> p.serialize()).join('-')
+      query.p = _.map(@panels, (p) -> p.toQuery()).join('-')
 
     history.createHref(path, query)
 
