@@ -35,7 +35,7 @@ ChangeKindWorkflowDialog = React.createClass {
       right: Button {text: 'Close', onClick: @props.closeDialog}
     }
 
-    Dialog {icon: 'workflow', maxHeight: '90vh', title: "Change workflow of #{@state.kind?.name}", footer, className: 'change-kind-workflow-dialog', closeDialog: @props.closeDialog},
+    Dialog {icon: 'workflow', height: 700, maxHeight: '90vh', title: "Change workflow of #{@state.kind?.name}", footer, className: 'change-kind-workflow-dialog', closeDialog: @props.closeDialog},
       Prompt {hint: 'change-kind-workflow'},
         "What process do you follow for #{@state.kind?.name} cards?"
       ChangeKindWorkflowStageList {kind: @state.kind, stages: @state.stages}
