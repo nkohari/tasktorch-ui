@@ -1,0 +1,41 @@
+.org-membership
+  padding: 8px
+  border-bottom: 1px solid $color-divider
+  
+  &.disabled
+    color: $color-ink-light
+    background: $color-steel-verylight
+  
+  .org-membership-info
+    display: flex
+    flex-direction: row
+    align-items: center
+
+  .org-membership-user
+    flex: 1
+    margin-left: 8px
+    
+    .org-membership-user-name
+      font-weight: $bold-font-weight
+    
+    .org-membership-user-username
+      color: $color-ink-light
+      font-size: 14px
+      font-style: italic
+      
+  .org-membership-since
+    font-size: 13px
+
+  .org-membership-level
+    background: $color-steel-light
+    padding: 2px 8px
+    border-radius: 10px
+    color: $color-ink-light
+    font-size: 11px
+    font-weight: $heavy-font-weight
+    text-transform: uppercase
+
+  .org-membership-menu
+    width: 18px
+    margin-left: 8px
+    & > i { margin-right: 0 }

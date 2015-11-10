@@ -10,7 +10,7 @@ class LoadUsersByOrgRequest extends Request
 
   create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{@orgid}/members"))
+    .get(@urlFor("/#{@orgid}/users"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

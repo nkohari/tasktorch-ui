@@ -104,4 +104,10 @@ If you choose to delete this stage, any actions currently in the stage will be
 moved to the end of stage you select. Deleting a stage is permanent, and cannot be undone!
 """
 
+Hints['org-memberships'] = """
+This is the list of people who have access to your organization. Those marked as leaders
+are allowed to manage memberships, including inviting others to join and deactivating
+memberships.
+"""
+
 module.exports = Hints

@@ -37,7 +37,6 @@ SelectOrgModal = React.createClass {
         Icon {name: 'org'}
         div {className: 'org-info'},
           div {className: 'org-name'}, org.name
-          div {className: 'org-member-count'}, "#{org.members.length} Member#{if org.members.length == 1 then '' else 's'}"
 
     Modal {title: 'My Organizations', className: 'select-org-modal'},
       div {className: 'orgs'},

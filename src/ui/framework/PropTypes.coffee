@@ -52,6 +52,11 @@ PropTypes.Kind = PropTypes.model {
   stages: PropTypes.idArray
 }
 
+PropTypes.Membership = PropTypes.model {
+  org:  PropTypes.id
+  user: PropTypes.id
+}
+
 PropTypes.Note = PropTypes.model {
   org:  PropTypes.id
   type: PropTypes.string

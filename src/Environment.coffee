@@ -16,12 +16,14 @@ GoalsByOrgStore         = require 'data/stores/GoalsByOrgStore'
 InviteStore             = require 'data/stores/InviteStore'
 KindStore               = require 'data/stores/KindStore'
 KindsByOrgStore         = require 'data/stores/KindsByOrgStore'
-NoteStore               = require 'data/stores/NoteStore'
+MembershipStore         = require 'data/stores/MembershipStore'
+MembershipsByOrgStore   = require 'data/stores/MembershipsByOrgStore'
 MembersByTeamStore      = require 'data/stores/MembersByTeamStore'
 MyFollowedCardsStore    = require 'data/stores/MyFollowedCardsStore'
 MyOrgsStore             = require 'data/stores/MyOrgsStore'
 MyStacksStore           = require 'data/stores/MyStacksStore'
 MyTeamsStore            = require 'data/stores/MyTeamsStore'
+NoteStore               = require 'data/stores/NoteStore'
 NotesByCardStore        = require 'data/stores/NotesByCardStore'
 OnlineUsersStore        = require 'data/stores/OnlineUsersStore'
 OrgStore                = require 'data/stores/OrgStore'
@@ -66,8 +68,9 @@ class Environment
       createStore(GoalStore)
       createStore(InviteStore)
       createStore(KindStore)
-      createStore(NoteStore)
+      createStore(MembershipStore)
       createStore(OrgStore)
+      createStore(NoteStore)
       createStore(ProfileStore)
       createStore(StackStore)
       createStore(StageStore)
@@ -87,6 +90,7 @@ class Environment
       createStore(GoalsByOrgStore)
       createStore(KindsByOrgStore)
       createStore(MembersByTeamStore)
+      createStore(MembershipsByOrgStore)
       createStore(MyFollowedCardsStore)
       createStore(MyOrgsStore)
       createStore(MyStacksStore)

@@ -1,6 +1,7 @@
 #--------------------------------------------------------------------------------
 _                       = require 'lodash'
 React                   = require 'react'
+MembershipLevel         = require 'data/enums/MembershipLevel'
 UserCreatedInvitesEvent = require 'events/ui/UserCreatedInvitesEvent'
 PropTypes               = require 'ui/framework/PropTypes'
 Actor                   = require 'ui/framework/mixins/Actor'
@@ -48,7 +49,12 @@ SendInvitesDialog = React.createClass {
     @state.invites.length > 0
 
   sendInvites: ->
-    @publish new UserCreatedInvitesEvent(@state.org.id, @state.invites)
+
+    # TODO: Rather than using a boolean toggle we should just use MembershipLevel itself
+    invites = _.map @state.invites, (invite) ->
+      {email: invite.email, level: if invite.leader then MembershipLevel.Leader else MembershipLevel.Member}
+
+    @publish new UserCreatedInvitesEvent(@state.org.id, invites)
     @props.closeDialog()
 
 }

@@ -8,7 +8,7 @@ class LoadUserRequest extends Request
 
   create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{identity.orgid}/members/#{@userid}"))
+    .get(@urlFor("/users/#{@userid}"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

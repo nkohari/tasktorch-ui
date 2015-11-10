@@ -26,7 +26,7 @@ BottomRightCorner = React.createClass {
     div {className: 'bottom-right'},
       OverlayTrigger {overlay},
         div {className: 'current-user'},
-          Icon {name: 'caret-flipped'}
+          Icon {name: 'trigger-up'}
           Avatar {user, size: 32, presence: true}
 
 }
