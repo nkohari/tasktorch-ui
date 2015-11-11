@@ -24,7 +24,7 @@ Form = React.createClass {
     }
 
     fields = _.map @props.form.boundFields(), (bf, index) =>
-      Field {key: index, icon: bf.field.custom?.icon, label: bf.label, error: bf.errorMessage()},
+      Field {key: index, className: bf.field.cssClass, icon: bf.field.custom?.icon, label: bf.label, error: bf.errorMessage()},
         div {className: 'input'},
           bf.render()
 

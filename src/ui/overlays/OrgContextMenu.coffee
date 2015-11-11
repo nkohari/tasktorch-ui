@@ -37,15 +37,19 @@ OrgContextMenu = React.createClass {
 
     leaderItems = [
       ContextMenuSeparator {}
-      DialogTrigger {name: 'SendInvites', orgid: currentOrg.id},
-        Icon {name: 'invite'}
-        'Invite others'
-      DialogTrigger {name: 'CreateTeam', orgid: currentOrg.id},
-        Icon {name: 'team'}
-        'Create a team'
       DialogTrigger {name: 'OrgMembers', orgid: currentOrg.id},
         Icon {name: 'org'}
         'Manage members'
+      DialogTrigger {name: 'SendInvites', orgid: currentOrg.id},
+        Icon {name: 'invite'}
+        'Invite others'
+      DialogTrigger {name: 'ManageAccount', orgid: currentOrg.id},
+        Icon {name: 'billing'}
+        'Manage account'
+      ContextMenuSeparator {}
+      DialogTrigger {name: 'CreateTeam', orgid: currentOrg.id},
+        Icon {name: 'team'}
+        'Create a team'
       DialogTrigger {name: 'ManageKinds', orgid: currentOrg.id},
         Icon {name: 'kind'}
         'Manage card kinds'
