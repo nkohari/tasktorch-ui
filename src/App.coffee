@@ -1,26 +1,27 @@
 #--------------------------------------------------------------------------------
-_                 = require 'lodash'
-{createHistory}   = require 'history'
-React             = require 'react'
-ReactRouter       = require 'react-router'
-Analytics         = require 'common/Analytics'
-Environment       = require './Environment'
-PropTypes         = require 'ui/framework/PropTypes'
-Identity          = require 'ui/framework/Identity'
-Shell             = require 'ui/shell/Shell'
-NotFoundBanner    = require 'ui/banners/NotFoundBanner'
-ModalContainer    = require 'ui/common/ModalContainer'
-CreateOrgModal    = require 'ui/modals/CreateOrgModal'
-SendInvitesModal  = require 'ui/modals/SendInvitesModal'
-LoginModal        = require 'ui/modals/LoginModal'
-AcceptInviteModal = require 'ui/modals/AcceptInviteModal'
-SelectOrgModal    = require 'ui/modals/SelectOrgModal'
-SignUpModal       = require 'ui/modals/SignUpModal'
-WorkspaceScreen   = require 'ui/screens/workspace/WorkspaceScreen'
-BigPictureScreen  = require 'ui/screens/bigPicture/BigPictureScreen'
-Router            = React.createFactory(ReactRouter.Router)
-Route             = React.createFactory(ReactRouter.Route)
-{cloneWithProps}  = React.addons
+_                          = require 'lodash'
+{createHistory}            = require 'history'
+React                      = require 'react'
+ReactRouter                = require 'react-router'
+Analytics                  = require 'common/Analytics'
+Environment                = require './Environment'
+PropTypes                  = require 'ui/framework/PropTypes'
+Identity                   = require 'ui/framework/Identity'
+Shell                      = require 'ui/shell/Shell'
+NotFoundBanner             = require 'ui/banners/NotFoundBanner'
+SubscriptionNotFoundBanner = require 'ui/banners/SubscriptionNotFoundBanner'
+ModalContainer             = require 'ui/common/ModalContainer'
+CreateOrgModal             = require 'ui/modals/CreateOrgModal'
+SendInvitesModal           = require 'ui/modals/SendInvitesModal'
+LoginModal                 = require 'ui/modals/LoginModal'
+AcceptInviteModal          = require 'ui/modals/AcceptInviteModal'
+SelectOrgModal             = require 'ui/modals/SelectOrgModal'
+SignUpModal                = require 'ui/modals/SignUpModal'
+WorkspaceScreen            = require 'ui/screens/workspace/WorkspaceScreen'
+BigPictureScreen           = require 'ui/screens/bigPicture/BigPictureScreen'
+Router                     = React.createFactory(ReactRouter.Router)
+Route                      = React.createFactory(ReactRouter.Route)
+{cloneWithProps}           = React.addons
 {div} = React.DOM
 #--------------------------------------------------------------------------------
 require './App.styl'
@@ -85,6 +86,7 @@ router = Router {history: createHistory()},
     Route {path: ':orgid/', component: Shell},
       Route {name: 'workspace',  path: 'workspace',  component: WorkspaceScreen}
       Route {name: 'bigpicture', path: 'bigpicture', component: BigPictureScreen}
+    Route {path: 'subscription-not-found', component: SubscriptionNotFoundBanner}
     Route {path: '*', component: NotFoundBanner}
 
 React.render(router, document.body)

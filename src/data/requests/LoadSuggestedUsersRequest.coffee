@@ -10,7 +10,7 @@ class LoadSuggestedUsersRequest extends Request
 
   create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{identity.orgid}/members?suggest=#{@phrase}"))
+    .get(@urlFor("/#{identity.orgid}/users?suggest=#{@phrase}"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

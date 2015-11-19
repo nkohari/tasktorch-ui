@@ -29,6 +29,7 @@ SelectOrgModal = React.createClass {
     @context.environment.get('cache').clear()
     @context.environment.get('viewMaster').reset()
     @context.environment.get('messageBus').reset()
+    @context.environment.get('processor').reset()
 
   render: ->
 

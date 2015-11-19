@@ -9,7 +9,7 @@ class LoadProfileByUserRequest extends Request
 
   create: (identity, agent) ->
     agent
-    .get(@urlFor("/#{identity.orgid}/members/#{@userid}/profile"))
+    .get(@urlFor("/#{identity.orgid}/users/#{@userid}/profile"))
     .withCredentials()
   
   onSuccess: (result, publish) ->

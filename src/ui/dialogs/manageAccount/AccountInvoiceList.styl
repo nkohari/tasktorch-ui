@@ -1,0 +1,37 @@
+.account-invoice-list
+
+  table
+    width: 100%
+    border: 1px solid $color-steel-light
+    background: $color-steel-verylight
+    
+    th
+      padding: 8px
+      background: $color-steel-light
+      width: 1%
+      white-space: nowrap
+      font-size: 14px
+      color: $color-ink-light
+      font-weight: $bold-font-weight
+      text-align: left
+      
+    td
+      padding: 8px
+      white-space: nowrap
+      font-size: 14px
+      width: 1%
+      &.amount
+        width: 200px
+        text-align: right
+      &.receipt
+        width: 100%
+        text-align: right
+
+      i.icon-success
+        color: $color-good
+        
+      i.icon-warning
+        color: $color-caution
+      
+      i.icon-failure
+        color: $color-bad

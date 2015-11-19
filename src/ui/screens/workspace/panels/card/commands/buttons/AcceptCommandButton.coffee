@@ -17,7 +17,7 @@ AcceptCommandButton = React.createClass {
 
     CommandToggleButton {
       icon:    'accept'
-      text:    'Accept'
+      text:    'Prioritize'
       command: CardCommandType.Accept
     }
 

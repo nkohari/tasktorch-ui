@@ -4,5 +4,6 @@ module.exports = AccountSubscriptionStatus = arrayEnum [
   'Trial'
   'Active'
   'PastDue'
+  'CancellationPending'
   'Canceled'
 ]

@@ -19,7 +19,7 @@ InboxCallout = React.createClass {
         em {}, "inbox"
         ". From there, they can choose to "
         em {}, "accept"
-        " it, adding it to their queue, or they can pass it along to someone else. They can "
+        " it, adding it to their priorities list, or they can pass it along to someone else. They can "
         "also pass it back to you if they don't understand or need more information."
       p {},
         "Likewise, when someone passes you a card, it'll be delivered to your inbox. Your inbox is "

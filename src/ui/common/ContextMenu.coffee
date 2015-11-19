@@ -22,7 +22,14 @@ ContextMenu = React.createClass {
   render: ->
 
     items = React.Children.map @props.children, (child) =>
-      li {className: 'menu-item', onMouseUp: @onMenuItemClicked}, child
+      return unless child?
+      # TODO: This is some hackery, but I'm not sure how else to detect the child.
+      # We could switch to use a marker of some kind (like ---), but I'm not sure
+      # if that's better or worse.
+      if child.type.displayName == 'ContextMenuSeparator'
+        child
+      else
+        li {className: 'menu-item', onMouseUp: @onMenuItemClicked}, child
 
     classes = classSet [
       'overlay'

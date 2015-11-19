@@ -12,12 +12,12 @@ CreditCardForm = forms.Form.extend {
     widgetAttrs: {autoFocus: true}
 
   expiry: forms.CharField
-    label: 'Expiration'
+    label: 'Expiration (MM/YYYY)'
     cssClass: 'expiry'
     required: true
 
   cvc: forms.CharField
-    label: 'CVC'
+    label: 'Security Code (CVC)'
     cssClass: 'cvc'
     required: true
 

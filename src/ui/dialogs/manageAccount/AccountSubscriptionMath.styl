@@ -1,22 +1,42 @@
 .account-subscription-math
-  font-size: 16px
-  margin-top: 16px
-  padding: 0 8px
-  border: 1px solid $color-steel-light
-  background: $color-steel-verylight
+  margin: 8px 0
   
-  .row
-    display: flex
-    flex-direction: row
-    align-items: center
-    height: 32px
-    .label
-      flex: 1
-    .value
-      font-weight: $bold-font-weight
-      .operator
-        color: $color-ink-subtle
-        padding-right: 20px
-    &.sum
-      border-top: 1px solid $color-divider
-      font-weight: $bold-font-weight
+  .table
+    font-size: 16px
+    border: 1px solid $color-steel-light
+    background: $color-steel-verylight
+    padding: 0 8px
+    
+    .row
+      display: flex
+      flex-direction: row
+      align-items: center
+      height: 32px
+      .label
+        flex: 1
+        em
+          font-style: normal
+          color: $color-ink-light
+      .value
+        font-weight: $bold-font-weight
+        &.discount
+          color: $color-ink-light
+        .operator
+          color: $color-ink-subtle
+          padding-right: 20px
+
+      &.sum
+        border-top: 1px solid $color-divider
+        font-weight: $bold-font-weight
+
+  .hint
+    margin: 8px
+    font-size: 14px
+    font-style: italic
+    font-weight: $bold-font-weight
+    color: $color-ink-light
+    line-height: 18px
+    a, a:visited
+      color: $color-link
+    a:hover, a:active
+      color: $color-link-active

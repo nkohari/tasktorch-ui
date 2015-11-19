@@ -44,6 +44,9 @@ HelpDialog = React.createClass {
         "If you don't see what you need, or if you just want to give us some feedback, you can "
         a {onClick: @showHelp}, "start a support conversation"
         "."
+      p {className: 'warning'},
+        "Some of our users have reported that content blockers (eg. uBlock) interfere with "
+        "our help system. If you are using a content blocker, please disable it for this site!"
 
   showHelp: ->
     @props.closeDialog()

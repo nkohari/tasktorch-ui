@@ -5,6 +5,9 @@ class Processor
   constructor: (@history, @eventQueue, @viewMaster) ->
     @redirecting = false
 
+  reset: ->
+    @redirecting = false
+
   execute: (request) ->
 
     publish = @eventQueue.publish.bind(@eventQueue)
@@ -21,10 +24,17 @@ class Processor
         request.onError(publish)
       else if res.unauthorized
         @handleUnauthorized()
+      else if res.status == 402
+        @handlePaymentRequired()
 
   handleUnauthorized: ->
     unless @redirecting
       @redirecting = true
       @history.pushState(null, '/x/login', {from: 'expired', return: document.location.toString()})
+
+  handlePaymentRequired: ->
+    unless @redirecting
+      @redirecting = true
+      @history.pushState(null, '/subscription-not-found')
  
 module.exports = Processor

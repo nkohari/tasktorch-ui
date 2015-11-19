@@ -14,12 +14,15 @@ GoalStore               = require 'data/stores/GoalStore'
 GoalsByCardStore        = require 'data/stores/GoalsByCardStore'
 GoalsByOrgStore         = require 'data/stores/GoalsByOrgStore'
 InviteStore             = require 'data/stores/InviteStore'
+InvoiceStore            = require 'data/stores/InvoiceStore'
+InvoicesByOrgStore      = require 'data/stores/InvoicesByOrgStore'
 KindStore               = require 'data/stores/KindStore'
 KindsByOrgStore         = require 'data/stores/KindsByOrgStore'
 MembershipStore         = require 'data/stores/MembershipStore'
 MembershipsByOrgStore   = require 'data/stores/MembershipsByOrgStore'
 MembersByTeamStore      = require 'data/stores/MembersByTeamStore'
 MyFollowedCardsStore    = require 'data/stores/MyFollowedCardsStore'
+MyMembershipsStore      = require 'data/stores/MyMembershipsStore'
 MyOrgsStore             = require 'data/stores/MyOrgsStore'
 MyStacksStore           = require 'data/stores/MyStacksStore'
 MyTeamsStore            = require 'data/stores/MyTeamsStore'
@@ -67,6 +70,7 @@ class Environment
       createStore(DialogStore)
       createStore(GoalStore)
       createStore(InviteStore)
+      createStore(InvoiceStore)
       createStore(KindStore)
       createStore(MembershipStore)
       createStore(OrgStore)
@@ -88,10 +92,12 @@ class Environment
       createStore(FollowersByCardStore)
       createStore(GoalsByCardStore)
       createStore(GoalsByOrgStore)
+      createStore(InvoicesByOrgStore)
       createStore(KindsByOrgStore)
       createStore(MembersByTeamStore)
       createStore(MembershipsByOrgStore)
       createStore(MyFollowedCardsStore)
+      createStore(MyMembershipsStore)
       createStore(MyOrgsStore)
       createStore(MyStacksStore)
       createStore(MyTeamsStore)

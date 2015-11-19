@@ -13,11 +13,11 @@ ComposeButtonCallout = React.createClass {
 
     Callout {selector: '.compose', position: 'below left', forceSize: false},
       p {},
-        "To create cards of your own, click the Compose button here and choose a kind. "
+        "To create cards of your own, click the Create button and choose a kind. "
         "When you create a card, it begins in your "
-        em {}, "drafts"
-        " stack. After adding a description and actions, "
-        "you can pass the card to someone, or accept it to begin working on it yourself."
+        em {}, "inbox"
+        ". After adding a description and actions, "
+        "you can pass the card to someone, or prioritize it to begin working on it yourself."
 
 }
 

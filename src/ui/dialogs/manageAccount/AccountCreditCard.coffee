@@ -2,6 +2,7 @@
 _              = require 'lodash'
 React          = require 'react'
 PropTypes      = require 'ui/framework/PropTypes'
+Actor          = require 'ui/framework/mixins/Actor'
 Button         = React.createFactory(require 'ui/common/Button')
 DialogTrigger  = React.createFactory(require 'ui/common/DialogTrigger')
 {div, em, img} = React.DOM
@@ -31,9 +32,19 @@ AccountCreditCard = React.createClass {
         div {className: 'account-credit-card-expiry'},
           "Expires "
           em {}, "#{source.month}/#{source.year}"
-      div {className: 'account-credit-card-button'},
-        DialogTrigger {name: 'ChangeOrgCreditCard', orgid: @props.orgid},
-          Button {icon: 'billing', text: 'Change card'}
+      div {className: 'account-credit-card-buttons'},
+        DialogTrigger {name: 'ChangeOrgCreditCard'},
+          Button {text: 'Change card'}
+
+  renderMissing: ->
+
+    div {className: 'account-credit-card warning'},
+      div {className: 'account-credit-card-message'},
+        "Your account does not have a credit card associated with it. To avoid interrupted "
+        "service, please add a card before your trial period expires."
+      div {className: 'account-credit-card-buttons'},
+        DialogTrigger {name: 'ChangeOrgCreditCard'},
+          Button {text: 'Add card'}
 
   renderBrandImage: (source) ->
 

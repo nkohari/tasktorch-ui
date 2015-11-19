@@ -2,6 +2,7 @@
 React                = require 'react'
 Router               = require 'react-router'
 autokey              = require 'common/util/autokey'
+MembershipLevel      = require 'data/enums/MembershipLevel'
 PropTypes            = require 'ui/framework/PropTypes'
 CachedState          = require 'ui/framework/mixins/CachedState'
 IdentityContext      = require 'ui/framework/mixins/IdentityContext'
@@ -9,7 +10,7 @@ ContextMenu          = React.createFactory(require 'ui/common/ContextMenu')
 ContextMenuSeparator = React.createFactory(require 'ui/common/ContextMenuSeparator')
 DialogTrigger        = React.createFactory(require 'ui/common/DialogTrigger')
 Icon                 = React.createFactory(require 'ui/common/Icon')
-{a}                  = React.DOM
+{a, li}              = React.DOM
 #--------------------------------------------------------------------------------
 
 OrgContextMenu = React.createClass {
@@ -21,9 +22,13 @@ OrgContextMenu = React.createClass {
 
   mixins: [CachedState, IdentityContext, Router.History]
 
-  getCachedState: (cache) -> {
-    isMemberOfMultipleOrgs: cache('myOrgs').get()?.length > 1
-  }
+  getCachedState: (cache) ->
+    memberships  = cache('myMemberships').get()
+    if memberships?
+      isMemberOfMultipleOrgs = memberships.length > 1
+      currentOrgMembership = _.find memberships, (m) => m.org == @getCurrentOrg().id
+      isLeaderOfCurrentOrg = currentOrgMembership.level == MembershipLevel.Leader
+    {isMemberOfMultipleOrgs, isLeaderOfCurrentOrg}
 
   render: ->
 
@@ -37,12 +42,12 @@ OrgContextMenu = React.createClass {
 
     leaderItems = [
       ContextMenuSeparator {}
-      DialogTrigger {name: 'OrgMembers', orgid: currentOrg.id},
-        Icon {name: 'org'}
-        'Manage members'
       DialogTrigger {name: 'SendInvites', orgid: currentOrg.id},
         Icon {name: 'invite'}
         'Invite others'
+      DialogTrigger {name: 'OrgMembers', orgid: currentOrg.id},
+        Icon {name: 'org'}
+        'Manage members'
       DialogTrigger {name: 'ManageAccount', orgid: currentOrg.id},
         Icon {name: 'billing'}
         'Manage account'
@@ -64,7 +69,7 @@ OrgContextMenu = React.createClass {
 
     items = autokey [
       commonItems
-      leaderItems # TODO: Add flag when org leaders are shaped up
+      leaderItems if @state.isLeaderOfCurrentOrg
       switchItems if @state.isMemberOfMultipleOrgs
     ]
 

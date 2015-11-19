@@ -1,13 +1,33 @@
 .account-billing-period
-  margin: 16px 8px 0 8px
+  margin-bottom: 8px
   font-size: 18px
-  r-steel-verylight
+  padding: 8px
   
+  &.active
+    border: 1px solid $color-good-medium
+    background: $color-good-light
+    .account-subscription-status { color: $color-good }
+    
+  &.trial
+    border: 1px solid $color-caution-medium
+    background: $color-caution-light
+    .account-subscription-status { color: $color-caution }
+    
+  &.pastdue
+    border: 1px solid $color-bad-medium
+    background: $color-bad-light
+    .account-subscription-status { color: $color-bad }
+    
+  &.canceled, &.cancellationpending
+    border: 1px solid $color-steel-light
+    background: $color-steel-verylight
+    .account-subscription-status { color: $color-ink-light }
+
   .row
     display: flex
     flex-direction: row
     align-items: center
-    height: 32px
+    line-height: 28px
     .label
       flex: 1
     .divider
@@ -15,7 +35,3 @@
   
   .account-subscription-status
     font-weight: $bold-font-weight
-    &.active   { color: $color-good      }
-    &.trial    { color: $color-caution   }
-    &.pastdue  { color: $color-bad       }
-    &.canceled { color: $color-ink-light }

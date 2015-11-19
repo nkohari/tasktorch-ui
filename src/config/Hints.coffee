@@ -53,9 +53,9 @@ settings, click Create Kind!
 """
 
 Hints['accept-card'] = """
-Accepting the card will move it to your queue, which lets everyone know that
-you intend to work on it. If you choose to begin working on it immediately,
-it will be placed at the top of your queue. Otherwise, it will be added to the end.
+This will move it to your priorities list, which lets everyone know that
+you intend to work on it. Normally, it will be placed at the end of your list, but
+you can choose to make it your new top priority instead.
 """
 
 Hints['complete-card'] = """
@@ -108,6 +108,10 @@ Hints['org-memberships'] = """
 This is the list of people who have access to your organization. Those marked as leaders
 are allowed to manage memberships, including inviting others to join and deactivating
 memberships.
+"""
+
+Hints['org-email'] = """
+This email address will be used for billing information and receipts.
 """
 
 module.exports = Hints

@@ -1,9 +1,14 @@
 .account-credit-card
   display: flex
   flex-direction: row
+  margin: 8px 0
   padding: 8px
   border: 1px solid $color-good-medium
   background: $color-good-light
+    
+  &.warning
+    border: 1px solid $color-bad-medium
+    background: $color-bad-light
   
   .account-credit-card-brand
     height: 36px
@@ -14,3 +19,14 @@
     em
       font-style: normal
       font-weight: $heavy-font-weight
+  
+  .account-credit-card-message
+    flex: 1
+    font-size: 16px
+    line-height: 20px
+    margin-right: 8px
+  
+  .account-credit-card-buttons
+    display: flex
+    flex-direction: row
+    align-items: center

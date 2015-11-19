@@ -7,7 +7,6 @@ PropTypes         = require 'ui/framework/PropTypes'
 CommandContext    = require 'ui/framework/mixins/CommandContext'
 ArchiveCommandBar = React.createFactory(require 'ui/screens/workspace/panels/card/commands/bars/ArchiveCommandBar')
 BacklogCommandBar = React.createFactory(require 'ui/screens/workspace/panels/card/commands/bars/BacklogCommandBar')
-DraftsCommandBar  = React.createFactory(require 'ui/screens/workspace/panels/card/commands/bars/DraftsCommandBar')
 InboxCommandBar   = React.createFactory(require 'ui/screens/workspace/panels/card/commands/bars/InboxCommandBar')
 QueueCommandBar   = React.createFactory(require 'ui/screens/workspace/panels/card/commands/bars/QueueCommandBar')
 TrashCommandBar   = React.createFactory(require 'ui/screens/workspace/panels/card/commands/bars/TrashCommandBar')
@@ -42,7 +41,6 @@ CardCommandBar = React.createClass {
   getCommandBarClassByStackType: ->
     switch @props.stack.type
       when StackType.Backlog then BacklogCommandBar
-      when StackType.Drafts  then DraftsCommandBar
       when StackType.Inbox   then InboxCommandBar
       when StackType.Queue   then QueueCommandBar
 

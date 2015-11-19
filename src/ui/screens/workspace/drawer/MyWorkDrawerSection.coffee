@@ -14,7 +14,7 @@ MyWorkDrawerSection = React.createClass {
 
   render: ->
 
-    DrawerSection {className: 'my-work', title: 'My Cards', menu: MyWorkContextMenu {}},
+    DrawerSection {className: 'my-work', title: 'My Stacks', menu: MyWorkContextMenu {}},
       @renderItems()
 
   renderItems: ->

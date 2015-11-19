@@ -26,7 +26,7 @@ Analytics.init = (user, org) ->
       is_leader:  _.contains(org.leaders, user.id)
       user_agent: window.navigator.userAgent
       widget:
-        activator:  '#intercom'
+        activator: '#intercom'
       company:
         id:   org.id
         name: org.name

@@ -29,7 +29,7 @@ TopLeftCorner = React.createClass {
     div {className: 'top-left'},
       DrawerToggleButton {}
       OverlayTrigger {className: 'compose menu-button', overlay},
-        Button {text: 'Compose', caret: true}
+        Button {text: 'Create', caret: true}
 
 }
 

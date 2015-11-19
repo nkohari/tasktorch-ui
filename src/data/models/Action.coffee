@@ -4,4 +4,4 @@ class Action extends Model
 
   type: 'Action'
 
-module.exports = Model
+module.exports = Action

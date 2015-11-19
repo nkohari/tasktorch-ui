@@ -11,6 +11,7 @@ Button                        = React.createFactory(require 'ui/common/Button')
 Dialog                        = React.createFactory(require 'ui/common/Dialog')
 DialogFooter                  = React.createFactory(require 'ui/common/DialogFooter')
 Form                          = React.createFactory(require 'ui/common/Form')
+{img}                         = React.DOM
 #--------------------------------------------------------------------------------
 require './ChangeOrgCreditCardDialog.styl'
 #--------------------------------------------------------------------------------
@@ -31,6 +32,9 @@ ChangeOrgCreditCardDialog = React.createClass {
   render: ->
 
     footer = DialogFooter {
+      left: [
+        img {className: 'stripe', src: require('img/stripe.svg')}
+      ]
       right: [
         Button {text: 'Save Card', onClick: @saveCard}
         Button {text: 'Cancel', onClick: @props.closeDialog}

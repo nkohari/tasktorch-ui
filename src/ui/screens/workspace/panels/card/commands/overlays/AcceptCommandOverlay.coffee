@@ -22,8 +22,8 @@ AcceptCommandOverlay = React.createClass {
   render: ->
 
     buttons = div {className: 'buttons'},
-      Button {text: 'Add to My Queue', className: 'default', onClick: @acceptCard.bind(this, false)}
-      Button {text: 'Start Immediately', onClick: @acceptCard.bind(this, true)}
+      Button {text: 'Add to My Priorities', className: 'default', onClick: @acceptCard.bind(this, false)}
+      Button {text: 'Make Top Priority', onClick: @acceptCard.bind(this, true)}
       Button {text: 'Cancel', onClick: @hideCommand}
 
     CardCommandOverlay {className: 'complete', buttons},
