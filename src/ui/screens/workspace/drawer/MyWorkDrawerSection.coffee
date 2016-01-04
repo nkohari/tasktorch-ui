@@ -21,14 +21,12 @@ MyWorkDrawerSection = React.createClass {
 
     queue  = @getSpecialStack(StackType.Queue)
     inbox  = @getSpecialStack(StackType.Inbox)
-    drafts = @getSpecialStack(StackType.Drafts)
 
-    return [] unless queue? and inbox? and drafts?
+    return [] unless queue? and inbox?
 
     specialStacks = [
       StackDrawerItem {key: 'inbox',  stack: inbox}
       StackDrawerItem {key: 'queue',  stack: queue}
-      StackDrawerItem {key: 'drafts', stack: drafts}
     ]
 
     backlogStacks = _.map @getBacklogStacks(), (stack) =>

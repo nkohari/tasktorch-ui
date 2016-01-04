@@ -42,7 +42,10 @@ StackName = React.createClass {
       else
         possessive = "#{@state.user.name}'s"
 
-    return "#{possessive} #{@props.stack.type}"
+    if @props.stack.type == StackType.Queue
+      return "#{possessive} Priorities"
+    else
+      return "#{possessive} #{@props.stack.type}"
 
 }
 

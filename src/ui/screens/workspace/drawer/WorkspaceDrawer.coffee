@@ -4,7 +4,6 @@ React               = require 'react'
 CachedState         = require 'ui/framework/mixins/CachedState'
 PropTypes           = require 'ui/framework/PropTypes'
 Drawer              = React.createFactory(require 'ui/common/Drawer')
-FollowingDrawerItem = React.createFactory(require 'ui/screens/workspace/drawer/FollowingDrawerItem')
 MyWorkDrawerSection = React.createFactory(require 'ui/screens/workspace/drawer/MyWorkDrawerSection')
 TeamDrawerSection   = React.createFactory(require 'ui/screens/workspace/drawer/TeamDrawerSection')
 #--------------------------------------------------------------------------------
@@ -26,7 +25,6 @@ WorkspaceDrawer = React.createClass {
       TeamDrawerSection {key: team.id, team}
 
     Drawer {className: 'workspace'},
-      FollowingDrawerItem {}
       MyWorkDrawerSection {stacks: @state.stacks}
       teamSections
 

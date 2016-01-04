@@ -39,10 +39,10 @@ StackDrawerItem = React.createClass {
     }
 
   getStackName: ->
-    if @props.stack.type == StackType.Backlog
-      @props.stack.name
-    else
-      @props.stack.type
+    switch @props.stack.type
+      when StackType.Inbox then 'Inbox'
+      when StackType.Queue then 'Priorities'
+      else @props.stack.name
 
   toggleStack: ->
     @publish new UserToggledPanelEvent(new StackPanelSpec(@props.stack.id))

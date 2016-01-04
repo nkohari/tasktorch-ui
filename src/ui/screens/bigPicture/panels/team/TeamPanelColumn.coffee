@@ -37,7 +37,7 @@ TeamPanelColumn = React.createClass {
         Avatar {user: @props.user, size: 38, presence: true}
         div {className: 'content'},
           div {className: 'name'},  @props.user.name
-          div {className: 'count'}, "#{count} card#{plural} in queue"
+          div {className: 'count'}, "#{count} card#{plural}"
       div {className: 'content'},
         ul {className: 'cards'}, cards
 
