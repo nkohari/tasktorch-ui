@@ -77,7 +77,7 @@ OrgContextMenu = React.createClass {
       items
 
   switchOrgsClicked: ->
-    @history.pushState(null, '/x/select-org')
+    @history.pushState(null, '/orgs')
 
 }
 

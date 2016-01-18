@@ -29,7 +29,7 @@ SubscriptionNotFoundBanner = React.createClass {
         "."
 
   selectOrgClicked: ->
-    @history.pushState(null, '/x/select-org')
+    @history.pushState(null, '/orgs')
 
 }
 

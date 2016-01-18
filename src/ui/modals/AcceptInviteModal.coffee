@@ -89,7 +89,7 @@ AcceptInviteModal = React.createClass {
     @forceUpdate()
 
   onLoginClicked: ->
-    @history.pushState(null, '/x/login', {from: 'invite', invite: @state.invite.id})
+    @history.pushState(null, '/login', {from: 'invite', invite: @state.invite.id})
 
   onSubmit: (event) ->
 
@@ -116,7 +116,7 @@ AcceptInviteModal = React.createClass {
         if res.forbidden or res.badRequest
           alert("There was an error creating your account. Please try again.")
           return
-        @history.pushState(null, '/x/login', {from: 'invite-accepted'})
+        @history.pushState(null, '/login', {from: 'invite-accepted'})
 
 }
 

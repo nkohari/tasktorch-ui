@@ -64,7 +64,7 @@ UserContextMenu = React.createClass {
     .post(Request.urlFor('/sessions/logout'))
     .withCredentials()
     .end (err, res) =>
-      @history.pushState(null, '/x/login')
+      @history.pushState(null, '/login')
 
 }
 

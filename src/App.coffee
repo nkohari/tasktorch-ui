@@ -67,7 +67,7 @@ App = React.createClass {
         viewMaster.navigate()
         viewMaster.setIdentity(new Identity(props.params))
       else
-        props.history.pushState(null, '/x/login')
+        props.history.pushState(null, '/login')
     else
       viewMaster.setLocation(props.location)
       viewMaster.setIdentity(new Identity(props.params))
@@ -76,13 +76,13 @@ App = React.createClass {
 
 router = Router {history: createHistory()},
   Route {path: '/', component: App},
-    Route {path: 'x', component: ModalContainer},
-      Route {path: 'login',               component: LoginModal}
-      Route {path: 'create-org',          component: CreateOrgModal}
-      Route {path: 'send-invites/:orgid', component: SendInvitesModal}
-      Route {path: 'select-org',          component: SelectOrgModal}
-      Route {path: 'invite/:inviteid',    component: AcceptInviteModal}
-      Route {path: 'signup/:tokenid',     component: SignUpModal}
+    Route {component: ModalContainer},
+      Route {path: 'login',                 component: LoginModal}
+      Route {path: 'invites/:orgid/create', component: SendInvitesModal}
+      Route {path: 'orgs/create',           component: CreateOrgModal}
+      Route {path: 'orgs',                  component: SelectOrgModal}
+      Route {path: 'invite/:inviteid',      component: AcceptInviteModal}
+      Route {path: 'signup',                component: SignUpModal}
     Route {path: ':orgid/', component: Shell},
       Route {name: 'workspace',  path: 'workspace',  component: WorkspaceScreen}
       Route {name: 'bigpicture', path: 'bigpicture', component: BigPictureScreen}

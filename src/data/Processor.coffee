@@ -30,7 +30,7 @@ class Processor
   handleUnauthorized: ->
     unless @redirecting
       @redirecting = true
-      @history.pushState(null, '/x/login', {from: 'expired', return: document.location.toString()})
+      @history.pushState(null, '/login', {from: 'expired', return: document.location.toString()})
 
   handlePaymentRequired: ->
     unless @redirecting

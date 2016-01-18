@@ -104,9 +104,9 @@ LoginModal = React.createClass {
       .withCredentials()
       .end (err, res) =>
         {orgs} = res.body
-        if      orgs.length == 0 then @history.pushState(null, '/x/create-org')
+        if      orgs.length == 0 then @history.pushState(null, '/orgs/create')
         else if orgs.length == 1 then @history.pushState(null, "/#{orgs[0].id}/workspace")
-        else @history.pushState(null, '/x/select-org')
+        else @history.pushState(null, '/orgs')
 
 }
 

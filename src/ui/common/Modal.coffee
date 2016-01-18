@@ -30,8 +30,6 @@ Modal = React.createClass {
         div {className: 'brand'},
           span {className: 'word-one'}, 'Task'
           span {className: 'word-two'}, 'Torch'
-        div {className: 'version'},
-          'Private Beta'
       div {className: 'modal-content'},
         @props.children
 

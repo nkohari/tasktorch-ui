@@ -76,7 +76,7 @@ CreateOrgModal = React.createClass {
         alert("There was an error creating the organization. Please try again.")
         return
       {org} = res.body
-      @history.pushState(null, "/x/send-invites/#{org.id}")
+      @history.pushState(null, "/invites/#{org.id}/create")
 
 }
 

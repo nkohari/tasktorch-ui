@@ -22,7 +22,7 @@ NotFoundBanner = React.createClass {
         a {onClick: @goBackClicked}, "Back to log in"
 
   goBackClicked: ->
-    @history.pushState(null, '/x/login')
+    @history.pushState(null, '/login')
 
 }
 
