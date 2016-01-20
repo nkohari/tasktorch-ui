@@ -21,6 +21,7 @@ WorkspaceScreen            = require 'ui/screens/workspace/WorkspaceScreen'
 BigPictureScreen           = require 'ui/screens/bigPicture/BigPictureScreen'
 Router                     = React.createFactory(ReactRouter.Router)
 Route                      = React.createFactory(ReactRouter.Route)
+Redirect                   = React.createFactory(ReactRouter.Redirect)
 {cloneWithProps}           = React.addons
 {div} = React.DOM
 #--------------------------------------------------------------------------------
@@ -76,6 +77,8 @@ App = React.createClass {
 
 router = Router {history: createHistory()},
   Route {path: '/', component: App},
+    Redirect {from: 'x/login', to: '/login'}
+    Redirect {from: 'x/invite/:inviteid', to: '/invite/:inviteid'}
     Route {component: ModalContainer},
       Route {path: 'login',                 component: LoginModal}
       Route {path: 'invites/:orgid/create', component: SendInvitesModal}
