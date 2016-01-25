@@ -15,11 +15,14 @@ Overlay = React.createClass {
 
   propTypes:
     arrow:    PropTypes.bool
+    fixed:    PropTypes.bool
     isReady:  PropTypes.func
     position: PropTypes.string
 
-  getDefaultProps: ->
-    {position: 'bottom left'}
+  getDefaultProps: -> {
+    position: 'bottom left'
+    fixed:    false
+  }
 
   render: ->
 
@@ -28,6 +31,7 @@ Overlay = React.createClass {
         'overlay'
         @props.position
         'with-arrow' if @props.arrow
+        'fixed'      if @props.fixed
       ]
     }
 

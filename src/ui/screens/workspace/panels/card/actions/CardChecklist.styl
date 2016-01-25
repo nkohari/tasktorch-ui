@@ -1,8 +1,11 @@
 .card-checklist
   flex: none
-  padding: 10px
+  padding: 12px
   border-top: 1px solid $color-white
   border-bottom: 1px solid $color-steel-light
+  
+  &.complete
+    background: black(2%)
   
   &:last-child
     flex: 1
@@ -10,7 +13,7 @@
   
   .header
     display: flex
-    padding-bottom: 10px
+    padding-bottom: 12px
     
     & > i
       color: $color-ink-light

@@ -1,6 +1,7 @@
 #--------------------------------------------------------------------------------
 _                = require 'lodash'
 React            = require 'react'
+mergeProps       = require 'common/util/mergeProps'
 PropTypes        = require 'ui/framework/PropTypes'
 Icon             = React.createFactory(require 'ui/common/Icon')
 PanelCloseLink   = React.createFactory(require 'ui/common/PanelCloseLink')
@@ -21,13 +22,17 @@ PanelHeader = React.createClass {
 
   render: ->
 
+    props = mergeProps _.omit(@props, 'controls', 'icon', 'panelid'), {
+      className: 'panel-header'
+    }
+
     if @props.icon?
       if _.isString(@props.icon)
         icon = Icon {className: 'panel-icon', name: @props.icon}
       else
         icon = cloneWithProps @props.icon, {className: 'panel-icon'}
 
-    div {className: 'panel-header'},
+    div props,
       icon      
       div {className: 'title'},
         @props.children

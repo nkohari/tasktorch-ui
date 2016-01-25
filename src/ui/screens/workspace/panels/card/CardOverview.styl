@@ -1,0 +1,33 @@
+.card-overview
+  flex: none
+  display: flex
+  background: $color-steel
+  border-bottom: 1px solid $color-steel-dark
+  
+  for $name in $color-names
+    &.{$name}
+      background: theme-color($name, 100)
+      .follow-toggle
+        color: theme-color($name, 300)
+        &:hover { color: theme-color($name, 700) }
+  
+  .card-owner
+    flex: none
+    height: 54px
+    width: 54px
+    font-size: 48px
+    line-height: 46px
+    margin: 8px 12px 0 0
+        
+  .card-info
+    flex: 1
+    padding: 10px 0 4px 10px
+
+.card.complete, .card.deleted
+  .card-overview
+    for $name in $color-names
+      $color = theme-color($name, 100)
+      $alt   = $color-steel-light
+      &.{$name}
+        background: linear-gradient(to bottom right, $color 25%, $alt 25%, $alt 50%, $color 50%, $color 75%, $alt 75%, $alt);
+        background-size: 24px 24px

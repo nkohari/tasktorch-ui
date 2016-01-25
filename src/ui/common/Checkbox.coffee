@@ -25,11 +25,14 @@ Checkbox = React.createClass {
 
     div {className: 'input'},
       input props
-      span {className: 'input-text'}, @props.text
+      span {className: 'input-text', onClick: @toggle}, @props.text
 
   focus: ->
     return unless @isMounted()
     @refs.input.getDOMNode().focus()
+
+  toggle: ->
+    @refs.input.getDOMNode().click()
 
 }
 

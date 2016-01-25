@@ -16,7 +16,7 @@ UserWidget = React.createClass {
 
     if @props.user?
       em {className: 'user-widget'},
-        Avatar {user: @props.user}
+        Avatar {user: @props.user, size: 18}
         @props.user.name
     else
       em {className: 'user-widget'}, 'no one'

@@ -2,8 +2,9 @@
 _                 = require 'lodash'
 React             = require 'react'
 StackType         = require 'data/enums/StackType'
+DialogTrigger     = React.createFactory(require 'ui/common/DialogTrigger')
 DrawerSection     = React.createFactory(require 'ui/common/DrawerSection')
-MyWorkContextMenu = React.createFactory(require 'ui/overlays/MyWorkContextMenu')
+Icon              = React.createFactory(require 'ui/common/Icon')
 StackDrawerItem   = React.createFactory(require 'ui/screens/workspace/drawer/StackDrawerItem')
 {div, span, ul}   = React.DOM
 #--------------------------------------------------------------------------------
@@ -14,7 +15,10 @@ MyWorkDrawerSection = React.createClass {
 
   render: ->
 
-    DrawerSection {className: 'my-work', title: 'My Stacks', menu: MyWorkContextMenu {}},
+    controls = DialogTrigger {name: 'CreateStack'},
+      Icon {name: 'add'}
+
+    DrawerSection {className: 'my-work', title: 'My Stacks', controls},
       @renderItems()
 
   renderItems: ->

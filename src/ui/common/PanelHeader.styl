@@ -5,7 +5,6 @@
   font-size: 14px
   line-height: 16px
   font-weight: $bold-font-weight
-  overflow: hidden
   padding: 8px
   background: $color-steel
   border-bottom: 1px solid $color-steel-dark
@@ -22,10 +21,11 @@
     margin-left: 6px
     
   .controls
+    position: relative
     display: flex
     
     .trigger, .close
-      margin-right: 4px
+      margin-right: 6px
       &:last-child { margin-right: 0 }
       
       & > i

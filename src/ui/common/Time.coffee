@@ -1,6 +1,7 @@
 #--------------------------------------------------------------------------------
 moment     = require 'moment-timezone'
 React      = require 'react'
+dateTime   = require 'common/util/dateTime'
 mergeProps = require 'common/util/mergeProps'
 PropTypes  = require 'ui/framework/PropTypes'
 {time}     = React.DOM
@@ -31,7 +32,7 @@ Time = React.createClass {
     if @props.relative
       text = value.fromNow()
     else if @props.format?
-      text = value.format(@props.format)
+      text = dateTime.format(value, @props.format)
     else
       text = value.calendar()
 

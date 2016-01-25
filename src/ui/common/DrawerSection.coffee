@@ -15,8 +15,9 @@ DrawerSection = React.createClass {
   displayName: 'DrawerSection'
 
   propTypes:
-    title: PropTypes.string
-    menu:  PropTypes.node
+    title:    PropTypes.string
+    controls: PropTypes.node
+    menu:     PropTypes.node
 
   render: ->
 
@@ -24,7 +25,9 @@ DrawerSection = React.createClass {
       className: 'drawer-section'
     }
 
-    if @props.menu?
+    if @props.controls?
+      trigger = @props.controls
+    else if @props.menu?
       trigger = OverlayTrigger {className: 'settings', overlay: @props.menu},
         Icon {name: 'trigger'}
 

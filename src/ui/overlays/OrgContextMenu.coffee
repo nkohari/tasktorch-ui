@@ -34,42 +34,42 @@ OrgContextMenu = React.createClass {
 
     currentOrg = @getCurrentOrg()
 
-    commonItems = [
-      DialogTrigger {name: 'Help'},
-        Icon {name: 'help'}
-        'Help'
-    ]
-
     leaderItems = [
-      ContextMenuSeparator {}
-      DialogTrigger {name: 'SendInvites', orgid: currentOrg.id},
-        Icon {name: 'invite'}
-        'Invite others'
       DialogTrigger {name: 'OrgMembers', orgid: currentOrg.id},
         Icon {name: 'org'}
-        'Manage members'
+        'Members'
       DialogTrigger {name: 'ManageAccount', orgid: currentOrg.id},
         Icon {name: 'billing'}
-        'Manage account'
+        'Account Details'
       ContextMenuSeparator {}
-      DialogTrigger {name: 'CreateTeam', orgid: currentOrg.id},
+    ]
+
+    commonItems = [
+      DialogTrigger {name: 'ManageTeams', orgid: currentOrg.id},
         Icon {name: 'team'}
-        'Create a team'
+        'Teams'
+      DialogTrigger {name: 'ManageGoals', orgid: currentOrg.id},
+        Icon {name: 'goal'}
+        'Goals'
       DialogTrigger {name: 'ManageKinds', orgid: currentOrg.id},
         Icon {name: 'kind'}
-        'Manage card kinds'
+        'Card Kinds'
     ]
 
     switchItems = [
       ContextMenuSeparator {}
       a {onClick: @switchOrgsClicked},
         Icon {name: 'switch'}
-        'Switch organizations'
+        'Switch Organizations'
     ]
 
     items = autokey [
-      commonItems
+      DialogTrigger {name: 'Help'},
+        Icon {name: 'help'}
+        'Help'
+      ContextMenuSeparator {}
       leaderItems if @state.isLeaderOfCurrentOrg
+      commonItems
       switchItems if @state.isMemberOfMultipleOrgs
     ]
 

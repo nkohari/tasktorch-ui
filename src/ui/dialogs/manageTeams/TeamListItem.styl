@@ -1,0 +1,36 @@
+.team-list-item
+  display: flex
+  padding: 10px
+  align-items: center
+  border-bottom: 1px solid $color-steel-light
+  
+  &:hover
+    background: $color-selection
+    .trigger { color: $color-ink }
+  
+  .team-info
+    flex: 1
+    margin-right: 6px
+    
+    .team-name
+      font-size: 16px
+      font-weight: $bold-font-weight
+      i { margin-right: 6px }
+    
+    .team-members
+      display: flex
+      align-items: center
+      padding: 4px 0 0 24px
+      
+      .team-member
+        padding-right: 4px
+      
+      .text
+        font-style: italic
+        color: $color-ink-light
+    
+  .trigger
+    position: relative
+    color: $color-ink-light
+    transition: color $hover-animation-delay linear
+    &.active { color: $color-ink }

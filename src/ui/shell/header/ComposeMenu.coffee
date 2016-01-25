@@ -2,10 +2,13 @@
 _                    = require 'lodash'
 React                = require 'react'
 EventOrigin          = require 'data/enums/EventOrigin'
+KindStatus           = require 'data/enums/KindStatus'
 UserCreatedCardEvent = require 'events/ui/UserCreatedCardEvent'
 UserOpenedPanelEvent = require 'events/ui/UserOpenedPanelEvent'
 PropTypes            = require 'ui/framework/PropTypes'
 Actor                = require 'ui/framework/mixins/Actor'
+CachedState          = require 'ui/framework/mixins/CachedState'
+IdentityContext      = require 'ui/framework/mixins/IdentityContext'
 CardPanelSpec        = require 'ui/framework/panels/CardPanelSpec'
 ContextMenu          = React.createFactory(require 'ui/common/ContextMenu')
 Icon                 = React.createFactory(require 'ui/common/Icon')
@@ -22,13 +25,19 @@ ComposeMenu = React.createClass {
     org:         PropTypes.Org
     hideOverlay: PropTypes.func
 
-  mixins: [Actor]
+  mixins: [Actor, CachedState, IdentityContext]
 
   listensFor: ['CardCreated']
 
+  getCachedState: (cache) -> {
+    kinds: cache('kindsByOrg').get(@getCurrentOrg().id)
+  }
+
   render: ->
 
-    items = _.map @props.kinds, (kind) =>
+    kinds = _.filter @state.kinds, (k) -> k.status == KindStatus.Normal
+
+    items = _.map kinds, (kind) =>
       MenuOption {key: kind.id, onActivated: @createCard.bind(this, kind)},
         Icon {name: 'card', color: kind.color}
         kind.name

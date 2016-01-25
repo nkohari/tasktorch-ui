@@ -1,5 +1,6 @@
 #--------------------------------------------------------------------------------
 React                = require 'react'
+KindStatus           = require 'data/enums/KindStatus'
 PropTypes            = require 'ui/framework/PropTypes'
 CachedState          = require 'ui/framework/mixins/CachedState'
 ContextMenu          = React.createFactory(require 'ui/common/ContextMenu')
@@ -24,6 +25,17 @@ KindContextMenu = React.createClass {
 
   render: ->
 
+    if @state.kind?.status == KindStatus.Normal
+      toggle = [
+        Icon {name: 'archive'}
+        'Archive'
+      ]
+    else
+      toggle = [
+        Icon {name: 'restore'}
+        'Restore'
+      ]
+
     ContextMenu {position: 'bottom right', hideOverlay: @props.hideOverlay},
       DialogTrigger {name: 'RenameKind', kindid: @props.kindid},
         Icon {name: 'edit'}
@@ -37,6 +49,9 @@ KindContextMenu = React.createClass {
       DialogTrigger {name: 'ChangeKindWorkflow', kindid: @props.kindid},
         Icon {name: 'workflow'}
         'Change workflow'
+      ContextMenuSeparator {}
+      DialogTrigger {name: 'ChangeKindStatus', kindid: @props.kindid},
+        toggle
 
 }
 

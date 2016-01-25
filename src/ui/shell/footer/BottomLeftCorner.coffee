@@ -33,7 +33,7 @@ BottomLeftCorner = React.createClass {
     Frame {@isReady, className: 'bottom-left'},
       FollowingToggleButton    {cards: @state.followedCards}
       SpecialStackToggleButton {icon: 'inbox', hotkey: 'i', stack: @state.inbox}
-      SpecialStackToggleButton {icon: 'queue', hotkey: 'q', stack: @state.queue}
+      SpecialStackToggleButton {icon: 'queue', hotkey: 'p', stack: @state.queue}
 
 }
 

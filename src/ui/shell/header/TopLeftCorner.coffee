@@ -2,8 +2,6 @@
 _                  = require 'lodash'
 React              = require 'react'
 PropTypes          = require 'ui/framework/PropTypes'
-CachedState        = require 'ui/framework/mixins/CachedState'
-IdentityContext    = require 'ui/framework/mixins/IdentityContext'
 Button             = React.createFactory(require 'ui/common/Button')
 ComposeMenu        = React.createFactory(require 'ui/shell/header/ComposeMenu')
 DrawerToggleButton = React.createFactory(require 'ui/shell/header/DrawerToggleButton')
@@ -17,18 +15,11 @@ TopLeftCorner = React.createClass {
 
   displayName: 'TopLeftCorner'
 
-  mixins: [CachedState, IdentityContext]
-
-  getCachedState: (cache) ->
-    {kinds: cache('kindsByOrg').get(@getCurrentOrg().id)}
-
   render: ->
-
-    overlay = ComposeMenu {org: @getCurrentOrg(), kinds: @state.kinds}
 
     div {className: 'top-left'},
       DrawerToggleButton {}
-      OverlayTrigger {className: 'compose menu-button', overlay},
+      OverlayTrigger {className: 'compose menu-button', overlay: ComposeMenu {}},
         Button {text: 'Create', caret: true}
 
 }

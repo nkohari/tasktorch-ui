@@ -1,12 +1,15 @@
 #--------------------------------------------------------------------------------
 _                            = require 'lodash'
 React                        = require 'react'
+GoalStatus                   = require 'data/enums/GoalStatus'
 UserAddedCardToGoalEvent     = require 'events/ui/UserAddedCardToGoalEvent'
 UserRemovedCardFromGoalEvent = require 'events/ui/UserRemovedCardFromGoalEvent'
+UserOpenedDialogEvent        = require 'events/ui/UserOpenedDialogEvent'
 PropTypes                    = require 'ui/framework/PropTypes'
 Actor                        = require 'ui/framework/mixins/Actor'
 CachedState                  = require 'ui/framework/mixins/CachedState'
 Avatar                       = React.createFactory(require 'ui/common/Avatar')
+Button                       = React.createFactory(require 'ui/common/Button')
 Checkbox                     = React.createFactory(require 'ui/common/Checkbox')
 DialogTrigger                = React.createFactory(require 'ui/common/DialogTrigger')
 Overlay                      = React.createFactory(require 'ui/common/Overlay')
@@ -37,7 +40,8 @@ CardGoalsOverlay = React.createClass {
   render: ->
 
     if @state.allGoals?
-      goals = _.map @state.allGoals, (goal) =>
+      activeGoals = _.filter @state.allGoals, (g) -> g.status == GoalStatus.Normal
+      goals = _.map activeGoals, (goal) =>
         checked = _.contains(@state.selectedGoals, goal.id)
         li {className: 'goal'},
           Checkbox {checked, text: goal.name, onChange: @onGoalToggled.bind(this, goal)}
@@ -46,14 +50,14 @@ CardGoalsOverlay = React.createClass {
       div {className: 'content'},
         ul {className: 'goal-list'}, goals
       div {className: 'buttons'},
-        DialogTrigger {name: 'CreateGoal', cardid: @props.card.id, onActivated: @onCreateGoalClicked},
-          'Create another goal...'
+        Button {className: 'small', text: 'Manage Goals', onClick: @showManageGoalDialog}
 
-  onCreateGoalClicked: ->
+  showManageGoalDialog: ->
+    @publish new UserOpenedDialogEvent('ManageGoals')
     @props.hideOverlay()
 
   onGoalToggled: (goal, event) ->
-    if (event.target.checked)
+    if event.target.checked
       @setState {selectedGoals: @state.selectedGoals.concat([goal.id])}
       @publish new UserAddedCardToGoalEvent(goal.id, @props.card.id)
     else

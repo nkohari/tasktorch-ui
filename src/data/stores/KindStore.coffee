@@ -3,6 +3,7 @@ ModelStore                   = require 'data/framework/ModelStore'
 CreateKindRequest            = require 'data/requests/CreateKindRequest'
 ChangeKindColorRequest       = require 'data/requests/ChangeKindColorRequest'
 ChangeKindDescriptionRequest = require 'data/requests/ChangeKindDescriptionRequest'
+ChangeKindStatusRequest      = require 'data/requests/ChangeKindStatusRequest'
 LoadKindRequest              = require 'data/requests/LoadKindRequest'
 RenameKindRequest            = require 'data/requests/RenameKindRequest'
 
@@ -18,6 +19,7 @@ class KindStore extends ModelStore
     'KindChanged'
     'UserChangedKindColor'
     'UserChangedKindDescription'
+    'UserChangedKindStatus'
     'UserCreatedKind'
     'UserRenamedKind'
   ]
@@ -34,16 +36,19 @@ class KindStore extends ModelStore
   onKindChanged: (event) ->
     @add(event.kind)
 
+  onUserCreatedKind: (event) ->
+    @execute new CreateKindRequest(event.orgid, event.name, event.description, event.color, event.stages)
+
   onUserChangedKindColor: (event) ->
     @execute new ChangeKindColorRequest(event.kindid, event.color)
 
   onUserChangedKindDescription: (event) ->
     @execute new ChangeKindDescriptionRequest(event.kindid, event.description)
 
+  onUserChangedKindStatus: (event) ->
+    @execute new ChangeKindStatusRequest(event.kindid, event.status)
+
   onUserRenamedKind: (event) ->
     @execute new RenameKindRequest(event.kindid, event.name)
-
-  onUserCreatedKind: (event) ->
-    @execute new CreateKindRequest(event.orgid, event.name, event.description, event.color, event.stages)
 
 module.exports = KindStore

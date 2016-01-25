@@ -1,6 +1,8 @@
 #--------------------------------------------------------------------------------
 _                 = require 'lodash'
 React             = require 'react'
+GoalStatus        = require 'data/enums/GoalStatus'
+KindStatus        = require 'data/enums/KindStatus'
 PropTypes         = require 'ui/framework/PropTypes'
 CachedState       = require 'ui/framework/mixins/CachedState'
 IdentityContext   = require 'ui/framework/mixins/IdentityContext'
@@ -27,10 +29,13 @@ BigPictureDrawer = React.createClass {
 
   render: ->
 
+    goals = _.filter @state.goals, (g) -> g.status == GoalStatus.Normal
+    kinds = _.filter @state.kinds, (k) -> k.status == KindStatus.Normal
+
     Drawer {className: 'big-picture'},
-      GoalDrawerSection {goals: @state.goals}
+      GoalDrawerSection {goals: goals}
       TeamDrawerSection {teams: @state.teams}
-      KindDrawerSection {kinds: @state.kinds}
+      KindDrawerSection {kinds: kinds}
 
 }
 

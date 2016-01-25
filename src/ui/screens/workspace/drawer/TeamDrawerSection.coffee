@@ -4,7 +4,9 @@ React           = require 'react'
 PropTypes       = require 'ui/framework/PropTypes'
 StackType       = require 'data/enums/StackType'
 CachedState     = require 'ui/framework/mixins/CachedState'
+DialogTrigger   = React.createFactory(require 'ui/common/DialogTrigger')
 DrawerSection   = React.createFactory(require 'ui/common/DrawerSection')
+Icon            = React.createFactory(require 'ui/common/Icon')
 TeamContextMenu = React.createFactory(require 'ui/overlays/TeamContextMenu')
 StackDrawerItem = React.createFactory(require 'ui/screens/workspace/drawer/StackDrawerItem')
 {div, span, ul} = React.DOM
@@ -35,7 +37,10 @@ TeamDrawerSection = React.createClass {
       backlogStacks = _.map @state.backlogStacks, (stack) =>
         StackDrawerItem {key: stack.id, stack}
 
-    DrawerSection {className: 'team', title: @props.team.name, menu: TeamContextMenu {team: @props.team}},
+    controls = DialogTrigger {name: 'CreateStack', teamid: @props.team.id},
+      Icon {name: 'add'}
+
+    DrawerSection {className: 'team', title: @props.team.name, controls},
       inboxStack
       backlogStacks
 

@@ -4,13 +4,13 @@ Request          = require 'data/framework/Request'
 
 class CreateGoalRequest extends Request
 
-  constructor: (@orgid, @name) ->
+  constructor: (@orgid, @name, @description, @timeframe) ->
 
   create: (identity, agent) ->
     agent
     .post(@urlFor("/#{@orgid}/goals"))
     .withCredentials()
-    .send {@name}
+    .send {@name, @description, @timeframe}
   
   onSuccess: (result, publish) ->
     goal = new Goal(result.goal)

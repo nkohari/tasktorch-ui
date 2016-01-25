@@ -1,5 +1,6 @@
 .trigger
   cursor: pointer
+  position: relative
 
 .overlay
   position: absolute
@@ -12,6 +13,9 @@
   border: 1px solid $color-steel-dark
   box-shadow: 0px 1px 3px black(30%)
   outline: none !important
+  
+  &.fixed
+    position: fixed
   
   &.bottom
     margin-top: 2px

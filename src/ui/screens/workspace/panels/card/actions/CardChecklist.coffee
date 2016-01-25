@@ -1,6 +1,8 @@
 #--------------------------------------------------------------------------------
 _                        = require 'lodash'
 React                    = require 'react'
+classSet                 = require 'common/util/classSet'
+ActionStatus             = require 'data/enums/ActionStatus'
 UserCreatedActionEvent   = require 'events/ui/UserCreatedActionEvent'
 PropTypes                = require 'ui/framework/PropTypes'
 Actor                    = require 'ui/framework/mixins/Actor'
@@ -36,7 +38,12 @@ CardChecklist = React.createClass {
 
   render: ->
 
-    div {className: 'card-checklist'},
+    classes = classSet [
+      'card-checklist'
+      'complete' if _.all(@state.actions, (a) -> a.status == ActionStatus.Complete)
+    ]
+
+    div {className: classes},
       div {className: 'header'},
         Icon {name: 'checklist'}
         span {className: 'title'}, @props.stage.name

@@ -14,10 +14,13 @@ ContextMenu = React.createClass {
 
   propTypes:
     position:    PropTypes.string
+    fixed:       PropTypes.bool
     hideOverlay: PropTypes.func
 
-  getDefaultProps: ->
-    {position: 'bottom left'}
+  getDefaultProps: -> {
+    position: 'bottom left'
+    fixed:    false
+  }
 
   render: ->
 
@@ -34,6 +37,7 @@ ContextMenu = React.createClass {
     classes = classSet [
       'overlay'
       'menu'
+      'fixed' if @props.fixed
       @props.position
     ]
 

@@ -1,0 +1,35 @@
+.kind-list-item
+  cursor: pointer
+  display: flex
+  padding: 10px
+  align-items: center
+  border-bottom: 1px solid $color-steel-light
+  
+  &:hover
+    background: $color-selection
+    .trigger { color: $color-ink }
+   
+  &.archived
+    color: $color-ink-light
+     
+  .kind-info
+    flex: 1
+    margin-right: 6px
+    
+    .kind-name
+      font-size: 16px
+      font-weight: $bold-font-weight
+      i { margin-right: 6px }
+    
+    .kind-description
+      padding: 2px 0 0 24px
+      font-size: 14px
+      font-style: italic
+      font-weight: $bold-font-weight
+      color: $color-ink-light
+    
+  .trigger
+    position: relative
+    color: $color-ink-light
+    transition: color $hover-animation-delay linear
+    &.active { color: $color-ink }

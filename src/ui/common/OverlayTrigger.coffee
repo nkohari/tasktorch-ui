@@ -19,14 +19,18 @@ OverlayTrigger = React.createClass {
     component: PropTypes.node
     overlay:   PropTypes.node
     method:    PropTypes.string
+    fixed:     PropTypes.bool
 
   getDefaultProps: -> {
     component: 'div'
     method: 'click'
   }
 
-  getInitialState: ->
-    {visible: false}
+  getInitialState: -> {
+    visible: false
+    top: 0
+    left: 0
+  }
 
   componentDidMount: ->
     document.addEventListener('mousedown', @onDocumentClicked)
@@ -38,7 +42,7 @@ OverlayTrigger = React.createClass {
 
   render: ->
 
-    props = mergeProps _.omit(@props, 'method', 'overlay'), {
+    props = mergeProps _.omit(@props, 'method', 'fixed', 'overlay'), {
       className: classSet [
         'trigger'
         'active' if @state.visible
@@ -64,7 +68,7 @@ OverlayTrigger = React.createClass {
 
     component props,
       trigger
-      CSSTransitionGroup {component: 'div', transitionName: 'slide'},
+      CSSTransitionGroup {className: 'trigger-shim', component: 'div', transitionName: 'slide'},
         overlay
 
   showOverlay: ->

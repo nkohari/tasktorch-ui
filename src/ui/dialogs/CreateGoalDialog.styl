@@ -1,0 +1,29 @@
+.create-goal-dialog
+  
+  .date-range-picker-wrapper
+    overflow: hidden
+    
+    .date-range-picker
+      margin-top: 8px
+
+      &.slide-enter
+        animation: goal-timeframe-enter 150ms ease-out
+        
+      &.slide-leave
+        animation: goal-timeframe-leave 150ms ease-out
+
+@keyframes goal-timeframe-enter
+  from
+    opacity: 0
+    height: 0
+  to
+    opacity: 1
+    height: auto
+
+@keyframes goal-timeframe-leave
+  from
+    opacity: 1
+    height: auto
+  to
+    opacity: 0
+    height: 0

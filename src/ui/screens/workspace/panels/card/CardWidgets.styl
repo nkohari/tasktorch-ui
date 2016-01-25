@@ -1,11 +1,8 @@
 .card-widgets
   margin: 2px 8px 2px 2px
   display: flex
-  
-  .right
-    flex: 1
-    display: flex
-    justify-content: flex-end
+  flex-direction: column
+  flex-flow: wrap
     
   .card-widget
     margin-right: 14px
@@ -15,7 +12,7 @@
     &.empty
       opacity: 0
       transition: all $hover-animation-delay linear
-      color: $color-ink-subtle
+      color: $color-ink-light
       &.active
         opacity: 1
         color: $color-ink-light
@@ -28,6 +25,6 @@
     &:hover { color: $color-ink }
     &.follow-toggle > i { margin-right: 0px }
 
-.card-header:hover
+.card-overview:hover
   .card-widget.empty
-    opacity: 1
+    opacity: 1 !important

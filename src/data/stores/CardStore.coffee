@@ -7,6 +7,7 @@ DeleteCardRequest             = require 'data/requests/DeleteCardRequest'
 LoadCardRequest               = require 'data/requests/LoadCardRequest'
 MoveCardRequest               = require 'data/requests/MoveCardRequest'
 PassCardRequest               = require 'data/requests/PassCardRequest'
+ChangeCardDueDateRequest      = require 'data/requests/ChangeCardDueDateRequest'
 ChangeCardSummaryRequest      = require 'data/requests/ChangeCardSummaryRequest'
 ChangeCardTitleRequest        = require 'data/requests/ChangeCardTitleRequest'
 AddFollowerToCardRequest      = require 'data/requests/AddFollowerToCardRequest'
@@ -32,6 +33,7 @@ class CardStore extends ModelStore
     'UserDeletedCard'
     'UserMovedCard'
     'UserPassedCard'
+    'UserChangedCardDueDate'
     'UserChangedCardSummary'
     'UserChangedCardTitle'
     'UserFollowedCard'
@@ -73,6 +75,9 @@ class CardStore extends ModelStore
 
   onUserPassedCard: (event) ->
     @execute new PassCardRequest(event.cardid, event.recipient, event.message)
+
+  onUserChangedCardDueDate: (event) ->
+    @execute new ChangeCardDueDateRequest(event.cardid, event.due)
 
   onUserChangedCardSummary: (event) ->
     @execute new ChangeCardSummaryRequest(event.cardid, event.summary)

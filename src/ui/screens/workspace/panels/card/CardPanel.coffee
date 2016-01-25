@@ -9,8 +9,8 @@ CachedState          = require 'ui/framework/mixins/CachedState'
 CommandContextMaster = require 'ui/framework/mixins/CommandContextMaster'
 Icon                 = React.createFactory(require 'ui/common/Icon')
 Panel                = React.createFactory(require 'ui/common/Panel')
-PanelHeader          = React.createFactory(require 'ui/common/PanelHeader')
 CardHeader           = React.createFactory(require 'ui/screens/workspace/panels/card/CardHeader')
+CardOverview         = React.createFactory(require 'ui/screens/workspace/panels/card/CardOverview')
 CardBody             = React.createFactory(require 'ui/screens/workspace/panels/card/CardBody')
 CardFooter           = React.createFactory(require 'ui/screens/workspace/panels/card/CardFooter')
 CardCommand          = React.createFactory(require 'ui/screens/workspace/panels/card/commands/CardCommand')
@@ -47,14 +47,11 @@ CardPanel = React.createClass {
       ]
       @isReady
     }
-
-    icon = Icon {name: 'card', color: @state.kind?.color}
-
+    
     Panel props,
-      PanelHeader {panelid: @props.id, icon},
-        "#{@state.kind?.name} #{@state.card?.number}"
+      CardHeader {panelid: @props.id, card: @state.card, kind: @state.kind}
       div {className: 'content'},
-        CardHeader {card: @state.card, kind: @state.kind, stack: @state.stack}
+        CardOverview {card: @state.card, kind: @state.kind, stack: @state.stack}
         CardBody {card: @state.card, kind: @state.kind, stack: @state.stack}
         CardCommand {command: @getActiveCommand(), card: @state.card, stack: @state.stack}
       CardFooter {card: @state.card, kind: @state.kind, stack: @state.stack}

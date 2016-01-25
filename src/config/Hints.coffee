@@ -114,4 +114,31 @@ Hints['org-email'] = """
 This email address will be used for billing information and receipts.
 """
 
+Hints['archive-goal'] = """
+If you archive this goal, no more cards can be added to it, and it will no longer be
+shown on the Big Picture screen. Cards that have already been added to the goal will
+not be removed.
+"""
+
+Hints['restore-goal'] = """
+If you restore this goal, it will appear again on the Big Picture screen, and more
+cards can be added to it.
+"""
+
+Hints['delete-goal'] = """
+Deleting a goal is immediate and permanent. If you delete this goal, it will remove
+all cards from it, and it will no longer appear on the Big Picture screen.
+"""
+
+Hints['archive-kind'] = """
+If you archive this kind, it will no longer be shown on the Big Picture screen, and
+no new cards of the kind can be created. Existing cards of this kind will not be
+removed.
+"""
+
+Hints['restore-kind'] = """
+If you restore this kind, it will appear again on the Big Picture screen, and more
+cards of the kind can be created.
+"""
+
 module.exports = Hints

@@ -1,13 +1,14 @@
 #--------------------------------------------------------------------------------
-_           = require 'lodash'
-React       = require 'react'
-classSet    = require 'common/util/classSet'
-PropTypes   = require 'ui/framework/PropTypes'
-Avatar      = React.createFactory(require 'ui/common/Avatar')
-CardOwner   = React.createFactory(require 'ui/common/CardOwner')
-CardWidgets = React.createFactory(require 'ui/screens/workspace/panels/card/CardWidgets')
-CardTitle   = React.createFactory(require 'ui/screens/workspace/panels/card/CardTitle')
-{div}       = React.DOM
+_                = require 'lodash'
+React            = require 'react'
+PropTypes        = require 'ui/framework/PropTypes'
+Pure             = require 'ui/framework/mixins/Pure'
+CardFollowToggle = React.createFactory(require 'ui/common/CardFollowToggle')
+Icon             = React.createFactory(require 'ui/common/Icon')
+OverlayTrigger   = React.createFactory(require 'ui/common/OverlayTrigger')
+PanelHeader      = React.createFactory(require 'ui/common/PanelHeader')
+CardContextMenu  = React.createFactory(require 'ui/screens/workspace/panels/card/CardContextMenu')
+{div}            = React.DOM
 #--------------------------------------------------------------------------------
 require './CardHeader.styl'
 #--------------------------------------------------------------------------------
@@ -19,21 +20,17 @@ CardHeader = React.createClass {
   propTypes:
     card:    PropTypes.Card
     kind:    PropTypes.Kind
-    stack:   PropTypes.Stack
     panelid: PropTypes.string
+
+  mixins: [Pure]
 
   render: ->
 
-    classes = classSet [
-      'card-header'
-      @props.kind.color.toLowerCase() if @props.kind?
-    ]
+    controls = CardFollowToggle {card: @props.card}
+    icon = Icon {name: 'card', color: @props.kind?.color}
 
-    div {className: classes},
-      CardOwner {card: @props.card}
-      div {className: 'card-info'},
-        CardWidgets {card: @props.card, kind: @props.kind, stack: @props.stack}
-        CardTitle   {card: @props.card}
+    PanelHeader {className: 'card-header', panelid: @props.panelid, icon, controls},
+      "#{@props.kind?.name} #{@props.card?.number}"
 
 }
 

@@ -24,7 +24,7 @@ DialogTrigger = React.createClass {
 
   render: ->
 
-    props = mergeProps _.omit(@props, 'onActivated'), {
+    props = mergeProps _.omit(@props, 'name', 'onActivated'), {
       className: classSet [
         'hover' if @state.hover
       ]
