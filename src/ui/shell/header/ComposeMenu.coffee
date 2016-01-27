@@ -22,7 +22,6 @@ ComposeMenu = React.createClass {
 
   propTypes:
     kinds:       PropTypes.arrayOf(PropTypes.Kind)
-    org:         PropTypes.Org
     hideOverlay: PropTypes.func
 
   mixins: [Actor, CachedState, IdentityContext]
@@ -37,7 +36,7 @@ ComposeMenu = React.createClass {
 
     kinds = _.filter @state.kinds, (k) -> k.status == KindStatus.Normal
 
-    items = _.map kinds, (kind) =>
+    items = _.map _.compact(kinds), (kind) =>
       MenuOption {key: kind.id, onActivated: @createCard.bind(this, kind)},
         Icon {name: 'card', color: kind.color}
         kind.name
@@ -45,7 +44,7 @@ ComposeMenu = React.createClass {
     ContextMenu {hideOverlay: @props.hideOverlay}, items
 
   createCard: (kind) ->
-    @publish new UserCreatedCardEvent(@props.org.id, kind.id)
+    @publish new UserCreatedCardEvent(@getCurrentOrg().id, kind.id)
 
   onCardCreated: (event) ->
     if event.origin is EventOrigin.Local
