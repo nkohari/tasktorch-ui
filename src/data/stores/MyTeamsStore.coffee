@@ -19,7 +19,7 @@ class MyTeamsStore extends SingletonListStore
     @execute new LoadMyTeamsRequest()
 
   onMyTeamsLoaded: (event) ->
-    @set(_.pluck(_.sortBy(event.teams, (t) -> t.name), 'id'))
+    @set(_.map(_.sortBy(event.teams, (t) -> t.name), 'id'))
 
   onTeamChanged: (event) ->
     @clear()

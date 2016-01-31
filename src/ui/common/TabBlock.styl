@@ -11,17 +11,22 @@
     flex-direction: row
       
     .tab
-      flex: none
+      flex: 1
       cursor: pointer
       font-size: 12px
-      padding: 4px 12px
+      padding: 4px
       font-weight: $heavy-font-weight
+      text-align: center
       text-transform: uppercase
       border-right: 1px solid $color-steel-medium
       
+      &:last-child
+        border-right: none
+      
       &.active
         color: $color-ink
-        background: $color-steel
+        background: $color-white
+        margin-bottom: -1px
 
   & > .content
     flex: 1

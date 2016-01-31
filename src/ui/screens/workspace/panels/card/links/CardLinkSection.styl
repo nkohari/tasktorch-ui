@@ -1,0 +1,35 @@
+.card-link-section
+  flex: none
+  padding: 12px
+  border-top: 1px solid $color-white
+  border-bottom: 1px solid $color-steel-light
+  
+  &:last-child
+    flex: 1
+    border-bottom: none
+  
+  .header
+    display: flex
+    padding-bottom: 12px
+    
+    & > i
+      color: $color-ink-light
+    
+    .title
+      flex: 1
+      color: $color-ink
+      font-size: 16px
+      font-weight: $bold-font-weight
+
+      .count
+        color: $color-ink-light
+        font-size: 16px
+        font-weight: $bold-font-weight
+        margin-left: 4px
+      
+    .controls
+      cursor: pointer
+      color: $color-ink-light
+      transition: color $hover-animation-delay linear
+      &:hover, &.active { color: $color-ink }
+      & > i { margin-right: 0 }

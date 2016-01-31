@@ -17,7 +17,7 @@ class NotesByCardStore extends ListStore
     @execute new LoadNotesByCardRequest(id)
 
   onNotesByCardLoaded: (event) ->
-    @set(event.cardid, _.pluck(event.notes, 'id'))
+    @set(event.cardid, _.map(event.notes, 'id'))
 
   onNoteCreated: (event) ->
     list = @lists[event.note.card]

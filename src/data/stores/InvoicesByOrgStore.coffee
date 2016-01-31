@@ -16,6 +16,6 @@ class InvoicesByOrgStore extends ListStore
     @execute new LoadInvoicesByOrgRequest(id)
 
   onInvoicesByOrgLoaded: (event) ->
-    @set(event.orgid, _.pluck(event.invoices, 'id'))
+    @set(event.orgid, _.map(event.invoices, 'id'))
 
 module.exports = InvoicesByOrgStore

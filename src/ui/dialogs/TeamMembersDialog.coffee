@@ -56,7 +56,7 @@ TeamMembersDialog = React.createClass {
         }
 
   addMember: (user) ->
-    return if _.any(@state.members, (u) -> u.id == user.id)
+    return if _.some(@state.members, (u) -> u.id == user.id)
     members = @state.members.concat(user)
     @setState {members}
     @publish new UserAddedMemberToTeamEvent(@props.teamid, user.id)
@@ -68,7 +68,7 @@ TeamMembersDialog = React.createClass {
     @publish new UserRemovedMemberFromTeamEvent(@props.teamid, user.id)
 
   addLeader: (user) ->
-    return if _.any(@state.leaders, (u) -> u.id == user.id)
+    return if _.some(@state.leaders, (u) -> u.id == user.id)
     leaders = @state.leaders.concat(user)
     @setState {leaders}
     @publish new UserAddedLeaderToTeamEvent(@props.teamid, user.id)

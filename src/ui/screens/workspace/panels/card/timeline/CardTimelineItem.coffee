@@ -7,13 +7,18 @@ CachedState = require 'ui/framework/mixins/CachedState'
 
 NoteComponents =
   ActionCreated:       React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/ActionCreatedNote')
+  ActionMoved:         React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/ActionMovedNote')
   ActionOwnerChanged:  React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/ActionOwnerChangedNote')
   ActionStatusChanged: React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/ActionStatusChangedNote')
   ActionTextChanged:   React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/ActionTextChangedNote')
   CardAccepted:        React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/CardAcceptedNote')
+  CardCompleted:       React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/CardCompletedNote')
   CardCreated:         React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/CardCreatedNote')
+  CardDueDateChanged:  React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/CardDueDateChangedNote')
+  CardEffortChanged:   React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/CardEffortChangedNote')
   CardMoved:           React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/CardMovedNote')
   CardPassed:          React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/CardPassedNote')
+  CardRestored:        React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/CardRestoredNote')
   CardTitleChanged:    React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/CardTitleChangedNote')
   CardSummaryChanged:  React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/CardSummaryChangedNote')
   Comment:             React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/CommentNote')

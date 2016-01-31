@@ -3,6 +3,7 @@ EventOrigin            = require 'data/enums/EventOrigin'
 Action                 = require 'data/models/Action'
 Card                   = require 'data/models/Card'
 Checklist              = require 'data/models/Checklist'
+File                   = require 'data/models/File'
 Goal                   = require 'data/models/Goal'
 Kind                   = require 'data/models/Kind'
 Membership             = require 'data/models/Membership'
@@ -20,6 +21,9 @@ CardChangedEvent       = require 'events/change/CardChangedEvent'
 CardCreatedEvent       = require 'events/create/CardCreatedEvent'
 ChecklistChangedEvent  = require 'events/change/ChecklistChangedEvent'
 ChecklistCreatedEvent  = require 'events/create/ChecklistCreatedEvent'
+FileChangedEvent       = require 'events/change/FileChangedEvent'
+FileCreatedEvent       = require 'events/create/FileCreatedEvent'
+FileDeletedEvent       = require 'events/delete/FileDeletedEvent'
 GoalChangedEvent       = require 'events/change/GoalChangedEvent'
 GoalCreatedEvent       = require 'events/create/GoalCreatedEvent'
 KindChangedEvent       = require 'events/change/KindChangedEvent'
@@ -59,6 +63,7 @@ class RemoteChangesChannel extends Channel
       when 'Action'     then @publish new ActionCreatedEvent(new Action(message.document), EventOrigin.Remote)
       when 'Card'       then @publish new CardCreatedEvent(new Card(message.document), EventOrigin.Remote)
       when 'Checklist'  then @publish new ChecklistCreatedEvent(new Checklist(message.document), EventOrigin.Remote)
+      when 'File'       then @publish new FileCreatedEvent(new File(message.document), EventOrigin.Remote)
       when 'Goal'       then @publish new GoalCreatedEvent(new Goal(message.document), EventOrigin.Remote)
       when 'Kind'       then @publish new KindCreatedEvent(new Kind(message.document), EventOrigin.Remote)
       when 'Membership' then @publish new MembershipCreatedEvent(new Membership(message.document), EventOrigin.Remote)
@@ -73,6 +78,7 @@ class RemoteChangesChannel extends Channel
       when 'Action'     then @publish new ActionChangedEvent(new Action(message.document), EventOrigin.Remote)
       when 'Card'       then @publish new CardChangedEvent(new Card(message.document), EventOrigin.Remote)
       when 'Checklist'  then @publish new ChecklistChangedEvent(new Checklist(message.document), EventOrigin.Remote)
+      when 'File'       then @publish new FileChangedEvent(new File(message.document), EventOrigin.Remote)
       when 'Goal'       then @publish new GoalChangedEvent(new Goal(message.document), EventOrigin.Remote)
       when 'Kind'       then @publish new KindChangedEvent(new Kind(message.document), EventOrigin.Remote)
       when 'Membership' then @publish new MembershipChangedEvent(new Membership(message.document), EventOrigin.Remote)
@@ -87,6 +93,7 @@ class RemoteChangesChannel extends Channel
   onDocumentDeleted: (message) ->
     switch message.type
       when 'Action' then @publish new ActionDeletedEvent(new Action(message.document), EventOrigin.Remote)
+      when 'File'   then @publish new FileDeletedEvent(new File(message.document), EventOrigin.Remote)
       when 'Stack'  then @publish new StackDeletedEvent(new Stack(message.document), EventOrigin.Remote)
       when 'Team'   then @publish new TeamDeletedEvent(new Team(message.document), EventOrigin.Remote)
 

@@ -16,7 +16,7 @@ class DialogStore extends Store
     @stack = []
 
   get: (name) ->
-    visible = _.first(@stack)
+    visible = _.head(@stack)
     if visible?.name == name
       return visible.props
     else

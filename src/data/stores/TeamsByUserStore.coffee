@@ -18,10 +18,10 @@ class TeamsByUserStore extends ListStore
     @execute new LoadTeamsByUserRequest(userid)
 
   onTeamsByUserLoaded: (event) ->
-    @set(event.userid, _.pluck(event.teams, 'id'))
+    @set(event.userid, _.map(event.teams, 'id'))
 
   onTeamChanged: (event) ->
     for userid, list of @lists
-      @remove(userid) if _.contains(list, event.team.id)
+      @remove(userid) if _.includes(list, event.team.id)
 
 module.exports = TeamsByUserStore

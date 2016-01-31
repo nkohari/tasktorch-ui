@@ -123,7 +123,7 @@ class ViewMaster extends EventHandler
   loadFromSlot: ->
     state = @slot.get('state')
     if state?.views? and state?.identity?
-      @views = _.object _.map state.views, (view, screen) ->
+      @views = _.fromPairs _.map state.views, (view, screen) ->
         [screen, ViewSpec.fromLocalStorage(screen, view)]
       @screen = state.screen
       @identity = new Identity {orgid: state.identity.orgid}

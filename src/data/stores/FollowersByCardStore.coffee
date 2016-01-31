@@ -20,6 +20,6 @@ class FollowersByCardStore extends ListStore
     @set(event.card.id, event.card.followers)
 
   onFollowersByCardLoaded: (event) ->
-    @set(event.cardid, _.pluck(event.users, 'id'))
+    @set(event.cardid, _.map(event.users, 'id'))
 
 module.exports = FollowersByCardStore

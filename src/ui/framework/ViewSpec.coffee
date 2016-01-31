@@ -68,7 +68,7 @@ class ViewSpec
     _.findIndex @panels, (p) -> p.id == id
 
   isPanelOpen: (id) ->
-    _.any @panels, (p) -> p.id == id
+    _.some @panels, (p) -> p.id == id
 
   openDrawer: ->
     @drawer = true

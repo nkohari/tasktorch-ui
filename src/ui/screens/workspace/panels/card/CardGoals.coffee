@@ -21,7 +21,7 @@ CardGoals = React.createClass {
 
     if @props.goals?.length > 0
       goals   = _.sortBy @props.goals, (goal) -> goal.name.toLowerCase()
-      content = _.pluck(goals, 'name').join(', ')
+      content = _.map(goals, 'name').join(', ')
     else
       content = 'Add to goal'
 

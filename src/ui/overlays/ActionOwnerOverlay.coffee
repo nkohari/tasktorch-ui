@@ -107,10 +107,10 @@ ActionOwnerOverlay = React.createClass {
     slot = @getStorageSlot('ActionOwnerOverlay')
     userids = slot.get('recentUsers') ? []
 
-    return if @getCurrentUser().id == userid or _.contains(userids, userid)
+    return if @getCurrentUser().id == userid or _.includes(userids, userid)
 
     userids.shift()      if userids.length >= NUM_RECENT_USERS
-    userids.push(userid) unless _.contains(userids, userid)
+    userids.push(userid) unless _.includes(userids, userid)
     
     slot.set('recentUsers', userids)
 

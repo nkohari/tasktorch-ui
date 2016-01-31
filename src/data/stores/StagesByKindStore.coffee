@@ -24,6 +24,6 @@ class StagesByKindStore extends ListStore
     @remove(event.stage.kind)
 
   onStagesByKindLoaded: (event) ->
-    @set(event.kindid, _.pluck(event.stages, 'id'))
+    @set(event.kindid, _.map(event.stages, 'id'))
 
 module.exports = StagesByKindStore

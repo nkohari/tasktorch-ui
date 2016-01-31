@@ -4,11 +4,15 @@ CommandContext = {
 
   contextTypes:
     activeCommand: PropTypes.string
+    commandProps:  PropTypes.object
     showCommand:   PropTypes.func
     hideCommand:   PropTypes.func
 
   getActiveCommand: ->
     @context.activeCommand
+
+  getCommandProps: ->
+    @context.commandProps ? {}
 
   isActiveCommand: (name) ->
     @getActiveCommand() == name

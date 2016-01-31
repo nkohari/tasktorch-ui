@@ -40,7 +40,7 @@ CardChecklist = React.createClass {
 
     classes = classSet [
       'card-checklist'
-      'complete' if _.all(@state.actions, (a) -> a.status == ActionStatus.Complete)
+      'complete' if _.every(@state.actions, (a) -> a.status == ActionStatus.Complete)
     ]
 
     div {className: classes},

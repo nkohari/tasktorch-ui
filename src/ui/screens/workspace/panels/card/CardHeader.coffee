@@ -7,7 +7,6 @@ CardFollowToggle = React.createFactory(require 'ui/common/CardFollowToggle')
 Icon             = React.createFactory(require 'ui/common/Icon')
 OverlayTrigger   = React.createFactory(require 'ui/common/OverlayTrigger')
 PanelHeader      = React.createFactory(require 'ui/common/PanelHeader')
-CardContextMenu  = React.createFactory(require 'ui/screens/workspace/panels/card/CardContextMenu')
 {div}            = React.DOM
 #--------------------------------------------------------------------------------
 require './CardHeader.styl'

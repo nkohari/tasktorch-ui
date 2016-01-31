@@ -25,7 +25,7 @@ class LoadChecklistsByCardRequest extends Request
     publish new ChecklistsByCardLoadedEvent(@cardid, checklists)
     publish new ActionsLoadedEvent(actions) if actions?.length > 0
 
-    lookup = _.indexBy(actions, 'id')
+    lookup = _.keyBy(actions, 'id')
     for checklist in checklists
       checklistActions = _.map checklist.actions, (actionid) -> lookup[actionid]
       publish new ActionsByChecklistLoadedEvent(checklist.id, checklistActions)

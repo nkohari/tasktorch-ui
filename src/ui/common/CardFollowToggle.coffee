@@ -35,7 +35,7 @@ CardFollowToggle = React.createClass {
       Icon {name: if isFollowing then 'follow' else 'follow-open'}
 
   isFollowing: ->
-    _.contains(@props.card.followers, @getCurrentUser().id)
+    _.includes(@props.card.followers, @getCurrentUser().id)
 
   toggleFollowing: (event) ->
     event.stopPropagation()

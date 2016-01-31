@@ -27,7 +27,7 @@ NotStartedBigPictureCard = React.createClass {
     stages     = cache('stagesByKind').get(@props.card.kind)
     checklists = cache('checklistsByCard').get(@props.card.id)
     if checklists?
-      actions = _.object _.map checklists, (checklist) -> [checklist.id, cache('actionsByChecklist').get(checklist.id)]
+      actions = _.fromPairs _.map checklists, (checklist) -> [checklist.id, cache('actionsByChecklist').get(checklist.id)]
     {kind, stack, stages, checklists, actions}
 
   render: ->

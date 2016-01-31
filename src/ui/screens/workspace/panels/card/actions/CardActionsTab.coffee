@@ -30,7 +30,7 @@ CardActionsTab = React.createClass {
   render: ->
 
     if @state.checklists? and @state.stages?
-      lookup = _.indexBy(@state.checklists, 'stage')
+      lookup = _.keyBy(@state.checklists, 'stage')
       items = _.map @state.stages, (stage) =>
         checklist = lookup[stage.id]
         return unless checklist?

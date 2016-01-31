@@ -17,7 +17,7 @@ class CardsByStackStore extends ListStore
     @execute new LoadCardsByStackRequest(id)
 
   onCardsByStackLoaded: (event) ->
-    @set(event.stackid, _.pluck(event.cards, 'id'))
+    @set(event.stackid, _.map(event.cards, 'id'))
 
   onStackChanged: (event) ->
     @set(event.stack.id, event.stack.cards)

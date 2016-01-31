@@ -63,7 +63,7 @@ Walkthrough = React.createClass {
     if stacks?
       queue = _.find stacks, (s) -> s.type == StackType.Queue
       cards = cache('cardsByStack').get(queue.id)
-      card  = _.first(cards) if cards?
+      card  = _.head(cards) if cards?
     {queue, card}
 
   componentDidUpdate: ->

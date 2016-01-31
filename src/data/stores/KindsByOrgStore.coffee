@@ -18,7 +18,7 @@ class KindsByOrgStore extends ListStore
 
   onKindsByOrgLoaded: (event) ->
     kinds = _.sortBy event.kinds, (kind) -> kind.name.toLowerCase()
-    @set(event.orgid, _.pluck(kinds, 'id'))
+    @set(event.orgid, _.map(kinds, 'id'))
 
   onKindCreated: (event) ->
     @remove(event.kind.org)

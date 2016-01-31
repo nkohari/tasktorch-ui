@@ -44,9 +44,9 @@ WorkspacePanelList = React.createClass {
   onWheel: (event) ->
     {deltaX, deltaY, target} = event
     ancestors = dom.getAncestors(target)
-    if deltaX < 0 and not _.any(ancestors, (el) -> el.scrollLeft > 0)
+    if deltaX < 0 and not _.some(ancestors, (el) -> el.scrollLeft > 0)
       event.preventDefault()
-    #if deltaY > 0 and not _.any(ancestors, (el) -> el.scrolTop > 0)
+    #if deltaY > 0 and not _.some(ancestors, (el) -> el.scrolTop > 0)
     #  event.preventDefault()
 
 }

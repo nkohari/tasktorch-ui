@@ -42,7 +42,7 @@ CardGoalsOverlay = React.createClass {
     if @state.allGoals?
       activeGoals = _.filter @state.allGoals, (g) -> g.status == GoalStatus.Normal
       goals = _.map activeGoals, (goal) =>
-        checked = _.contains(@state.selectedGoals, goal.id)
+        checked = _.includes(@state.selectedGoals, goal.id)
         li {className: 'goal'},
           Checkbox {checked, text: goal.name, onChange: @onGoalToggled.bind(this, goal)}
 

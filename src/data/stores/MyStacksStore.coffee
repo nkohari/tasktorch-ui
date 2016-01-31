@@ -18,7 +18,7 @@ class MyStacksStore extends SingletonListStore
     @execute new LoadMyStacksRequest()
 
   onMyStacksLoaded: (event) ->
-    @set(_.pluck(event.stacks, 'id'))
+    @set(_.map(event.stacks, 'id'))
 
   onStackCreated: (event) ->
     @clear() unless event.stack.team?

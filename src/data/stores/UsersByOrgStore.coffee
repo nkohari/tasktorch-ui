@@ -24,7 +24,7 @@ class UsersByOrgStore extends ListStore
 
   onUsersByOrgLoaded: (event) ->
     users = _.sortBy event.users, (user) -> user.name.toLowerCase()
-    @set(event.orgid, _.pluck(users, 'id'))
+    @set(event.orgid, _.map(users, 'id'))
 
   onOrgChanged: (event) ->
     @remove(event.org.id)

@@ -16,6 +16,6 @@ class SuggestedTeamsStore extends ListStore
     @execute new LoadSuggestedTeamsRequest(id)
 
   onSuggestedTeamsLoaded: (event) ->
-    @set(event.phrase, _.pluck(event.teams, 'id'))
+    @set(event.phrase, _.map(event.teams, 'id'))
 
 module.exports = SuggestedTeamsStore

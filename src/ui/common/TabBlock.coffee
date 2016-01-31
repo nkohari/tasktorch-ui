@@ -16,6 +16,7 @@ TabBlock = React.createClass {
   propTypes:
     selected: PropTypes.string
     isReady:  PropTypes.func
+    onChange: PropTypes.func
 
   getInitialState: ->
     {selected: @props.selected}
@@ -25,6 +26,8 @@ TabBlock = React.createClass {
 
   componentWillReceiveProps: (newProps) ->
     @tabs = _.flatten [newProps.children]
+    if @props.selected isnt newProps.selected
+      @setState {selected: newProps.selected}
 
   render: ->
 
@@ -46,11 +49,12 @@ TabBlock = React.createClass {
         'tab'
         'active' if @state.selected == tab.key
       ]
-      li {key: tab.key, className: classes, onClick: @onTabClicked.bind(this, tab.key)},
+      li {key: tab.key, className: classes, onClick: @selectTab.bind(this, tab.key)},
         tab.props.title
 
-  onTabClicked: (key, event) ->
+  selectTab: (key) ->
     @setState {selected: key}
+    @props.onChange(key) if @props.onChange?
 
 }
 

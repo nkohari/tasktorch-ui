@@ -4,6 +4,7 @@ CommandContextMaster = {
 
   childContextTypes:
     activeCommand: PropTypes.string
+    commandProps:  PropTypes.object
     showCommand:   PropTypes.func
     hideCommand:   PropTypes.func
 
@@ -11,10 +12,13 @@ CommandContextMaster = {
     {activeCommand: undefined}
 
   getChildContext: ->
-    {activeCommand: @state.activeCommand, @showCommand, @hideCommand}
+    {activeCommand: @state.activeCommand, commandProps: @state.commandProps, @showCommand, @hideCommand}
 
   getActiveCommand: ->
     @state.activeCommand
+
+  getCommandProps: ->
+    @state.commandProps ? {}
 
   hasActiveCommand: ->
     @getActiveCommand()?
@@ -22,11 +26,11 @@ CommandContextMaster = {
   isActiveCommand: (name) ->
     @getActiveCommand() == name
 
-  showCommand: (name) ->
-    @setState {activeCommand: name}
+  showCommand: (name, props = {}) ->
+    @setState {activeCommand: name, commandProps: props}
 
   hideCommand: ->
-    @setState {activeCommand: undefined}
+    @setState {activeCommand: undefined, commandProps: undefined}
 
 }
 

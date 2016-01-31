@@ -3,6 +3,7 @@ _                     = require 'lodash'
 React                 = require 'react'
 mergeClasses          = require 'common/util/mergeClasses'
 PropTypes             = require 'ui/framework/PropTypes'
+AttachCommandButton   = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/AttachCommandButton')
 AcceptCommandButton   = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/AcceptCommandButton')
 PassCommandButton     = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/PassCommandButton')
 CompleteCommandButton = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/CompleteCommandButton')
@@ -25,6 +26,7 @@ BacklogCommandBar = React.createClass {
         AcceptCommandButton {card: @props.card}
         PassCommandButton {card: @props.card}
       div {className: 'button-group'},
+        AttachCommandButton {card: @props.card}
         CommentCommandButton {card: @props.card}
       div {className: 'button-group right'},
         CompleteCommandButton {card: @props.card}

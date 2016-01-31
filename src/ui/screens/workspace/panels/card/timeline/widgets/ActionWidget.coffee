@@ -12,7 +12,8 @@ ActionWidget = React.createClass {
     action: PropTypes.Action
 
   render: ->
-    em {className: 'action-widget'}, @props.action.text
+    em {className: 'action-widget'},
+      @props.action?.text or 'a deleted action'
 
 }
 

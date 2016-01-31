@@ -25,7 +25,7 @@ class MembersByTeamStore extends ListStore
     @execute new LoadMembersByTeamRequest(id)
 
   onMembersByTeamLoaded: (event) ->
-    @set(event.teamid, _.pluck(event.users, 'id'))
+    @set(event.teamid, _.map(event.users, 'id'))
 
   onTeamChanged: (event) ->
     @set(event.team.id, _.clone(event.team.members))

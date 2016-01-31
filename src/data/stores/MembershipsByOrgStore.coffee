@@ -16,6 +16,6 @@ class MembershipsByOrgStore extends ListStore
     @execute new LoadMembershipsByOrgRequest(id)
 
   onMembershipsByOrgLoaded: (event) ->
-    @set(event.orgid, _.pluck(event.memberships, 'id'))
+    @set(event.orgid, _.map(event.memberships, 'id'))
 
 module.exports = MembershipsByOrgStore

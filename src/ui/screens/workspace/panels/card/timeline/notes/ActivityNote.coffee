@@ -29,7 +29,8 @@ ActivityNote = React.createClass {
       children = []
 
     div props,
-      Icon {className: 'activity-icon', name: @props.icon}
+      div {className: 'activity-icon'},
+        Icon {name: @props.icon}
       div {className: 'activity-body'},
         children
 

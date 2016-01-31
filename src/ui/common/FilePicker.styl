@@ -1,0 +1,35 @@
+.file-picker
+  
+  input
+    display: none
+  
+  &.empty .file-list .drop-indicator
+    opacity: 1
+
+  .file-list
+    display: flex
+    flex-direction: row
+    padding: 8px
+    margin: 8px 0
+    border: 1px solid $color-steel
+    background: $color-steel-verylight
+    height: 160px
+    overflow-x: auto
+    .drop-indicator
+      opacity: 0
+      width: 100%
+      display: flex
+      justify-content: center
+      align-items: center
+      font-size: 14px
+      font-style: italic
+      color: $color-ink-light
+    
+  .file-picker-status
+    display: flex
+    justify-content: space-between
+    align-items: center
+    .progress-bar
+      width: 100%
+      .progress-bar-segment.complete
+        background: $color-progress-complete

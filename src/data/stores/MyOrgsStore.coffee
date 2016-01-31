@@ -17,6 +17,6 @@ class MyOrgsStore extends SingletonListStore
 
   onMyOrgsLoaded: (event) ->
     orgs = _.sortBy event.orgs, (org) -> org.name.toLowerCase()
-    @set(_.pluck(orgs, 'id'))
+    @set(_.map(orgs, 'id'))
 
 module.exports = MyOrgsStore

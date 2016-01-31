@@ -17,7 +17,7 @@ class CardsByStageStore extends ListStore
     @execute new LoadCardsByStageRequest(id)
 
   onCardsByStageLoaded: (event) ->
-    @set(event.stageid, _.pluck(event.cards, 'id'))
+    @set(event.stageid, _.map(event.cards, 'id'))
 
   # TODO: To avoid purging the entire cache, we need a copy of the previous version
   # of the document. This is sent when the change is remote (from the watcher), but

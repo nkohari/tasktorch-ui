@@ -17,7 +17,7 @@ class StacksByTeamStore extends ListStore
     @execute new LoadStacksByTeamRequest(id)
 
   onStacksByTeamLoaded: (event) ->
-    @set(event.teamid, _.pluck(event.stacks, 'id'))
+    @set(event.teamid, _.map(event.stacks, 'id'))
 
   onStackCreated: (event) ->
     @remove(event.stack.team) if event.stack.team?

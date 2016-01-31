@@ -16,6 +16,9 @@ ProgressBar = React.createClass {
   propTypes:
     total: PropTypes.number
 
+  getDefaultProps: ->
+    {total: 100}
+
   render: ->
 
     segments = React.Children.map @props.children, (child) =>

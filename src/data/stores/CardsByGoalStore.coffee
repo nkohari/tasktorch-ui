@@ -17,13 +17,13 @@ class CardsByGoalStore extends ListStore
     @execute new LoadCardsByGoalRequest(id)
 
   onCardsByGoalLoaded: (event) ->
-    @set(event.goalid, _.pluck(event.cards, 'id'))
+    @set(event.goalid, _.map(event.cards, 'id'))
 
   onCardChanged: (event) ->
     for goalid in event.card.goals
       @remove(goalid)
     for goalid, cardids of @lists
-      if _.contains(cardids, event.card.id) and not _.contains(event.card.goals, goalid)
+      if _.includes(cardids, event.card.id) and not _.includes(event.card.goals, goalid)
         @remove(goalid)
 
 module.exports = CardsByGoalStore

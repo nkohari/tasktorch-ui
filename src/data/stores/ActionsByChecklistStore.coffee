@@ -17,7 +17,7 @@ class ActionsByChecklistStore extends ListStore
     @execute new LoadActionsByChecklistRequest(id)
 
   onActionsByChecklistLoaded: (event) ->
-    @set(event.checklistid, _.pluck(event.actions, 'id'))
+    @set(event.checklistid, _.map(event.actions, 'id'))
 
   onChecklistChanged: (event) ->
     @set(event.checklist.id, event.checklist.actions)

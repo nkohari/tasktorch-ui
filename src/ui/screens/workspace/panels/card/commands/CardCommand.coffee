@@ -1,9 +1,11 @@
 #--------------------------------------------------------------------------------
 React                  = require 'react'
+mergeProps             = require 'common/util/mergeProps'
 CardCommandType        = require 'data/enums/CardCommandType'
 PropTypes              = require 'ui/framework/PropTypes'
 CommandContext         = require 'ui/framework/mixins/CommandContext'
 AcceptCommandOverlay   = React.createFactory(require 'ui/screens/workspace/panels/card/commands/overlays/AcceptCommandOverlay')
+AttachCommandOverlay   = React.createFactory(require 'ui/screens/workspace/panels/card/commands/overlays/AttachCommandOverlay')
 DeferCommandOverlay    = React.createFactory(require 'ui/screens/workspace/panels/card/commands/overlays/DeferCommandOverlay')
 PassCommandOverlay     = React.createFactory(require 'ui/screens/workspace/panels/card/commands/overlays/PassCommandOverlay')
 CompleteCommandOverlay = React.createFactory(require 'ui/screens/workspace/panels/card/commands/overlays/CompleteCommandOverlay')
@@ -28,9 +30,13 @@ CardCommand = React.createClass {
   render: ->
 
     if @props.command?
+      props = mergeProps @getCommandProps(), {
+        card: @props.card
+        stack: @props.stack
+      }
       CommandOverlay = @getCommandOverlayClass()
       command = div {ref: 'backdrop', key: @props.command, className: 'command-backdrop', onClick: @onBackdropClicked},
-        CommandOverlay {card: @props.card, stack: @props.stack}
+        CommandOverlay(props)
 
     CSSTransitionGroup {className: 'command-placeholder', component: 'div', transitionName: 'slide'},
       command
@@ -38,6 +44,7 @@ CardCommand = React.createClass {
   getCommandOverlayClass: ->
     switch @props.command
       when CardCommandType.Accept   then AcceptCommandOverlay
+      when CardCommandType.Attach   then AttachCommandOverlay
       when CardCommandType.Defer    then DeferCommandOverlay
       when CardCommandType.Pass     then PassCommandOverlay
       when CardCommandType.Complete then CompleteCommandOverlay

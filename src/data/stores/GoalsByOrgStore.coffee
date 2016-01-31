@@ -18,7 +18,7 @@ class GoalsByOrgStore extends ListStore
 
   onGoalsByOrgLoaded: (event) ->
     goals = _.sortBy event.goals, (goal) -> goal.name.toLowerCase()
-    @set(event.orgid, _.pluck(goals, 'id'))
+    @set(event.orgid, _.map(goals, 'id'))
 
   onGoalCreated: (event) ->
     @remove(event.goal.org)

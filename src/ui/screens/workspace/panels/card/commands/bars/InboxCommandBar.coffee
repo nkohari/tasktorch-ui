@@ -3,6 +3,7 @@ React                 = require 'react'
 mergeClasses          = require 'common/util/mergeClasses'
 PropTypes             = require 'ui/framework/PropTypes'
 IdentityContext       = require 'ui/framework/mixins/IdentityContext'
+AttachCommandButton   = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/AttachCommandButton')
 AcceptCommandButton   = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/AcceptCommandButton')
 PassCommandButton     = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/PassCommandButton')
 CommentCommandButton  = React.createFactory(require 'ui/screens/workspace/panels/card/commands/buttons/CommentCommandButton')
@@ -33,6 +34,7 @@ InboxCommandBar = React.createClass {
     div {className: mergeClasses('queue', @props.className)},
       moveCommands
       div {className: 'button-group'},
+        AttachCommandButton {card: @props.card}
         CommentCommandButton {card: @props.card}
       completionCommands
 

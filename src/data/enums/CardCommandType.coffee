@@ -1,7 +1,8 @@
 arrayEnum = require 'common/util/arrayEnum'
 
-module.exports = CardCommand = arrayEnum [
+module.exports = CardCommandType = arrayEnum [
   'Accept'
+  'Attach'
   'Defer'
   'Pass'
   'Complete'

@@ -16,6 +16,6 @@ class MyMembershipsStore extends SingletonListStore
     @execute new LoadMyMembershipsRequest()
 
   onMyMembershipsLoaded: (event) ->
-    @set(_.pluck(event.memberships, 'id'))
+    @set(_.map(event.memberships, 'id'))
 
 module.exports = MyMembershipsStore

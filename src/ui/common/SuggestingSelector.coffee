@@ -70,7 +70,7 @@ SuggestingSelector = React.createClass {
 
   renderOptions: ->
 
-    hasSuggestions = _.any @props.groups, (group) => @state.suggestions?[group.type]?.length > 0
+    hasSuggestions = _.some @props.groups, (group) => @state.suggestions?[group.type]?.length > 0
 
     unless hasSuggestions
       items = [EmptyOption {}]

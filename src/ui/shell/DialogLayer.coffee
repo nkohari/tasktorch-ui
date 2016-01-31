@@ -30,6 +30,7 @@ DIALOGS =
   DeleteStack:           React.createFactory(require 'ui/dialogs/DeleteStackDialog')
   DeleteStage:           React.createFactory(require 'ui/dialogs/DeleteStageDialog')
   DeleteTeam:            React.createFactory(require 'ui/dialogs/DeleteTeamDialog')
+  FileLightbox:          React.createFactory(require 'ui/dialogs/FileLightboxDialog')
   GiveTokens:            React.createFactory(require 'ui/dialogs/GiveTokensDialog')
   Help:                  React.createFactory(require 'ui/dialogs/HelpDialog')
   ManageAccount:         React.createFactory(require 'ui/dialogs/ManageAccountDialog')

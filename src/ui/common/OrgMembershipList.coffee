@@ -1,11 +1,11 @@
 #--------------------------------------------------------------------------------
-_             = require 'lodash'
-React         = require 'react'
+_                = require 'lodash'
+React            = require 'react'
 MembershipStatus = require 'data/enums/MembershipStatus'
-PropTypes     = require 'ui/framework/PropTypes'
-CachedState   = require 'ui/framework/mixins/CachedState'
-OrgMembership = React.createFactory(require 'ui/common/OrgMembership')
-{ul, li}      = React.DOM
+PropTypes        = require 'ui/framework/PropTypes'
+CachedState      = require 'ui/framework/mixins/CachedState'
+OrgMembership    = React.createFactory(require 'ui/common/OrgMembership')
+{ul, li}         = React.DOM
 #--------------------------------------------------------------------------------
 require './OrgMembershipList.styl'
 #--------------------------------------------------------------------------------
@@ -25,7 +25,7 @@ OrgMembershipList = React.createClass {
 
   render: ->
 
-    usernames   = _.object _.map @state.users, (u) -> [u.id, u.name]
+    usernames   = _.fromPairs _.map @state.users, (u) -> [u.id, u.name]
     memberships = _.groupBy(@props.memberships, 'status')
 
     activeMemberships   = _.sortBy memberships[MembershipStatus.Normal],   (m) -> usernames[m.user]

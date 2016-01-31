@@ -16,10 +16,10 @@ class OnlineUsersStore extends SingletonListStore
   load: ->
 
   has: (userid) ->
-    _.contains(@list, userid)
+    _.includes(@list, userid)
 
   onJoinedPresenceChannel: (event) ->
-    @set(_.pluck(event.onlineUsers, 'id'))
+    @set(_.map(event.onlineUsers, 'id'))
 
   onUserConnected: (event) ->
     items = _.union @list, [event.user.id]

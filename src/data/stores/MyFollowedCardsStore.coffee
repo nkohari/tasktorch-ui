@@ -17,7 +17,7 @@ class MyFollowedCardsStore extends SingletonListStore
     @execute new LoadMyFollowedCardsRequest()
 
   onMyFollowedCardsLoaded: (event) ->
-    @set(_.pluck(event.cards, 'id'))
+    @set(_.map(event.cards, 'id'))
 
   onCardChanged: (event) ->
     @clear()

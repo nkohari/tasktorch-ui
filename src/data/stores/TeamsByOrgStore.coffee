@@ -20,7 +20,7 @@ class TeamsByOrgStore extends ListStore
 
   onTeamsByOrgLoaded: (event) ->
     teams = _.sortBy event.teams, (team) -> team.name.toLowerCase()
-    @set(event.orgid, _.pluck(teams, 'id'))
+    @set(event.orgid, _.map(teams, 'id'))
 
   onTeamCreated: (event) ->
     @remove(event.team.org)

@@ -63,7 +63,7 @@ CreateTeamDialog = React.createClass {
     @setState {purpose: event.target.value}
 
   addMember: (user) ->
-    return if _.any(@state.members, (u) -> u.id == user.id)
+    return if _.some(@state.members, (u) -> u.id == user.id)
     members = @state.members.concat(user)
     @setState {members}
 
@@ -73,7 +73,7 @@ CreateTeamDialog = React.createClass {
     @setState {members, leaders}
 
   addLeader: (user) ->
-    return if _.any(@state.leaders, (u) -> u.id == user.id)
+    return if _.some(@state.leaders, (u) -> u.id == user.id)
     leaders = @state.leaders.concat(user)
     @setState {leaders}
 
@@ -82,8 +82,8 @@ CreateTeamDialog = React.createClass {
     @setState {leaders}
 
   createTeam: ->
-    members = _.pluck(@state.members, 'id')
-    leaders = _.pluck(@state.leaders, 'id')
+    members = _.map(@state.members, 'id')
+    leaders = _.map(@state.leaders, 'id')
     @publish new UserCreatedTeamEvent(@state.name, @state.purpose, members, leaders)
     @props.closeDialog()
 

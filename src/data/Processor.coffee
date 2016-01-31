@@ -15,13 +15,13 @@ class Processor
 
     req.end (err, res) =>
       if res.ok
-        request.onSuccess(res.body, publish)
+        request.onSuccess(res.body, publish, superagent)
       else if res.forbidden
-        request.onForbidden(publish)
+        request.onForbidden(publish, superagent)
       else if res.notFound
-        request.onNotFound(publish)
+        request.onNotFound(publish, superagent)
       else if res.serverError
-        request.onError(publish)
+        request.onError(publish, superagent)
       else if res.unauthorized
         @handleUnauthorized()
       else if res.status == 402

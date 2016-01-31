@@ -16,6 +16,6 @@ class SuggestedUsersStore extends ListStore
     @execute new LoadSuggestedUsersRequest(id)
 
   onSuggestedUsersLoaded: (event) ->
-    @set(event.phrase, _.pluck(event.users, 'id'))
+    @set(event.phrase, _.map(event.users, 'id'))
 
 module.exports = SuggestedUsersStore

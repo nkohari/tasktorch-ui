@@ -27,6 +27,6 @@ class ChecklistsByCardStore extends ListStore
     @remove(event.checklist.card)
 
   onChecklistsByCardLoaded: (event) ->
-    @set(event.cardid, _.pluck(event.checklists, 'id'))
+    @set(event.cardid, _.map(event.checklists, 'id'))
 
 module.exports = ChecklistsByCardStore

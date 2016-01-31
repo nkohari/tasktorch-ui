@@ -9,6 +9,8 @@ CardsByStageStore       = require 'data/stores/CardsByStageStore'
 ChecklistStore          = require 'data/stores/ChecklistStore'
 ChecklistsByCardStore   = require 'data/stores/ChecklistsByCardStore'
 DialogStore             = require 'data/stores/DialogStore'
+FileStore               = require 'data/stores/FileStore'
+FilesByCardStore        = require 'data/stores/FilesByCardStore'
 FollowersByCardStore    = require 'data/stores/FollowersByCardStore'
 GoalStore               = require 'data/stores/GoalStore'
 GoalsByCardStore        = require 'data/stores/GoalsByCardStore'
@@ -68,6 +70,7 @@ class Environment
       createStore(CardStore)
       createStore(ChecklistStore)
       createStore(DialogStore)
+      createStore(FileStore)
       createStore(GoalStore)
       createStore(InviteStore)
       createStore(InvoiceStore)
@@ -89,6 +92,7 @@ class Environment
       createStore(CardsByStackStore)
       createStore(CardsByStageStore)
       createStore(ChecklistsByCardStore)
+      createStore(FilesByCardStore)
       createStore(FollowersByCardStore)
       createStore(GoalsByCardStore)
       createStore(GoalsByOrgStore)

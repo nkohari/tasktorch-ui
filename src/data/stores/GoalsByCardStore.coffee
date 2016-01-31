@@ -17,7 +17,7 @@ class GoalsByCardStore extends ListStore
     @execute new LoadGoalsByCardRequest(id)
 
   onGoalsByCardLoaded: (event) ->
-    @set(event.cardid, _.pluck(event.goals, 'id'))
+    @set(event.cardid, _.map(event.goals, 'id'))
 
   onCardChanged: (event) ->
     @set(event.card.id, event.card.goals)

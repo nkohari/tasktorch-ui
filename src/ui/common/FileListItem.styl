@@ -1,0 +1,48 @@
+.file-list-item
+  position: relative
+  width: 114px
+  margin-right: 10px
+  
+  span
+    font-size: 14px
+  
+  .file-list-item-preview
+    position: relative
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 114px
+    height: 114px
+    background: $color-white
+    border: 1px solid $color-steel
+    box-shadow: 1px 1px 2px black(10%)
+
+    .thumbnail
+      width: 114px
+      height: 114px
+      background-position: center center
+      background-size: cover
+  
+  .file-list-item-overlay
+    cursor: pointer
+    position: absolute
+    top: 0
+    left: 0
+    height: 100%
+    width: 100%
+    opacity: 0
+    background: black(50%)
+    transition: opacity $hover-animation-delay ease
+    z-index: 3
+    display: flex
+    justify-content: center
+    align-items: center
+    i
+      font-size: 42px
+      margin: 0
+      color: $color-white
+      text-shadow: 1px 1px 1px black(40%)
+  
+  &:hover
+    .file-list-item-overlay
+      opacity: 1

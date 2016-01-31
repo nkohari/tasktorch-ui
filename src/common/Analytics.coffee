@@ -23,7 +23,7 @@ Analytics.init = (user, org) ->
       name:       user.name
       email:      user.email
       created_at: moment(user.created).unix()
-      is_leader:  _.contains(org.leaders, user.id)
+      is_leader:  _.includes(org.leaders, user.id)
       user_agent: window.navigator.userAgent
       widget:
         activator: '#intercom'
