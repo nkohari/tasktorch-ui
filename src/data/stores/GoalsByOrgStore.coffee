@@ -23,4 +23,7 @@ class GoalsByOrgStore extends ListStore
   onGoalCreated: (event) ->
     @remove(event.goal.org)
 
+  onGoalDeleted: (event) ->
+    @remove(event.goal.org)
+
 module.exports = GoalsByOrgStore
