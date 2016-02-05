@@ -22,6 +22,8 @@ NoteComponents =
   CardTitleChanged:    React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/CardTitleChangedNote')
   CardSummaryChanged:  React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/CardSummaryChangedNote')
   Comment:             React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/CommentNote')
+  FileAddedToCard:     React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/FileAddedToCardNote')
+  FileRemovedFromCard: React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/FileRemovedFromCardNote')
   FollowerAdded:       React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/FollowerAddedNote')
   FollowerRemoved:     React.createFactory(require 'ui/screens/workspace/panels/card/timeline/notes/FollowerRemovedNote')
 
