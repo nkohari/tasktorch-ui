@@ -29,13 +29,11 @@ CardChecklistActionList = React.createClass {
   mixins: [Actor, SortableMixin]
 
   getInitialState: ->
-    {actions: _.clone(@props.actions), dirty: false}
+    {actions: _.clone(@props.actions)}
 
   componentWillReceiveProps: (newProps) ->
-    if not @state.dirty
+    if not compare.values(newProps.checklist, @props.checklist)
       @setState {actions: newProps.actions}
-    else if not compare.arrays(newProps.actions, @props.actions)
-      @setState {actions: newProps.actions, dirty: false}
 
   render: ->
 
@@ -46,12 +44,10 @@ CardChecklistActionList = React.createClass {
 
   handleUpdate: (event) ->
     actionid = event.item.getAttribute('data-id')
-    @setState {dirty: true}
     @publish new UserMovedActionEvent(actionid, @props.checklist.id, event.newIndex)
 
   handleAdd: (event) ->
     actionid = event.item.getAttribute('data-id')
-    @setState {dirty: true}
     @publish new UserMovedActionEvent(actionid, @props.checklist.id, event.newIndex)
 
 }

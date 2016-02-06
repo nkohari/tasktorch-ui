@@ -23,6 +23,6 @@ class Request
     throw new Error("You must implement onForbidden() on #{@constructor.name}")    
 
   onError: ->
-    throw new Error("You must implement onError() on #{@constructor.name}")    
+    throw new Error("You must implement onError() on #{@constructor.name}")
 
 module.exports = Request

@@ -30,13 +30,11 @@ StackCardList = React.createClass {
     model: 'cards'
 
   getInitialState: ->
-    {cards: _.clone(@props.cards), dirty: false}
+    {cards: _.clone(@props.cards)}
 
   componentWillReceiveProps: (newProps) ->
-    if not @state.dirty
+    if not compare.values(@props.stack, newProps.stack)
       @setState {cards: newProps.cards}
-    else if not compare.arrays(newProps.cards, @props.cards)
-      @setState {cards: newProps.cards, dirty: false}
 
   render: ->
 
@@ -47,12 +45,10 @@ StackCardList = React.createClass {
 
   handleUpdate: (event) ->
     cardid = event.item.getAttribute('data-id')
-    @setState {dirty: true}
     @publish new UserMovedCardEvent(cardid, @props.stack.id, event.newIndex)
 
   handleAdd: (event) ->
     cardid = event.item.getAttribute('data-id')
-    @setState {dirty: true}
     @publish new UserMovedCardEvent(cardid, @props.stack.id, event.newIndex)
 
 }

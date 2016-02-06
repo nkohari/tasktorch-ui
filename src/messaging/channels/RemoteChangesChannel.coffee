@@ -73,7 +73,6 @@ class RemoteChangesChannel extends Channel
       when 'Team'       then @publish new TeamCreatedEvent(new Team(message.document), EventOrigin.Remote)
 
   onDocumentChanged: (message) ->
-    debug.log(message)
     switch message.type
       when 'Action'     then @publish new ActionChangedEvent(new Action(message.document), EventOrigin.Remote)
       when 'Card'       then @publish new CardChangedEvent(new Card(message.document), EventOrigin.Remote)
